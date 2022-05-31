@@ -1,4 +1,4 @@
-package com.mvc.forrest.web.product;
+package com.mvc.forrest.controller.product;
 
 import java.util.Map;
 

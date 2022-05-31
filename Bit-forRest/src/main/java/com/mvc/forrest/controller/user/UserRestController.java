@@ -1,4 +1,4 @@
-package com.mvc.forrest.web.user;
+package com.mvc.forrest.controller.user;
 
 import java.util.Map;
 
