@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mvc.forrest.dao.ownCoupon.ownCouponDao">
+ 	
+	<resultMap id="ownCouponSelectMap" type="ownCoupon">
+		<result	property="ownCouponNo"			column="ownCouponNo"		jdbcType="INTEGER"/>
+		<result property="ownUser.userId"		column="userId"				jdbcType="VARCHAR"/>
+		<result property="ownCoupon.couponNo"	column="couponNo"			jdbcType="INTEGER"/>
+		<result	property="ownCouponCreDate"		column="ownCouponCreDate"	jdbcType="TIMESTAMP"/>
+		<result	property="ownCouponDelDate"		column="ownCouponDelDate"	jdbcType="TIMESTAMP"/>	
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addOwnCoupon"		parameterType="ownCoupon" >
+		INSERT
+	 	INTO ownCoupon(userId, couponNo, ownCouponCreDate, ownCouponDelDate) 
+	 	VALUES (#{userId}, #{couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
+	 </insert>	 
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getOwnCoupon"	parameterType="int"	resultMap="ownCouponSelectMap">
+		SELECT oc.*
+		FROM owncoupon oc
+		WHERE oc.couponNo = #{value}
+	 </select>
+	 	 
+	 <!-- SQL : DELETE -->
+	 <delete	id="deleteOwnCoupon"	parameterType="int" >
+	   	DELETE
+	   	FROM ownCoupon
+	   	WHERE CouponNo = #{couponNo}
+	 </delete>
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getOwnCouponList"  parameterType="search"	resultMap="ownCouponSelectMap">
+	  	SELECT *
+	  	FROM ownCoupon
+	 </select>
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)						
+	  	FROM ownCoupon
+	 </select>
+	 
+	
+	
+</mapper>
