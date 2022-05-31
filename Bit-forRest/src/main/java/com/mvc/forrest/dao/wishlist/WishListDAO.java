@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-
+// 테스트 테스트 
 @Repository
 @Mapper
 public class WishListDAO {

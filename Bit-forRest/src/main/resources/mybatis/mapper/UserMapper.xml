@@ -49,6 +49,24 @@
 	   	WHERE userId = #{userId}
 	 </update>
 		 
+	 <!-- SQL : UPDATE -->
+	 <update	id="leaveUser"	parameterType="user" >
+	   	UPDATE user
+	   	<set>
+	   		role	= 'leave'
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="restrictUser"	parameterType="user" >
+	   	UPDATE user
+	   	<set>
+	   		role	= 'restrict'
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
+		 
 	<!-- SQL : SELECT LIST	// blah = 아무의미없는 글자 // 신고횟수 조회때문에 나중에 조인해야함 -->
 	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
 		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*

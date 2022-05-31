@@ -13,4 +13,6 @@ public class OldReview {
 	private String reviewDetail;
 	private double userRate;
 	private Date reviewDate;
+	private int userRateSum;
+	private int userRateCount;
 }

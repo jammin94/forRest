@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.oldLike.OldReviewDAO"> 	
+ 	
+	<resultMap id="oldReviewSelectMap" type="oldReview">
+		<result property="oldReviewNo" 				column="oldReviewNo" 				jdbcType="INTEGER"/>
+		<result property="reviewUserId"	   			column="reviewUserId" 				jdbcType="VARCHAR" />
+		<result property="reviewedUserId"	   			column="reviewedUserId" 				jdbcType="VARCHAR" />
+		<result property="oldNo"	   			column="oldNo" 				jdbcType="INTEGER" />
+		<result property="reviewDetail"	   			column="reviewDetail" 				jdbcType="VARCHAR" />
+		<result property="userRate"	   			column="userRate" 				jdbcType="DOUBLE" />
+		<result property="reviewDate"	   			column="reviewDate" 				jdbcType="DATE" />
+		<result property="userRateCount"	   			column="count" 				jdbcType="INTEGER" />
+		<result property="userRateSum"	   			column="sum" 				jdbcType="INTEGER" />				
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addOldReview"		parameterType="OldReview" >
+		INSERT 
+	 	INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate, reviewDate)
+	 	values (null , #{reviewUserId}, #{reviewedUserId}, #{reviewedUserId}, #{oldNo}, #{reviewDetail}, #{userRate}, null)
+	 </insert>
+	  
+	 <!-- SQL : SELECT LIST -->
+	 <select 	id="getOldReviewList"	parameterType="String"	resultMap="oldReviewSelectMap">
+	 	SELECT inner_table.* , @ROWNUM:=@ROWNUM+1 AS rowNum
+	  					FROM(
+								SELECT *
+								FROM oldReview 
+								where reviewedUserId =  #{userId}
+								order by reviewDate DESC )  inner_table
+		WHERE (SELECT @ROWNUM:=1) &lt;= 2				
+	 </select>
+	 
+	 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getUserRate"  parameterType="String"	resultMap="oldReviewSelectMap">
+		SELECT COUNT(userRate) count, SUM(userRate) sum
+		FROM oldReview
+		WHERE reviewedUserId = #{reviewedUserId}
+		GROUP BY reviewedUserId
+	 </select>
+
+	 
+</mapper>

@@ -14,11 +14,11 @@
 		<result property="period" 			column="period" 		jdbcType="INTEGER" />
 	</resultMap>
 	
-	<!--INSERT -->
+	<!--INSERT-->
 	<insert 	id="addWishList"		parameterType="WishList" >
 		INSERT 
 	 	INTO wishlist(wishListNo, prodNo, userId,period) 
-	 	values (#{wishListNo},#{prodNo},#{userId},#{period})
+	 	values (#{wishListNo}, #{prodNo}, #{userId}, #{period})
 	 </insert>
 	 
 	 <!--DELETE-->
