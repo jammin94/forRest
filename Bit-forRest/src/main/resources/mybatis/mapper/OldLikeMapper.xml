@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.oldLike.OldLikeDAO"> 	
+ 	
+	<resultMap id="oldLikeSelectMap" type="oldLike">
+		<result property="oldLikeNo" 				column="oldLikeNo" 				jdbcType="INTEGER"/>
+		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
+		<result property="likeCount"	   			column="count" 				jdbcType="INTEGER" />
+		<association property="old" javaType="Old">
+        	<id property="oldNo" column="oldNo"/>
+        	<result property="oldTitle" column="oldTitle"/>
+        	<result property="oldAddr" column="oldAddr"/>
+        	<result property="oldPrice" column="oldPrice"/>
+        	<result property="oldState" column="oldState"/>
+    	</association>
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addOldLike"		parameterType="oldLike" >
+		INSERT 
+	 	INTO oldLike(oldLikeNo, userId, oldNo)
+	 	values (null , #{userId}, #{old.oldNo})
+	 </insert>
+	  
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="deleteOldLike"	parameterType="int"	resultMap="oldLikeSelectMap">
+		DELET
+		FROM oldLike 
+		where oldLikeNo =  #{oldLikeNo}
+	 </select>
+	 
+	 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getOldLikeList"  parameterType="String"	resultMap="oldLikeSelectMap">
+		SELECT oldLike.*, old.oldTitle, old.oldAddr, old.oldPrice, old.oldState, A.count
+		FROM oldLike LEFT OUTER JOIN old ON oldLike.oldNo = old.oldNo
+		LEFT OUTER JOIN (SELECT oldNo, COUNT(*) count FROM oldLike group by oldNo) A ON oldLike.oldNo = A.oldNo
+		WHERE oldlike.userId = #{userId}
+	 </select>
+
+	 
+</mapper>
