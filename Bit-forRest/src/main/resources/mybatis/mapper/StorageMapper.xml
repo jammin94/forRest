@@ -45,13 +45,13 @@
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="updateStrorage"	parameterType="Storage" >
+	 <!-- <update	id="updateStrorage"	parameterType="Storage" >
 	   	update transaction
 	   	<set>
-	 
+	 	
 	   	</set>
 	   	where tranNo = #{tranNo}
-	 </update>
+	 </update>-->
 	 
 	 
 		 
@@ -61,6 +61,18 @@
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId}
+	 	</where>
+	 	ORDER BY t.tranNo DESC
+	 </select>
+	 
+	 <!-- SQL : SELECT LIST -->
+	 <!-- 관리자를 위한 리스트페이지 -->
+	<select  id="getStorageListForAdmin"  parameterType="Search"	resultMap="storageSelectMap">
+	  	SELECT t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
+	 	FROM product p, transaction t
+	 	<where>
+	 		p.prodNo = t.prodNo
+	 		
 	 	</where>
 	 	ORDER BY t.tranNo DESC
 	 </select>

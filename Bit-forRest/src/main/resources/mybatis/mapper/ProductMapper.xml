@@ -122,6 +122,23 @@
 	  	SELECT COUNT(*)
 	  	FROM product
 	  	
+	  	<where>
+	  		<!-- 검색어와 카테고리를 모두입력한 경우 -->
+	  		<if test="searchKeyword != null and searchCategory != null">
+					 prodName LIKE CONCAT('%',#{searchKeyword},'%') and category LIKE #{searchCategory}
+	     	</if>
+	  	
+	  		<!-- 검색어만 입력한경우 -->
+	  		<if test="searchKeyword != null and searchCategory == null">
+					prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	  	    </if>
+	  	
+	  		<!-- 카테고리만 입력한경우 -->
+	  		<if test="searchKeyword == null and searchCategory != null">
+						category LIKE #{searchCategory}
+	  		</if>
+	  	</where>
+	  	
 	 </select>
 	 
 </mapper>
