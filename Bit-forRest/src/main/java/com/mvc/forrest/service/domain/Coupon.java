@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
-//==>쿠폰을 모델링(추상화/캡슐화)한 Bean
+
 @Data
 public class Coupon {
 	

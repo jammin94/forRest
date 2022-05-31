@@ -28,11 +28,11 @@
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="deleteOldLike"	parameterType="int"	resultMap="oldLikeSelectMap">
-		DELET
+	 <delete id="deleteOldLike"	parameterType="int">
+		DELETE
 		FROM oldLike 
 		where oldLikeNo =  #{oldLikeNo}
-	 </select>
+	 </delete>
 	 
 	 
 	<!-- SQL : SELECT LIST -->

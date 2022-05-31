@@ -18,9 +18,9 @@ spring:
     username: cos
     password: cos1234
  
-#  mybatis:
-#    mapper-locations: 'mybatis/**/*.xml '
-#    type-aliases-package: com.mvc.forrest.service
+  mybatis:
+    mapper-locations: 'mybatis/mapper/*.xml '
+    type-aliases-package: com.mvc.forrest.service.domain
     
   jpa:
     open-in-view: true
