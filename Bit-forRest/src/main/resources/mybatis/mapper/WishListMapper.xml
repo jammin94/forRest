@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.service.WishListMapper"> 	
+ 	
+	<resultMap id="wishListSelectMap" type="wishList">
+		<result property="wishListNo" 				column="wishListNo" 				jdbcType="INTEGER"/>
+		<result property="prodNo"	   			column="prodNo" 				jdbcType="INTEGER" />
+		<result property="userId" 			column="userId" 			jdbcType="VARCHAR" />
+		<result property="period" 			column="period" 		jdbcType="INTEGER" />
+	</resultMap>
+	
+	<!--INSERT -->
+	<insert 	id="addWishList"		parameterType="WishList" >
+		INSERT 
+	 	INTO wishlist(wishListNo, prodNo, userId,period) 
+	 	values (#{wishListNo},#{prodNo},#{userId},#{period})
+	 </insert>
+	 
+	 <!--DELETE-->
+	 <delete	id="deleteWishlist"	parameterType="int" >
+	   	DELETE
+	   	FROM wishlist
+	   	WHERE wishNo = #{wishNo}
+	 </delete>
+	 
+	 <!-- SELECT LIST -->
+	<select  id="getWishList"  parameterType="search"	resultMap="wishListSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT wishList.* 
+											) inner_table 
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+
+</mapper>

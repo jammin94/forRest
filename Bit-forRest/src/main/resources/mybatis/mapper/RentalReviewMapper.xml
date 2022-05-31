@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.service.RentalReviewMapper"> 	
+ 	
+	<resultMap id="rentalReviewSelectMap" type="rentalReview">
+		<result property="reviewNo" 				column="reviewNo" 				jdbcType="INTEGER"/>
+		<result property="reviewImg"	   			column="reviewImg" 				jdbcType="VARCHAR" />
+		<result property="reviewDetail" 			column="reviewDetail" 			jdbcType="VARCHAR" />
+		<result property="reviewScore" 				column="reviewScore" 				jdbcType="VARCHAR"/>
+		<result property="prodNo"	   			column="prodNo" 				jdbcType="INTEGER" />
+		<result property="userId" 			column="userId" 			jdbcType="VARCHAR" />
+		<result property="regDate" 				column="regDate" 				jdbcType="DATE"/>
+	</resultMap>
+	
+	<!-- INSERT -->
+	<insert 	id="addRentalReview"		parameterType="RentalReview" >
+		INSERT 
+	 	INTO rentalReview(reviewNo, reviewImg, reviewDetail,reviewScore,prodNo,userId,regDate) 
+	 	values (#{reviewNo},#{reviewImg},#{reviewDetail},#{reviewScore},#{prodNo},#{userId}, curdate())
+	 </insert>
+	 
+	 
+	 <!-- SELECT -->
+	 <select 	id="getRentalReview"	parameterType="int"	resultMap="rentalReviewSelectMap">
+		SELECT 
+			*
+		FROM rentalReview
+		WHERE reviewNo = #{reviewNo}
+	 </select>
+	 
+	 <!-- UPDATE -->
+	 <update	id="updateRentalReview"	parameterType="RentalReview" >
+	   	update rentalReview
+	   	<set>
+	   		reviewImg=#{reviewImg},
+	   		reviewDetail=#{reviewDetail},
+	   		reviewScore=#{reviewScore}
+	   	</set>
+	   	where reviewNo = #{reviewNo}
+	 </update>
+	 
+	 <!-- DELETE -->
+	 <delete	id="deleteRentalReview"	parameterType="int" >
+	 	DELETE
+		   	FROM rentalReview
+	   	WHERE reviewNo = #{reviewNo}
+	 </delete>
+		 
+	<!-- SELECT LIST -->
+	<select  id="getRentalReviewList"  parameterType="search"	resultMap="rentalReviewSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT rentalReview.* 
+											) inner_table 
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+	
+	<!-- SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT * FROM rentalReview 	  
+											) countTable						
+	 </select>
+	 
+	 
+</mapper>
