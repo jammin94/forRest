@@ -17,95 +17,57 @@
 		<result property="regDate" 				column="regDate" 				jdbcType="DATE"/>
 	</resultMap>
 	
-	<!-- SQL : INSERT -->
+	<!-- INSERT -->
 	<insert 	id="addRentalReview"		parameterType="RentalReview" >
 		INSERT 
-	 	INTO RentalReview(reviewNo, reviewImg, reviewDetail,reviewScore,prodNo,userId,regDate) 
-	 	values (#{reviewNo},#{reviewImg},#{reviewDetail},#{reviewScore},#{prodNo},#{userId},sysDate)
+	 	INTO rentalReview(reviewNo, reviewImg, reviewDetail,reviewScore,prodNo,userId,regDate) 
+	 	values (#{reviewNo},#{reviewImg},#{reviewDetail},#{reviewScore},#{prodNo},#{userId}, curdate())
 	 </insert>
 	 
 	 
-	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getRentalReview"	parameterType="int"	resultMap="RentalReviewSelectMap">
-		
+	 <!-- SELECT -->
+	 <select 	id="getRentalReview"	parameterType="int"	resultMap="rentalReviewSelectMap">
+		SELECT 
+			*
+		FROM rentalReview
+		WHERE reviewNo = #{reviewNo}
 	 </select>
 	 
-	 <!-- SQL : UPDATE -->
+	 <!-- UPDATE -->
 	 <update	id="updateRentalReview"	parameterType="RentalReview" >
-	   	update PRODUCT
+	   	update rentalReview
 	   	<set>
-	   		
+	   		reviewImg=#{reviewImg},
+	   		reviewDetail=#{reviewDetail},
+	   		reviewScore=#{reviewScore}
 	   	</set>
-	   	where PROD_NO = #{prodNo}
+	   	where reviewNo = #{reviewNo}
 	 </update>
+	 
+	 <!-- DELETE -->
+	 <delete	id="deleteRentalReview"	parameterType="int" >
+	 	DELETE
+		   	FROM rentalReview
+	   	WHERE reviewNo = #{reviewNo}
+	 </delete>
 		 
-	<!-- SQL : SELECT LIST -->
-	<select  id="getRentalReviewList"  parameterType="search"	resultMap="RentalReviewSelectMap">
+	<!-- SELECT LIST -->
+	<select  id="getRentalReviewList"  parameterType="search"	resultMap="rentalReviewSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT PRODUCT.*  ,  (PRODUCT.QUANTITY-NVL(A.SUM,0)) SUM
-										FROM PRODUCT LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON PRODUCT.PROD_NO = A.PROD_NO
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if> 
-											) inner_table
+	  					FROM		(	SELECT rentalReview.* 
+											) inner_table 
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
 	
-	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	<!-- SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT PRODUCT.*  ,  (PRODUCT.QUANTITY-NVL(A.SUM,0)) SUM
-				FROM PRODUCT LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON PRODUCT.PROD_NO = A.PROD_NO
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if>) countTable						
+	  	FROM(	SELECT * FROM rentalReview 	  
+											) countTable						
 	 </select>
 	 
-	
 	 
 </mapper>

@@ -15,34 +15,28 @@
 	</resultMap>
 	
 	<!--INSERT -->
-	<insert 	id="addWishList"		parameterType="wishList" >
+	<insert 	id="addWishList"		parameterType="WishList" >
 		INSERT 
-	 	INTO TRANSACTION(wishListNo, prodNo, userId,period) 
+	 	INTO wishlist(wishListNo, prodNo, userId,period) 
 	 	values (#{wishListNo},#{prodNo},#{userId},#{period})
 	 </insert>
 	 
-	 
-	 <select id="findWishlist" parameterType="int" resultMap="wishlistSelectMap">
-		SELECT WISHLIST.*, (PRODUCT.QUANTITY-NVL(A.SUM,0)) remain, PRODUCT.PRICE, PRODUCT.PROD_NAME
-		FROM WISHLIST LEFT OUTER JOIN PRODUCT ON WISHLIST.PROD_NO = PRODUCT.PROD_NO
-		LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON WISHLIST.PROD_NO = A.PROD_NO
-	 	WHERE wish_no = #{wishNo}
-	 </select>
-	 
-	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getWishlist"	parameterType="string"	resultMap="wishlistSelectMap">
-		SELECT WISHLIST.*, (PRODUCT.QUANTITY-NVL(A.SUM,0)) remain, PRODUCT.PRICE, PRODUCT.PROD_NAME
-		FROM WISHLIST LEFT OUTER JOIN PRODUCT ON WISHLIST.PROD_NO = PRODUCT.PROD_NO
-		LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON WISHLIST.PROD_NO = A.PROD_NO
-		where user_id = #{userId}
-	 </select>
-	 
-	 <!-- SQL : UPDATE -->
+	 <!--DELETE-->
 	 <delete	id="deleteWishlist"	parameterType="int" >
 	   	DELETE
-	   	FROM WISHLIST
-	   	WHERE wish_no = #{wishNo}
+	   	FROM wishlist
+	   	WHERE wishNo = #{wishNo}
 	 </delete>
-
 	 
+	 <!-- SELECT LIST -->
+	<select  id="getWishList"  parameterType="search"	resultMap="wishListSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT wishList.* 
+											) inner_table 
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+
 </mapper>
