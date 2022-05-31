@@ -11,7 +11,7 @@ import com.mvc.forrest.service.domain.Storage;
 
 @Repository
 @Mapper
-public interface storageDAO {
+public interface StorageDAO {
 
 	void addStorage(Storage storage) throws Exception;
 	
