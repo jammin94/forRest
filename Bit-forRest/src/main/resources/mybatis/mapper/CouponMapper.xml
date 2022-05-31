@@ -29,7 +29,7 @@
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="updateCoupon"	parameterType="coupon" >
+	 <update	id="updateCoupon"	parameterType="Coupon" >
 	   	UPDATE coupon
 	   	<set>
 	   		couponName		= #{couponName},
@@ -48,13 +48,14 @@
 	 </delete>
 		 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getCouponList"  parameterType="search"	resultMap="couponSelectMap">
-	  	SELECT *
-	  	FROM coupon
+	<select  id="getCouponList"  parameterType="Search"	resultMap="couponSelectMap">
+		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , c.*
+		FROM coupon c, (SELECT @ROWNUM:=0)blah
+		WHERE 1=1
 	 </select>
 	
 	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
 	  	SELECT COUNT(*)						
 	  	FROM coupon
 	 </select>
