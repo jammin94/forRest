@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 //가나다라마바사ㅇㅇㅇ
-
-//==> ȸ������ Controller
 //@Controller
 //@RequestMapping("/product/*")
 public class ProductController {
