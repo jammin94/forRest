@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.service.WishListMapper"> 	
+ 	
+	<resultMap id="wishListSelectMap" type="wishList">
+		<result property="wishListNo" 				column="wishListNo" 				jdbcType="INTEGER"/>
+		<result property="prodNo"	   			column="prodNo" 				jdbcType="INTEGER" />
+		<result property="userId" 			column="userId" 			jdbcType="VARCHAR" />
+		<result property="period" 			column="period" 		jdbcType="INTEGER" />
+	</resultMap>
+	
+	<!--INSERT -->
+	<insert 	id="addWishList"		parameterType="wishList" >
+		INSERT 
+	 	INTO TRANSACTION(wishListNo, prodNo, userId,period) 
+	 	values (#{wishListNo},#{prodNo},#{userId},#{period})
+	 </insert>
+	 
+	 
+	 <select id="findWishlist" parameterType="int" resultMap="wishlistSelectMap">
+		SELECT WISHLIST.*, (PRODUCT.QUANTITY-NVL(A.SUM,0)) remain, PRODUCT.PRICE, PRODUCT.PROD_NAME
+		FROM WISHLIST LEFT OUTER JOIN PRODUCT ON WISHLIST.PROD_NO = PRODUCT.PROD_NO
+		LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON WISHLIST.PROD_NO = A.PROD_NO
+	 	WHERE wish_no = #{wishNo}
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getWishlist"	parameterType="string"	resultMap="wishlistSelectMap">
+		SELECT WISHLIST.*, (PRODUCT.QUANTITY-NVL(A.SUM,0)) remain, PRODUCT.PRICE, PRODUCT.PROD_NAME
+		FROM WISHLIST LEFT OUTER JOIN PRODUCT ON WISHLIST.PROD_NO = PRODUCT.PROD_NO
+		LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON WISHLIST.PROD_NO = A.PROD_NO
+		where user_id = #{userId}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <delete	id="deleteWishlist"	parameterType="int" >
+	   	DELETE
+	   	FROM WISHLIST
+	   	WHERE wish_no = #{wishNo}
+	 </delete>
+
+	 
+</mapper>

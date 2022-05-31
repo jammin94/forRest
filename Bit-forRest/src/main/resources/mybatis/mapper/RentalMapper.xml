@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.service.RentalMapper"> 	
+ 	
+	<resultMap id="rentalSelectMap" type="rental">
+		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
+		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
+		<result property="prodNo" 			column="prodNo" 			jdbcType="INTEGER" />
+		<result property="divyAddress" 			column="divyAddress" 		jdbcType="VARCHAR" />
+		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
+		<result property="startDate" 			column="startDate" 			jdbcType="DATE" />
+		<result property="endDate" 				column="endDate" 				jdbcType="DATE" />
+		<result property="period" 			column="period" 				jdbcType="INTEGER"  />
+		<result property="tranCode" 				column="tranCode" 				jdbcType="TINYINT"  />
+		<result property="paymentNo" 				column="paymentNo" 				jdbcType="INTEGER"  />
+		<result property="paymentDate" 				column="paymentDate" 				jdbcType="DATETIME"  />
+		<result property="paymentWay" 				column="paymentWay" 				jdbcType="VARCHAR"  />
+		<result property="receiverPhone" 				column="receiverPhone" 				jdbcType="VARCHAR"  />
+		<result property="receiverName" 				column="receiverName" 				jdbcType="VARCHAR"  />
+		<result property="prodName" 				column="prodName" 				jdbcType="VARCHAR"  />
+		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
+		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
+		<result property="discount" 				column="discount" 				jdbcType="DOUBLE"  />
+		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
+	</resultMap>
+	
+	<!--INSERT -->
+	<insert 	id="addRental"		parameterType="rental" >
+		INSERT 
+	 	INTO transaction(
+	 			tranNo,userId,prodNo,divyAddress,pickupAddress,startDate,endDate,period,tranCode,paymentNo,paymentDate,paymentWay,receiverPhone,receiverName,prodName,prodImg,originPrice,discount,resultPrice) 
+	 	VALUES (
+	 			    	NULL,
+ 			     	  #{userId}, 
+	 				  #{prodNo},
+	 				  #{divyAddress},
+	 				  #{pickupAddress},
+	 				    date_add(curdate(), interval 3 day) , <!--대여 시작날짜 -->
+	 				     #{endDate}, 
+	 				     #{period}, 
+	 				     #{tranCode}, 
+	 				     #{paymentNo}, 
+	 				     current_timestamp(), <!--결제날짜시간 -->
+	 				     #{paymentWay}, 
+	 				     #{receiverPhone},
+	 				      #{receiverName}, 
+	 				      #{prodName} ,
+	 				       #{prodImg}, 
+	 				       #{originPrice}, 
+	 				       #{discount}, 
+	 				       #{resultPrice} )
+	 </insert>
+	 
+	 
+	 <!-- SELECT ONE -->
+	 <select 	id="getRental"	parameterType="int"	resultMap="RentalSelectMap">
+		SELECT 
+			*
+		FROM transaction
+		WHERE tranNo = #{tranNo}
+	 </select>
+	 
+	 <!--UPDATE 
+	<update 	id="updateRental"	 parameterType="rental" >
+	   	<set>
+	   	</set>
+	 </update>-->
+		 
+	<!-- SELECT LIST -->
+	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  					FROM		(	SELECT * FROM TRANSACTION
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
+													</if>
+													<if test="searchCondition == 3 and searchKeyword !='' ">
+										 				PRICE = #{searchKeyword} 
+													</if>
+												</where>
+											</if>
+											<if test="orderCondition != null">
+												<if test='orderCondition == "priceAsc"'>
+													order by PRICE ASC
+												</if>
+												<if test='orderCondition == "priceDesc"'>
+													order by PRICE DESC
+												</if>
+												<if test='orderCondition == "prodNoAsc"'>
+													order by PRODUCT.PROD_NO
+												</if>
+											</if> 
+											) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+	
+	<!--SELECT Total Count -->	 
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
+	  	SELECT COUNT(*)
+	 	 FROM(	SELECT * FROM TRANSACTION 	
+	 	  
+											<if test="searchCondition != null">
+												<where>
+													<if test="searchCondition == 1 and searchKeyword !='' ">
+										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
+													</if>
+													<if test="searchCondition == 2 and searchKeyword !='' ">
+										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
+													</if>
+													<if test="searchCondition == 3 and searchKeyword !='' ">
+										 				PRICE = #{searchKeyword} 
+													</if>
+												</where>
+											</if>
+											
+											<if test="orderCondition != null">
+												<if test='orderCondition == "priceAsc"'>
+													order by PRICE ASC
+												</if>
+												<if test='orderCondition == "priceDesc"'>
+													order by PRICE DESC
+												</if>
+												<if test='orderCondition == "prodNoAsc"'>
+													order by PRODUCT.PROD_NO
+												</if>
+											</if>) countTable						
+	 </select>
+
+</mapper>
