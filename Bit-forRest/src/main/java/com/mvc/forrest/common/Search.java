@@ -2,13 +2,14 @@ package com.mvc.forrest.common;
 
 import lombok.Data;
 
-@Data
+//@Data
 public class Search {
 	
 	///Field
 	private int currentPage;
 	private String searchCondition;
 	private String searchKeyword;
+	private String searchCategory;
 	private int pageSize;
 	//==> ����Ʈȭ�� currentPage�� �ش��ϴ� ȸ�������� ROWNUM ��� SELECT ���� �߰��� Field 
 	//==> UserMapper.xml �� 
@@ -51,6 +52,14 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
 	public String getOrderCondition() {
 		return orderCondition;
 	}
