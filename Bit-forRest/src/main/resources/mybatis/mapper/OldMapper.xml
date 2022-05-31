@@ -22,28 +22,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </resultMap>
 
 <!-- SQL : INSERT  -->
-<insert		id="addOld"		parameterType="old">
+<insert		id="addOld"		parameterType="Old">
 	INSERT
 	INTO OLD(oldNo, userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState)
 	values (NULL, #{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState})
 </insert>
 
  <!-- SQL : DELETE -->
-<delete		id="deleteOld"		parameterType="int">
+<delete		id="deleteOld"		parameterType="Int">
 	DELETE
 	FROM OLD
 	WHERE oldNo = #{oldNo}
 	</delete>
 
 <!-- SQL : SELECT ONE -->
-<select 	id="getOld"	parameterType="int"	resultMap="oldSelectMap">
+<select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
 	SELECT *
 	FROM OLD
 	WHERE oldNo = #{oldNo}
 	 </select>
 
  <!-- SQL : UPDATE -->
- <update	id="updateOld"		parameterType="old" >
+ <update	id="updateOld"		parameterType="Old" >
  	update OLD
  	<set>
  		oldPrice = #{oldPrice},
@@ -56,17 +56,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	WHERE oldNo = #{oldNo}
  </update>
 
+
+
+
+
 <!-- SQL : SELECT LIST -->
-<select id="getOldList"	parameterType="search"	resultMap="oldSelectMap" >
+<select id="getOldList"	parameterType="Search"	resultMap="oldSelectMap" >
 	SELECT *
 	FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 								FROM (SELECT o.oldNo, o.oldImg, o.oldTitle, o.oldPrice, o.oldDate, u.userId, oL.likeNo
 										FROM old o, oldLike oL
 
-										<where> o.oldTitle = #{serachOldTitle}
+										<where> 
 
 										<if test="searchKeyword != null">
-											oldTitle LIKE '%'||${searchKeyword}||'%'
+											oldTitle LIKE CONCAT('%',#searchKeyword#,'%')
+										</if>
+										
+										<if test="searchKeyword =null and searchCategory !=null">
+											category LIKE CONCAT('%',#searchCategory#,'%')
 										</if>
 
 										</where>
@@ -77,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 
-<select id="getTotalCount"	parameterType="search"	resultType="int">
+<select id="getTotalCount"	parameterType="Search"	resultType="int">
 SELECT *
 FROM old
 
