@@ -1,3 +1,5 @@
+
+
 server:
   port: 8080
   servlet:
@@ -5,6 +7,11 @@ server:
     encoding:
       charset: utf-8
       enabled: true
+      
+mybatis:
+    mapper-locations: 'mybatis/**/*.xml '
+    type-aliases-package: com.mvc.forrest.service.domain
+ 
     
 spring:
   mvc:
@@ -18,9 +25,7 @@ spring:
     username: cos
     password: cos1234
  
-  mybatis:
-    mapper-locations: 'mybatis/mapper/*.xml '
-    type-aliases-package: com.mvc.forrest.service.domain
+
     
   jpa:
     open-in-view: true

@@ -5,18 +5,18 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
-<mapper namespace="com.mvc.forrest.dao.oldLike.OldLikeDAO"> 	
+<mapper namespace="com.mvc.forrest.dao.oldlike.OldLikeDAO"> 	
  	
-	<resultMap id="oldLikeSelectMap" type="oldLike">
+	<resultMap id="oldLikeSelectMap" 			type="oldLike">
 		<result property="oldLikeNo" 				column="oldLikeNo" 				jdbcType="INTEGER"/>
 		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
 		<result property="likeCount"	   			column="count" 				jdbcType="INTEGER" />
-		<association property="old" javaType="Old">
-        	<id property="oldNo" column="oldNo"/>
-        	<result property="oldTitle" column="oldTitle"/>
-        	<result property="oldAddr" column="oldAddr"/>
-        	<result property="oldPrice" column="oldPrice"/>
-        	<result property="oldState" column="oldState"/>
+		<association property="old" 	javaType="Old">
+        	<id property="oldNo" 	column="oldNo"/>
+        	<result property="oldTitle" 	column="oldTitle"/>
+        	<result property="oldAddr" 	column="oldAddr"/>
+        	<result property="oldPrice" 	column="oldPrice"/>
+        	<result property="oldState" 	column="oldState"/>
     	</association>
 	</resultMap>
 	
@@ -28,7 +28,7 @@
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
-	 <delete id="deleteOldLike"	parameterType="int">
+	 <delete id="deleteOldLike"	 parameterType="int">
 		DELETE
 		FROM oldLike 
 		where oldLikeNo =  #{oldLikeNo}

@@ -11,6 +11,11 @@ public class ViewControllerTest {
 		return "auth/signup";
 	}
 	
+	@GetMapping("/addTest")
+	public String add() {
+		return "oldLike/addOldLikeTest";
+	}	
+	
 	@GetMapping("/auth/signin")
 	public String signinPage() {
 		return "auth/signin";

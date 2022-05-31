@@ -18,7 +18,7 @@
 		<result property="period" 			column="period" 				jdbcType="INTEGER"  />
 		<result property="tranCode" 				column="tranCode" 				jdbcType="TINYINT"  />
 		<result property="paymentNo" 				column="paymentNo" 				jdbcType="INTEGER"  />
-		<result property="paymentDate" 				column="paymentDate" 				jdbcType="DATETIME"  />
+		<result property="paymentDate" 				column="paymentDate" 				jdbcType="DATE"  />
 		<result property="paymentWay" 				column="paymentWay" 				jdbcType="VARCHAR"  />
 		<result property="receiverPhone" 				column="receiverPhone" 				jdbcType="VARCHAR"  />
 		<result property="receiverName" 				column="receiverName" 				jdbcType="VARCHAR"  />
