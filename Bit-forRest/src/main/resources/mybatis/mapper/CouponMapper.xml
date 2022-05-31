@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mvc.forrest.dao.coupon.couponDao">
+ 	
+	<resultMap id="couponSelectMap" type="coupon">
+		<result	property="couponNo"			column="couponNo"		jdbcType="INTEGER"/>
+		<result	property="couponName"		column="couponName"		jdbcType="VARCHAR"/>
+		<result	property="couponCreDate"	column="couponCreDate"	jdbcType="TIMESTAMP"/>
+		<result	property="couponDelDate"	column="couponDelDate"	jdbcType="TIMESTAMP"/>
+		<result	property="discount"			column="discount"		jdbcType="NUMERIC"/>
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addCoupon"		parameterType="coupon" >
+		INSERT 
+	 	INTO coupon(couponName, couponCreDate, couponDelDate, discount) 
+	 	VALUES (#{couponName}, #{couponCreDate}, #{couponDelDate}, #{discount})
+	 </insert>	 
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getCoupon"	parameterType="int"	resultMap="couponSelectMap">
+		SELECT c.*
+		FROM coupon c
+		WHERE c.couponNo = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateCoupon"	parameterType="coupon" >
+	   	UPDATE coupon
+	   	<set>
+	   		couponName		= #{couponName},
+	   		couponCreDate	= #{couponCreDate},
+	   		couponDelDate	= #{couponDelDate},
+	   		discount		= #{discount}
+	   	</set>
+	   	WHERE couponNo = #{couponNo}
+	 </update>
+	 
+	 <!-- SQL : DELETE -->
+	 <delete	id="deleteCoupon"	parameterType="int" >
+	   	DELETE
+	   	FROM coupon
+	   	WHERE couponNo = #{couponNo}
+	 </delete>
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getCouponList"  parameterType="search"	resultMap="couponSelectMap">
+	  	SELECT *
+	  	FROM coupon
+	 </select>
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)						
+	  	FROM coupon
+	 </select>
+	 
+	 
+</mapper>
