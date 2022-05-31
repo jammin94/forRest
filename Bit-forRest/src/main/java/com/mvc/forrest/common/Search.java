@@ -2,14 +2,19 @@ package com.mvc.forrest.common;
 
 import lombok.Data;
 
+
+//@Data
+
 //==>리스트화면을 모델링(추상화/캡슐화)한 Bean 
 @Data
+
 public class Search {
 	
 	///Field
 	private int currentPage;
 	private String searchCondition;
 	private String searchKeyword;
+	private String searchCategory;
 	private int pageSize;
 	//==> 리스트화면 currentPage에 해당하는 회원정보를 ROWNUM 사용 SELECT 위해 추가된 Field 
 	//==> UserMapper.xml 의 
@@ -52,6 +57,14 @@ public class Search {
 		this.searchKeyword = searchKeyword;
 	}
 	
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
 	public String getOrderCondition() {
 		return orderCondition;
 	}

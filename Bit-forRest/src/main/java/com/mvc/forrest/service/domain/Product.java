@@ -41,7 +41,7 @@ public class Product {
 		this.prodNo = prodNo;
 	}
 
-
+	
 	public int getWidth() {
 		return width;
 	}

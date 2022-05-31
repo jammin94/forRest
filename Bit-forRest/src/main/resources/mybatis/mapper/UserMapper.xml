@@ -24,14 +24,14 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="addUser"		parameterType="user" >
+	<insert 	id="addUser"		parameterType="User" >
 		INSERT 
-	 	INTO user(userId, password, nickname, userName, userAddr, phone, joinPath, joinDate, userImg) 
+	 	INTO user(userId, password, nickname, userName, userAddr, phone, joinPath, joinDate, userImg)
 	 	VALUES (#{userId}, #{password}, #{nickname}, #{userName}, #{userAddr}, #{phone}, #{joinPath}, CURRENT_TIMESTAMP(), #{userImg})
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
 		SELECT u.*
 		FROM user u
 		WHERE u.userId = #{value}
@@ -49,26 +49,23 @@
 	   	WHERE userId = #{userId}
 	 </update>
 		 
-	<!-- SQL : SELECT LIST -->
-	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-		SELECT
-		@rownum:=@rownum+1 AS '번호',user.*
-		FROM
-		user,(SELECT @rownum:=0)blah
-		<if test="searchCondition != null">
-			<where>
-				1=1 AND userId LIKE '%'||#{searchKeyword}||'%'
-			</where>
-		</if>		
-		WHERE 1=1 AND userId LIKE '%'||#{searchKeyword}||'%'
-												<!-- blah = 아무의미없는 글자 -->	
-												<!--  신고횟수 조회때문에 나중에 조인해야함  -->
+	<!-- SQL : SELECT LIST	// blah = 아무의미없는 글자 // 신고횟수 조회때문에 나중에 조인해야함 -->
+	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
+		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*
+		FROM ( SELECT u.* 
+				FROM user u 
+				<where>
+				<if test="searchKeyword != null">
+					userId LIKE '%'||#{searchKeyword}||'%'
+				</if>
+				</where>)inner, (SELECT @ROWNUM:=0)blah
+		WHERE 1=1)																			
 	 </select>
 	
-	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	<!-- SQL : SELECT ROW Count -->
+	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
 	  	SELECT COUNT(*)						
-	  	FROM user
+	  	FROM user	
 	 </select>
 	 
 </mapper>

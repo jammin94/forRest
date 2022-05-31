@@ -15,36 +15,39 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="addOwnCoupon"		parameterType="ownCoupon" >
+	<insert 	id="addOwnCoupon"		parameterType="OwnCoupon" >
 		INSERT
 	 	INTO ownCoupon(userId, couponNo, ownCouponCreDate, ownCouponDelDate) 
 	 	VALUES (#{userId}, #{couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getOwnCoupon"	parameterType="int"	resultMap="ownCouponSelectMap">
-		SELECT oc.*
-		FROM owncoupon oc
-		WHERE oc.couponNo = #{value}
+	 <select 	id="getOwnCoupon"	parameterType="OwnCoupon"	resultMap="ownCouponSelectMap">
+		SELECT *
+		FROM owncoupon
+		WHERE userId = #{ownUser.userId}
 	 </select>
 	 	 
 	 <!-- SQL : DELETE -->
-	 <delete	id="deleteOwnCoupon"	parameterType="int" >
+	 <delete	id="deleteOwnCoupon"	parameterType="OwnCoupon" >
 	   	DELETE
 	   	FROM ownCoupon
-	   	WHERE CouponNo = #{couponNo}
+	   	WHERE userId = #{ownUser.userId}
 	 </delete>
 		 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getOwnCouponList"  parameterType="search"	resultMap="ownCouponSelectMap">
-	  	SELECT *
-	  	FROM ownCoupon
+	<select  id="getOwnCouponList"  parameterType="OwnCoupon"	resultMap="ownCouponSelectMap">
+		SELECT c.couponName, oc.ownCouponCreDate, oc.ownCouponDelDate
+		FROM coupon c, owncoupon oc
+		WHERE oc.couponNo = c.couponNo
+		AND oc.userId = #{ownUser.userId}
 	 </select>
 	
 	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	SELECT COUNT(*)						
+	 <select  id="getTotalCount"  parameterType="String"	 resultType="int">
+	  	SELECT COUNT(*)				
 	  	FROM ownCoupon
+	  	WHERE userId = #{value}
 	 </select>
 	 
 	

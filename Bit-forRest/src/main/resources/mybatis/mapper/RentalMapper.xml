@@ -30,7 +30,7 @@
 	</resultMap>
 	
 	<!--INSERT -->
-	<insert 	id="addRental"		parameterType="rental" >
+	<insert 	id="addRental"		parameterType="Rental" >
 		INSERT 
 	 	INTO transaction(
 	 			tranNo,userId,prodNo,divyAddress,pickupAddress,startDate,endDate,period,tranCode,paymentNo,paymentDate,paymentWay,receiverPhone,receiverName,prodName,prodImg,originPrice,discount,resultPrice) 
@@ -57,8 +57,8 @@
 	 </insert>
 	 
 	 
-	 <!-- SELECT ONE -->
-	 <select 	id="getRental"	parameterType="int"	resultMap="RentalSelectMap">
+	 <!-- SELECT -->
+	 <select 	id="getRental"	parameterType="int"	resultMap="rentalSelectMap">
 		SELECT 
 			*
 		FROM transaction
