@@ -37,6 +37,8 @@
 	 	values (#{tranNo}, #{userId}, #{prodNo}, #{divyAddress}, #{pickupAddress}, date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+#{period} day), #{period},
 	 	 			#{paymentNo}, current_timestamp(), #{paymentWay}, #{receiverPhone}, #{receiverName}, #{prodName}, #{prodImg}, #{originPrice}, #{discount}, #{resultPrice})
 	 </insert>
+	 
+	 <!-- 123 -->
 	  
 	  
 	  
