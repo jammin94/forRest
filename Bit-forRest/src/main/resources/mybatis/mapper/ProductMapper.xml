@@ -5,131 +5,81 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
-<mapper namespace="com.mvc.forrest.service.TestMapper"> 	
+<mapper namespace="com.mvc.forrest.dao.ProductDAO"> 	
  	
 	<resultMap id="productSelectMap" type="product">
-		<result property="prodNo" 				column="PROD_NO" 				jdbcType="NUMERIC"/>
-		<result property="prodName"	   			column="PROD_NAME" 				jdbcType="VARCHAR" />
-		<result property="prodDetail" 			column="PROD_DETAIL" 			jdbcType="VARCHAR" />
-		<result property="manuDate" 			column="MANUFACTURE_DAY" 		jdbcType="VARCHAR" />
-		<result property="price" 				column="PRICE" 					jdbcType="NUMERIC" />
-		<result property="fileName" 			column="IMAGE_FILE" 			jdbcType="VARCHAR" />
-		<result property="regDate" 				column="REG_DATE" 				jdbcType="DATE" />
-		<result property="quantity" 			column="QUANTITY" 				jdbcType="NUMERIC"  />
-		<result property="remain" 				column="SUM" 				jdbcType="NUMERIC"  />
+		<result property="prodNo" 				column="prodNo" 				jdbcType="INTEGER"/>
+		<result property="width"	   			column="width" 				jdbcType="INTEGER" />
+		<result property="length" 			column="LENGTH " 			jdbcType="INTEGER" />
+		<result property="height" 			column="height" 		jdbcType="INTEGER" />
+		<result property="userId" 				column="userId" 					jdbcType="VARCHAR" />
+		<result property="prodCondition" 			column="prodCondition" 			jdbcType="INTEGER" />
+		<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER" />
+		<result property="prodName" 			column="prodName" 				jdbcType="VARCHAR"  />
+		<result property="prodDetail" 				column="prodDetail" 				jdbcType="VARCHAR"  />
+		<result property="isRental" 				column="isRental" 				jdbcType="TINYINT"  />
+		<result property="rentalCounting" 				column="rentalCounting" 				jdbcType="INTEGER"  />
+		<result property="rentalPrice" 				column="rentalPrice" 				jdbcType="INTEGER"  />
+		<result property="account" 				column="ACCOUNT" 				jdbcType="VARCHAR"  />
+		<result property="deposit" 				column="deposit" 				jdbcType="INTEGER"  />
+		<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
+		<result property="returnAddress" 				column="returnAddress" 				jdbcType="VARCHAR"  />
+		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
+		<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
-	 	INTO PRODUCT(PROD_NO, PROD_NAME, MANUFACTURE_DAY, PROD_DETAIL,PRICE,IMAGE_FILE,REG_DATE, QUANTITY) 
-	 	values (seq_product_prod_no.nextval, #{prodName},TO_DATE( #{manuDate},'YYYY-MM-DD'), #{prodDetail},#{price},#{fileName}, SYSDATE , #{quantity})
+	 	INTO product(width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
+	 						 isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg, recentImg)
+	 	values (#{width}, #{LENGTH}, #{height}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
+	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{returnAddress}, #{prodImg}, #{recentImg})
 	 </insert>
-	 
-	 
-	 <!-- SQL : DELETE -->
-	 <delete	id="deleteProduct"	parameterType="int" >
-	   	DELETE
-	   	FROM PRODUCT
-	   	WHERE PROD_NO = #{prodNo}
-	 </delete>
-	 
-	 
+	  
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
-		SELECT PRODUCT.*  ,  (PRODUCT.QUANTITY-NVL(A.SUM,0)) SUM
-		FROM PRODUCT LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON PRODUCT.PROD_NO = A.PROD_NO
-		where PRODUCT.PROD_NO = #{value}
+		SELECT * FROM product where prodNo =  #{prodNo}
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
 	 <update	id="updateProduct"	parameterType="product" >
-	   	update PRODUCT
+	   	update product
 	   	<set>
-	   		PROD_NAME 	= #{prodName} ,
-			PROD_DETAIL	= #{prodDetail},
-			MANUFACTURE_DAY	= #{manuDate} ,
-			QUANTITY = #{quantity} ,
-			PRICE	 	=	#{price},
-			IMAGE_FILE	=	#{fileName}
+	   		prodImg =#{prodImg}, 
+	   		prodName =#{prodName}, 
+	   		category =#{category}, 
+	   		prodDetail =#{prodDetail},  
+	   		returnAddress =#{returnAddress},  
+	   		isRental =#{isRental}, 
+	   		rentalPrice =#{rentalPrice}, 
+	   		deposit =#{deposit},  
+	   		ACCOUNT =#{account} 
 	   	</set>
-	   	where PROD_NO = #{prodNo}
+	   	where prodNo = #{prodNo}
+	 </update>
+	 
+	  <!-- SQL : UPDATE -->
+	 <update	id="updateProductCondition"	parameterType="product" >
+	   	update product
+	   	<set>
+	   		prodCondition = #{prodCondition}
+	   	</set>
+	   	where prodNo = #{prodNo}
 	 </update>
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT PRODUCT.*  ,  (PRODUCT.QUANTITY-NVL(A.SUM,0)) SUM
-										FROM PRODUCT LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON PRODUCT.PROD_NO = A.PROD_NO
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if> 
-											) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	  	SELECT * FROM product
+	 
 	 </select>
-	 	<!--  위 두번째 subQuery 의  
-	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
-	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
-	 			< 는 keyword 로 &lt; 를	사용.
-	 			
-	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
-	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
 
-				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
-		-->
 	
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM(	SELECT PRODUCT.*  ,  (PRODUCT.QUANTITY-NVL(A.SUM,0)) SUM
-				FROM PRODUCT LEFT OUTER JOIN (SELECT PROD_NO, SUM(purchaseQt) SUM FROM TRANSACTION GROUP BY prod_no) A ON PRODUCT.PROD_NO = A.PROD_NO
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if>) countTable						
+	  	FROM product
+	  	
 	 </select>
 	 
 </mapper>

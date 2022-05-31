@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.storage.StorageDAO"> 	
+ 	
+	<resultMap id="storageSelectMap" type="storage">
+		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
+		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
+		<result property="prodNo" 			column="prodNo " 			jdbcType="INTEGER" />
+		<result property="divyAddress" 			column="divyAddress " 		jdbcType="VARCHAR" />
+		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
+		<result property="startDate" 			column="startDate" 			jdbcType="DATE" />
+		<result property="endDate" 				column="endDate" 				jdbcType="DATE" />
+		<result property="period" 			column="period" 				jdbcType="INTEGER"  />
+		<result property="tranCode" 				column="tranCode" 				jdbcType="TINYINT"  />
+		<result property="paymentNo" 				column="paymentNo" 				jdbcType="VARCHAR"  />
+		<result property="paymentDate" 				column="paymentDate" 				jdbcType="TIMESTAMP"  />
+		<result property="paymentWay" 				column="paymentWay" 				jdbcType="VARCHAR"  />
+		<result property="receiverPhone" 				column="receiverPhone" 				jdbcType="VARCHAR"  />
+		<result property="receiverName" 				column="receiverName" 				jdbcType="VARCHAR"  />
+		<result property="prodName" 				column="prodName" 				jdbcType="VARCHAR"  />
+		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
+		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
+		<result property="discount " 				column="discount" 				jdbcType="VARCHAR"  />
+		<result property="resultPrice " 				column="resultPrice" 				jdbcType="INTEGER"  />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addStorage"		parameterType="storage" >
+		INSERT 
+	 	INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period,
+	 						paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discount, resultPrice)
+	 	values (#{tranNo}, #{userId}, #{prodNo}, #{divyAddress}, #{pickupAddress}, date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+#{period} day), #{period},
+	 	 			#{paymentNo}, current_timestamp(), #{paymentWay}, #{receiverPhone}, #{receiverName}, #{prodName}, #{prodImg}, #{originPrice}, #{discount}, #{resultPrice})
+	 </insert>
+	  
+	  
+	  
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getStorage"	parameterType="int"	resultMap="storageSelectMap">
+		SELECT * FROM transaction where tranNo =  #{tranNo}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateStrorage"	parameterType="storage" >
+	   	update transaction
+	   	<set>
+	 
+	   	</set>
+	   	where tranNo = #{tranNo}
+	 </update>
+	 
+	 
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getStorageList"  parameterType="search"	resultMap="storageSelectMap">
+	  	SELECT * FROM storage
+	 
+	 </select>
+
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM storage
+	  	
+	 </select>
+	 
+</mapper>

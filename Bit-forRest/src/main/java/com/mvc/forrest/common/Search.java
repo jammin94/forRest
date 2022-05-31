@@ -1,7 +1,8 @@
 package com.mvc.forrest.common;
 
+import lombok.Data;
 
-//==>¸®½ºÆ®È­¸éÀ» ¸ðµ¨¸µ(Ãß»óÈ­/Ä¸½¶È­)ÇÑ Bean 
+@Data
 public class Search {
 	
 	///Field
@@ -9,10 +10,10 @@ public class Search {
 	private String searchCondition;
 	private String searchKeyword;
 	private int pageSize;
-	//==> ¸®½ºÆ®È­¸é currentPage¿¡ ÇØ´çÇÏ´Â È¸¿øÁ¤º¸¸¦ ROWNUM »ç¿ë SELECT À§ÇØ Ãß°¡µÈ Field 
-	//==> UserMapper.xml ÀÇ 
+	//==> ï¿½ï¿½ï¿½ï¿½Æ®È­ï¿½ï¿½ currentPageï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ROWNUM ï¿½ï¿½ï¿½ SELECT ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ Field 
+	//==> UserMapper.xml ï¿½ï¿½ 
 	//==> <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-	//==> ÂüÁ¶
+	//==> ï¿½ï¿½ï¿½ï¿½
 	private int endRowNum;
 	private int startRowNum;
 	private String orderCondition;
@@ -57,11 +58,11 @@ public class Search {
 	public void setOrderCondition(String orderCondition) {
 		this.orderCondition = orderCondition;
 	}
-	//==> Select Query ½Ã ROWNUM ¸¶Áö¸· °ª 
+	//==> Select Query ï¿½ï¿½ ROWNUM ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
 	}
-	//==> Select Query ½Ã ROWNUM ½ÃÀÛ °ª
+	//==> Select Query ï¿½ï¿½ ROWNUM ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}

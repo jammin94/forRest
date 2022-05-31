@@ -7,100 +7,220 @@ import java.util.List;
 
 public class Product {
 	
-	private String manuDate;
-	private int price;
-	private String fileName;
-	private String prodDetail;
-	private String prodName;
 	private int prodNo;
-	private Date regDate;
-	private String proTranCode;
-	private int quantity;
-	private int remain;
-	private File imgFile;
+	private int width;
+	private int length;
+	private int height;
+	private String userId;
+	private int prodCondition;
+	private int prodQuantity;
+	private String prodName;
+	private String prodDetail;
+	private short isRental;
+	private int rentalCounting;
+	private int rentalPrice;
+	private String account;
+	private int deposit ;
+	private String category;
+	private String returnAddress;
+	private String prodImg;
+	private String recentImg;
+	//주소 따로or jsp에서??
+
 	
 	public Product(){
 	}
-	
-	public String getProTranCode() {
-		return proTranCode;
-	}
-	public void setProTranCode(String proTranCode) {
-		this.proTranCode = proTranCode;
-	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String imgFileName) {
-		this.fileName = imgFileName;
-	}
-	public String getManuDate() {
-		return manuDate;
-	}
-	public void setManuDate(String manuDate) {
-		this.manuDate = manuDate;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public String getProdDetail() {
-		return prodDetail;
-	}
-	public void setProdDetail(String prodDetail) {
-		this.prodDetail = prodDetail;
-	}
-	public String getProdName() {
-		return prodName;
-	}
-	public void setProdName(String prodName) {
-		this.prodName = prodName;
-	}
+
+
 	public int getProdNo() {
 		return prodNo;
 	}
+
+
 	public void setProdNo(int prodNo) {
 		this.prodNo = prodNo;
 	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 
-	public int getQuantity() {
-		return quantity;
-	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public int getWidth() {
+		return width;
 	}
 
 
-
-	public File getImgFile() {
-		return imgFile;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public void setImgFile(File imgFile) {
-		this.imgFile = imgFile;
+
+	public int getLength() {
+		return length;
 	}
 
-	public int getRemain() {
-		return remain;
+
+	public void setLength(int length) {
+		this.length = length;
 	}
 
-	public void setRemain(int remain) {
-		this.remain = remain;
+
+	public int getHeight() {
+		return height;
 	}
 
-	// Override
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+	public int getProdCondition() {
+		return prodCondition;
+	}
+
+
+	public void setProdCondition(int prodCondition) {
+		this.prodCondition = prodCondition;
+	}
+
+
+	public int getProdQuantity() {
+		return prodQuantity;
+	}
+
+
+	public void setProdQuantity(int prodQuantity) {
+		this.prodQuantity = prodQuantity;
+	}
+
+
+	public String getProdName() {
+		return prodName;
+	}
+
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+
+
+	public String getProdDetail() {
+		return prodDetail;
+	}
+
+
+	public void setProdDetail(String prodDetail) {
+		this.prodDetail = prodDetail;
+	}
+
+	public short getIsRental() {
+		return isRental;
+	}
+
+
+	public void setIsRental(short isRental) {
+		this.isRental = isRental;
+	}
+
+
+	public int getRentalCounting() {
+		return rentalCounting;
+	}
+
+
+	public void setRentalCounting(int rentalCounting) {
+		this.rentalCounting = rentalCounting;
+	}
+
+
+	public int getRentalPrice() {
+		return rentalPrice;
+	}
+
+
+	public void setRentalPrice(int rentalPrice) {
+		this.rentalPrice = rentalPrice;
+	}
+
+
+	public String getAccount() {
+		return account;
+	}
+
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+
+	public int getDeposit() {
+		return deposit;
+	}
+
+
+	public void setDeposit(int deposit) {
+		this.deposit = deposit;
+	}
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+	public String getReturnAddress() {
+		return returnAddress;
+	}
+
+
+	public void setReturnAddress(String returnAddress) {
+		this.returnAddress = returnAddress;
+	}
+
+
+	public String getProdImg() {
+		return prodImg;
+	}
+
+
+	public void setProdImg(String prodImg) {
+		this.prodImg = prodImg;
+	}
+
+
+	public String getRecentImg() {
+		return recentImg;
+	}
+
+
+	public void setRecentImg(String recentImg) {
+		this.recentImg = recentImg;
+	}
+
+
+	@Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
-				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo+"[remain]" + remain+"[fileName]"+fileName;
-	}	
+		return "Product [prodNo=" + prodNo + ", width=" + width + ", length=" + length + ", height=" + height
+				+ ", userId=" + userId + ", prodCondition=" + prodCondition + ", prodQuantity=" + prodQuantity
+				+ ", prodName=" + prodName + ", prodDetail=" + prodDetail + ", isRental=" + isRental
+				+ ", rentalCounting=" + rentalCounting + ", rentalPrice=" + rentalPrice + ", account=" + account
+				+ ", deposit=" + deposit + ", category=" + category + ", returnAddress=" + returnAddress + ", prodImg="
+				+ prodImg + ", recentImg=" + recentImg + "]";
+	}
+	
+
+	
 }
