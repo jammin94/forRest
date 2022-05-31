@@ -2,7 +2,12 @@ package com.mvc.forrest.common;
 
 import lombok.Data;
 
+
 //@Data
+
+//==>리스트화면을 모델링(추상화/캡슐화)한 Bean 
+@Data
+
 public class Search {
 	
 	///Field
@@ -11,10 +16,10 @@ public class Search {
 	private String searchKeyword;
 	private String searchCategory;
 	private int pageSize;
-	//==> ����Ʈȭ�� currentPage�� �ش��ϴ� ȸ�������� ROWNUM ��� SELECT ���� �߰��� Field 
-	//==> UserMapper.xml �� 
+	//==> 리스트화면 currentPage에 해당하는 회원정보를 ROWNUM 사용 SELECT 위해 추가된 Field 
+	//==> UserMapper.xml 의 
 	//==> <select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-	//==> ����
+	//==> 참조
 	private int endRowNum;
 	private int startRowNum;
 	private String orderCondition;
@@ -67,11 +72,11 @@ public class Search {
 	public void setOrderCondition(String orderCondition) {
 		this.orderCondition = orderCondition;
 	}
-	//==> Select Query �� ROWNUM ������ �� 
+	//==> Select Query 시 ROWNUM 마지막 값  
 	public int getEndRowNum() {
 		return getCurrentPage()*getPageSize();
 	}
-	//==> Select Query �� ROWNUM ���� ��
+	//==> Select Query 시 ROWNUM 시작 값
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}

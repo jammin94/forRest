@@ -1,17 +1,17 @@
-package com.mvc.forrest.service.product;
+package com.mvc.forrest.dao.wishlist;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 
-
-//==> ȸ������ ���� ����//san
-@Service
-public class ProductService {
+@Repository
+@Mapper
+public class WishListDAO {
 	
+
 }

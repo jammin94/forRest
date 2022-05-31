@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mvc.forrest.dao.user.UserDao">
+ 	
+	<resultMap id="userSelectMap" type="user">
+		<result property="userId"			column="userId"			jdbcType="VARCHAR"/>
+		<result property="password"			column="password"		jdbcType="VARCHAR"/>
+		<result property="nickname"			column="nickname"		jdbcType="VARCHAR"/>
+		<result property="userName"			column="userName"		jdbcType="VARCHAR"/>
+		<result property="userAddr"			column="userAddr"		jdbcType="VARCHAR"/>
+		<result property="phone"			column="phone"			jdbcType="VARCHAR"/>
+		<result property="role"				column="role"			jdbcType="VARCHAR"/>
+		<result property="joinDate"			column="joinDate"		jdbcType="TIMESTAMP"/>
+		<result property="joinPath"			column="joinPath"		jdbcType="VARCHAR"/>
+		<result property="userImg"			column="userImg"		jdbcType="VARCHAR"/>
+		<result property="recentDate"		column="recentDate"		jdbcType="TIMESTAMP"/>
+		<result property="pushToken"		column="pushToken"		jdbcType="VARCHAR"/>
+		<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
+		<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addUser"		parameterType="user" >
+		INSERT 
+	 	INTO user(userId, password, nickname, userName, userAddr, phone, joinPath, joinDate, userImg) 
+	 	VALUES (#{userId}, #{password}, #{nickname}, #{userName}, #{userAddr}, #{phone}, #{joinPath}, CURRENT_TIMESTAMP(), #{userImg})
+	 </insert>	 
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
+		SELECT u.*
+		FROM user u
+		WHERE u.userId = #{value}
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateUser"	parameterType="user" >
+	   	UPDATE user
+	   	<set>
+	   		nickname	= #{nickname},
+	   		userAddr	= #{userAddr},
+	   		phone		= #{phone},
+	   		userImg		= #{userImg}
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
+		 
+	<!-- SQL : SELECT LIST -->
+	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
+		SELECT
+		@rownum:=@rownum+1 AS '번호',user.*
+		FROM
+		user,(SELECT @rownum:=0)blah
+		<if test="searchCondition != null">
+			<where>
+				1=1 AND userId LIKE '%'||#{searchKeyword}||'%'
+			</where>
+		</if>		
+		WHERE 1=1 AND userId LIKE '%'||#{searchKeyword}||'%'
+												<!-- blah = 아무의미없는 글자 -->	
+												<!--  신고횟수 조회때문에 나중에 조인해야함  -->
+	 </select>
+	
+	<!-- SQL : SELECT ROW Count -->	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)						
+	  	FROM user
+	 </select>
+	 
+</mapper>

@@ -1,4 +1,4 @@
-package com.mvc.forrest.controller.product;
+package com.mvc.forrest.controller.rental;
 
 import java.util.Map;
 
@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-//가나다라마바사ㅇㅇㅇ
+
+
+//==> ȸ������ Controller
 //@Controller
-//@RequestMapping("/product/*")
-public class ProductController {
+//@RequestMapping("/user/*")
+public class RentalController {
 
 }
