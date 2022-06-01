@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public class RentalDAO {
 
+	
+	
 }
