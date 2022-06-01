@@ -68,13 +68,33 @@
 	 <!-- SQL : SELECT LIST -->
 	 <!-- 관리자를 위한 리스트페이지 -->
 	<select  id="getStorageListForAdmin"  parameterType="Search"	resultMap="storageSelectMap">
-	  	SELECT t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
+	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo
+	 		<!--searchProductCondition은 항상 기본값이 존재  -->
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
+	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
+	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 		</if>
 	 		
 	 	</where>
-	 	ORDER BY t.tranNo DESC
+	 	<if test="orderCondition != null">
+	 		<if test='orderCondition == "tranNoASC"'>
+	 		ORDER BY t.tranNo ASC
+	 		</if>
+	 		<if test='orderCondition == "tranNoDESC"'>
+	 		ORDER BY t.tranNo DESC
+	 		</if>
+	 		<if test='orderCondition == "startDateASC"'>
+	 		ORDER BY t.startDate ASC
+	 		</if>
+	 		<if test='orderCondition == "startDateDESC"'>
+	 		ORDER BY t.startDate DESC
+	 		</if>
+	 	</if>
 	 </select>
 
 	
