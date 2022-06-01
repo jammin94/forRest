@@ -50,8 +50,5 @@ public class ProductService {
 		return map;
 	}
 	
-	public int getTotalCount(Search search) throws Exception{
-		return productDAO.getTotalCount(search);
-	}
 		
 }
