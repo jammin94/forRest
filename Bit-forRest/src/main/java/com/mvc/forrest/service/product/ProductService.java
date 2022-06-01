@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.common.Search;
@@ -33,10 +32,12 @@ public class ProductService {
 		productDAO.updateProduct(product);
 	}
 	
+	
 	public void updateProductCondition(Product product) throws Exception{
 		productDAO.updateProductCondition(product);	
 	}
 	
+	//대여가능하면서 현재보관중인 물품들의 리스트
 	public Map<String, Object> getProductList(Search search) throws Exception{
 		List<Product> list= productDAO.getProductList(search);
 		

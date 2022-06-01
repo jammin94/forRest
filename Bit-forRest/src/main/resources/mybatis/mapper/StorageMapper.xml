@@ -56,11 +56,15 @@
 	 
 		 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getStorageList"  parameterType="String"	resultMap="storageSelectMap">
+	<select  id="getStorageList"  parameterType="map"	resultMap="storageSelectMap">
 	  	SELECT t.tranNo, t.prodImg, t.prodName, t.startDate, t.endDate, t.paymentNo, t. t.userId, t.resultPrice, p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId}
+	 		<if test="searchProductCondition != null">
+	 		<!-- 현재보관중인 물품만 보기위한 조건-->
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
 	 	</where>
 	 	ORDER BY t.tranNo DESC
 	 </select>
@@ -72,7 +76,10 @@
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo
-	 		<!--searchProductCondition은 항상 기본값이 존재  -->
+	 		<!--getStorageListForAdmin페이지 맨처음 화면에 '물품보관승인신청중'인 물품만 표시 -->
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
+	 		 and p.prodCondition = '물품보관승인신청중'
+	 		</if>
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
@@ -101,7 +108,21 @@
 	<!-- SQL : SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
 	  	SELECT COUNT(*)
-	  	FROM storage
+	  	FROM product p, transaction t
+	  	<where>
+	 		p.prodNo = t.prodNo
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
+	 		 and p.prodCondition = '물품보관승인신청중'
+	 		</if>
+	 		<!--searchProductCondition은 항상 기본값이 존재  -->
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
+	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
+	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 		</if>
+	 		
+	 	</where>
 	  	
 	 </select>
 	 

@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.product.ProductService;
 
-//가나다라마바사ㅇㅇㅇ
 
-//==> ȸ������ Controller
-//@Controller
-//@RequestMapping("/product/*")
+
+
+
+@Controller
+@RequestMapping("/product/*")
 public class ProductController {
+	
+ 
+ 
 
 }
