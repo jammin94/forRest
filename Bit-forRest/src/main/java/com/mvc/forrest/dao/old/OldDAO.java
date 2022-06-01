@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.mvc.forrest.common.Search;
 import com.mvc.forrest.service.domain.Old;
 
 @Repository
@@ -17,10 +18,10 @@ public interface OldDAO {
 	
 	public void updateOld(Old Old) throws Exception ;
 	
-	public void deleteOld(int OldNo) throws Exception ;
-	
-	public List<Old> getOldList() throws Exception ;
-	
-	public int getTotalCount() throws Exception ; 
+	public void deleteOld(int OldNo) throws Exception ;	
+
+	public int getTotalCount(Search search);
+
+	public List<Old> getOldList(Search search); 
 }
 //s
