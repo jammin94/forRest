@@ -9,10 +9,11 @@ import com.mvc.forrest.common.Search;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Storage;
 
-@Repository
+
 @Mapper
 public interface StorageDAO {
-
+	
+	
 	void addStorage(Storage storage) throws Exception;
 	
 	Storage getStorage(int tranNo) throws Exception;
