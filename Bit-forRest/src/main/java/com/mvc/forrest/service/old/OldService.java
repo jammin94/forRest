@@ -30,6 +30,10 @@ public class OldService {
 		oldDAO.updateOld(old);
 	}
 	
+	public void deleteOld(int oldNo) throws Exception{
+		oldDAO.deleteOld(oldNo);
+	}
+	
 	public Map<String, Object> getOldList(Search search) throws Exception{
 		List<Old> list= oldDAO.getOldList(search);
 		

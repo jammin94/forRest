@@ -14,6 +14,7 @@ public class Old {
 	private int oldView;
 	private String category;
 	private short oldState;
+	private String oldImg;
 
 
 
@@ -65,7 +66,14 @@ public class Old {
 	public void setOldState(short oldState) {
 		this.oldState = oldState;
 	}
+	
 
+	public String getOldImg() {
+		return oldImg;
+	}
+	public void setOldImg(String oldImg) {
+		this.oldImg = oldImg;
+	}
 	@Override
 	public String toString() {
 		return "Old  : [oldTitle]" + oldTitle

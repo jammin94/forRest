@@ -20,8 +20,7 @@ public interface OldDAO {
 	
 	public void deleteOld(int OldNo) throws Exception ;	
 
-	public int getTotalCount(Search search);
+	public int getTotalCount(Search search) throws Exception;
 
-	public List<Old> getOldList(Search search); 
+	public List<Old> getOldList(Search search) throws Exception; 
 }
-//s
