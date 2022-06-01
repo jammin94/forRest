@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="addCoupon"		parameterType="coupon" >
+	<insert 	id="addCoupon"		parameterType="Coupon" >
 		INSERT 
 	 	INTO coupon(couponName, couponCreDate, couponDelDate, discount) 
 	 	VALUES (#{couponName}, #{couponCreDate}, #{couponDelDate}, #{discount})

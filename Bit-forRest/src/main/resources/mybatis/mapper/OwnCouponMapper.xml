@@ -22,21 +22,21 @@
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getOwnCoupon"	parameterType="OwnCoupon"	resultMap="ownCouponSelectMap">
+	 <select 	id="getOwnCoupon"	parameterType="int"	resultMap="ownCouponSelectMap">
 		SELECT *
 		FROM owncoupon
-		WHERE userId = #{ownUser.userId}
+		WHERE owncouponNo = #{value}
 	 </select>
 	 	 
 	 <!-- SQL : DELETE -->
-	 <delete	id="deleteOwnCoupon"	parameterType="OwnCoupon" >
+	 <delete	id="deleteOwnCoupon"	parameterType="int" >
 	   	DELETE
 	   	FROM ownCoupon
-	   	WHERE userId = #{ownUser.userId}
+	   	WHERE owncouponNo = #{value}
 	 </delete>
 		 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getOwnCouponList"  parameterType="OwnCoupon"	resultMap="ownCouponSelectMap">
+	<select  id="getOwnCouponList"  parameterType="String"		resultMap="ownCouponSelectMap">
 		SELECT c.couponName, oc.ownCouponCreDate, oc.ownCouponDelDate
 		FROM coupon c, owncoupon oc
 		WHERE oc.couponNo = c.couponNo

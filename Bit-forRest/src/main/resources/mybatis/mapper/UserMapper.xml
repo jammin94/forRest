@@ -38,7 +38,7 @@
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="updateUser"	parameterType="user" >
+	 <update	id="updateUser"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		nickname	= #{nickname},
@@ -50,7 +50,7 @@
 	 </update>
 		 
 	 <!-- SQL : UPDATE -->
-	 <update	id="leaveUser"	parameterType="user" >
+	 <update	id="leaveUser"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		role	= 'leave'
@@ -59,7 +59,7 @@
 	 </update>
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="restrictUser"	parameterType="user" >
+	 <update	id="restrictUser"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		role	= 'restrict'
@@ -68,7 +68,7 @@
 	 </update>
 		 
 	<!-- SQL : SELECT LIST	// blah = 아무의미없는 글자 // 신고횟수 조회때문에 나중에 조인해야함 -->
-	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
+	<select  id="getUserList"  parameterType="String"	resultMap="userSelectMap">				
 		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*
 		FROM ( SELECT u.* 
 				FROM user u 
