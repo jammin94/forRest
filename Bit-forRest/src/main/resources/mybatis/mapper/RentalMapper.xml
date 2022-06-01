@@ -5,7 +5,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
-<mapper namespace="com.mvc.forrest.service.RentalMapper"> 	
+<mapper namespace="com.mvc.forrest.dao.rental.RentalDAO"> 	
  	
 	<resultMap id="rentalSelectMap" type="rental">
 		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
@@ -30,7 +30,7 @@
 	</resultMap>
 	
 	<!--INSERT -->
-	<insert 	id="addRental"		parameterType="Rental" >
+	<insert 	id="addRental"		parameterType="rental" >
 		INSERT 
 	 	INTO transaction(
 	 			tranNo,userId,prodNo,divyAddress,pickupAddress,startDate,endDate,period,tranCode,paymentNo,paymentDate,paymentWay,receiverPhone,receiverName,prodName,prodImg,originPrice,discount,resultPrice) 
