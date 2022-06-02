@@ -26,7 +26,6 @@ import com.mvc.forrest.service.rentalreview.RentalReviewService;
 
 
 
-//==> ȸ������ Controller
 @Controller
 @RequestMapping("/rentalReview/*")
 public class RentalReviewController {

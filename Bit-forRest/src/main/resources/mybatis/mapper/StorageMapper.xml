@@ -10,8 +10,8 @@
 	<resultMap id="storageSelectMap" type="Storage">
 		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
 		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
-		<result property="prodNo" 			column="prodNo " 			jdbcType="INTEGER" />
-		<result property="divyAddress" 			column="divyAddress " 		jdbcType="VARCHAR" />
+		<result property="prodNo" 			column="prodNo" 			jdbcType="INTEGER" />
+		<result property="divyAddress" 			column="divyAddress" 		jdbcType="VARCHAR" />
 		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
 		<result property="startDate" 			column="startDate" 			jdbcType="DATE" />
 		<result property="endDate" 				column="endDate" 				jdbcType="DATE" />
@@ -25,8 +25,8 @@
 		<result property="prodName" 				column="prodName" 				jdbcType="VARCHAR"  />
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
-		<result property="discount " 				column="discount" 				jdbcType="VARCHAR"  />
-		<result property="resultPrice " 				column="resultPrice" 				jdbcType="INTEGER"  />
+		<result property="discount" 				column="discount" 				jdbcType="DOUBLE"  />
+		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
