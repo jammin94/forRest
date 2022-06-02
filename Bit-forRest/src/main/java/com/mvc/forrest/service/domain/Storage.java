@@ -1,8 +1,9 @@
 package com.mvc.forrest.service.domain;
 
 import java.io.File;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,7 +22,7 @@ public class Storage {
 	private Date endDate;
 	private int period;
 	private short tranCode;
-	private int paymentNo;
+	private String paymentNo;
 	private Timestamp  paymentDate;
 	private String paymentWay;
 	private String receiverPhone;

@@ -16,6 +16,6 @@ public interface OldReviewDAO {
 	
 	List<OldReview> getOldReviewList(String reviewedUser) throws Exception;
 	
-	void getUserRate(String reviewedUser) throws Exception;
+	OldReview getUserRate(String reviewedUser) throws Exception;
 
 }

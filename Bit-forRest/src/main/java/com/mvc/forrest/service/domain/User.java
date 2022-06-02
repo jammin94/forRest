@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import lombok.Data;
 
-//==>회원정보를 모델링(추상화/캡슐화)한 Bean
 @Data
 public class User {
 	
@@ -19,6 +18,7 @@ public class User {
 	private String joinPath;
 	private String userImg;
 	private String pushToken;
+	private double userRate;
 	private Timestamp leaveApplyDate;
 	private Timestamp leaveDate;
 	private Timestamp recentDate;
