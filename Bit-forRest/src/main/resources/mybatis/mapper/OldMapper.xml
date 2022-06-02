@@ -4,7 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mvc.forrest.dao.oldDao">
+<mapper namespace="com.mvc.forrest.dao.old.OldDAO">
 <!--namespace: 이 mapper.xml과 매핑될 mapper.java(인터페이스)를 의미함 -->
 
 
