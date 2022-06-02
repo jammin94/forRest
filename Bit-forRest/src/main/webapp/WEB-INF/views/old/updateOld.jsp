@@ -1,25 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
+<title>Kim review</title>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ì¤‘ê³ ê±°ëž˜ ê²Œì‹œë¬¼ ìˆ˜ì •í•˜ê¸° </title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-</head>
+
+ <meta charset="UTF-8">
+	
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link href="/css/style.css" rel="stylesheet">  
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <!-- include summernote css/js-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="/resources/js/summernote-ko-KR.js"></script>
+<title>ÈÄ±â¾²±â</title>
+
+
+
+  
+  <script>
+  $(function() {
+		$("#datepicker").datepicker({
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+  
+  </script>
+
+<link rel="stylesheet" href="/css/admin.css" type="text/css">
+
+<script type="text/javascript" src="../javascript/calendar.js"></script>
+
+<script type="text/javascript">
+//============= "°¡ÀÔ"  Event ¿¬°á =============
+$(function() {
+	//==> DOM Object GET 3°¡Áö ¹æ¹ý ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( ".btn:contains('µî')" ).on("click" , function() {
+		fncUpdateOld();
+	});
+});	
+//============= "Ãë¼Ò"  Event Ã³¸® ¹×  ¿¬°á =============
+$(function() {
+	//==> DOM Object GET 3°¡Áö ¹æ¹ý ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$("a[href='#' ]").on("click" , function() {
+		$("form")[0].reset();
+	});
+});	
+function fncUpdateOld(){
+	//Form À¯È¿¼º °ËÁõ
+ 	//var name = document.detailForm.prodName.value;
+	var title= $('input[name="reviewTitle"]').val();
+	
+	var content=$('textarea[name="reviewContent"]').val();
+	
+	
+	/* var detail = document.detailForm.prodDetail.value;
+	var manuDate = document.detailForm.manuDate.value;
+	var price = document.detailForm.price.value; */
+	//var target = document.getElementById("cate");
+	//var cateName = target.options[target.selectedIndex].text;
+	//var cateName = $("#cate option:checked").text();
+	//console.log('name : ' + cateName)
+	//document.getElementById("cateName").value = cateName;
+	
+	
+	$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();
+}
+</script>
 
 <body>
-    <div class="container">
- 		<a href="/old/updateOld">ì¤‘ê³ ê±°ëž˜ ê²Œì‹œë¬¼ ìˆ˜ì •í•˜ê¸° </a>
-    </div>
+
+	
+   	</br></br></br>
+   	
+   	<div class="container">
+	
+		<div class="page-header text-default"> 
+		
+		<h3 style="text-align:center;">ÈÄ±âÀÛ¼º</h3> 
+		</div>
+	<br/><br/>
+	ÇÐ¿øÄÚµå : ${academyName }
+	ÇÐ¿øÄÚµå : ${ academyCode}
+	Ä¿³ØÆ®»óÅÂ : ${connectState }
+
+	<div class="container-fluid">
+	<form class="form-horizontal">
+	<input type="hidden" name="cateName" id="cateName" value="" />
+		
+	 	<div id="reviewTitle" class="form-group">
+		    <label for="boardTitle" class="col-sm-offset-1 col-sm-1 control-label">Á¦¸ñ</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" id="reviewTitle" name="reviewTitle" placeholder="Á¦¸ñ">
+		    </div>
+		</div>
+		
+		<div id="academyCode" class="form-group">
+		    <label for="academyCode" class="col-sm-offset-1 col-sm-1 control-label">ÇÐ¿øÄÚµå</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" id="academyCode" name="academyCode" value="${academyCode}" readonly>
+		    </div>
+		</div>
+
+		
+	 	<div class="form-group">
+		    <label for="reviewContent" height=100px class="col-sm-offset-1 col-sm-1 control-label">³»¿ë</label>
+		    <div class="col-sm-8" height=100px>
+		      <textarea class="form-control col-sm-12" rows="5" name="reviewContent"
+						placeholder="³»¿ë" style="resize: none"></textarea>
+		    </div>
+		</div>
+		
+</form>
+		
+		</div>	
+				
+		</div>
+		
+	 	
+		
+		<div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		      &nbsp;&nbsp;<button type="button" class="btn btn-default"  >µî&nbsp;·Ï</button>
+			  &nbsp;<a class="btn btn-default" href="#" role="button">Ãë&nbsp;¼Ò</a>
+		    </div>
+		
+		</div>
+		
+	</div>
+		
+
+
+</head>
+
+
 </body>
-<label for="name">Name (4 to 8 characters):</label>
-
-<input type="text" id="name" name="name" required
-       minlength="4" maxlength="8" size="10">
-
 </html>

@@ -30,10 +30,14 @@ public class OldController {
 	// 중고거래 게시물 상세보기화면으로가는 네비게이터
 	//@RequestMapping( value="addOld", method= RequestMethod.GET )
 	
-	@PostMapping("listOld")/*@ModelAttribute("search") Search search,*/ /*, @RequestParam("oldNo") int oldNo,*/
-	public String listOld(@ModelAttribute("old") Old old ,Model model ) throws Exception{
-		
-		model.addAttribute("old",old);
+	
+	
+	
+	
+	@PostMapping("listOld")
+	public String listOld(@ModelAttribute("old") Old old ) throws Exception{
+		System.out.println(this.getClass()+ "리스트");
+		oldService.getOldList(null);
 		return "old/listOld";
 	}
 	
@@ -42,19 +46,22 @@ public class OldController {
 	public String getOld() throws Exception {
 		
 		System.out.println(this.getClass()+ "야호상세");
+		
 		return "/old/getOld";	
 		
 	}
 	
-	@GetMapping("updateOld/{oldNo}")
+	@GetMapping("updateOld/{old}")
 	public String updateOld( ) throws Exception{
-		System.out.println(this.getClass()+ "야호수정");
+		System.out.println(this.getClass()+ "겟수정");
 		return "old/updateOld";
 	} 
 	
 	@PostMapping("updateOld")
-	public String updateOld( @RequestParam("oldNo") int oldNo, HttpServletRequest request, Model model) throws Exception{
-		System.out.println(this.getClass()+ "야호수정");
+	public String updateOld( @RequestParam("old") Old old) throws Exception{
+		System.out.println(this.getClass()+ "포스트수정");
+		oldService.updateOld(old);
+		
 		return "old/getOld";
 	} 
 	
