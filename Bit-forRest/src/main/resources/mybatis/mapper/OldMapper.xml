@@ -38,9 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- SQL : SELECT ONE -->
 <select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
-	SELECT *
-	FROM OLD
-	WHERE oldNo = #{oldNo}
+	SELECT old.*, oldLike.oldLikeNo
+	FROM forrest.old INNER JOIN forrest.oldLike ON old.oldNo=oldLike.oldNo
+	
 	 </select>
 
  <!-- SQL : UPDATE -->

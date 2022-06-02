@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
- 		<a href="/oldLike/addOldLike">중고거래 게시물 등록 테스트</a>
+ 		<a href="/old/addOld">중고거래 게시물 등록 테스트</a>
     </div>
 </body>
 
