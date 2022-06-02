@@ -1,5 +1,7 @@
 package com.mvc.forrest.controller.old;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +33,20 @@ public class OldController {
 	//@RequestMapping( value="addOld", method= RequestMethod.GET )
 	
 	
-	
-	
+	@GetMapping("listOld/{oldNo}")
+	public String listOld() throws Exception {
+		
+		System.out.println(this.getClass()+"겟리스트");
+		
+		return "/old/listOld";	
+	}
 	
 	@PostMapping("listOld")
-	public String listOld(@ModelAttribute("old") Old old ) throws Exception{
-		System.out.println(this.getClass()+ "리스트");
+	public String listOld(@ModelAttribute("map") Map map ) throws Exception{
+		System.out.println(this.getClass()+ "포스트리스트");
 		oldService.getOldList(null);
 		return "old/listOld";
+		//return "redirect:/old/listOld?oldNo="+old.getOldNo();
 	}
 	
 	
@@ -60,7 +68,7 @@ public class OldController {
 		
 	}
 	
-	@GetMapping("updateOld/{old}")
+	@GetMapping("updateOld/{oldNo}")
 	public String updateOld( ) throws Exception{
 		System.out.println(this.getClass()+ "겟수정");
 		return "old/updateOld";
@@ -95,4 +103,7 @@ public class OldController {
 		
 		return "old/getOld";
 	} 
+	
+	
+	
 }
