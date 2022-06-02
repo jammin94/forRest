@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.forrest.service.domain.OwnCoupon;
+import com.mvc.forrest.service.domain.Search;
 
 @Repository
 @Mapper
-public interface OwnCouponDao {
+public interface OwnCouponDAO {
 
 	public void addOwnCoupon(OwnCoupon  ownCoupon) throws Exception ;
 	
@@ -17,7 +18,7 @@ public interface OwnCouponDao {
 	
 	public void deleteOwnCoupon(int ownCouponNo) throws Exception ;
 	
-	public List<OwnCoupon> getOwnCouponList(String userId) throws Exception ;
+	public List<OwnCoupon> getOwnCouponList(Search search) throws Exception ;
 	
-	public int getTotalCount(String userId) throws Exception ;
+	public int getTotalCount(Search search) throws Exception ;
 }

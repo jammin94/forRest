@@ -27,6 +27,45 @@
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
 		<result property="discount" 				column="discount" 				jdbcType="DOUBLE"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
+		
+		 <association property="purchaseProd" javaType="product">
+		    <id property="prodNo" column="prodNo" jdbcType="INTEGER"/>
+			<result property="width"	   			column="width" 				jdbcType="INTEGER" />
+			<result property="length" 			column="LENGTH " 			jdbcType="INTEGER" />
+			<result property="height" 			column="height" 		jdbcType="INTEGER" />
+			<result property="userId" 				column="userId" 					jdbcType="VARCHAR" />
+			<result property="prodCondition" 			column="prodCondition" 			jdbcType="INTEGER" />
+			<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER" />
+			<result property="prodName" 			column="prodName" 				jdbcType="VARCHAR"  />
+			<result property="prodDetail" 				column="prodDetail" 				jdbcType="VARCHAR"  />
+			<result property="isRental" 				column="isRental" 				jdbcType="TINYINT"  />
+			<result property="rentalCounting" 				column="rentalCounting" 				jdbcType="INTEGER"  />
+			<result property="rentalPrice" 				column="rentalPrice" 				jdbcType="INTEGER"  />
+			<result property="account" 				column="ACCOUNT" 				jdbcType="VARCHAR"  />
+			<result property="deposit" 				column="deposit" 				jdbcType="INTEGER"  />
+			<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
+			<result property="returnAddress" 				column="returnAddress" 				jdbcType="VARCHAR"  />
+			<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
+			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
+		 </association>
+		
+		 <association property="buyer" javaType="user">
+		    <id property="userId" column="userId" jdbcType="VARCHAR"/>
+			<result property="password"			column="password"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="nickname"		jdbcType="VARCHAR"/>
+			<result property="userName"			column="userName"		jdbcType="VARCHAR"/>
+			<result property="userAddr"			column="userAddr"		jdbcType="VARCHAR"/>
+			<result property="phone"			column="phone"			jdbcType="VARCHAR"/>
+			<result property="role"				column="role"			jdbcType="VARCHAR"/>
+			<result property="joinDate"			column="joinDate"		jdbcType="TIMESTAMP"/>
+			<result property="joinPath"			column="joinPath"		jdbcType="VARCHAR"/>
+			<result property="userImg"			column="userImg"		jdbcType="VARCHAR"/>
+			<result property="recentDate"		column="recentDate"		jdbcType="TIMESTAMP"/>
+			<result property="pushToken"		column="pushToken"		jdbcType="VARCHAR"/>
+			<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
+			<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>	
+		 </association>
+		
 	</resultMap>
 	
 	<!--INSERT -->
@@ -65,47 +104,59 @@
 		WHERE tranNo = #{tranNo}
 	 </select>
 	 
-	 <!--UPDATE 
-	<update 	id="updateRental"	 parameterType="rental" >
-	   	<set>
-	   	</set>
-	 </update>-->
+	
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT * FROM TRANSACTION
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if> 
-											) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	  SELECT 
+	  		p.*, t.*
+	 	FROM product p, transaction t
+	  					FROM		
+	  				<where>
+				 		p.prodNo = t.prodNo and t.userId = #{userId}
+				 		<if test="searchProductCondition != null">
+				 		<!-- 현재보관중인 물품만 보기위한 조건-->
+				 		 and p.prodCondition = #{searchProductCondition}
+				 		</if>
+	 				</where>
+	 				ORDER BY t.tranNo DESC
 	 </select>
 	 
-	
+	 <!-- SELECT LIST ADMIN -->
+	<select  id="getRentalListAdmin"  parameterType="search"	resultMap="rentalSelectMap">
+		 	SELECT p.*, t.*
+		 	FROM product p, transaction t
+		 	<where>
+		 		p.prodNo = t.prodNo
+		 		<!--getStorageListForAdmin페이지 맨처음 화면에 '물품보관승인신청중'인 물품만 표시 -->
+		 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
+		 		 and p.prodCondition = '대여물품승인신청중'
+		 		</if>
+		 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
+		 		 and p.prodCondition = #{searchProductCondition}
+		 		</if>
+		 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
+		 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+		 		</if>
+		 		
+		 	</where>
+		 	<if test="orderCondition != null">
+		 		<if test='orderCondition == "tranNoASC"'>
+		 		ORDER BY t.tranNo ASC
+		 		</if>
+		 		<if test='orderCondition == "tranNoDESC"'>
+		 		ORDER BY t.tranNo DESC
+		 		</if>
+		 		<if test='orderCondition == "startDateASC"'>
+		 		ORDER BY t.startDate ASC
+		 		</if>
+		 		<if test='orderCondition == "startDateDESC"'>
+		 		ORDER BY t.startDate DESC
+		 		</if>
+		 	</if>
+	 </select>
+	 
+	 
 	<!--SELECT Total Count -->	 
 	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*)
@@ -137,5 +188,14 @@
 												</if>
 											</if>) countTable						
 	 </select>
-
+	 
+	 <!--SELECT total rental profit-->
+	  <select  id="getTotalRentalProfit"  parameterType="string"	 resultType="int">
+	  	SELECT SUM(resultPrice)
+	  	FROM transaction
+	  	WHERE userId = #{userId}
+		</select>
+		
+		
+		
 </mapper>

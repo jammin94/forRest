@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.Search;
 
 @Repository
 @Mapper
-public interface CouponDao {
+public interface CouponDAO {
 	
 	public void addCoupon(Coupon coupon) throws Exception ;
 	
@@ -19,7 +20,7 @@ public interface CouponDao {
 	
 	public void deleteCoupon(int couponNo) throws Exception ;
 	
-	public List<Coupon> getCouponList() throws Exception ;
+	public List<Coupon> getCouponList(Search search) throws Exception ;
 	
-	public int getTotalCount() throws Exception ;
+	public int getTotalCount(Search search) throws Exception ;
 }
