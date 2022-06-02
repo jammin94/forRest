@@ -78,6 +78,7 @@ public class ProductController {
 		return "redirect: /storage/listStorageForAdmin";
 	}
 	
+	//세션아이디랑 같을때 다를때 조건추가해야함
 	@GetMapping("getProduct")
 	public String getProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		

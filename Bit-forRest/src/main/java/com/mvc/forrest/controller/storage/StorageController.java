@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.storage.StorageService;
@@ -45,27 +47,40 @@ public class StorageController {
 	
 	//보관 메인화면 단순 네비게이션
 	@GetMapping("storageMain")
-	public String storageMain(HttpSession session) {
-		
-		String userId = ((User) session.getAttribute("user")).getUserId();
-		
-				
+	public String storageMain() throws Exception  {
 		
 		return "storage/storageMain";
 	}
 	
 	@GetMapping("addStorage")
-	public String addStorageGet() {
+	public String addStorageGet(Model model, HttpSession session) throws Exception {
 		
+		String userId = ((User) session.getAttribute("user")).getUserId();
+		model.addAttribute("user", userService.getUser(userId));
 		
-		
-		return null;
+		return "storage/addStorage";
 	}
 	
+	//검토필요
 	@PostMapping("addStorage")
-	public String addStoragePost() {
+	public String addStoragePost(@RequestParam("imp_uid") int imp_uid,
+												@RequestParam("merchant_uid") String merchant_uid,
+												@ModelAttribute("product") Product product,
+												@ModelAttribute("storage") Storage storage,
+												HttpSession session, Model model) throws Exception {
+
+		product.setUserId(((User) session.getAttribute("user")).getUserId());
+		productService.addProduct(product);
 		
-		return null;
+		storage.setPaymentNo(merchant_uid);
+		storage.setTranNo(imp_uid);
+		
+		storageService.addStorage(storage);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("storage", storage);
+		
+		return "storage/getStorage";
 	}
 	
 	@RequestMapping("listStorage")
