@@ -27,9 +27,8 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.5'
     testImplementation 'org.springframework.security:spring-security-test:5.4.6'
-
-    
-    
+    runtimeOnly 'com.google.firebase:firebase-admin:8.1.0'
+ 
 }
 
 group = 'com.cos'
