@@ -1,0 +1,71 @@
+package com.mvc.forrest.service.coupon;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mvc.forrest.dao.coupon.CouponDAO;
+import com.mvc.forrest.dao.owncoupon.OwnCouponDAO;
+import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OwnCoupon;
+import com.mvc.forrest.service.domain.Search;
+
+@Service
+public class CouponService {
+	
+	@Autowired
+	private CouponDAO couponDao;
+	private OwnCouponDAO ownCouponDao;
+	
+	//Coupon Method
+	public void addCoupon(Coupon coupon) throws Exception{
+		couponDao.addCoupon(coupon);
+	}
+	
+	public void updateCoupon(Coupon coupon) throws Exception{
+		couponDao.updateCoupon(coupon);
+	}
+	
+	public Coupon getCoupon(int couponNo) throws Exception{
+		return couponDao.getCoupon(couponNo);
+	}
+	
+	public Map<String, Object> getCouponList(Search search) throws Exception{
+		List<Coupon> list =couponDao.getCouponList(search);
+		int totalCount = couponDao.getTotalCount(search);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalcount", totalCount);
+		
+		return map;	
+	}
+	
+	public void deleteCoupon(int couponNo) throws Exception{
+		couponDao.deleteCoupon(couponNo);
+	}
+
+	
+	//OwnCoupon Method	
+	public void addOwnCoupon(OwnCoupon ownCoupon) throws Exception{
+		ownCouponDao.addOwnCoupon(ownCoupon);
+	}
+	
+	public Map<String, Object> getOwnCouponList(Search search) throws Exception{
+		List<OwnCoupon> list =ownCouponDao.getOwnCouponList(search);
+		int totalCount = ownCouponDao.getTotalCount(search);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("totalcount", totalCount);
+		
+		return map;	
+	}
+	
+	public void deleteOwnCoupon(int ownCouponNo) throws Exception{
+		ownCouponDao.deleteOwnCoupon(ownCouponNo);
+	}
+}

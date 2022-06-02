@@ -17,11 +17,47 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.user.UserService;
 
-
-//==> ȸ������ RestController
-//@RestController
-//@RequestMapping("/user/*")
+@RestController
+@RequestMapping("/user/*")
 public class UserRestController {
 	
+	@Autowired
+	private UserService userService;
+		
+	public UserRestController(){
+		System.out.println(this.getClass());
+	}
+	
+	@RequestMapping("json/userIdValid")
+	public String userIdValid(String userId) throws Exception {
+		return null;
+	}
+	
+	@RequestMapping(value="json/pwdValid")
+	public String pwdValid(String password) throws Exception {
+		return null;
+	}
+	
+	@RequestMapping(value="json/sendSMS")
+	public String sendSMS(String phone) throws Exception {
+		return null;
+	}
+
+	@RequestMapping(value="json/smsValid")
+	public String smsValid(String sms) throws Exception {
+		return null;
+	}
+	
+	@RequestMapping(value="json/nicknameValid")
+	public String nicknameValid(String nickname) throws Exception {
+		return null;
+	}
+	
+	@RequestMapping(value="json/updateUser")
+	public User updateUser(@ModelAttribute User user) throws Exception {
+		return null;
+	}
 }
