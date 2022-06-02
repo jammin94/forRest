@@ -45,7 +45,16 @@ public class OldController {
 	@GetMapping("getOld/{oldNo}")
 	public String getOld() throws Exception {
 		
-		System.out.println(this.getClass()+ "야호상세");
+		System.out.println(this.getClass());
+		
+		return "/old/getOld";	
+		
+	}
+	
+	@GetMapping("getMyOld/{oldNo}")
+	public String getMyOld() throws Exception {
+		
+		System.out.println(this.getClass());
 		
 		return "/old/getOld";	
 		
@@ -66,10 +75,24 @@ public class OldController {
 	} 
 	
 	
-	@PostMapping("deleteOld")
-	public String deleteOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception{
+	@GetMapping("deleteOld/{oldNo}")
+	public String deleteOld() throws Exception{
 		return "old/listOld";
 	}
 	
+	@PostMapping("updateOldState")
+	public String updateOldState( @RequestParam("old") Old old) throws Exception{
+		System.out.println(this.getClass()+ "포스트상태");
+		oldService.updateOld(old);
+		
+		return "old/getOld";
+	} 
 	
+	@PostMapping("addOldReport")
+	public String addOldReport( @RequestParam("old") Old old) throws Exception{
+		System.out.println(this.getClass()+ "포스트상태");
+		oldService.updateOld(old);
+		
+		return "old/getOld";
+	} 
 }
