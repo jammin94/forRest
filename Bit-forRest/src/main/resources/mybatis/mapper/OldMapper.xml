@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result property="oldDate"	column="oldDate"		jdbcType="TIMESTAMP"/>
 	<result property="oldView"	column="oldView"		jdbcType="INTEGER"/>
 	<result property="category"	column="category"		jdbcType="VARCHAR"/>
-	<result property="oldState"	column="oldState"		jdbcType="BOOLEAN"/>
+	<result property="oldState"	column="oldState"		jdbcType="TINYINT"/>
 	<result property="oldImg"	column="oldImg"			jdbcType="VARCHAR"/>
 </resultMap>
 
@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="getOldList"	parameterType="Search"	resultMap="oldSelectMap" >
 	SELECT *
 	FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-								FROM (SELECT o.oldNo, o.oldImg, o.oldTitle, o.oldPrice, o.oldDate, u.userId, oL.likeNo
+								FROM (SELECT o.oldNo, o.oldImg, o.oldTitle, o.oldPrice, o.oldDate, u.userId, oL.oldLikeNo
 										FROM old o, oldLike oL
 
 										<where> 
