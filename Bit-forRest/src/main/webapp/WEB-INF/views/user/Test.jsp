@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
- 		<a href="/user/addUser">테스트</a>
+ 		<a href="/user/addUser">테스트tt</a>
     </div>
 </body>
 
