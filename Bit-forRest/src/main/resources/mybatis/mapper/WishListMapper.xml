@@ -14,21 +14,21 @@
 		<result property="period" 			column="period" 		jdbcType="INTEGER" />
 	</resultMap>
 	
-	<!--INSERT-->
+	<!--INSERT 장바구니 추가 -->
 	<insert 	id="addWishList"		parameterType="WishList" >
 		INSERT 
 	 	INTO wishlist(wishListNo, prodNo, userId,period) 
 	 	values (#{wishListNo}, #{prodNo}, #{userId}, #{period})
 	 </insert>
 	 
-	 <!--DELETE-->
+	 <!--DELETE 장바구니 삭제 -->
 	 <delete	id="deleteWishlist"	parameterType="int" >
 	   	DELETE
 	   	FROM wishlist
 	   	WHERE wishNo = #{wishNo}
 	 </delete>
 	 
-	 <!-- SELECT LIST -->
+	 <!-- SELECT LIST 장바구니 리스트 -->
 	<select  id="getWishList"  parameterType="search"	resultMap="wishListSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
@@ -36,6 +36,17 @@
 											) inner_table 
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	 </select>
+	 
+	 <select  id="getRentalList"  parameterType="map"	resultMap="wishListSelectMap">
+	  SELECT 
+	  		*
+	 	FROM wishList
+	  					FROM		
+	  				<where>
+				 		userId = #{userId}
+	 				</where>
+	 				ORDER BY t.tranNo DESC
 	 </select>
 	 
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.service.ReportDAO"> 	
+ 	
+	<resultMap id="reportSelectMap" type="report">
+		<result property="reportNo" 				column="reportNo" 				jdbcType="INTEGER"/>
+		<result property="reportUser" 				column="reportUser" 				jdbcType="VARCHAR"/>
+		<result property="reportedUser" 				column="reportedUser" 				jdbcType="VARCHAR"/>
+		<result property="reportOldNo" 				column="reportOldNo" 				jdbcType="INTEGER"/>
+		<result property="reportChatroomNo" 				column="reportChatroomNo" 				jdbcType="INTEGER"/>
+		<result property="reportCategory" 				column="reportCategory" 				jdbcType="VARCHAR"/>
+		<result property="reportDate"	   			column="reportDate" 				jdbcType="DATE" />
+		<result property="reportChat" 			column="reportChat" 			jdbcType="VARCHAR" />
+		<result property="reportCode" 			column="reportCode" 		jdbcType="INTEGER" />
+	</resultMap>
+	
+	<!--INSERT-->
+	<insert 	id="addReport"		parameterType="report" >
+		INSERT 
+	 	INTO report(reportNo, reportUser, reportedUser,reportOldNo,reportChatroomNo,reportCategory,reportDate,reportChat,reportCode) 
+	 	values (#{reportNo}, #{reportUser}, #{reportedUser}, #{reportOldNo}, #{reportChatroomNo}, #{reportCategory}, #{reportDate}, #{reportChat}, #{reportCode})
+	 </insert>
+	 
+	 <!-- SELECT ONE -->
+	<select  id="getReport"  parameterType="int"	resultMap="reportSelectMap">
+	  	SELECT *
+	  	FROM report
+		WHERE reportNo = #{reportNo} 
+	 </select>
+
+	 
+	 
+	 <!-- SELECT LIST -->
+	<select  id="getReportList"  parameterType="search"	resultMap="reportSelectMap">
+	  	SELECT *
+	  	FROM report
+	 </select>
+
+
+	 <update	id="updateReportCode"		parameterType="report" >
+	 	UPDATE report
+		 	<set>
+		 		reportCode = #{reportCode}
+		 	</set>
+	 	WHERE oldNo = #{reportNo}
+	 </update>
+	 
+	<select  id="getReportedNo"  parameterType="string"	resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM report
+	  	WHERE reportedUser = #{userId}
+	  	Group by reportedUser
+	 </select>	 
+
+</mapper>
