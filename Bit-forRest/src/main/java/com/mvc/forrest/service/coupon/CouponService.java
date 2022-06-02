@@ -18,6 +18,7 @@ public class CouponService {
 	
 	@Autowired
 	private CouponDAO couponDao;
+	@Autowired
 	private OwnCouponDAO ownCouponDao;
 	
 	//Coupon Method

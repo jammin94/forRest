@@ -32,9 +32,13 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
 	private CouponService couponService;
+	@Autowired
 	private OldService oldService;
+	@Autowired
 	private RentalService rentalService;
+	@Autowired
 //	private OldReviewService oldReivewService;
 	
 	@Value("5")
@@ -78,7 +82,7 @@ public class UserController {
 		return null;
 	}
 	
-	@GetMapping("addUser")
+//	@GetMapping("addUser")
 	public String addUser() throws Exception{
 		
 		System.out.println("/user/addUser : GET");
@@ -86,7 +90,7 @@ public class UserController {
 		return "user/Test";
 	}
 	
-	@PostMapping("addUser")
+	@RequestMapping("addUser")
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
 		System.out.println("/user/addUser : POST");
@@ -104,7 +108,7 @@ public class UserController {
 		userService.addUser(user);
 		System.out.println("Test add");
 		
-		return null;
+		return "user/Test";
 	}
 	
 	@GetMapping("findId")
