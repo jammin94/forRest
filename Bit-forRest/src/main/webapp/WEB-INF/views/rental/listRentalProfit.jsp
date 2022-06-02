@@ -159,9 +159,54 @@ body{
 
 <body>
    <div class="container">
-<p>
-  대여수익확인페이지
-</p>
+  <!--  table Start /////////////////////////////////////-->
+	  
+	  	
+      <table class="table table-hover table-striped" >
+      
+        <thead>
+          <tr class="tableheader">
+            <th align="center">No</th>
+            <th align="left">상품명</th>
+            <th align="left">상세정보</th>
+            <th align="left">가격</th>
+            <th align="left">제조일자</th>
+            <!-- 
+            <th align="left">배송관리</th>
+             -->
+          </tr>
+        </thead>
+       
+		<tbody>
+		
+		 <%--  <c:set var="i" value="0" />
+		  <c:forEach var="product" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr class="tablebody">
+			  <td align="center">${ i }</td>
+			  
+				<c:choose> 
+								
+						<td align="center"></td>					  								
+				
+					<c:otherwise>																						 																																																																			  
+			       	    <td align="center"></td>  																																																			
+					</c:otherwise> 
+				</c:choose>
+
+			  <td align="left">상품설</td>
+			  <td align="center">가격</td>
+			  <td align="center">테스트</td>
+	
+			</tr>
+          </c:forEach> --%>
+        
+        </tbody>
+            
+    
+      </table>
+  
+	  <!--  table End /////////////////////////////////////-->
 
 </div>
 </body>

@@ -31,14 +31,6 @@
 	 	values (#{reviewDetail},#{reviewImg},#{reviewScore},#{prodNo},#{userId},curdate())
 	 </insert>
 	 
-	 <!-- SELECT -->
-	 <select 	id="getRentalReview"	parameterType="int"	resultMap="rentalReviewSelectMap">
-		SELECT 
-			*
-		FROM rentalReview
-		WHERE reviewNo = #{reviewNo}
-	 </select>
-	 
 	 <!-- UPDATE -->
 	 <update	id="updateRentalReview"	parameterType="RentalReview" >
 	   	update rentalReview

@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,13 +35,13 @@ public class RentalReviewController {
 		public RentalReviewService rentalReviewService;
 		
 		//리뷰등록하기 view 화면 (네비게이션용)
-		@RequestMapping( value="addRentalReviewView", method=RequestMethod.GET )
+		@GetMapping("addRentalReview")
 		public String addRentalReviewView() throws Exception {
 			 return "rentalReview/addRentalReview";
 		}
 		
 		//리뷰등록하기 기능구현
-		@RequestMapping( value="addRentalReview", method=RequestMethod.POST )
+		@PostMapping("addRentalReview")
 		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
 			rentalReview.setReviewImg("텐트.jpg");
@@ -52,4 +54,45 @@ public class RentalReviewController {
 			
 			 return null;
 		}
+		
+		//리뷰 리스트 출력
+		@GetMapping("listReview")
+		public String listReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
+		@PostMapping("listReview")
+		public String listReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
+		//리뷰 수정 ( 업데이트 )
+		@GetMapping("updateReview")
+		public String updateReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
+		@PostMapping("updateReview")
+		public String updateReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
+		
+		// 리뷰 삭제 
+		@GetMapping("deleteReview")
+		public String deleteReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
+		@PostMapping("deleteReview")
+		public String deleteReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		
+			 return null;
+		}
+		
 }

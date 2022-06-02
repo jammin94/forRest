@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Rental;
@@ -48,15 +51,15 @@ public class RentalController {
 	
 	
 	//------------대여물품add  view 화면 (네비게이션용) ------------//
-	@RequestMapping( value="addRentalView", method=RequestMethod.GET )
-	public String addRentalView(@ModelAttribute("product") Product product, @ModelAttribute("user") User user, @RequestParam("tranNo") int tranNo, Model model ) throws Exception {
+	@GetMapping("addRental")
+	public String addRentalView(@ModelAttribute("product") Product product, @ModelAttribute("user") User user, Model model ) throws Exception {
 		
 		//0. RequestParam("tranNo") 는 i'm port 때문에 미리 받아야함 ( 아직 결정안남 )
 		
 		//0-1. couponService.getCouponList(user.getUserId());	쿠폰리스트 (대기)
 		
 		//1. 해당 product return 되었음
-		productService.getProduct(product.getProdNo());		
+		//productService.getProduct(product.getProdNo());		
 		//2. 해당 user return 되었음
 		//userService.getUser(user.getUserId());
 		
@@ -64,11 +67,11 @@ public class RentalController {
 		model.addAttribute("product",product);
 		model.addAttribute("user",user);
 		
-		 return "rental/addRentalView";
+		 return "rentalReview/addRentalReview";
 	}
 	
 	//------------대여물품add 기능구현------------//
-	@RequestMapping( value="addRental", method=RequestMethod.POST )
+	@PostMapping("addRental")
 	public String addRental(@ModelAttribute("rental") Rental rental, Model model ) throws Exception {
 		
 		Product product = null;
@@ -88,5 +91,56 @@ public class RentalController {
 		//3. getRental.jsp 에서 model들 다 뽑아쓰면됨
 		 return "rental/getRental";
 	}
+	
+	
+	//------------결제완료 상세 화면------------//
+	@GetMapping("getRental")
+	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
+	
+		 return "rental/getRental";
+	}
+	
+	
+	//------------대여물품리스트 화면------------//
+	@GetMapping("listRental")
+	public String listProductView( ) throws Exception{
+		
+		return null;
+	}
+	
+	@PostMapping("listRental")
+	public String listProduct( ) throws Exception{
+		
+		return null;
+	}
+	
+	//------------대여물품리스트 관리자 화면------------//
+	@GetMapping("listRentalMng")
+	public String listRentalMngView( ) throws Exception{
+		
+		return null;
+	}
+	
+	@PostMapping("listRentalMng")
+	public String listRentalMng( ) throws Exception{
+		
+		return null;
+	}
+	
+	//------------대여 수익 확인------------//
+	@GetMapping("listRentalProfit")
+	public String listRentalProfitView( ) throws Exception{
+		
+		return null;
+	}
+	
+	@PostMapping("listRentalProfit")
+	public String listRentalProfit( ) throws Exception{
+		
+		return null;
+	}
+	
+	
+	
 	
 }
