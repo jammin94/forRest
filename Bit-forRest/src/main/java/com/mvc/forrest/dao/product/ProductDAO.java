@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.mvc.forrest.common.Search;
+
 import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.domain.Search;
 
 
-@Repository
+
 @Mapper
 public interface ProductDAO {
 		

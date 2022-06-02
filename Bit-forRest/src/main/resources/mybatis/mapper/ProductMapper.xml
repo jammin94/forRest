@@ -10,10 +10,10 @@
 	<resultMap id="productSelectMap" type="product">
 		<result property="prodNo" 				column="prodNo" 				jdbcType="INTEGER"/>
 		<result property="width"	   			column="width" 				jdbcType="INTEGER" />
-		<result property="length" 			column="LENGTH " 			jdbcType="INTEGER" />
+		<result property="length" 			column="LENGTH" 			jdbcType="INTEGER" />
 		<result property="height" 			column="height" 		jdbcType="INTEGER" />
 		<result property="userId" 				column="userId" 					jdbcType="VARCHAR" />
-		<result property="prodCondition" 			column="prodCondition" 			jdbcType="INTEGER" />
+		<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
 		<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER" />
 		<result property="prodName" 			column="prodName" 				jdbcType="VARCHAR"  />
 		<result property="prodDetail" 				column="prodDetail" 				jdbcType="VARCHAR"  />
@@ -32,8 +32,8 @@
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
 	 	INTO product(width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
-	 						 isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg, recentImg)
-	 	values (#{width}, #{LENGTH}, #{height}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
+	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, deposit, category, returnAddress, prodImg, recentImg)
+	 	values (#{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
 	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{returnAddress}, #{prodImg}, #{recentImg})
 	 </insert>
 	  
@@ -126,19 +126,20 @@
 	  	FROM product
 	  	
 	  	<where>
+	  		isRental = 1 and prodCondition = '보관중'
 	  		<!-- 검색어와 카테고리를 모두입력한 경우 -->
 	  		<if test="searchKeyword != null and searchCategory != null">
-					 prodName LIKE CONCAT('%',#{searchKeyword},'%') and category LIKE #{searchCategory}
+					 and prodName LIKE CONCAT('%',#{searchKeyword},'%') and category LIKE #{searchCategory}
 	     	</if>
 	  	
 	  		<!-- 검색어만 입력한경우 -->
 	  		<if test="searchKeyword != null and searchCategory == null">
-					prodName LIKE CONCAT('%',#{searchKeyword},'%')
+					and prodName LIKE CONCAT('%',#{searchKeyword},'%')
 	  	    </if>
 	  	
 	  		<!-- 카테고리만 입력한경우 -->
 	  		<if test="searchKeyword == null and searchCategory != null">
-						category LIKE #{searchCategory}
+					and	category LIKE #{searchCategory}
 	  		</if>
 	  	</where>
 	  	

@@ -1,4 +1,4 @@
-package com.mvc.forrest.controller.product;
+package com.mvc.forrest.controller.storage;
 
 import java.util.Map;
 
@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mvc.forrest.service.domain.Product;
-import com.mvc.forrest.service.product.ProductService;
+import com.mvc.forrest.service.storage.StorageService;
 
 
 
 
 
 @Controller
-@RequestMapping("/product/*")
-public class ProductController {
+@RequestMapping("/storage/*")
+public class StorageController {
 	
 	@Autowired
-	public ProductService productService;
+	public StorageService storageService ;
 	
 	//@GetMapping("/addProductTest")
 	public String addProductTest() {
@@ -36,22 +35,7 @@ public class ProductController {
 	}
 	
 	//@RequestMapping("addProduct")
-	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
-		
-		product.setWidth(2);
-		product.setLength(2);
-		product.setHeight(2);
-		product.setUserId("user05@naver.com");
-		product.setProdName("test");
-		product.setProdQuantity(1);
-		product.setProdDetail("굳~~");
-		product.setCategory("텐트");
-		product.setReturnAddress("TEST");
-		product.setProdImg("tq.jpg");
-		
-		productService.addProduct(product);
-		
-		System.out.println("addProduct:" + product);
+	public String addProduct() throws Exception {
 		
 		return null;
 	}
