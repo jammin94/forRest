@@ -28,6 +28,8 @@ public class Rental {
 	private int originPrice;
 	private double discount;
 	private int resultPrice;
+	private Product purchaseProd;
+	private User buyer;
 
 	
 	public Rental(){
