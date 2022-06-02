@@ -24,19 +24,19 @@ import com.mvc.forrest.service.product.ProductService;
 
 
 
-@Controller
-@RequestMapping("/product/*")
+//@Controller
+//@RequestMapping("/product/*")
 public class ProductTestController {
 	
-	@Autowired
+	//@Autowired
 	public ProductService productService;
 	
-	@GetMapping("/addProductTest")
+	//@GetMapping("/addProductTest")
 	public String addProductTest() {
 		return "storage/addStorage";
 	}
 	
-	@RequestMapping("addProduct")
+	//@RequestMapping("addProduct")
 	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
 		
 		product.setWidth(2);
@@ -57,12 +57,12 @@ public class ProductTestController {
 		return null;
 	}
 	
-	@GetMapping("/getProductTest")
+	//@GetMapping("/getProductTest")
 	public String getProductTest() {
 		return "product/getProduct";
 	}
 	
-	@RequestMapping("getProduct")
+	//@RequestMapping("getProduct")
 	public String getProduct(@ModelAttribute("product") Product product) throws Exception{
 		
 		product =productService.getProduct(1);
@@ -71,12 +71,12 @@ public class ProductTestController {
 		return null;
 	}
 	
-	@GetMapping("/updateProductTest")
+	//@GetMapping("/updateProductTest")
 	public String updateProductTest() {
 		return "product/updateProduct";
 	}
 	
-	@RequestMapping("updateProduct")
+	//@RequestMapping("updateProduct")
 	public String updateProduct(@ModelAttribute("product") Product product) throws Exception{
 		
 		product =productService.getProduct(3);
@@ -89,12 +89,12 @@ public class ProductTestController {
 		return null;
 	}
 	
-	@GetMapping("/getProductListTest")
+	//@GetMapping("/getProductListTest")
 	public String getProductListTest() {
 		return "product/listProduct";
 	}
 	
-	@RequestMapping("getProductList")
+	//@RequestMapping("getProductList")
 	public String getProductList() throws Exception{
 		
 		Search search = new Search();
