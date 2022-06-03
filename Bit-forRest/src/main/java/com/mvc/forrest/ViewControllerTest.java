@@ -51,10 +51,6 @@ public class ViewControllerTest {
 		return "main/index";
 	}
 	
-	@GetMapping("/rental/rentalProfit")
-	public String listRental() {
-		return "rental/listRentalProfit";
-	}
 	
 	@GetMapping("/toolbar/toolbar")
 	public String toolbarView() {
