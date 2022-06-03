@@ -2,62 +2,102 @@ package com.mvc.forrest;
 
 
 import org.junit.Assert;
-import org.junit.runner.RunWith;
+import org.junit.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
 
 
+//@RunWith(SpringJUnit4ClassRunner.class)
 
 
-/*
- *	FileName :  UserServiceTest.java
- * ㅇ JUnit4 (Test Framework) 과 Spring Framework 통합 Test( Unit Test)
- * ㅇ Spring 은 JUnit 4를 위한 지원 클래스를 통해 스프링 기반 통합 테스트 코드를 작성 할 수 있다.
- * ㅇ @RunWith : Meta-data 를 통한 wiring(생성,DI) 할 객체 구현체 지정
- * ㅇ @ContextConfiguration : Meta-data location 지정
- * ㅇ @Test : 테스트 실행 소스 지정
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-
-//==> Meta-Data 를 다양하게 Wiring 하자...
-//@ContextConfiguration(locations = { "classpath:config/context-*.xml" })
-@ContextConfiguration	(locations = {	"classpath:config/context-common.xml",
-																	"classpath:config/context-aspect.xml",
-																	"classpath:config/context-mybatis.xml",
-																	"classpath:config/context-transaction.xml" })
-//@ContextConfiguration(locations = { "classpath:config/context-common.xml" })
+@SpringBootTest 
 public class UserServiceTest {
 
-	//==>@RunWith,@ContextConfiguration 이용 Wiring, Test 할 instance DI
 	@Autowired
-	@Qualifier("userServiceImpl")
 	private UserService userService;
-
-	//@Test
+	
+//	@Test
 	public void testAddUser() throws Exception {
 		
 		User user = new User();
 		user.setUserId("testUserId");
 		user.setUserName("testUserName");
 		user.setPassword("testPasswd");
+		user.setNickname("testNickname");
+		user.setPhone("testPhone");
+		user.setUserAddr("testAddr");
+		user.setJoinPath("testPath");
+		user.setUserRate(4);
 		
+//		userService.addUser(user);
+//		user = userService.getUser("testUserId");
+
 		userService.addUser(user);
+		userService.getUser("admin");
 		
-		user = userService.getUser("testUserId");
+		
+		user = userService.getUser("admin");
 
 		//==> console 확인
-		//System.out.println(user);
+		System.out.println(user);
 		
 		//==> API 확인
 		Assert.assertEquals("testUserId", user.getUserId());
 		Assert.assertEquals("testUserName", user.getUserName());
 		Assert.assertEquals("testPasswd", user.getPassword());
-		Assert.assertEquals("111-2222-3333", user.getPhone());
+		Assert.assertEquals("testPhone", user.getPhone());
+		Assert.assertEquals("testNickname", user.getNickname());
+		Assert.assertEquals("testAddr", user.getUserAddr());
+		Assert.assertEquals("testPath", user.getJoinPath());
+		Assert.assertEquals(4, 4, user.getUserRate());
+		
+
+		
+	}
+	
+	
+	@org.junit.jupiter.api.Test
+	public void testUpdateUser() throws Exception{
+		
+		//테스트 아이디가 있는지 확인
+		User user = userService.getUser("testUserId");
+		Assert.assertNotNull(user);
+		
+		//기존정보가 맞는지 확인
+		Assert.assertEquals("testUserId", user.getUserId());
+		Assert.assertEquals("testUserName", user.getUserName());
+		Assert.assertEquals("testPasswd", user.getPassword());
+		Assert.assertEquals("testPhone", user.getPhone());
+		Assert.assertEquals("testNickname", user.getNickname());
+		Assert.assertEquals("testAddr", user.getUserAddr());
+		Assert.assertEquals("testPath", user.getJoinPath());
+		Assert.assertEquals(4, 4, user.getUserRate());
+		
+		//새로운 데이터 입력
+		user.setNickname("newNickname");
+		user.setUserAddr("newUserAddr");
+		user.setPhone("newPhone");
+		user.setUserImg("newImg");
+		
+		//업데이트
+		userService.updateUser(user);
+		
+		//업데이트 내용 확인
+		user = userService.getUser("testUserId");
+		Assert.assertEquals("newNickname", user.getNickname());
+		Assert.assertEquals("newUserAddr", user.getUserAddr());
+		Assert.assertEquals("newPhone", user.getPhone());
+		Assert.assertEquals("newImg", user.getUserImg());
+
+		
+		assertEquals("admin", user.getUserId());
+
 	}
 	
 
