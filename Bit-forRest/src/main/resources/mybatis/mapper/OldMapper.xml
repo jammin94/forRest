@@ -25,8 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- SQL : INSERT  -->
 <insert		id="addOld"		parameterType="Old">
 	INSERT
-	INTO OLD(oldNo, userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState, oldImg)
-	values (NULL, #{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg})
+	INTO OLD(userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState, oldImg)
+	values (#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg})
 </insert>
 
  <!-- SQL : DELETE -->
@@ -38,20 +38,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- SQL : SELECT ONE -->
 <select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
-	SELECT old.*, oldLike.oldLikeNo
-	FROM forrest.old INNER JOIN forrest.oldLike ON old.oldNo=oldLike.oldNo
-	
+	SELECT old.*
+	FROM old
+	WHERE oldNo = #{oldNo}
 	 </select>
 
  <!-- SQL : UPDATE -->
- <update	id="updateOld"		parameterType="Old" >
+ <update	id="updateOld"		parameterType="old" >
  	update OLD
  	<set>
  		oldPrice = #{oldPrice},
  		oldTitle = #{oldTitle},
  		oldDetail = #{oldDetail},
  		category = #{category},
- 		oldState = #{oldState}
+ 		oldState = #{oldState},
  		oldImg	=#{oldImg}
 
  	</set>
@@ -64,34 +64,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- SQL : SELECT LIST -->
 <select id="getOldList"	parameterType="Search"	resultMap="oldSelectMap" >
-	SELECT *
-	FROM ( SELECT inner_table.* , ROWNUM AS row_seq
-								FROM (SELECT o.oldNo, o.oldImg, o.oldTitle, o.oldPrice, o.oldDate, u.userId, oL.oldLikeNo
-										FROM old o, oldLike oL
-
-										<where> 
-
-										<if test="searchKeyword != null">
-											oldTitle LIKE CONCAT('%',#searchKeyword#,'%')
-										</if>
+	SELECT * FROM old
+		<where> 
+		
+		<if test="searchKeyword != null and searchCategory = null">
+		oldTitle LIKE CONCAT('%',#{searchKeyword}#,'%')
+		</if>
 										
-										<if test="searchKeyword =null and searchCategory !=null">
-											category LIKE CONCAT('%',#searchCategory#,'%')
-										</if>
+		<if test="searchKeyword =null and searchCategory !=null">
+		category LIKE CONCAT('%',#{searchCategory}#,'%')
+		</if>
 
-										</where>
-										ORDER BY o.oldDate DESC) inner_table
-							WHERE ROWNUM &lt;= #{endRowNum} )
-
-	WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+		</where>
+		order by oldDate DESC
 
 </select>
 
-<select id="getTotalCount"	parameterType="Search"	resultType="int">
+<!-- <select id="getTotalCount"	parameterType="Search"	resultType="int"> 
 SELECT *
 FROM old
 
-</select>
+</select>-->
 
 
 
