@@ -22,8 +22,8 @@ public class UserServiceTest {
 	@Autowired
 	private UserService userService;
 	
-	@Test
-	public void testGetUser() throws Exception {
+//	@Test
+	public void testAddUser() throws Exception {
 		
 		User user = new User();
 		user.setUserId("testUserId");
