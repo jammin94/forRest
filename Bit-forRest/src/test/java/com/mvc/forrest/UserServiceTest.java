@@ -1,18 +1,12 @@
 package com.mvc.forrest;
 
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.User;
-import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -51,36 +45,35 @@ public class UserServiceTest {
 		System.out.println(user);
 		
 		//==> API 확인
-		Assert.assertEquals("testUserId", user.getUserId());
-		Assert.assertEquals("testUserName", user.getUserName());
-		Assert.assertEquals("testPasswd", user.getPassword());
-		Assert.assertEquals("testPhone", user.getPhone());
-		Assert.assertEquals("testNickname", user.getNickname());
-		Assert.assertEquals("testAddr", user.getUserAddr());
-		Assert.assertEquals("testPath", user.getJoinPath());
-		Assert.assertEquals(4, 4, user.getUserRate());
+		assertEquals("testUserId", user.getUserId());
+		assertEquals("testUserName", user.getUserName());
+		assertEquals("testPasswd", user.getPassword());
+		assertEquals("testPhone", user.getPhone());
+		assertEquals("testNickname", user.getNickname());
+		assertEquals("testAddr", user.getUserAddr());
+		assertEquals("testPath", user.getJoinPath());
+		assertEquals(4, 4, user.getUserRate());
 		
 
 		
 	}
 	
 	
-	//@org.junit.jupiter.api.Test
+	//@Test
 	public void testUpdateUser() throws Exception{
 		
 		//테스트 아이디가 있는지 확인
 		User user = userService.getUser("testUserId");
-		Assert.assertNotNull(user);
 		
 		//기존정보가 맞는지 확인
-		Assert.assertEquals("testUserId", user.getUserId());
-		Assert.assertEquals("testUserName", user.getUserName());
-		Assert.assertEquals("testPasswd", user.getPassword());
-		Assert.assertEquals("testPhone", user.getPhone());
-		Assert.assertEquals("testNickname", user.getNickname());
-		Assert.assertEquals("testAddr", user.getUserAddr());
-		Assert.assertEquals("testPath", user.getJoinPath());
-		Assert.assertEquals(4, 4, user.getUserRate());
+		 assertEquals("testUserId", user.getUserId());
+		 assertEquals("testUserName", user.getUserName());
+		 assertEquals("testPasswd", user.getPassword());
+		 assertEquals("testPhone", user.getPhone());
+		 assertEquals("testNickname", user.getNickname());
+		 assertEquals("testAddr", user.getUserAddr());
+		 assertEquals("testPath", user.getJoinPath());
+		 assertEquals(4, 4, user.getUserRate());
 		
 		//새로운 데이터 입력
 		user.setNickname("newNickname");
@@ -93,10 +86,10 @@ public class UserServiceTest {
 		
 		//업데이트 내용 확인
 		user = userService.getUser("testUserId");
-		Assert.assertEquals("newNickname", user.getNickname());
-		Assert.assertEquals("newUserAddr", user.getUserAddr());
-		Assert.assertEquals("newPhone", user.getPhone());
-		Assert.assertEquals("newImg", user.getUserImg());
+		 assertEquals("newNickname", user.getNickname());
+		 assertEquals("newUserAddr", user.getUserAddr());
+		 assertEquals("newPhone", user.getPhone());
+		 assertEquals("newImg", user.getUserImg());
 
 		
 		assertEquals("admin", user.getUserId());

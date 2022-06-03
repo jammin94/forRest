@@ -164,7 +164,7 @@ public class UserController {
 
 		System.out.println("/user/findId : POST");
 		
-		User user = new User();
+		
 		
 		
 		return "user/findId";
