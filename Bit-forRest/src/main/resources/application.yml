@@ -2,6 +2,8 @@
 
 server:
   port: 8080
+  tomcat:
+   additional-tld-skip-patterns: "*.jar"
   servlet:
     context-path: /
     encoding:
@@ -45,5 +47,7 @@ spring:
       name: test
       password: 1234   
 
+fcm:
+  certification: bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json
 file:
   path: C:/workspace/springbootwork/upload/

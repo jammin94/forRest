@@ -38,7 +38,7 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
 	 
-	 <select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
+	 <select  id="getRentalList"  parameterType="map"	resultMap="wishListSelectMap">
 	  SELECT 
 	  		*
 	 	FROM wishList

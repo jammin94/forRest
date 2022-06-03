@@ -4,7 +4,7 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mvc.forrest.dao.user.UserDao">
+<mapper namespace="com.mvc.forrest.dao.user.UserDAO">
  	
 	<resultMap id="userSelectMap" type="user">
 		<result property="userId"			column="userId"			jdbcType="VARCHAR"/>

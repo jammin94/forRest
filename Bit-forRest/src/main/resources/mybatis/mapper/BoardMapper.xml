@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="BoardMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.board.BoardDAO"> 	
+ 	
+	<resultMap id="boardSelectMap" 			type="board">
+		<result property="boardNo" 				column="boardNo" 				jdbcType="INTEGER"/>
+		<result property="boardTitle"	   			column="boardTitle" 				jdbcType="VARCHAR" />
+		<result property="boardDetail"	   		column="boardDetail"		 		jdbcType="VARCHAR" />
+		<result property="boardDate"	   		column="boardDate" 				jdbcType="TIMESTAMP" />
+		<result property="boardPin" 				column="boardPin" 				jdbcType="INTEGER"/>
+		<result property="boardFlag"	   			column="boardFlag" 				jdbcType="VARCHAR" />
+		<result property="category"	   			column="category" 				jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addBoard"		parameterType="board" >
+		INSERT 
+	 	INTO board(boardTitle, boardDetail, boardDate, boardFlag, category) 
+	 	values (#{boardTitle}, #{boardDetail}, CURRENT_TIMESTAMP, #{boardFlag}, category)
+	 </insert>
+
+	<!-- SQL : SELECT LIST -->
+	<select  id="getListBoard"  parameterType="map"	resultMap="boardSelectMap">
+		SELECT * FROM board 
+		<where>
+			<if test="board.boardFlag=='A'">
+				boardFlag='A' 
+				<if test="search.searchCondition != null">
+					<if test="search.searchCondition=='title' and search.searchKeyword != ''">
+						AND boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
+					</if>
+					<if test="search.searchCondition=='detail' and search.searchKeyword != ''">
+						AND boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
+					</if>
+				</if>
+			</if>
+			<if test="board.boardFlag=='F'">
+				boardFlag='F' 
+			</if>
+		</where>
+			<if test="board.boardFlag=='A'">
+				<if test="search.orderCondition==null">
+					ORDER BY boardPin DESC, boardDate DESC
+				</if>
+				<if test="search.orderCondition!=null">
+					<if test="search.orderCondition=='ASC'">
+						ORDER BY boardPin DESC, boardDate ASC
+					</if>
+					<if test="search.orderCondition=='DESC'">
+						ORDER BY boardPin DESC, boardDate DESC
+					</if>
+				</if>
+			</if>
+			<if test="board.boardFlag=='F'">
+				ORDER BY category
+			</if>
+	 </select>
+	 
+	 <!-- SQL: UPDATE -->
+	 <update 	id="updateBoard"		parameterType="board" >
+		UPDATE board 
+		<set>
+			boardTitle = #{boardTitle}, boardDetail = #{boardDetail}, category = #{category} 
+		</set>
+		<where>
+			boardNo = #{boardNo}
+		</where>
+	 </update>
+	 
+	 <!-- SQL : DELETE -->
+	 <delete id="deleteBoard"	 parameterType="int">
+		DELETE 
+		FROM board 
+		<where>
+			boardNo =  #{value}
+		</where>
+	 </delete>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select  id="getBoard"  parameterType="int"	resultMap="boardSelectMap">
+		SELECT * 
+		FROM board 
+		<where>
+			boardNo = #{value}
+		</where>
+	 </select>
+	 
+	 <!-- SQL: UPDATE -->
+	 <update 	id="updateFixBoard"		parameterType="board" >
+		UPDATE board 
+		<set>
+			<if test="boardPin==0">
+				boardPin = 1 
+			</if>
+			<if test="boardPin==1">
+				boardPin = 0 
+			</if>
+		</set>
+		<where>
+			boardNo = #{boardNo}
+		</where>
+	 </update>
+
+	 
+</mapper>

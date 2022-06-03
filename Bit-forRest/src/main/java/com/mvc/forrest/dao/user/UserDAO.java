@@ -5,16 +5,16 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.mvc.forrest.common.Search;
+import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 
 @Repository
 @Mapper
-public interface UserDao {
+public interface UserDAO {
 
 	public void addUser(User user) throws Exception;
 	
-	public String getUser(String userId) throws Exception ;
+	public User getUser(String userId) throws Exception ;
 	
 	public void updateUser(User user) throws Exception ;
 	
@@ -22,7 +22,7 @@ public interface UserDao {
 	
 	public void restrictUser(User user) throws Exception ;
 	
-	public List<User> getUserList(String userId) throws Exception ;
+	public List<User> getUserList(Search search) throws Exception ;
 	
 	public int getTotalCount(Search search) throws Exception ;
 	

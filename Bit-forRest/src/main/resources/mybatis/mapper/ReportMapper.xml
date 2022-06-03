@@ -50,7 +50,7 @@
 	 	WHERE oldNo = #{reportNo}
 	 </update>
 	 
-	<select  id="getReportedNo"  parameterType="string"	resultMap="int">
+	<select  id="getReportedNo"  parameterType="string"	resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM report
 	  	WHERE reportedUser = #{userId}

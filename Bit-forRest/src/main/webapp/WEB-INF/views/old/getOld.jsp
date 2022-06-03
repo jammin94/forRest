@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
- 		<a href="/oldLike/addOldLike">중고거래 게시물 상세보기 </a>
+ 		<a href="/old/getOld">중고거래 게시물 상세보기 </a>
     </div>
 </body>
 
