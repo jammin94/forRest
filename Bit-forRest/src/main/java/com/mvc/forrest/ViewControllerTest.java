@@ -45,4 +45,9 @@ public class ViewControllerTest {
 	public String updatePage() {
 		return "user/update";
 	}
+	
+	@GetMapping("/")
+	public String indexpage() {
+		return "main/index";
+	}
 }
