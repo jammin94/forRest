@@ -23,19 +23,19 @@ import com.mvc.forrest.service.storage.StorageService;
 
 
 
-//@Controller
-//@RequestMapping("/storage/*")
+@Controller
+@RequestMapping("/storage/*")
 public class StorageTestController {
 	
-	//@Autowired
+	@Autowired
 	public StorageService storageService ;
 	
-	//@GetMapping("/addStorageTest")
+	@GetMapping("/addStorageTest")
 	public String addStorageTest() {
 		return "storage/addStorage";
 	}
 	
-	//@RequestMapping("addStorage")
+	@RequestMapping("addStorage")
 	public String addStorage(@ModelAttribute("storage") Storage storage) throws Exception {
 		
 		storage.setTranNo(5);
@@ -51,7 +51,7 @@ public class StorageTestController {
 		storage.setProdName("test");
 		storage.setProdImg("13.jpg");
 		storage.setOriginPrice(5000);
-		storage.setDiscount(0.2);
+		storage.setDiscountPrice(100);
 		storage.setResultPrice(4000);
 		
 		storageService.addStorage(storage);
@@ -60,16 +60,43 @@ public class StorageTestController {
 		return null;
 	}
 	
-	//@GetMapping("/getStorageTest")
+	@GetMapping("/getStorageTest")
 	public String getStorageTest() {
 		return "storage/getStorage";
 	}
 	
-	//@RequestMapping("getStorage")
+	@RequestMapping("getStorage")
 	public String getStorage(@ModelAttribute("storage") Storage storage) throws Exception {
 		
 	System.out.println("getStorageTest"+storageService.getStorage(3));	
 		
 		return null;
 	}
+	
+	@GetMapping("/storage/updateStorageTest")
+	public String updateStorageTest() {
+		return "storage/extendStorage";
+	}
+	
+	@RequestMapping("updateStorage")
+	public String updateStorage(@ModelAttribute("storage") Storage storage) throws Exception {
+		
+		System.out.println("updateStorageTest");
+		storage = storageService.getStorage(1);
+		
+		storage.setPeriod(30);
+		storage.setPaymentNo("imp-test");
+		storage.setPaymentWay("test");
+		storage.setOriginPrice(5000);
+		storage.setDiscountPrice(1000);
+		storage.setResultPrice(4000);
+		
+		storageService.updateStorage(storage);
+		
+		System.out.println(storage);
+		
+		return null;
+	}
+	
+	
 }

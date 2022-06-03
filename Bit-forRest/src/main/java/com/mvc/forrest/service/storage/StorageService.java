@@ -25,12 +25,18 @@ public class StorageService {
 			return storageDAO.getStorage(tranNo);
 		}
 		
+		//기간연장시 변경되는정보 업데이트
+		public void updateStorage(Storage storage) throws Exception{
+			storageDAO.updateStorage(storage);
+		}
 		
 		//controller에서 map에 search와 userId담아서 맵으로 보내기
 		public Map<String, Object> getStorageList(Map<String,Object> map) throws Exception{
 			
 			List<Storage> list = storageDAO.getStorageList(map);
-			//int totalCount = storageDAO.getTotalCount(map.get("search"));
+			int totalCount = storageDAO.getTotalCount((Search) map.get("search"));
+			map.put("list", list);
+			map.put("totalCount", totalCount);
 			
 			return map;
 		}
