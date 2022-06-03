@@ -91,12 +91,12 @@ public class OldServiceTest {
 		
 	}
 	
-	@Test
-	public void testaddOld() throws Exception{
+	//@Test
+	public void testAddOld() throws Exception{
 		System.out.println("등록");
 		Old old = new Old();
 		
-		old.setUserId("user09@naver.com");
+		old.setUserId("user01@naver.com");
 		old.setOldPrice(999);
 		old.setOldTitle("구구");
 		old.setOldDetail("디");
@@ -109,7 +109,7 @@ public class OldServiceTest {
 		oldService.addOld(old);
 		
 		
-		assertEquals("user09@naver.com", old.getUserId());
+		assertEquals("user01@naver.com", old.getUserId());
 		assertEquals(999, old.getOldPrice());
 		assertEquals("구구", old.getOldTitle());
 		assertEquals("디", old.getOldDetail());
@@ -127,16 +127,18 @@ public class OldServiceTest {
 	//@Test
 	public void deleteOld() throws Exception{
 		Old old = new Old();
-		old.setOldNo(11);
-		assertEquals(11, old.getOldNo());
+		old.setOldNo(10);
+		oldService.deleteOld(10);
+		assertEquals(10, old.getOldNo());
 	}
 	
-	//@Test
+	@Test
 	public void getOld() throws Exception{
 		System.out.println("겟");
 		Old old = new Old();
-		old.setOldNo(11);
-		assertEquals(11, old.getOldNo());
+		old.setOldNo(9);
+		oldService.getOld(9);
+		assertEquals(9, old.getOldNo());
 	}
 
 	
