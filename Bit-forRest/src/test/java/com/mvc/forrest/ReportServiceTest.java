@@ -2,11 +2,12 @@ package com.mvc.forrest;
 
 
 
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 
 import com.mvc.forrest.service.domain.Report;
 import com.mvc.forrest.service.report.ReportService;
@@ -28,10 +29,7 @@ public class ReportServiceTest {
 		reportService.getReport(1);
 		Report report = reportService.getReport(1);
 		
-		Assert.assertEquals("admin",report.getReportUser());
-		
-
-		
+		assertEquals("admin",report.getReportUser());
 	}
 	
 }

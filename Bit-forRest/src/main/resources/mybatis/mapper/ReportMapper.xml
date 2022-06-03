@@ -5,7 +5,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
-<mapper namespace="com.mvc.forrest.service.ReportDAO"> 	
+<mapper namespace="com.mvc.forrest.dao.report.ReportDAO"> 	
  	
 	<resultMap id="reportSelectMap" type="report">
 		<result property="reportNo" 				column="reportNo" 				jdbcType="INTEGER"/>
