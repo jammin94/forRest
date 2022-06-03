@@ -73,7 +73,7 @@ public class StorageTestController {
 		return null;
 	}
 	
-	@GetMapping("/storage/")
+	@GetMapping("/storage/updateStorageTest")
 	public String updateStorageTest() {
 		return "storage/extendStorage";
 	}

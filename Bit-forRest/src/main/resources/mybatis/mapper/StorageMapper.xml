@@ -51,7 +51,7 @@
 	   	update transaction
 	   	<set>
 	 	endDate = date_add(endDate, INTERVAL #{period} day),
-	 	period = date_add(period, INTERVAL #{period} day),
+	 	period = period + #{period},
 	 	paymentNo = #{paymentNo},
 	 	paymentDate = current_timestamp(),
 	 	paymentWay = #{paymentWay}, 
