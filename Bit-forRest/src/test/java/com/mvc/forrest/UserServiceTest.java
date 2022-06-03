@@ -3,25 +3,27 @@ package com.mvc.forrest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
 
 
 //@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+
+
+@SpringBootTest 
 public class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
 	
-	//@Test	
-//	@org.junit.jupiter.api.Test
-	public void testAddUser() throws Exception {
+	@Test
+	public void testGetUser() throws Exception {
 		
 		User user = new User();
 		user.setUserId("testUserId");
@@ -37,8 +39,11 @@ public class UserServiceTest {
 //		user = userService.getUser("testUserId");
 
 		userService.addUser(user);
+		userService.getUser("admin");
 		
 		
+		user = userService.getUser("admin");
+
 		//==> console 확인
 		System.out.println(user);
 		
@@ -56,16 +61,6 @@ public class UserServiceTest {
 		
 	}
 	
-//	@org.junit.jupiter.api.Test
-	public void testGetUser() throws Exception{
-
-		User user = new User();
-		user = userService.getUser("admin");
-		System.out.println(user);
-
-		Assert.assertEquals("admin", user.getUserId());
-		
-	}
 	
 	@org.junit.jupiter.api.Test
 	public void testUpdateUser() throws Exception{
@@ -101,6 +96,8 @@ public class UserServiceTest {
 		Assert.assertEquals("newImg", user.getUserImg());
 
 		
+		assertEquals("admin", user.getUserId());
+
 	}
 	
 
