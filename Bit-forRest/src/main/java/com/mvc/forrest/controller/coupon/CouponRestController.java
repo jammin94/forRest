@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 
@@ -23,7 +24,6 @@ public class CouponRestController {
 	int pageSize;
 	
 	public CouponRestController() {
-		System.out.println(this.getClass());
 	}
 	
 	@PostMapping("json/addCoupon")
@@ -63,6 +63,10 @@ public class CouponRestController {
 	
 	public void deleteCoupon() throws Exception{
 		
+	}
+	
+	public Coupon getCoupon() throws Exception{
+		return null;
 	}
 	
 	

@@ -47,7 +47,6 @@ public class UserController {
 	int pageSize;
 	
 	public UserController(){
-		System.out.println(this.getClass());
 	}
 	
 	@GetMapping("login")
@@ -55,31 +54,43 @@ public class UserController {
 		
 		System.out.println("/user/logon : GET");
 
-		return null;
+		return "user/login";
 	}
 	
 	@PostMapping("login")
-	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
 		
 		System.out.println("/user/login : POST");
-
+		
 		User dbUser=userService.getUser(user.getUserId());
+		
+		//db에 아이디가 없을 경우
+		if(dbUser==null) {
+			model.addAttribute("message", "가입되지않은 아이디입니다.");
+			return "user/login";
+		}
+		
+		//db에 아이디가 있지만 회원탈퇴, 제한된 유저
+		if(dbUser.getRole()=="leave"|| dbUser.getRole()=="restrict") {
+			model.addAttribute("message", "가입되지않은 아이디입니다.");
+			return "user/login";	
+		}
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 		}
 		
-		return null;
+		return null;	//index로 포워드
 	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session ) throws Exception{
 		
-		System.out.println("/user/logout : POST");
+		System.out.println("/user/logout : GET");
 		
 		session.invalidate();
 		
-		return null;
+		return "redirect:/";
 	}
 	
 //	@GetMapping("addUser")
