@@ -32,7 +32,7 @@ public class UserService {
 	
 	public Map<String, Object> getUserList(Search search) throws Exception {
 		List<User> list = userdao.getUserList(search);
-		int totalCount = userdao.getTotalCount(search);
+		int totalCount = userdao.getTotalCount();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -43,6 +43,10 @@ public class UserService {
 	
 	public void updateUser(User user) throws Exception {
 		userdao.updateUser(user);
+	}
+	
+	public void updateRecentDate(User user) throws Exception{
+		userdao.updateRecentDate(user);
 	}
 	
 	public void leaverUser(User user) throws Exception {
@@ -61,5 +65,7 @@ public class UserService {
 		}
 		return result;
 	}
+	
+
 
 }
