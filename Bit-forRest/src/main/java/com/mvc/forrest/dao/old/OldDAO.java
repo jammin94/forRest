@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.mvc.forrest.common.Search;
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.Search;
 
 @Repository
 @Mapper

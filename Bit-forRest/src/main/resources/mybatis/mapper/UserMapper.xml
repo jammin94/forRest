@@ -68,22 +68,39 @@
 	 </update>
 		 
 	<!-- SQL : SELECT LIST	// blah = 아무의미없는 글자 // 신고횟수 조회때문에 나중에 조인해야함 -->
-	<select  id="getUserList"  parameterType="String"	resultMap="userSelectMap">				
+	
+	<!-- 단위테스트용 쿼리 -->
+	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
+		SELECT
+		@rownum:=@rownum+1, user.*
+		FROM user, (SELECT @rownum:=0)a;																		
+	 </select>
+<!-- 	본쿼리
+	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
 		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*
 		FROM ( SELECT u.* 
 				FROM user u 
 				<where>
 				<if test="searchKeyword != null">
-					userId LIKE '%'||#{searchKeyword}||'%'
+					userId LIKE CONCAT('%',#{searchKeyword},'%')
 				</if>
-				</where>)inner, (SELECT @ROWNUM:=0)blah
+				</where>) inner, (SELECT @ROWNUM:=0)blah
 		WHERE 1=1)																			
-	 </select>
+	 </select> 
+-->
 	
 	<!-- SQL : SELECT ROW Count -->
-	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
+	 <select  id="getTotalCount"   resultType="int">
 	  	SELECT COUNT(*)						
 	  	FROM user	
 	 </select>
 	 
+	 <!-- SQL : UPDATE recentDate -->
+	 <update id="updateRecentDate" parameterType="User">
+	 	UPDATE user
+	 	<set>
+	 		recentDate	=	CURRENT_TIMESTAMP()
+	 	</set>
+	 	WHERE userId = #{userId}
+	 </update>
 </mapper>

@@ -7,9 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mvc.forrest.common.Search;
 import com.mvc.forrest.dao.old.OldDAO;
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.Search;
 
 @Service
 public class OldService {

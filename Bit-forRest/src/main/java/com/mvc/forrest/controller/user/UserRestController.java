@@ -28,7 +28,6 @@ public class UserRestController {
 	private UserService userService;
 		
 	public UserRestController(){
-		System.out.println(this.getClass());
 	}
 	
 	@RequestMapping("json/userIdValid")
