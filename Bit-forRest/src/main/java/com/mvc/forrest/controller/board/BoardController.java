@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.board;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mvc.forrest.service.board.BoardService;
 import com.mvc.forrest.service.domain.Board;
+import com.mvc.forrest.service.domain.Search;
 
 
 @Controller
@@ -107,16 +109,28 @@ public class BoardController {
 	}
 	
 	@PostMapping("listAnnounce")
-	public String getlistAnnounce(@ModelAttribute("map") Map map) throws Exception {	
+	public String getlistAnnounce(@ModelAttribute("search") Search search) throws Exception {	
 		System.out.println("Controller GET: getlistAnnounce ");
-		boardService.getListBoard(null);
+		Board board= new Board();
+		board.setBoardFlag("A");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		map.put("search", search);
+		boardService.getListBoard(map);
+		System.out.println(boardService.getListBoard(map));
 		return null;
 	}
 	
 	@PostMapping("listFAQ")
-	public String getlistFAQ(@ModelAttribute("map") Map map) throws Exception {	
+	public String getlistFAQ(@ModelAttribute("search") Search search) throws Exception {	
 		System.out.println("Controller GET: getlistFAQ ");
-		boardService.getListBoard(null);
+		Board board= new Board();
+		board.setBoardFlag("F");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		map.put("search", search);
+		boardService.getListBoard(map);
+		System.out.println(boardService.getListBoard(map));
 		return null;
 	}
 	

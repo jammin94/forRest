@@ -57,7 +57,7 @@
 				</if>
 			</if>
 			<if test="board.boardFlag=='F'">
-				ORDER BY category
+				ORDER BY category, boardDate DESC
 			</if>
 	 </select>
 	 
