@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.RentalReview;
+import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
@@ -48,6 +49,11 @@ public class RentalController {
 //	@Autowired
 //	public CouponService couponService;  ( 대기 )
 	
+	@Value("5")
+	int pageUnit;
+	
+	@Value("10")
+	int pageSize;
 	
 	
 	//------------대여물품add  view 화면 (네비게이션용) ------------//
@@ -129,10 +135,31 @@ public class RentalController {
 	
 	//------------대여 수익 확인------------//
 	@GetMapping("listRentalProfit")
-	public String listRentalProfitView( ) throws Exception{
+	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model) throws Exception{
 		
-		return null;
+		System.out.println("listRentalProfitView 테스트");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=rentalService.getRentalListForAdmin(search);
+		
+		System.out.println("테스트"+map.get("list"));
+					
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "rental/listRentalProfit";
 	}
+	
 	
 	@PostMapping("listRentalProfit")
 	public String listRentalProfit( ) throws Exception{

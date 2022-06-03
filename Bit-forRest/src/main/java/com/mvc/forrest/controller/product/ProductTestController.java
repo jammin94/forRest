@@ -108,9 +108,6 @@ public class ProductTestController {
 		System.out.println("list: " + map.get("list") );
 		System.out.println("totalcount: " + map.get("totalCount"));
 		
-		
-		
-		
 		return null;
 	}
 	

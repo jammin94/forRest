@@ -32,6 +32,16 @@
 		document.detailForm.submit();
 	}
 	
+	function fncListAnnounce(){
+		document.detailForm.action='../listAnnounce';
+		document.detailForm.submit();
+	}
+	
+	function fncListFAQ(){
+		document.detailForm.action='../listFAQ';
+		document.detailForm.submit();
+	}
+	
 </script>
 
 <body>
@@ -77,11 +87,16 @@
 		     name="orderCondition" value="DESC">
 		    <label for="contactChoice2">내림차순</label>
 		  </div>
-	    
+			<br/>
+			currentPage
+	    	<input type="text" name="currentPage"/><br/>
+	    	
 	    <a href="javascript:fncAddAnnounce();">POST: addAnnounce</a><br/>
 	    <a href="javascript:fncAddFAQ();">POST: addFAQ</a><br/>
 	    <a href="javascript:fncUpdateAnnounce();">POST: updateAnnounce</a><br/>
 	    <a href="javascript:fncUpdateFAQ();">POST: updateFAQ</a><br/>
+	    <a href="javascript:fncListAnnounce();">POST: listAnnounce</a><br/>
+	    <a href="javascript:fncListFAQ();">POST: listFAQ</a><br/>
 	</form>  
 
 </body>

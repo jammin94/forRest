@@ -20,6 +20,7 @@ public class Rental {
 	private int period;
 	private int tranCode;
 	private String paymentNo;
+	private Timestamp  paymentDate;
 	private String paymentWay;
 	private String receiverPhone;
 	private String receiverName;

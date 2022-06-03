@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	<header class="main-header">
+	<header class="main-header fixed">
 	<div class="container">
 		<div class="row">
 			<!-- Main Box -->
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="try_logo_wrapper">
 					<a href="#">
-						<img src="/images/header/logo.png" alt="logo">
+							<img src="/images/header/bearlogo.png" alt="logo" class="bear" style="width: 100px; height: 90px; position: absolute; top: 5px;">
 					</a>
 				</div>
 			</div>

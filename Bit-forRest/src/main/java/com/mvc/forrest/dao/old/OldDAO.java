@@ -11,7 +11,6 @@ import com.mvc.forrest.service.domain.Search;
 @Repository
 @Mapper
 public interface OldDAO {
-
 	public void addOld(Old old) throws Exception ;
 	
 	public Old getOld(int oldNo) throws Exception ;

@@ -44,11 +44,16 @@
 		SELECT * FROM transaction where tranNo =  #{tranNo}
 	 </select>
 	 
+	  <!-- SQL : SELECT ONE -->
+	 <select 	id="getMaxTranNoForStorage" resultMap="storageSelectMap">
+		SELECT MAX tranNo FROM transaction
+	 </select>
+	 
 	 
 	 <!-- SQL : UPDATE -->
 	 <!-- 보관물품 기간연장 -->
 	 <update	id="updateStorage"	parameterType="Storage" >
-	   	update transaction
+	   	UPDATE transaction
 	   	<set>
 	 	endDate = date_add(endDate, INTERVAL #{period} day),
 	 	period = period + #{period},
@@ -65,9 +70,9 @@
 	 <!-- SQL : DELETE -->
 	 <!-- 기간연장시 기존의 저장된 물품정보를 삭제 -->
 	 
-	 <!-- <delete id="deleteStorage" parameterType="int">
-	 
-	 </delete>-->
+	 <delete id="deleteStorage" parameterType="int">
+	 DELETE FROM transaction where tranNo = #{tranNo}
+	 </delete>
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getStorageList"  parameterType="map"	resultMap="storageSelectMap">
