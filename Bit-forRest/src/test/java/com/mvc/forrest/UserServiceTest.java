@@ -9,7 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -62,7 +65,7 @@ public class UserServiceTest {
 	}
 	
 	
-	@org.junit.jupiter.api.Test
+	//@org.junit.jupiter.api.Test
 	public void testUpdateUser() throws Exception{
 		
 		//테스트 아이디가 있는지 확인
@@ -99,6 +102,9 @@ public class UserServiceTest {
 		assertEquals("admin", user.getUserId());
 
 	}
+	
+
+	
 	
 
 }
