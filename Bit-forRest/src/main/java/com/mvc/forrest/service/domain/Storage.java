@@ -30,7 +30,8 @@ public class Storage {
 	private String prodName;
 	private String prodImg;
 	private int originPrice;
-	private double discount ;
+	private int discountPrice;
 	private int resultPrice;
+	
 	
 }
