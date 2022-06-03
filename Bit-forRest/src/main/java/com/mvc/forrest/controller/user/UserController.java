@@ -1,5 +1,9 @@
 package com.mvc.forrest.controller.user;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -70,17 +76,51 @@ public class UserController {
 			return "user/login";
 		}
 		
-		//db에 아이디가 있지만 회원탈퇴, 제한된 유저
-		if(dbUser.getRole()=="leave"|| dbUser.getRole()=="restrict") {
-			model.addAttribute("message", "가입되지않은 아이디입니다.");
+		//db에 아이디가 있지만 회원탈퇴
+		if(dbUser.getRole()=="leave") {
+			model.addAttribute("message", "탈퇴처리된 회원입니다..");
 			return "user/login";	
 		}
 		
-		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);
+		//db에 아이디가 있지만 로그인제한된 유저
+		if(dbUser.getRole()=="restrict") {
+			model.addAttribute("message", "이용제한된 회원입니다..");
+			return "user/login";	
 		}
 		
-		return null;	//index로 포워드
+		//해당 id와 pwd가 일치할 경우
+		if( user.getPassword().equals(dbUser.getPassword())){
+			session.setAttribute("user", dbUser);		//세션에 user 저장
+			
+			//신규회원 쿠폰발급
+			if(user.getJoinDate()==user.getRecentDate()) {
+				OwnCoupon oc = new OwnCoupon();
+				Coupon coupon = couponService.getCoupon(2);
+				Timestamp ts = new Timestamp(System.currentTimeMillis());
+				Timestamp ts2 = null;
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(ts);
+				cal.add(Calendar.DATE,30);
+				ts2.setTime(cal.getTime().getTime());
+				oc.setOwnuser(dbUser);
+				oc.setOwncoupon(coupon);
+				oc.setOwnCouponCreDate(ts);
+				oc.setOwnCouponDelDate(ts2);
+				
+				couponService.addOwnCoupon(oc);
+			}
+			
+			userService.updateRecentDate(dbUser);		//최근접속일자 update
+				
+			return "index";								//나중에 정확한 경로로 수정
+			
+		//해당 id와 pwd가 불일치할 경우	
+		}else{
+			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+			return "user/login";
+		}
+		
 	}
 	
 	@GetMapping("logout")
@@ -93,12 +133,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-//	@GetMapping("addUser")
+	@GetMapping("addUser")
 	public String addUser() throws Exception{
 		
 		System.out.println("/user/addUser : GET");
 		
-		return "user/Test";
+		return "user/addUserView";
 	}
 	
 	@RequestMapping("addUser")
@@ -106,20 +146,9 @@ public class UserController {
 
 		System.out.println("/user/addUser : POST");
 		
-		user = new User();
-		user.setUserId("test");
-		user.setJoinPath("own");
-		user.setNickname("testnick");
-		user.setPassword("1234");
-		user.setPhone("phone");
-		user.setUserAddr("testAddr");
-		user.setUserName("testName");
-		user.setUserRate(4);
-		
 		userService.addUser(user);
-		System.out.println("Test add");
-		
-		return "user/Test";
+				
+		return "user/login";
 	}
 	
 	@GetMapping("findId")
@@ -127,17 +156,18 @@ public class UserController {
 
 		System.out.println("/user/findId : GET");
 		
-		return null;
+		return "user/findIdView";
 	}
 	
 	@PostMapping("findId")
-	public String findId (String userId) throws Exception{
+	public String findId (String userName, String phone, String auth) throws Exception{
 
 		System.out.println("/user/findId : POST");
 		
-		// #############	need logic	################
+		User user = new User();
 		
-		return null;
+		
+		return "user/findId";
 	}
 	
 	@GetMapping("findPwd")
