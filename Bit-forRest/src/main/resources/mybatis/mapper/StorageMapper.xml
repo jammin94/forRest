@@ -50,8 +50,8 @@
 	 <update	id="updateStorage"	parameterType="Storage" >
 	   	update transaction
 	   	<set>
-	 	endDate = endDate + #{period},
-	 	period = period +#{period},
+	 	endDate = date_add(endDate, INTERVAL #{period} day),
+	 	period = date_add(period, INTERVAL #{period} day),
 	 	paymentNo = #{paymentNo},
 	 	paymentDate = current_timestamp(),
 	 	paymentWay = #{paymentWay}, 
