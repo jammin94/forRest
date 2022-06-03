@@ -18,7 +18,6 @@ public class CouponController {
 	private CouponService couponService;
 	
 	public CouponController() {
-		System.out.println(this.getClass());
 	}
 	
 	@GetMapping("manageCoupon")
