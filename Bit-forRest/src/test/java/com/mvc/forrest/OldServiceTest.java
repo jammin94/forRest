@@ -148,12 +148,12 @@ public class OldServiceTest {
 		assertEquals(10, old.getOldNo());
 	}
 	
-	//@Test
+	@Test
 	public void testGetOld() throws Exception{
 		System.out.println("겟");
 		Old old = new Old();
-		old.setOldNo(3);
-		oldService.getOld(3);
+		old = oldService.getOld(3);
+		
 		
 		assertEquals(3, old.getOldNo());
 	}
