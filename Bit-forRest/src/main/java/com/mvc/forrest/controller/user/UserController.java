@@ -160,13 +160,14 @@ public class UserController {
 	}
 	
 	@PostMapping("findId")
-	public String findId (String userId) throws Exception{
+	public String findId (String userName, String phone, String auth) throws Exception{
 
 		System.out.println("/user/findId : POST");
 		
-		// #############	need logic	################
+		User user = new User();
 		
-		return null;
+		
+		return "user/findId";
 	}
 	
 	@GetMapping("findPwd")

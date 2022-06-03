@@ -98,7 +98,6 @@ public class UserServiceTest {
 	}
 	
 //	@Test
-	@Test
 	public void testGetUserList() throws Exception{
 		
 		Search search = new Search();
