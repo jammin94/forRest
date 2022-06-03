@@ -87,6 +87,7 @@
 	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
 	 		</if>
 	 		
+	 		
 	 	</where>
 	 	<if test="orderCondition != null">
 	 		<if test='orderCondition == "tranNoASC"'>

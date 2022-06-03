@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
@@ -44,6 +45,13 @@ public class StorageController {
 	public StorageController() {
 		System.out.println(this.getClass());
 	}
+
+	@Value("5")
+	int pageUnit;
+	
+	@Value("10")
+	int pageSize;
+		
 	
 	//보관 메인화면 단순 네비게이션
 	@GetMapping("storageMain")
@@ -52,6 +60,7 @@ public class StorageController {
 		return "storage/storageMain";
 	}
 	
+	//보관물품등록을 위한 페이지로 네비게이션
 	@GetMapping("addStorage")
 	public String addStorageGet(Model model, HttpSession session) throws Exception {
 		
@@ -61,7 +70,7 @@ public class StorageController {
 		return "storage/addStorage";
 	}
 	
-	//검토필요
+	//결제정보를 리턴받고 물품과 보관에 동시에 
 	@PostMapping("addStorage")
 	public String addStoragePost(@RequestParam("imp_uid") int imp_uid,
 												@RequestParam("merchant_uid") String merchant_uid,
@@ -77,14 +86,20 @@ public class StorageController {
 		
 		storageService.addStorage(storage);
 		
-		model.addAttribute("product", product);
 		model.addAttribute("storage", storage);
 		
 		return "storage/getStorage";
 	}
 	
 	@RequestMapping("listStorage")
-	public String listStorage() {
+	public String listStorage(@ModelAttribute("search") Search search) throws Exception {
+		
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
 		
 		return null;
 	}
@@ -108,9 +123,11 @@ public class StorageController {
 	}
 	
 	@GetMapping("getStorage")
-	public String getStorage() {
+	public String getStorage(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		
-		return null;
+		model.addAttribute("storage", storageService.getStorage(tranNo));
+	
+		return "storage/getStorage";
 	}
 
 }
