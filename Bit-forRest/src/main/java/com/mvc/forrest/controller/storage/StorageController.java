@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.storage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
@@ -70,7 +72,7 @@ public class StorageController {
 		return "storage/addStorage";
 	}
 	
-	//결제정보를 리턴받고 물품과 보관에 동시에 
+	//결제정보를 리턴받고 물품과 보관테이블에 동시에 추가
 	@PostMapping("addStorage")
 	public String addStoragePost(@RequestParam("imp_uid") int imp_uid,
 												@RequestParam("merchant_uid") String merchant_uid,
@@ -91,8 +93,9 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
+	
 	@RequestMapping("listStorage")
-	public String listStorage(@ModelAttribute("search") Search search) throws Exception {
+	public String listStorage(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception {
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
@@ -100,14 +103,40 @@ public class StorageController {
 		
 		search.setPageSize(pageSize);
 		
+		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
-		return null;
+		Map<String, Object> map = new HashMap<>();
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		Map<String, Object> mapStorage = storageService.getStorageList(map);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
+		
+		model.addAttribute("list", mapStorage.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "storage/listStorage";
 	}
 	
 	@RequestMapping("listStorageForAdmin")
-	public String listStorageForAdmin() {
+	public String listStorageForAdmin(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		return null;
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = storageService.getStorageListForAdmin(search);
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize );
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "storage/listStorageForAdmin";
 	}
 		
 	@GetMapping("extendStorage")

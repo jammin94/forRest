@@ -44,14 +44,19 @@
 		SELECT * FROM transaction where tranNo =  #{tranNo}
 	 </select>
 	 
+	 
 	 <!-- SQL : UPDATE -->
-	 <!-- <update	id="updateStrorage"	parameterType="Storage" >
+	 <!-- 보관물품 기간연장 -->
+	 <update	id="updateStrorage"	parameterType="Storage" >
 	   	update transaction
 	   	<set>
-	 	
+	 	endDate = endDate + #{period},
+	 	period = period +#{period},
+	 	paymentNo = #{paymentNo},
+	 	paymentDate, paymentWay, orginPrice, discount, resultPrice
 	   	</set>
 	   	where tranNo = #{tranNo}
-	 </update>-->
+	 </update>
 	 
 	 
 		 

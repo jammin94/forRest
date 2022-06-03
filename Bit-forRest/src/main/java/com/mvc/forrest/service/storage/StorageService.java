@@ -30,7 +30,9 @@ public class StorageService {
 		public Map<String, Object> getStorageList(Map<String,Object> map) throws Exception{
 			
 			List<Storage> list = storageDAO.getStorageList(map);
-			//int totalCount = storageDAO.getTotalCount(map.get("search"));
+			int totalCount = storageDAO.getTotalCount((Search) map.get("search"));
+			map.put("list", list);
+			map.put("totalCount", totalCount);
 			
 			return map;
 		}
