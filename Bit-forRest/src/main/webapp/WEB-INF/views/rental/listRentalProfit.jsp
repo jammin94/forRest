@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="/css/animate.css" />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
-  
+ 
   
   <!-- jQuery UI toolTip 사용 JS-->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -36,14 +38,12 @@
 </head>
 
 <body>
-
-
 <!-- 툴바 include -->
 <jsp:include page="/WEB-INF/views/main/toolbar.jsp" />
 
 
 <!--  화면구성 div Start /////////////////////////////////////-->
-<div class="container">
+<div class="container list">
 	<div class="page-header text-info">
 		       <h3>대여수익확인</h3>
 		</div>
@@ -53,7 +53,7 @@
 	    
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		<%-- 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 --%>
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 
 		    	</p>
 		    </div>
 	    	
@@ -77,34 +77,31 @@
 	        
 	        <tbody>
 	        
-	    <!--     <c:set var="i" value="0" /> -->
+	     <c:set var="i" value="0" /> 
 	        
-	<%-- <c:forEach var="purchase" items="${list}">
+	 <c:forEach var="rental" items="${list}">
 		<c:set var="i" value="${ i+1 }" />
 		<tr class="ct_list_pop">
 		
 			<td align="center">
-			<!-- <a href="/getPurchase.do?tranNo=${purchase.tranNo }">${ i }</a> -->
 			<span>${ i }</span>
 			</td>
 		
 			
 			<td align="center">
-				<!-- <a href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a> -->
-				<span>${purchase.buyer.userId}</span>
+				<span>렌탈 유저 아이디</span>
 			</td>
 			
+			<td align="center">렌탈 대여자 이름 ${rental.tranNo}</td>
 			
-			<td align="center">${purchase.receiverName }</td>
 			
-			
-			<td align="center">${purchase.receiverPhone }</td>		
+			<td align="center">렌탈 대여자 휴대폰</td>		
 		
-			<td align="center">${purchase.divyRequest}</td>
+			<td align="center">렌탈 대여자 요청사항</td>
 			
 			
 			
-			  <c:choose>
+			 <%--  <c:choose>
 		         <c:when test="${sessionScope.user.userId == 'admin'}">
 		              <c:choose>
 							<c:when test="${purchase.tranCode.equals('100')}">					
@@ -145,12 +142,12 @@
 					</c:choose>
 		         </c:otherwise>
 	    	  </c:choose>
-
+ --%>
 			
 		</tr>
 		
 	</c:forEach>	
-	         --%>
+	       
 	        </tbody>
 
       </table>

@@ -177,6 +177,17 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
-	
+	//tranNo를 생성하기위한 메서드
+//	public int createTranNoForStorage() throws Exception{
+//	
+//	Integer tranNo =	storageService.getMaxTranNoForStorage() + 1;
+//	
+//	if(tranNo != null) {
+//		return tranNo + 1;
+//	} else {
+//		return 1;
+//	}
+//
+//	}
 
 }
