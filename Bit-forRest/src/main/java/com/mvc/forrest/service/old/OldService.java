@@ -42,11 +42,11 @@ public class OldService {
 		System.out.println("getOldList 성공");
 		List<Old> list= oldDAO.getOldList(search);
 		
-		int totalCount = oldDAO.getTotalCount(search);
+		//int totalCount = oldDAO.getTotalCount(search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalCount", totalCount);
+	//	map.put("totalCount", totalCount);
 		
 		return map;
 }

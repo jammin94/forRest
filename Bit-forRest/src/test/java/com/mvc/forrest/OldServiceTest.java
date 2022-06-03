@@ -1,11 +1,14 @@
 package com.mvc.forrest;
 
 
+import java.util.Map;
+
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.old.OldService;
 
 
@@ -33,7 +36,7 @@ public class OldServiceTest {
 	@Autowired
 	public OldService oldService;
 
-	@org.junit.jupiter.api.Test
+	//@org.junit.jupiter.api.Test
 	public void testUpdateOld() throws Exception {
 		
 		Old old = new Old();
@@ -61,11 +64,65 @@ public class OldServiceTest {
 		Assert.assertEquals(40000, old.getOldPrice());
 		Assert.assertEquals("야전침대", old.getOldTitle());
 		Assert.assertEquals("접이식", old.getOldDetail());
-		Assert.assertEquals("텐트", old.getOldTitle());
+		Assert.assertEquals("텐트", old.getCategory());
 		Assert.assertEquals("aaa.jpg", old.getOldImg());
 	
 		
 	}
 	
+	//@org.junit.jupiter.api.Test
+	public void getOldList() throws Exception{
+		
+		Search search = new Search();
+		search.setSearchKeyword("야전");
+		search.setSearchCategory("");
+		search.setStartRowNum(1);
+		search.setEndRowNum(5);
+		
+		System.out.println(search);
+		Map<String,Object> map = oldService.getOldList(search);
+		
+		
+		System.out.println(map);
+	
+		
+	}
+	
+	//@org.junit.jupiter.api.Test
+	public void addOld() throws Exception{
+		System.out.println("등록");
+		Old old = new Old();
+		old.setOldNo(11);
+		old.setUserId("user09@naver.com");
+		old.setOldPrice(999);
+		old.setOldTitle("구구");
+		old.setOldDetail("디");
+		//old.setOldDate(TIMESTAMP);
+	
+		old.setOldImg("j.jpg");
+		
+		Assert.assertEquals(11, old.getOldNo());
+		Assert.assertEquals("user09@naver.com", old.getUserId());
+		Assert.assertEquals(999, old.getOldPrice());
+		Assert.assertEquals("구구", old.getOldTitle());
+		Assert.assertEquals("디", old.getOldDetail());
+		Assert.assertEquals("j.jpg", old.getOldImg());
+	}
+	
+	//@org.junit.jupiter.api.Test
+	public void deleteOld() throws Exception{
+		Old old = new Old();
+		old.setOldNo(11);
+		Assert.assertEquals(11, old.getOldNo());
+	}
+	
+	@org.junit.jupiter.api.Test
+	public void getOld() throws Exception{
+		System.out.println("겟");
+		Old old = new Old();
+		old.setOldNo(11);
+		Assert.assertEquals(11, old.getOldNo());
+	}
 
+	
 }
