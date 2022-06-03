@@ -18,7 +18,7 @@ public interface OldDAO {
 	
 	public void updateOld(Old old) throws Exception ;
 	
-	public void deleteOld(int OldNo) throws Exception ;	
+	public void deleteOld(int oldNo) throws Exception ;	
 
 	public int getTotalCount(Search search) throws Exception;
 

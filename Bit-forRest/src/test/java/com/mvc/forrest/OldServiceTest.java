@@ -42,19 +42,38 @@ public class OldServiceTest {
 	//@Test
 	public void testUpdateOld() throws Exception {
 		
-		Old old = new Old();
+		Old old = oldService.getOld(1);
 		
-		old.setOldPrice(40000);
-		old.setOldTitle("야전침대");
+		assertEquals(40000, old.getOldPrice());
+		assertEquals("야전침대", old.getOldTitle());
+		assertEquals("접이식", old.getOldDetail());
+		assertEquals("침대", old.getCategory());
+		assertEquals((short) 1 ,old.getOldState());
+		assertEquals("aaa.jpg", old.getOldImg());
+		assertEquals("삼성동", old.getOldAddr());
+		
+		old.setOldPrice(20000);
+		old.setOldTitle("1인침대");
 		old.setOldDetail("접이식");
-		old.setCategory("텐트");
-		//old.setOldState(0);
-		old.setOldImg("aaa.jpg");
-		
+		old.setCategory("침대");
+		old.setOldState((short) 1);
+		old.setOldImg("wow.jpg");
+		old.setOldAddr("대치동");
 		
 		
 		
 		oldService.updateOld(old);
+		old = oldService.getOld(1);
+		
+		assertEquals(20000, old.getOldPrice());
+		assertEquals("1인침대", old.getOldTitle());
+		assertEquals("접이식", old.getOldDetail());
+		assertEquals("침대", old.getCategory());
+		assertEquals((short) 1 ,old.getOldState());
+		assertEquals("wow.jpg", old.getOldImg());
+		assertEquals("대치동", old.getOldAddr());
+		
+		
 		System.out.println("updateOldtest"+old);
 		
 		//user = userService.getUser("testUserId");
@@ -63,13 +82,6 @@ public class OldServiceTest {
 		//System.out.println(user);
 		
 		//==> API 확인
-		
-		assertEquals(40000, old.getOldPrice());
-		assertEquals("야전침대", old.getOldTitle());
-		assertEquals("접이식", old.getOldDetail());
-		assertEquals("텐트", old.getCategory());
-		assertEquals("aaa.jpg", old.getOldImg());
-	
 		
 	}
 	
@@ -96,6 +108,7 @@ public class OldServiceTest {
 		System.out.println("등록");
 		Old old = new Old();
 		
+		
 		old.setUserId("user01@naver.com");
 		old.setOldPrice(999);
 		old.setOldTitle("구구");
@@ -106,7 +119,9 @@ public class OldServiceTest {
 		old.setCategory("텐트");
 		old.setOldState((short) 0);
 		old.setOldImg("j.jpg");
+		old.setOldAddr("대홍동");
 		oldService.addOld(old);
+		
 		
 		
 		assertEquals("user01@naver.com", old.getUserId());
@@ -118,27 +133,28 @@ public class OldServiceTest {
 		assertEquals("텐트", old.getCategory());
 		assertEquals((short) 0, old.getOldState());
 		assertEquals("j.jpg", old.getOldImg());
-		
+		assertEquals("대홍동", old.getOldAddr());
 		
 		
 		
 	}
 	
 	//@Test
-	public void deleteOld() throws Exception{
+	public void testDeleteOld() throws Exception{
 		Old old = new Old();
 		old.setOldNo(10);
 		oldService.deleteOld(10);
 		assertEquals(10, old.getOldNo());
 	}
 	
-	@Test
-	public void getOld() throws Exception{
+	//@Test
+	public void testGetOld() throws Exception{
 		System.out.println("겟");
 		Old old = new Old();
-		old.setOldNo(9);
-		oldService.getOld(9);
-		assertEquals(9, old.getOldNo());
+		old.setOldNo(3);
+		oldService.getOld(3);
+		
+		assertEquals(3, old.getOldNo());
 	}
 
 	

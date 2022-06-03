@@ -16,6 +16,6 @@ public class Old {
 	private short oldState;
 	private String oldImg;
 	private String userId;
-
+	private String oldAddr;
 
 	}
