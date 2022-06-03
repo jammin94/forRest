@@ -18,7 +18,7 @@
 	<insert 	id="addOwnCoupon"		parameterType="OwnCoupon" >
 		INSERT
 	 	INTO ownCoupon(userId, couponNo, ownCouponCreDate, ownCouponDelDate) 
-	 	VALUES (#{userId}, #{couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
+	 	VALUES (#{ownuser.userId}, #{ownCoupon.couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->

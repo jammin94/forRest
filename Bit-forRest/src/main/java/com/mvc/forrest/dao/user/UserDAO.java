@@ -22,9 +22,13 @@ public interface UserDAO {
 	
 	public void restrictUser(User user) throws Exception ;
 	
+	public void updateRecentDate(User user) throws Exception;
+	
 	public List<User> getUserList(Search search) throws Exception ;
 	
-	public int getTotalCount(Search search) throws Exception ;
+	public int getTotalCount() throws Exception ;
+	
+
 	
 	
 }
