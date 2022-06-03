@@ -16,7 +16,7 @@ public interface OldDAO {
 	
 	public Old getOld(int OldNo) throws Exception ;
 	
-	public void updateOld(Old Old) throws Exception ;
+	public Old updateOld(Old Old) throws Exception ;
 	
 	public void deleteOld(int OldNo) throws Exception ;	
 

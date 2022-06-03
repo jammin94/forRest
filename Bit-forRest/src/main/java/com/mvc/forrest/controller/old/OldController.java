@@ -36,7 +36,8 @@ public class OldController {
 	@RequestMapping("oldTest")
 	public String OldTest(@ModelAttribute("old") Old old, Model model) throws Exception {
 		
-		//old.set
+		old.setUserId(getOld());
+		old.setOldTitle("야전침대");
 		
 		return null;
 		
@@ -68,7 +69,8 @@ public class OldController {
 	}
 	 
 	
-	@GetMapping("updateOld/{oldNo}")
+	@GetMapping("updateOld)"
+			+ "")
 	public String updateOld( ) throws Exception{
 		System.out.println(this.getClass()+ "겟수정");
 		return "old/updateOld";
