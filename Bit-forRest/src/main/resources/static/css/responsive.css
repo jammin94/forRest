@@ -173,7 +173,7 @@
 .main-menu .navigation > li.current-menu-item > a{
 	color:rgba(83,98,215,1);
 	opacity:1;
-}
+}/* 
 .main-menu .navigation > li > a:after{
 	content:'';
 	width:2px;
@@ -190,7 +190,7 @@
     -moz-transition: all 0.5s;
     transition: all 0.5s;
 }
-
+ */
 /* .main-menu .navigation > li:hover > a:after,
 .main-menu .navigation > li.current > a:after,
 .main-menu .navigation > li.current-menu-item > a:after{
