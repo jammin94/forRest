@@ -50,4 +50,14 @@ public class ViewControllerTest {
 	public String indexpage() {
 		return "main/index";
 	}
+	
+	@GetMapping("/rental/rentalProfit")
+	public String listRental() {
+		return "rental/listRentalProfit";
+	}
+	
+	@GetMapping("/toolbar/toolbar")
+	public String toolbarView() {
+		return "main/toolbar";
+	}
 }
