@@ -27,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class PushNotificationService {
 	
-    @Value("${fcm.certification}")
-    private static String googleApplicationCredentials;
+   
 	
     private static final String PROJECT_ID = "bit-project-runrunfunfun";
     private static final String BASE_URL = "https://fcm.googleapis.com";
@@ -47,9 +46,10 @@ public class PushNotificationService {
      */
     private static String getAccessToken() throws IOException {
     	  GoogleCredentials googleCredentials = GoogleCredentials
-    	          .fromStream(new FileInputStream(googleApplicationCredentials))
+    	          .fromStream(new FileInputStream("C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json"))
     	          .createScoped(Arrays.asList(SCOPES));
     	  googleCredentials.refreshAccessToken();
+    	  System.out.println(googleCredentials.getAccessToken().getTokenValue());
     	  return googleCredentials.getAccessToken().getTokenValue();
     	}
 
@@ -109,13 +109,16 @@ public class PushNotificationService {
          firebase와 통신하고, return값을 받는 메소드
          */
         private static void sendMessage(JsonObject fcmMessage) throws IOException {
+        	
             HttpURLConnection connection = getConnection();
+            
             connection.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             writer.write(fcmMessage.toString());
             writer.flush();
             writer.close();
-
+            
+            
             int responseCode = connection.getResponseCode();
             if (responseCode == 200) {
               String response = inputstreamToString(connection.getInputStream());
