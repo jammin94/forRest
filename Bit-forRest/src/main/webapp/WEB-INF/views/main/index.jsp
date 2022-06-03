@@ -676,8 +676,6 @@ feather-light in-ear chambers, weighing only 2 grams.
 		</div>
 	</div>
 	
-
-
 	<!--하단부설명2 -->
 	<div class="try_footer_main_section_wrapper">
 		<div class="container">

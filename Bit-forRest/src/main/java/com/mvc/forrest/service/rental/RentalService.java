@@ -51,7 +51,7 @@ public class RentalService {
 	}
 	
 	//물품대여 리스트 ( Admin 용 )
-	public Map<String, Object> getRentalListAdmin(Search search) throws Exception{
+	public Map<String, Object> getRentalListForAdmin(Search search) throws Exception{
 		
 		List<Rental> list = rentalDAO.getRentalListForAdmin(search);
 		int totalCount = rentalDAO.getTotalCount(search);
