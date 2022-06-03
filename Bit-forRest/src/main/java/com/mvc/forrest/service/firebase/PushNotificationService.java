@@ -45,11 +45,14 @@ public class PushNotificationService {
     토큰 값을 받아오는 method
      */
     private static String getAccessToken() throws IOException {
+    	  System.out.println("getAccessToken start");
+    	  
     	  GoogleCredentials googleCredentials = GoogleCredentials
-    	          .fromStream(new FileInputStream("C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json"))
+    	          .fromStream(new FileInputStream("bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json"))
     	          .createScoped(Arrays.asList(SCOPES));
-    	  googleCredentials.refreshAccessToken();
-    	  System.out.println(googleCredentials.getAccessToken().getTokenValue());
+    	  
+    	  googleCredentials.refreshIfExpired();
+    	  System.out.println("getAccessToken and get token =" + googleCredentials.getAccessToken().getTokenValue());
     	  return googleCredentials.getAccessToken().getTokenValue();
     	}
 

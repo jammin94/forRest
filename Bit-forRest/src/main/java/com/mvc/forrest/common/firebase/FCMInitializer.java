@@ -29,7 +29,7 @@ public class FCMInitializer {
 
     @PostConstruct
     public void initialize() throws IOException {
-        ClassPathResource resource = new ClassPathResource(googleApplicationCredentials);
+        ClassPathResource resource = new ClassPathResource("bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json");
 
         try (InputStream is = resource.getInputStream()) {
             FirebaseOptions options = FirebaseOptions.builder()
