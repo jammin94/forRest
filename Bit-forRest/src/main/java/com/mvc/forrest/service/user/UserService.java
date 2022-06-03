@@ -26,6 +26,14 @@ public class UserService {
 		return userdao.getUser(userId);
 	}
 	
+	public User getUserByName(String userName) throws Exception {
+		return userdao.getUserByName(userName);
+	}
+	
+	public User getUserByPhone(String Phone) throws Exception {
+		return userdao.getUserByPhone(Phone);
+	}
+
 	public User getMyPage(String userId) throws Exception {
 		return userdao.getUser(userId);
 	}
@@ -43,6 +51,10 @@ public class UserService {
 	
 	public void updateUser(User user) throws Exception {
 		userdao.updateUser(user);
+	}
+	
+	public void updatePassword(User user) throws Exception {
+		userdao.updatePassword(user);
 	}
 	
 	public void updateRecentDate(User user) throws Exception{
