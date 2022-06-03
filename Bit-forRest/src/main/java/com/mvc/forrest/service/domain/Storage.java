@@ -21,7 +21,7 @@ public class Storage {
 	private Date startDate;
 	private Date endDate;
 	private int period;
-	private short tranCode;
+	private int tranCode;
 	private String paymentNo;
 	private Timestamp  paymentDate;
 	private String paymentWay;
@@ -30,9 +30,8 @@ public class Storage {
 	private String prodName;
 	private String prodImg;
 	private int originPrice;
-	private double discount ;
-	private int resultPrice ;
+	private int discountPrice;
+	private int resultPrice;
 	
-
 	
 }

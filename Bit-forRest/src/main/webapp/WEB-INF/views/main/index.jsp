@@ -45,7 +45,7 @@
 	<!-- 하단 스크롤시 아이콘 생성  -->	
 	<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
-     <!-- 메뉴바 -->
+     <!-- 툴바 -->
     <header class="main-header">
 	<div class="container">
 		<div class="row">
@@ -53,7 +53,7 @@
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="try_logo_wrapper">
 					<a href="#">
-						<img src="/images/header/logo.png" alt="logo">
+						<img src="/images/header/bearlogo.png" alt="logo" class="bear" style="width: 100px; height: 90px; position: absolute; top: 5px;">
 					</a>
 				</div>
 			</div>
@@ -676,8 +676,6 @@ feather-light in-ear chambers, weighing only 2 grams.
 		</div>
 	</div>
 	
-
-
 	<!--하단부설명2 -->
 	<div class="try_footer_main_section_wrapper">
 		<div class="container">

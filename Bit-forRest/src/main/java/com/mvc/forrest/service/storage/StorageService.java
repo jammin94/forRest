@@ -16,21 +16,38 @@ public class StorageService {
 	
 	@Autowired
 	private StorageDAO storageDAO;
-	
+		//가나다라마바사
+	   //보관물품을 추가
 		public void addStorage(Storage storage) throws Exception{
 			storageDAO.addStorage(storage);
 		}
 		
+		//보관물품정보 상세조회
 		public Storage getStorage(int tranNo) throws Exception{
 			return storageDAO.getStorage(tranNo);
 		}
 		
+		public int getMaxTranNoForStorage() throws Exception{
+			return storageDAO.getMaxTranNoForStorage();
+		}
 		
-		//controller에서 map에 search와 userId담아서 맵으로 보내기
+		//기간연장시 변경되는정보 업데이트
+		public void updateStorage(Storage storage) throws Exception{
+			storageDAO.updateStorage(storage);
+		}
+		
+		//기간연장시 기존의 보관정보를 삭제
+		public void deleteStorage(int tranNo) throws Exception {
+			storageDAO.deleteStorage(tranNo);
+		}
+		
+		//유저를 위한 보관리스트 출력
 		public Map<String, Object> getStorageList(Map<String,Object> map) throws Exception{
 			
 			List<Storage> list = storageDAO.getStorageList(map);
-			//int totalCount = storageDAO.getTotalCount(map.get("search"));
+			int totalCount = storageDAO.getTotalCount((Search) map.get("search"));
+			map.put("list", list);
+			map.put("totalCount", totalCount);
 			
 			return map;
 		}
@@ -48,5 +65,6 @@ public class StorageService {
 			return map;
 			
 		}
+		
 	
 }

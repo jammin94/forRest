@@ -16,7 +16,13 @@ public interface UserDAO {
 	
 	public User getUser(String userId) throws Exception ;
 	
+	public User getUserByName(String userName) throws Exception ;
+	
+	public User getUserByPhone(String Phone) throws Exception ;
+	
 	public void updateUser(User user) throws Exception ;
+	
+	public void updatePassword(User user) throws Exception ;
 	
 	public void leaveUser(User user) throws Exception ;
 	

@@ -1,5 +1,9 @@
 package com.mvc.forrest.controller.user;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
@@ -87,10 +92,23 @@ public class UserController {
 		if( user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);		//세션에 user 저장
 			
+			//신규회원 쿠폰발급
 			if(user.getJoinDate()==user.getRecentDate()) {
 				OwnCoupon oc = new OwnCoupon();
+				Coupon coupon = couponService.getCoupon(2);
+				Timestamp ts = new Timestamp(System.currentTimeMillis());
+				Timestamp ts2 = null;
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(ts);
+				cal.add(Calendar.DATE,30);
+				ts2.setTime(cal.getTime().getTime());
 				oc.setOwnuser(dbUser);
-				couponService.getCoupon(2);
+				oc.setOwncoupon(coupon);
+				oc.setOwnCouponCreDate(ts);
+				oc.setOwnCouponDelDate(ts2);
+				
+				couponService.addOwnCoupon(oc);
 			}
 			
 			userService.updateRecentDate(dbUser);		//최근접속일자 update
@@ -115,12 +133,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-//	@GetMapping("addUser")
+	@GetMapping("addUser")
 	public String addUser() throws Exception{
 		
 		System.out.println("/user/addUser : GET");
 		
-		return "user/Test";
+		return "user/addUserView";
 	}
 	
 	@RequestMapping("addUser")
@@ -128,20 +146,9 @@ public class UserController {
 
 		System.out.println("/user/addUser : POST");
 		
-		user = new User();
-		user.setUserId("test");
-		user.setJoinPath("own");
-		user.setNickname("testnick");
-		user.setPassword("1234");
-		user.setPhone("phone");
-		user.setUserAddr("testAddr");
-		user.setUserName("testName");
-		user.setUserRate(4);
-		
 		userService.addUser(user);
-		System.out.println("Test add");
-		
-		return "user/Test";
+				
+		return "user/login";
 	}
 	
 	@GetMapping("findId")
@@ -149,17 +156,22 @@ public class UserController {
 
 		System.out.println("/user/findId : GET");
 		
-		return null;
+		return "user/findIdView";
 	}
 	
 	@PostMapping("findId")
-	public String findId (String userId) throws Exception{
-
+	public String findId (String userName, String phone, String sms) throws Exception{
 		System.out.println("/user/findId : POST");
 		
-		// #############	need logic	################
+		// sms 인증필요 보낸 sms와 유저sms가 일치해야함
 		
-		return null;
+		User userByPhone = userService.getUserByPhone(phone);
+		User userByName = userService.getUserByName(userName);
+		if(userByName.getUserId() == userByPhone.getUserId()){
+			return "user/findId";
+		}
+		 
+		return "user/findId";
 	}
 	
 	@GetMapping("findPwd")
@@ -167,35 +179,50 @@ public class UserController {
 		
 		System.out.println("/user/findPwd : GET");
 		
-		return null;
+		return "user/findPwd";
 	}
 	
 	@PostMapping("findPwd")
-	public String findPwd(String password) throws Exception{
+	public String findPwd(String userId, String phone, String sms, HttpSession session) throws Exception{
 		
 		System.out.println("/user/findPwd : POST");
 		
-		// #############	need logic	################
+		// sms인증 필요
 		
-		return null;
+		User user = userService.getUser(userId);
+		User userByPhone = userService.getUserByPhone(phone);
+		
+		if(user.getUserId() == userByPhone.getUserId()){
+			session.setAttribute("user", user);
+			
+			return "user/pwdReset";
+		}
+		
+		return "user/pwdReset";
 	}	
 	
-	@GetMapping("pwdReset")
-	public String pwdReset() throws Exception{
-		
-		System.out.println("/user/pwdReset : GET");
-		
-		return null;
-	}
+//	@GetMapping("pwdReset")								//필요없음
+//	public String pwdReset() throws Exception{
+//		
+//		System.out.println("/user/pwdReset : GET");
+//		
+//		return null;
+//	}
 	
 	@PostMapping("pwdReset")
-	public String pwdReset(String password) throws Exception{
+	public String pwdReset(@ModelAttribute User user, HttpSession session, Model model) throws Exception{
 		
 		System.out.println("/user/pwdReset : POST");
 		
-		// #############	need logic	################
+		User dbUser = userService.getUser(user.getUserId());
+		dbUser.setPassword(user.getPassword());
+		userService.updatePassword(dbUser);
+		session.setAttribute("user", dbUser);
 		
-		return null;
+		model.addAttribute("user", dbUser);
+		
+		
+		return "main/index";
 	}
 	
 	@RequestMapping("listUser")
@@ -217,7 +244,7 @@ public class UserController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return null;
+		return "user/getUserList";
 	}
 	
 	@GetMapping("getUser")
@@ -229,7 +256,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		
-		return null;
+		return "user/getUser";
 	}
 	
 	@GetMapping("getMyPage")
@@ -241,7 +268,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		
-		return null;
+		return "user/getMyPage";
 	}
 	
 	@GetMapping("deleteUser")
@@ -249,7 +276,7 @@ public class UserController {
 		
 		System.out.println("/user/deleteUser : GET");
 		
-		return null;
+		return "user/deleteUserView";
 	}
 	
 	@PostMapping("deleteUser")

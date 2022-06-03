@@ -17,6 +17,12 @@ public interface StorageDAO {
 	
 	Storage getStorage(int tranNo) throws Exception;
 	
+	int getMaxTranNoForStorage() throws Exception;
+	
+	void updateStorage(Storage storage) throws Exception;
+	
+	void deleteStorage(int tranNo) throws Exception;
+	
 	List<Storage> getStorageList(Map<String,Object> map) throws Exception;
 	
 	List<Storage> getStorageListForAdmin(Search search) throws Exception;

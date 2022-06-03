@@ -50,4 +50,10 @@ public class ViewControllerTest {
 	public String indexpage() {
 		return "main/index";
 	}
+	
+	
+	@GetMapping("/toolbar/toolbar")
+	public String toolbarView() {
+		return "main/toolbar";
+	}
 }

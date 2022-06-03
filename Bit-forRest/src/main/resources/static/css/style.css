@@ -48,7 +48,7 @@ a {
 }
 a:hover, a:focus {
 	color: #707070;
-	text-decoration: none;
+	text-decoration: none !important;
 	outline: none;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -74,6 +74,7 @@ ul{
 	margin:0;
 	padding:0;
 }
+
 
 /*-- Preloader css start --*/
 #preloader {
@@ -675,10 +676,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 	width:100%;
 	background:#ffffff;
 	z-index:100;
-	overflow:hidden;
+	/* overflow:hidden; */
 	position:fixed;
 	opacity: 0.7;
 }
+
 .fixed {
 	position: fixed;
 	top: 0;
@@ -3005,3 +3007,16 @@ width:100%;
   10% { opacity: 1;  }
   50% { opacity: .4; }
 }
+
+
+/* 리스트 페이지 CSS */
+.container.list{
+	padding-top:120px;
+}
+
+.tableHeader th{
+	text-align:center;
+}
+
+
+

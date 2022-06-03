@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
- 		<a href="/oldLike/addOldLike">보관등록페이지</a>
+ 		<a href="/storage/updateStorage">updateStorageTest</a>
     </div>
 </body>
 

@@ -18,14 +18,14 @@
 		<result property="period" 			column="period" 				jdbcType="INTEGER"  />
 		<result property="tranCode" 				column="tranCode" 				jdbcType="TINYINT"  />
 		<result property="paymentNo" 				column="paymentNo" 				jdbcType="INTEGER"  />
-		<result property="paymentDate" 				column="paymentDate" 				jdbcType="DATE"  />
+		<result property="paymentDate" 				column="paymentDate" 				jdbcType="TIMESTAMP"  />
 		<result property="paymentWay" 				column="paymentWay" 				jdbcType="VARCHAR"  />
 		<result property="receiverPhone" 				column="receiverPhone" 				jdbcType="VARCHAR"  />
 		<result property="receiverName" 				column="receiverName" 				jdbcType="VARCHAR"  />
 		<result property="prodName" 				column="prodName" 				jdbcType="VARCHAR"  />
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
-		<result property="discount" 				column="discount" 				jdbcType="DOUBLE"  />
+		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 		
 		 <association property="purchaseProd" javaType="product">
@@ -74,13 +74,13 @@
 	 	INTO transaction(
 	 			tranNo,userId,prodNo,divyAddress,pickupAddress,startDate,endDate,period,tranCode,paymentNo,paymentDate,paymentWay,receiverPhone,receiverName,prodName,prodImg,originPrice,discount,resultPrice) 
 	 	VALUES (
-	 			    	NULL,
+	 			    	#{tranNo},
  			     	  #{userId}, 
 	 				  #{prodNo},
 	 				  #{divyAddress},
 	 				  #{pickupAddress},
 	 				    date_add(curdate(), interval 3 day) , <!--대여 시작날짜 -->
-	 				     #{endDate}, 
+	 				    date_add(curdate(), interval 1+#{period} day), 
 	 				     #{period}, 
 	 				     #{tranCode}, 
 	 				     #{paymentNo}, 
@@ -91,7 +91,7 @@
 	 				      #{prodName} ,
 	 				       #{prodImg}, 
 	 				       #{originPrice}, 
-	 				       #{discount}, 
+	 				       #{discountPrice}, 
 	 				       #{resultPrice} )
 	 </insert>
 	 
@@ -123,15 +123,17 @@
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->
-	<select  id="getRentalListAdmin"  parameterType="search"	resultMap="rentalSelectMap">
+	<select  id="getRentalListForAdmin"  parameterType="search"	resultMap="rentalSelectMap">
 		 	SELECT p.*, t.*
 		 	FROM product p, transaction t
 		 	<where>
 		 		p.prodNo = t.prodNo
 		 		<!--getStorageListForAdmin페이지 맨처음 화면에 '물품보관승인신청중'인 물품만 표시 -->
-		 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
+		 	
+		 		<!--<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
 		 		 and p.prodCondition = '대여물품승인신청중'
-		 		</if>
+		 		</if>-->
+		 		
 		 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 		 		 and p.prodCondition = #{searchProductCondition}
 		 		</if>
