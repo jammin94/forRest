@@ -58,4 +58,9 @@ public class ViewControllerTest {
 	    return "main/index";
 	  }
 	  
+	  @GetMapping("/leftbar")
+	  public String mypage() {
+		    return "main/leftbar";
+		  }
+	  
 }
