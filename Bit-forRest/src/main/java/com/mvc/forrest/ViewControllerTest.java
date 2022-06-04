@@ -55,11 +55,12 @@ public class ViewControllerTest {
 	
 	  @GetMapping("/")
 	  public String room() {
-	    return "index";
+	    return "main/index";
 	  }
 	  
-	  @GetMapping("/leafTest")
-	  public String leaf() {
-	    return "listRentalProfit";
-	  }
+	  @GetMapping("/leftbar")
+	  public String mypage() {
+		    return "main/leftbar";
+		  }
+	  
 }

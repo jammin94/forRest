@@ -1,9 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-    
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   
@@ -23,6 +19,7 @@
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
    
+   
    <!-- jQuery UI toolTip 사용 CSS-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   
@@ -39,7 +36,9 @@
 
 <body>
 <!-- 툴바 include -->
-<jsp:include page="/WEB-INF/views/main/toolbar.jsp" />
+<!--<jsp:include page="/WEB-INF/views/main/toolbar.jsp" />-->
+
+<div th:replace="toolbar.html :: body"></div>
 
 
 <!--  화면구성 div Start /////////////////////////////////////-->
@@ -53,8 +52,11 @@
 	    
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지 
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	
 		    	</p>
+		    	전체 <span th:text="${resultPage.totalCount}"/>건수, 현재  <span th:text="${resultPage.currentPage}"/>페이지
+		    	 
 		    </div>
 	    	
 		</div>
@@ -67,87 +69,26 @@
 	       <thead>
 	          <tr class="tableHeader">
 	            <th align="center">No</th>
-	            <th align="center" >회원ID</th>
-	            <th align="center">회원명</th>	      
+	            <th align="center" >회원ID</th>   
 	            <th align="center">전화번호</th>
 	            <th align="center">요청사항</th>
 	            <th align="center">배송현황</th>				
 	          </tr>
 	        </thead>
 	        
-	        <tbody>
-	        
-	     <c:set var="i" value="0" /> 
-	        
-	 <c:forEach var="rental" items="${list}">
-		<c:set var="i" value="${ i+1 }" />
-		<tr class="ct_list_pop">
-		
-			<td align="center">
-			<span>${ i }</span>
-			</td>
-		
+	        <tbody> 
+	    
+	    
+	    <tr th:each="rental :${list}">
+	    
+		    <td th:text = "${rental.tranNo}"></td>
+			<td th:text = "${rental.userId}"></td>
+			<td th:text = "${rental.receiverPhone}"></td>
+			<td th:text = "${rental.userId}"></td>
+			<td th:text = "${rental.userId}"></td>
 			
-			<td align="center">
-				<span>렌탈 유저 아이디</span>
-			</td>
-			
-			<td align="center">렌탈 대여자 이름 ${rental.tranNo}</td>
-			
-			
-			<td align="center">렌탈 대여자 휴대폰</td>		
-		
-			<td align="center">렌탈 대여자 요청사항</td>
-			
-			
-			
-			 <%--  <c:choose>
-		         <c:when test="${sessionScope.user.userId == 'admin'}">
-		              <c:choose>
-							<c:when test="${purchase.tranCode.equals('100')}">					
-								<td align="center">
-								구매완료
-								<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&tranCode=${product.proTranCode}&currentPage=${resultPage.currentPage}">배송하기</a>
-								</td>
-							</c:when>
-							<c:when test="${purchase.tranCode.equals('200')}">
-								<td align="center">
-								배송중
-								<a href="/purchase/updateTranCode?prodNo=${product.prodNo }&tranCode=${product.proTranCode}&currentPage=${resultPage.currentPage}">배송완료</a>
-								</td>
-								
-							</c:when>
-							<c:otherwise>
-								<td align="center">배송완료</td>
-							</c:otherwise>
-					</c:choose>
-		         </c:when>
-		        
-		         <c:otherwise>
-		          <c:choose>
-							<c:when test="${purchase.tranCode.equals('100')}">					
-								<td align="center">
-								구매완료							
-								</td>
-							</c:when>
-							<c:when test="${purchase.tranCode.equals('200')}">
-								<td align="center">
-								배송중								
-								</td>
-								
-							</c:when>
-							<c:otherwise>
-								<td align="center">배송완료</td>
-							</c:otherwise>
-					</c:choose>
-		         </c:otherwise>
-	    	  </c:choose>
- --%>
-			
-		</tr>
-		
-	</c:forEach>	
-	       
+	    
+	    </tr>
 	        </tbody>
 
       </table>
