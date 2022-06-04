@@ -1,10 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%-- 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-     --%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
 
-	
+
 	<!-- favicon links -->
 	<link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />    
         
@@ -130,7 +125,7 @@
 <body>
 
 <!-- 툴바 include -->
-<jsp:include page="/WEB-INF/views/main/toolbar.jsp" />
+<div th:replace="toolbar.html :: body"></div>
 
    <div class="container">
 <p>

@@ -66,8 +66,8 @@ public class StorageController {
 	@GetMapping("addStorage")
 	public String addStorageGet(Model model, HttpSession session) throws Exception {
 		
-		String userId = ((User) session.getAttribute("user")).getUserId();
-		model.addAttribute("user", userService.getUser(userId));
+//		String userId = ((User) session.getAttribute("user")).getUserId();
+//		model.addAttribute("user", userService.getUser(userId));
 		
 		return "storage/addStorage";
 	}
