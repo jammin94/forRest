@@ -15,63 +15,63 @@ import com.mvc.forrest.service.domain.User;
 public class UserService {
 	
 	@Autowired
-	private UserDAO userdao;
+	private UserDAO userDao;
 	
 	public void addUser(User user) throws Exception {
-		userdao.addUser(user);
+		userDao.addUser(user);
 		System.out.println("UserService // addUser");
 	}
 	
 	public User getUser(String userId) throws Exception {
-		return userdao.getUser(userId);
+		return userDao.getUser(userId);
 	}
 	
 	public User getUserByName(String userName) throws Exception {
-		return userdao.getUserByName(userName);
+		return userDao.getUserByName(userName);
 	}
 	
 	public User getUserByPhone(String Phone) throws Exception {
-		return userdao.getUserByPhone(Phone);
+		return userDao.getUserByPhone(Phone);
 	}
 
 	public User getMyPage(String userId) throws Exception {
-		return userdao.getUser(userId);
+		return userDao.getUser(userId);
 	}
 	
 	public Map<String, Object> getUserList(Search search) throws Exception {
-		List<User> list = userdao.getUserList(search);
-		int totalCount = userdao.getTotalCount();
+		List<User> list = userDao.getUserList(search);
+		int totalCount = userDao.getTotalCount();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalcount", totalCount);
+		map.put("totalCount", totalCount);
 		
 		return map ;
 	}
 	
 	public void updateUser(User user) throws Exception {
-		userdao.updateUser(user);
+		userDao.updateUser(user);
 	}
 	
 	public void updatePassword(User user) throws Exception {
-		userdao.updatePassword(user);
+		userDao.updatePassword(user);
 	}
 	
 	public void updateRecentDate(User user) throws Exception{
-		userdao.updateRecentDate(user);
+		userDao.updateRecentDate(user);
 	}
 	
 	public void leaverUser(User user) throws Exception {
-		userdao.leaveUser(user);
+		userDao.leaveUser(user);
 	}
 	
 	public void restrictUser(User user) throws Exception {
-		userdao.restrictUser(user);
+		userDao.restrictUser(user);
 	}
 	
 	public boolean checkDuplication(String userId) throws Exception {
 		boolean result=true;
-		User user=userdao.getUser(userId);
+		User user=userDao.getUser(userId);
 		if(user != null) {
 			result=false;
 		}
