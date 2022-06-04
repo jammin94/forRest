@@ -355,15 +355,15 @@
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img width="300" height="205" src="#">
-											<h5>Sale</h5>
+										<!--		<!--	<h5>Sale</h5>  -->  
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>Apple iPhone XS Max</h2>
-											<h3>64GB</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$589.97</p>	<del>$750</del>
+											<p>50000원</p>	
 											<div class="try_mob_btn_wrapper">	<a target="#" href="#">Buy Now</a>
 											</div>
 										</div>
@@ -373,15 +373,15 @@
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/rs2.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>Mobile 101</h2>
-											<h3>(2GB  |  32GB)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$6499</p>	<del>$7500</del>
+											<p>50000원</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -391,15 +391,15 @@
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/rs3.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>Mobile 101</h2>
-											<h3>(2GB  |  32GB)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$6499</p>	<del>$7500</del>
+											<p>50000원</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -409,15 +409,15 @@
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/rs4.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>Mobile 101</h2>
-											<h3>(2GB  |  32GB)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$6499</p>	<del>$7500</del>
+											<p>50000원</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -558,7 +558,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/swatch1.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
@@ -566,7 +566,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 											<h3>(Camera & SIM Card Support)</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	<del>$799</del>
+											<p>$699</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -576,7 +576,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/swatch2.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
@@ -584,7 +584,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 											<h3>(Camera & SIM Card Support)</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	<del>$799</del>
+											<p>$699</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -594,7 +594,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/swatch3.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
@@ -602,7 +602,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 											<h3>(Camera & SIM Card Support)</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	<del>$799</del>
+											<p>$699</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
@@ -612,7 +612,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 											<img src="/images/content/swatch4.png" alt="mobail">
-											<h5>Sale</h5>
+												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
@@ -620,7 +620,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 											<h3>(Camera & SIM Card Support)</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	<del>$799</del>
+											<p>$699</p>	
 											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
 											</div>
 										</div>
