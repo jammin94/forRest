@@ -27,6 +27,12 @@
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
 		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
+		
+		<association property="storageProd" javaType="product">
+			<id property="prodNo" column="prodNo"  jdbcType="INTEGER"/>
+			<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
+			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
+		</association>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->

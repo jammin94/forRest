@@ -92,12 +92,21 @@
 		 
 	<!-- SQL : SELECT LIST	// blah = 아무의미없는 글자 // 신고횟수 조회때문에 나중에 조인해야함 -->
 	
-	<!-- 단위테스트용 쿼리 -->
+	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
+	SELECT
+		user.* , COALESCE(B.COUNT,0) AS 'reportedCount'
+		FROM user LEFT OUTER JOIN 	  	
+		(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
+		ON user.userId = B.reportedUser;																	
+	</select>
+	
+	<!-- 단위테스트용 쿼리 
 	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
 		SELECT
 		@rownum:=@rownum+1 as '번호', user.*
 		FROM user, (SELECT @rownum:=0)a;																		
 	 </select>
+	 -->
 <!-- 	본쿼리
 	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
 		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*

@@ -18,6 +18,7 @@ public class User {
 	private String joinPath;
 	private String userImg;
 	private String pushToken;
+	private String reportedCount;
 	private double userRate;
 	private Timestamp leaveApplyDate;
 	private Timestamp leaveDate;
