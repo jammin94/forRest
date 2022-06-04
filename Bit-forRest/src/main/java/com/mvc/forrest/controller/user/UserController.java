@@ -225,10 +225,10 @@ public class UserController {
 		return "main/index";
 	}
 	
-	@RequestMapping("listUser")
+	@RequestMapping("getListUser")
 	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/user/listUser : GET / POST");
+		System.out.println("/user/getListUser : GET / POST");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
