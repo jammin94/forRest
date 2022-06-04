@@ -46,10 +46,6 @@ public class ViewControllerTest {
 		return "user/update";
 	}
 	
-	@GetMapping("/")
-	public String indexpage() {
-		return "main/index";
-	}
 	
 	
 	@GetMapping("/toolbar/toolbar")
@@ -57,7 +53,7 @@ public class ViewControllerTest {
 		return "main/toolbar";
 	}
 	
-	  @GetMapping("/leaf")
+	  @GetMapping("/")
 	  public String room() {
 	    return "index";
 	  }
