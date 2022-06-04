@@ -19,15 +19,14 @@
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
    
-   
    <!-- jQuery UI toolTip 사용 CSS-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   
-   
+   <link rel="stylesheet" href="/css/style.css">    
     <link rel="stylesheet" type="text/css" href="/css/animate.css" />
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
- <link rel="stylesheet" href="/css/style.css">    
+ 
   
   <!-- jQuery UI toolTip 사용 JS-->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -44,7 +43,7 @@
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info">
-		       <h3>대여수익확인</h3>
+		       <h3>유저 목록</h3>
 		</div>
 		
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -53,10 +52,7 @@
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
 		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
-		    	
 		    	</p>
-		    	전체 <span th:text="${resultPage.totalCount}"/>건수, 현재  <span th:text="${resultPage.currentPage}"/>페이지
-		    	 
 		    </div>
 	    	
 		</div>
@@ -70,25 +66,24 @@
 	          <tr class="tableHeader">
 	            <th align="center">No</th>
 	            <th align="center" >회원ID</th>   
-	            <th align="center">전화번호</th>
-	            <th align="center">요청사항</th>
-	            <th align="center">배송현황</th>				
+	            <th align="center">닉네임</th>
+	            <th align="center">이름</th>
+	            <th align="center">가입일자</th>	
+	            <th align="center">유저프로필사진</th>
+	            <th align="center">신고횟수</th>				
 	          </tr>
 	        </thead>
 	        
 	        <tbody> 
-	    
-	    
-	    <tr th:each="rental :${list}">
-	    
-		    <td th:text = "${rental.tranNo}"></td>
-			<td th:text = "${rental.userId}"></td>
-			<td th:text = "${rental.receiverPhone}"></td>
-			<td th:text = "${rental.userId}"></td>
-			<td th:text = "${rental.userId}"></td>
-			
-	    
-	    </tr>
+			    <tr th:each="user,n :${list}" align="center">
+			    	<td th:text = "${n.index+1}">
+				    <td th:text = "${user.userId}"></td>
+					<td th:text = "${user.nickname}"></td>
+					<td th:text = "${user.userName}"></td>
+					<td th:text = "${user.joinDate}"></td>
+					<td th:text = "${user.userImg}"></td>
+					<td th:text = "${user.reportedCount}"></td>
+			    </tr>
 	        </tbody>
 
       </table>

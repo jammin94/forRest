@@ -6,6 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
+import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
 
@@ -94,6 +99,15 @@ public class UserServiceTest {
 		
 		assertEquals("admin", user.getUserId());
 
+	}
+	
+	@Test
+	public void testGetUserList() throws Exception{
+		
+		Search search = new Search();
+		Map<String, Object> map = userService.getUserList(search);
+		System.out.println(map.get("list"));
+		
 	}
 	
 

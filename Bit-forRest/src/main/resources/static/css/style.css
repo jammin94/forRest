@@ -718,9 +718,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 	margin:0px 0px 0px 25px;
 }
 .width_calc{
-	float:left;
+	
 	width:100%;
+	max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
+
+
 .main-menu .navigation > li > a{
 	position:relative;
 	display:block;
@@ -2948,6 +2953,7 @@ width:100%;
 /*개인추가*/
 #home{
 	opacity: 1;
+    max-width: 10000px !important;
 }
 
 .fly-in{
