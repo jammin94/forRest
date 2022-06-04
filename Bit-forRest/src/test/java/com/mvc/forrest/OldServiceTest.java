@@ -40,31 +40,11 @@ public class OldServiceTest {
 	@Autowired
 	public OldService oldService;
 
-	//@Test
+	@Test
 	public void testUpdateOld() throws Exception {
 		
+		
 		Old old = oldService.getOld(1);
-		
-		assertEquals(40000, old.getOldPrice());
-		assertEquals("야전침대", old.getOldTitle());
-		assertEquals("접이식", old.getOldDetail());
-		assertEquals("침대", old.getCategory());
-		assertEquals((short) 1 ,old.getOldState());
-		assertEquals("aaa.jpg", old.getOldImg());
-		assertEquals("삼성동", old.getOldAddr());
-		
-		old.setOldPrice(20000);
-		old.setOldTitle("1인침대");
-		old.setOldDetail("접이식");
-		old.setCategory("침대");
-		old.setOldState((short) 1);
-		old.setOldImg("wow.jpg");
-		old.setOldAddr("대치동");
-		
-		
-		
-		oldService.updateOld(old);
-		old = oldService.getOld(1);
 		
 		assertEquals(20000, old.getOldPrice());
 		assertEquals("1인침대", old.getOldTitle());
@@ -73,6 +53,27 @@ public class OldServiceTest {
 		assertEquals((short) 1 ,old.getOldState());
 		assertEquals("wow.jpg", old.getOldImg());
 		assertEquals("대치동", old.getOldAddr());
+		
+		old.setOldPrice(40000);
+		old.setOldTitle("원터치 텐트");
+		old.setOldDetail("가성비");
+		old.setCategory("텐트");
+		old.setOldState((short) 1);
+		old.setOldImg("tent.jpg");
+		old.setOldAddr("청담동");
+		
+		
+		//updateOld(2)로 하면 데이터 전부 2로 변함
+		oldService.updateOld(old);
+		old = oldService.getOld(1);
+		
+		assertEquals(40000, old.getOldPrice());
+		assertEquals("원터치 텐트", old.getOldTitle());
+		assertEquals("가성비", old.getOldDetail());
+		assertEquals("텐트", old.getCategory());
+		assertEquals((short) 1 ,old.getOldState());
+		assertEquals("tent.jpg", old.getOldImg());
+		assertEquals("청담동", old.getOldAddr());
 		
 		
 		System.out.println("updateOldtest"+old);
