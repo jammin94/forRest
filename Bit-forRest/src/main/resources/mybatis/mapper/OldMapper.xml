@@ -20,13 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result property="category"	column="category"		jdbcType="VARCHAR"/>
 	<result property="oldState"	column="oldState"		jdbcType="TINYINT"/>
 	<result property="oldImg"	column="oldImg"			jdbcType="VARCHAR"/>
+	<result property="oldAddr"	column="oldAddr"		jdbcType="VARCHAR"/>
 </resultMap>
 
 <!-- SQL : INSERT  -->
 <insert		id="addOld"		parameterType="Old">
 	INSERT
-	INTO OLD(userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState, oldImg)
-	values (#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg})
+	INTO OLD(oldNo,userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState, oldImg, oldAddr)
+	values (null,#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg},#{oldAddr})
 </insert>
 
  <!-- SQL : DELETE -->
@@ -38,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- SQL : SELECT ONE -->
 <select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
-	SELECT old.*
+	SELECT *
 	FROM old
 	WHERE oldNo = #{oldNo}
 	 </select>
@@ -52,8 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		oldDetail = #{oldDetail},
  		category = #{category},
  		oldState = #{oldState},
- 		oldImg	=#{oldImg}
-
+ 		oldImg	=#{oldImg},
+		oldAddr =#{oldAddr}
  	</set>
  	WHERE oldNo = #{oldNo}
  </update>

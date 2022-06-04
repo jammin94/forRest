@@ -11,14 +11,13 @@ import com.mvc.forrest.service.domain.Search;
 @Repository
 @Mapper
 public interface OldDAO {
-
 	public void addOld(Old old) throws Exception ;
 	
 	public Old getOld(int oldNo) throws Exception ;
 	
 	public void updateOld(Old old) throws Exception ;
 	
-	public void deleteOld(int OldNo) throws Exception ;	
+	public void deleteOld(int oldNo) throws Exception ;	
 
 	public int getTotalCount(Search search) throws Exception;
 

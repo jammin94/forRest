@@ -28,36 +28,36 @@
 	<select  id="getListBoard"  parameterType="map"	resultMap="boardSelectMap">
 		SELECT * FROM board 
 		<where>
-			<if test="board.boardFlag=='A'">
+			<if test='"A".equals(board.boardFlag)'>
 				boardFlag='A' 
 				<if test="search.searchCondition != null">
-					<if test="search.searchCondition=='title' and search.searchKeyword != ''">
+					<if test="search.searchCondition=='title'.toString() and search.searchKeyword != ''">
 						AND boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
-					<if test="search.searchCondition=='detail' and search.searchKeyword != ''">
+					<if test="search.searchCondition=='detail'.toString() and search.searchKeyword != ''">
 						AND boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 				</if>
 			</if>
-			<if test="board.boardFlag=='F'">
+			<if test='"F".equals(board.boardFlag)'>
 				boardFlag='F' 
 			</if>
 		</where>
-			<if test="board.boardFlag=='A'">
+			<if test='"A".equals(board.boardFlag)'>
 				<if test="search.orderCondition==null">
-					ORDER BY boardPin DESC, boardDate DESC
+					ORDER BY boardPin DESC, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 				</if>
 				<if test="search.orderCondition!=null">
-					<if test="search.orderCondition=='ASC'">
-						ORDER BY boardPin DESC, boardDate ASC
+					<if test="search.orderCondition=='ASC'.toString()">
+						ORDER BY boardPin DESC, boardDate ASC LIMIT #{newStartRowNum}, #{search.pageSize}
 					</if>
-					<if test="search.orderCondition=='DESC'">
-						ORDER BY boardPin DESC, boardDate DESC
+					<if test="search.orderCondition=='DESC'.toString()">
+						ORDER BY boardPin DESC, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 					</if>
 				</if>
 			</if>
-			<if test="board.boardFlag=='F'">
-				ORDER BY category
+			<if test='"F".equals(board.boardFlag)'>
+				ORDER BY category, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 			</if>
 	 </select>
 	 
@@ -105,6 +105,20 @@
 			boardNo = #{boardNo}
 		</where>
 	 </update>
+	 
+	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*) FROM(	SELECT * FROM board 
+						<if test="searchCondition != null">
+							<where>
+								<if test="searchCondition == 'title' and searchKeyword !='' ">
+					 				boardTitle LIKE CONCAT('%', #{searchKeyword}, '%') 
+								</if>
+								<if test="searchCondition == 'context' and searchKeyword !='' ">
+					 				boardDetail LIKE CONCAT('%', #{searchKeyword}, '%') 
+								</if>
+							</where>
+						</if> ) countTable						
+	 </select>
 
 	 
 </mapper>

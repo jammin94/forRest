@@ -32,13 +32,36 @@
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
-		SELECT u.*
-		FROM user u
-		WHERE u.userId = #{value}
+		SELECT *
+		FROM user
+		WHERE userId = #{value}
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUserByName"	parameterType="String"	resultMap="userSelectMap">
+		SELECT *
+		FROM user
+		WHERE userName = #{value}
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUserByPhone"	parameterType="String"	resultMap="userSelectMap">
+		SELECT *
+		FROM user
+		WHERE phone = #{value}
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
 	 <update	id="updateUser"	parameterType="User" >
+	   	UPDATE user
+	   	<set>
+	   		password		= #{password}
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
+
+	<!-- SQL : UPDATE --> 
+ 	<update	id="updatePassowrd"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		nickname	= #{nickname},
@@ -72,7 +95,7 @@
 	<!-- 단위테스트용 쿼리 -->
 	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
 		SELECT
-		@rownum:=@rownum+1, user.*
+		@rownum:=@rownum+1 as '번호', user.*
 		FROM user, (SELECT @rownum:=0)a;																		
 	 </select>
 <!-- 	본쿼리

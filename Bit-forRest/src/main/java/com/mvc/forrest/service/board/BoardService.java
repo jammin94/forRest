@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.board.BoardDAO;
 import com.mvc.forrest.service.domain.Board;
+import com.mvc.forrest.service.domain.Search;
 
 
 @Service
@@ -44,6 +45,10 @@ public class BoardService {
 	public void updateFixBoard(Board board) throws Exception{
 		System.out.println("updateFixBoard 실행 됨");
 		boardDAO.updateFixBoard(board);
+	}
+	
+	public int getTotalCount(Search search) throws Exception{
+		return boardDAO.getTotalCount(search);
 	}
 
 }

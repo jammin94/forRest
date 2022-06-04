@@ -160,13 +160,17 @@ public class UserController {
 	}
 	
 	@PostMapping("findId")
-	public String findId (String userName, String phone, String auth) throws Exception{
-
+	public String findId (String userName, String phone, String sms) throws Exception{
 		System.out.println("/user/findId : POST");
 		
+		// sms 인증필요 보낸 sms와 유저sms가 일치해야함
 		
-		
-		
+		User userByPhone = userService.getUserByPhone(phone);
+		User userByName = userService.getUserByName(userName);
+		if(userByName.getUserId() == userByPhone.getUserId()){
+			return "user/findId";
+		}
+		 
 		return "user/findId";
 	}
 	
@@ -175,35 +179,50 @@ public class UserController {
 		
 		System.out.println("/user/findPwd : GET");
 		
-		return null;
+		return "user/findPwd";
 	}
 	
 	@PostMapping("findPwd")
-	public String findPwd(String password) throws Exception{
+	public String findPwd(String userId, String phone, String sms, HttpSession session) throws Exception{
 		
 		System.out.println("/user/findPwd : POST");
 		
-		// #############	need logic	################
+		// sms인증 필요
 		
-		return null;
+		User user = userService.getUser(userId);
+		User userByPhone = userService.getUserByPhone(phone);
+		
+		if(user.getUserId() == userByPhone.getUserId()){
+			session.setAttribute("user", user);
+			
+			return "user/pwdReset";
+		}
+		
+		return "user/pwdReset";
 	}	
 	
-	@GetMapping("pwdReset")
-	public String pwdReset() throws Exception{
-		
-		System.out.println("/user/pwdReset : GET");
-		
-		return null;
-	}
+//	@GetMapping("pwdReset")								//필요없음
+//	public String pwdReset() throws Exception{
+//		
+//		System.out.println("/user/pwdReset : GET");
+//		
+//		return null;
+//	}
 	
 	@PostMapping("pwdReset")
-	public String pwdReset(String password) throws Exception{
+	public String pwdReset(@ModelAttribute User user, HttpSession session, Model model) throws Exception{
 		
 		System.out.println("/user/pwdReset : POST");
 		
-		// #############	need logic	################
+		User dbUser = userService.getUser(user.getUserId());
+		dbUser.setPassword(user.getPassword());
+		userService.updatePassword(dbUser);
+		session.setAttribute("user", dbUser);
 		
-		return null;
+		model.addAttribute("user", dbUser);
+		
+		
+		return "main/index";
 	}
 	
 	@RequestMapping("listUser")
@@ -225,7 +244,7 @@ public class UserController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return null;
+		return "user/getUserList";
 	}
 	
 	@GetMapping("getUser")
@@ -237,7 +256,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		
-		return null;
+		return "user/getUser";
 	}
 	
 	@GetMapping("getMyPage")
@@ -249,7 +268,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		
-		return null;
+		return "user/getMyPage";
 	}
 	
 	@GetMapping("deleteUser")
@@ -257,7 +276,7 @@ public class UserController {
 		
 		System.out.println("/user/deleteUser : GET");
 		
-		return null;
+		return "user/deleteUserView";
 	}
 	
 	@PostMapping("deleteUser")
