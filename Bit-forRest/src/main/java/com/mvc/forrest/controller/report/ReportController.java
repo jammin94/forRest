@@ -23,6 +23,7 @@ import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Report;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.firebase.FCMService;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
@@ -39,14 +40,22 @@ public class ReportController {
 	@Autowired
 	public ReportService reportService;
 	
+	@Autowired
+	public FCMService fcmService;	
 	
-	
-	//------------대여물품add  view 화면 (네비게이션용) ------------//
 	@GetMapping("addReport")
 	public String addReport(Model model ) throws Exception {
 		
-		 return "report/addReport";
+		 return "common/firebase";
 	}
+	
+	@GetMapping("messageTest")
+	public String messageTest(Model model ) throws Exception {
+		
+		fcmService.sendMessage();
+		
+		 return "common/firebase";
+	}	
 	
 	@PostMapping("addReport")
 	public String addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user, Model model ) throws Exception {
