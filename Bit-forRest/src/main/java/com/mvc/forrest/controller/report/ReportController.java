@@ -61,7 +61,7 @@ public class ReportController {
 		System.out.println("getReport 실행됨");
 		reportService.getReport(reportNo);
 		System.out.println(reportService.getReport(reportNo));
-		return "index";
+		return "report/getReport";
 	}	
 	
 	@PostMapping("updateReportCode")
