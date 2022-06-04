@@ -668,11 +668,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 .main-header{
 	float:left;
 	width:100%;
-	background:#ffffff;
+	background-color:hsla(0,0%,100%,.8);
 	z-index:100;
 	/* overflow:hidden; */
 	position:fixed;
-	opacity: 0.7;
+	    backdrop-filter: blur(7px);
+
 }
 
 .fixed {
@@ -1928,12 +1929,16 @@ width:100%;
 /******------try lt st section End------********/
 /******------try Slider erp banner Start------********/
 .try_banner_watch_slider_wrapper{
-	float:left;
-	width:100%;
-	background:url('../images/content/about_bg5.jpg') 50% 0 repeat-y;
-	background-position:center 0;
-	background-size:cover;
-	position:relative;
+	float: left;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    /* margin: 0 auto; */
+     /* background-color: #aac082;*/  
+    /* background-position: center 0; */
+    /* background-size: cover; */
+    position: relative;
+    border-radius: 20px;
 }
 .try_banner_watch_slider_inner_wrapper{
 	float:left;
@@ -2727,7 +2732,7 @@ width:100%;
 .try_footer_main_section_wrapper{
 	float:left;
 	width:100%;
-	background:#111111;
+	background: #3f6236;
 	padding-top:100px;
 }
 .try_footer_first_sec_wrapper{
@@ -2826,7 +2831,7 @@ width:100%;
 	width:calc(100% - 50px);
 	height:50px;
 	padding-left:20px;
-	background:#1d1d1d;
+	background: #ffffff;
 	border:0;
 	color:rgba(255, 255, 255, 0.58);
 	    -webkit-border-top-left-radius: 10px;

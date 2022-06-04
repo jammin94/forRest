@@ -50,16 +50,18 @@ public class ReportController {
 	
 	@PostMapping("addReport")
 	public String addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user, Model model ) throws Exception {
+		 
+		 reportService.addReport(report);
 		
 		 return "report/addReport";
 	}
 	
-	@PostMapping("getReport")
+	@GetMapping("getReport")
 	public String getReport(@RequestParam("reportNo") int reportNo, Model model ) throws Exception {
-		
+		System.out.println("getReport 실행됨");
 		reportService.getReport(reportNo);
-		
-		return "report/addReport";
+		System.out.println(reportService.getReport(reportNo));
+		return "index";
 	}	
 	
 	@PostMapping("updateReportCode")
@@ -68,7 +70,15 @@ public class ReportController {
 		reportService.updateReportCode(report);
 		
 		return "report/addReport";
-	}	
+	}
+	
+	@RequestMapping("listReport")
+	public String listReport(Model model) throws Exception {
+		
+		reportService.getReportList();
+		model.addAttribute("reportList", reportService.getReportList());
+		return "report/listReport";
+	}		
 	
 	
 }
