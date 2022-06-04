@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+   <link rel="stylesheet" href="/css/style.css">    
+    <link rel="stylesheet" type="text/css" href="/css/animate.css" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
+ 
+  
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+
+<body>
+<!-- 툴바 include -->
+<!--<jsp:include page="/WEB-INF/views/main/toolbar.jsp" />-->
+
+<div th:replace="toolbar.html :: body"></div>
+
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+	<div class="page-header text-info">
+		       <h3>신고내역확인</h3>
+		</div>
+		
+
+	 <form class="form-inline" name="detailForm">
+		 <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped">
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center">신고번호</th>
+	            <th align="center">신고자</th>
+	            <th align="center">피신고자</th>	      
+	            <th align="center">신고사유카테고리</th>
+	            <th align="center">신고접수일</th>
+	            <th align="center">신고게시물번호</th>
+	            <th align="center">처리결과</th>			
+	          </tr>
+	        </thead>
+	        
+	        <tbody>
+			    <tr th:each="report :${reportList}">	    
+			    	<td class="abc" align="center" th:text = "${report.reportNo}"><input type="hidden" th:value="${report.reportNo}"></td>
+			    	<td align="center" th:text = "${report.reportUser}"></td>
+			    	<td align="center" th:text = "${report.reportedUser}"></td>
+			    	<td align="center" th:text = "${report.reportCategory}"></td>
+			    	<td align="center" th:text = "${report.reportDate}"></td>
+			    	<td align="center" th:text = "${report.reportOldNo}"></td>
+			    	<td align="center" th:if = "${report.reportCode}==0" th:text = "신고처리중"></td>
+			    	<td align="center" th:if = "${report.reportCode}==1" th:text = "승인"></td>
+			    	<td align="center" th:if = "${report.reportCode}==2" th:text = "반려"></td>
+			    </tr>
+	        </tbody>
+
+      </table>
+		<!--  table End /////////////////////////////////////-->
+	</form>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+
+
+</body>
+
+<script type="text/javascript">
+
+		function fncGetReport( ) {
+			self.location ="/report/getReport?reportNo="+$(this).child().val();
+		}
+		
+
+		
+		 $(function() {
+		
+			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+			$( ".abc" ).on("click" , function() {
+				alert($(this).children().val());
+				var str = parseInt($(this).text());
+				alert(str);
+				self.location ="/report/getReport?reportNo="+str;
+			});
+						
+		});	
+			
+</script>
+</html>
