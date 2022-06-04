@@ -32,6 +32,7 @@ public class Storage {
 	private int originPrice;
 	private int discountPrice;
 	private int resultPrice;
+	private Product storageProd;
 	
 	
 }
