@@ -157,7 +157,7 @@ public class RentalController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
-		return "rental/listRentalProfit";
+		return "listRentalProfit";
 	}
 	
 	

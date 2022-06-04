@@ -56,4 +56,14 @@ public class ViewControllerTest {
 	public String toolbarView() {
 		return "main/toolbar";
 	}
+	
+	  @GetMapping("/leaf")
+	  public String room() {
+	    return "index";
+	  }
+	  
+	  @GetMapping("/leafTest")
+	  public String leaf() {
+	    return "listRentalProfit";
+	  }
 }

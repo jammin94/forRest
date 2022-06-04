@@ -4,7 +4,7 @@
 
 .anview-logo {
   font-family: 'lato', sans-serif;
-  width: 256px;
+  width: 300px;
   height: 60px;
   left: 45%;
   top: 34%;
@@ -80,7 +80,7 @@
   }
   
   .anview-logo span:nth-child(3) {
-    left: 12px;
+    left: 56px;
     animation: a 5s ease;
     transform: translateX(0px);
   }
@@ -99,7 +99,7 @@
   }
 
  .anview-logo span:nth-child(6) {
-    left: 97px;
+    left: 143px;
     animation: view 5s ease;
     transform: translateX(0px);
   }
