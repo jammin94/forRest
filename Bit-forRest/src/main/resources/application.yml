@@ -15,11 +15,17 @@ mybatis:
     type-aliases-package: com.mvc.forrest.service.domain
  
     
+#spring:
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
+
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+  thymeleaf:
+      prefix: classpath:templates/
+      suffix: .html
+      mode: HTML
       
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
