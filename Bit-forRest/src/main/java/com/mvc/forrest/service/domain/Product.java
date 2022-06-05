@@ -27,6 +27,7 @@ public class Product {
 	private String returnAddress;
 	private String prodImg;
 	private String recentImg;
+	private User userProd;
 	//주소 따로or jsp에서??
 
 	

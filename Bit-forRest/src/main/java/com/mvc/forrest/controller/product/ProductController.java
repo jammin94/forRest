@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
+import com.mvc.forrest.service.user.UserService;
 
 
 
@@ -32,6 +34,9 @@ public class ProductController {
 	
 	@Autowired
 	public ProductService productService;
+	
+	@Autowired
+	public UserService userService;
 	
 	public ProductController() {
 		System.out.println(this.getClass());
@@ -79,13 +84,21 @@ public class ProductController {
 		return "redirect: /storage/listStorageForAdmin";
 	}
 	
-	//세션아이디랑 같을때 다를때 조건추가해야함
+	
 	@GetMapping("getProduct")
-	public String getProduct(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
+	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpSession httpsession) throws Exception {
 		
 		Product product = productService.getProduct(prodNo);
 		
+		//TEST용: getProduct에서 물품주인과 구매자에 따라 다른화면출력 Test를 위한 세션생성	
+		User sessionUser = userService.getUser("user01@naver.com");
+		httpsession.setAttribute("sessionUser", sessionUser);
+		
+		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
+		//User sessionUser = (User) httpsession.getAttribute("user");
+		
 		model.addAttribute("product", product);
+		model.addAttribute("sessionUser", sessionUser);
 		
 		return "product/getProduct";
 	}
