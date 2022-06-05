@@ -18,13 +18,13 @@
 	<insert 	id="addOwnCoupon"		parameterType="OwnCoupon" >
 		INSERT
 	 	INTO ownCoupon(userId, couponNo, ownCouponCreDate, ownCouponDelDate) 
-	 	VALUES (#{ownuser.userId}, #{ownCoupon.couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
+	 	VALUES (#{ownUser.userId}, #{ownCoupon.couponNo}, #{ownCouponCreDate}, #{ownCouponDelDate})
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getOwnCoupon"	parameterType="int"	resultMap="ownCouponSelectMap">
 		SELECT *
-		FROM owncoupon
+		FROM ownCoupon
 		WHERE owncouponNo = #{value}
 	 </select>
 	 	 
@@ -38,7 +38,7 @@
 	<!-- SQL : SELECT LIST -->
 	<select  id="getOwnCouponList"  parameterType="String"		resultMap="ownCouponSelectMap">
 		SELECT c.couponName, oc.ownCouponCreDate, oc.ownCouponDelDate
-		FROM coupon c, owncoupon oc
+		FROM coupon c, ownCoupon oc
 		WHERE oc.couponNo = c.couponNo
 		AND oc.userId = #{ownUser.userId}
 	 </select>
