@@ -5,11 +5,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mvc.forrest.service.domain.Img;
 
-//@Mapper
+
+@Mapper
 public interface ImgDAO {
 	
-	public void addImg(Map<String, String> map) throws Exception;
+	public void addImg(Img img) throws Exception;
 	
 	public List<String>getListImg(Map<String,Object> map)  throws Exception;
 	
