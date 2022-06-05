@@ -68,6 +68,9 @@ public class UserController {
 		
 		User dbUser=userService.getUser(user.getUserId());
 		
+		System.out.println("입력받은 ID/PW : "+user);
+		System.out.println("DB와 일치하는 ID/PW : "+dbUser);
+		
 		//db에 아이디가 없을 경우
 		if(dbUser==null) {
 			model.addAttribute("message", "가입되지않은 아이디입니다.");
@@ -88,30 +91,35 @@ public class UserController {
 		
 		//해당 id와 pwd가 일치할 경우
 		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);		//세션에 user 저장
+			
+			//세션에 user 저장
+			session.setAttribute("user", dbUser);
+			model.addAttribute("user", dbUser);
 			
 			//신규회원 쿠폰발급
 			if(user.getJoinDate()==user.getRecentDate()) {
 				OwnCoupon oc = new OwnCoupon();
 				Coupon coupon = couponService.getCoupon(2);
-				Timestamp ts = new Timestamp(System.currentTimeMillis());
-				Timestamp ts2 = null;
+				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+				Timestamp ts2 = new Timestamp(System.currentTimeMillis());
 				
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(ts);
-				cal.add(Calendar.DATE,30);
-				ts2.setTime(cal.getTime().getTime());
-				oc.setOwnuser(dbUser);
-				oc.setOwncoupon(coupon);
-				oc.setOwnCouponCreDate(ts);
+//				Calendar cal1 = Calendar.getInstance();
+				Calendar cal2= Calendar.getInstance();
+//				cal1.setTime(ts1);
+				cal2.setTime(ts2);
+				cal2.add(Calendar.DATE,30);
+//				ts2.setTime(cal.getTime().getTime());
+				oc.setOwnUser(dbUser);
+				oc.setOwnCoupon(coupon);
+				oc.setOwnCouponCreDate(ts1);
 				oc.setOwnCouponDelDate(ts2);
-				
+				System.out.println(oc);
 				couponService.addOwnCoupon(oc);
 			}
 			
 			userService.updateRecentDate(dbUser);		//최근접속일자 update
 				
-			return "index";								//나중에 정확한 경로로 수정
+			return "main/index";								//나중에 정확한 경로로 수정
 			
 		//해당 id와 pwd가 불일치할 경우	
 		}else{

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.img.ImgDAO"> 	
+ 	
+	<resultMap id="ImgSelectMap" type="img">
+		<result property="imgNo" 				column="imgNo" 				jdbcType="INTEGER"/>
+		<result property="contentsNo" 				column="contentsNo" 				jdbcType="INTEGER"/>
+		<result property="fileName" 				column="fileName" 				jdbcType="VARCHAR"/>
+		<result property="contentsFlag" 				column="contentsFlag" 				jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!--INSERT-->
+	<insert 	id="addImg"		parameterType="img" >
+		INSERT 
+	 	INTO imgs(contentsNo, fileName,contentsFlag) 
+	 	values (#{contentsNo}, #{fileName}, #{contentsFlag})
+	 </insert>
+
+</mapper>

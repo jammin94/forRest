@@ -1,4 +1,4 @@
-package com.mvc.forrest.controller.message;
+package com.mvc.forrest.controller.common;
 
 import java.util.Map;
 

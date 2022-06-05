@@ -1,4 +1,4 @@
-package com.mvc.forrest.controller.message;
+package com.mvc.forrest.controller.common;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
