@@ -94,17 +94,24 @@ public class OldController {
 	
 	
 	
-	@GetMapping("getOld/{oldNo}")
-	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
-		
-		System.out.println(this.getClass());
-		
-		model.addAttribute(oldService.getOld(oldNo));
-		
-		return "forward:/old/getOld";	
-		
-	}
+//	@GetMapping("getOld/{oldNo}")
+//	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
+//		
+//		System.out.println(this.getClass());
+//		
+//		model.addAttribute(oldService.getOld(oldNo));
+//		
+//		return "forward:/old/getOld";	
+//		
+//	}
 	 
+	@GetMapping("getOld")
+	public String getReport(@RequestParam("oldNo") int oldNo, Model model ) throws Exception {
+		System.out.println(this.getClass()+ "겟올드");
+		oldService.getOld(oldNo);
+		System.out.println(oldService.getOld(oldNo));
+		return "old/getOld";
+	}	
 	
 	@GetMapping("updateOld/{oldNo}")
 		
