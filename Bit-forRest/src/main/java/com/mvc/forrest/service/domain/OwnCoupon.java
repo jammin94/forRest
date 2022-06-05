@@ -9,8 +9,8 @@ public class OwnCoupon {
 	
 	///Field
 	private int ownCouponNo;
-	private User ownuser;
-	private Coupon owncoupon;
+	private User ownUser;
+	private Coupon ownCoupon;
 	private Timestamp ownCouponCreDate;
 	private Timestamp ownCouponDelDate;
 

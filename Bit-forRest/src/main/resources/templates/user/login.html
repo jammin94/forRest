@@ -16,6 +16,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 	
+	<style type="text/css">
+	    h1 {
+      font-size: 2em;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+	</style>
+	
 	
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
@@ -54,7 +63,8 @@
 			$('a[name="loginBtn"]').on("click", function() {
 						var id = $("input[name='userId']").val();
 						var pw = $("input[name='password']").val();
-	
+						console.log(id);
+						console.log(pw);	
 						if (id == null || id.length < 1) {
 							swal('Email을 입력해주세요!');
 							$("input[name='email']").focus();
@@ -66,22 +76,22 @@
 							$("input[name='password']").focus();
 							return;
 						}
-	
+
 						$('form[name="loginForm"]').attr("method", "POST").attr("action",
 								"/user/login").attr("target", "_parent").submit();
 					});
 		}
 	
 	
-	
 	</script>
+
 
 </head>
 
 <body>
     <div class="container login" role="main">
         <div id="headerCommonLayout">
-        	<h1 align= "center">대문짝 만한 로그인 글자</h1>
+        	<h1 align= "center">Login</h1>
         </div>
         <section class="content content--no-interval">
             <!-- login-member -->
@@ -96,20 +106,23 @@
                         <input type="hidden" id="eventPage" name="eventPage" value=""/>
                         <input type="hidden" id="eventCode" name="eventCode" value=""/>
                       	-->
-                        <div class="login-input">
+                        <div class="login-input">	<!-- userId -->
                             <div class="login-input__wrap">
                                 <input type="text" name="userId" class="login-input__input" placeholder="아이디">
                             </div>
                         </div>
-                        <div class="login-input">
+                        <div class="login-input">	<!-- password -->
                             <div class="login-input__wrap">
-                                <input type="password" name="pssword" class="login-input__input" placeholder="비밀번호">
+                                <input type="password" name="password" class="login-input__input" placeholder="비밀번호">
                             </div>
+                            <div align="center">	<!-- 회원정보 맞지 않을때 메시지칸 -->
+								<span class="loginMessage"></span>
+							</div>
                         </div>
                     </div>
                     
                     <div class="login-button login-button--static">
-                        <button type="submit" class="login-button__item login-button__item--black">로그인</button>
+                        <button type="submit" class="login-button__item login-button__item--black" name="loginbtn">로그인</button>
                     </div>
                     <div class="login-member__util">
                         <ul class="login-member__util__list">
