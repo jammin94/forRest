@@ -82,7 +82,7 @@
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getStorageList"  parameterType="map"	resultMap="storageSelectMap">
-	  	SELECT t.tranNo, t.prodImg, t.prodName, t.startDate, t.endDate, t.paymentNo, t. t.userId, t.resultPrice, p.recentImg, p.prodCondition
+	  	SELECT t.tranNo, t.prodImg, t.prodName, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId}

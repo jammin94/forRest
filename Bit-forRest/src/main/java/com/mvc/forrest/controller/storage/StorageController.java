@@ -103,6 +103,10 @@ public class StorageController {
 		
 		search.setPageSize(pageSize);
 		
+		//테스트를위해 세션아이디 임의 생성
+		User user = userService.getUser("user01@naver.com");
+		httpSession.setAttribute("user", user);
+		
 		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
 		Map<String, Object> map = new HashMap<>();
