@@ -12,9 +12,68 @@
 </head>
 
 <body>
-    <div class="container">
- 		<a href="/product/getProduct">listProductTest</a>
-    </div>
+
+<div th:replace="toolbar.html :: body"></div>
+
+    			<div id="mobile" class="width_calc">
+		
+		<div class="try_banner_slider_wrapper">
+			<div class="try_circle_first">
+				<img src="/images/header/right_cycle1.png" alt="circle">
+			</div>
+			<div class="try_circle_second">
+				<img src="/images/header/right_cycle2.png" alt="circle">
+			</div>
+			<div class="try_banner_slider_inner_wrapper">
+				<div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
+					
+				</div>
+			</div>
+		</div>
+		<!--try Slider banner End-->
+		<!--try recent mobail Slider Start-->
+		<div class="try_recent_mobail_main_wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="try_recent_mob_heading_wrapper">
+							<h2>렌탈마켓</h2>
+							<p><span class="try_left_dots"></span>아몰랑~~<span class="try_right_dots"></span>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="try_rc_slider_inner_wrapper">
+							<div class="owl-carousel owl-theme">
+							
+							<!-- 물품하나 -->
+								<div class="item" th:each="product :${list}">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+											<img width="300" height="205" src= th:text=${product.prodImg}>
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2 th:text = ${product.prodName}></h2>
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p th:text = ${product.rentalPrice}></p>	
+											<p th:text = ${product.deposit}></p>
+											<div class="try_mob_btn_wrapper">	<a  th:href="@{/product/getProduct(prodNo= ${product.prodNo})}" >Buy Now</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 물품하나 -->
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

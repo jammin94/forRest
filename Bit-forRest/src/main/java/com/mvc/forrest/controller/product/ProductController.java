@@ -55,6 +55,7 @@ public class ProductController {
 	@GetMapping("updateProduct")
 	public String updateProductGet(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		
+		
 		model.addAttribute("product", productService.getProduct(prodNo));	
 	
 		return "product/updateProduct";
