@@ -61,9 +61,7 @@ public class FCMService implements MessageService {
     }
 
     public void send(Message message) {
-    	System.out.println("firebase instance 생성");
         FirebaseMessaging.getInstance().sendAsync(message);
-
     }
 
     public void saveToken(String loginRequest) {
