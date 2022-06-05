@@ -89,7 +89,7 @@ public class OldController {
 		return "old/listOld";
 		//return "redirect:/old/listOld?oldNo="+old.getOldNo();
 	}
-	
+
 	
 	
 	
@@ -100,8 +100,9 @@ public class OldController {
 //		System.out.println(this.getClass());
 //		
 //		model.addAttribute(oldService.getOld(oldNo));
-//		
-//		return "forward:/old/getOld";	
+//		System.out.println(oldService.getOld(oldNo));
+//		return "old/getOld";
+//		//return "forward:/old/getOld";	
 //		
 //	}
 	 
