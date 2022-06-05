@@ -60,7 +60,7 @@ public class ViewControllerTest {
 	  
 	  @GetMapping("/leftbar")
 	  public String mypage() {
-		    return "main/leftbar";
+		    return "main/leftbar2";
 		  }
 	  
 }

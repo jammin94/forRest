@@ -673,7 +673,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 	/* overflow:hidden; */
 	position:fixed;
 	    backdrop-filter: blur(7px);
-
+	height:80px;
 }
 
 .fixed {
@@ -729,11 +729,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 .main-menu .navigation > li > a{
 	position:relative;
 	display:block;
-	font-size:14px;
+	font-size:15px;
 	line-height:20px;
 	color:#000000;
 	opacity:1;
-	padding:40px 0px;
+	padding:30px 0px;
 	letter-spacing:1px;
 	text-transform:uppercase;
 	transition:all 500ms ease;
@@ -2994,10 +2994,12 @@ width:100%;
 
 
 /* 리스트 페이지 CSS */
-.container.list{
-	padding-top:120px;
+.container.list {
+    padding-top: 120px;
+    width: calc(100% - 210px);
+  
+    float: right;
 }
-
 .tableHeader th{
 	text-align:center;
 }
