@@ -66,20 +66,20 @@ public class OldController {
 	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception{
 	
 		System.out.println(this.getClass()+ "겟리스트");
-//		
+		
 //		if(search.getCurrentPage() ==0 ){
 //			search.setCurrentPage(1);
 //		}
 //		search.setPageSize(pageSize);
-		
-			
+//		
+//			
 		Map<String, Object> map = oldService.getOldList(search);
 		
 		System.out.println(this.getClass()+ "포스트리스트");
 		
 //		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 //		System.out.println(resultPage);
-//		
+		
 		
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
@@ -89,22 +89,30 @@ public class OldController {
 		return "old/listOld";
 		//return "redirect:/old/listOld?oldNo="+old.getOldNo();
 	}
+
 	
 	
 	
 	
-	
-	@GetMapping("getOld/{oldNo}")
-	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
-		
-		System.out.println(this.getClass());
-		
-		model.addAttribute(oldService.getOld(oldNo));
-		
-		return "forward:/old/getOld";	
-		
-	}
+//	@GetMapping("getOld/{oldNo}")
+//	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
+//		
+//		System.out.println(this.getClass());
+//		
+//		model.addAttribute(oldService.getOld(oldNo));
+//		System.out.println(oldService.getOld(oldNo));
+//		return "old/getOld";
+//		//return "forward:/old/getOld";	
+//		
+//	}
 	 
+	
+	
+	@GetMapping("getOld")
+	public String getReport( Model model ) throws Exception {
+		System.out.println(this.getClass()+ "겟올드");
+		return "old/getOld";
+	}	
 	
 	@GetMapping("updateOld/{oldNo}")
 		

@@ -26,6 +26,13 @@
 		<result property="returnAddress" 				column="returnAddress" 				jdbcType="VARCHAR"  />
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
 		<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
+		
+		<association property="userProd" javaType="User">
+			<id property="userId" column="userId"  jdbcType="VARCHAR"/>
+			<id property="userImg" column="userImg"  jdbcType="VARCHAR"/>
+			<id property="userRate" column="userRate"  jdbcType="DOUBLE"/>
+			<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
+		</association>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -39,7 +46,9 @@
 	  
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
-		SELECT * FROM product where prodNo =  #{prodNo}
+		SELECT *
+	    FROM product p, user u
+		where p.prodNo =  #{prodNo} and p.userId = u.userId
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->

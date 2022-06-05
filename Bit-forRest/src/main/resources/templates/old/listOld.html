@@ -27,27 +27,13 @@
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
  
-  
+   <!-- jQuery UI toolTip 사용 JS-->
   <!-- jQuery UI toolTip 사용 JS-->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style>
-    .thumbnail{
-      background-color:gray;
-      margin:10px;
-      width:150px;
-      height:150px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-    .thumbnail.round{
-      border-radius: 10%;
-    }
-    .thumbnail.circle{
-      border-radius: 100%;
-    }
-  </style>
+
 </head>
+
+
 
 <body>
 <!-- 툴바 include -->
@@ -59,7 +45,7 @@
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info">
-		       <h3>중고거래 게시물 상세보기</h3>
+		       <h3>중고거래 게시물 리스트</h3>
 		</div>
 		
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -75,125 +61,211 @@
 	    	
 		</div>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		
+		 <!-- Page Heading -->
+ 
+  </h1>
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+          <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Pagination -->
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+
+</div>
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
       <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
-	            <th align="center">No</th>
-	            <th align="center" >중고거래 게시물 제목</th>
-	            <th align="center">중고거래 게시물 사진</th>	      
-<!-- 	            <th align="center">전화번호</th> -->
-<!-- 	            <th align="center">요청사항</th> -->
-<!-- 	            <th align="center">배송현황</th>				 -->
+	             <th align="center">중고거래 게시물 사진</th>	
+<!-- 	             <th align="center">No</th> -->
+	            <th align="center" >중고거래 게시물 제목</th>       
+ 	            <th align="center">조회수</th> 
 	          </tr>
 	        </thead>
 	        
 	        <tbody>
 	        
-	        <tr th:each="old : ${list}">
-	       
-	        <td th:text =  "${old.oldNo}"></td>
-	        <td th:text =  "${old.oldTitle}"></td>
-	        <td th:text =  "${old.oldImg}"></td>
+	      <tr th:each="old : ${list}">
+	        <td align="center">
+	         	<i class="oldImg" id="${old.oldNo}"   th:text=  "${old.oldImg}">
+	        <input type="hidden" value="${old.oldNo}"></i>
+	        <a th:href="@{/old/getOld(oldNo=${old.oldNo})}"></a> 
+	        </td>
+<!-- 	        <td align="center" th:text =  "${old.oldNo}"></td> -->
+	        <td align="center" th:text =  "${old.oldTitle}"></td>
+	        <td align="center" th:text =  "${old.oldView}"></td>
+	        
 	        </tr>
-	       <div class="row">
-  
- 
-	 
-	 
-	        <!-- 
-	     <c:set var="i" value="0" /> 
-	 <c:forEach var="rental" items="${list}">
-		<c:set var="i" value="${ i+1 }" />
-		<tr class="ct_list_pop">
-		
-			<td align="center">
-			<span>${ i }</span>
-			</td>
-		
-			
-			<td align="center">
-				<span>렌탈 유저 아이디</span>
-			</td>
-			
-			<td align="center">렌탈 대여자 이름 ${rental.tranNo}</td>
-			
-			
-			<td align="center">렌탈 대여자 휴대폰</td>		
-		
-			<td align="center">렌탈 대여자 요청사항</td>
-			
-			
-			
-	<c:choose>
-		         <c:when test="${sessionScope.user.userId == 'admin'}">
-		              <c:choose>
-							<c:when test="${purchase.tranCode.equals('100')}">					
-								<td align="center">
-								구매완료
-								<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&tranCode=${product.proTranCode}&currentPage=${resultPage.currentPage}">배송하기</a>
-								</td>
-							</c:when>
-							<c:when test="${purchase.tranCode.equals('200')}">
-								<td align="center">
-								배송중
-								<a href="/purchase/updateTranCode?prodNo=${product.prodNo }&tranCode=${product.proTranCode}&currentPage=${resultPage.currentPage}">배송완료</a>
-								</td>
-								
-							</c:when>
-							<c:otherwise>
-								<td align="center">배송완료</td>
-							</c:otherwise>
-					</c:choose>
-		         </c:when>
-		        
-		         <c:otherwise>
-		          <c:choose>
-							<c:when test="${purchase.tranCode.equals('100')}">					
-								<td align="center">
-								구매완료							
-								</td>
-							</c:when>
-							<c:when test="${purchase.tranCode.equals('200')}">
-								<td align="center">
-								배송중								
-								</td>
-								
-							</c:when>
-							<c:otherwise>
-								<td align="center">배송완료</td>
-							</c:otherwise>
-					</c:choose>
-		         </c:otherwise>
-	    	  </c:choose>
-
-			
-		</tr>
-		
-	</c:forEach>	
-	 -->       
-	    
-	    
-	    <!-- 
-	    <tr th:each="old :${list}">
-	    
-	    <td th:text = "${old.oldNo}"></td>
- 		    
-	    </tr>
-	    -->	
-	        </tbody>
-
-      </table>
-		<!--  table End /////////////////////////////////////-->
-	</form>
+	      </tbody>
+	     
+	      </table>
+ <!--  table End /////////////////////////////////////-->
+	 </form>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
+	 
+</body>	    
+
+ <script type="text/javascript"> 
+function fncGetList() {
+	self.location = "/old/getOld?oldNo="+$(this).children("input").val();
+// 	$("form").attr("method" , "GET").attr("action" , "/old/getOld").submit();
+
+}
 
 
+$(function() {
+	
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( ".oldImg" ).on("click" , function() {
+		
+		self.location ="/old/getOld?oldNo="+$(this).children("input").val();
+	});
+});
 
-</body>
+$(function() {
+	
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( ".card-img-top" ).on("click" , function() {
+		
+		self.location ="/old/getOld?oldNo="+$(this).children("input").val();
+	});
+});
+
+	
+</script>
+ <!--	<script type="text/javascript"> 
+	function fncGetOld() {
+ 		self.location = "/old/getOld?oldNo="+$(this).child().val();
+ 	}
+	    
+ 	$(function() {
+		
+ 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+ 		$( ".img" ).on("click" , function() {
+ 			alert($(this).children().val());
+			var str = parseInt($(this).text());
+			alert(str);
+ 			
+ 			
+ 			self.location ="/old/getOld?oldNo="+int;
+ 		});
+					
+ 	});	
+	    </script>  -->
 
 </html>
