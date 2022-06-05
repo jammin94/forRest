@@ -2335,3 +2335,13 @@
   overflow: visible;
   clip: auto;
 }
+
+/*custom*/
+
+.fa-circle-user:before, .fa-user-circle:before {
+    content: "\f2bd";
+}
+.fa-solid, .fas {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}

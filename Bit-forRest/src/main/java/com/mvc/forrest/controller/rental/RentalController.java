@@ -121,13 +121,32 @@ public class RentalController {
 	}
 	
 	//------------대여물품리스트 관리자 화면------------//
-	@GetMapping("listRentalMng")
-	public String listRentalMngView( ) throws Exception{
-		
-		return null;
+	@GetMapping("listRentalForAdmin")
+	public String listRentalMngView( @ModelAttribute("search") Search search , Model model ) throws Exception{
+		System.out.println("listRentalProfitView 테스트");
+				
+				if(search.getCurrentPage() ==0 ){
+					search.setCurrentPage(1);
+				}
+				search.setPageSize(pageSize);
+				
+				// Business logic 수행
+				Map<String , Object> map=rentalService.getRentalListForAdmin(search);
+				
+				System.out.println("테스트"+map.get("list"));
+							
+				Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+				System.out.println(resultPage);
+				
+				// Model 과 View 연결
+				model.addAttribute("list", map.get("list"));
+				model.addAttribute("resultPage", resultPage);
+				model.addAttribute("search", search);
+				
+		return "rental/listRentalForAdmin";
 	}
 	
-	@PostMapping("listRentalMng")
+	@PostMapping("listRentalForAdmin")
 	public String listRentalMng( ) throws Exception{
 		
 		return null;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+</head>
+
+<body>
+
+<!-- 로딩시 뜨는 아이콘 -->
+	<div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/MyPageLeftbar.html"></div>
+
+</body>
+
+<script src="/js/jquery_min.js"></script>
+	<script>
+	  $(document).ready(function() {
+			"use strict";
+			
+
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+
+	  })
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
+</html>

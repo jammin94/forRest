@@ -6,26 +6,43 @@
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
+    <!-- Bootstrap Dropdown Hover JS -->
+  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+   
+   
+     
+  
+  <!-- jQuery UI toolTip 사용 JS-->
+<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
 </head>
 
 <body>
 
 <!-- 로딩시 뜨는 아이콘 -->
-	<!-- <div id="preloader">
+	<div id="preloader">
 		<div id="status">
 			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
 		</div>
 	</div>
- -->
+
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/MyPageLeftbar.html"></div>
+<div th:replace="/main/leftbar.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info">
-		       <h3>대여수익확인</h3>
+		       <h3>대여물품관리</h3>
 		</div>
 		
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -82,7 +99,7 @@
 
 <script src="/js/jquery_min.js"></script>
 	<script>
-	 /*  $(document).ready(function() {
+	  $(document).ready(function() {
 			"use strict";
 			
 
@@ -92,7 +109,7 @@
 		        jQuery("#preloader").delay(350).fadeOut("slow");
 		    });
 
-	  }) */
+	  })
 	</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->

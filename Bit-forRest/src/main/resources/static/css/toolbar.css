@@ -1,0 +1,144 @@
+.dropHeader .selected .dropLayer {
+    overflow: visible;
+    display: block;
+    opacity: 1;
+    padding: 8px 0;
+    height: auto;
+    right: 0;
+    border-color: #D6DAE1;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+        top: 60px;
+}
+
+.dropHeader .member .userInfo {
+    position: relative;
+    margin: 8px 16px;
+    text-align: center;
+}
+
+.dropHeader .member .userInfo .label {
+    display: inline-block;
+    height: 22px;
+    padding: 2px 8px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #3971FF;
+    background: #EBF1FF;
+}
+
+.dropHeader .member .userInfo {
+    position: relative;
+    margin: 8px 16px;
+    text-align: center;
+}
+
+.dropHeader .dropLayer {
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    width: 235px;
+    z-index: 1;
+    opacity: 0;
+    height: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 20px;
+    box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropHeader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    letter-spacing: -1px;
+}
+
+.dropHeader .member .userInfo .name {
+    margin-top: 4px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #667084;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.dropHeader .member .userInfo:after {
+    display: block;
+    content: "";
+    margin: 16px 0 8px;
+    height: 1px;
+    background: #E2E5EA;
+}
+
+.dropHeader .dropLayer .btnLogout {
+    display: block;
+    padding: 4px 16px;
+    color: #667084;
+    text-align: center;
+}
+
+.dropHeader .dropLayer .link a {
+    display: block;
+    padding: 8px 31px 8px 16px;
+    color: #1B1E26;
+}
+
+.dropHeader .dropLayer li > a {
+    position: relative;
+}
+
+.dropHeader .dropLayer .divide:after {
+    display: block;
+    content: "";
+    margin: 8px 16px;
+    height: 1px;
+    background: #E2E5EA;
+}
+
+
+.dropHeader .dropLayer .divide .link li a {
+   
+}
+
+.dropHeader .dropLayer {
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    width: 160px;
+    z-index: 1;
+    opacity: 0;
+    height: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 20px;
+    box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mypageIcon .toggleArrow.on i {
+	transform : rotate(180deg);
+}
+
+.mypageIcon .toggleArrow i {
+	transform : rotate(0deg);
+}
