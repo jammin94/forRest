@@ -61,7 +61,129 @@
 	    	
 		</div>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		
+		 <!-- Page Heading -->
+ 
+  </h1>
+
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+          <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="https://via.placeholder.com/400x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+           <a href="#">중고거래 게시물 제목</a>
+          </h4>
+          <p class="card-text">중고물품 가격</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Pagination -->
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+
+</div>
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
@@ -81,7 +203,7 @@
 	        <td align="center">
 	         	<i class="oldImg" id="${old.oldNo}"   th:text=  "${old.oldImg}">
 	        <input type="hidden" value="${old.oldNo}"></i>
-	        <p><a href="/old/getOld?oldNo=${old.oldNo}"></a> 
+	        <a th:href="@{/old/getOld(oldNo=${old.oldNo})}"></a> 
 	        </td>
 <!-- 	        <td align="center" th:text =  "${old.oldNo}"></td> -->
 	        <td align="center" th:text =  "${old.oldTitle}"></td>
@@ -115,7 +237,14 @@ $(function() {
 	});
 });
 
-
+$(function() {
+	
+	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+	$( ".card-img-top" ).on("click" , function() {
+		
+		self.location ="/old/getOld?oldNo="+$(this).children("input").val();
+	});
+});
 
 	
 </script>

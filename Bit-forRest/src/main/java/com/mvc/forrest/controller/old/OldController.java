@@ -106,13 +106,7 @@ public class OldController {
 //		
 //	}
 	 
-//	@GetMapping("getOld")
-//	public String getReport(@RequestParam("oldNo") int oldNo, Model model ) throws Exception {
-//		System.out.println(this.getClass()+ "겟올드");
-//		oldService.getOld(oldNo);
-//		System.out.println(oldService.getOld(oldNo));
-//		return "old/getOld";
-//	}	
+	
 	
 	@GetMapping("getOld")
 	public String getReport( Model model ) throws Exception {
