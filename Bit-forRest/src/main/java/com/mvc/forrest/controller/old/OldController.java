@@ -109,9 +109,15 @@ public class OldController {
 	
 	
 	@GetMapping("getOld")
-	public String getReport( Model model ) throws Exception {
+	public String getOld( Model model ) throws Exception {
 		System.out.println(this.getClass()+ "겟올드");
 		return "old/getOld";
+	}	
+	
+	@GetMapping("addOld")
+	public String addOld( Model model ) throws Exception {
+		System.out.println(this.getClass()+ "겟올드");
+		return "old/addOld";
 	}	
 	
 	@GetMapping("updateOld/{oldNo}")
@@ -146,6 +152,7 @@ public class OldController {
 		 
 		return "old/getOld";
 	} 
+	
 	
 	
 	@PostMapping("addOldReport")
