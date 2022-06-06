@@ -124,11 +124,19 @@ public class OldController {
 		System.out.println(this.getClass()+ " ADD올드 POST");
 		return "old/listOld";
 	}	
-	@GetMapping("updateOld/{oldNo}")
-		
-	public String updateOld(@PathVariable int oldNo, Model model ) throws Exception{
+//	@GetMapping("updateOld/{oldNo}")
+//		
+//	public String updateOld(@PathVariable int oldNo, Model model ) throws Exception{
+//		System.out.println(this.getClass()+ "겟수정");
+//		model.addAttribute(oldService.getOld(oldNo));
+//		return "old/updateOld";
+//	} 
+	
+	@GetMapping("updateOld")
+	
+	public String updateOld( ) throws Exception{
 		System.out.println(this.getClass()+ "겟수정");
-		model.addAttribute(oldService.getOld(oldNo));
+		
 		return "old/updateOld";
 	} 
 	
