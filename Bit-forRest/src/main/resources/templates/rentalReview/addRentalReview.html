@@ -4,131 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-   
     <link rel="stylesheet" href="/css/addRentalReview.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />  
-      
-     
-   
-   <link rel="stylesheet" type="text/css" href="/css/animate.css" /> 
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" /> 
-	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
-	 <link rel="stylesheet" href="/css/style.css">   
-
-
-	<!-- favicon links -->
-	<link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />    
-        
-        
-        
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="addRentalReview.js" defer></script>
-	<script>
-	 //이미지업로드 부분만 jquery 처리
-	$(function(){
-		
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	$(".img-preview-big").css("height", initWidth + "px");
-
-	window.onresize = function(event) {
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	  $(".img-preview-big").css("height", initWidth + "px");
-	};
-
-	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if ($(".img-preview-small").length > 0) {
-	    if (mouse_is_inside) {
-	      $(".img-delete").css("display", "flex");
-	    } else {
-	      $(".img-delete").css("display", "none");
-	    }
-	  } else {
-	    $(".img-delete").css("display", "none");
-	  }
-	});
-
-	$(".img-add-more").click(function() {
-		console.log("click test");
-		
-	 if ($(".img-preview-small").length <2) {
-		 $("input[type='file']").click();
-		  } 
-	  
-	  if ($(".img-preview-small").length >1) {
-		   	alert("최대2장까지 추가할 수 있습니다 ");
-		  } 
-	})
-
-	$("input[type='file']").change(function() {
-	  var input = $("input[type='file']")[0];
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      $(".img-preview-big img")[0].src = e.target.result;
-	      $(".img-preview-small img").each(function() {
-	        $(this).removeClass("img-small-selected");
-	      })
-	      var newImg = '<div class="img-preview-small">' +
-	          '<img src="' + e.target.result + '" class="img-small-selected">' +
-	          '</div>';
-	      $(".img-holder").append(newImg);
-	      var left = $('.img-preview-operate').width();
-	      $('.img-preview-operate').scrollLeft(left);
-	    }
-	    reader.readAsDataURL(input.files[0]);
-	  }
-	});
-
-	// $(".img-preview-small").hover(function() {
-//	 	 console.log("Deepak");	
-	// }, function() {
-//	 	 console.log("Chandwani");	
-	// })
-
-	$(document).on('mouseenter mouseleave', '.img-preview-small img', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if (mouse_is_inside) {
-	    $(this)[0].classList.add("img-small-active");
-	  } else {
-	    if (!$(this)[0].classList.contains("img-small-selected"));
-	    $(this)[0].classList.remove("img-small-active");
-	  }
-	});
-
-	$(document).on('click', '.img-preview-small img', function(ev) {
-	  $(".img-preview-small img").each(function() {
-	    $(this).removeClass("img-small-selected");
-	  })
-	  $(this).addClass("img-small-selected");
-	  $(".img-preview-big img")[0].src = $(this)[0].src;
-	});
-
-	$(".img-delete").click(function() {
-	  $(".img-small-selected")[0].parentElement.remove();
-	  if ($(".img-preview-small").length > 0) {
-	    $(".img-preview-small img")[0].classList.add("img-small-selected");
-	    $(".img-preview-big img")[0].src = $(".img-preview-small img")[0].src;
-	    $('.img-preview-operate').scrollLeft(0);
-	  } else {
-	    $(".img-preview-big img")[0].src = "https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png";
-	    $(".img-delete").css("display", "none");
-	  }
-	})
-	})
-	  
-	</script>
+  
+	
 </head>
-
-
 
 <body>
 
 <!-- 툴바 include -->
-<div th:replace="toolbar.html :: body"></div>
+	<div th:replace="/main/toolbar.html"></div> 
+ <div th:replace="/main/leftbar.html"></div> 
 
    <div class="Rentalcontainer">
 <p>
@@ -182,11 +67,13 @@
     
     </span>
   </div>
-  <button>등록하기 </button>
+  <button type="button">등록하기 </button>
   </form>
 <div id="review-container">
 </div>
 </div>
 </body>
-
+	<script src="/js/jquery_min.js"></script>
+	<script src="/js/addRentalReview.js"></script>
+	  <sciprt src="/js/rentalTest.js"></sciprt>
 </html>
