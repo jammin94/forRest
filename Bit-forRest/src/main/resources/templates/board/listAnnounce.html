@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
+    <!-- Bootstrap Dropdown Hover JS -->
+  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+   
+   
+     
+  
+  <!-- jQuery UI toolTip 사용 JS-->
+<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+</head>
+
+<body>
+
+<!-- 로딩시 뜨는 아이콘 -->
+	<div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+	<div class="page-header text-info">
+		       <h3>공지사항</h3>
+		</div>
+		
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-5 text-left">
+		    	<p class="text-primary">
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	
+		    	</p>
+		    	전체 <span th:text="${resultPage.totalCount}"/>건수, 현재  <span th:text="${resultPage.currentPage}"/>페이지
+		    	 
+		    </div>
+		    
+		    <div class="row">
+			  <div class="col-lg-6">
+			    <div class="input-group">
+			      <div class="input-group-btn">
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">정렬기준 <span class="caret"></span></button>
+			        <ul class="dropdown-menu">
+			          <li><a href="#">최신순</a></li>
+			          <li><a href="#">오래된순</a></li>
+			        </ul>
+			      </div><!-- /btn-group -->
+			      <div class="input-group-btn">
+			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">검색기준 <span class="caret"></span></button>
+			        <ul class="dropdown-menu">
+			          <li><a href="#">제목</a></li>
+			          <li><a href="#">내용</a></li>
+			        </ul>
+			      </div><!-- /btn-group -->
+			      <input type="text" class="form-control" aria-label="...">
+			       <span class="input-group-btn">
+			         <button class="btn btn-default" type="button">검색</button>
+			       </span>
+			    </div><!-- /input-group -->
+			  </div><!-- /.col-lg-6 -->
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		 <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped">
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center">No</th>
+	            <th align="center" >제목</th>   
+	            <th align="center">게시날짜</th>
+	            <!--<span th:if="${session.sessionId}=='admin'">-->
+	            	<th align="center">선택</th>
+	            <!-- </span>				-->
+	          </tr>
+	        </thead>
+	        
+	        <tbody> 
+	    
+	    
+	    <!-- list명Stat.count, current, size, even, odd, first, last -->
+	    <tr th:each="board :${list}">
+
+		    <td th:text = "${boardStat.count}" align="center"></td>
+			<td>
+				<a th:href="@{/board/getBoard(boardNo=${board.boardNo})}">
+					<div th:text="${board.boardTitle}"/>
+				</a>
+			</td>
+			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
+			<!--<span th:if="${session.sessionId}=='admin'">-->
+				<td>
+					<input type="checkbox" name="selector" />
+				</td>
+			<!--</span> -->
+			<td><input type="hidden" name="boardNo" value="${board.boardNo}"</td>
+	    
+	    </tr>
+	        </tbody>
+	        
+	    <button type="text" class="btn btn-default">상단 고정 적용/미적용</button>
+		<button type="text" class="btn btn-default">삭제</button>
+
+      </table>
+		<!--  table End /////////////////////////////////////-->
+		
+		<nav aria-label="Page navigation" align="center">
+		  <ul class="pagination">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+	</form>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+</body>
+
+<script src="/js/jquery_min.js"></script>
+	<script>
+	  $(document).ready(function() {
+			"use strict";
+			
+
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+
+	  })
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
+</html>
