@@ -1,349 +1,207 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-   
-    <link rel="stylesheet" href="/css/addRentalReview.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />  
+    <head>
+   <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up Form</title>
+        <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
         
-    <link rel="stylesheet" href="/css/style.css">    
-    <link rel="stylesheet" type="text/css" href="/css/animate.css" />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
-
-	
-	<!-- favicon links -->
-	<link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />    
+        <style type="text/css">
         
-        
-        
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="addRentalReview.js" defer></script>
-	<script>
-	 //이미지업로드 부분만 jquery 처리
-	$(function(){
-		
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	$(".img-preview-big").css("height", initWidth + "px");
-
-	window.onresize = function(event) {
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	  $(".img-preview-big").css("height", initWidth + "px");
-	};
-
-	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if ($(".img-preview-small").length > 0) {
-	    if (mouse_is_inside) {
-	      $(".img-delete").css("display", "flex");
-	    } else {
-	      $(".img-delete").css("display", "none");
-	    }
-	  } else {
-	    $(".img-delete").css("display", "none");
-	  }
-	});
-
-	$(".img-add-more").click(function() {
-		console.log("click test");
-		
-	 if ($(".img-preview-small").length <2) {
-		 $("input[type='file']").click();
-		  } 
-	  
-	  if ($(".img-preview-small").length >1) {
-		   	alert("최대2장까지 추가할 수 있습니다 ");
-		  } 
-	})
-
-	$("input[type='file']").change(function() {
-	  var input = $("input[type='file']")[0];
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      $(".img-preview-big img")[0].src = e.target.result;
-	      $(".img-preview-small img").each(function() {
-	        $(this).removeClass("img-small-selected");
-	      })
-	      var newImg = '<div class="img-preview-small">' +
-	          '<img src="' + e.target.result + '" class="img-small-selected">' +
-	          '</div>';
-	      $(".img-holder").append(newImg);
-	      var left = $('.img-preview-operate').width();
-	      $('.img-preview-operate').scrollLeft(left);
-	    }
-	    reader.readAsDataURL(input.files[0]);
-	  }
-	});
-
-	// $(".img-preview-small").hover(function() {
-//	 	 console.log("Deepak");	
-	// }, function() {
-//	 	 console.log("Chandwani");	
-	// })
-
-	$(document).on('mouseenter mouseleave', '.img-preview-small img', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if (mouse_is_inside) {
-	    $(this)[0].classList.add("img-small-active");
-	  } else {
-	    if (!$(this)[0].classList.contains("img-small-selected"));
-	    $(this)[0].classList.remove("img-small-active");
-	  }
-	});
-
-	$(document).on('click', '.img-preview-small img', function(ev) {
-	  $(".img-preview-small img").each(function() {
-	    $(this).removeClass("img-small-selected");
-	  })
-	  $(this).addClass("img-small-selected");
-	  $(".img-preview-big img")[0].src = $(this)[0].src;
-	});
-
-	$(".img-delete").click(function() {
-	  $(".img-small-selected")[0].parentElement.remove();
-	  if ($(".img-preview-small").length > 0) {
-	    $(".img-preview-small img")[0].classList.add("img-small-selected");
-	    $(".img-preview-big img")[0].src = $(".img-preview-small img")[0].src;
-	    $('.img-preview-operate').scrollLeft(0);
-	  } else {
-	    $(".img-preview-big img")[0].src = "https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png";
-	    $(".img-delete").css("display", "none");
-	  }
-	})
-	})
-	  
-	</script>
-	
-<style type ="text/css">
-
-	@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
-	
-body{
-  
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #262626;
-  margin: 5% 0;
-}
-.container{
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 1200px)
-{
-  .container{
-    max-width: 1140px;
-  }
-}
-.d-flex{
-  display: flex;
-  flex-direction: row;
-  background: #f6f6f6;
-  border-radius: 0 0 5px 5px;
-  padding: 25px;
-}
-form{
-  flex: 4;
-}
-.Yorder{
-  flex: 2;
-}
-.title{
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
-  background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
-  border-radius:5px 5px 0 0 ;
-  padding: 20px;
-  color: #f6f6f6;
-}
-h2{
-  margin: 0;
-  padding-left: 15px; 
-}
-.required{
-  color: red;
-}
-label, table{
-  display: block;
-  margin: 15px;
-}
-label>span{
-  float: left;
-  width: 25%;
-  margin-top: 12px;
-  padding-right: 10px;
-}
-input[type="text"], input[type="tel"], input[type="email"], select
-{
-  width: 70%;
-  height: 30px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  border: 1px solid #dadada;
-  color: #888;
-}
-select{
-  width: 72%;
-  height: 45px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-}
-.Yorder{
-  margin-top: 15px;
-  height: 600px;
-  padding: 20px;
-  border: 1px solid #dadada;
-}
-table{
-  margin: 0;
-  padding: 0;
-}
-th{
-  border-bottom: 1px solid #dadada;
-  padding: 10px 0;
-}
-tr>td:nth-child(1){
-  text-align: left;
-  color: #2d2d2a;
-}
-tr>td:nth-child(2){
-  text-align: right;
-  color: #52ad9c;
-}
-td{
-  border-bottom: 1px solid #dadada;
-  padding: 25px 25px 25px 0;
+        *, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-p{
-  display: block;
-  color: #888;
-  margin: 0;
-  padding-left: 25px;
-}
-.Yorder>div{
-  padding: 15px 0; 
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
 }
 
-button{
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
   border: none;
-  border-radius: 30px;
-  background: #52ad9c;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0 4px 8px 0;
+}
+
+select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+button {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.number {
+  background-color: #5fcf80;
   color: #fff;
-  font-size: 15px;
-  font-weight: bold;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 100%;
 }
-button:hover{
-  cursor: pointer;
-  background: #428a7d;
+
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 480px;
+  }
+
 }
-</style>
-</head>
+        
+        
+        </style>
+    </head>
+    <body>
+        <!-- Navigation-->
+   		<div th:replace="/main/toolbar.html"></div>
+		<div th:replace="/main/MyPageLeftbar.html"></div>
+		
+	      <div class="row">
+    <div class="col-md-12">
+      <form action="/product/updateProduct" method="post">
+        <h1> 물품정보수정</h1>
+        
+        <fieldset>
+          
+          <legend><span class="number"></span> 수정할정보를 입력하세요</legend>
+        
+          <label for="name">물품이름</label>
+          <input type="text" id="name" name="prodName"  th:value = "${product.prodName}">
+          
+              <label for="job">카테고리</label>
+          <select th:field=${product.category} th:value=${product.category} name= "category">
+   
+        	 <option value="텐트">텐트</option>
+	         <option value="침대">침대</option>
+	         <option value="의자">의자</option>
+	         <option value="그릴">그릴</option>
+	         <option value="버너">버너</option>
+	         <option value="조명">조명</option>
+	         <option value="테이블">테이블</option>
+	         <option value="식기">식기</option>
+	         <option value="난로">난로</option>
+	         <option value="기타용품">기타용품</option>
+  
+          </select>
+          
+           <label for="bio">상세정보</label>
+          <textarea id="bio" name="prodDetail" th:text = "${product.prodDetail}"></textarea>
+        
+          <label for="email">반송주소</label>
+          <input type="text" id="returnAddress" name="returnAddress" th:value = "${product.returnAddress}">
+       
+          <label>대여가능유무</label>
+          <input type="radio" value=1 name="isRental" th:checked="${product.isRental eq 1}"><label for="under_13" class="light">대여가능</label><br>
+          <input type="radio"  value=0 name="isRental" th:checked="${product.isRental eq 0}"><label for="over_13" class="light">대여불가</label>
+          
+        
+          
+        </fieldset>
+        <fieldset>  
+        
+          <legend><span class="number"></span> Your Profile</legend>
+          
+          <label for="password">물품대여가격</label>
+          <input type="text" id="rentalPrice"       name="rentalPrice" th:value = "${product.rentalPrice}">
+          
+          <label for="password">보증금</label>
+          <input type="text" id="deposit"       name="deposit" th:value = "${product.deposit}">
+          <label for="password">계좌번호</label>
+          <input type="text" id="account"       name="account" th:value = "${product.account}">
+        
+        
+          <input type="hidden"  name="prodNo"  th:value="${product.prodNo}"/>
 
-
-
-<body>
-
-<!-- 툴바 include -->
-<div th:replace="toolbar.html :: body"></div>
-
-<div class="container">
-  <div class="title">
-      <h2>물품 등록</h2>
-  </div>
-<div class="d-flex">
-  <form action="" method="">
-     <label>
-      <span class="fname">물품사진 <span class="required">*(0/10)</span></span>
-      <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
-                    </div>
-                    <input type="file" name="img-upload-input" style="display:none">
-                  </div>
-</div>
-    </label>
-    <label>
-      <span class="fname">물품이름 <span class="required">*</span></span>
-      <input type="text" name="fname">
-    </label>
-    <label>
-          <span>카테고리 <span class="required">*</span></span>
-      <select name="selection">
-        <option value="select">카테고리를 선택하세요</option>
-        <option value="텐트">텐트</option>
-        <option value="텐트">침대</option>
-        <option value="텐트">의자</option>
-        <option value="텐트">그릴</option>
-        <option value="텐트">버너</option>
-        <option value="텐트">조명</option>
-        <option value="텐트">테이블</option>
-        <option value="텐트">식기</option>
-        <option value="텐트">난로</option>
-        <option value="텐트">기타용품</option>
-      </select>
-    </label>
-    <label>
-      <span>물품설명 <span class="required">*</span></span>
-      <input type="text" name="cn">
-    </label>
-        <label>
-      <span class="lname">반송주소 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </label>
+          
+         </fieldset>
+       
+        <button type="submit">수정완료</button>
+        
+       </form>
+        </div>
+      </div>
+          
+    </body>
     
-    <label>
-      <span>대여가능 여부</span>
-      <input type="checkBox" name="dbt" value="dbt" >
-    </label>
-    <label>
-      <span class="lname">물품대여가격 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >원
-    </label>
-    <label>
-      <span class="lname">보증금 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >원
-    </label>
-    <label>
-      <span class="lname">계좌번호 <span class="required">*</span></span>
-      <select name="selection">
-        <option value="select">국민</option>
-        <option value="AFG">신한</option>
-      </select>
-      <input type="text" name="lname" placeholder="계좌번호를 입력하세요" required >
-    </label>
-    
-    <button type="button">수정완료</button>
-  </form>
-
- </div>
-</div>
-
-</body>
 
 </html>

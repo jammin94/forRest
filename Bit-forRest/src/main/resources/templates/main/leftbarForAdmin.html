@@ -1,15 +1,25 @@
 
 <style>
 .leftBarNav {
-    width: 170px;
+     width: 170px;
     float: left;
-    margin: 114px 40px 0px 0px;
-    font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    /* margin: 114px 40px 0px 0px; */
+    /* font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
     font-size: 14px;
     padding: 60px 10px 10px 30px;
     overflow-y: scroll;
     height: 630px;
-    padding-top:0;
+    padding-top: 0;
+    position: fixed;
+    /* z-index: 201; */
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 256px; */
+    height: 100%;
+    padding: 97px 0 0 20px;
+    box-sizing: border-box;
+    vertical-align: top;
+    background: #2A3652;
 }
   .leftBarNav::-webkit-scrollbar {
     width: 3px;
@@ -68,6 +78,10 @@
 	padding-left:10px; 
 }
 
+.leftBarListArray {
+	color:#fff;
+}
+
 .leftBarListArray div {
 	display:flex;
 	}
@@ -79,12 +93,16 @@
 .leftBarListShow ul {
 	display:none;
 }
-	
+
+.leftBarListShow ul li {
+	color:#bbbfc9;
+}
+
 .leftBarListShow.on ul{
 	display: block;
 }
 
-.leftBarListShow.on i{
+.leftBarListShow.on .rotate{
 	transform:rotate(180deg);
 }
 	
@@ -95,39 +113,87 @@
 <h2>Mypage Navigation Menus</h2>
 <span></span>
 <div class="leftBarMenu">
-	<h3>마이페이지</h3>
+	<h3>관리메뉴</h3>
 	
 <div class="leftBarListShow">
 <div class="leftBarListArray">
-		<span class="leftBarList">temp1</span>
+<i class="fa-solid fa-shirt"></i>
+		<span class="leftBarList">회원관리</span>
+		<i class="fa-solid fa-angle-down"></i>
 	</div>
+	<ul>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+	</ul>
+	
 </div>
 	
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
-		<span class="leftBarList">temp2</span>
+	<i class="fa-solid fa-cart-shopping"></i>
+		<span class="leftBarList">중고거래관리</span>
+		<i class="fa-solid fa-angle-down"></i>
 	</div>
+	<ul>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+	</ul>
+	
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
-		<span class="leftBarList">temp3</span>
+	<i class="fa-solid fa-cart-arrow-down"></i>
+		<span class="leftBarList">보관물품관리</span>
+		<i class="fa-solid fa-angle-down"></i>
 	</div>
+	<ul>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+	</ul>
+	
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/rental/listRentalProfit}">대여수익확인</a>
-		</span>
+	<i class="fa-solid fa-cart-flatbed"></i>
+		<span class="leftBarList">대여물품관리</span>
+		<i class="fa-solid fa-angle-down"></i>
 	</div>
+	<ul>
+		<li>대여물품관리리스트</li>
+	</ul>
 </div>
-
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+	<i class="fa-solid fa-screwdriver-wrench"></i>
+		<span class="leftBarList">고객센터</span>
+		<i class="fa-solid fa-angle-down rotate"></i>
+	</div>
+		
+	
+	<ul>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+		<li>입력해주세요</li>
+	</ul>
+	
 </div>
-
 <div>
 
 </div>
 </nav>
 </body>
+<script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
 	<script src="/js/jquery_min.js"></script>
 	<script>
 		$(function(){
