@@ -24,112 +24,12 @@
         
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="addRentalReview.js" defer></script>
-	<script>
-	 //이미지업로드 부분만 jquery 처리
-	$(function(){
-		
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	$(".img-preview-big").css("height", initWidth + "px");
-
-	window.onresize = function(event) {
-	  var initWidth = $(".img-preview-big")[0].offsetWidth;
-	  $(".img-preview-big").css("height", initWidth + "px");
-	};
-
-	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if ($(".img-preview-small").length > 0) {
-	    if (mouse_is_inside) {
-	      $(".img-delete").css("display", "flex");
-	    } else {
-	      $(".img-delete").css("display", "none");
-	    }
-	  } else {
-	    $(".img-delete").css("display", "none");
-	  }
-	});
-
-	$(".img-add-more").click(function() {
-		console.log("click test");
-		
-	 if ($(".img-preview-small").length <2) {
-		 $("input[type='file']").click();
-		  } 
-	  
-	  if ($(".img-preview-small").length >1) {
-		   	alert("최대2장까지 추가할 수 있습니다 ");
-		  } 
-	})
-
-	$("input[type='file']").change(function() {
-	  var input = $("input[type='file']")[0];
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      $(".img-preview-big img")[0].src = e.target.result;
-	      $(".img-preview-small img").each(function() {
-	        $(this).removeClass("img-small-selected");
-	      })
-	      var newImg = '<div class="img-preview-small">' +
-	          '<img src="' + e.target.result + '" class="img-small-selected">' +
-	          '</div>';
-	      $(".img-holder").append(newImg);
-	      var left = $('.img-preview-operate').width();
-	      $('.img-preview-operate').scrollLeft(left);
-	    }
-	    reader.readAsDataURL(input.files[0]);
-	  }
-	});
-
-	// $(".img-preview-small").hover(function() {
-//	 	 console.log("Deepak");	
-	// }, function() {
-//	 	 console.log("Chandwani");	
-	// })
-
-	$(document).on('mouseenter mouseleave', '.img-preview-small img', function(ev) {
-	  var mouse_is_inside = ev.type === 'mouseenter';
-	  if (mouse_is_inside) {
-	    $(this)[0].classList.add("img-small-active");
-	  } else {
-	    if (!$(this)[0].classList.contains("img-small-selected"));
-	    $(this)[0].classList.remove("img-small-active");
-	  }
-	});
-
-	$(document).on('click', '.img-preview-small img', function(ev) {
-	  $(".img-preview-small img").each(function() {
-	    $(this).removeClass("img-small-selected");
-	  })
-	  $(this).addClass("img-small-selected");
-	  $(".img-preview-big img")[0].src = $(this)[0].src;
-	});
-
-	$(".img-delete").click(function() {
-	  $(".img-small-selected")[0].parentElement.remove();
-	  if ($(".img-preview-small").length > 0) {
-	    $(".img-preview-small img")[0].classList.add("img-small-selected");
-	    $(".img-preview-big img")[0].src = $(".img-preview-small img")[0].src;
-	    $('.img-preview-operate').scrollLeft(0);
-	  } else {
-	    $(".img-preview-big img")[0].src = "https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png";
-	    $(".img-delete").css("display", "none");
-	  }
-	})
-	})
-	  
-	</script>
+	
 	
 <style type ="text/css">
 
 	@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 	
-body{
-  
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #262626;
-  margin: 5% 0;
-}
 .container{
   width: 100%;
   padding-right: 15px;
@@ -177,7 +77,7 @@ label, table{
   display: block;
   margin: 15px;
 }
-label>span{
+div>span{
   float: left;
   width: 25%;
   margin-top: 12px;
@@ -185,7 +85,7 @@ label>span{
 }
 input[type="text"], input[type="tel"], input[type="email"], select
 {
-  width: 70%;
+  width: 100%;
   height: 30px;
   padding: 5px 10px;
   margin-bottom: 10px;
@@ -258,7 +158,8 @@ button:hover{
 <body>
 
 <!-- 툴바 include -->
-<div th:replace="toolbar.html :: body"></div>
+<div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/MyPageLeftbar.html"></div>
 
 <div class="container">
   <div class="title">
@@ -266,7 +167,7 @@ button:hover{
   </div>
 <div class="d-flex">
   <form action="" method="">
-     <label>
+     <div>
       <span class="fname">물품사진 <span class="required">*(0/10)</span></span>
       <div class="main-wrapper">
   <div class="img-upload-plugin">
@@ -287,89 +188,89 @@ button:hover{
                     <input type="file" name="img-upload-input" style="display:none">
                   </div>
 </div>
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="fname">물품이름 <span class="required">*</span></span>
       <input type="text" name="fname">
-    </label>
-    <label>
+    </div>
+    <div>
           <span>카테고리 <span class="required">*</span></span>
       <select name="selection">
         <option value="select">카테고리를 선택하세요</option>
         <option value="텐트">텐트</option>
-        <option value="텐트">침대</option>
-        <option value="텐트">의자</option>
-        <option value="텐트">그릴</option>
-        <option value="텐트">버너</option>
-        <option value="텐트">조명</option>
-        <option value="텐트">테이블</option>
-        <option value="텐트">식기</option>
-        <option value="텐트">난로</option>
-        <option value="텐트">기타용품</option>
+        <option value="침대">침대</option>
+        <option value="의자">의자</option>
+        <option value="그릴">그릴</option>
+        <option value="버너">버너</option>
+        <option value="조명">조명</option>
+        <option value="테이블">테이블</option>
+        <option value="식기">식기</option>
+        <option value="난로">난로</option>
+        <option value="기타용품">기타용품</option>
       </select>
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="lname">물품크기 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="가로">
-    </label>
-    <label>
+    </div>
+    <div>
       <span>물품설명 <span class="required">*</span></span>
       <input type="text" name="cn">
-    </label>
-    <label>
+    </div>
+    <div>
           <span>보관기간 <span class="required">*</span></span>
       <select name="selection">
         <option value="1">1개월</option>
         <option value="텐트">침대</option>
       </select>
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="lname">물품수량 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </label>
-        <label>
+    </div>
+        <div>
       <span class="lname">반송주소 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </label>
-      <label>
+    </div>
+      <div>
       <span class="lname">픽업주소 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </label>
-    <label>
+    </div>
+    <div>
       <span>쿠폰선택 </span>
       <select name="selection">
         <option value="select">Select a country...</option>
         <option value="AFG">Afghanistan</option>
       </select>
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="lname">주문자 이름 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="이름을 입력하세요" required >
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="lname">연락처 <span class="required">*</span></span>
       <input type="text" name="lname" placeholder="연락처를 입력하세요" required >
-    </label>
-    <label>
+    </div>
+    <div>
       <span>대여가능 여부</span>
       <input type="checkBox" name="dbt" value="dbt" >
-    </label>
-    <label>
+    </div>
+    <div>
       <span class="lname">물품대여가격 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >원
-    </label>
-    <label>
+      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
+    </div>
+    <div>
       <span class="lname">보증금 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >원
-    </label>
-    <label>
+      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
+    </div>
+    <div>
       <span class="lname">계좌번호 <span class="required">*</span></span>
       <select name="selection">
         <option value="select">국민</option>
         <option value="AFG">신한</option>
       </select>
       <input type="text" name="lname" placeholder="계좌번호를 입력하세요" required >
-    </label>
+    </div>
     
   </form>
   <div class="Yorder">
