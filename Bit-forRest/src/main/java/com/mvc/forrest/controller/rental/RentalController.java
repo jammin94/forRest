@@ -57,8 +57,8 @@ public class RentalController {
 	
 	
 	//------------대여물품add  view 화면 (네비게이션용) ------------//
-	@GetMapping("addRental")
-	public String addRentalView(@ModelAttribute("product") Product product, @ModelAttribute("user") User user, Model model ) throws Exception {
+	@GetMapping("addRentalReview")
+	public String addRentalReView(@ModelAttribute("product") Product product, @ModelAttribute("user") User user, Model model ) throws Exception {
 		
 		//0. RequestParam("tranNo") 는 i'm port 때문에 미리 받아야함 ( 아직 결정안남 )
 		
@@ -100,9 +100,9 @@ public class RentalController {
 	
 	
 	//------------결제완료 상세 화면------------//
+//	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
 	@GetMapping("getRental")
-	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
-	
+	public String getRental() throws Exception {
 		 return "rental/getRental";
 	}
 	
@@ -186,6 +186,11 @@ public class RentalController {
 		return null;
 	}
 	
+	@GetMapping("addRental")
+	public String addRentalView( ) throws Exception{
+		
+		return "rental/addRental";
+	}
 	
 	
 	

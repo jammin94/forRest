@@ -142,3 +142,8 @@
 .mypageIcon .toggleArrow i {
 	transform : rotate(0deg);
 }
+
+.toolBackImg{
+	background:url("/images/header/mountain.png") no-repeat center cover !important;
+	
+}
