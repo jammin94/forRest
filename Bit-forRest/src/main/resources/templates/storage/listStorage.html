@@ -37,10 +37,9 @@
 
 <body>
 <!-- 툴바 include -->
-<!--<jsp:include page="/WEB-INF/views/main/toolbar.jsp" />-->
 
-<div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/MyPageLeftbar.html"></div>
+<!-- <div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/MyPageLeftbar.html"></div> -->
 
 
 <!--  화면구성 div Start /////////////////////////////////////-->
@@ -57,7 +56,7 @@
 		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
 		    	
 		    	</p>
-		    	전체 <span th:text="${resultPage.totalCount}"/>건수, 현재  <span th:text="${resultPage.currentPage}"/>페이지
+		    	
 		    	 
 		    </div>
 	    	

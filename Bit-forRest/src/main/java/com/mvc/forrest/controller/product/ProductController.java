@@ -81,23 +81,51 @@ public class ProductController {
 		
 		productService.updateProduct(product);
 	
-		return null;
+		return "forward:/product/getProduct?prodNo="+product.getProdNo();
 	}
 	
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") int prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
 		
 		Product product = productService.getProduct(prodNo);
-		productService.getProduct(prodNo).setProdCondition(productCondition);
+		product.setProdCondition(productCondition);
 		
 		productService.updateProduct(product);
 	
-		return "redirect: /storage/listStorageForAdmin";
+		return "redirect:/storage/listStorageForAdmin";
+	}
+	
+	//관리자가 물품상태를 일괄처리하기위한 코드
+	@RequestMapping("updateProductAllCondition")
+	public String updateProductAllCondition(@RequestParam("prodNo") int[] prodNo, @RequestParam("productCondition") String[] productCondition) throws Exception {
+		
+		//디버깅
+		for(int no: prodNo) {
+			System.out.println(no);
+		}
+		
+		for(String proCon: productCondition) {
+			System.out.println(proCon);
+		}
+		
+		for(int i=0; i<prodNo.length; i++) {
+			
+			Product product = productService.getProduct(prodNo[i]);
+			product.setProdCondition(productCondition[i]);
+			productService.updateProduct(product);
+		}
+		
+		
+	
+		return "redirect:/storage/listStorageForAdmin";
 	}
 	
 	
-	@GetMapping("getProduct")
+	@RequestMapping("getProduct")
 	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpSession httpsession) throws Exception {
+		
+		//디버깅
+		System.out.println("getProduct Start");
 		
 		Product product = productService.getProduct(prodNo);
 		
