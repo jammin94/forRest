@@ -26,38 +26,38 @@
 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getListBoard"  parameterType="map"	resultMap="boardSelectMap">
-		SELECT * FROM board 
+		SELECT b.* FROM board b 
 		<where>
 			<if test='"A".equals(board.boardFlag)'>
-				boardFlag='A' 
+				b.boardFlag='A' 
 				<if test="search.searchCondition != null">
 					<if test="search.searchCondition=='title'.toString() and search.searchKeyword != ''">
-						AND boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
+						AND b.boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 					<if test="search.searchCondition=='detail'.toString() and search.searchKeyword != ''">
-						AND boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
+						AND b.boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 				</if>
 			</if>
 			<if test='"F".equals(board.boardFlag)'>
-				boardFlag='F' 
+				b.boardFlag='F' 
 			</if>
 		</where>
 			<if test='"A".equals(board.boardFlag)'>
 				<if test="search.orderCondition==null">
-					ORDER BY boardPin DESC, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
+					ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 				</if>
 				<if test="search.orderCondition!=null">
 					<if test="search.orderCondition=='ASC'.toString()">
-						ORDER BY boardPin DESC, boardDate ASC LIMIT #{newStartRowNum}, #{search.pageSize}
+						ORDER BY b.boardPin DESC, b.boardDate ASC LIMIT #{newStartRowNum}, #{search.pageSize}
 					</if>
 					<if test="search.orderCondition=='DESC'.toString()">
-						ORDER BY boardPin DESC, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
+						ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 					</if>
 				</if>
 			</if>
 			<if test='"F".equals(board.boardFlag)'>
-				ORDER BY category, boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
+				ORDER BY b.category, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 			</if>
 	 </select>
 	 
