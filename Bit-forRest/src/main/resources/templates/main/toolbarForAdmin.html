@@ -1,0 +1,149 @@
+<head>
+
+   <!-- jQuery UI toolTip 사용 CSS-->
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/animate.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/css/responsive.css" /> -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+    <!-- <link rel="stylesheet" href="/css/style.css">  -->
+	<link rel="stylesheet" href="/css/toolbarForAdmin.css">
+<script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
+</head>
+<body>
+
+
+	<header class="main-header fixed">
+	<div class="container">
+		<div class="row">
+			<!-- Main Box -->
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="try_logo_wrapper">
+			<!-- 	<li><a th:href="@{/rental/addRental}">관리자</a> -->
+					<a th:href="@{/}">
+							FOR REST
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="main-box">
+					<div class="main-box">
+						<div class="auto-container">
+							<div class="outer-container clearfix">
+								<!--Logo Box-->
+								<!--Nav Outer-->
+								<div class="nav-outer clearfix">
+									<!-- Main Menu -->
+									<nav class="main-menu">
+										<div class="navbar-header">
+											<!-- Toggle Button -->
+											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+										</div>
+										<div class="navbar-collapse collapse scroll-nav clearfix">
+											<div class="navigation clearfix">
+											
+												
+										
+												<div class="mypageIcon">
+													<a href="#power">	
+														<i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
+														<span class="toggleArrow">
+															<i class="fa-solid fa-angle-down"></i>
+															<!-- <i class="fa-solid fa-angle-up"></i> -->
+														</span>
+													</a>
+												</div>
+												<div>
+											
+													<div class="dropHeader">
+														<div class="member">
+														<div class="dropLayer">
+													            <div class="userInfo">
+													                <span class="label">대표운영자님</span>
+													                <p class="name"><strong class="mall">hyeong512</strong></p>
+													            </div>
+												            <div class="divide">
+												                <ul class="link">
+												      			             <!-- 내 쇼핑몰 정보 -->
+												                        <li><a>내 쇼핑몰 정보</a></li>
+												                                <!-- 마이페이지 -->
+												                        <li><a th:href="@{/tempUser}">마이페이지(유저용)</a></li>
+												                            <!-- 운영자 관리 -->
+												                        <li><a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a></li>
+												         	     </ul>
+												            </div>
+																	            <!-- 로그아웃 -->
+																	            <a href="/admin/php/shop1/log_out.php" class="btnLogout">로그아웃</a>
+      														  </div>
+														</div>
+													</div>
+													
+												</div>
+											
+											</div>
+											
+										</div>
+									</nav>
+									<!-- Main Menu End-->
+								</div>
+								<!--Nav Outer End-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+      </header>
+
+	
+</body>
+	<script src="/js/jquery_min.js"></script>
+<script>
+
+	$(function(){
+		
+		const mypageIcon = $('.mypageIcon');
+		const dropLayer = $('.dropHeader .member');
+		const toggleArrow = $('.toggleArrow');
+		
+		$(mypageIcon).on('click',function(){
+			
+			dropLayer.toggleClass('selected');
+			toggleArrow.toggleClass('on');
+		});
+		
+	
+		
+		
+	});
+
+	
+</script>
+<!-- <script>
+ $(function() {
+	// Preloader 
+	jQuery(window).on('load', function() {
+		console.log("충돌테스트");
+	    jQuery("#status").fadeOut();
+	    jQuery("#preloader").delay(350).fadeOut("slow");
+	});
+
+}); 
+</script> -->
+	<!--footer news End
+
+	<script src="/js/modernizr.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/owl.carousel.js"></script>
+	<script src="/js/pagenav.js"></script>
+	<script src="/js/custom.js"></script>
+
+
+-->
