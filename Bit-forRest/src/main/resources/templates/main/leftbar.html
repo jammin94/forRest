@@ -4,10 +4,10 @@
     width: 170px;
     float: left;
     margin: 114px 40px 0px 0px;
-    font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  /*   font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
     font-size: 14px;
     padding: 60px 10px 10px 30px;
-    overflow-y: scroll;
+    
     height: 630px;
     padding-top:0;
 }
@@ -47,7 +47,7 @@
 
 .leftBarMenu > h3 {
     padding: 13px 0px 2px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: normal;
     line-height: 40px;
 }
@@ -95,7 +95,7 @@
 <h2>Mypage Navigation Menus</h2>
 <span></span>
 <div class="leftBarMenu">
-	<h3>마이페이지</h3>
+	<h3>나의 쇼핑 활동</h3>
 	
 <div class="leftBarListShow">
 <div class="leftBarListArray">
@@ -116,7 +116,21 @@
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/listRentalProfit}">대여수익확인</a>
+			<a th:href="@{/rental/listRentalProfit}">대여수익확인(테스트용)</a>
+		</span>
+	</div>
+</div>
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/rental/addRental}">대여주문하기(테스트용)</a>
+		</span>
+	</div>
+</div>
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/rental/getRental}">결제정보(테스트용)</a>
 		</span>
 	</div>
 </div>
