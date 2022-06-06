@@ -133,8 +133,8 @@ label.light {
     </head>
     <body>
         <!-- Navigation-->
-   		<div th:replace="/main/toolbar.html"></div>
-		<div th:replace="/main/MyPageLeftbar.html"></div>
+   		<!--  <div th:replace="/main/toolbar.html"></div>
+		<div th:replace="/main/MyPageLeftbar.html"></div>-->
 		
 	      <div class="row">
     <div class="col-md-12">
@@ -144,7 +144,10 @@ label.light {
         <fieldset>
           
           <legend><span class="number"></span> 수정할정보를 입력하세요</legend>
-        
+            
+           <label for="name">물품사진</label>
+          <input type="text" id="name" name="prodImg"  th:value = "${product.prodImg}">
+                    
           <label for="name">물품이름</label>
           <input type="text" id="name" name="prodName"  th:value = "${product.prodName}">
           

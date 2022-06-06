@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="/js/imagePreview.js"/>
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
+    <!-- Bootstrap Dropdown Hover JS -->
+  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
+   <script>
+   			//공지사항 등록
+   			$("button").onClick(function(){
+				var boardTitle=$("input[name='boardTitle']").val();
+				var boardDetail=$("input[name='boardDetail']").val();
+				alert(boardTitle);
+				alert(boardDetail);
+				if(boardTitle!=null && boardDetail!=null){
+					alert("공지사항 등록 완료");
+					$("form").submit();	
+				}else{
+					alert("공지사항 제목과 내용을 반드시 적어주세요");
+				}
+			});
+
+   </script>
+   
+     
+  
+  <!-- jQuery UI toolTip 사용 JS-->
+<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+</head>
+
+<body>
+
+<!-- 로딩시 뜨는 아이콘 -->
+	<div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/leftbar.html"></div>
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+
+	<div class="page-header text-info">
+		 <h3>공지사항 조회</h3>
+	</div>
+		
+	 <div class="media">
+	  <div class="media-left media-middle">
+	    <a href="#">
+	      <img class="media-object" src="..." alt="...">
+	    </a>
+	  </div>
+	  <div class="media-body">
+	    <h4 class="media-heading">Middle aligned media</h4>
+	    ...
+	  </div>
+	</div>
+	
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+</body>
+
+<script src="/js/jquery_min.js"></script>
+	<script>
+	  $(document).ready(function() {
+			"use strict";
+			
+
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+	  })
+	  
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
+</html>

@@ -101,10 +101,6 @@
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo
-	 		<!--getStorageListForAdmin페이지 맨처음 화면에 '물품보관승인신청중'인 물품만 표시 -->
-	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
-	 		 and p.prodCondition = '물품보관승인신청중'
-	 		</if>
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
@@ -137,10 +133,6 @@
 	  	FROM product p, transaction t
 	  	<where>
 	 		p.prodNo = t.prodNo
-	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
-	 		 and p.prodCondition = '물품보관승인신청중'
-	 		</if>
-	 		<!--searchProductCondition은 항상 기본값이 존재  -->
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>

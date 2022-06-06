@@ -13,8 +13,8 @@
 
 <body>
 
-<div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/MyPageLeftbar.html"></div>
+<!-- <div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/MyPageLeftbar.html"></div> -->
 
 
     			<div id="mobile" class="width_calc">
@@ -41,6 +41,7 @@
 						<div class="try_recent_mob_heading_wrapper">
 							<h2>렌탈마켓</h2>
 							<p><span class="try_left_dots"></span>아몰랑~~<span class="try_right_dots"></span>
+							전체 <span th:text="${resultPage.totalCount}"/>건
 							</p>
 						</div>
 					</div>
