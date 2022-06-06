@@ -1,7 +1,7 @@
 
 <style>
 .leftBarNav {
-      width: 170px;
+     width: 170px;
     float: left;
     /* margin: 114px 40px 0px 0px; */
     /* font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; */
@@ -78,6 +78,10 @@
 	padding-left:10px; 
 }
 
+.leftBarListArray {
+	color:#fff;
+}
+
 .leftBarListArray div {
 	display:flex;
 	}
@@ -89,12 +93,16 @@
 .leftBarListShow ul {
 	display:none;
 }
-	
+
+.leftBarListShow ul li {
+	color:#bbbfc9;
+}
+
 .leftBarListShow.on ul{
 	display: block;
 }
 
-.leftBarListShow.on i{
+.leftBarListShow.on .rotate{
 	transform:rotate(180deg);
 }
 	
@@ -109,7 +117,7 @@
 	
 <div class="leftBarListShow">
 <div class="leftBarListArray">
-		
+<i class="fa-solid fa-shirt"></i>
 		<span class="leftBarList">회원관리</span>
 		<i class="fa-solid fa-angle-down"></i>
 	</div>
@@ -125,6 +133,7 @@
 	
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
+	<i class="fa-solid fa-cart-shopping"></i>
 		<span class="leftBarList">중고거래관리</span>
 		<i class="fa-solid fa-angle-down"></i>
 	</div>
@@ -139,6 +148,7 @@
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
+	<i class="fa-solid fa-cart-arrow-down"></i>
 		<span class="leftBarList">보관물품관리</span>
 		<i class="fa-solid fa-angle-down"></i>
 	</div>
@@ -153,6 +163,7 @@
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
+	<i class="fa-solid fa-cart-flatbed"></i>
 		<span class="leftBarList">대여물품관리</span>
 		<i class="fa-solid fa-angle-down"></i>
 	</div>
@@ -162,8 +173,9 @@
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
+	<i class="fa-solid fa-screwdriver-wrench"></i>
 		<span class="leftBarList">고객센터</span>
-		<i class="fa-solid fa-angle-down"></i>
+		<i class="fa-solid fa-angle-down rotate"></i>
 	</div>
 		
 	
@@ -176,8 +188,6 @@
 	</ul>
 	
 </div>
-
-<button type="button">임시버튼</button>
 <div>
 
 </div>

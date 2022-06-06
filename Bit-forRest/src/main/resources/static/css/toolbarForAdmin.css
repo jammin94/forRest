@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Yeon+Sung&display=swap');
+
+
+body, html {
+	/* font-family: 'Gowun Batang', serif; */
+	font-size: 16px;
+	line-height: 23px;
+	background-color:#f6f6f6;
+	width:100%;
+}
+body::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #ffffff;
+}
+body::-webkit-scrollbar{
+	width: 4px;
+	background-color: #ffffff;
+}
+
+body::-webkit-scrollbar-thumb{
+	background-color: #000000;
+}
+a {
+	color: #797979;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: #707070;
+	text-decoration: none !important;
+	outline: none;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+/* 	font-family: 'Gowun Batang', serif; */
+	line-height: 1.1;
+	font-weight:400;
+	color: #fff;
+	margin:0;
+	padding:0;
+	
+}
+p{
+	margin:0;
+}
+input, select, button, textarea {
+	outline: none;
+}
+input:focus, select:focus, button:focus, textarea:focus {
+	outline: none;
+	box-shadow:none;
+}
+ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+
+/*-- Preloader css start --*/
+#preloader {
+	    background-color: #fbfbfb;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 2147483647;
+	width: 100%;
+	height: 100%;
+}
+#status {
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+}
+#status img {
+}
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 8px;
+    font-size: 30px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover i {
+    color: #fff;
+    top: 5px;
+}
+/*-- try top banner main wrapper Start --*/
+.try_top_banner_wrapper{
+	float:left;
+	width:100%;
+	position:relative;
+	padding-top:40px;
+	background:#f9f9f9;
+}
+.try_top_side_img{
+	position:absolute;
+	top:0;
+	right:0;
+}
+.try_logo_wrapper{
+	float:left;
+	width:100%;
+	padding:18px 0;
+}
+.try_top_login_wrapper{
+	float:left;
+	width:100%;
+}
+/*-- try top Slider main wrapper End --*/
+/*** 
+
+====================================================================
+	Main Header style
+====================================================================
+
+***/
+.main-header{
+	float:left;
+	width:100%;
+	background-color:#fff;
+	z-index:100;
+	/* overflow:hidden; */
+	position:fixed;
+	    backdrop-filter: blur(7px);
+	height:60px;
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	width:100%;
+	
+}
+.s{
+	float:left;
+	width:100%;
+	margin-top:30px;
+}
+.main-menu{
+	position:relative;
+	float:left;
+    width: 100%;
+	-webkit-transition:all 300ms ease;
+	-ms-transition:all 300ms ease;
+	-o-transition:all 300ms ease;
+	-moz-transition:all 300ms ease;
+	transition:all 300ms ease;	
+}
+
+.main-menu .navbar-collapse{
+	padding:0px;	
+}
+
+.main-menu .navigation{
+	position:relative;
+	    float: right;
+}
+
+.main-menu .navigation > div{
+	position:relative;
+	float:left;
+	margin:0px 0px 0px 25px;
+}
+.width_calc{
+	
+	width:100%;
+	max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.main-menu .navigation > div > a{
+	position: relative;
+    display: block;
+    font-size: 20px;
+    line-height: 20px;
+    color: #a6a6a6;
+    opacity: 1;
+    padding: 18px 0px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -webkit-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+}
+
+.main-menu .navbar-collapse > ul li.dropdown .dropdown-btn{
+	position:absolute;
+	right:10px;
+	top:6px;
+	width:34px;
+	height:30px;
+	border:1px solid #ffffff;
+	text-align:center;
+	font-size:18px;
+	line-height:28px;
+	color:#4a5064;
+	background:#ffffff;
+	cursor:pointer;
+	z-index:5;
+	display:none;
+}
+.dropHeader .selected .dropLayer {
+    overflow: visible;
+    display: block;
+    opacity: 1;
+    padding: 8px 0;
+    height: auto;
+    right: 0;
+    border-color: #D6DAE1;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+        top: 60px;
+}
+
+.dropHeader .member .userInfo {
+    position: relative;
+    margin: 8px 16px;
+    text-align: center;
+}
+
+.dropHeader .member .userInfo .label {
+    display: inline-block;
+    height: 22px;
+    padding: 2px 8px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #3971FF;
+    background: #EBF1FF;
+}
+
+.dropHeader .member .userInfo {
+    position: relative;
+    margin: 8px 16px;
+    text-align: center;
+}
+
+.dropHeader .dropLayer {
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    width: 235px;
+    z-index: 1;
+    opacity: 0;
+    height: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 20px;
+    box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropHeader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    letter-spacing: -1px;
+}
+
+.dropHeader .member .userInfo .name {
+    margin-top: 4px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #667084;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.dropHeader .member .userInfo:after {
+    display: block;
+    content: "";
+    margin: 16px 0 8px;
+    height: 1px;
+    background: #E2E5EA;
+}
+
+.dropHeader .dropLayer .btnLogout {
+    display: block;
+    padding: 4px 16px;
+    color: #667084;
+    text-align: center;
+}
+
+.dropHeader .dropLayer .link a {
+    display: block;
+    padding: 8px 31px 8px 16px;
+    color: #1B1E26;
+}
+
+.dropHeader .dropLayer li > a {
+    position: relative;
+}
+
+.dropHeader .dropLayer .divide:after {
+    display: block;
+    content: "";
+    margin: 8px 16px;
+    height: 1px;
+    background: #E2E5EA;
+}
+
+
+.dropHeader .dropLayer .divide .link li a {
+   
+}
+
+.dropHeader .dropLayer {
+    overflow: hidden;
+    position: absolute;
+    top: 60px;
+    width: 160px;
+    z-index: 1;
+    opacity: 0;
+    height: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 20px;
+    box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 10px 10px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mypageIcon .toggleArrow.on i {
+	transform : rotate(180deg);
+	font-size:15px;
+}
+
+.mypageIcon .toggleArrow i {
+	transform : rotate(0deg);
+	font-size:15px;
+}
+
+/*툴바 오버라이딩*/
+.fixed{
+	 position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+
+/* 리스트 페이지 CSS */
+.container.list {
+   top: 120px;
+    position: relative;
+    width: calc(100% - 210px);
+    float: right;
+    /* padding: 10px
+px
+; */
+    right: 15px;
+    /* border: 1px solid; */
+    background-color: #fff;
+}
+.tableHeader th{
+	text-align:center;
+}
+
