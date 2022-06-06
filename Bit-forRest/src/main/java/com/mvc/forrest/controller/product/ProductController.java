@@ -60,8 +60,13 @@ public class ProductController {
 	@GetMapping("updateProduct")
 	public String updateProductGet(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		
+		System.out.println("updateProductGet start");
 		
-		model.addAttribute("product", productService.getProduct(prodNo));	
+		Product product = productService.getProduct(prodNo);
+		System.out.println("product:" + product);
+		
+		model.addAttribute("product", product);	
+		
 	
 		return "product/updateProduct";
 	}
@@ -69,6 +74,12 @@ public class ProductController {
 	//이미지여러개 어케함???
 	@PostMapping("updateProduct")
 	public String updateProductPost(@ModelAttribute("product") Product product) throws Exception {
+		
+		//디버깅
+		System.out.println("updateProductPost start");
+		System.out.println("product: "+product);
+		
+		productService.updateProduct(product);
 	
 		return null;
 	}
