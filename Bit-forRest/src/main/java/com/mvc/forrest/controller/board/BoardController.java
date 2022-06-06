@@ -26,25 +26,19 @@ public class BoardController {
 	@Autowired
 	public BoardService boardService;
 	
-	//for test
-	@GetMapping("test")
-	public String home() throws Exception {	
-		return "board/testBoard";
-	}
-	
-	@GetMapping("getAnnounce/{boardNo}")
+	@GetMapping("getAnnounce?boardNo={boardNo}")
 	public String getAnnounce(@PathVariable int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
 		
 		model.addAttribute(boardService.getBoard(boardNo));
 		
-		return "forward:/board/getAnnounce";
+		return "/board/getAnnounce";
 	}
 	
 	@GetMapping("addAnnounce")
 	public String addAnnounce() throws Exception {	
 		System.out.println("Controller GET: addAnnounce ");
-		return "redirect:/board/addAnnounce";
+		return "/board/addAnnounce";
 	}
 	
 	@PostMapping("addAnnounce")
@@ -55,7 +49,7 @@ public class BoardController {
 		return "redirect:/board/listAnnounce";
 	}
 	
-	@GetMapping("updateAnnounce/{boardNo}")
+	@GetMapping("updateAnnounce?boardNo={boardNo}")
 	public String updateAnnounce(@PathVariable int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: updateAnnounce ");
 		model.addAttribute(boardService.getBoard(boardNo));
@@ -67,17 +61,17 @@ public class BoardController {
 	public String updateAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
 		boardService.updateBoard(board);
-		return "redirect:/board/getAnnounce/"+board.getBoardNo();
+		return "redirect:/board/getAnnounce?boardNo="+board.getBoardNo();
 	}
 
-	@GetMapping("deleteAnnounce/{boardNo}")
+	@GetMapping("deleteAnnounce?boardNo={boardNo}")
 	public String deleteAnnounce(@PathVariable int boardNo) throws Exception {	
 		System.out.println("Controller GET: deleteAnnounce ");
 		boardService.deleteBoard(boardNo);
 		return "redirect:/board/listAnnounce";
 	}	
 	
-	@GetMapping("updateFixAnnounce/{boardNo}")
+	@GetMapping("updateFixAnnounce?boardNo={boardNo}")
 	public String updateFixAnnounce(@PathVariable int boardNo) throws Exception {	
 		System.out.println("Controller GET: updateFixAnnounce ");
 		Board board=boardService.getBoard(boardNo);
@@ -101,6 +95,8 @@ public class BoardController {
 		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
 		//그래서 직접넣자 걍
 		
+		System.out.println("search : "+search);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
 		map.put("search", search);
@@ -113,7 +109,7 @@ public class BoardController {
 		model.addAttribute("resultPage",resultPage);
 		model.addAttribute("search",search);
 
-		return "forward:/board/listBoard";
+		return "board/listAnnounce";
 	}
 	
 	@GetMapping("addFAQ")
