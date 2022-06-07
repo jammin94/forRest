@@ -3,6 +3,8 @@ package com.mvc.forrest.controller.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +30,11 @@ public class BoardController {
 	public BoardService boardService;
 	
 	@GetMapping("getAnnounce?boardNo={boardNo}")
-	public String getAnnounce(@PathVariable int boardNo, Model model) throws Exception {	
+	public String getAnnounce(@PathVariable int boardNo, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
-		
-		model.addAttribute(boardService.getBoard(boardNo));
+
+		model.addAttribute("board", boardService.getBoard(boardNo));
+		model.addAttribute("user", session.getAttribute("user"));
 		
 		return "/board/getAnnounce";
 	}
@@ -107,16 +110,18 @@ public class BoardController {
 	
 	
 	@RequestMapping("listAnnounce")
-	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model) throws Exception {	
+	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getlistAnnounce ");
 		
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
+		int pageSize=10;
+		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(10); //장씩
+		search.setPageSize(pageSize); //장씩
 		
 		int newStartRowNum=search.getStartRowNum()-1;
 		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
@@ -129,12 +134,13 @@ public class BoardController {
 		map.put("search", search);
 		map.put("newStartRowNum", newStartRowNum);
 		
-		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(map), 5, 5);
+		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(map), pageUnit, pageSize);
 		System.out.println(resultPage);
 
-		model.addAttribute("list",boardService.getListBoard(map));
-		model.addAttribute("resultPage",resultPage);
-		model.addAttribute("search",search);
+		model.addAttribute("list", boardService.getListBoard(map));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		model.addAttribute("user", session.getAttribute("user"));
 
 		return "board/listAnnounce";
 	}
