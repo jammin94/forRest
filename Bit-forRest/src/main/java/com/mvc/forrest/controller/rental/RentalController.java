@@ -125,10 +125,17 @@ public class RentalController {
 	public String listRentalMngView( @ModelAttribute("search") Search search , Model model ) throws Exception{
 		System.out.println("listRentalProfitView 테스트");
 				
+		
+		System.out.println(search.getSearchProductCondition());
+		
 				if(search.getCurrentPage() ==0 ){
 					search.setCurrentPage(1);
 				}
 				search.setPageSize(pageSize);
+				
+				if(search.getSearchProductCondition()!=null) {
+					search.setSearchProductCondition(search.getSearchProductCondition());
+				}
 				
 				// Business logic 수행
 				Map<String , Object> map=rentalService.getRentalListForAdmin(search);
@@ -147,9 +154,32 @@ public class RentalController {
 	}
 	
 	@PostMapping("listRentalForAdmin")
-	public String listRentalMng( ) throws Exception{
+	public String listRentalMng( @ModelAttribute("search") Search search , Model model) throws Exception{
+		System.out.println("listRentalProfitView 테스트");
 		
-		return null;
+		System.out.println(search.getSearchProductCondition());
+		
+				if(search.getCurrentPage() ==0 ){
+					search.setCurrentPage(1);
+				}
+				search.setPageSize(pageSize);
+				
+				search.setSearchProductCondition(search.getSearchProductCondition());
+				
+				// Business logic 수행
+				Map<String , Object> map=rentalService.getRentalListForAdmin(search);
+				
+				System.out.println("테스트"+map.get("list"));
+							
+				Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+				System.out.println(resultPage);
+				
+				// Model 과 View 연결
+				model.addAttribute("list", map.get("list"));
+				model.addAttribute("resultPage", resultPage);
+				model.addAttribute("search", search);
+				
+		return "rental/listRentalForAdmin";
 	}
 	
 	//------------대여 수익 확인------------//

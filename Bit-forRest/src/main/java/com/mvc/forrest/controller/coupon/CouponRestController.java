@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,9 +27,13 @@ public class CouponRestController {
 	public CouponRestController() {
 	}
 	
-	@PostMapping("json/addCoupon")
-	public void addCoupon() throws Exception{
+	@RequestMapping("json/addCoupon")
+	public void addCoupon(@ModelAttribute("coupon")Coupon coupon) throws Exception{
 		
+		System.out.println("/json/addCoupon : POST");
+		
+		couponService.addCoupon(coupon);
+
 	}
 	
 	@PostMapping("json/updateCoupon")
