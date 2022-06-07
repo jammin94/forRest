@@ -137,21 +137,20 @@ border-bottom:3px solid #ddd !important;
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td>텐트</td>
+		<td th:text=${storage.prodName}></td>
 	</tr>
 
 	<tr>
 		<td>카테고리</td>
-		<td>
-			텐트
-		
-		</td>
+		<td th:text="${storage.storageProd.category}"></td>
 	</tr>
 	
 		<tr>
 		<td>크기</td>
 		<td>
-		20 x 18 x 18
+		<span th:text="${storage.storageProd.width}"></span>x
+		<span th:text="${storage.storageProd.length}"></span>x
+		<span th:text="${storage.storageProd.height}"></span>
 		
 		</td>
 	</tr>
@@ -159,7 +158,8 @@ border-bottom:3px solid #ddd !important;
     	<tr>
 		<td>보관기간</td>
 		<td>
-			2022-04-05 ~ 2022-06-05
+			<span th:text=${storage.startDate}></span>~
+			<span th:text=${storage.endDate}></span>
 		
 		</td>
 	</tr>
@@ -184,10 +184,9 @@ border-bottom:3px solid #ddd !important;
 	
 	<tr>
 		<td>물품수량</td>
-		<td>
-		3 개
+		<td><span th:text="${storage.storageProd.prodQuantity}"></span>
+		개</td>
 		
-		</td>
 	</tr>
 	
 	</tbody></table>
