@@ -47,8 +47,8 @@ public class BoardService {
 		boardDAO.updateFixBoard(board);
 	}
 	
-	public int getTotalCount(Search search) throws Exception{
-		return boardDAO.getTotalCount(search);
+	public int getTotalCount(Map<String,Object> map) throws Exception{
+		return boardDAO.getTotalCount(map);
 	}
 
 }
