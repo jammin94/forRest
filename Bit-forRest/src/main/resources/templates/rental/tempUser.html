@@ -2,25 +2,229 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+  <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Item - Start Bootstrap Template</title>
+		<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		      
+        
+		<script>
+			document.getElementsByTagName("html")[0].className += " js";
+		</script>
+		
+		<link rel="stylesheet" href="/css/faq.css">
+		<title>FAQ Template | CodyHouse</title>
 </head>
 
 <body>
-
-<!-- 로딩시 뜨는 아이콘 -->
-	<div id="preloader">
-		<div id="status">
-			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
-		</div>
-	</div>
 
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
 <div th:replace="/main/leftbar.html"></div>
+
+
+    <div class="indiv"><!-- Start indiv -->
+
+        <form name="frmList">
+        <input type="hidden" name="category" value="008">
+        <input type="hidden" name="sort" value="goods_link.sort1">
+        <input type="hidden" name="page_num" value="20">
+        
+        <!-- 상단 카테고리 메뉴 -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+        <td background="/shop/data/skin/campingyo/img/common/ed_top_back.gif">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr><td width="50%"><img src="/shop/data/skin/campingyo/img/common/ed_left_top.gif" border="0"></td>
+        <td width="50%" align="right"><img src="/shop/data/skin/campingyo/img/common/ed_right_top.gif" border="0"></td>
+        </tr></tbody></table>
+        </td>
+        </tr>
+        <tr>
+        <td bgcolor="#F5F5F5" style="padding:5px 10px; border-left:1px solid #E2E1E1; border-right:1px solid #E2E1E1"><img src="/shop/data/skin/campingyo/img/common/icon_submenu.gif" border="0" align="absmiddle"><b><a href="../goods/goods_list.php?category=008">테이블</a></b></td>
+        </tr>
+        <tr>
+        <td style="padding:5 10 5 10; line-height:20px; border-left:1px solid #E2E1E1; border-right:1px solid #E2E1E1">
+        </td>
+        </tr>
+        <tr>
+        <td background="/shop/data/skin/campingyo/img/common/ed_bot_back.gif">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr><td width="50%"><img src="/shop/data/skin/campingyo/img/common/ed_left_bot.gif" border="0"></td>
+        <td width="50%" align="right"><img src="/shop/data/skin/campingyo/img/common/ed_right_bot.gif" border="0"></td>
+        </tr></tbody></table>
+        </td>
+        </tr>
+        </tbody></table>
+        
+        <!-- 추천상품 -->
+        
+        
+        
+        
+         <!-- 상품 리스트 -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr><td height="10"></td></tr>
+        <tr>
+        
+        </tr>
+        <tr><td height="10"></td></tr>
+        </tbody></table>
+        
+        <!-- 품절상품 마스크 -->
+        <div id="el-goods-soldout-image-mask" style="display:none;position:absolute;top:0;left:0;background:url(../data/goods/icon/icon_soldout) no-repeat center center;"></div>
+        <script>
+        addOnloadEvent(function(){ setGoodsImageSoldoutMask() });
+        </script>
+        
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr><td height="10"></td></tr>
+        <tr>
+        <td bgcolor="9e9e9e" class="small" height="27" style="padding:0 0 0 5" background="/shop/data/skin/campingyo/img/common/bg_goodlist_bar.gif">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+        <td id="b_white"><img src="/shop/data/skin/campingyo/img/common/icon_goodalign2.gif" align="absmiddle"><a href="../goods/goods_list.php?category=008">테이블</a>
+        <font color="#FFFFFF">총 <b>13</b>개의 상품이 있습니다.</font>
+        </td>
+        </tr>
+        </tbody></table>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <!-- capture_start("list_top") -->
+        <table width="100%" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+        <td><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_01.gif"><a href="javascript:sort('maker desc')"><img name="sort_maker_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('maker')"><img name="sort_maker" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_03.gif"><a href="javascript:sort('goodsnm desc')"><img name="sort_goodsnm_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('goodsnm')"><img name="sort_goodsnm" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_04.gif"><a href="javascript:sort('price desc')"><img name="sort_price_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('price')"><img name="sort_price" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_05.gif"><a href="javascript:sort('reserve desc')"><img name="sort_reserve_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('reserve')"><img name="sort_reserve" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a></td>
+        <td align="right"><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_06.gif" align="absmiddle"><select onchange="if(typeof(document.sSearch) != 'undefined') { _ID('page_num').value=this.value; document.sSearch.submit() } else { this.form.page_num.value=this.value;this.form.submit() }" style="font:8pt 돋움"><option value="20" selected="">20개씩 정렬</option></select></td>
+        </tr>
+        </tbody></table>
+        <!-- capture_end ("list_top") -->
+        </td>
+        </tr>
+        <tr><td height="1" bgcolor="#DDDDDD"></td></tr>
+        <tr>
+        <td style="padding:15 0">
+        
+        
+        
+        
+        
+        
+        
+        
+         <!-- 상품 리스트 -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tbody><tr><td height="10"></td></tr>
+        <tr>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=57&amp;category=008"><img src="../data/goods/1398131508263s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=57&amp;category=008">[코베아] AL2폴딩 테이블 (KN8FN0102)</a></div>			<div style="padding-bottom:3px"><b>12,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081521.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=30&amp;category=008"><img src="../data/goods/1302962595_s_0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=30&amp;category=008">[콜맨] 3폴딩 테이블 (170A7586)</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=56&amp;category=008"><img src="../data/goods/1371861860642s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=56&amp;category=008">[코베아] 슬림 2폴딩 테이블 (KJ8FN0104)</a></div>			<div style="padding-bottom:3px"><b>10,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=187&amp;category=008"><img src="../data/goods/1341970568694s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=187&amp;category=008">[코베아] 3폴딩 테이블Ⅱ (KM8FN0105)</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+            </td>
+        </tr><tr><td height="10"></td></tr><!-- <tr><td colspan=4 bgcolor=#E6E6E6 height=1></td></tr> --><tr><td height="10"></td></tr><tr>	<td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=320&amp;category=008"><img src="../data/goods/1486536805471s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=320&amp;category=008">[코베아] 티탄 슬림3폴딩 BBQ테이블Ⅱ (KN8FN0110)</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+            </td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=274&amp;category=008"><img src="../data/goods/1431143151549s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=274&amp;category=008">원액션 밤부테이블</a></div>			<div style="padding-bottom:3px"><b>20,000원</b> </div>
+            </td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=224&amp;category=008"><img src="../data/goods/1398307537623s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=224&amp;category=008">[코베아] 미니 테이블Ⅱ (KM8FN0117)</a></div>			<div style="padding-bottom:3px"><b>5,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=74&amp;category=008"><img src="../data/goods/1302965734_s_0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=74&amp;category=008">보조 테이블</a></div>			<div style="padding-bottom:3px"><b>5,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"></div>	</td>
+        </tr><tr><td height="10"></td></tr><!-- <tr><td colspan=4 bgcolor=#E6E6E6 height=1></td></tr> --><tr><td height="10"></td></tr><tr>	<td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=262&amp;category=008"><img src="../data/goods/142510938172s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=262&amp;category=008">[PMS] 스콜피온 미니테이블</a></div>			<div style="padding-bottom:3px"><b>9,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=263&amp;category=008"><img src="../data/goods/1425110716482s0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=263&amp;category=008">백패킹용 미니테이블</a></div>			<div style="padding-bottom:3px"><b>5,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=32&amp;category=008"><img src="../data/goods/1302967651_s_0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=32&amp;category=008">[콜맨] 키친테이블 (170-7591)</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"> <img src="../data/my_icon/my_icon_13286081521.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+            <td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=58&amp;category=008"><img src="../data/goods/1303093496_s_0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=58&amp;category=008">[코베아] 키친 테이블 (KJ8FN0104)</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"></div>	</td>
+        </tr><tr><td height="10"></td></tr><!-- <tr><td colspan=4 bgcolor=#E6E6E6 height=1></td></tr> --><tr><td height="10"></td></tr><tr>	<td align="center" valign="top" width="25%">
+        
+            <div><a href="../goods/goods_view.php?goodsno=75&amp;category=008"><img src="../data/goods/1302966507_s_0.jpg" width="150" class="" onerror="this.src='/shop/data/skin/campingyo/img/common/noimg_300.gif'"></a></div>
+        <div style="padding:5"><a href="../goods/goods_view.php?goodsno=75&amp;category=008">화로대 테이블</a></div>			<div style="padding-bottom:3px"><b>15,000원</b> </div>
+        <div><img src="../data/my_icon/my_icon_13286081070.jpg"> <img src="../data/my_icon/my_icon_13286081521.jpg"> <img src="../data/my_icon/my_icon_13286082043.jpg"></div>	</td>
+        
+        </tr>
+        <tr><td height="10"></td></tr>
+        </tbody></table>
+        
+        <!-- 품절상품 마스크 -->
+        <div id="el-goods-soldout-image-mask" style="display:none;position:absolute;top:0;left:0;background:url(../data/goods/icon/icon_soldout) no-repeat center center;"></div>
+        <script>
+        addOnloadEvent(function(){ setGoodsImageSoldoutMask() });
+        </script>
+        </td>
+        </tr>
+        <tr><td height="1" bgcolor="#DDDDDD"></td></tr>
+        <tr>
+        <td>
+        <!-- capture_start("list_top") -->
+        <table width="100%" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+        <td><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_01.gif"><a href="javascript:sort('maker desc')"><img name="sort_maker_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('maker')"><img name="sort_maker" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_03.gif"><a href="javascript:sort('goodsnm desc')"><img name="sort_goodsnm_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('goodsnm')"><img name="sort_goodsnm" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_04.gif"><a href="javascript:sort('price desc')"><img name="sort_price_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('price')"><img name="sort_price" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_05.gif"><a href="javascript:sort('reserve desc')"><img name="sort_reserve_desc" src="/shop/data/skin/campingyo/img/common/list_up_off.gif"></a><a href="javascript:sort('reserve')"><img name="sort_reserve" src="/shop/data/skin/campingyo/img/common/list_down_off.gif"></a></td>
+        <td align="right"><img src="/shop/data/skin/campingyo/img/common/goodlist_txt_06.gif" align="absmiddle"><select onchange="if(typeof(document.sSearch) != 'undefined') { _ID('page_num').value=this.value; document.sSearch.submit() } else { this.form.page_num.value=this.value;this.form.submit() }" style="font:8pt 돋움"><option value="20" selected="">20개씩 정렬</option></select></td>
+        </tr>
+        </tbody></table>
+        <!-- capture_end ("list_top") -->
+        </td>
+        </tr>
+        <tr><td height="2" bgcolor="#DDDDDD"></td></tr>
+        <tr><td align="center" height="50"> <b>1</b> </td></tr>
+        </tbody></table>
+        
+        </form>
+        <form name="frmCharge" method="post">
+        <input type="hidden" name="mode" value="">
+        <input type="hidden" name="goodsno" value="">
+        <input type="hidden" name="ea" value="1">
+        <input type="hidden" name="opt[]" id="opt" value="">
+        </form>
+        </div>
+
+
 
 </body>
 
@@ -38,7 +242,9 @@
 
 	  })
 	</script>
-	
+	<script>
+		console.log("javasc");
+	</script>
 	<!--  <script src="/js/custom.js"></script> -->
 <!-- <script src="/js/custom.js"></script> -->
 </html>
