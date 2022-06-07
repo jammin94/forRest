@@ -124,38 +124,33 @@
 	 
 	 <!-- SELECT LIST ADMIN -->
 	<select  id="getRentalListForAdmin"  parameterType="search"	resultMap="rentalSelectMap">
-		 	SELECT p.*, t.*
-		 	FROM product p, transaction t
-		 	<where>
-		 		p.prodNo = t.prodNo
-		 		<!--getStorageListForAdmin페이지 맨처음 화면에 '물품보관승인신청중'인 물품만 표시 -->
-		 	
-		 		<!--<if test="searchKeyword == null and searchCondition == null and searchProductCondition == null" >
-		 		 and p.prodCondition = '대여물품승인신청중'
-		 		</if>-->
-		 		
-		 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
-		 		 and p.prodCondition = #{searchProductCondition}
-		 		</if>
-		 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
-		 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
-		 		</if>
-		 		
-		 	</where>
-		 	<if test="orderCondition != null">
-		 		<if test='orderCondition == "tranNoASC"'>
-		 		ORDER BY t.tranNo ASC
-		 		</if>
-		 		<if test='orderCondition == "tranNoDESC"'>
-		 		ORDER BY t.tranNo DESC
-		 		</if>
-		 		<if test='orderCondition == "startDateASC"'>
-		 		ORDER BY t.startDate ASC
-		 		</if>
-		 		<if test='orderCondition == "startDateDESC"'>
-		 		ORDER BY t.startDate DESC
-		 		</if>
-		 	</if>
+		 		SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
+	 	FROM product p, transaction t
+	 	<where>
+	 		p.prodNo = t.prodNo and t.tranCode=1
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
+	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
+	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 		</if>
+	 		
+	 		
+	 	</where>
+	 	<if test="orderCondition != null">
+	 		<if test='orderCondition == "tranNoASC"'>
+	 		ORDER BY t.tranNo ASC
+	 		</if>
+	 		<if test='orderCondition == "tranNoDESC"'>
+	 		ORDER BY t.tranNo DESC
+	 		</if>
+	 		<if test='orderCondition == "startDateASC"'>
+	 		ORDER BY t.startDate ASC
+	 		</if>
+	 		<if test='orderCondition == "startDateDESC"'>
+	 		ORDER BY t.startDate DESC
+	 		</if>
+	 	</if>
 	 </select>
 	 
 	 
