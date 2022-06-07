@@ -67,6 +67,12 @@ border-bottom:3px solid #ddd !important;
 .container.list{
 	padding-right:150px;
 }
+
+ textarea {
+    width: 400px;
+    height:200px;
+    resize: none;
+  }
 </style>
 <body>
 
@@ -176,7 +182,9 @@ border-bottom:3px solid #ddd !important;
 	
 	<tr>
 		<td>물품수량</td>
-		<td th:text = "${product.prodQuantity}"></td>
+		<td >
+		<sapn th:text = "${product.prodQuantity}"></sapn> 개
+		</td>
 	</tr>
 	
 	</tbody></table>
@@ -202,9 +210,10 @@ border-bottom:3px solid #ddd !important;
 	<colgroup><col width="100">
 	</colgroup><tbody>
 	<tr>
-		<td>대여가능</td>
+		<td>대여가능여부</td>
 		<td class="noline">
-		<input type="checkbox" onclick="ctrl_field(this.checked)"> 보관한물품을 대여가능하게 합니다.
+		<input type="radio" value=1 name="isRental" th:checked="${product.isRental eq 1}"> 대여가능.
+		<input type="radio"  value=0 name="isRental" th:checked="${product.isRental eq 0}"> 대여불가
 		</td>
 	</tr>
 	

@@ -32,6 +32,11 @@
 			<id property="prodNo" column="prodNo"  jdbcType="INTEGER"/>
 			<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
 			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
+			<result property="width" 				column="width" 				jdbcType="INTEGER"  />
+			<result property="length" 				column="length" 				jdbcType="INTEGER"  />
+			<result property="height" 				column="height" 				jdbcType="INTEGER"  />
+			<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER"  />
+			<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
 		</association>
 	</resultMap>
 	
@@ -47,7 +52,8 @@
 	  
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getStorage"	parameterType="int"	resultMap="storageSelectMap">
-		SELECT * FROM transaction where tranNo =  #{tranNo}
+		SELECT * FROM transaction t, product p 
+		where t.tranNo =  #{tranNo} and t.prodNo = p.prodNo
 	 </select>
 	 
 	  <!-- SQL : SELECT ONE -->
