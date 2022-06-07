@@ -104,14 +104,14 @@ border-bottom:3px solid #ddd !important;
 				    	<div class="productInfo">
 					    	<img _ngcontent-ysc-c102="" alt="" src="//img.29cm.co.kr/next-product/2022/05/23/2b8de2e8a22b42578820af6f1c1e5092_20220523235755.jpg?width=300">
 					    	<span>
-						    		3인용 텐트<br/>
-						    		2020.03.14 ~ 2020.03.20<br/>
-						    		수량 1개
+						    		[[${storage.prodName}]]<br/>
+						    		[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/>
+						    		수량 [[${storage.storageProd.prodQuantity}]]개
 					    	</span>
 						</div>
 				    </td>
-					<td align="center">62100원</td>
-					<td align="center">보관중</td>
+					<td align="center" >[[${storage.resultPrice}]] 원</td>
+					<td align="center" th:text="${storage.storageProd.prodCondition}"></td>
 			    </tr>
 	        </tbody>
 
@@ -154,17 +154,11 @@ border-bottom:3px solid #ddd !important;
 	        
 	        <tbody> 
 			    <tr class="tableBody">
-				    <td align="left" class="borderBottom">
-				    	<div class="productInfo">
-					    
-					    	<span>
-						    		상품금액 62,100원<br/>
-						    		
-					    	</span>
-						</div>
+				    <td align="center" class="borderBottom">
+						    		[[${storage.originPrice}]]원
 				    </td>
-					<td align="center" class="borderBottom">쿠폰할인 0 원</td>
-					<td align="center" class="borderBottom">카카오페이 62,100원<br/> (대구은행 1394823049)</td>
+					<td align="center" class="borderBottom"> 쿠폰할인 [[${storage.discountPrice}]]원</td>
+					<td align="center" class="borderBottom"> [[${storage.paymentWay}]] [[${storage.resultPrice}]]원</td>
 			    </tr>
 	        </tbody>
 
@@ -178,22 +172,19 @@ border-bottom:3px solid #ddd !important;
 	      <tbody>
 		        <tr style="background-color:#fff; border-top:none;">
 		            <th scope="row" class="borderTopNone borderRight textCenter"> 주문자</th>
-		            <td class="borderTopNone">
-		               형산
+		            <td class="borderTopNone" th:text="${storage.receiverName}">
 		            </td>
 		         
 		        </tr>
 		        <tr>
 		            <th scope="row" class="borderRight textCenter borderBottom"> 전화번호</th>
-		            <td class="borderRight borderBottom">
-		              010-8484-3434
+		            <td class="borderRight borderBottom" th:text="${storage.receiverPhone}">
 		            </td>
 		        </tr>
 		      
 		         <tr style="background-color:#fff; border-top:none;">
 		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 주소</th>
-		            <td class="borderTopNone borderBottom">
-		              경기도 오산시 세교동 ~
+		            <td class="borderTopNone borderBottom" th:text="${storage.pickupAddress}">
 		            </td>
 		         <td class="borderBottom"/>
 		         <td class="borderBottom"/>
