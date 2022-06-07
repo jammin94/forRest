@@ -146,9 +146,11 @@ public class StorageController {
 	}
 		
 	@GetMapping("extendStorage")
-	public String extendStorageGet() {
+	public String extendStorageGet(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		
-		return null;
+		model.addAttribute("storage", storageService.getStorage(tranNo));
+		
+		return "storage/extendStorage";
 	}
 	
 	//보관물품의 기간을 연장
