@@ -13,48 +13,56 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/report.css" rel="stylesheet" />
     </head>
+    
+    <style>
+   	.container> div{
+   		display:flex;
+   	}
+    </style>
     <body>
         <!-- Navigation-->
-   	<!-- 	<div th:replace="/main/toolbar.html"></div>
-		<div th:replace="/main/MyPageLeftbar.html"></div> -->
+  <div th:replace="/main/toolbar.html"></div>
+		<div th:replace="/main/leftbar.html"></div> 
 		
         <!-- Product section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
+            <div class="container px-4  px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" width="200" height="450" src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/ec9ab4cabad061881c4ff3d1eb1addd3dfe5e31bbe017688c2b4305f1ee43d51.webp?q=95&s=1440x1440&t=inside" alt="..." /></div>
                     <div class="col-md-6">
                         
-                        <h1 class="display-5 fw-bolder" th:text=${product.prodName}></h1>
-                        <div class="fs-5 mb-5">
-                           판매자:
+                        <h1 class="display-7 fw-bolder mb-4" th:text=${product.prodName} ></h1>
+                        <div class="fs-5 mb-3">
+                         <span class= "fw-bolder">  판매자:</span>
                             <span th:text = ${product.userProd.userImg}></span>
                             <span th:text = ${product.userProd.userRate}></span>
                             <span th:text = ${product.userProd.nickname}></span>
                           </div>
-                          <div class="fs-5 mb-5">
-                           카테고리:<span th:text = ${product.category}></span>
+                          <div class="fs-5 mb-3">
+                         <span class= "fw-bolder">  카테고리: </span><span th:text = ${product.category}></span>
                            </div>
-                           <div class="fs-5 mb-5">
-                            크기:<span th:text = ${product.width}></span> X
+                           <div class="fs-5 mb-3">
+                           <span class= "fw-bolder"> 크기:</span> <span th:text = ${product.width}></span> X
                             <span th:text = ${product.length}></span> X
                             <span th:text = ${product.height}></span>
                             </div>
-                            <div class="fs-5 mb-5">
-                           렌탈비용(1박2일): <span th:text = ${product.rentalPrice}></span>
-                           보증금: <span th:text = ${product.deposit}></span>
+                            <div class="fs-5 mb-3">
+                           <span class= "fw-bolder">렌탈비용(1박2일):</span> <span th:text = ${product.rentalPrice}></span>원
                            </div>
-                           <div th:if = "${product.userId} == ${sessionUser.userId}">
-                           계좌번호: <span th:text = ${product.account}></span>
-                           반송주소: <span th:text = ${product.returnAddress}></span>
-                           대여횟수: <span th:text = ${product.rentalCounting}></span>
-                            </div>
-                           <div>
-                           수량: <span th:text = ${product.prodQuantity}></span>
+                            <div class="fs-5 mb-3">
+                          <span class= "fw-bolder"> 보증금: </span><span th:text = ${product.deposit}></span>원
+                           </div>
+                           
+                           <div class="fs-5 mb-3">
+                         <span class= "fw-bolder">  수량:</span> <span th:text = ${product.prodQuantity}></span>개
                         </div>
-                        <p th:text = ${product.prodDetail}></p>
-                        <div>
-                        <span>대여일</span>
+                        
+                           <div class="fs-5 mb-3">
+                         <span class= "fw-bolder">  대여횟수:</span> <span th:text = ${product.rentalCounting}></span>회
+                        </div>
+                        
+                        <div class="fs-5 mb-3">
+                        <span class= "fw-bolder">대여일: </span>
                         <select name="selection">
                         <option value="텐트">1박2일</option>
                         <option value="텐트">2박3일</option>
@@ -62,26 +70,46 @@
                         <option value="텐트">4박5일</option>
                         </select>
                         </div>
+                        
                         <div class="d-flex" th:if="${product.userId} == ${sessionUser.userId}">
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
                                꺼내쓰기
                             </button>
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|" >
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|" >
                                수정
                             </button>
                         </div>
                         <div class="d-flex" th:unless="${product.userId} == ${sessionUser.userId}">
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
                                바로구매
                             </button>
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                장바구니
                             </button>
                         </div>
                     </div>
                 </div>
+               
+                <div class="row gx-10 gx-lg-5 align-items-center">
+                 
+                	   <div class="fs-5 mb-3 mt-3">
+                         <span class= "fw-bolder" > 상세정보 </span>
+                           </div>         	
+                    <div class="fs-5 mb-1"><span th:text = ${product.prodDetail}></span></div>
+                    
+                        <div th:if = "${product.userId} == ${sessionUser.userId}">
+						    <div class="fs-5 mb-3 mt-3">
+                         <span class= "fw-bolder"> 계좌정보 </span>
+                           </div>  
+                         <div class="fs-5 mb-1">  계좌번호: <span th:text = ${product.account}></span></div>
+                          <div class="fs-5 mb-1"> 반송주소: <span th:text = ${product.returnAddress}></span></div>
+                            </div>
+                   
+                </div>
+                      
             </div>
+     
         </section>
 
         <!-- Footer-->

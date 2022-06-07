@@ -146,7 +146,9 @@ public class StorageController {
 	}
 		
 	@GetMapping("extendStorage")
-	public String extendStorageGet() {
+	public String extendStorageGet(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
+		
+		model.addAttribute("storage", storageService.getStorage(tranNo));
 		
 		return "storage/extendStorage";
 	}
