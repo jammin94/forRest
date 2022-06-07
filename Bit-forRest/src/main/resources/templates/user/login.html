@@ -26,6 +26,7 @@
 	</style>
 	
 	
+	
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 		
@@ -42,6 +43,10 @@
 	
 			$('a[name="findPwd"]').on("click", function() {
 				self.location = "/user/findPwd"
+			});
+			
+			$('h1').on("click", function() {
+				self.location = "/user/login"
 			});
 	
 		});
@@ -91,7 +96,7 @@
 <body>
     <div class="container login" role="main">
         <div id="headerCommonLayout">
-        	<h1 align= "center">Login</h1>
+        	<h1 align= "center"  >Login</h1>
         </div>
         <section class="content content--no-interval">
             <!-- login-member -->
@@ -116,7 +121,7 @@
                                 <input type="password" name="password" class="login-input__input" placeholder="비밀번호">
                             </div>
                             <div align="center">	<!-- 회원정보 맞지 않을때 메시지칸 -->
-								<span class="loginMessage"></span>
+								<span th:text = "${message}"></span>
 							</div>
                         </div>
                     </div>

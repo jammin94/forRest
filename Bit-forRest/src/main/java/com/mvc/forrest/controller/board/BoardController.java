@@ -3,6 +3,8 @@ package com.mvc.forrest.controller.board;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.board.BoardService;
 import com.mvc.forrest.service.domain.Board;
@@ -27,10 +30,11 @@ public class BoardController {
 	public BoardService boardService;
 	
 	@GetMapping("getAnnounce?boardNo={boardNo}")
-	public String getAnnounce(@PathVariable int boardNo, Model model) throws Exception {	
+	public String getAnnounce(@PathVariable int boardNo, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
-		
-		model.addAttribute(boardService.getBoard(boardNo));
+
+		model.addAttribute("board", boardService.getBoard(boardNo));
+		model.addAttribute("user", session.getAttribute("user"));
 		
 		return "/board/getAnnounce";
 	}
@@ -63,14 +67,15 @@ public class BoardController {
 		boardService.updateBoard(board);
 		return "redirect:/board/getAnnounce?boardNo="+board.getBoardNo();
 	}
-
+	
+	//상세페이지에서 삭제
 	@GetMapping("deleteAnnounce?boardNo={boardNo}")
 	public String deleteAnnounce(@PathVariable int boardNo) throws Exception {	
 		System.out.println("Controller GET: deleteAnnounce ");
 		boardService.deleteBoard(boardNo);
 		return "redirect:/board/listAnnounce";
 	}	
-	
+	//상세페이지에서 고정
 	@GetMapping("updateFixAnnounce?boardNo={boardNo}")
 	public String updateFixAnnounce(@PathVariable int boardNo) throws Exception {	
 		System.out.println("Controller GET: updateFixAnnounce ");
@@ -79,17 +84,44 @@ public class BoardController {
 		return "redirect:/board/listAnnounce";
 	}
 	
+	
+	@PostMapping("deleteAnnounce")
+	public String deleteAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
+		System.out.println("Controller POST: deleteAnnounce ");
+		for(int boardNo : arr) {
+			boardService.deleteBoard(boardNo);
+		}
+		
+		return "redirect:/board/listAnnounce";
+				
+	}	
+		
+	
+	@PostMapping("updateFixAnnounce")
+	public String updateFixAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
+		System.out.println("Controller POST: updateFixAnnounce ");
+		for(int boardNo : arr) {
+			System.out.println(boardNo);
+			boardService.updateFixBoard(boardService.getBoard(boardNo));
+		}
+		
+		return "redirect:/board/listAnnounce";
+	}
+	
+	
 	@RequestMapping("listAnnounce")
-	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model) throws Exception {	
+	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getlistAnnounce ");
 		
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
+		int pageSize=10;
+		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(5); //5장씩
+		search.setPageSize(pageSize); //장씩
 		
 		int newStartRowNum=search.getStartRowNum()-1;
 		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
@@ -102,12 +134,13 @@ public class BoardController {
 		map.put("search", search);
 		map.put("newStartRowNum", newStartRowNum);
 		
-		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(search), 5, 5);
+		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(map), pageUnit, pageSize);
 		System.out.println(resultPage);
 
-		model.addAttribute("list",boardService.getListBoard(map));
-		model.addAttribute("resultPage",resultPage);
-		model.addAttribute("search",search);
+		model.addAttribute("list", boardService.getListBoard(map));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		model.addAttribute("user", session.getAttribute("user"));
 
 		return "board/listAnnounce";
 	}
