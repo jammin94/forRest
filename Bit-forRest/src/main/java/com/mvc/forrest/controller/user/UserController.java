@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.event.TableColumnModelListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +57,7 @@ public class UserController {
 	@GetMapping("login")
 	public String login() throws Exception{
 		
-		System.out.println("/user/logon : GET");
+		System.out.println("/user/login : GET");
 
 		return "user/login";
 	}
@@ -119,7 +120,7 @@ public class UserController {
 			
 			userService.updateRecentDate(dbUser);		//최근접속일자 update
 				
-			return "main/index";								//나중에 정확한 경로로 수정
+			return "main/index";
 			
 		//해당 id와 pwd가 불일치할 경우	
 		}else{
@@ -173,13 +174,16 @@ public class UserController {
 		// sms 인증필요 보낸 sms와 유저sms가 일치해야함
 		User userByPhone = userService.getUserByPhone(user.getPhone());
 		User userByName = userService.getUserByName(user.getUserName());
-		if(userByName == userByPhone){
-			model.addAttribute("userId", userByName.getUserId());
-			model.addAttribute("joinDate", userByName.getJoinDate());
-			return "user/findIdView";
+		if(userByName.getUserId().equals(userByPhone.getUserId())){
+			user = userByName;
+			userByName.getJoinDate().toString().substring(pageUnit, pageSize);
+			model.addAttribute("userId", user.getUserId());
+			model.addAttribute("userJoinDate", user.getJoinDate().toString().substring(0, 10));
+			
+			return "user/findId";
 		}
 		 
-		return "user/findId";
+		return "user/findIdView";
 	}
 	
 	@GetMapping("findPwd")
@@ -191,22 +195,23 @@ public class UserController {
 	}
 	
 	@PostMapping("findPwd")
-	public String findPwd(String userId, String phone, String sms, HttpSession session) throws Exception{
+	public String findPwd(@ModelAttribute("user") User user, String sms, 
+							HttpSession session, Model model) throws Exception{
 		
 		System.out.println("/user/findPwd : POST");
 		
 		// sms인증 필요
 		
-		User user = userService.getUser(userId);
-		User userByPhone = userService.getUserByPhone(phone);
+		User userById = userService.getUser(user.getUserId());
+		User userByPhone = userService.getUserByPhone(user.getPhone());
 		
-		if(user.getUserId() == userByPhone.getUserId()){
-			session.setAttribute("user", user);
-			
+		if(userById.getUserId().equals(userByPhone.getUserId())){
+			session.setAttribute("user", userById);
+			model.addAttribute("user", userById);
 			return "user/pwdReset";
 		}
 		
-		return "user/pwdReset";
+		return "user/findPwd";
 	}	
 	
 //	@GetMapping("pwdReset")								//필요없음
@@ -218,23 +223,19 @@ public class UserController {
 //	}
 	
 	@PostMapping("pwdReset")
-	public String pwdReset(@ModelAttribute User user, HttpSession session, Model model) throws Exception{
+	public String pwdReset(@RequestParam("password") String password, HttpSession session) throws Exception{
 		
 		System.out.println("/user/pwdReset : POST");
 		
-		User dbUser = userService.getUser(user.getUserId());
-		dbUser.setPassword(user.getPassword());
-		userService.updatePassword(dbUser);
-		session.setAttribute("user", dbUser);
-		
-		model.addAttribute("user", dbUser);
-		
+		User sessionUser = (User)session.getAttribute("user");
+		sessionUser.setPassword(password);
+		userService.updatePassword(sessionUser);
 		
 		return "main/index";
 	}
 	
 	@RequestMapping("getUserList")
-	public String getUserList( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	public String getUserList( @ModelAttribute("search") Search search , Model model ) throws Exception{
 		
 		System.out.println("/user/getUserList : GET / POST");
 		
@@ -290,12 +291,19 @@ public class UserController {
 	}
 	
 	@PostMapping("deleteUser")
-	public String deleteUser(String userId)throws Exception {
+	public String deleteUser(@RequestParam("password") String password, HttpSession session)throws Exception {
 		
 		System.out.println("/user/deleteUser : POST");
 
-		// #############	need logic // 인자수정		################
+		User user = (User)session.getAttribute("user");
+		
+		System.out.println(user);
+		if(user.getPassword().equals(password)) {
+//			userService.leaverUser(user);
+			System.out.println("if문안으로 진입");
+		}
+		
 
-		return null;
+		return "main/index";
 	}
 }
