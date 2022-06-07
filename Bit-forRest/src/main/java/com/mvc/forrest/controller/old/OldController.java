@@ -19,6 +19,7 @@ import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
@@ -134,8 +135,13 @@ public class OldController {
 	
 	@GetMapping("updateOld")
 	
-	public String updateOld( ) throws Exception{
-		System.out.println(this.getClass()+ "겟수정");
+	public String updateOld(@RequestParam("oldNo") int oldNo, Model model ) throws Exception{
+     System.out.println("updateGet start");
+		
+		Old old = oldService.getOld(oldNo);
+	
+		
+		model.addAttribute("old", old);	
 		
 		return "old/updateOld";
 	} 
