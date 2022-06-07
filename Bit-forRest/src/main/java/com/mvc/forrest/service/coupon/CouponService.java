@@ -40,7 +40,7 @@ public class CouponService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalcount", totalCount);
+		map.put("totalCount", totalCount);
 		
 		return map;	
 	}
@@ -61,7 +61,7 @@ public class CouponService {
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list", list);
-		map.put("totalcount", totalCount);
+		map.put("totalCount", totalCount);
 		
 		return map;	
 	}

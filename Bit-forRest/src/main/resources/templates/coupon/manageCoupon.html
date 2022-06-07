@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// java Script ////////////////////////// -->
+	<script type="text/javascript">
+		
+		//회원가입 버튼 event
+		
+		$(function(){
+			$("#addCoupon").on("click", fncAddCoupon);
+			
+		});
+		
+		function fncAddCoupon() {
+			$("form").attr("method" , "POST").attr("action" , "/json/addCoupon").submit();
+		}
+		
+		
+	</script>
+	
+</head>
+
+<body>
+<!-- 툴바 include -->
+<div th:replace="/main/toolbarForAdmin.html"></div>
+<div th:replace="/main/leftbarForAdmin.html"></div>
+
+<!-- hidden data -->
+<input type="hidden" id="currentPage" name="currentPage" value=""/>
+
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="coupon list">
+<div class="container list">
+	<div class="page-header text-info">
+		</div>
+		
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	</p>
+		    </div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	<div>
+	<h1>쿠폰관리</h1><hr><br>
+	<h2>쿠폰 생성/관리</h2><hr><br>
+	
+	<form>
+ 		<div id="add">
+		<div class="col-md-6" align="center">
+			<div>
+				<label>쿠폰이름</label>
+				<input type="text" name="couponName" id="couponName">
+			</div>
+			<div>
+				<label>쿠폰발급일자</label>
+				<input type="text" name="couponCreDate" id="couponCreDate">
+			</div>
+		</div>
+		<div class="col-md-6" align="center">
+			<div>
+				<label >할인내용</label>
+				<input type="text" name="discount" id="discount">
+			</div>
+			<div>
+				<label>쿠폰만료일자</label>
+				<input type="text" name="couponDelDate" id="couponDelDate">
+			</div>
+		</div>
+     </div>
+    </form>
+     
+     <div align="center">
+     	<input type="submit" value="등록/수정" id="addCoupon">
+	</div>
+	</div><hr>
+	
+
+	<div>
+      <h2 >쿠폰목록</h2>
+      <table class="table table-hover table-striped">
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center">No</th>
+	            <th align="center" >쿠폰번호</th>   
+	            <th align="center">쿠폰이름</th>
+	            <th align="center">할인내용</th>
+	            <th align="center">쿠폰발급일자</th>	
+	            <th align="center">쿠폰만료일자</th>
+	            <th align="center">쿠폰수정</th>				
+	          </tr>
+	        </thead>
+	        
+	        <tbody>
+			    <tr th:each="coupon,n :${list}" align="center">
+			    	<td th:text = "${n.index+1}">
+				    <td th:text = "${coupon.couponNo}"></td>
+					<td th:text = "${coupon.couponName}"></td>
+					<td th:text = "${coupon.discount}"></td>
+					<td th:text = "${coupon.couponCreDate}"></td>
+					<td th:text = "${coupon.couponDelDate}"></td>
+					<td ><input type="button" value="수정" id="updatebtn"></td>
+			    </tr>
+	        </tbody>
+
+      </table>
+      </div>
+		<!--  table End /////////////////////////////////////-->
+		
+	</div>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+
+
+</body>
+
+</html>
