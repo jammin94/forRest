@@ -1,175 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-   
-    <link rel="stylesheet" href="/css/addRentalReview.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />  
-        
-    <link rel="stylesheet" href="/css/style.css">    
-    <link rel="stylesheet" type="text/css" href="/css/animate.css" />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
-
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	 <link rel="stylesheet" href="/css/addRentalReview.css">
 	
-	<!-- favicon links -->
-	<link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />    
-        
-        
-        
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="addRentalReview.js" defer></script>
-	
-	
-<style type ="text/css">
-
-	@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
-	
-.container{
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 1200px)
-{
-  .container{
-    max-width: 1140px;
-  }
-}
-.d-flex{
-  display: flex;
-  flex-direction: row;
-  background: #f6f6f6;
-  border-radius: 0 0 5px 5px;
-  padding: 25px;
-}
-form{
-  flex: 4;
-}
-.Yorder{
-  flex: 2;
-}
-.title{
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
-  background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-  background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
-  border-radius:5px 5px 0 0 ;
-  padding: 20px;
-  color: #f6f6f6;
-}
-h2{
-  margin: 0;
-  padding-left: 15px; 
-}
-.required{
-  color: red;
-}
-label, table{
-  display: block;
-  margin: 15px;
-}
-div>span{
-  float: left;
-  width: 25%;
-  margin-top: 12px;
-  padding-right: 10px;
-}
-input[type="text"], input[type="tel"], input[type="email"], select
-{
-  width: 100%;
-  height: 30px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  border: 1px solid #dadada;
-  color: #888;
-}
-select{
-  width: 72%;
-  height: 45px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-}
-.Yorder{
-  margin-top: 15px;
-  height: 600px;
-  padding: 20px;
-  border: 1px solid #dadada;
-}
-table{
-  margin: 0;
-  padding: 0;
-}
-th{
-  border-bottom: 1px solid #dadada;
-  padding: 10px 0;
-}
-tr>td:nth-child(1){
-  text-align: left;
-  color: #2d2d2a;
-}
-tr>td:nth-child(2){
-  text-align: right;
-  color: #52ad9c;
-}
-td{
-  border-bottom: 1px solid #dadada;
-  padding: 25px 25px 25px 0;
-}
-
-p{
-  display: block;
-  color: #888;
-  margin: 0;
-  padding-left: 25px;
-}
-.Yorder>div{
-  padding: 15px 0; 
-}
-
-button{
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 30px;
-  background: #52ad9c;
-  color: #fff;
-  font-size: 15px;
-  font-weight: bold;
-}
-button:hover{
-  cursor: pointer;
-  background: #428a7d;
-}
-</style>
 </head>
+<style>
+td{
+	padding-bottom:10px !important;
+}
+.table{
+	margin-bottom: 80px !important;
+}
+.page-header{
+margin: 40px 0 0px !important;
+border-bottom:3px solid #ddd !important;
+}
 
+	.tableBody td {
+		width:33%;
+ 		vertical-align: middle !important;
+	}
+	
+	.tableBody td > div {
+		display:flex;
+	}
+	
+	.tableBody td img{
+		text-align:left;
+		width:100px;
+	}
+	
+	.tableBody td span{
+		display:flex;
+		align-items:center;
+		padding:10px;
+	}
+	
+	.borderTopNone{
+		border-top:none !important;
+	}
+	.borderRight{
+		border-right:1px solid #ddd;
+	}
+	.textCenter{
+		text-align:center;
+	}
+	.borderBottom{
+		border-bottom:1px solid #ddd;
+	}
+	.boxScroll {
+    width: 96%;
+    height: 130px;
+    overflow: auto;
+    BACKGROUND: #ffffff;
+    COLOR: #585858;
+    font: 9pt 돋움;
+    border: 1px #dddddd solid;
+    overflow-x: hidden;
+    text-align: left;
+    margin-left: 15px;
+}
+.container.list{
+	padding-right:150px;
+}
 
-
+ textarea {
+    width: 400px;
+    height:200px;
+    resize: none;
+  }
+</style>
 <body>
+
+<!-- 로딩시 뜨는 아이콘 -->
+	<!-- <div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+ -->
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/MyPageLeftbar.html"></div>
+<div th:replace="/main/leftbar.html"></div> 
+<!-- 
+<div th:replace="/main/toolbarForAdmin.html"></div>
+<div th:replace="/main/leftbarForAdmin.html"></div> -->
 
-<div class="container">
-  <div class="title">
-      <h2>물품 등록</h2>
-  </div>
-<div class="d-flex">
-  <form action="" method="">
-     <div>
-      <span class="fname">물품사진 <span class="required">*(0/10)</span></span>
-      <div class="main-wrapper">
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+
+<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			사진등록
+		</div>	
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	   
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		 <!--  table Start /////////////////////////////////////-->
+     <div class="main-wrapper">
   <div class="img-upload-plugin">
                     <div class="img-upload-handler">
                       <div class="img-preview-big">
@@ -188,114 +123,368 @@ button:hover{
                     <input type="file" name="img-upload-input" style="display:none">
                   </div>
 </div>
-    </div>
-    <div>
-      <span class="fname">물품이름 <span class="required">*</span></span>
-      <input type="text" name="fname">
-    </div>
-    <div>
-          <span>카테고리 <span class="required">*</span></span>
-      <select name="selection">
-        <option value="select">카테고리를 선택하세요</option>
-        <option value="텐트">텐트</option>
-        <option value="침대">침대</option>
-        <option value="의자">의자</option>
-        <option value="그릴">그릴</option>
-        <option value="버너">버너</option>
-        <option value="조명">조명</option>
-        <option value="테이블">테이블</option>
-        <option value="식기">식기</option>
-        <option value="난로">난로</option>
-        <option value="기타용품">기타용품</option>
-      </select>
-    </div>
-    <div>
-      <span class="lname">물품크기 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="가로">
-    </div>
-    <div>
-      <span>물품설명 <span class="required">*</span></span>
-      <input type="text" name="cn">
-    </div>
-    <div>
-          <span>보관기간 <span class="required">*</span></span>
-      <select name="selection">
-        <option value="1">1개월</option>
-        <option value="텐트">침대</option>
-      </select>
-    </div>
-    <div>
-      <span class="lname">물품수량 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </div>
-        <div>
-      <span class="lname">반송주소 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </div>
-      <div>
-      <span class="lname">픽업주소 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </div>
-    <div>
-      <span>쿠폰선택 </span>
-      <select name="selection">
-        <option value="select">Select a country...</option>
-        <option value="AFG">Afghanistan</option>
-      </select>
-    </div>
-    <div>
-      <span class="lname">주문자 이름 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="이름을 입력하세요" required >
-    </div>
-    <div>
-      <span class="lname">연락처 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="연락처를 입력하세요" required >
-    </div>
-    <div>
-      <span>대여가능 여부</span>
-      <input type="checkBox" name="dbt" value="dbt" >
-    </div>
-    <div>
-      <span class="lname">물품대여가격 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </div>
-    <div>
-      <span class="lname">보증금 <span class="required">*</span></span>
-      <input type="text" name="lname" placeholder="수량을 입력하세요" required >
-    </div>
-    <div>
-      <span class="lname">계좌번호 <span class="required">*</span></span>
-      <select name="selection">
-        <option value="select">국민</option>
-        <option value="AFG">신한</option>
-      </select>
-      <input type="text" name="lname" placeholder="계좌번호를 입력하세요" required >
-    </div>
-    
-  </form>
-  <div class="Yorder">
-    <table>
-      <tr>
-        <th colspan="2">결제내역</th>
-      </tr>
-      <tr>
-        <td>결제 금액</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>할인금액</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>최종결제금액</td>
-        <td>Free shipping</td>
-      </tr>
-    </table><br>
-    <button type="button">카카오페이 결제</button>
-  </div><!-- Yorder -->
- </div>
+		<!--  table End /////////////////////////////////////-->
+		
+		<!-- 물품정보등록 -->
+		
+			<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			보관정보
+		</div>
+		
+		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	물품정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	<tr>
+		<td>물품이름</td>
+		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""></td>
+	</tr>
+
+	<tr>
+		<td>카테고리</td>
+		<td>
+			 <select class="category" name= "category">
+   
+        	 <option value="텐트">텐트</option>
+	         <option value="침대">침대</option>
+	         <option value="의자">의자</option>
+	         <option value="그릴">그릴</option>
+	         <option value="버너">버너</option>
+	         <option value="조명">조명</option>
+	         <option value="테이블">테이블</option>
+	         <option value="식기">식기</option>
+	         <option value="난로">난로</option>
+	         <option value="기타용품">기타용품</option>
+  
+          </select>
+		
+		</td>
+	</tr>
+	
+		<tr>
+		<td>크기</td>
+		<td>
+		<input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> x
+		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> x
+		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> 
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td>물품설명</td>
+		<td><textarea name="address" id="address" class="textarea" ></textarea></td>
+	</tr>
+	
+	<tr>
+		<td>보관기간</td>
+		<td>
+			 <select class="category" name= "category">
+   
+        	 <option value="텐트">1개월</option>
+	         <option value="침대">2개월</option>
+	         <option value="의자">3개월</option>
+	         <option value="그릴">4개월</option>
+	         <option value="버너">5개월</option>
+	         <option value="조명">6개월</option>
+	       
+  
+          </select>
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td>물품수량</td>
+		<td>
+		<input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" > 개
+		
+		</td>
+	</tr>
+	
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+		<!-- 물품정보등록 끝 -->
+		
+		<!-- 대여관련정보 -->
+		<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			대여관련정보
+		</div>
+		
+		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	대여정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	<tr>
+		<td>대여가능</td>
+		<td class="noline">
+		<input type="checkbox" onclick="ctrl_field(this.checked)"> 보관한물품을 대여가능하게 합니다.
+		</td>
+	</tr>
+	
+	<tr>
+		<td>물품대여가격</td>
+		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""> 원</td>
+	</tr>
+	
+	<tr>
+		<td>보증금</td>
+		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""> 원</td>
+	</tr>
+
+	<tr>
+		<td>계좌번호</td>
+		<td>
+			 <select class="account" name= "account">
+   
+        	 <option value="텐트">국민</option>
+	         <option value="침대">신한</option>
+  
+          </select>
+		 
+		  <input type="text" name="nameReceiver" value="" required="" readonlycheck="">
+		</td>
+	</tr>
+	
+
+	
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+		<!-- 대여관련정보 끝 -->
+		
+		<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			이용약관
+		</div>
+		<div style="padding-top:10; background:#F1F1F1;  text-align:center;">
+<div align="left" style="height:26;padding:20px 0 0 10px;">
+<b>● 비회원 주문에 대한 개인정보 수집에 대한 동의</b> (자세한 내용은 “<a href="/shop/service/private.php?&amp;">개인정보처리방침</a>”을 확인하시기 바랍니다)
 </div>
+<div id="privateBoxScroll" class="boxScroll">
+■ 수집하는 개인정보 항목<br>
+<br>
+포레스트는 회원제 서비스 이용에 따른 본인 확인 절차를 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
+○ 수집항목: 성명, 비밀번호, 이메일, 휴대폰번호, 주소, 전화번호<br>
+<br>
+■ 개인정보의 수집 및 이용목적<br>
+<br>
+포레스트는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br>
+○ 서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 불만처리 등 민원처리, 회원관리 등을 위한 목적<br>
+<br>
+■ 개인정보의 보유 및 이용기간<br>
+<br>
+포레스트는 개인정보 수집 및 이용목적이 달성된 후에는 예외없이 해당 정보를 지체없이 파기합니다.
+</div>
+<div align="center" class="noline" style="height:30;margin-top:10px;padding-bottom:30px;">
+<input type="radio" name="private" value="y" onclick="javascript:document.frmOrder.private.value='y';"> 동의합니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="private" value="n" onclick="javascript:document.frmOrder.private.value='';"> 동의하지 않습니다
+</div>
+</div>
+     
+      
+    <div style="margin-top:20px; color:red;padding-bottom:10px;">
+			주문서작성
+		</div>
+      <table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	01 주문자정보
+	</td>
+	<td style="padding:10px">
 
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody><tr>
+		<td>주문하시는분</td>
+		<td><input type="text" name="nameOrder" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+	</tr>
+	
+	<tr>
+		<td>핸드폰번호</td>
+		<td>
+		<input type="text" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		</td>
+	</tr>
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+<div style="font-size:0;height:5px"></div>
+<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	02 배송정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody><tr>
+		<td>픽업주소 확인</td>
+		<td class="noline">
+		<input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+		</td>
+	</tr>
+	<tr>
+		<td>픽업주소</td>
+		<td>
+		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
+		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="" required="" readonlycheck=""> -
+		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="" required="" readonlycheck=""> )
+		<a href="javascript:popup('../proc/popup_address.php',500,432);" id="addressSearch"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" align="absmiddle"></a>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="text" name="address" id="address" class="lineBig" readonly="" value="" required="" readonlycheck=""></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="text" name="address_sub" id="address_sub" class="lineBig" value="" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소" readonlycheck="">
+			<input type="hidden" name="road_address" id="road_address" style="width:100%" value="" class="line">
+			<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;" id="div_road_address"></div>
+			<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub"></div>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>반송주소 확인</td>
+		<td class="noline">
+		<input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+		</td>
+	</tr>
+	<tr>
+		<td>반송주소</td>
+		<td>
+		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
+		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="" required="" readonlycheck=""> -
+		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="" required="" readonlycheck=""> )
+		<a href="javascript:popup('../proc/popup_address.php',500,432);" id="addressSearch"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" align="absmiddle"></a>
+		</td>
+	</tr>
+	
+	<tr>
+		<td></td>
+		<td><input type="text" name="address" id="address" class="lineBig" readonly="" value="" required="" readonlycheck=""></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="text" name="address_sub" id="address_sub" class="lineBig" value="" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소" readonlycheck="">
+			<input type="hidden" name="road_address" id="road_address" style="width:100%" value="" class="line">
+			<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;" id="div_road_address"></div>
+			<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub"></div>
+		</td>
+	</tr>
+	
+
+
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+<div style="font-size:0;height:5px"></div>
+<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+		03 결제금액
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	
+		<tr>
+		<td>쿠폰적용</td>
+		<td>
+			 <select class="category" name= "category">
+   
+        	 <option value="텐트">10% 할인쿠폰</option>
+	         <option value="침대">5000원 할인쿠폰</option>
+	       
+  
+          </select>
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td>합계금액</td>
+		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+	</tr>
+	<tr>
+		<td>할인금액</td>
+		<td>
+		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
+		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
+		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>총 결제금액</td>
+		<td><span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+</tbody>
+
+</table>
+<div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
+	<button>결제하기</button>
+	<button>취소하기</button>
+</div>
+	</form>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+<!-- footer -->
+     <div th:replace="/main/footer.html"></div>
+ 
 </body>
+<script src="/js/jquery_min.js"></script>
+	<script src="/js/addRentalReview.js"></script>
+	  <sciprt src="/js/rentalTest.js"></sciprt>
+<script src="/js/jquery_min.js"></script>
+	<script>
+	 /*  $(document).ready(function() {
+			"use strict";
+			
 
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+
+	  }) */
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
 </html>
