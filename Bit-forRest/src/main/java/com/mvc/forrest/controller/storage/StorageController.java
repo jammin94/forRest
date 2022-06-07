@@ -148,7 +148,7 @@ public class StorageController {
 	@GetMapping("extendStorage")
 	public String extendStorageGet() {
 		
-		return null;
+		return "storage/extendStorage";
 	}
 	
 	//보관물품의 기간을 연장

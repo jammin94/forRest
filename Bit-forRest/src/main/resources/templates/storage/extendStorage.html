@@ -1,20 +1,313 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보관등록페이지</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	 <link rel="stylesheet" href="/css/addRentalReview.css">
+	
 </head>
+<style>
+td{
+	padding-bottom:10px !important;
+}
+.table{
+	margin-bottom: 80px !important;
+}
+.page-header{
+margin: 40px 0 0px !important;
+border-bottom:3px solid #ddd !important;
+}
 
+	.tableBody td {
+		width:33%;
+ 		vertical-align: middle !important;
+	}
+	
+	.tableBody td > div {
+		display:flex;
+	}
+	
+	.tableBody td img{
+		text-align:left;
+		width:100px;
+	}
+	
+	.tableBody td span{
+		display:flex;
+		align-items:center;
+		padding:10px;
+	}
+	
+	.borderTopNone{
+		border-top:none !important;
+	}
+	.borderRight{
+		border-right:1px solid #ddd;
+	}
+	.textCenter{
+		text-align:center;
+	}
+	.borderBottom{
+		border-bottom:1px solid #ddd;
+	}
+	.boxScroll {
+    width: 96%;
+    height: 130px;
+    overflow: auto;
+    BACKGROUND: #ffffff;
+    COLOR: #585858;
+    font: 9pt 돋움;
+    border: 1px #dddddd solid;
+    overflow-x: hidden;
+    text-align: left;
+    margin-left: 15px;
+}
+.container.list{
+	padding-right:150px;
+}
+</style>
 <body>
-    <div class="container">
- 		<a href="/product/getProduct">listProductTest</a>
-    </div>
-</body>
 
+<!-- 로딩시 뜨는 아이콘 -->
+	<!-- <div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+ -->
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/leftbar.html"></div> 
+<!-- 
+<div th:replace="/main/toolbarForAdmin.html"></div>
+<div th:replace="/main/leftbarForAdmin.html"></div> -->
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+
+<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			사진등록
+		</div>	
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	   
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		 <!--  table Start /////////////////////////////////////-->
+     <div class="main-wrapper">
+  <div class="img-upload-plugin">
+                    <div class="img-upload-handler">
+                      <div class="img-preview-big">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
+                        <div class="img-delete">
+                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="img-preview-operate">
+                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
+                      <button type="button" class="img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+                      </button>
+                    </div>
+                    <input type="file" name="img-upload-input" style="display:none">
+                  </div>
+</div>
+		<!--  table End /////////////////////////////////////-->
+		
+		<!-- 물품정보등록 -->
+		
+			<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			기간연장
+		</div>
+		
+		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	보관정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	<tr>
+		<td>물품이름</td>
+		<td>텐트</td>
+	</tr>
+
+	<tr>
+		<td>카테고리</td>
+		<td>
+			텐트
+		
+		</td>
+	</tr>
+	
+		<tr>
+		<td>크기</td>
+		<td>
+		20 x 18 x 18
+		
+		</td>
+	</tr>
+
+    	<tr>
+		<td>보관기간</td>
+		<td>
+			2022-04-05 ~ 2022-06-05
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td>연장기간</td>
+		<td>
+			 <select class="category" name= "category">
+   
+        	 <option value="텐트">1개월</option>
+	         <option value="침대">2개월</option>
+	         <option value="의자">3개월</option>
+	         <option value="그릴">4개월</option>
+	         <option value="버너">5개월</option>
+	         <option value="조명">6개월</option>
+	       
+  
+          </select>
+		  <input type="text" name="nameReceiver" value="2022-03-07~2022-09-07" required="" readonly>
+		</td>
+	</tr>
+	
+	<tr>
+		<td>물품수량</td>
+		<td>
+		3 개
+		
+		</td>
+	</tr>
+	
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+		<!-- 물품정보등록 끝 -->
+		
+	<div style="margin-top:20px; color:red;padding-bottom:10px;">
+			이용약관
+		</div>
+		<div style="padding-top:10; background:#F1F1F1;  text-align:center;">
+<div align="left" style="height:26;padding:20px 0 0 10px;">
+<b>● 비회원 주문에 대한 개인정보 수집에 대한 동의</b> (자세한 내용은 “<a href="/shop/service/private.php?&amp;">개인정보처리방침</a>”을 확인하시기 바랍니다)
+</div>
+<div id="privateBoxScroll" class="boxScroll">
+■ 수집하는 개인정보 항목<br>
+<br>
+포레스트는 회원제 서비스 이용에 따른 본인 확인 절차를 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
+○ 수집항목: 성명, 비밀번호, 이메일, 휴대폰번호, 주소, 전화번호<br>
+<br>
+■ 개인정보의 수집 및 이용목적<br>
+<br>
+포레스트는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br>
+○ 서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 불만처리 등 민원처리, 회원관리 등을 위한 목적<br>
+<br>
+■ 개인정보의 보유 및 이용기간<br>
+<br>
+포레스트는 개인정보 수집 및 이용목적이 달성된 후에는 예외없이 해당 정보를 지체없이 파기합니다.
+</div>
+<div align="center" class="noline" style="height:30;margin-top:10px;padding-bottom:30px;">
+<input type="radio" name="private" value="y" onclick="javascript:document.frmOrder.private.value='y';"> 동의합니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="private" value="n" onclick="javascript:document.frmOrder.private.value='';"> 동의하지 않습니다
+</div>
+</div>
+      
+   <div style="margin-top:20px; color:red;padding-bottom:10px;">
+			결제정보
+		</div> 
+<div style="font-size:0;height:5px"></div>
+<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+		03 결제금액
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	
+		<tr>
+		<td>쿠폰적용</td>
+		<td>
+			 <select class="category" name= "category">
+   
+        	 <option value="텐트">10% 할인쿠폰</option>
+	         <option value="침대">5000원 할인쿠폰</option>
+	       
+  
+          </select>
+		
+		</td>
+	</tr>
+	
+	<tr>
+		<td>합계금액</td>
+		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+	</tr>
+	<tr>
+		<td>할인금액</td>
+		<td>
+		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
+		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
+		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>총 결제금액</td>
+		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+</tbody>
+
+</table>
+<div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
+	<button>결제하기</button>
+	<button>취소하기</button>
+</div>
+	</form>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+<!-- footer -->
+     <div th:replace="/main/footer.html"></div>
+ 
+</body>
+<script src="/js/jquery_min.js"></script>
+	<script src="/js/addRentalReview.js"></script>
+	  <sciprt src="/js/rentalTest.js"></sciprt>
+<script src="/js/jquery_min.js"></script>
+	<script>
+	 /*  $(document).ready(function() {
+			"use strict";
+			
+
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+
+	  }) */
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
 </html>
