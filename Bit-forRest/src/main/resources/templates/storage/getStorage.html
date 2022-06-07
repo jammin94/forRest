@@ -146,16 +146,16 @@ border-bottom:3px solid #ddd !important;
       <table class="table">
 	       <thead>
 	          <tr class="tableHeader">
-	            <th align="center">주문금액 62,100원 - </th>
-	            <th align="center" >할인금액 0원 = </th>   
-	            <th align="center">결제금액 62,100원</th>
+	            <th align="center">주문금액 [[${storage.originPrice}]]원 - </th>
+	            <th align="center" >할인금액 [[${storage.discountPrice}]]원 = </th>   
+	            <th align="center">결제금액 [[${storage.resultPrice}]]원</th>
 	          </tr>
 	        </thead>
 	        
 	        <tbody> 
 			    <tr class="tableBody">
 				    <td align="center" class="borderBottom">
-						    		[[${storage.originPrice}]]원
+						    	상품금액 [[${storage.originPrice}]]원
 				    </td>
 					<td align="center" class="borderBottom"> 쿠폰할인 [[${storage.discountPrice}]]원</td>
 					<td align="center" class="borderBottom"> [[${storage.paymentWay}]] [[${storage.resultPrice}]]원</td>
@@ -170,25 +170,38 @@ border-bottom:3px solid #ddd !important;
 		
 		<table class="table payment">
 	      <tbody>
-		        <tr style="background-color:#fff; border-top:none;">
-		            <th scope="row" class="borderTopNone borderRight textCenter"> 주문자</th>
-		            <td class="borderTopNone" th:text="${storage.receiverName}">
+		       <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 주문자</th>
+		            <td class="borderTopNone borderBottom" th:text="${storage.receiverName}">
 		            </td>
-		         
+		             <td class="borderBottom"/>
+		         <td class="borderBottom"/>
 		        </tr>
-		        <tr>
-		            <th scope="row" class="borderRight textCenter borderBottom"> 전화번호</th>
-		            <td class="borderRight borderBottom" th:text="${storage.receiverPhone}">
+		        
+		     <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 전화번호</th>
+		            <td class="borderTopNone borderBottom" th:text="${storage.receiverPhone}">
 		            </td>
+		             <td class="borderBottom"/>
+		         <td class="borderBottom"/>
 		        </tr>
 		      
 		         <tr style="background-color:#fff; border-top:none;">
-		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 주소</th>
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 픽업주소</th>
 		            <td class="borderTopNone borderBottom" th:text="${storage.pickupAddress}">
 		            </td>
 		         <td class="borderBottom"/>
 		         <td class="borderBottom"/>
 		        </tr>
+		        
+		          <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 반송주소</th>
+		            <td class="borderTopNone borderBottom" th:text="${storage.divyAddress}">
+		            </td>
+		         <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+		        
 		         <tr style="background-color:#fff; border-top:none;">
 		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 배송요청사항</th>
 		            <td class="borderTopNone borderBottom">
