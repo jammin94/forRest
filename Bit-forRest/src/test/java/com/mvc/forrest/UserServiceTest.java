@@ -101,7 +101,7 @@ public class UserServiceTest {
 
 	}
 	
-	@Test
+//	@Test
 	public void testGetUserList() throws Exception{
 		
 		Search search = new Search();
@@ -110,6 +110,15 @@ public class UserServiceTest {
 		
 	}
 	
+	@Test
+	public void testGetUserByName() throws Exception{
+		String userName = "user01";
+		User user = new User();
+		user.setUserName(userName);
+		user = userService.getUserByName(userName);
+		System.out.println(user);
+		
+	}
 
 	
 	

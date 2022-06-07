@@ -166,15 +166,17 @@ public class UserController {
 	}
 	
 	@PostMapping("findId")
-	public String findId (String userName, String phone, String sms) throws Exception{
+	public String findId (@ModelAttribute("user") User user, String sms,
+							Model model) throws Exception{
 		System.out.println("/user/findId : POST");
 		
 		// sms 인증필요 보낸 sms와 유저sms가 일치해야함
-		
-		User userByPhone = userService.getUserByPhone(phone);
-		User userByName = userService.getUserByName(userName);
-		if(userByName.getUserId() == userByPhone.getUserId()){
-			return "user/findId";
+		User userByPhone = userService.getUserByPhone(user.getPhone());
+		User userByName = userService.getUserByName(user.getUserName());
+		if(userByName == userByPhone){
+			model.addAttribute("userId", userByName.getUserId());
+			model.addAttribute("joinDate", userByName.getJoinDate());
+			return "user/findIdView";
 		}
 		 
 		return "user/findId";
