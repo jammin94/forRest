@@ -26,7 +26,7 @@ body {
 h1 {
   font-family: inherit;
   margin: 0 0 0.75em 0;
-  color: #004040;
+  color: #f3784f;
   text-align: center;
 }
 
@@ -45,14 +45,14 @@ h1 {
 .upload-options {
   position: relative;
   height: 75px;
-  background-color: #004040;
+  background-color: #f3784f;
   cursor: pointer;
   overflow: hidden;
   text-align: center;
   transition: background-color ease-in-out 150ms;
 }
 .upload-options:hover {
-  background-color: #004040;
+  background-color: #f3784f;
 }
 .upload-options input {
   width: 0.1px;
@@ -200,7 +200,7 @@ select {
   padding: 15px;
   width: 100%;
   background-color: #e8eeef;
-  color: #004040;
+  color: #f3784f ;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   margin-bottom: 30px;
 }
@@ -212,17 +212,17 @@ select {
   height: 32px;
   border-radius: 2px;
 }
-
+/* 등록하기 버튼 */
 button {
   padding: 19px 39px 18px 39px;
   color: #FFF;
-  background-color: #004040;
+  background-color: #f3784f;
   font-size: 21px;
  
   text-align: center;
   font-style: normal;
   border-radius: 5px;
-  width: 100%;
+  width: 50%;
   border: 1px solid #ffffff;
   border-width: 1px 1px 1px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.2);

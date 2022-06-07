@@ -2,6 +2,11 @@
 
 server:
   port: 8080
+#  ssl:
+#        enabled: true
+#        key-store: certificate.pfx
+#        key-store-type: PKCS12
+#        key-store-password: 123456  
   tomcat:
    additional-tld-skip-patterns: "*.jar"
   servlet:
@@ -9,6 +14,7 @@ server:
     encoding:
       charset: utf-8
       enabled: true
+  
       
 mybatis:
     mapper-locations: 'mybatis/**/*.xml '

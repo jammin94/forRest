@@ -52,7 +52,7 @@
 	 </select>
 	 
 	 <!-- SQL : UPDATE -->
-	 <update	id="updateUser"	parameterType="User" >
+	 <update	id="updatePassword"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		password		= #{password}
@@ -61,7 +61,7 @@
 	 </update>
 
 	<!-- SQL : UPDATE --> 
- 	<update	id="updatePassowrd"	parameterType="User" >
+ 	<update	id="updateUser"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
 	   		nickname	= #{nickname},
