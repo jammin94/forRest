@@ -42,7 +42,11 @@
 		 $(function() {
 			$( '#search' ).on("click" , function() {
 				alert("검색");
-				fncGetAnnounceList(1);
+				if($('#searchCondition').val()!=''){
+					fncGetAnnounceList(1);
+				}else{
+					alert("검색하기 위해선 검색기준이 필요합니다!");
+				}
 			});
 		});
 		
@@ -113,7 +117,7 @@
 			  <div class="col-lg-7">
 			    <div class="input-group">
 			      <div class="input-group-btn">
-			      <input type="hidden" id="orderCondition" name="orderCondition" value=""/>
+			      <input type="hidden" id="orderCondition" name="orderCondition" value="DESC"/>
 			        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 			        aria-haspopup="true" aria-expanded="false">정렬기준 <span class="caret"></span></button>
 			         
@@ -154,11 +158,11 @@
 	            <th align="center">No</th>
 	            <th align="center" >제목</th>   
 	            <th align="center">게시날짜</th>
-	            <!--<span th:if="${session.sessionId}=='admin'">-->
+	            <span th:if="${user.role}=='admin'">
 	            <th align="left">
 	            	<input type="checkbox" name="totalSelector" id="totalSelector"></input>
 	            </th>	
-	            <!-- </span>-->
+	           </span>
 	          </tr>
 	        </thead>
 	        
@@ -177,11 +181,11 @@
 				</a>
 			</td>
 			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
-			<!--<span th:if="${session.sessionId}=='admin'">-->
+			<span th:if="${user.role}=='admin'">
 				<td align="center">
 					<input type="checkbox" name="eachSelector" id="eachSelector" th:value="${board.boardNo}"/>
 				</td>
-			<!--</span> -->
+			</span>
 			<td align="center">
 				<input type="hidden" name="boardPin" id="boardPin" th:value="${board.boardPin}"/>
 			</td>
@@ -190,44 +194,77 @@
 	    </tr>
 	        </tbody>
 	     
-	     <!--<span th:if="${session.sessionId}=='admin'">-->
-	    <button type="submit" class="btn btn-default" id="pin">상단 고정 적용/미적용</button>
-		<button type="submit" class="btn btn-default" id="delete">삭제</button>
-		<br/>
-		
-		
-		
-		<!-- </span> -->
+	     <span th:if="${user.role}=='admin'">
+		    <button type="submit" class="btn btn-default" id="pin">상단 고정 적용/미적용</button>
+			<button type="submit" class="btn btn-default" id="delete">삭제</button>
+			<br/>
+		</span>
 		
       </table>
 		<!--  table End /////////////////////////////////////-->
 		
+		<!-- for each문으로 pageNavi 만들자! 
+		<li th:each="page :${resultPage}">
+			<td align="center">
+				<a th:href="@{/board/getBoard(boardNo=${board.boardNo})}" >
+					<div th:text="${board.boardTitle}"/>
+				</a>
+			</td>
+			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
+			<span th:if="${user.role}=='admin'">
+				<td align="center">
+					<input type="checkbox" name="eachSelector" id="eachSelector" th:value="${board.boardNo}"/>
+				</td>
+			</span>
+			<td align="center">
+				<input type="hidden" name="boardPin" id="boardPin" th:value="${board.boardPin}"/>
+			</td>   
+	    </li>
+	     -->
+		
 		<nav aria-label="Page navigation" align="center">
 		  <ul class="pagination">
-		    <li>
-		      <a href="#" aria-label="Previous">
+		    <!-- 좌측 navi -->
+		    <span th:if="${resultPage.currentPage}<=${resultPage.pageUnit}">
+				<li class="disabled">
+			</span>
+			<span th:unless="${resultPage.currentPage}<=${resultPage.pageUnit}">
+				<li>
+			</span>
+		      <a href="javascript:fncGetAnnounceList('[[${resultPage.currentPage-1}]]')" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
+		    
+		    <!-- 중앙 navi -->
 		    <li><a href="#">1</a></li>
 		    <li><a href="#">2</a></li>
 		    <li><a href="#">3</a></li>
 		    <li><a href="#">4</a></li>
 		    <li><a href="#">5</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
+		    
+		    <!-- 우측 navi -->
+		    <span th:if="${resultPage.endUnitPage}>=${resultPage.maxPage}">
+				<li class="disabled">
+			</span>
+			<span th:unless="${resultPage.endUnitPage}>=${resultPage.maxPage}">
+				<li>
+			</span>
+		      <a href="javascript:fncGetAnnounceList('[[${resultPage.endUnitPage+1}]]')" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
 		  </ul>
 		</nav>
-		<!--<span th:if="${session.sessionId}=='admin'">-->
-		<button type="text" class="btn btn-default" id="addAnnounce">
-			<a th:href="@{/board/addAnnounce}" >
-				공지사항 등록
-			</a>
-		</button>
-		<!-- </span> -->
+		
+		
+		<span th:if="${user.role}=='admin'">
+			<button type="text" class="btn btn-default" id="addAnnounce">
+				<a th:href="@{/board/addAnnounce}" >
+					공지사항 등록
+				</a>
+			</button>
+		</span>
 	</form>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->

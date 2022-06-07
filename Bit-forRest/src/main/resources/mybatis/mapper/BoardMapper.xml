@@ -32,10 +32,10 @@
 				b.boardFlag='A' 
 				<if test="search.searchCondition != null">
 					<if test="search.searchCondition=='title'.toString() and search.searchKeyword != null">
-						AND b.boardTitle LIKE CONCAT('%','#{search.searchKeyword}','%') 
+						AND b.boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 					<if test="search.searchCondition=='detail'.toString() and search.searchKeyword != null">
-						AND b.boardDetail LIKE CONCAT('%','#{search.searchKeyword}','%') 
+						AND b.boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 				</if>
 			</if>
@@ -118,10 +118,10 @@
 							
 							<if test="search.searchCondition != null">
 								<if test="search.searchCondition == 'title' and search.searchKeyword !='' ">
-					 				AND boardTitle LIKE CONCAT('%', #{searchKeyword}, '%') 
+					 				AND boardTitle LIKE CONCAT('%', #{search.searchKeyword}, '%') 
 								</if>
 								<if test="search.searchCondition == 'context' and search.searchKeyword !='' ">
-					 				AND boardDetail LIKE CONCAT('%', #{searchKeyword}, '%') 
+					 				AND boardDetail LIKE CONCAT('%', #{search.searchKeyword}, '%') 
 								</if>
 							</if>
 							</where>
