@@ -3,6 +3,7 @@ package com.mvc.forrest.controller.old;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,9 @@ import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
 import com.mvc.forrest.service.user.UserService;
@@ -94,25 +97,42 @@ public class OldController {
 	
 	
 	
-//	@GetMapping("getOld/{oldNo}")
-//	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
-//		
-//		System.out.println(this.getClass());
-//		
-//		model.addAttribute(oldService.getOld(oldNo));
-//		System.out.println(oldService.getOld(oldNo));
-//		return "old/getOld";
-//		//return "forward:/old/getOld";	
-//		
-//	}
-	 
-	
-	
-	@GetMapping("getOld")
-	public String getOld( Model model ) throws Exception {
-		System.out.println(this.getClass()+ "겟올드");
+	@GetMapping("getOld/{oldNo}")
+	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
+		
+		System.out.println(this.getClass());
+		
+		model.addAttribute(oldService.getOld(oldNo));
+		System.out.println(oldService.getOld(oldNo));
 		return "old/getOld";
-	}	
+		//return "forward:/old/getOld";	
+		
+	}
+	 
+//	@RequestMapping("getOld")
+//	public String getOld(@RequestParam("oldNo") int oldNo, Model model, HttpSession httpsession) throws Exception {
+//		
+//		//디버깅
+//		System.out.println("getOld Start");
+//		
+//		Old old = oldService.getOld(oldNo);
+//		
+//		
+//		
+//		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
+//		//User sessionUser = (User) httpsession.getAttribute("user");
+//		
+//		model.addAttribute("Old", old);
+//		
+//		
+//		return "Old/getOld";
+//	}
+	
+//	@GetMapping("getOld")
+//	public String getOld( Model model ) throws Exception {
+//		System.out.println(this.getClass()+ "겟올드");
+//		return "old/getOld";
+//	}	
 	
 	@GetMapping("addOld")
 	public String addOld( Model model ) throws Exception {

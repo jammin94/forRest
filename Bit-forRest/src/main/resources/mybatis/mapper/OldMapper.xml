@@ -40,8 +40,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- SQL : SELECT ONE -->
 <select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
 	SELECT *
-	FROM old
-	WHERE oldNo = #{oldNo}
+	FROM old o, user u
+	WHERE oldNo = #{oldNo} and o.userId = u.userId
 	 </select>
 
  <!-- SQL : UPDATE -->
