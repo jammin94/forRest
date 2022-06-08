@@ -20,10 +20,11 @@
 --------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Yeon+Sung&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@200&family=Hi+Melody&family=Nanum+Gothic+Coding&family=Whisper&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@200&family=Hi+Melody&family=Nanum+Gothic+Coding&family=Noto+Sans+KR:wght@300;400&family=Whisper&display=swap');
 
 body, html {
-	font-family: 'Gowun Batang', serif;
+	    font-family: 'lato', sans-serif;
 	font-size: 16px;
 	line-height: 23px;
 	color: #707070;
@@ -51,14 +52,22 @@ a:hover, a:focus {
 	text-decoration: none !important;
 	outline: none;
 }
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	font-family: 'Gowun Batang', serif;
+   font-family: 'Noto Sans KR', sans-serif;
 	line-height: 1.1;
 	font-weight:400;
 	color: #222222;
 	margin:0;
 	padding:0;
 }
+
+.boardTitle{
+	 font-family: 'Black Han Sans', sans-serif;
+	
+}
+
+
 p{
 	margin:0;
 }
@@ -75,7 +84,9 @@ ul{
 	padding:0;
 }
 
+.backgroundOpacity{
 
+}
 /*-- Preloader css start --*/
 #preloader {
 	    background-color: #fbfbfb;
@@ -107,7 +118,7 @@ ul{
     position: fixed;
     bottom: 20px;
     right: 20px;
-          background: linear-gradient(90deg, rgba(124,161,119,1) 0%, rgba(177,196,124,0.9374124649859944) 100%, rgba(124,161,119,1) 100%);
+    background: linear-gradient(90deg, rgb(1 1 1) 0%, rgb(1 1 1) 100%, rgb(1 1 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
     width: 50px;
     height: 50px;
@@ -146,7 +157,7 @@ ul{
 	float:left;
 	width:100%;
 	position:relative;
-	padding-top:40px;
+	padding-top:60px;
 	background:#f9f9f9;
 }
 .try_top_side_img{
@@ -1045,15 +1056,14 @@ width:100%;
 	height:35px;
 	text-transform:uppercase;
 	line-height:34px;
-	background: rgb(124,161,119);
-	background: linear-gradient(90deg, rgba(124,161,119,1) 0%, rgba(225,220,190,0.8995973389355743) 49%, rgba(124,161,119,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
+    background: rgb(38 38 38);
+
 	color:#ffffff;
 	font-size:16px;
 	font-weight:700;
 	    -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
-    border-radius: 50px;
+    border-radius: 10px;
 	position:relative;
 }
 .try_left_dots{
@@ -1177,7 +1187,7 @@ width:100%;
 }
 .try_rc_slider_inner_wrapper .owl-theme .owl-nav .owl-prev:hover,.try_rc_slider_inner_wrapper  .owl-theme .owl-nav .owl-next:hover{
 	border:1px solid transparent;
-background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
+background: rgb(38 38 38);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
 	color:#ffffff;
 }
@@ -1193,7 +1203,7 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
 /* 	float:left; */
 	width:100%;
 	background:#fff;
-	border:1px solid #e3e3e3;
+	
 	text-align:center;
 	padding-top:60px;
 	padding-bottom:30px;
@@ -1208,7 +1218,7 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
     transition: all 0.5s;
 }
 .try_rc_mob_box_wrapper:hover{
-	    border: 1px solid rgb(129 164 120);
+	  
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -1262,6 +1272,7 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
 .try_rc_mob_img img{
 	width:auto !important;
 	display:inline-block !important;
+	border-radius:10px;
 }
 .try_rc_mob_img_cont{
 	float:left;
@@ -1278,11 +1289,11 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
 	padding-top:20px;
 }
 .try_rc_mob_img_cont_bottom{
-	float:left;
-	width:100%;
-	margin-top: 30px;
-	position:relative;
-	z-index:1;
+float: left;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
 }
 .try_rc_mob_img_cont_bottom:after{
 	    content: '';
@@ -1312,7 +1323,7 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
 }
 .try_rc_mob_img_cont_bottom p{
 	font-size:24px;
-	    background: linear-gradient(to right, rgb(139 171 123) 0%, rgb(170 191 129) 100%);
+	 background: linear-gradient(to right, rgb(38 38 38) 0%, rgb(38 38 38) 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	display:inline-block;
@@ -1325,27 +1336,28 @@ background: linear-gradient(135deg, rgb(173 194 131) 0%, rgb(136 169 122) 100%);
 	width:100%;
 }
 .try_mob_btn_wrapper a {
+	border-radius:10px;
     display:inline-block;
     width: 140px;
     height: 50px;
 	margin-top:20px;
     line-height: 50px;
     text-align: center;
-	background: linear-gradient(90deg, rgba(124,161,119,1) 0%, rgba(177,196,124,0.9374124649859944) 100%, rgba(124,161,119,1) 100%);
+	 background: #262626;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
     color: #fff;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
-    border-radius: 50px;
+    border-radius: 10px;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+/*     -moz-transition: all 0.5s; */
     transition: all 0.5s;
 }
 .try_mob_btn_wrapper a:hover{
-	background: rgb(177,196,124);
-background: linear-gradient(90deg, rgba(177,196,124,0.9374124649859944) 0%, rgba(124,161,119,1) 100%, rgba(124,161,119,1) 100%);
+	
+ background: #8b8b8b;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -2599,6 +2611,7 @@ width:100%;
 	width:100%;
 	background: #3f6236;
 	padding-top:100px;
+	    background: #262626;
 }
 .try_footer_first_sec_wrapper{
 	float:left;
@@ -2823,13 +2836,13 @@ width:100%;
 .introRow {
  
   color: #f9f9f9;
-  font-family: 'Gowun Batang', serif;
+  
   font-size: 40px;
   text-align: center;
 }
 
 .introText{
-	font-family: 'Gowun Batang', serif;
+
 	position:absolute;
 	top:30%;
 	color:#54746a;
