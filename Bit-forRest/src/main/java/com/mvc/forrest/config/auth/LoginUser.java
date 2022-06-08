@@ -6,6 +6,8 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.mvc.forrest.service.domain.User;
+
 public class LoginUser implements UserDetails {
 
 	/**
@@ -15,10 +17,16 @@ public class LoginUser implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	//private User user;
-	//생성자
+	private User user;
+	
+	public LoginUser(User user) {
+		this.user=user;
+	}
 	//getter setter 만들어 줘야 해
 	
+	public LoginUser() {
+	}
+
 	//권한이 한개 이상일 경우가 있기 때문에 Collection으로 리턴함
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,8 +37,7 @@ public class LoginUser implements UserDetails {
 			@Override
 			public String getAuthority() {
 				// TODO Auto-generated method stub
-				//return user.getRole;
-				return null;
+				return user.getRole();
 			}
 		});
 		return collector;
@@ -38,13 +45,13 @@ public class LoginUser implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return null;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
 		//id
-		return null;
+		return user.getUserName();
 	}
 
 	@Override
