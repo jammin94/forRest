@@ -39,12 +39,39 @@
 					Guidelines</a></cite></small>
 	</p>
 	<div class="container list">
+		
 		<div class="page-header text-info">
-			<h3>중고거래 게시물 리스트</h3>
-			<button align="right" class="btn btn-outline-dark flex-shrink-0"
+			<h3>중고거래 게시물 리스트  <button  class="btn btn-outline-dark flex-shrink-0"
 				id="write" type="button">
 				<i class="bi-pencil-fill"></i> 글쓰기
 			</button>
+			<div class="container">
+  <div class="row">    
+   <div class="col-xs-8 col-xs-offset-2">
+    <div class="input-group">
+     <div class="input-group-btn search-panel">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span id="search_concept">All</span> <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu scrollable-dropdown" role="menu">
+        <li><a href="#">Automotive Accesories</a></li>
+        <li><a href="#">Cell Phone Accesories</a></li>
+       
+     
+      </ul>
+     </div>
+     <input type="hidden" name="search_param" value="all" id="search_param">
+     <input type="text" class="form-control" name="x" id="search" placeholder="Search">
+     <span class="input-group-btn">
+	     <button class="btn btn-default" type="button">
+	       <span class="glyphicon glyphicon-search"></span>
+	     </button>
+	 </span>
+    </div>
+   </div>
+  </div>
+</div></h3>
+			
 		</div>
 
 
@@ -65,6 +92,10 @@
 		<!-- Page Heading -->
 
 
+   
+ 
+
+
 		<div class="tabset">
 			<!-- Tab 1 -->
 			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
@@ -72,14 +103,14 @@
 			<!-- Tab 2 -->
 			<input type="radio" name="tabset" id="tab2" aria-controls="sold">
 			<label for="tab2">거래완료</label>
-<!--     중고거래 게시물  판매중-->
+<!--    ////////////// 중고거래 게시물  판매중////////////-->
 			<div class="tab-panels">
 				<section id="selling" class="tab-panel">
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
-<!-- 	//////////////////////////////////////////////////// -->
-						
-							<div class="item" th:if="${old.oldState==1}">
+<!-- 	/////////////////////// 게시물  ///////////////////////////// -->
+<!-- ////////////////oldState조건문만 단독으로 쓸때는 나란히 나오나, user 조건문까지 같이쓰면 띄엄띄엄나옴///////						 -->
+							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 									
@@ -105,11 +136,11 @@
 					</div>
 					</section>	
 						
-<!-- 				중고거래 게시물 거래완료 -->
+<!-- 	//////////////	중고거래 게시물 거래완료///////////// -->
 				<section id="sold" class="tab-panel">
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
-							<div class="item" th:if="${old.oldState==0}">
+							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 									
@@ -140,34 +171,9 @@
 		<!-- /.row -->
 
 		<!-- Pagination -->
+		
 		<!-- 		페이지 -->
-		<br>
-		<br>
-		<br>
-		<br>
-		<nav data-pagination>
-
-			<ul>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-				</a></li>
-				<li class=current><a href=#1>1</a>
-				<li><a href=#2>2</a>
-				<li><a href=#3>3</a>
-				<li><a href=#4>4</a>
-				<li><a href=#5>5</a>
-				<li><a href=#6>6</a>
-				<li><a href=#7>7</a>
-				<li><a href=#8>8</a>
-				<li><a href=#9>9</a>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-						class="sr-only">Next</span>
-				</a></li>
-			</ul>
-
-		</nav>
+		
 	
 
  
@@ -206,5 +212,6 @@
 	});
 
 </script>
+ <script src="js/listOld.js"></script>
 </body>
 </html>
