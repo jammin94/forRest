@@ -188,28 +188,34 @@ article {
 <section class="navigation">
   <div class="nav-container">
     <div class="brand">
-      <a href="#!">FOR REST</a>
+      <a th:href="@{/}">FOR REST</a>
     </div>
     <nav>
       <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
       <ul class="nav-list">
         <li>
-            <a th:href="@{/}">홈</a>
-        </li>
-        <li>
          <a href="#mobile">중고마켓</a>
         </li>
         
         <li>
-          <a href="#!">보관하기</a>
+          <a href="#Earphones">보관하기</a>
+          <ul class="nav-dropdown">
+            <li>
+             <a th:href="@{/storage/storageMain}">보관메인</a>
+            </li>
+            <li>
+             <a th:href="@{/storage/addStorage}">보관하기</a>
+            </li>
+            <li>
+              <a th:href="@{/storage/listStorage}">내 보관물품</a>
+            </li>
+          </ul>
         </li>
-        
-        
           <li>
           <a href="#!">렌탈마켓</a>
         </li>
         
-
+			<!-- 고객센터 -->
         <li>
           <a href="#Earphones">고객센터</a>
           <ul class="nav-dropdown">
@@ -239,7 +245,7 @@ article {
               <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
             </li>
             <li>
-              <a href="/admin/php/shop1/log_out.php" class="btnLogout">로그아웃</a>
+              <a href="/user/login" class="btnLogout">로그인</a>
             </li>
           </ul>
         </li>
