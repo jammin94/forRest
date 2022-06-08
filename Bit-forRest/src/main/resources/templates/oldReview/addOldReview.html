@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/addOldReview.css">
+    <link rel="stylesheet" href="/css/addRentalReview.css">
+  
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
  
 </head>
 
@@ -15,38 +18,30 @@
  <div th:replace="/main/leftbar.html"></div> 
 
    <div class="Rentalcontainer">
-<p>
-  리뷰쓰기
-</p>
+ <span id="starsInfo" class="help-block">
+    구매자를 선택해주세요!
+  </span>
+
 
 
 <div class="container">
-	
-	<h2>구매자 선택</h2>
-	
+	 <form name="selectFruit">
   <ul>
-  <li>
-    <input type="radio" id="f-option" name="selector">
-    <label for="f-option" >User01</label>
-    
-    <div class="check"></div>
-  </li>
-  
-  <li>
-    <input type="radio" id="s-option" name="selector">
-    <label for="s-option">Bacon</label>
-    
-    <div class="check"><div class="inside"></div></div>
-  </li>
-  
-  <li>
-    <input type="radio" id="t-option" name="selector">
-    <label for="t-option">Cats</label>
-    
-    <div class="check"><div class="inside"></div></div>
-  </li>
-</ul>
+    <li>
+    <label><input type="checkbox" /> 사과</label>
+<!--       <label><input type="checkbox" th:text=${old.userId}/> 바나나</label> -->
+    </li>
+    <li>
+       <label><input type="checkbox" /> 사과</label>
+    </li>
+  </ul>
+</form>
+	
+
+
 </div>
+ 
+
   <span id="starsInfo" class="help-block">
     상품에 대한 별점을 남겨주세요 !
   </span>

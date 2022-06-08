@@ -96,37 +96,33 @@ public class OldController {
 	
 	
 	
-	
-	@GetMapping("getOld/{oldNo}")
-	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
-		
-		System.out.println(this.getClass());
-		
-		model.addAttribute(oldService.getOld(oldNo));
-		System.out.println(oldService.getOld(oldNo));
-		return "old/getOld";
-		//return "forward:/old/getOld";	
-		
-	}
-	 
-//	@RequestMapping("getOld")
-//	public String getOld(@RequestParam("oldNo") int oldNo, Model model, HttpSession httpsession) throws Exception {
+//	
+//	@GetMapping("getOld/{oldNo}")
+//	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
 //		
-//		//디버깅
-//		System.out.println("getOld Start");
+//		System.out.println(this.getClass());
 //		
-//		Old old = oldService.getOld(oldNo);
+//		model.addAttribute(oldService.getOld(oldNo));
+//		System.out.println(oldService.getOld(oldNo));
+//		return "old/getOld";
+//		//return "forward:/old/getOld";	
 //		
-//		
-//		
-//		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
-//		//User sessionUser = (User) httpsession.getAttribute("user");
-//		
-//		model.addAttribute("Old", old);
-//		
-//		
-//		return "Old/getOld";
 //	}
+	 
+	@RequestMapping("getOld")
+	public String getOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception {
+		
+		//디버깅
+		System.out.println("getOld Start");
+		
+		Old old = oldService.getOld(oldNo);
+		
+		
+		model.addAttribute("old", old);
+		
+		
+		return "old/getOld";
+	}
 	
 //	@GetMapping("getOld")
 //	public String getOld( Model model ) throws Exception {
