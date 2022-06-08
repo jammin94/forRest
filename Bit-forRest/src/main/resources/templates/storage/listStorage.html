@@ -14,6 +14,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	
+	
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <!-- Bootstrap Dropdown Hover JS -->
@@ -34,12 +35,65 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
+<style>
+.table{
+	margin-bottom: 80px !important;
+}
+.page-header{
+margin: 40px 0 0px !important;
+border-bottom:3px solid #ddd !important;
+}
 
+	.tableBody td {
+		width:10%;
+ 		vertical-align: middle !important;
+	}
+	
+	.tableBody td > div {
+		display:flex;
+	}
+	
+	.productImg{
+		text-align:left;
+		width:100px;
+	}
+	
+	.recentImg {
+		
+		text-align:right;
+		width:50px;
+	}
+	
+	.tableBody td span{
+		display:flex;
+		align-items:center;
+		padding:10px;
+	}
+	
+	.borderTopNone{
+		border-top:none !important;
+	}
+	.borderRight{
+		border-right:1px solid #ddd;
+	}
+	.textCenter{
+		text-align:center;
+	}
+	.borderBottom{
+		border-bottom:1px solid #ddd;
+	}
+	
+	.btnColumn{
+		display: flex;
+    flex-direction: column;
+	}
+</style>
 <body>
 <!-- 툴바 include -->
 
-<!-- <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/MyPageLeftbar.html"></div> -->
+   <!-- Navigation-->
+  <div th:replace="/main/toolbar.html"></div>
+		<div th:replace="/main/leftbar.html"></div> 
 
 
 <!--  화면구성 div Start /////////////////////////////////////-->
@@ -55,6 +109,8 @@
 		    	<p class="text-primary">
 		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
 		    	
+		    	
+		    	
 		    	</p>
 		    	
 		    	 
@@ -66,46 +122,94 @@
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped">
+		 
+ 		 <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
-	            <th align="center">주문번호</th>
-	            <th align="center">상품이미지</th>
-	            <th align="center">상품이름</th>
-	            <th align="center">시작일</th>
-	            <th align="center" >종료일</th>   
-	            <th align="center">결제금액</th>
-	            <th align="center">보관현황</th>
+	            <th align="center">상품정보</th>
+	            <th align="center" >결제금액</th>   
+	            <th align="center" >보관현황</th>   
 	            <th align="center">진행상태</th>
+	            
 	          </tr>
 	        </thead>
 	        
+	        
 	        <tbody> 
-	    
-	    
-	    <tr th:each="storage :${list}">
-	    
-		    <td th:text = "${storage.paymentNo}"></td>
-		    <td th:text = "${storage.prodImg}"></td>
-		    <td th:text = "${storage.prodName}"></td>
-		    <td th:text = "${storage.startDate}"></td>
-			<td th:text = "${storage.endDate}"></td>
-			<td th:text = "${storage.resultPrice}"></td>
-			<td th:text = "${storage.storageProd.recentImg}"></td>
-			<td th:text = "${storage.storageProd.prodCondition}"></td>
-			
-	    
-	    </tr>
+			    <tr class="tableBody" th:each ="storage : ${list}">
+				    <td align="left">
+				    <a th:href ="@{/storage/getStorage(tranNo = ${storage.tranNo})}" >
+				 	<span   th:text="|주문번호: ${storage.paymentNo}|"></span>
+				 	</a>
+				    	<div class="productInfo">
+				    		<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
+					    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&s=1440x1440&t=inside">
+					    	</a>
+					    	
+					    	<div style="width:220px;padding:10px;">
+					    	 <a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
+						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${storage.prodName}]]<br/></p>
+						    </a>
+						    	<p>	[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/></p>
+						    		<p>	[[${storage.storageProd.prodQuantity}]]개</p>
+					    	</div>
+						</div>
+				    </td>
+					<td align="center" th:text="|${storage.resultPrice}원|" ></td>
+					<td align="center"><img class="recentImg" src="https://mblogthumb-phinf.pstatic.net/MjAxNzAzMzBfMjQ0/MDAxNDkwODc2OTYyMjMx.8HqpPyOymDPBgkqs8U6h25GtAyzppHsl0Heyqf3YL2Qg.6hl0lgna0JVutQQrWomO4ZihrStRyajMYwLQbGPgVk0g.JPEG.33yy333/DSC05515-1.jpg?type=w800"></td>
+					<td align="center" >
+					
+					
+					<p  style="margin-bottom: 10px;"  th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
+					대여중 ([[${storage.rentalStartDate}]] ~ [[${storage.rentalEndDate}]] )
+					</p>
+					<p  style="margin-bottom: 10px;" th:unless="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
+					[[${storage.storageProd.prodCondition}]]
+					</p>
+					 
+					 
+					 <p style="color: red;" th:if = "${storage.storageProd.isRental} ">(대여가능)</p>
+				
+				
+					</td>
+					<td align="center" >
+					
+					<!--  <div class="btnColumn" th:if="${#strings.equals(storage.storageProd.prodCondition, '보관중')}" >-->
+					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관중'" >
+					 	<div><button>꺼내쓰기</button></div>
+					 	<div><button>기간연장</button></div>
+					 	<div><button>출고신청</button></div>
+
+					</div>
+					
+						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' or ${storage.storageProd.prodCondition }== '출고승인신청중' ">
+					 	<div><button>취소</button></div>
+					</div>
+					
+					<!-- 대여신청, 배송, 대여중일때 엔드유저에겐 대여중으로 디스플레이 -->
+					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
+					 	<div><button>기간연장</button></div>
+					</div>
+					
+						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관취소' or ${storage.storageProd.prodCondition }== '출고완료' ">
+					 	<div><button>재신청</button></div>
+					</div>
+		
+					
+					</td>
+			    </tr>
 	        </tbody>
 
       </table>
+	        
+	       
 		<!--  table End /////////////////////////////////////-->
 	</form>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
 
-
+ <div th:replace="/main/footer.html"></div>
 </body>
 
 </html>

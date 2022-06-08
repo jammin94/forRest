@@ -5,7 +5,8 @@
   
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 </head>
 <style>
 td{
@@ -66,6 +67,14 @@ border-bottom:3px solid #ddd !important;
 .container.list{
 	padding-right:150px;
 }
+
+input{
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+
+
 </style>
 <body>
 
@@ -179,20 +188,33 @@ border-bottom:3px solid #ddd !important;
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
 		<td>주문하시는분</td>
-		<td><input type="text" name="nameOrder" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+		<td><input type="text" class="orderName" name="nameOrder" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
 	</tr>
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="text" class="hpNum1" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="hpNum2" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="hpNum3" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
 		</td>
 	</tr>
 	<tr>
 		<td>이메일</td>
-		<td><input type="text" name="email" value="" required="" option="regEmail"></td>
+		<td><input type="text" class="regEmail" name="email" value="" required="" option="regEmail"></td>
+	</tr>
+	<tr>
+		<td>받으실곳</td>
+		<td>
+	<!--  화면구성 div End /////////////////////////////////////-->
+<input class="addressNum" type="text" id="sample4_postcode" placeholder="우편번호">
+<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+<input class="addressRoad" type="text" id="sample4_roadAddress" placeholder="도로명주소">
+<input class="addressJibun" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+<span id="guide" style="color:#999;display:none"></span>
+<input class="addressDetail" type="text" id="sample4_detailAddress" placeholder="상세주소">
+<input class="addressExtra" type="text" id="sample4_extraAddress" placeholder="참고항목">
+		</td>
 	</tr>
 	</tbody></table>
 
@@ -212,42 +234,36 @@ border-bottom:3px solid #ddd !important;
 	</colgroup><tbody><tr>
 		<td>배송지 확인</td>
 		<td class="noline">
-		<input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+		<input type="checkbox" class="inputCheckbox" onclick="inputCheckClick();"> 주문고객 정보와 동일합니다.
 		</td>
 	</tr>
 	<tr>
 		<td>받으실분</td>
-		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""></td>
+		<td><input type="text" class="inputRecevierName" name="nameReceiver" value="" required="" readonlycheck=""></td>
 	</tr>
+	
 	<tr>
 		<td>받으실곳</td>
-		<td>
-		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
-		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="" required="" readonlycheck=""> -
-		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="" required="" readonlycheck=""> )
-		<a href="javascript:popup('../proc/popup_address.php',500,432);" id="addressSearch"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" align="absmiddle"></a>
+				<td>
+	<!--  화면구성 div End /////////////////////////////////////-->
+<input class="answerAddressNum" type="text" id="sample4_postcode" placeholder="우편번호">
+<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+<input class="answerAddressRoad" type="text" id="sample4_roadAddress" placeholder="도로명주소">
+<input class="answerAddressJibun" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+<span id="guide" style="color:#999;display:none"></span>
+<input class="answerAddressDetail" type="text" id="sample4_detailAddress" placeholder="상세주소">
+<input class="answerAddressExtra" type="text" id="sample4_extraAddress" placeholder="참고항목">
 		</td>
 	</tr>
-	<tr>
-		<td></td>
-		<td><input type="text" name="address" id="address" class="lineBig" readonly="" value="" required="" readonlycheck=""></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input type="text" name="address_sub" id="address_sub" class="lineBig" value="" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소" readonlycheck="">
-			<input type="hidden" name="road_address" id="road_address" style="width:100%" value="" class="line">
-			<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;" id="div_road_address"></div>
-			<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub"></div>
-		</td>
-	</tr>
+	
+	
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
-		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
-		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck="">
+		<input class="hpNum11" type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
+		<input class="hpNum22" type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
+		<input class="hpNum33" type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck="">
 		
 		</td>
 	</tr>
@@ -315,7 +331,6 @@ border-bottom:3px solid #ddd !important;
 </div>
 	</form>
 </div>
-<!--  화면구성 div End /////////////////////////////////////-->
 
 <!-- footer -->
      <div th:replace="/main/footer.html"></div>
@@ -323,20 +338,125 @@ border-bottom:3px solid #ddd !important;
 </body>
 
 <script src="/js/jquery_min.js"></script>
-	<script>
-	 /*  $(document).ready(function() {
-			"use strict";
-			
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
 
-	  }) */
-	</script>
-	
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+   
+    function inputCheckClick(){
+    	console.log("clickTest");
+    	
+    	var inputCheckbox = document.querySelector('.inputCheckbox');
+    	var orderName = document.querySelector('.orderName').value;
+    	var hpNum1 = document.querySelector('.hpNum1').value;
+    	var hpNum2 = document.querySelector('.hpNum2').value;
+    	var hpNum3 = document.querySelector('.hpNum3').value;
+  		var regEmail = document.querySelector('.regEmail');
+  		var hpNum11 = document.querySelector('.hpNum11');
+    	var hpNum22 = document.querySelector('.hpNum22');
+    	var hpNum33 = document.querySelector('.hpNum33');
+    	
+    	var addressNum = document.querySelector('.addressNum').value;
+    	var addressRoad = document.querySelector('.addressRoad').value;
+    	var addressJibun = document.querySelector('.addressJibun').value;
+    	var addressDetail = document.querySelector('.addressDetail').value;
+    	var addressExtra = document.querySelector('.addressExtra').value;
+    	
+    	var answerAddressNum = document.querySelector('.answerAddressNum');
+    	var answerAddressRoad = document.querySelector('.answerAaddressRoad');
+    	var answerAddressJibun = document.querySelector('.answerAddressJibun');
+    	var answerAddressDetail = document.querySelector('.answerAddressDetail');
+    	var answerAddressExtra = document.querySelector('.answerAddressExtra');
+  		
+  		var inputRecevierName = document.querySelector('.inputRecevierName');
+  		if(inputCheckbox.checked){
+  			console.log("체크됨 ");
+  			console.log(orderName);
+  			
+  			inputRecevierName.value = orderName;
+  			hpNum11.value =hpNum1;
+  			hpNum22.value =hpNum2;
+  			hpNum33.value =hpNum3;
+  			
+  			answerAddressNum.value = addressNum;
+  			answerAddressRoad.value = addressRoad;
+  			answerAddressJibun.value = addressJibun;
+  			answerAddressDetail.value = addressDetail;
+  			answerAddressExtra.value = addressExtra;
+  			
+  			
+  		}else{
+  			inputRecevierName.value ="";
+  			hpNum11.value ="";
+  			hpNum22.value ="";
+  			hpNum33.value ="";
+  			
+  			answerAddressNum.value = "";
+  			answerAddressRoad.value = "";
+  			answerAddressJibun.value = "";
+  			answerAddressDetail.value = "";
+  			answerAddressExtra.value = "";
+  		}
+  		
+    }
+    
+    
+   
+</script>
+
 	<!--  <script src="/js/custom.js"></script> -->
 <!-- <script src="/js/custom.js"></script> -->
 </html>

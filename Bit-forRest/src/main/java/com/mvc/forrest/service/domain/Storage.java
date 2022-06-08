@@ -33,6 +33,8 @@ public class Storage {
 	private int discountPrice;
 	private int resultPrice;
 	private Product storageProd;
+	private Date rentalStartDate;
+	private Date rentalEndDate;
 	
 	
 }

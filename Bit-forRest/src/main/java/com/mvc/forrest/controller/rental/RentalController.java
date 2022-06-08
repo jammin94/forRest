@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.rental;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -184,7 +185,7 @@ public class RentalController {
 	
 	//------------대여 수익 확인------------//
 	@GetMapping("listRentalProfit")
-	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model) throws Exception{
+	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model,HttpSession session) throws Exception{
 		
 		System.out.println("listRentalProfitView 테스트");
 		
@@ -193,16 +194,23 @@ public class RentalController {
 		}
 		search.setPageSize(pageSize);
 		
-		// Business logic 수행
-		Map<String , Object> map=rentalService.getRentalListForAdmin(search);
+		//테스트를위해 세션아이디 임의 생성
+		User user = userService.getUser("user01@naver.com");
+		session.setAttribute("user", user);
 		
-		System.out.println("테스트"+map.get("list"));
-					
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		Map<String, Object> mapStorage = rentalService.getRentalList(map);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
 		// Model 과 View 연결
-		model.addAttribute("list", map.get("list"));
+		
+		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		

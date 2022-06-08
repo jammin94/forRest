@@ -32,9 +32,15 @@
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
-		SELECT *
-		FROM user
-		WHERE userId = #{value}
+		SELECT
+		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount'
+		FROM user LEFT OUTER JOIN 	  	
+			(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
+		ON user.userId = B.reportedUser
+		LEFT OUTER join
+			(SELECT COUNT(*) COUNT, reviewedUserId FROM oldreview Group by reviewedUserId) C 
+		ON user.userId = C.reviewedUserId
+		WHERE user.userId = #{value}
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->

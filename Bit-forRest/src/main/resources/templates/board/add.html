@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="add.css">
+</head>
+<body>
+    <div class="container">
+        <header> 상품 등록 양식 </header>
+        <div class="progress-bar">
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>1</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>2</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>3</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>4</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>5</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>name</p>
+                <div class="bullet">
+                    <span>6</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+        </div>
+        <div class="form-outer">
+            <form action="#">
+                <div class="page slidepage">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        <div class="label">제품 사진 등록</div>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <div class="label">제품 이름</div>
+                        <input type="text">
+                    </div>
+                    <div class="field">
+                        <div class="label">카테고리</div>
+                        <select class="category" name= "category">
+                            <option value="텐트">텐트</option>
+                            <option value="침대">침대</option>
+                            <option value="의자">의자</option>
+                            <option value="그릴">그릴</option>
+                            <option value="버너">버너</option>
+                            <option value="조명">조명</option>
+                            <option value="테이블">테이블</option>
+                            <option value="식기">식기</option>
+                            <option value="난로">난로</option>
+                            <option value="기타용품">기타용품</option>
+                        </select>
+                    </div>
+                    <div class="field nextBtn">
+                        <button>Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        <div class="label">크기</div>
+                        <input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" label="수령자 핸드폰번호" > x
+                        <input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" label="수령자 핸드폰번호" > x
+                        <input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" label="수령자 핸드폰번호" > 
+                    </div>
+                    <div class="field">
+                        <div class="label">제품 설명</div>
+                        <textarea name="address" id="address" class="textarea" ></textarea>
+                    </div>
+                    <div class="field">
+                        <div class="label">보관기간</div>
+                        <select class="category" name= "category">
+                            <option value="텐트">1개월</option>
+                            <option value="침대">2개월</option>
+                            <option value="의자">3개월</option>
+                            <option value="그릴">4개월</option>
+                            <option value="버너">5개월</option>
+                            <option value="조명">6개월</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="label">제품수량</div>
+                        <input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" >
+                    </div>
+                    <div class="field">
+                        <div class="label">대여가능</div>
+                        <input type="checkbox" onclick="ctrl_field(this.checked)"> 보관한물품을 대여가능하게 합니다.
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-1 prev">Previous</button>
+                        <button class="next-1 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">대여관련정보:</div>
+                    <div class="field">
+                        <div class="label">물품대여가격</div>
+                        <input type="text" name="nameReceiver"   > 원
+                    </div>
+                    <div class="field">
+                        <div class="label">보증금</div>
+                        <input type="text" name="nameReceiver"  > 원
+                    </div>
+                    <div class="field">
+                        <div class="label">계좌번호</div>
+                        <select class="account" name= "account">
+                            <option value="텐트">국민</option>
+                            <option value="침대">신한</option>
+                        </select>
+                        <input type="text" name="nameReceiver"  >
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-2 prev">Previous</button>
+                        <button class="next-2 next">Next</button>
+                    </div>
+                </div>
+
+
+                <div class="page">
+                    <div class="title">주문서작성:</div>
+                    <div class="field">
+                        <div class="label">주문하시는분</div>
+                        <input type="text" name="nameOrder">
+                    </div>
+                    <div class="field">
+                        <div class="label">핸드폰번호</div>
+                        <input type="text" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
+		                <input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
+		                <input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-3 prev">Previous</button>
+                        <button class="next-3 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">배송정보:</div>
+                    <div class="field">
+                        <div class="label">픽업주소 확인</div>
+                        <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+                    </div>
+                    <div class="field">
+                        <input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
+		                ( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value=""  readonlycheck=""> -
+		                <input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value=""  readonlycheck=""> )
+                    </div>
+                    <div class="title">반송주소 확인:</div>
+                    <div class="field">
+                        <div class="label">반송주소</div>
+                        <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+                    </div>
+                    <div class="field">
+                        <input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
+		                ( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value=""  readonlycheck=""> -
+		                <input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value=""  readonlycheck=""> )
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-4 prev">Previous</button>
+                        <button class="next-4 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">결제금액:</div>
+                    <div class="field">
+                        <div class="label">쿠폰적용</div>
+                        <select class="category" name= "category">
+                            <option value="텐트">10% 할인쿠폰</option>
+                            <option value="침대">5000원 할인쿠폰</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="label">합계금액</div>
+                        <div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
+                        <div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
+                        <div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="label">총 결제금액</div>
+                        <span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원
+                        </select>
+                    </div>
+                    <div class="field btns">
+                        <button class="prev-5 prev">Previous</button>
+                        <button class="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="add.js"></script>
+</body>
+</html>

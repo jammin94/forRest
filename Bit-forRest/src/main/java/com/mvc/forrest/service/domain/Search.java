@@ -89,14 +89,17 @@ public class Search {
 	public int getStartRowNum() {
 		return (getCurrentPage()-1)*getPageSize()+1;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "Search [currentPage=" + currentPage + ", searchCondition="
-				+ searchCondition + ", searchKeyword=" + searchKeyword
-				+ ", pageSize=" + pageSize + ", endRowNum=" + endRowNum
-				+ ", startRowNum=" + startRowNum +", orderCondition=" +orderCondition+"]";
-
+		return "Search [currentPage=" + currentPage + ", searchCondition=" + searchCondition + ", searchKeyword="
+				+ searchKeyword + ", searchCategory=" + searchCategory + ", searchProductCondition="
+				+ searchProductCondition + ", pageSize=" + pageSize + ", endRowNum=" + endRowNum + ", startRowNum="
+				+ startRowNum + ", orderCondition=" + orderCondition + "]";
 	}
+	
+
+	
+
+	
 }

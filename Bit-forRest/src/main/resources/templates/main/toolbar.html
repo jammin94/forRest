@@ -6,153 +6,319 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="/css/responsive.css" /> -->
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-    <link rel="stylesheet" href="/css/style.css">  
-	<link rel="stylesheet" href="/css/toolbar.css"> 
+<!-- 
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+    -->
+    <link rel="stylesheet" href="/css/style.css"> 
+   <link rel="stylesheet" href="/css/toolbar.css"> 
 <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
 </head>
+<style>
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200&family=Hi+Melody&family=Nanum+Gothic+Coding&family=Whisper&display=swap');
+.navigation {
+  height: 70px;
+  background: #262626;
+ position:fixed;
+ z-index:100;
+ width:100%;
+    font-family: 'lato', sans-serif;
+    top:0;
+    left:0;
+
+}
+
+.brand {
+  position: absolute;
+  padding-left: 20px;
+  float: left;
+  line-height: 70px;
+  text-transform: uppercase;
+  font-size: 1.4em;
+}
+.brand a,
+.brand a:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.nav-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+nav {
+  float: right;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  float: left;
+  position: relative;
+}
+nav ul li a,
+nav ul li a:visited {
+  display: block;
+  padding: 0 20px;
+  line-height: 70px;
+  background: #262626;
+  color: #ffffff;
+  text-decoration: none;
+}
+nav ul li a:hover,
+nav ul li a:visited:hover {
+  background: #2581DC;
+  color: #ffffff;
+}
+nav ul li a:not(:only-child):after,
+nav ul li a:visited:not(:only-child):after {
+  padding-left: 4px;
+  content: " ▾";
+}
+nav ul li ul li {
+  min-width: 190px;
+}
+nav ul li ul li a {
+  padding: 15px;
+  line-height: 20px;
+}
+
+.nav-dropdown {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile navigation */
+.nav-mobile {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #262626;
+  height: 70px;
+  width: 70px;
+}
+
+@media only screen and (max-width: 798px) {
+  .nav-mobile {
+    display: block;
+  }
+
+  nav {
+    width: 100%;
+    padding: 70px 0 15px;
+  }
+  nav ul {
+    display: none;
+  }
+  nav ul li {
+    float: none;
+  }
+  nav ul li a {
+    padding: 15px;
+    line-height: 20px;
+  }
+  nav ul li ul li a {
+    padding-left: 30px;
+  }
+
+  .nav-dropdown {
+    position: static;
+  }
+}
+@media screen and (min-width: 799px) {
+  .nav-list {
+    display: block !important;
+  }
+}
+#nav-toggle {
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
+}
+#nav-toggle span,
+#nav-toggle span:before,
+#nav-toggle span:after {
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: #ffffff;
+  position: absolute;
+  display: block;
+  content: "";
+  transition: all 300ms ease-in-out;
+}
+#nav-toggle span:before {
+  top: -10px;
+}
+#nav-toggle span:after {
+  bottom: -10px;
+}
+#nav-toggle.active span {
+  background-color: transparent;
+}
+#nav-toggle.active span:before, #nav-toggle.active span:after {
+  top: 0;
+}
+#nav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+  transform: rotate(-45deg);
+}
+
+article {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+</style>
 <body>
+<section class="navigation">
+  <div class="nav-container">
+    <div class="brand">
+      <a th:href="@{/}">FOR REST</a>
+    </div>
+    <nav>
+      <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+      <ul class="nav-list">
+        <li>
+         <a href="#mobile">중고마켓</a>
+        </li>
+        
+        <li>
+          <a href="#Earphones">보관하기</a>
+          <ul class="nav-dropdown">
+            <li>
+             <a th:href="@{/storage/storageMain}">보관메인</a>
+            </li>
+            <li>
+             <a th:href="@{/storage/addStorage}">보관하기</a>
+            </li>
+            <li>
+              <a th:href="@{/storage/listStorage}">내 보관물품</a>
+            </li>
+          </ul>
+        </li>
+          <li>
+          <a href="#!">렌탈마켓</a>
+        </li>
+        
+			<!-- 고객센터 -->
+        <li>
+          <a href="#Earphones">고객센터</a>
+          <ul class="nav-dropdown">
+            <li>
+             <a th:href="@{/userRental}">렌탈마켓</a>
+            </li>
+            <li>
+             <a href="#Watch">고객센터</a>
+            </li>
+            <li>
+              <a href="#!">Graphic Design</a>
+            </li>
+          </ul>
+        </li>
+        
+          <li>
+          <a href="#!">   
+          
+          <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
+          
+          </a>
+          <ul class="nav-dropdown">
+            <li>
+              <a th:href="@{/tempUser}">마이페이지(유저용)</a>
+            </li>
+            <li>
+              <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
+            </li>
+            <li>
+              <a href="/user/login" class="btnLogout">로그인</a>
+            </li>
+          </ul>
+        </li>
+        
+      </ul>
+    </nav>
+  </div>
+</section>
 
-
-	<header class="main-header fixed toolBackImg">
-	<div class="container">
-		<div class="row">
-			<!-- Main Box -->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="try_logo_wrapper">
-			<!-- 	<li><a th:href="@{/rental/addRental}">관리자</a> -->
-					<a th:href="@{/}">
-							<!-- 	<img src="/images/header/bearlogo.png" alt="logo" class="bear" style="width: 80px; height: 70px; position:relative; top:5px;"> -->
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-				<div class="main-box">
-					<div class="main-box">
-						<div class="auto-container">
-							<div class="outer-container clearfix">
-								<!--Logo Box-->
-								<!--Nav Outer-->
-								<div class="nav-outer clearfix">
-									<!-- Main Menu -->
-									<nav class="main-menu">
-										<div class="navbar-header">
-											<!-- Toggle Button -->
-											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
-												<span class="icon-bar"></span>
-												<span class="icon-bar"></span>
-											</button>
-										</div>
-										<div class="navbar-collapse collapse scroll-nav clearfix">
-											<div class="navigation clearfix">
-												<div><a th:href="@{/}">홈</a>
-												</div>
-												<div><a href="#mobile">중고마켓</a>
-												</div>
-												<div><a href="#Earphones">보관하기</a>
-												</div>
-												<div><a th:href="@{/userRental}">렌탈마켓</a>
-												</div>
-												<div><a href="#Watch">고객센터</a>
-												</div>
-												<div><a href="#MacBook"><i class="fa-solid fa-bell"  style="transform:scale(1.5);"></i></a>
-												</div>
-												<div class="mypageIcon">
-													<a href="#power">	
-														<i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
-														<span class="toggleArrow">
-															<i class="fa-solid fa-angle-down"></i>
-															<!-- <i class="fa-solid fa-angle-up"></i> -->
-														</span>
-													</a>
-												</div>
-												<div>
-											
-													<div class="dropHeader">
-														<div class="member">
-														<div class="dropLayer">
-													            <div class="userInfo">
-													                <span class="label">대표운영자님</span>
-													                <p class="name"><strong class="mall">hyeong512</strong></p>
-													            </div>
-												            <div class="divide">
-												                <ul class="link">
-												      			             <!-- 내 쇼핑몰 정보 -->
-												                        <li><a>내 쇼핑몰 정보</a></li>
-												                                <!-- 마이페이지 -->
-												                        <li><a th:href="@{/tempUser}">마이페이지(유저용)</a></li>
-												                            <!-- 운영자 관리 -->
-												                        <li><a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a></li>
-												         	     </ul>
-												            </div>
-																	            <!-- 로그아웃 -->
-																	            <a href="/admin/php/shop1/log_out.php" class="btnLogout">로그아웃</a>
-      														  </div>
-														</div>
-													</div>
-													
-												</div>
-											
-											</div>
-											
-										</div>
-									</nav>
-									<!-- Main Menu End-->
-								</div>
-								<!--Nav Outer End-->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-      </header>
-
-	
+   
 </body>
-	<script src="/js/jquery_min.js"></script>
+   <script src="/js/jquery_min.js"></script>
 <script>
 
-	$(function(){
-		
-		const mypageIcon = $('.mypageIcon');
-		const dropLayer = $('.dropHeader .member');
-		const toggleArrow = $('.toggleArrow');
-		
-		$(mypageIcon).on('click',function(){
-			
-			dropLayer.toggleClass('selected');
-			toggleArrow.toggleClass('on');
-		});
-		
-	
-		
-		
-	});
-
-	
+   $(function(){
+      
+      const mypageIcon = $('.mypageIcon');
+      const dropLayer = $('.dropHeader .member');
+      const toggleArrow = $('.toggleArrow');
+      
+      $(mypageIcon).on('click',function(){
+         
+         dropLayer.toggleClass('selected');
+         toggleArrow.toggleClass('on');
+      });
+      
+   
+      
+      
+   });
+   (function($) { // Begin jQuery
+        $(function() { // DOM ready
+          // If a link has a dropdown, add sub menu toggle.
+          $('nav ul li a:not(:only-child)').click(function(e) {
+            $(this).siblings('.nav-dropdown').toggle();
+            // Close one dropdown when selecting another
+            $('.nav-dropdown').not($(this).siblings()).hide();
+            e.stopPropagation();
+          });
+          // Clicking away from dropdown will remove the dropdown class
+          $('html').click(function() {
+            $('.nav-dropdown').hide();
+          });
+          // Toggle open and close nav styles on click
+          $('#nav-toggle').click(function() {
+            $('nav ul').slideToggle();
+          });
+          // Hamburger to X toggle
+          $('#nav-toggle').on('click', function() {
+            this.classList.toggle('active');
+          });
+        }); // end DOM ready
+      })(jQuery); // end jQuery
+   
 </script>
 <!-- <script>
  $(function() {
-	// Preloader 
-	jQuery(window).on('load', function() {
-		console.log("충돌테스트");
-	    jQuery("#status").fadeOut();
-	    jQuery("#preloader").delay(350).fadeOut("slow");
-	});
+   // Preloader 
+   jQuery(window).on('load', function() {
+      console.log("충돌테스트");
+       jQuery("#status").fadeOut();
+       jQuery("#preloader").delay(350).fadeOut("slow");
+   });
 
 }); 
 </script> -->
-	<!--footer news End
+   <!--footer news End
 
-	<script src="/js/modernizr.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/owl.carousel.js"></script>
-	<script src="/js/pagenav.js"></script>
-	<script src="/js/custom.js"></script>
+   <script src="/js/modernizr.js"></script>
+   <script src="/js/bootstrap.js"></script>
+   <script src="/js/owl.carousel.js"></script>
+   <script src="/js/pagenav.js"></script>
+   <script src="/js/custom.js"></script>
 
 
 -->
