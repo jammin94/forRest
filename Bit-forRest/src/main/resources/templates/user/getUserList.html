@@ -20,7 +20,7 @@
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info">
-		       <h3 color="black">유저 목록</h3>
+		       <h3 style="color: black;">유저 목록</h3>
 		</div>
 		
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -55,10 +55,10 @@
 	        <tbody> 
 			    <tr th:each="user,n :${list}" align="center" th:href = "@{/user/login}">
 			    	<td th:text = "${n.index+1}">
-				    <td ><a  th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
+				    <td><a style="color: black;" th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
 					<td th:text = "${user.nickname}"></td>
 					<td th:text = "${user.userName}"></td>
-					<td th:text = "${user.joinDate}"></td>
+					<td th:text = "${user.joinDate.toString().substring(0, 10)}"></td>
 					<td th:text = "${user.userImg}"></td>
 					<td th:text = "${user.reportedCount}"></td>
 			    </tr>
