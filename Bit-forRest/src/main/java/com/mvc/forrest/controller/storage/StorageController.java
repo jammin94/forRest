@@ -117,6 +117,8 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
+		//System.out.println("디버그 "+mapStorage.get("list"));
+		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -130,6 +132,14 @@ public class StorageController {
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
+		
+		//전체 보관물품을 볼때 SearchProductCondition을 null로 만들기위한코드
+		if(search.getSearchProductCondition() == "") {
+			search.setSearchProductCondition(null);
+		}
+		
+		//디버깅
+		System.out.println("serarch:" + search);
 		
 		search.setPageSize(pageSize);
 		
