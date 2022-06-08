@@ -8,7 +8,25 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 </head>
+<style>
+.tdCenter{
+	text-align:center;
+}
 
+	.row{
+		display:flex;
+	}
+	
+	.pagination{
+		display: flex !important;
+   		 justify-content: center;
+	}
+.searchRight{
+	display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+</style>
 <body>
 
 <!-- 로딩시 뜨는 아이콘 -->
@@ -49,15 +67,38 @@
 		
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+	
+	 <div class="searchRight">
+	   <div class="form-group">
+				<!--     <select class="form-control" name="searchCondition" > -->
+				  <select class="form-control" >
+					<!-- 	<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option> -->
+				 	<option>상품명 </option>
+						<option>회원아이디 </option> 
+					</select>
+				  </div>
+	   <div class="form-group">
+				    <label class="sr-only" for="searchKeyword">검색어</label>
+			<!--  <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >  -->
+				    	<!--   <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				    			 value=""  >   -->
+				    			 
+				    			   <input type="text" class="form-control" id="searchKeyword"  placeholder="검색어"
+				    			 value=""  >  
+				  </div>
+				   <button type="button" class="btn btn-default">검색</button>
+	 </div>
+	 			
 		 <!--  table Start /////////////////////////////////////-->
       <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
-	            <th align="center">No</th>
-	            <th align="center" >회원ID</th>   
-	            <th align="center">전화번호</th>
-	            <th align="center">요청사항</th>
-	            <th align="center">배송현황</th>				
+	            <th align="center">대여번호</th>
+	            <th align="center" >상품정보</th>   
+	            <th align="center">대여자유저아이디</th>
+	            <th align="center">지급금액</th>
 	          </tr>
 	        </thead>
 	        
@@ -66,20 +107,34 @@
 	    
 	    <tr th:each="rental :${list}">
 	    
-		    <td th:text = "${rental.tranNo}"></td>
-			<td th:text = "${rental.userId}"></td>
-			<td th:text = "${rental.receiverPhone}"></td>
-			<td th:text = "${rental.userId}"></td>
-			<td th:text = "${rental.userId}"></td>
-			
-	    
+		    <td class="tdCenter" th:text = "${rental.tranNo}"></td>
+			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
+			<td class="tdCenter" th:text = "${rental.receiverName}"></td>
+			<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 	    </tr>
+	    
 	        </tbody>
 
       </table>
 		<!--  table End /////////////////////////////////////-->
 	</form>
+	<ul class="pagination justify-content-center">
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
+					class="sr-only">Previous</span>
+			</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+					class="sr-only">Next</span>
+			</a></li>
+		</ul>
+	
 </div>
+
+
 <!--  화면구성 div End /////////////////////////////////////-->
 	 <!--footer -->
      <div th:replace="/main/footer.html"></div>

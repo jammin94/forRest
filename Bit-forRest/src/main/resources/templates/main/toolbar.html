@@ -7,11 +7,11 @@
 <link rel="stylesheet" type="text/css" href="/css/responsive.css" /> -->
 
 <!-- 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	 -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+    -->
     <link rel="stylesheet" href="/css/style.css"> 
-	<link rel="stylesheet" href="/css/toolbar.css"> 
+   <link rel="stylesheet" href="/css/toolbar.css"> 
 <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
 </head>
@@ -194,7 +194,7 @@ article {
       <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
       <ul class="nav-list">
         <li>
-         	<a th:href="@{/}">홈</a>
+            <a th:href="@{/}">홈</a>
         </li>
         <li>
          <a href="#mobile">중고마켓</a>
@@ -226,7 +226,7 @@ article {
         </li>
         
           <li>
-          <a href="#!">	
+          <a href="#!">   
           
           <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
           
@@ -249,70 +249,70 @@ article {
   </div>
 </section>
 
-	
+   
 </body>
-	<script src="/js/jquery_min.js"></script>
+   <script src="/js/jquery_min.js"></script>
 <script>
 
-	$(function(){
-		
-		const mypageIcon = $('.mypageIcon');
-		const dropLayer = $('.dropHeader .member');
-		const toggleArrow = $('.toggleArrow');
-		
-		$(mypageIcon).on('click',function(){
-			
-			dropLayer.toggleClass('selected');
-			toggleArrow.toggleClass('on');
-		});
-		
-	
-		
-		
-	});
-	(function($) { // Begin jQuery
-		  $(function() { // DOM ready
-		    // If a link has a dropdown, add sub menu toggle.
-		    $('nav ul li a:not(:only-child)').click(function(e) {
-		      $(this).siblings('.nav-dropdown').toggle();
-		      // Close one dropdown when selecting another
-		      $('.nav-dropdown').not($(this).siblings()).hide();
-		      e.stopPropagation();
-		    });
-		    // Clicking away from dropdown will remove the dropdown class
-		    $('html').click(function() {
-		      $('.nav-dropdown').hide();
-		    });
-		    // Toggle open and close nav styles on click
-		    $('#nav-toggle').click(function() {
-		      $('nav ul').slideToggle();
-		    });
-		    // Hamburger to X toggle
-		    $('#nav-toggle').on('click', function() {
-		      this.classList.toggle('active');
-		    });
-		  }); // end DOM ready
-		})(jQuery); // end jQuery
-	
+   $(function(){
+      
+      const mypageIcon = $('.mypageIcon');
+      const dropLayer = $('.dropHeader .member');
+      const toggleArrow = $('.toggleArrow');
+      
+      $(mypageIcon).on('click',function(){
+         
+         dropLayer.toggleClass('selected');
+         toggleArrow.toggleClass('on');
+      });
+      
+   
+      
+      
+   });
+   (function($) { // Begin jQuery
+        $(function() { // DOM ready
+          // If a link has a dropdown, add sub menu toggle.
+          $('nav ul li a:not(:only-child)').click(function(e) {
+            $(this).siblings('.nav-dropdown').toggle();
+            // Close one dropdown when selecting another
+            $('.nav-dropdown').not($(this).siblings()).hide();
+            e.stopPropagation();
+          });
+          // Clicking away from dropdown will remove the dropdown class
+          $('html').click(function() {
+            $('.nav-dropdown').hide();
+          });
+          // Toggle open and close nav styles on click
+          $('#nav-toggle').click(function() {
+            $('nav ul').slideToggle();
+          });
+          // Hamburger to X toggle
+          $('#nav-toggle').on('click', function() {
+            this.classList.toggle('active');
+          });
+        }); // end DOM ready
+      })(jQuery); // end jQuery
+   
 </script>
 <!-- <script>
  $(function() {
-	// Preloader 
-	jQuery(window).on('load', function() {
-		console.log("충돌테스트");
-	    jQuery("#status").fadeOut();
-	    jQuery("#preloader").delay(350).fadeOut("slow");
-	});
+   // Preloader 
+   jQuery(window).on('load', function() {
+      console.log("충돌테스트");
+       jQuery("#status").fadeOut();
+       jQuery("#preloader").delay(350).fadeOut("slow");
+   });
 
 }); 
 </script> -->
-	<!--footer news End
+   <!--footer news End
 
-	<script src="/js/modernizr.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/owl.carousel.js"></script>
-	<script src="/js/pagenav.js"></script>
-	<script src="/js/custom.js"></script>
+   <script src="/js/modernizr.js"></script>
+   <script src="/js/bootstrap.js"></script>
+   <script src="/js/owl.carousel.js"></script>
+   <script src="/js/pagenav.js"></script>
+   <script src="/js/custom.js"></script>
 
 
 -->
