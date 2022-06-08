@@ -2,13 +2,9 @@ package com.mvc.forrest.controller.user;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.event.TableColumnModelListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +23,7 @@ import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
+import com.mvc.forrest.service.oldreview.OldReviewService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
 
@@ -41,6 +38,8 @@ public class UserController {
 	private CouponService couponService;
 	@Autowired
 	private OldService oldService;
+	@Autowired
+	private OldReviewService oldReviewService;
 	@Autowired
 	private RentalService rentalService;
 	@Autowired
@@ -245,9 +244,9 @@ public class UserController {
 		search.setPageSize(pageSize);
 		
 		Map<String , Object> map=userService.getUserList(search);
-			
-			System.out.println("# map : "+map);
-			
+		
+		System.out.println("# map : "+map);
+		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
 		// Model 과 View 연결
@@ -258,29 +257,39 @@ public class UserController {
 		return "user/getUserList";
 	}
 	
-	@GetMapping("getUser")
-	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
+	@RequestMapping("getUser")
+	public String getUser( @RequestParam("userId") String userId , Model model,
+							HttpSession session) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		
-		User user = userService.getUser(userId);
+		User dbUser = userService.getUser(userId);
+		User sessionUser = (User)session.getAttribute("user");
+		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
+			int profit = 
+					rentalService.getTotalRentalProfit(sessionUser.getUserId());
 
-		model.addAttribute("user", user);
+			model.addAttribute("user", sessionUser);
+			model.addAttribute("profit", profit);
+			return "user/getMyPage";
+		}
 		
+		model.addAttribute("user", dbUser);
+
 		return "user/getUser";
 	}
 	
-	@GetMapping("getMyPage")
-	public String getMyPage( @RequestParam("userId") String userId , Model model ) throws Exception {
-		
-		System.out.println("/user/getMyPage : GET");
-		
-		User user = userService.getUser(userId);
-
-		model.addAttribute("user", user);
-		
-		return "user/getMyPage";
-	}
+//	@GetMapping("getMyPage")				getUser 통합
+//	public String getMyPage( @RequestParam("userId") String userId , Model model ) throws Exception {
+//		
+//		System.out.println("/user/getMyPage : GET");
+//		
+//		User user = userService.getUser(userId);
+//
+//		model.addAttribute("user", user);
+//		
+//		return "user/getMyPage";
+//	}
 	
 	@GetMapping("deleteUser")
 	public String deleteUser()throws Exception {

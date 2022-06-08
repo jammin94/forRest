@@ -29,10 +29,17 @@ public class BoardController {
 	@Autowired
 	public BoardService boardService;
 	
-	@GetMapping("getAnnounce?boardNo={boardNo}")
-	public String getAnnounce(@PathVariable int boardNo, Model model, HttpSession session) throws Exception {	
+	//test
+	@GetMapping("chat")
+	public String getChat() throws Exception {	
+		return "chat/chatchat";
+	}
+	
+	@GetMapping("getAnnounce")
+	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
-
+		System.out.println(boardNo);
+		System.out.println(session.getAttribute("user"));
 		model.addAttribute("board", boardService.getBoard(boardNo));
 		model.addAttribute("user", session.getAttribute("user"));
 		
@@ -48,13 +55,14 @@ public class BoardController {
 	@PostMapping("addAnnounce")
 	public String addAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: addAnnounce ");
+		System.out.println(board);
 		board.setBoardFlag("A"); //Announce setting
 		boardService.addBoard(board);
 		return "redirect:/board/listAnnounce";
 	}
 	
-	@GetMapping("updateAnnounce?boardNo={boardNo}")
-	public String updateAnnounce(@PathVariable int boardNo, Model model) throws Exception {	
+	@GetMapping("updateAnnounce")
+	public String updateAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: updateAnnounce ");
 		model.addAttribute(boardService.getBoard(boardNo));
 		
@@ -65,19 +73,19 @@ public class BoardController {
 	public String updateAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
 		boardService.updateBoard(board);
-		return "redirect:/board/getAnnounce?boardNo="+board.getBoardNo();
+		return "redirect:/board/getAnnounce";
 	}
 	
 	//상세페이지에서 삭제
-	@GetMapping("deleteAnnounce?boardNo={boardNo}")
-	public String deleteAnnounce(@PathVariable int boardNo) throws Exception {	
+	@GetMapping("deleteAnnounce")
+	public String deleteAnnounce(@RequestParam("boardNo") int boardNo) throws Exception {	
 		System.out.println("Controller GET: deleteAnnounce ");
 		boardService.deleteBoard(boardNo);
 		return "redirect:/board/listAnnounce";
 	}	
 	//상세페이지에서 고정
-	@GetMapping("updateFixAnnounce?boardNo={boardNo}")
-	public String updateFixAnnounce(@PathVariable int boardNo) throws Exception {	
+	@GetMapping("updateFixAnnounce")
+	public String updateFixAnnounce(@RequestParam("boardNo") int boardNo) throws Exception {	
 		System.out.println("Controller GET: updateFixAnnounce ");
 		Board board=boardService.getBoard(boardNo);
 		boardService.updateFixBoard(board);
@@ -116,12 +124,12 @@ public class BoardController {
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
-		int pageSize=10;
+		int pageSize=2; //n장씩
 		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
-		search.setPageSize(pageSize); //장씩
+		search.setPageSize(pageSize); 
 		
 		int newStartRowNum=search.getStartRowNum()-1;
 		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
@@ -144,6 +152,8 @@ public class BoardController {
 
 		return "board/listAnnounce";
 	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	@GetMapping("addFAQ")
 	public String addFAQ() throws Exception {	

@@ -3,6 +3,7 @@ package com.mvc.forrest.controller.old;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,9 @@ import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
 import com.mvc.forrest.service.user.UserService;
@@ -93,7 +96,7 @@ public class OldController {
 	
 	
 	
-	
+//	
 //	@GetMapping("getOld/{oldNo}")
 //	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
 //		
@@ -106,13 +109,26 @@ public class OldController {
 //		
 //	}
 	 
-	
-	
-	@GetMapping("getOld")
-	public String getOld( Model model ) throws Exception {
-		System.out.println(this.getClass()+ "겟올드");
+	@RequestMapping("getOld")
+	public String getOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception {
+		
+		//디버깅
+		System.out.println("getOld Start");
+		
+		Old old = oldService.getOld(oldNo);
+		
+		
+		model.addAttribute("old", old);
+		
+		
 		return "old/getOld";
-	}	
+	}
+	
+//	@GetMapping("getOld")
+//	public String getOld( Model model ) throws Exception {
+//		System.out.println(this.getClass()+ "겟올드");
+//		return "old/getOld";
+//	}	
 	
 	@GetMapping("addOld")
 	public String addOld( Model model ) throws Exception {
