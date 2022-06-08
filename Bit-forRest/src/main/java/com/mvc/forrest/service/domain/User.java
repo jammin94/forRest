@@ -19,6 +19,7 @@ public class User {
 	private String userImg;
 	private String pushToken;
 	private String reportedCount;
+	private String reviewedCount;
 	private double userRate;
 	private Timestamp leaveApplyDate;
 	private Timestamp leaveDate;
