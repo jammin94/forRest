@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	 -->
-   <!--  <link rel="stylesheet" href="/css/style.css">   -->
+    <link rel="stylesheet" href="/css/style.css"> 
 	<link rel="stylesheet" href="/css/toolbar.css"> 
 <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
@@ -25,6 +25,8 @@
  z-index:100;
  width:100%;
     font-family: 'lato', sans-serif;
+    top:0;
+    left:0;
 
 }
 
@@ -224,16 +226,20 @@ article {
         </li>
         
           <li>
-          <a href="#!">	<i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i></a>
+          <a href="#!">	
+          
+          <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
+          
+          </a>
           <ul class="nav-dropdown">
             <li>
-              <a href="#!">Web Design</a>
+              <a th:href="@{/tempUser}">마이페이지(유저용)</a>
             </li>
             <li>
-              <a href="#!">Web Development</a>
+              <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
             </li>
             <li>
-              <a href="#!">Graphic Design</a>
+              <a href="/admin/php/shop1/log_out.php" class="btnLogout">로그아웃</a>
             </li>
           </ul>
         </li>
