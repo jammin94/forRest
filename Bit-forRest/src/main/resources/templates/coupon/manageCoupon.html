@@ -6,6 +6,9 @@
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 		
@@ -13,16 +16,29 @@
 		
 		$(function(){
 			$("#addCoupon").on("click", fncAddCoupon);
-			
+
 		});
 		
 		function fncAddCoupon() {
+
+			const couponName = $('#couponName'.val());
+			const discount = $('input[name="discount"]'.val());
+			const couponCreDate = $('input[name="couponCreDate"]'.val());
+			const couponDelDate = $('input[name="couponDelDate"]'.val());
+			alert(couponName, discount,couponCreDate, couponDelDate);
 			
-			const couponName = $('input[name="couponName"]'.val());
-			alert(couponName);
+			$.ajax({
+				type	: "POST",
+				url		: "coupon/json/addCoupon",
+				data	: $('form').serialize(),
+				error	: function(error){
+						console.log("error");
+				},
+				success	: function(data){
+						console.log("success");
+				}
+			})
 			
-			
-			$("form").attr("method" , "POST").attr("action" , "/json/addCoupon").submit();
 		}
 		
 		
@@ -84,7 +100,7 @@
 		</div>
      </div>
 	     <div align="center">
-	     	<input type="submit" value="등록/수정" id="addCoupon">
+	     	<button  id="addCoupon">등록/수정</button>
 		</div>
      </form>
 	</div>

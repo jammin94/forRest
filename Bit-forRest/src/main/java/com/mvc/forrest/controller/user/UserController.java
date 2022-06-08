@@ -258,10 +258,11 @@ public class UserController {
 		return "user/getUserList";
 	}
 	
-	@GetMapping("getUser")
+	@RequestMapping("getUser")
 	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
+		
 		
 		User user = userService.getUser(userId);
 
