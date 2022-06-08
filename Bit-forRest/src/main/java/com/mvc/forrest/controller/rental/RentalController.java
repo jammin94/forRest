@@ -184,7 +184,7 @@ public class RentalController {
 	
 	//------------대여 수익 확인------------//
 	@GetMapping("listRentalProfit")
-	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model) throws Exception{
+	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model,HttpSession session) throws Exception{
 		
 		System.out.println("listRentalProfitView 테스트");
 		
@@ -193,8 +193,14 @@ public class RentalController {
 		}
 		search.setPageSize(pageSize);
 		
+		//테스트를위해 세션아이디 임의 생성
+		User user = userService.getUser("user01@naver.com");
+		session.setAttribute("user", user);
+		
+		String userId = ((User)session.getAttribute("user")).getUserId();
+		
 		// Business logic 수행
-		Map<String , Object> map=rentalService.getRentalListForAdmin(search);
+		Map<String , Object> map=rentalService.getRentalList(search,userId);
 		
 		System.out.println("테스트"+map.get("list"));
 					
