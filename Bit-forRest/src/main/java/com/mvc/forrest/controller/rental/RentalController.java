@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.rental;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -199,16 +200,17 @@ public class RentalController {
 		
 		String userId = ((User)session.getAttribute("user")).getUserId();
 		
-		// Business logic 수행
-		Map<String , Object> map=rentalService.getRentalList(search,userId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("search", search);
+		map.put("userId", userId);
 		
-		System.out.println("테스트"+map.get("list"));
-					
-		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(resultPage);
+		Map<String, Object> mapStorage = rentalService.getRentalList(map);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
 		// Model 과 View 연결
-		model.addAttribute("list", map.get("list"));
+		
+		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
