@@ -71,7 +71,7 @@
     margin-top: 2px;
     font-size: 16px;
     line-height: 40px;
-    color: rgb(110, 110, 110) !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .leftBarMenu > div > ul {
@@ -118,17 +118,8 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 <i class="fa-solid fa-shirt"></i>
-		<span class="leftBarList">회원관리</span>
-		<i class="fa-solid fa-angle-down"></i>
+		<span class="leftBarList" ><a th:href="@{/user/getUserList}" style="color: white;">회원관리</a></span>
 	</div>
-	<ul>
-		<li>입력해주세요</li>
-		<li>입력해주세요</li>
-		<li>입력해주세요</li>
-		<li>입력해주세요</li>
-		<li>입력해주세요</li>
-	</ul>
-	
 </div>
 	
 <div class="leftBarListShow">
@@ -190,6 +181,7 @@
 </div>
 <div>
 
+</div>
 </div>
 </nav>
 </body>

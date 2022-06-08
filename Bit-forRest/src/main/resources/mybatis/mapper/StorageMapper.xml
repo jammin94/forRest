@@ -27,6 +27,8 @@
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
 		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
+		<result property="rentalStartDate" 				column="rsd" 				jdbcType="DATE"  />
+		<result property="rentalEndDate" 				column="red" 				jdbcType="DATE"  />
 		
 		<association property="storageProd" javaType="product">
 			<id property="prodNo" column="prodNo"  jdbcType="INTEGER"/>
@@ -37,6 +39,7 @@
 			<result property="height" 				column="height" 				jdbcType="INTEGER"  />
 			<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER"  />
 			<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
+			<result property="isRental" 				column="isRental" 				jdbcType="TINYINT"  />
 		</association>
 	</resultMap>
 	
@@ -88,8 +91,8 @@
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getStorageList"  parameterType="map"	resultMap="storageSelectMap">
-	  	SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity
-	 	FROM product p, transaction t
+	  	SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity, p.isRental,  a.startDate rsd, a.endDate red 
+	 	FROM product p, transaction t left outer join (SELECT prodNo, startDate, endDate FROM transaction WHERE tranCode = 1 AND endDate > DATE(NOW())) a on t.prodNo = a.prodNo
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId}
 	 		<if test="searchProductCondition != null">
