@@ -8,12 +8,17 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet">
-<!-- <link href="/css/listOld.css" rel="stylesheet" /> -->
+<link href="/css/listOld.css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 </head>
 <style>
-	    .card-img-top{
-	        border-radius: 10px !important; 
-	    }
+.card-img-top {
+	border-radius: 10px !important;
+}
 </style>
 
 
@@ -27,6 +32,12 @@
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
 
+
+	<p>
+		<small>Source: <cite><a
+				href="https://www.bjcp.org/stylecenter.php">BJCP Style
+					Guidelines</a></cite></small>
+	</p>
 	<div class="container list">
 		<div class="page-header text-info">
 			<h3>중고거래 게시물 리스트</h3>
@@ -53,159 +64,117 @@
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		<!-- Page Heading -->
 
-		</h1>
 
-		<div class="row">
-			<div class="col-lg-3 col-md-4 col-sm-8 mb-6">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="/images/content/aaa.jpg" width="360" height="360"></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
+		<div class="tabset">
+			<!-- Tab 1 -->
+			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
+				checked> <label for="tab1">판매중</label>
+			<!-- Tab 2 -->
+			<input type="radio" name="tabset" id="tab2" aria-controls="sold">
+			<label for="tab2">거래완료</label>
+<!--     중고거래 게시물  판매중-->
+			<div class="tab-panels">
+				<section id="selling" class="tab-panel">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
+<!-- 	//////////////////////////////////////////////////// -->
+						
+							<div class="item" th:if="${old.oldState==1}">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									
+											<img width="300" height="205" th:src="@{/images/content/eee.jpg}"/>
+											
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2 th:text = ${old.oldTitle}></h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											
+											
+											<div class="try_mob_btn_wrapper">	
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+					</div>
+					</div>
+					</section>	
+						
+<!-- 				중고거래 게시물 거래완료 -->
+				<section id="sold" class="tab-panel">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
+							<div class="item" th:if="${old.oldState==0}">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									
+											<img width="300" height="205"  th:src="@{/images/content/bbb.jpg}"/>
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2 th:text = ${old.oldTitle}></h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+												
+											
+											<div class="try_mob_btn_wrapper">	
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+					</div>
+					</div>
+					</section>	
+			</div>
 
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="/images/content/bbb.jpg" width="360" height="360"></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="/images/content/ccc.jpg" width="360" height="360"></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="/images/content/ddd.jpg" width="360" height="360"></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="https://via.placeholder.com/360x360" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="https://via.placeholder.com/360x360" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="https://via.placeholder.com/360x360" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="https://via.placeholder.com/360x360" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">중고거래 게시물 제목</a>
-						</h4>
-						<p class="card-text">중고물품 가격</p>
-					</div>
-				</div>
-			</div>
 		</div>
+
 		<!-- /.row -->
 
 		<!-- Pagination -->
-		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
-		</ul>
+		<!-- 		페이지 -->
+		<br>
+		<br>
+		<br>
+		<br>
+		<nav data-pagination>
 
-	</div>
-	<form class="form-inline" name="detailForm">
-		<input type="hidden" id="currentPage" name="currentPage" value="" />
-		<!--  table Start /////////////////////////////////////-->
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr class="tableHeader">
-					<th align="center">중고거래 게시물 사진</th>
-					<!-- 	             <th align="center">No</th> -->
-					<th align="center">중고거래 게시물 제목</th>
-					<th align="center">조회수</th>
-				</tr>
-			</thead>
+			<ul>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+				</a></li>
+				<li class=current><a href=#1>1</a>
+				<li><a href=#2>2</a>
+				<li><a href=#3>3</a>
+				<li><a href=#4>4</a>
+				<li><a href=#5>5</a>
+				<li><a href=#6>6</a>
+				<li><a href=#7>7</a>
+				<li><a href=#8>8</a>
+				<li><a href=#9>9</a>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+						class="sr-only">Next</span>
+				</a></li>
+			</ul>
 
-			<tbody>
+		</nav>
+	
 
-				<tr th:each="old : ${list}">
-					<td align="center"><i class="oldImg" id="${old.oldNo}"
-						th:text="${old.oldImg}"> <input type="hidden"
-							value="${old.oldNo}"></i> <a
-						th:href="@{/old/getOld(oldNo=${old.oldNo})}"></a></td>
-					<!-- 	        <td align="center" th:text =  "${old.oldNo}"></td> -->
-					<td align="center" th:text="${old.oldTitle}"></td>
-					<td align="center" th:text="${old.oldView}"></td>
-
-				</tr>
-			</tbody>
-
-		</table>
-		<!--  table End /////////////////////////////////////-->
-	</form>
-	</div>
+ 
+</div>
 	<!--  화면구성 div End /////////////////////////////////////-->
 
-</body>
+
 
 <script type="text/javascript">
 	function fncGetList() {
@@ -214,27 +183,16 @@
 
 	}
 
-	$(function() {
-
-		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$(".oldImg").on(
-				"click",
-				function() {
-
-					self.location = "/old/getOld?oldNo="
-							+ $(this).children("input").val();
-				});
-	});
+	
 
 	$(function() {
 
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$(".card-img-top").on(
+		$(".try_mob_btn_wrapper").on(
 				"click",
 				function() {
 
-					self.location = "/old/getOld?oldNo="
-							+ $(this).children("input").val();
+					self.location = "/old/getOld?oldNo=" + $(this).children("input").val();
 				});
 	});
 
@@ -246,25 +204,7 @@
 			self.location = "/old/addOld";
 		});
 	});
-</script>
-<!--	<script type="text/javascript"> 
-	function fncGetOld() {
- 		self.location = "/old/getOld?oldNo="+$(this).child().val();
- 	}
-	    
- 	$(function() {
-		
- 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
- 		$( ".img" ).on("click" , function() {
- 			alert($(this).children().val());
-			var str = parseInt($(this).text());
-			alert(str);
- 			
- 			
- 			self.location ="/old/getOld?oldNo="+int;
- 		});
-					
- 	});	
-	    </script>  -->
 
+</script>
+</body>
 </html>
