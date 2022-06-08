@@ -10,6 +10,8 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -41,7 +43,6 @@
 		//검색 클릭
 		 $(function() {
 			$( '#search' ).on("click" , function() {
-				alert("검색");
 				if($('#searchCondition').val()!=''){
 					fncGetAnnounceList(1);
 				}else{
@@ -184,7 +185,7 @@
 
 		    <td th:text = "${boardStat.count}" align="center"></td>
 			<td align="center">
-				<a th:href="@{/board/getBoard(boardNo=${board.boardNo})}" >
+				<a th:href="@{/board/getAnnounce(boardNo=${board.boardNo})}" >
 					<div th:text="${board.boardTitle}"/>
 				</a>
 			</td>
@@ -212,7 +213,8 @@
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- navi start -->
-		<nav aria-label="Page navigation" align="center"
+		<div >
+		<nav aria-label="Page navigation" align="center" style="width:100%"
 		th:with="
 			currentPage=${resultPage.currentPage},
 			pageUnit=${resultPage.pageUnit},
@@ -232,12 +234,12 @@
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
- <div class="temp">
+ <span class="temp">
   				<!-- 중앙 -->
 	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
 				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetAnnounceList('${num}')|">[[${num}]]</a></li>
 			  </div>
-		    </div>
+</span>
 		    <!-- 우측 navi -->
 		    <span th:if="${endUnitPage}>=${maxPage}">
 				<li class="hidden">
@@ -251,6 +253,7 @@
 		    </li>
 		  </ul>
 		</nav>
+		</div>
 		
 		
 		<span th:if="${user.role}=='admin'">
@@ -284,6 +287,8 @@
 
 	  })
 	</script>
+
+
 	
 	<!--  <script src="/js/custom.js"></script> -->
 <!-- <script src="/js/custom.js"></script> -->

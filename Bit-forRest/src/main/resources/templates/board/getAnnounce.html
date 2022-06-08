@@ -10,6 +10,8 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="/js/imagePreview.js"/>
 	
 	
@@ -18,18 +20,24 @@
     <!-- Bootstrap Dropdown Hover JS -->
   <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
    <script>
-   			//공지사항 등록
-   			$("button").onClick(function(){
-				var boardTitle=$("input[name='boardTitle']").val();
-				var boardDetail=$("input[name='boardDetail']").val();
-				alert(boardTitle);
-				alert(boardDetail);
-				if(boardTitle!=null && boardDetail!=null){
-					alert("공지사항 등록 완료");
-					$("form").submit();	
-				}else{
-					alert("공지사항 제목과 내용을 반드시 적어주세요");
-				}
+   			
+   			$("#okay").click(function(){
+   				self.location = "/board/listAnnounce";
+			});
+   			
+   			$("#update").click(function(){
+   				var boardNo=$(#boardNo).val();
+   				self.location = "/board/updateAnnounce?boardNo="+boardNo;
+			});
+   			
+   			$("#delete").click(function(){
+   				var boardNo=$(#boardNo).val();
+   				self.location = "/board/deleteAnnounce?boardNo="+boardNo;
+			});
+   			
+   			$("#pin").click(function(){
+   				var boardNo=$(#boardNo).val();
+   				self.location = "/board/updateFixAnnounce?boardNo="+boardNo;
 			});
 
    </script>
@@ -61,18 +69,35 @@
 	<div class="page-header text-info">
 		 <h3>공지사항 조회</h3>
 	</div>
-		
-	 <div class="media">
-	  <div class="media-left media-middle">
-	    <a href="#">
-	      <img class="media-object" src="..." alt="...">
-	    </a>
+		<input type="hidden" name="boardNo" id="boardNo" value=""/>
+	 <div class="row" >
+	  <div class="col-sm-12 col-md-12">
+	    <div class="thumbnail" >
+	    	<h2 style="display: flex;flex-direction: column;align-items: center;">
+	    		[[${board.boardTitle}]]
+	    	</h2>
+	    	<h8 style="display: flex;justify-content: flex-end">
+				게시날짜 :&nbsp<div th:text="
+	    		 ${#dates.format(board.boardDate,'yyyy-MM-dd')}"
+	    		></div>
+			</h8>
+	      <img src="..." alt="..."  style="display: flex;justify-content: center;">
+	      <p style="text-align:center"><a href="#" class="btn btn-default" role="button" >쿠폰받기</a></p>
+	      <div class="caption">
+	        <h3>[[${board.boardDetail}]]</h3>
+	      </div>
+	    </div>
 	  </div>
-	  <div class="media-body">
-	    <h4 class="media-heading">Middle aligned media</h4>
-	    ...
-	  </div>
-	</div>
+</div>
+
+<button type="text" class="btn btn-default" id="okay">확인</button>
+<span th:if="${user.role}=='admin' and ${user}!=null">
+    <button type="text" class="btn btn-default" id="update">수정</button>
+	<button type="text" class="btn btn-default" id="delete">삭제</button>
+	<button type="text" class="btn btn-default" id="pin">상단 고정 적용 / 미적용</button>
+	<br/>
+</span>
+
 	
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
