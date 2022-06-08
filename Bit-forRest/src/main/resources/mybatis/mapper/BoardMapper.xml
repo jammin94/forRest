@@ -31,10 +31,10 @@
 			<if test='"A".equals(board.boardFlag)'>
 				b.boardFlag='A' 
 				<if test="search.searchCondition != null">
-					<if test="search.searchCondition=='title'.toString() and search.searchKeyword != ''">
+					<if test="search.searchCondition=='title'.toString() and search.searchKeyword != null">
 						AND b.boardTitle LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
-					<if test="search.searchCondition=='detail'.toString() and search.searchKeyword != ''">
+					<if test="search.searchCondition=='detail'.toString() and search.searchKeyword != null">
 						AND b.boardDetail LIKE CONCAT('%',#{search.searchKeyword},'%') 
 					</if>
 				</if>
@@ -106,18 +106,26 @@
 		</where>
 	 </update>
 	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*) FROM(	SELECT * FROM board 
-						<if test="searchCondition != null">
 							<where>
-								<if test="searchCondition == 'title' and searchKeyword !='' ">
-					 				boardTitle LIKE CONCAT('%', #{searchKeyword}, '%') 
+							<if test='"A".equals(board.boardFlag)'>
+				 				boardFlag='A' 
+							</if>
+							<if test='"F".equals(board.boardFlag)'>
+				 				boardFlag='F' 
+							</if>
+							
+							<if test="search.searchCondition != null">
+								<if test="search.searchCondition == 'title' and search.searchKeyword !='' ">
+					 				AND boardTitle LIKE CONCAT('%', #{search.searchKeyword}, '%') 
 								</if>
-								<if test="searchCondition == 'context' and searchKeyword !='' ">
-					 				boardDetail LIKE CONCAT('%', #{searchKeyword}, '%') 
+								<if test="search.searchCondition == 'context' and search.searchKeyword !='' ">
+					 				AND boardDetail LIKE CONCAT('%', #{search.searchKeyword}, '%') 
 								</if>
+							</if>
 							</where>
-						</if> ) countTable						
+						 ) countTable						
 	 </select>
 
 	 

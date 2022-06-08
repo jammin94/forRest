@@ -23,6 +23,6 @@ public interface BoardDAO {
 	
 	public void updateFixBoard(Board board) throws Exception;
 	
-	public int getTotalCount(Search search) throws Exception;
+	public int getTotalCount(Map<String,Object> map) throws Exception;
 	
 }
