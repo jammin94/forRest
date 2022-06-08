@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+section
+{
+    background: #111;
+    min-height: 100vh;
+}
+section .bannerVideo
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+section .bannerVideo video
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+}
+section .bannerVideo video.active
+{
+    opacity: 1;
+}
+.login-member
+{
+    position: relative;
+    padding: 0 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.login-member::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
+}
+.login-member .login-form
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.login-member .login-form
+{
+    position: relative;
+    max-width: 700px;
+    display: initial;
+    transition: 0.5s ease-in-out;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1em;
+    font-weight: 700;
+}
+.login-member .login-form div .login-button login-button--static
+{
+    position: relative;
+    max-width: 700px;
+    display: initial;
+    transition: 0.5s ease-in-out;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1em;
+    font-weight: 700;
+}
+.login-member .login-form div .login-member__util__list
+{
+    position: relative;
+    max-width: 700px;
+    display: initial;
+    transition: 0.5s ease-in-out;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1em;
+    font-weight: 700;
+}
+
+@media(max-width:991px)
+{
+    .login-member
+    {
+        padding: 20px;
+    }
+    .login-member::before
+    {
+        width: 100%;
+    }
+
+}
