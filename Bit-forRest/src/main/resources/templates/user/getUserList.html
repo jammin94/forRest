@@ -47,14 +47,15 @@
 	            <th align="center">이름</th>
 	            <th align="center">가입일자</th>	
 	            <th align="center">유저프로필사진</th>
-	            <th align="center">신고횟수</th>				
+	            <th align="center">신고횟수</th>			
+	            	
 	          </tr>
 	        </thead>
-	        
+		        
 	        <tbody> 
-			    <tr th:each="user,n :${list}" align="center">
+			    <tr th:each="user,n :${list}" align="center" th:href = "@{/user/login}">
 			    	<td th:text = "${n.index+1}">
-				    <td th:text = "${user.userId}"></td>
+				    <td ><a  th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
 					<td th:text = "${user.nickname}"></td>
 					<td th:text = "${user.userName}"></td>
 					<td th:text = "${user.joinDate}"></td>
