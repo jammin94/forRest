@@ -35,5 +35,15 @@ public class RandomNumberGenerator {
 	        	ranNo = 100000+ random.nextInt(900000);
 	        }
 	        return ranNo;
-    }    
+    }
+    
+    public int makeRandomTransactionNumber() throws Exception {
+        Random random = new Random();
+        int ranNo = 100000+ random.nextInt(900000);
+        Product product = productDAO.getProduct(ranNo);
+	        while(product == null) {
+	        	ranNo = 100000+ random.nextInt(900000);
+	        }
+	        return ranNo;
+    }   
 }

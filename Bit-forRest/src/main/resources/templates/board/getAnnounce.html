@@ -20,7 +20,7 @@
     <!-- Bootstrap Dropdown Hover JS -->
   <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
    <script>
-   			
+   			/*
    			$("#okay").click(function(){
    				self.location = "/board/listAnnounce";
 			});
@@ -39,7 +39,7 @@
    				var boardNo=$(#boardNo).val();
    				self.location = "/board/updateFixAnnounce?boardNo="+boardNo;
 			});
-
+*/
    </script>
    
      
@@ -90,12 +90,23 @@
 	  </div>
 </div>
 
-<button type="text" class="btn btn-default" id="okay">확인</button>
-<span th:if="${user.role}=='admin' and ${user}!=null">
-    <button type="text" class="btn btn-default" id="update">수정</button>
-	<button type="text" class="btn btn-default" id="delete">삭제</button>
-	<button type="text" class="btn btn-default" id="pin">상단 고정 적용 / 미적용</button>
+<button type="text" class="btn btn-default" id="okay">
+	<a th:href="@{/board/listAnnounce}" >확인</a>
+</button>
+
+<span th:if="${user}!=null and ${user.role}=='admin'" >
+    <button type="text" class="btn btn-default" id="update">
+    	<a th:href="@{/board/updateAnnounce(boardNo=${board.boardNo})}" >수정</a>
+    </button>
+	<button type="text" class="btn btn-default" id="delete">
+		<a th:href="@{/board/deleteAnnounce(boardNo=${board.boardNo})}" >삭제</a>
+	</button>
+	<button type="text" class="btn btn-default" id="pin">
+		<a th:href="@{/board/updateFixAnnounce(boardNo=${board.boardNo})}" >상단 고정 적용 / 미적용</a>
+	</button>
 	<br/>
+	<h4 th:if="${board.boardPin}==1">현재 이 공지사항은 고정되어 있습니다.</h4>
+	<h4 th:if="${board.boardPin}==0">현재 이 공지사항은 고정되어 있지 않습니다.</h4>
 </span>
 
 	

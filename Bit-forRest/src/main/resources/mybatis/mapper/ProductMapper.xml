@@ -38,9 +38,9 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
-	 	INTO product(width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
+	 	INTO product(prodNo, width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
 	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, deposit, category, divyAddress, prodImg, recentImg)
-	 	values (#{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
+	 	values (#{prodNo}, #{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
 	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg})
 	 </insert>
 	  
