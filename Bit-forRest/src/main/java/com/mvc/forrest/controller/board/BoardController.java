@@ -35,6 +35,7 @@ public class BoardController {
 		return "chat/chatchat";
 	}
 	
+	//getAnnounce navi
 	@GetMapping("getAnnounce")
 	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model, HttpSession session) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
@@ -46,12 +47,14 @@ public class BoardController {
 		return "/board/getAnnounce";
 	}
 	
+	//addAnnounce navi
 	@GetMapping("addAnnounce")
 	public String addAnnounce() throws Exception {	
 		System.out.println("Controller GET: addAnnounce ");
 		return "/board/addAnnounce";
 	}
 	
+	//addAnnounce 실행
 	@PostMapping("addAnnounce")
 	public String addAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: addAnnounce ");
@@ -61,19 +64,25 @@ public class BoardController {
 		return "redirect:/board/listAnnounce";
 	}
 	
+	//updateAnnounce navi
 	@GetMapping("updateAnnounce")
 	public String updateAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: updateAnnounce ");
+		System.out.println("시스템으로 주는 데이터 : "+boardService.getBoard(boardNo));
 		model.addAttribute(boardService.getBoard(boardNo));
 		
-		return "forward:/board/updateAnnounce";
+		
+		return "/board/updateAnnounce";
 	}
 	
+	//updateAnnounce 실행
 	@PostMapping("updateAnnounce")
 	public String updateAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
+		System.out.println("시스템으로 받은 데이터 : "+board);
 		boardService.updateBoard(board);
-		return "redirect:/board/getAnnounce";
+		
+		return "redirect:/board/getAnnounce?boardNo="+board.getBoardNo();
 	}
 	
 	//상세페이지에서 삭제
@@ -92,19 +101,17 @@ public class BoardController {
 		return "redirect:/board/listAnnounce";
 	}
 	
-	
+	//listAnnounce에서 여러개 삭제
 	@PostMapping("deleteAnnounce")
 	public String deleteAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
 		System.out.println("Controller POST: deleteAnnounce ");
 		for(int boardNo : arr) {
 			boardService.deleteBoard(boardNo);
 		}
-		
-		return "redirect:/board/listAnnounce";
-				
+		return "redirect:/board/listAnnounce";		
 	}	
 		
-	
+	//listAnnounce에서 여러개 고정
 	@PostMapping("updateFixAnnounce")
 	public String updateFixAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
 		System.out.println("Controller POST: updateFixAnnounce ");
@@ -112,7 +119,6 @@ public class BoardController {
 			System.out.println(boardNo);
 			boardService.updateFixBoard(boardService.getBoard(boardNo));
 		}
-		
 		return "redirect:/board/listAnnounce";
 	}
 	
@@ -124,7 +130,7 @@ public class BoardController {
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
-		int pageSize=2; //n장씩
+		int pageSize=10; //n장씩
 		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -149,6 +155,7 @@ public class BoardController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		model.addAttribute("user", session.getAttribute("user"));
+		System.out.println("session user : "+session.getAttribute("user"));
 
 		return "board/listAnnounce";
 	}

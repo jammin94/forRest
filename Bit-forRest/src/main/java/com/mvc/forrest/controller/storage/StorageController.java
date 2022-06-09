@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.common.utils.RandomNumberGenerator;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -43,6 +44,8 @@ public class StorageController {
 	
 	@Autowired
 	public UserService userService;
+	
+	public RandomNumberGenerator rng;
 	
 	public StorageController() {
 		System.out.println(this.getClass());
@@ -73,26 +76,50 @@ public class StorageController {
 	}
 	
 	//결제정보를 리턴받고 물품과 보관테이블에 동시에 추가
+//	@PostMapping("addStorage")
+//	public String addStoragePost(@RequestParam("imp_uid") String imp_uid,   //아임포트에서 리턴해주는 번호
+//												@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
+//												@ModelAttribute("product") Product product,
+//												@ModelAttribute("storage") Storage storage,
+//												HttpSession session, Model model) throws Exception {
+//
+//		product.setUserId(((User) session.getAttribute("user")).getUserId());
+//		productService.addProduct(product);
+//		
+//		storage.setTranNo(merchant_uid);
+//		storage.setPaymentNo(imp_uid);
+//		
+//		storageService.addStorage(storage);
+//		
+//		model.addAttribute("storage", storage);
+//		
+//		return "storage/getStorage";
+//	}
+	
+	//결제구현전 테스트
 	@PostMapping("addStorage")
-	public String addStoragePost(@RequestParam("imp_uid") String imp_uid,   //아임포트에서 리턴해주는 번호
-												@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
-												@ModelAttribute("product") Product product,
+	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
 												HttpSession session, Model model) throws Exception {
-
-		product.setUserId(((User) session.getAttribute("user")).getUserId());
+		 
+		System.out.println("product: "+product);
+		//product.setUserId(((User) session.getAttribute("user")).getUserId());
+		product.setUserId("user01@naver.com");
+		//prodNo를 난수로생성
+		product.setProdNo(1235);
 		productService.addProduct(product);
 		
-		storage.setTranNo(merchant_uid);
-		storage.setPaymentNo(imp_uid);
+//		storage.setUserId("user01@naver.com");
+//		storage.setTranNo(10000);
+//		storage.setPaymentNo("우하하 팡파레~");
+//		storage.setProdNo(1234);
+//		System.out.println("storage: "+storage);
+//		storageService.addStorage(storage);
+//		
+//		model.addAttribute("storage", storage);
 		
-		storageService.addStorage(storage);
-		
-		model.addAttribute("storage", storage);
-		
-		return "storage/getStorage";
+		return null;
 	}
-	
 	
 	@RequestMapping("listStorage")
 	public String listStorage(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception {

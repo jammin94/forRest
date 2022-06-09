@@ -103,8 +103,9 @@ border-bottom:3px solid #ddd !important;
 	   
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-	 <form class="form-inline" name="detailForm">
+	 <form class="form-inline" name="detailForm" method="post">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+	 <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
 		 <!--  table Start /////////////////////////////////////-->
      <div class="main-wrapper">
   <div class="img-upload-plugin">
@@ -172,9 +173,9 @@ border-bottom:3px solid #ddd !important;
 		<tr>
 		<td>크기</td>
 		<td>
-		<input type="text" name="width" value="" size="3" maxlength="3"    readonlycheck=""> x
-		<input type="text" name="length" value="" size="4" maxlength="4" readonlycheck=""> x
-		<input type="text" name="height" value="" size="4" maxlength="4"  readonlycheck=""> 
+		<input type="text"  name="width" value="" size="3" maxlength="3"    readonlycheck=""> x
+		<input type="text"  name="length" value="" size="4" maxlength="4" readonlycheck=""> x
+		<input type="text"   name="height" value="" size="4" maxlength="4"  readonlycheck=""> 
 		
 		</td>
 	</tr>
@@ -189,12 +190,12 @@ border-bottom:3px solid #ddd !important;
 		<td>
 			 <select class="period" name= "period">
    
-        	 <option value=30>1개월</option>
-	         <option value=60>2개월</option>
-	         <option value=90>3개월</option>
-	         <option value=120>4개월</option>
-	         <option value=150>5개월</option>
-	         <option value=180>6개월</option>
+        	 <option  value=30>1개월</option>
+	         <option  value=60>2개월</option>
+	         <option   value=90>3개월</option>
+	         <option  value=120>4개월</option>
+	         <option   value=150>5개월</option>
+	         <option  value=180>6개월</option>
 	       
   
           </select>
@@ -205,7 +206,7 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>물품수량</td>
 		<td>
-		<input type="text" name="prodQuantity" value="" size="3" > 개
+		<input type="text"    name="prodQuantity"  value=""  size="3" > 개
 		
 		</td>
 	</tr>
@@ -237,31 +238,34 @@ border-bottom:3px solid #ddd !important;
 		<td class="noline">
 		<!-- 체크가 되어있을때 1 아닐때 0을 전달 -->
 		<input type="checkbox"  name="isRental" value=1 id="input_check"> 보관한물품을 대여가능하게 합니다.
-		<input type="hidden"  name="isRental" value=0 id="input_check_hidden"> 
 		</td>
 	</tr>
 	
 	<tr>
 		<td>물품대여가격</td>
-		<td><input type="text" name="rentalPrice" value=""  readonlycheck=""> 원</td>
+		<td><input type="text" name="rentalPrice" value=""> 원</td>
 	</tr>
 	
 	<tr>
 		<td>보증금</td>
-		<td><input type="text" name="deposit" value=""  readonlycheck=""> 원</td>
+		<td><input type="text" name="deposit"  value=""> 원</td>
 	</tr>
 
 	<tr>
 		<td>계좌번호</td>
 		<td>
-			 <select class="account" name= "accountBank">
+			 <select class="accountBank" name= "accountBank">
    
-        	 <option value="텐트">국민</option>
-	         <option value="침대">신한</option>
-  
+        	 <option value="국민">국민</option>
+	         <option value="기업">기업</option>
+	         <option value="외환">외환</option>
+	         <option value="NH농협">NH농협</option>
+	         <option value="우리">우리</option>
+	  
           </select>
 		 
 		  <input type="text" name="accountNumber" value=""  readonlycheck="">
+		  <input type="hidden" name="account" value="" >
 		</td>
 	</tr>
 	
@@ -326,6 +330,7 @@ border-bottom:3px solid #ddd !important;
 		<input type="text" name="receiverPhone1" value="" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
 		<input type="text" name="receiverPhone2" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
 		<input type="text" name="receiverPhone3" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+		<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
 		</td>
 	</tr>
 	</tbody></table>
@@ -354,7 +359,7 @@ border-bottom:3px solid #ddd !important;
 		<td>
 		<div class="form-group">
 	 <div class="col-sm-5">
-		  <input type="hidden"  name="divyAddr">
+		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
 		 <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
 		 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
 	     <input type="text" id="pickup_address"  name="pickupAddress" placeholder="주소"><br>
@@ -376,7 +381,7 @@ border-bottom:3px solid #ddd !important;
 		<td>
 	 <div class="form-group">
 	 <div class="col-sm-5">
-		  <input type="hidden"  name="divyAddr">
+		  <input type="hidden"  class="divyAddress" name="divyAddress" value=''>
 		 <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
 		 <input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
 	     <input type="text" id="divy_address"  name="divyAddress" placeholder="주소"><br>
@@ -423,21 +428,19 @@ border-bottom:3px solid #ddd !important;
 	
 	<tr>
 		<td>합계금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+		<td><input type="text" class="originPrice"  id="originPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원</td>
 	</tr>
 	<tr>
 		<td>할인금액</td>
 		<td>
-		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
-		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
-		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+		<input type="text" class="discountPrice" id="discountPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원
 		</td>
 	</tr>
 
 
 	<tr>
 		<td>총 결제금액</td>
-		<td><span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+		<td> <input type="text"  class="resultPrice" id="resultPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -446,9 +449,15 @@ border-bottom:3px solid #ddd !important;
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button> 결제하기</button>
-	<button class="addrTest">주소테스트</button>
+	<button class="payment"> 결제하기</button>
 	<button>취소하기</button>
+	
+	
+	<button class="addrTest">주소테스트</button>
+	<button class="phoneTest">번호테스트</button>
+	<button class="accountTest">계좌테스트</button>
+	<button class="priceTest">계산테스트</button>
+	
 </div>
 	</form>
 </div>
@@ -574,26 +583,130 @@ border-bottom:3px solid #ddd !important;
 		 
 		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupAddress']").val() + "/" 
 			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
+		 
+		 $('.pickupAddr').val(pickupAddrValue);
 		
-		// alert(pickupAddrValue);
+		//alert(pickupAddrValue);
 		 
 		 var divyAddrValue = "";
 		 
 		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyAddress']").val() + "/" 
 			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
+		 
+		 $('.divyAddr').val(divyAddrValue);
 		
-		 //alert(divyAddrValue);
+		// alert(divyAddrValue);
 		 
 	 }
 	 
+	 //csv를 넣어 전화번호를 합치는 함수
+	 function combinePhone(){
+		 
+		 //디버깅
+		 
+		 var receiverPhone = "";
+		 
+		 var receiverPhone = $("input[name='receiverPhone1']").val() + "/"  + $("input[name='receiverPhone2']").val() + "/" 
+			+  $("input[name='receiverPhone3']").val();
+		 
+		 $('.receiverPhone').val(receiverPhone);
+			
+		
+		
+		// alert(receiverPhone); 
+	 }
+	 
+	 //csv를넣어 계좌를 합침
+	 function combineAccount(){
+		 
+		 //디버깅
+		 
+		 var account = "";
+		 
+		 var account = $(".account option:selected").val() + "/"  + $("input[name='accountNumber']").val()
+		 
+		$('.account').val(account);
+		// alert(account); 
+	 }
+	 
 	
-	 $(function(){
+/*	
+$(function(){
 		 $(".addrTest").on("click", function(){
 			 combineAddr();
 		 })
 	 })
 	 
+	 	 $(function(){
+		 $(".phoneTest").on("click", function(){
+			 combinePhone();
+		 })
+	 })
 	 
+	  $(function(){
+		 $(".accountTest").on("click", function(){
+			 combineAccount();
+		 })
+	 }) 
+	 
+	 $(function(){
+		 $(".priceTest").on("click", function(){
+			 totalPrice();
+		 })
+	 }) 
+	 
+	 */
+	 
+	 
+
+	 function totalPrice(){
+
+
+		var orginPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
+									$("input[name='prodQuantity']").val() *  $(".period option:selected").val() * 0.02
+		
+		var discountPrice = 0;
+		
+		//금액할인과 %할인에따른 조건
+		/*
+		if(discount > 0 && discount<1){
+			discountPrice = orginPrice * discount;
+		} else{
+			discountPrice = discount;
+		}
+		*/
+		
+		var resultPrice = orginPrice - discountPrice;
+		
+		 $('.orginPrice').val(orginPrice);
+		 $('.discountPrice').val(discountPrice);
+		 $('.resultPrice').val(resultPrice);
+								
+ 		//alert("가격"+resultPrice);
+		  
+		 };
+	 
+	 
+	 
+	//체크했을때 1 안했을때 0을 보냄
+	$('#input_check').on('change', function(){
+   	this.value = this.checked ? 1 : 0;
+  // alert(this.value);
+	}).change();
+	
+	
+	//계산
+	$(function(){
+		 $(".payment").on("click", function(){
+			 combineAddr();
+			 combinePhone()
+			 combineAccount()
+			 totalPrice()
+			 
+			 $('form').attr('method', 'POST').attr('action','/storage/addStorage').submit();
+		 })
+	 }) 
+	
 	
 	</script>
 	
