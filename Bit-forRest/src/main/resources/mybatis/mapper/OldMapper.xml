@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- SQL : INSERT  -->
 <insert		id="addOld"		parameterType="Old">
 	INSERT
-	INTO OLD(oldNo,userId, oldPrice, oldTitle, oldDetail, oldDate, oldView, category, oldState, oldImg, oldAddr)
-	values (null,#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg},#{oldAddr})
+	INTO OLD(oldNo,userId, oldPrice, oldTitle, oldDetail, oldDate, category, oldState, oldImg, oldAddr)
+	values (null,#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{category},#{oldState},#{oldImg},#{oldAddr})
 </insert>
 
  <!-- SQL : DELETE -->
@@ -54,7 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		category = #{category},
  		oldState = #{oldState},
  		oldImg	=#{oldImg},
-		oldAddr =#{oldAddr}
+		oldAddr =#{oldAddr},
+		oldDate =CURRENT_TIMESTAMP
  	</set>
  	WHERE oldNo = #{oldNo}
  </update>

@@ -90,11 +90,11 @@
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 		$("#submit").on("click", function() {
 
-			fncAddOld();
+			fncUpdateOld();
 		});
 	});
 
-	function fncAddOld() {
+	function fncUpdateOld() {
 		var oldTitle = $('input[name="oldTitle"]').val();
 		alert(title)
 		var oldDetail = $('textarea[name="OldDetail"]').val();
