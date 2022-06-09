@@ -19,6 +19,7 @@
     cursor: pointer;
     width: 650px;
    	border-color: gray;
+   	border-width: 1px;
 }
 
 .dropdown {
@@ -79,12 +80,26 @@
 .tempTr td{
 	padding:0 10px;
 }
-
-.btn-nav{
-	
+.outer{ 
+	text-align: center;
+	margin-left: 60px;
 }
-.btn-set{
-
+.inner{
+	display: inline-block;
+    font-size: 20px;
+   	
+}
+.inner2{
+	display: inline-block;
+    font-size: 20px;
+    text-decoration: none; 
+    text-shadow: 0 0 24px;
+   	
+}
+.inner a{
+	border-radius: 10%;
+	border: medium;
+	
 }
 
 
@@ -207,27 +222,33 @@
 		<div class="col-md-2 right"style="height: 100px;"><!-- 여백 --></div>
 	</div>
 	
-	<div class="btn-nav">
-		<div class="col-md-1" style="height: 100px;"><!-- 여백 --></div>
-		<div class="col-md-2"><button>중고거래<br> 구매내역</button></div>
-		<div class="col-md-2"><button>중고거래<br> 판매내역</button></div>
-		<div class="col-md-2"><button>보관내역<br> 조회</button></div>
-		<div class="col-md-2"><button>대여내역<br> 조회</button></div>
-		<div class="col-md-3" style="height: 100px;"><!-- 여백 --></div>
+	<div class="outer">
+		<div class="col-md-2 " style="height: 100px;"><!-- 여백 --></div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/old/listOld}">중고거래<br> 내역</a>
+		</div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/storage/listStorage}">보관내역<br> 조회</a>
+		</div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/rental/listRentalProfit}">대여내역<br> 조회</a>
+		</div>
+		<div class="col-md-4" style="height: 100px;"><!-- 여백 --></div>
 	</div>
 	
-	<div class="btn-set">
-		<div class="col-md-2" style="height: 100px;"><!-- 여백 --></div>
-		<div class="col-md-8">
-			<div class="col-md-3"><button>수정하기</button></div>
-			<div class="col-md-2"><button>비밀번호 변경</button></div>
-			<div class="col-md-3"><button>탈퇴하기</button></div>
+	<div class="outer">
+		<div class="col-md-2 inner"style="height: 100px;"></div>
+		<div class="col-md-2 inner">
+			<a style="background-color: #262626;color: white;" >수정하기</a>
 		</div>
-		<div class="col-md-2" style="height: 100px;"><!-- 여백 --></div>
-	</div>	
-	
-	
-	
+		<div class="col-md-2 inner">
+			<a th:href="@{/user/pwdReset}" style="background-color: #262626;color: white;">비밀번호변경</a>
+		</div>
+		<div class="col-md-2 inner">
+			<a th:href="@{/user/deleteUser}" style="background-color: #262626;color: white;">탈퇴하기</a>
+		</div>
+		<div class="col-md-4 inner"style="height: 100px;"></div>
+	</div>
 	
 	
 	

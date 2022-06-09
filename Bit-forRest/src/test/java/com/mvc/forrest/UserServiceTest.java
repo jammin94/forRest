@@ -6,12 +6,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.oldreview.OldReviewService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -23,6 +26,8 @@ public class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OldReviewService oldReviewService;
 	
 //	@Test
 	public void testAddUser() throws Exception {
@@ -101,16 +106,25 @@ public class UserServiceTest {
 
 	}
 	
-//	@Test
+	@Test
 	public void testGetUserList() throws Exception{
+		
+		User user = new User();
+		user.setUserId("user03@naver.com");
+		String userId = user.getUserId();
+		
+		System.out.println(userId);
 		
 		Search search = new Search();
 		Map<String, Object> map = userService.getUserList(search);
 		System.out.println(map.get("list"));
 		
+		List<OldReview> list = oldReviewService.getOldReviewList(userId);
+		System.out.println(list);
+		
 	}
 	
-	@Test
+//	@Test
 	public void testGetUserByName() throws Exception{
 		String userName = "user01";
 		User user = new User();
