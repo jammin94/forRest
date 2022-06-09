@@ -16,6 +16,7 @@ public class Storage {
 	private int tranNo;
 	private String userId;
 	private int prodNo;
+	private String divyRequest;
 	private String divyAddress;
 	private String pickupAddress;
 	private Date startDate;
