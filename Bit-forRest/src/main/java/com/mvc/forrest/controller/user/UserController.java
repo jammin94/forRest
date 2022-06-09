@@ -2,6 +2,7 @@ package com.mvc.forrest.controller.user;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
@@ -213,13 +215,13 @@ public class UserController {
 		return "user/findPwd";
 	}	
 	
-//	@GetMapping("pwdReset")								//필요없음
-//	public String pwdReset() throws Exception{
-//		
-//		System.out.println("/user/pwdReset : GET");
-//		
-//		return null;
-//	}
+	@GetMapping("pwdReset")						
+	public String pwdReset() throws Exception{
+		
+		System.out.println("/user/pwdReset : GET");
+		
+		return "user/pwdReset";
+	}
 	
 	@PostMapping("pwdReset")
 	public String pwdReset(@RequestParam("password") String password, HttpSession session) throws Exception{
@@ -259,21 +261,35 @@ public class UserController {
 	
 	@RequestMapping("getUser")
 	public String getUser( @RequestParam("userId") String userId , Model model,
-							HttpSession session) throws Exception {
+							HttpSession session, Search search) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		
 		User dbUser = userService.getUser(userId);
 		User sessionUser = (User)session.getAttribute("user");
+
+		if(sessionUser==null) {
+			return "user/login";
+		}
+		
 		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
 			int profit = 
 					rentalService.getTotalRentalProfit(sessionUser.getUserId());
-
+			
+			Map<String , Object> map=couponService.getOwnCouponList(userId);
+			
+			model.addAttribute("list", map.get("list"));
 			model.addAttribute("user", sessionUser);
 			model.addAttribute("profit", profit);
 			return "user/getMyPage";
 		}
 		
+		List<OldReview> list = oldReviewService.getOldReviewList(userId);
+		
+		model.addAttribute("review1", list.get(0));
+		model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+		model.addAttribute("review2", list.get(1));
+		model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
 		model.addAttribute("user", dbUser);
 
 		return "user/getUser";

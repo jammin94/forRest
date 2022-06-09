@@ -104,6 +104,7 @@ public class RentalController {
 //	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
 	@GetMapping("getRental")
 	public String getRental() throws Exception {
+		System.out.println("형산");
 		 return "rental/getRental";
 	}
 	
@@ -229,6 +230,7 @@ public class RentalController {
 		
 		return "rental/addRental";
 	}
+	
 	
 	
 	

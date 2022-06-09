@@ -6,38 +6,102 @@
 	<!--  ///////////////////////// bootstrap  ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-
+	
 </head>
   
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
-  
-.star-rating {
-  border:solid 1px #ccc;
-  display:flex;
-  flex-direction: row-reverse;
-  font-size:1.5em;
-  justify-content:space-around;
-  padding:0 .2em;
-  text-align:center;
-  width:5em;
-    margin: 0 auto;
-    border: none;
+  .dropbtn {
+  	margin-top: 20px;
+    background-color: #efefef;
+    color: #707070;
+    font-size: 20px;
+    cursor: pointer;
+    width: 650px;
+   	border-color: gray;
+   	border-width: 1px;
 }
 
-.star-rating input {
-  display:none;
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.star-rating label {
-  color:#fc0;
-  cursor:pointer;
+.dropdown-content {
+	z-index: 200;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 650px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
+
+.dropdown-content table {
+    color: gray;
+    padding: 12px 16px;
+    text-decoration: none;
+    /*display: block;*/
+    overflow-y: scroll;
+    height: 250px;
+    margin:0 auto;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+    overflow-y: scroll;
+    height: 250px;
+}
+
 
 .right{
-	font-size: 25px;
+	font-size: 20px;
 	line-height: 250%;
 }
+
+#imgChange{
+	font-size: 20px; 
+	margin-top: 15px; 
+	width: 200; 
+	padding: 10px 10px 10px 10px;
+	background-color: #262626;
+	color: white;
+	border-color: white;
+	
+ } 
+
+.centerTable{
+	text-align:center;
+}
+
+.centerTable thead th{
+	text-align:center;
+}
+
+.tempTr td{
+	padding:0 10px;
+}
+.outer{ 
+	text-align: center;
+	margin-left: 60px;
+}
+.inner{
+	display: inline-block;
+    font-size: 20px;
+   	
+}
+.inner2{
+	display: inline-block;
+    font-size: 20px;
+    text-decoration: none; 
+    text-shadow: 0 0 24px;
+   	
+}
+.inner a{
+	border-radius: 10%;
+	border: medium;
+	
+}
+
 
   </style>
   
@@ -51,29 +115,35 @@
 	 <div class="title" id="titlef" style="margin-left: 30px; font-size: 25px; margin: 1.5em;  " >
 		<span>My Page</span>
 	</div>
+		<!-- 상단 좌우분할 -->
 	<div class="aboutUser">
-		<div class="col-md-6 left" style="text-align: center;" >
+		<!-- 좌: 이미지, 사진변경 -->
+		<div class="col-md-1"><!-- 여백 --></div>
+		<div class="col-md-5 left" style="text-align: center;" >
 			<span><img src="https://mblogthumb-phinf.pstatic.net/
 			MjAyMDAyMDdfMTYw/MDAxNTgxMDg1NzUxMTUy.
 			eV1iEw2gk2wt_YqPWe5F7SroOCkXJy2KFwmTDNzM0GQg.
 			Z3Kd5MrDh07j86Vlb2OhAtcw0oVmGCMXtTDjoHyem9og.
 			JPEG.7wayjeju/%EB%B0%B0%EC%9A%B0%ED%94%84%EB%
 			A1%9C%ED%95%84%EC%82%AC%EC%A7%84_IMG7117.jpg?
-			type=w800" width="50%" height="50%" style="border-radius: 70%;" ></span>
+			type=w800" width="250" height="300" style="border-radius: 70%;" ></span>
+		<div>
+			<button id="imgChange">사진변경</button>
 		</div>
-		
-		<div class="col-md-6 right" style="text-align: left; padding-top: 5%;">
+		</div>
+		<!-- 우: 이름, 닉네임, 활동내역, 수익 -->
+		<div class="col-md-5 right" style="text-align: left; ">
 			<div>
 				<span style="font-weight: bold;">이름</span>
 			</div>
 			<div>
-				<input type="text" th:value="${user.userName}">
+				<input type="text" name="userName" th:value="${user.userName}" readonly="readonly">
 			</div>
 			<div>
 				<span style="font-weight: bold;">닉네임</span>
 			</div>
 			<div>
-				<input type="text" th:value="${user.nickname}">
+				<input type="text" name="nickname" th:value="${user.nickname}">
 			</div>
 			<div>
 				<span style="font-weight: bold;">활동내역</span>
@@ -84,21 +154,117 @@
 				3cd94011aeb.png" width="40%" height="40%"></span>
 			</div>
 			<div>
-				<span style="font-weight: bold;">수익금액 : [[${profit}]]</span>
+				<span style="font-weight: bold;">수익금액 : [[${profit}]] 원</span>
 			</div>
 		</div>
+		<div class="col-md-1"><!-- 여백 --></div>
 	</div>
+		<!-- 중단 : 주소, 전화번호, 보유쿠폰조회 -->
+	<div>	
+		<div class="col-md-2 right" style="height: 200px;"><!-- 여백 -->	</div>
+		<div class="col-md-8 right">
+			<div>
+				<span style="font-weight: bold;">주소</span>
+			</div>
+			<div>
+				<input type="text" th:value="${user.userAddr}"  style="width: 500px;">
+				<input type="text" th:value="${user.userAddr}"  style="width: 150px;">
+			</div>
+			<div>
+				<input type="text" th:value="${user.userAddr}"  style="width: 500px;">
+				<input type="button" value="주소검색" style="width: 150px;">
+			</div>
+		</div>
+		<div class="col-md-2 right"style="height: 200px;"><!-- 여백 --></div>
+	</div>
+	
+	<div>	
+		<div class="col-md-2 right" style="height: 200px;"><!-- 여백 --></div>
+		<div class="col-md-8 right">
+			<div>
+				<span style="font-weight: bold;">전화번호</span>
+			</div>
+			<div>
+				<input type="text" th:value="${user.phone}"  style="width: 500px;">
+				<input type="button" value="인증번호 발송" style="width: 150px;">
+			</div>
+			<div>
+				<input type="text" value="인증번호"  style="width: 500px;">
+				<input type="button" value="인증번호 확인" style="width: 150px;">
+			</div>
+		</div>
+		<div class="col-md-2 right"style="height: 200px;"><!-- 여백 --></div>
+	</div>
+	
+	<div>	
+		<div class="col-md-2 right"style="height: 100px;"><!-- 여백 --></div>
+		<div class="col-md-8 right">
+			<div class="dropdown">
+			  <button class="dropbtn">보유쿠폰</button>
+			  <div class="dropdown-content">
+			    <table class="centerTable">
+				    <thead>
+						<th align="center">쿠폰이름</th>
+						<th align="center">발급일자</th>
+						<th align="center">만료일자</th>
+				    </thead>
+				    <tbody> 
+					    <tr th:each="oc:${list}" align="center" class="tempTr">
+							<td align="left" th:text = "${oc.couponName}"></td>
+							<td th:text = "${oc.ownCouponCreDate.toString().substring(0,10)}"></td>
+							<td align="center" th:text = "${oc.ownCouponDelDate.toString().substring(0,10)}"></td>
+					    </tr>
+		        	</tbody>
+	        	</table>
+			  </div>
+			</div>		
+		</div>
+		<div class="col-md-2 right"style="height: 100px;"><!-- 여백 --></div>
+	</div>
+	
+	<div class="outer">
+		<div class="col-md-2 " style="height: 100px;"><!-- 여백 --></div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/old/listOld}">중고거래<br> 내역</a>
+		</div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/storage/listStorage}">보관내역<br> 조회</a>
+		</div>
+		<div class="col-md-2 inner2">
+			<a th:href="@{/rental/listRentalProfit}">대여내역<br> 조회</a>
+		</div>
+		<div class="col-md-4" style="height: 100px;"><!-- 여백 --></div>
+	</div>
+	
+	<div class="outer">
+		<div class="col-md-2 inner"style="height: 100px;"></div>
+		<div class="col-md-2 inner">
+			<a style="background-color: #262626;color: white;" >수정하기</a>
+		</div>
+		<div class="col-md-2 inner">
+			<a th:href="@{/user/pwdReset}" style="background-color: #262626;color: white;">비밀번호변경</a>
+		</div>
+		<div class="col-md-2 inner">
+			<a th:href="@{/user/deleteUser}" style="background-color: #262626;color: white;">탈퇴하기</a>
+		</div>
+		<div class="col-md-4 inner"style="height: 100px;"></div>
+	</div>
+	
+	
+	
+	
+	
+	
 </div>
-
-
 <div th:replace="/main/footer.html"></div>
 </body>
 
 	<!--  ///////////////////////// jQuery CDN ////////////////////////// -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>	 -->
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
+	
 	  	
 	</script>
-	
+
 </html>
