@@ -106,19 +106,20 @@ public class StorageController {
 		//product.setUserId(((User) session.getAttribute("user")).getUserId());
 		product.setUserId("user01@naver.com");
 		//prodNo를 난수로생성
-		product.setProdNo(1235);
+		product.setProdNo(1004);
 		productService.addProduct(product);
 		
-//		storage.setUserId("user01@naver.com");
-//		storage.setTranNo(10000);
-//		storage.setPaymentNo("우하하 팡파레~");
-//		storage.setProdNo(1234);
-//		System.out.println("storage: "+storage);
-//		storageService.addStorage(storage);
-//		
-//		model.addAttribute("storage", storage);
 		
-		return null;
+		storage.setUserId("user01@naver.com");
+		storage.setTranNo(10000);
+		storage.setPaymentNo("우하하 팡파레~");
+		storage.setProdNo(1004);
+		System.out.println("storage: "+storage);
+		storageService.addStorage(storage);
+		
+		model.addAttribute("storage", storage);
+		
+		return "forward:/storage/getStorage?tranNo="+storage.getTranNo();
 	}
 	
 	@RequestMapping("listStorage")
@@ -214,7 +215,7 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
-	@GetMapping("getStorage")
+	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
