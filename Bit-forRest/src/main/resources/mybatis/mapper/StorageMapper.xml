@@ -11,6 +11,7 @@
 		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
 		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
 		<result property="prodNo" 			column="prodNo" 			jdbcType="INTEGER" />
+		<result property="divyRequest" 			column="divyRequest" 		jdbcType="VARCHAR" />
 		<result property="divyAddress" 			column="divyAddress" 		jdbcType="VARCHAR" />
 		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
 		<result property="startDate" 			column="startDate" 			jdbcType="DATE" />
@@ -46,9 +47,9 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addStorage"		parameterType="Storage" >
 		INSERT 
-	 	INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period,
+	 	INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period,
 	 						paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-	 	values (#{tranNo}, #{userId}, #{prodNo}, #{divyAddress}, #{pickupAddress}, date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+#{period} day), #{period},
+	 	values (#{tranNo}, #{userId}, #{prodNo}, #{divyRequest}, #{divyAddress}, #{pickupAddress}, date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+#{period} day), #{period},
 	 	 			#{paymentNo}, current_timestamp(), #{paymentWay}, #{receiverPhone}, #{receiverName}, #{prodName}, #{prodImg}, #{originPrice}, #{discountPrice}, #{resultPrice})
 	 </insert>
 	 

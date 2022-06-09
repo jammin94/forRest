@@ -37,7 +37,7 @@ CREATE TABLE product
    account VARCHAR(30),
    deposit INTEGER,
    category VARCHAR(10) NOT NULL,
-   returnAddress VARCHAR(100) NOT NULL,
+   divyAddress VARCHAR(100) NOT NULL,
    prodImg VARCHAR(100) NOT NULL,
    recentImg VARCHAR(100),
    PRIMARY KEY (prodNo)
@@ -50,6 +50,7 @@ CREATE TABLE transaction
    tranNo INTEGER NOT NULL,
    userId VARCHAR(30) NOT NULL,
    prodNo INTEGER NOT NULL,
+   divyRequest VARCHAR(100),
    divyAddress VARCHAR(100) NOT NULL,
    pickupAddress VARCHAR(100) NOT NULL,
    startDate DATE NOT NULL,
@@ -291,47 +292,57 @@ VALUES (NULL,'user03@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMES
 INSERT INTO old
 VALUES (NULL,'user04@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',TRUE,'jjj.jpg','서초동');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg) VALUES (40, 30, 15, 'user01@naver.com', '보관중', '캠핑 강염버너 버너', 1, '캠핑하는 동안 잘 썼는데 다른 제품을 구매하게 돼서 공유합니다. 사용감 많지만 고장이나 하자 없어서 사용하는데 전혀 문제 없습니다~', 1, 0, 8000, '국민 478102-04-386651', 10000, '버너', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트2', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg) VALUES (30, 30, 60, 'user01@naver.com', '보관중', '알파카TS-77A콤팩트캠핑난로', 1, '알파카TS-77S콤팩트 캠핑난로 심지난로 석유난로 등유난로 기름난로 난로 석유통 자바라 난로전용가방 난로 4가지세트판매 2021년8월제조', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트3', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail,isRental, rentalCounting, rentalPrice, account, deposit, category, returnAddress, prodImg) VALUES (60, 30, 20, 'user02@naver.com', '보관중', '퀸나 휴대용전기그릴', 1, '테스트로1회사용함 깨끗하게 닦아뒀으니바로사용가능 비싼거 새거 사지마시고 좋은거 저렴하게 이용하세요. ', 1, 0, 5000, '국민 478102-04-386651', 10000, '그릴', '18125 경기 오산시 가수1로 13 (가수주공아파트) 102동 1201호 ', '2.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (40, 30, 15, 'user01@naver.com', '보관중', '캠핑 강염버너 버너', 1, '캠핑하는 동안 잘 썼는데 다른 제품을 구매하게 돼서 공유합니다. 사용감 많지만 고장이나 하자 없어서 사용하는데 전혀 문제 없습니다~', 1, 0, 8000, '국민 478102-04-386651', 10000, '버너', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, returnAddress, prodImg) VALUES (20, 60, 10, 'user03@naver.com', '보관중', '마추픽추 릴렉스 체어', 1, '네이버 캠핑의자 랭킹 상위의 마추픽추 릴렉스체어입니다. 캠핑이나 낚시 등에 활용 가능할 것 같네요 색상은 버건디입니다. 3회밖에 사용안해서 상태는 제거와 크게 다름 없습니다.', '의자', '01849 서울 노원구 공릉로 111 (애지빌라) A동 103호', '3.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (30, 30, 60, 'user01@naver.com', '보관중', '알파카TS-77A콤팩트캠핑난로', 1, '알파카TS-77S콤팩트 캠핑난로 심지난로 석유난로 등유난로 기름난로 난로 석유통 자바라 난로전용가방 난로 4가지세트판매 2021년8월제조', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, returnAddress, prodImg) VALUES (73, 45, 10, 'user04@naver.com', '입고중', '캠핑테이블 캠핑박스 확장형', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail,isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (60, 30, 20, 'user02@naver.com', '보관중', '퀸나 휴대용전기그릴', 1, '테스트로1회사용함 깨끗하게 닦아뒀으니바로사용가능 비싼거 새거 사지마시고 좋은거 저렴하게 이용하세요. ', 1, 0, 5000, '국민 478102-04-386651', 10000, '그릴', '18125 경기 오산시 가수1로 13 (가수주공아파트) 102동 1201호 ', '2.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, returnAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형1', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (20, 60, 10, 'user03@naver.com', '보관중', '마추픽추 릴렉스 체어', 1, '네이버 캠핑의자 랭킹 상위의 마추픽추 릴렉스체어입니다. 캠핑이나 낚시 등에 활용 가능할 것 같네요 색상은 버건디입니다. 3회밖에 사용안해서 상태는 제거와 크게 다름 없습니다.', '의자', '01849 서울 노원구 공릉로 111 (애지빌라) A동 103호', '3.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, returnAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user04@naver.com', '입고중', '캠핑테이블 캠핑박스 확장형', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (1, 'user01@naver.com', 1, '신흥동1', '신흥동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트', '1.jpg', 20000, 2000, 18000);
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형1', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (2, 'user01@naver.com', 2, '신흥동1', '신흥동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '캠핑 강염버너 버너', '1.jpg', 20000, 2000, 18000);
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg');
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (3, 'user01@naver.com', 3, '신흥동1', '신흥동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '알파카TS-77A콤팩트캠핑난로', '1.jpg', 20000, 2000, 18000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (1, 'user01@naver.com', 1, '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트1', '1.jpg', 20000, 2000, 18000);
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (4, 'user02@naver.com', 4, '강남구1', '강남구2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), '이니시스', '010-8283-5621', '김범수', '퀸나 휴대용전기그릴', '2.jpg', 25000, 1000, 24000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (2, 'user01@naver.com', 2, '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트2', '1.jpg', 20000, 2000, 18000);
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (5, 'user03@naver.com', 5, '비트캠프1', '비트캠프2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+90 day), 90, 'imp-1004', current_timestamp(), '이니시스', '010-2091-9728', '이상민', '마추픽추 릴렉스 체어', '3.jpg', 30000, 0, 30000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (3, 'user01@naver.com', 3, '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트3', '1.jpg', 20000, 2000, 18000);
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (6, 'user04@naver.com', 6, '복정동1', '복정동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형', '4.jpg', 40000, 0, 40000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (4, 'user01@naver.com', 4, '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '캠핑 강염버너 버너', '1.jpg', 20000, 2000, 18000);
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (7, 'user01@naver.com', 7, '복정동1', '복정동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형1', '4.jpg', 40000, 0, 40000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (5, 'user01@naver.com', 5, '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '알파카TS-77A콤팩트캠핑난로', '1.jpg', 20000, 2000, 18000);
 
-INSERT INTO transaction(tranNo, userId, prodNo, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (8, 'user01@naver.com', 8, '복정동1', '복정동2', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형2', '4.jpg', 40000, 0, 40000);
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (6, 'user02@naver.com', 6, '강남구1', '강남구2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), '이니시스', '010-8283-5621', '김범수', '퀸나 휴대용전기그릴', '2.jpg', 25000, 1000, 24000);
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('10031', 'user04@naver.com', '1', '서울특별시 비트캠프', '부산광역시 해운대구', '2021-05-30', '2021-05-31', '20', TRUE, '20030', '2021-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '텐트' , '1.jpg', '10000', '500', '20000' );
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (7, 'user03@naver.com', 7, '비트캠프1', '비트캠프2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+90 day), 90, 'imp-1004', current_timestamp(), '이니시스', '010-2091-9728', '이상민', '마추픽추 릴렉스 체어', '3.jpg', 30000, 0, 30000);
+
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (8, 'user04@naver.com', 8, '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형', '4.jpg', 40000, 0, 40000);
+
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (9, 'user01@naver.com', 9, '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형1', '4.jpg', 40000, 0, 40000);
+
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (10, 'user01@naver.com', 10, '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형2', '4.jpg', 40000, 0, 40000);
+
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('10031', 'user02@naver.com', '1', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
 INSERT INTO wishlist (wishlistNo, prodNo, userId) VALUES (NULL, '1', 'user05@naver.com');
 
