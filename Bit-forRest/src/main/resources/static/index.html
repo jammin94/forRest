@@ -22,95 +22,102 @@
 	<link rel="stylesheet" type="text/css" href="/css/textanimation.css" />
 	<!-- favicon links -->
 	<link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />
+	 <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
 <!-- <script src='../../../../google_analytics_auto.js'></script> -->
 <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
 
 </head>
+<style>
+
+body{
+	background-color:#dfdfdf;
+}
+
+		.campingTitle{
+		
+		font-weight: 600;
+	    color: #fff;
+    }
+
+		.swiper-backface-hidden .swiper-slide{
+			
+		}
+		
+		.carousel-inner{
+		    display: flex;
+ 			justify-content: space-between;
+ 			background: url(/images/header/bonfire.jpg) no-repeat center/cover;
+		    border-radius: 15px;
+		}
+		
+		.carousel-inner div{
+		    padding-top: 10px;
+		}
+	
+      .swiper {
+      	   width: 42%;
+    height: 100%;
+    position: absolute;
+    top: 45%;
+    left: 23%;
+    transform: translate(-50%,-50%);
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+      
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+</style>
 
 
+<body id="aaa">
 
-<body>
 	<!-- 로딩시 뜨는 아이콘 -->
-	<div id="preloader">
+	 <div id="preloader">
 		<div id="status">
-			<!-- <img src="/images/header/loder.gif" id="preloader_image" alt="loader"> -->
 			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
-			<!-- <iframe src="https://giphy.com/embed/hTCHt2H53KoCpuFcQh" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/camping-tent-campquarantine-hTCHt2H53KoCpuFcQh"></a></p> -->
-			<!-- <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/juan-gabriel-sSgvbe1m3n93G">via GIPHY</a></p> -->
 		</div>
-	</div>
+	</div> 
 
 	<!-- 하단 스크롤시 아이콘 생성  -->	
 	<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
 
      <!-- 툴바 -->
-    <header class="main-header">
-	<div class="container">
-		<div class="row">
-			<!-- Main Box -->
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="try_logo_wrapper">
-					<a href="#">
-						<img src="/images/header/bearlogo.png" alt="logo" class="bear" style="width: 100px; height: 90px; position: absolute; top: 5px;">
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-				<div class="main-box">
-					<div class="main-box">
-						<div class="auto-container">
-							<div class="outer-container clearfix">
-								<!--Logo Box-->
-								<!--Nav Outer-->
-								<div class="nav-outer clearfix">
-									<!-- Main Menu -->
-									<nav class="main-menu">
-										<div class="navbar-header">
-											<!-- Toggle Button -->
-											<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span>
-												<span class="icon-bar"></span>
-												<span class="icon-bar"></span>
-											</button>
-										</div>
-										<div class="navbar-collapse collapse scroll-nav clearfix">
-											<ul class="navigation clearfix">
-												<li><a href="#home">홈</a>
-												</li>
-												<li><a href="#mobile">중고거래</a>
-												</li>
-												<li><a href="#Earphones">보관하기</a>
-												</li>
-												<li><a href="#Led">렌탈하기</a>
-												</li>
-												<li><a href="#Watch">고객센터</a>
-												</li>
-												<li><a href="#MacBook">임시메뉴</a>
-												</li>
-												<li><a href="#power">임시메뉴</a>
-												</li>
-												<li><a href="#Camera">임시메뉴</a>
-												</li>
-											</ul>
-										</div>
-									</nav>
-									<!-- Main Menu End-->
-								</div>
-								<!--Nav Outer End-->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-      </header>
+     <div th:replace="/main/toolbar.html"></div>
+ 
 
 	  <!--홈화면 (최상단)-->
 	<div id="home" class="width_calc">
 		<!--try top banner main wrapper Start-->
 		<div class="try_top_banner_wrapper">
 			<div class="try_top_side_img opacityImg">
-				<img src="/images/header/forest3.jpg" alt="side_img">
+				<img src="/images/header/mainimg3.jpg" alt="side_img">
 			</div>
 			
 			<div class="container introCon">
@@ -161,7 +168,7 @@
 															<ul class="try_slider_btn">
 																<li data-animation="animated fadeInLeft"><a href="#">Learn More</a>
 																</li>
-																<li data-animation="animated fadeInLeft"><a href="#">Buy Now</a>
+																<li data-animation="animated fadeInLeft"><a href="#">구매하기</a>
 																</li>
 															</ul>
 															<div class="clear"></div>
@@ -208,7 +215,7 @@
 															<ul class="try_slider_btn">
 																<li data-animation="animated fadeInLeft"><a href="#">Learn More</a>
 																</li>
-																<li data-animation="animated fadeInLeft"><a href="#">Buy Now</a>
+																<li data-animation="animated fadeInLeft"><a href="#">구매하기</a>
 																</li>
 															</ul>
 															<div class="clear"></div>
@@ -255,7 +262,7 @@
 															<ul class="try_slider_btn">
 																<li data-animation="animated fadeInLeft"><a href="#">Learn More</a>
 																</li>
-																<li data-animation="animated fadeInLeft"><a href="#">Buy Now</a>
+																<li data-animation="animated fadeInLeft"><a href="#">구매하기</a>
 																</li>
 															</ul>
 															<div class="clear"></div>
@@ -296,6 +303,7 @@
 		
 	</div>
 
+	<section class="backgroundOpacity">
 	<!--중고마켓-->
 	<div id="mobile" class="width_calc">
 		
@@ -308,29 +316,7 @@
 			</div>
 			<div class="try_banner_slider_inner_wrapper">
 				<div id="carousel-example-generic2" class="carousel slide" data-ride="carousel">
-					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							
-						</div>
-						<div class="item">
-							
-						</div>
-						
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic2" data-slide-to="0" class="active"><span class="number"></span>
-							</li>
-							<li data-target="#carousel-example-generic2" data-slide-to="1" class=""><span class="number"></span>
-							</li>
-							<li data-target="#carousel-example-generic2" data-slide-to="2" class=""><span class="number"></span>
-							</li>
-						</ol>
-						<div class="carousel-nevigation">
-							<a class="prev" href="#carousel-example-generic2" role="button" data-slide="prev">	<i class="flaticon-left-arrow"></i>
-							</a>
-							<a class="next" href="#carousel-example-generic2" role="button" data-slide="next"> <i class="flaticon-right-arrow"></i>
-							</a>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -341,7 +327,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="try_recent_mob_heading_wrapper">
-							<h2>중고마켓</h2>
+							<h2 class="boardTitle">중고마켓</h2>
 							<p><span class="try_left_dots"></span>20% OFF<span class="try_right_dots"></span>
 							</p>
 						</div>
@@ -352,7 +338,8 @@
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img width="300" height="205" src="#">
+									
+											<img width="300" height="205"  src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/a3c0967f7ed8cd41c35c738a5f776785f5b3d07179638e1bcbfbd1bb873898d8.webp?q=95&amp;s=1440x1440&amp;t=inside" >
 										<!--		<!--	<h5>Sale</h5>  -->  
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
@@ -362,7 +349,7 @@
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>50000원</p>	
-											<div class="try_mob_btn_wrapper">	<a target="#" href="#">Buy Now</a>
+											<div class="try_mob_btn_wrapper">	<a target="#" href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -370,7 +357,7 @@
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/rs2.png" alt="mobail">
+									<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/KakaoTalk_20210331_172733437_24.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
@@ -380,7 +367,7 @@
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>50000원</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -388,7 +375,7 @@
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/rs3.png" alt="mobail">
+											<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/8C5AE77E-AE8A-486B-9464-7104E445A678.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
@@ -398,7 +385,7 @@
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>50000원</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -406,7 +393,7 @@
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/rs4.png" alt="mobail">
+											<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/D8B0EA2C-65C7-4B26-A77D-CB737EA7083A.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
@@ -416,7 +403,26 @@
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>50000원</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+									<div class="item">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									
+											<img width="300" height="205"  src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/a3c0967f7ed8cd41c35c738a5f776785f5b3d07179638e1bcbfbd1bb873898d8.webp?q=95&amp;s=1440x1440&amp;t=inside" >
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p>50000원</p>	
+											<div class="try_mob_btn_wrapper">	<a target="#" href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -432,107 +438,69 @@
 	<!--홈페이지 설명 & 렌탈마켓-->
 	<div id="Watch" class="width_calc">
 		<div class="try_banner_watch_slider_wrapper">
-			<div class="try_circle_first">
-				<img src="/images/header/right_cycle1.png" alt="circle">
-			</div>
-			<div class="try_circle_second">
-				<img src="/images/header/right_cycle2.png" alt="circle">
-			</div>
+			
 			<div class="try_banner_watch_slider_inner_wrapper">
 				<div id="carousel-example-generic4" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner" role="listbox">
-						<div class="item active">
+					
+					<div class="expFlex">
+								<div>
+				<div>
+			<h2 class="campingTitle">캠핑장비 보관 고민일 땐 ?</h2>		</div>
+				</div>
+				<div>
+				<div>
+							캠핑장비 보관하기 번거로우셨나요 ?<br> 장비도 보관하고 돈도 벌자 !				</div>
+				</div>
+				<div>
+				<div>
+															<img width="640" height="451" src="https://cambak.co.kr/wp-content/uploads/2021/11/앱화면.png" class="attachment-large size-large jetpack-lazy-image jetpack-lazy-image--handled" alt="" loading="eager" srcset="https://cambak.co.kr/wp-content/uploads/2021/11/앱화면.png 1024w, https://cambak.co.kr/wp-content/uploads/2021/11/앱화면-300x211.png 300w, https://cambak.co.kr/wp-content/uploads/2021/11/앱화면-768x541.png 768w, https://cambak.co.kr/wp-content/uploads/2021/11/앱화면-200x141.png 200w, https://cambak.co.kr/wp-content/uploads/2021/11/앱화면-800x563.png 800w, https://cambak.co.kr/wp-content/uploads/2021/11/앱화면-600x422.png 600w" data-lazy-loaded="1" sizes="(max-width: 640px) 100vw, 640px">															</div>
+				</div>
+				<div>
+				<div>
+													</div>
+				</div>
+				<div>
+				<div>
+					<div>
+			<a href="https://cambak.page.link/Bt5C" target="_blank" class="elementor-button-link elementor-button elementor-size-md" role="button">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-icon elementor-align-icon-right">
+						</span>
+						<span class="elementor-button-text">캠핑용품 렌탈 구경하기</span>
+		</span>
+					</a>
+		</div>
+				</div>
+				</div>
+					</div>
+					
+						<div class="item active expFlex">
 							<div class="carousel-captions caption-1">
 								<div class="container">
 									<div class="row">
-										<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-											<div class="content try_slider_banner_watch_cont">
-												<h3 data-animation="animated fadeInUp">(Water Resistant Watch)</h3>
-												<h2 data-animation="animated fadeInUp">Bluetooth Smart Watch
-With Camera</h2>
-												<h4 data-animation="animated fadeInUp">
-													Listening is a stress-free experience with the<br>
-feather-light in-ear chambers, weighing only 2 grams.
-												</h4>
-												<p data-animation="animated fadeInUp">Price : $249.00</p>	<a href="#" data-animation="animated fadeInUp">Buy Now</a>
-												<div class="clear"></div>
-											</div>
-										</div>
+										
+	 <!-- Swiper -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+     
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
 										<div class="col-lg-5 col-md-5 col-sm-5 col-xs-8">
 											<div class="try_slider_img_Wrapper try_slider_watch_img_Wrapper" data-animation="animated bounceInUp">
-												<img src="/images/content/watch_img.png" alt="mobail">
+												
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="item">
-							<div class=" carousel-captions caption-2">
-								<div class="container">
-									<div class="row">
-										<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-											<div class="content try_slider_banner_watch_cont">
-												<h3 data-animation="animated fadeInUp">(Water Resistant Watch)</h3>
-												<h2 data-animation="animated fadeInUp">Bluetooth Smart Watch
-With Camera</h2>
-												<h4 data-animation="animated fadeInUp">
-													Listening is a stress-free experience with the<br>
-feather-light in-ear chambers, weighing only 2 grams.
-												</h4>
-												<p data-animation="animated fadeInUp">Price : $249.00</p>	<a href="#" data-animation="animated fadeInUp">Buy Now</a>
-												<div class="clear"></div>
-											</div>
-										</div>
-										<div class="col-lg-5 col-md-5 col-sm-5 col-xs-8">
-											<div class="try_slider_img_Wrapper try_slider_watch_img_Wrapper" data-animation="animated bounceInUp">
-												<img src="/images/content/watch_img.png" alt="mobail">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="carousel-captions caption-3">
-								<div class="container">
-									<div class="row">
-										<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-											<div class="content try_slider_banner_watch_cont">
-												<h3 data-animation="animated fadeInUp">(Water Resistant Watch)</h3>
-												<h2 data-animation="animated fadeInUp">Bluetooth Smart Watch
-With Camera</h2>
-												<h4 data-animation="animated fadeInUp">
-													Listening is a stress-free experience with the<br>
-feather-light in-ear chambers, weighing only 2 grams.
-												</h4>
-												<p data-animation="animated fadeInUp">Price : $249.00</p>	<a href="#" data-animation="animated fadeInUp">Buy Now</a>
-												<div class="clear"></div>
-											</div>
-										</div>
-										<div class="col-lg-5 col-md-5 col-sm-5 col-xs-8">
-											<div class="try_slider_img_Wrapper try_slider_watch_img_Wrapper" data-animation="animated bounceInUp">
-												<img src="/images/content/watch_img.png" alt="mobail">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic4" data-slide-to="0" class="active"><span class="number"></span>
-							</li>
-							<li data-target="#carousel-example-generic4" data-slide-to="1" class=""><span class="number"></span>
-							</li>
-							<li data-target="#carousel-example-generic4" data-slide-to="2" class=""><span class="number"></span>
-							</li>
-						</ol>
-						<div class="carousel-nevigation">
-							<a class="prev" href="#carousel-example-generic4" role="button" data-slide="prev">	<i class="flaticon-left-arrow"></i>
-							</a>
-							<a class="next" href="#carousel-example-generic4" role="button" data-slide="next"> <i class="flaticon-right-arrow"></i>
-							</a>
-						</div>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -544,7 +512,7 @@ feather-light in-ear chambers, weighing only 2 grams.
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="try_recent_mob_heading_wrapper">
-							<h2>렌탈마켓</h2>
+							<h2 class="boardTitle">렌탈마켓</h2>
 							<p><span class="try_left_dots"></span>OFFERS<span class="try_right_dots"></span>
 							</p>
 						</div>
@@ -555,17 +523,18 @@ feather-light in-ear chambers, weighing only 2 grams.
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/swatch1.png" alt="mobail">
-												<!--	<h5>Sale</h5>  -->
+									
+											<img width="300" height="205"  src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/a3c0967f7ed8cd41c35c738a5f776785f5b3d07179638e1bcbfbd1bb873898d8.webp?q=95&amp;s=1440x1440&amp;t=inside" >
+										<!--		<!--	<h5>Sale</h5>  -->  
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>New Smart Watch</h2>
-											<h3>(Camera & SIM Card Support)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<p>50000원</p>	
+											<div class="try_mob_btn_wrapper">	<a target="#" href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -573,17 +542,17 @@ feather-light in-ear chambers, weighing only 2 grams.
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/swatch2.png" alt="mobail">
+									<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/KakaoTalk_20210331_172733437_24.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>New Smart Watch</h2>
-											<h3>(Camera & SIM Card Support)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<p>50000원</p>	
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -591,17 +560,17 @@ feather-light in-ear chambers, weighing only 2 grams.
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/swatch3.png" alt="mobail">
+											<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/8C5AE77E-AE8A-486B-9464-7104E445A678.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>New Smart Watch</h2>
-											<h3>(Camera & SIM Card Support)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<p>50000원</p>	
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -609,17 +578,17 @@ feather-light in-ear chambers, weighing only 2 grams.
 								<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-											<img src="/images/content/swatch4.png" alt="mobail">
+											<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/D8B0EA2C-65C7-4B26-A77D-CB737EA7083A.jpg">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart"></i></a>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>New Smart Watch</h2>
-											<h3>(Camera & SIM Card Support)</h3>
+											<h2>2인용텐트팝니다.</h2>
+											<h3>유저아이디</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>$699</p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">Buy Now</a>
+											<p>50000원</p>	
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -631,73 +600,11 @@ feather-light in-ear chambers, weighing only 2 grams.
 			</div>
 		</div>
 	</div>
-	
-	
-
-	
-	<!--하단부설명 -->
-	<div class="try_footer_main_section_wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-					<div class="try_footer_first_sec_wrapper">
-						<a href="#"><img src="/images/header/footer_logo.png" alt="logo"></a>
-						<h4>Sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua.</h4>
-						<p>+14242867714</p>
-						<h5>Email &nbsp;&nbsp;: &nbsp;&nbsp;<a href="#">help@therankme.com.com</a></h5>
-					</div>
-				</div>
-				<div class="col-lg-4 col-lg-offset-1 col-md-4 col-sm-12 col-xs-12">
-					<div class="try_footer_second_sec_wrapper">
-						<h3>Customer Service</h3>
-						<ul>
-							<li><span class="text-align-left"><a href="#">Help</a></span><span class="text-align-right"></span>
-							</li>
-							<li><span class="text-align-left"><a href="#">Contact Us</a></span><span class="text-align-right"></span>
-							</li>
-							
-							<li><span class="text-align-left"><a href="#">Terms E Conditions</a></span><span class="text-align-right"></span>
-							</li>
-							<li><span class="text-align-left"><a href="#">Shopping information</a></span><span class="text-align-right"></span>
-							</li>
-							
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-					<div class="try_footer_third_sec_wrapper">
-						<h3>Let's stay in touch</h3>
-						<div class="try_footer_input_wrapper">
-							<input type="text" placeholder="Email Address">
-							<button><i class="flaticon-right-arrow-1"></i>
-							</button>
-						</div>
-						<h4>Get updates on sales specials and more</h4>
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-youtube-play"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="try_bottom_footer_wrapper">
-						<p>Copyright © 2021 <a href="#">THERANKME</a> | All rights reserved</p>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+		
+	</section>
+	 <!--footer -->
+     <div th:replace="/main/footer.html"></div>
+ 
 
 
 	<!--footer news End-->
@@ -708,6 +615,28 @@ labore et dolore magna aliqua.</h4>
 	<script src="/js/pagenav.js"></script>
 	<script src="/js/custom.js"></script>
 	<!--main js file end-->
+	<!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
 </body>
 <script>
 
