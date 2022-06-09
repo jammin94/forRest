@@ -32,23 +32,15 @@ public class RentalService {
 		}
 	
 	// 물품대여 리스트
-	public Map<String, Object> getRentalList(Search search, String userId) throws Exception{
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("search",search);
-		map.put("userId", userId);
-		
-		//mapper에 있는 sql을 통해 return값을 얻음
-		List<Rental> list = rentalDAO.getRentalList(map);
-		int totalCount = rentalDAO.getTotalCount(search);
-		
-		//map에 담음
-		map.put("list", list);
-		map.put("totalCount", new Integer(totalCount));
-		
-		return map;
-	}
+		public Map<String, Object> getRentalList(Map<String,Object> map) throws Exception{
+			
+			List<Rental> list = rentalDAO.getRentalList(map);
+			int totalCount = rentalDAO.getTotalCount((Search) map.get("search"));
+			map.put("list", list);
+			map.put("totalCount", totalCount);
+			
+			return map;
+		}
 	
 	//물품대여 리스트 ( Admin 용 )
 	public Map<String, Object> getRentalListForAdmin(Search search) throws Exception{

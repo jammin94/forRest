@@ -19,16 +19,16 @@ import com.mvc.forrest.service.domain.Img;
 
 public class FileUtils {
 	
-	public final static String temDir ="a";
+	public final static String temDir ="C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploads";
 	
 	@Autowired
 	private ImgDAO imgDAO;
 	
-    public void uploadFiles(List<MultipartFile> multipartFiles, int id, String flag) throws Exception {
+    public void uploadFiles(List<MultipartFile> multipartFiles, int id, String flag, String 경로) throws Exception {
         
     	
     	// 파일 업로드 경로 생성
-        String savePath = Paths.get("rootPath 이후 수정 할 것", "files").toString();
+        String savePath = Paths.get(temDir, "files").toString();
 
         for (MultipartFile multipartFile : multipartFiles) {
 

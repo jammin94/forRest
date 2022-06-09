@@ -31,7 +31,7 @@ public class Rental {
 	private int resultPrice;
 	private Product purchaseProd;
 	private User buyer;
-
+	private String divyRequest;
 	
 	public Rental(){
 	}

@@ -10,6 +10,8 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -41,7 +43,6 @@
 		//검색 클릭
 		 $(function() {
 			$( '#search' ).on("click" , function() {
-				alert("검색");
 				if($('#searchCondition').val()!=''){
 					fncGetAnnounceList(1);
 				}else{
@@ -80,7 +81,15 @@
 	</script>
 
 </head>
+<style>
+.temp{
+	display:flex;
+}
 
+.temp>div{
+	padding-left:7px;
+}
+</style>
 <body>
 
 <!-- 로딩시 뜨는 아이콘 -->
@@ -176,7 +185,7 @@
 
 		    <td th:text = "${boardStat.count}" align="center"></td>
 			<td align="center">
-				<a th:href="@{/board/getBoard(boardNo=${board.boardNo})}" >
+				<a th:href="@{/board/getAnnounce(boardNo=${board.boardNo})}" >
 					<div th:text="${board.boardTitle}"/>
 				</a>
 			</td>
@@ -203,59 +212,48 @@
       </table>
 		<!--  table End /////////////////////////////////////-->
 		
-		<!-- for each문으로 pageNavi 만들자! 
-		<li th:each="page :${resultPage}">
-			<td align="center">
-				<a th:href="@{/board/getBoard(boardNo=${board.boardNo})}" >
-					<div th:text="${board.boardTitle}"/>
-				</a>
-			</td>
-			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
-			<span th:if="${user.role}=='admin'">
-				<td align="center">
-					<input type="checkbox" name="eachSelector" id="eachSelector" th:value="${board.boardNo}"/>
-				</td>
-			</span>
-			<td align="center">
-				<input type="hidden" name="boardPin" id="boardPin" th:value="${board.boardPin}"/>
-			</td>   
-	    </li>
-	     -->
-		
-		<nav aria-label="Page navigation" align="center">
-		  <ul class="pagination">
+		<!-- navi start -->
+		<div >
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
 		    <!-- 좌측 navi -->
-		    <span th:if="${resultPage.currentPage}<=${resultPage.pageUnit}">
-				<li class="disabled">
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
 			</span>
-			<span th:unless="${resultPage.currentPage}<=${resultPage.pageUnit}">
+			<span th:if="${currentPage}>${pageUnit}">
 				<li>
 			</span>
-		      <a href="javascript:fncGetAnnounceList('[[${resultPage.currentPage-1}]]')" aria-label="Previous">
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetAnnounceList('${currentPage-1}')|">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
-		    
-		    <!-- 중앙 navi -->
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetAnnounceList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
 		    <!-- 우측 navi -->
-		    <span th:if="${resultPage.endUnitPage}>=${resultPage.maxPage}">
-				<li class="disabled">
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
 			</span>
-			<span th:unless="${resultPage.endUnitPage}>=${resultPage.maxPage}">
+			<span th:unless="${endUnitPage}>=${maxPage}">
 				<li>
 			</span>
-		      <a href="javascript:fncGetAnnounceList('[[${resultPage.endUnitPage+1}]]')" aria-label="Next">
+		      <a th:onclick="|javascript:fncGetAnnounceList('${endUnitPage+1}')|" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
 		  </ul>
 		</nav>
+		</div>
 		
 		
 		<span th:if="${user.role}=='admin'">
@@ -282,13 +280,15 @@
 		        jQuery("#status").fadeOut();
 		        jQuery("#preloader").delay(350).fadeOut("slow");
 		        
-		        
+		        //고정된 것은 따로 앞으로, 색깔강조
 		        $("#boardPin[value='1']").parent().parent().css({"color":"red", "font-weight":"bold"});
 		       
 		    });
 
 	  })
 	</script>
+
+
 	
 	<!--  <script src="/js/custom.js"></script> -->
 <!-- <script src="/js/custom.js"></script> -->

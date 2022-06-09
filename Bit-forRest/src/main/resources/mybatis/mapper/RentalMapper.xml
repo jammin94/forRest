@@ -108,18 +108,16 @@
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-	  SELECT 
-	  		p.*, t.*
+		SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity
 	 	FROM product p, transaction t
-	  					FROM		
-	  				<where>
-				 		p.prodNo = t.prodNo and t.userId = #{userId}
-				 		<if test="searchProductCondition != null">
-				 		<!-- 현재보관중인 물품만 보기위한 조건-->
-				 		 and p.prodCondition = #{searchProductCondition}
-				 		</if>
-	 				</where>
-	 				ORDER BY t.tranNo DESC
+	 	<where>
+	 		p.prodNo = t.prodNo and t.userId = #{userId}
+	 		<if test="searchProductCondition != null">
+	 		<!-- 현재보관중인 물품만 보기위한 조건-->
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
+	 	</where>
+	 	ORDER BY t.tranNo DESC
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->
