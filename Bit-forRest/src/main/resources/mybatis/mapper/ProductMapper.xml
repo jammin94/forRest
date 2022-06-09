@@ -23,7 +23,7 @@
 		<result property="account" 				column="ACCOUNT" 				jdbcType="VARCHAR"  />
 		<result property="deposit" 				column="deposit" 				jdbcType="INTEGER"  />
 		<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
-		<result property="returnAddress" 				column="returnAddress" 				jdbcType="VARCHAR"  />
+		<result property="divyAddress" 				column="divyAddress" 				jdbcType="VARCHAR"  />
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
 		<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 		
@@ -39,9 +39,9 @@
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
 	 	INTO product(width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
-	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, deposit, category, returnAddress, prodImg, recentImg)
+	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, deposit, category, divyAddress, prodImg, recentImg)
 	 	values (#{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
-	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{returnAddress}, #{prodImg}, #{recentImg})
+	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg})
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
@@ -59,7 +59,7 @@
 	   		prodName =#{prodName}, 
 	   		category =#{category}, 
 	   		prodDetail =#{prodDetail},  
-	   		returnAddress =#{returnAddress},  
+	   		divyAddress =#{divyAddress},  
 	   		isRental =#{isRental}, 
 	   		rentalPrice =#{rentalPrice}, 
 	   		deposit =#{deposit},  

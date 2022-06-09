@@ -7,68 +7,310 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>보관등록페이지</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+   <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        
 </head>
 <style>
 	
+.col-md-12{
+ margin-top: 200px
+}
+
+.boardTitle{
+  text-align: center;
+  top: -40px;
+  position: relative;
+}
+
+.product-list{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;  
+}
+
+.product-list .product{  
+  width: 24%; /* Products width */  
+  margin: 7px; /* Space between products related with nth-childs below */
+  
+  position: relative;
+  border: 2px solid #eee;
+  background: white;
+  background-image: url('http://bzy-web.netholding.com/content/assets/plugins/application/images/bg-b.png');    
+
+  min-height: 465px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 4 item list */
+.product-list .product:nth-child(4n+1){
+  margin-left: 0;
+}
+.product-list .product:nth-child(4n+4){
+  margin-right: 0;
+}
+
+.product-list .product:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.product-list .product .product-image{
+  position: relative;
+}
+
+/* Ribbon Styles */
+
+
+.ribbon {
+  background: #ff9606;
+  display: inline-block;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+  padding: 3px 0px 2px;
+  position: relative;
+  border-top-left-radius: 3px;
+  color: #fff;
+  margin-bottom: 5px;
+  width: 55px;
+  text-align: center;
+}
+
+.ribbon:before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 6px 0 0;
+  border-color: #ff9606 transparent transparent transparent;
+  position: absolute;
+  content: "";
+  right: -6px;
+  top: 0;
+}
+
+.ribbon:after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 0 6px;
+  border-color: transparent transparent transparent #ff9606;
+  position: absolute;
+  content: "";
+  right: -6px;
+  bottom: 0;
+}
+
+.product-list .product .product-image img{  
+  width: 100%;
+  display: block;
+}
+
+.product-list .product .product-info{
+  background: rgba(238,238,238,.8);
+  position: absolute;  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 10px;
+}
+
+.product-list .product:hover .product-info{
+  background: rgba(238,238,238,.9);
+}
+
+
+
+.product-list .product .product-info .product-name a{
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 18px;     /* fallback */
+  max-height: 54px;      /* fallback */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.product-list .product:hover .product-info .product-name a{
+  color: #ff9606;
+  text-overflow: ellipsis;
+}
+
+.product-list .product .product-info .product-price .old-price{
+  margin-right: 10px;
+}
+.product-list .product .product-info .product-price .new-price{
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9606;
+  text-shadow: 0 1px 3px rgba(255,255,255,1);
+}
+
+.product-list .product .product-info .add-basket a{
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #333333;
+  padding: 6px 12px 7px;
+  margin-bottom: 15px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.product-list .product:hover .product-info .add-basket a{
+  background: #ff9606;
+  color: white;
+  border: 1px solid #ff9606;
+}
+
+@media screen and (max-width: 1200px){
+  .product-list .product{
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .product-list{    
+    justify-content: space-between;
+  }
+  .product-list .product{
+    width: 48%;
+    margin: 0 0 25px 0;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .product-list{
+    justify-content: space-between;
+  }
+  .product-list .product{
+    width: 48%;
+    margin: 0 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 575px){
+  .product-list{
+    justify-content: space-around;
+  }
+  .product-list .product{
+    width: 90%;
+    margin: 0 0 30px 0;
+    min-height: unset;
+  }
+  .product-list .product .product-info{
+    position: unset;
+  }
+}
+
 </style>
+
 
 <body>
 
   <div th:replace="/main/toolbar.html"></div>
 		<div th:replace="/main/leftbar.html"></div> 
 
+<div class="container">
+  <div class="row">
+  
+  
+    <div class="col-md-12"  >
 
-    		
+     <h2 class="boardTitle">렌탈마켓</h2>
+      <!-- BEGIN Product List -->
+      <div class="product-list">
+
+        <!-- BEGIN Product -->
+        <div class="product" th:each = "product : ${list}">
+          <div class="product-image">
+            <a href="#">
+              <img src="https://dnvefa72aowie.cloudfront.net/origin/article/202204/F3BEFBCC69FE13D9641AEC5AD604CC2DA253E7CEC13598E187FC4CA2BA017505.jpg?q=95&s=1440x1440&t=inside" alt="Resim 1">              
+            </a>
+
+
+          </div>
+          <div class="product-info">
+          
+            <p class="product-name" title="Hayots Yegeghetsin yev ir Badmutyunı, Vartabedutyunı, Vartchutyunı, Paregarkutyunı, Araroghutyunı, Kraganutyunı U Nerga Gatsutyunı">
+              <a href="#">[[${product.prodName}]]</a>                
+            </p>
+            <p class="product-price">
+              <span class="new-price" th:text ="|${product.rentalPrice}원|"></span>
+              <span class="old-price">1박2일</span>
+            </p>
+            <div class="add-basket">
+              <a href="#">대여하기</a>
+            </div>            
+          </div>
+        </div>
+        <!-- END Product -->
+        
+
+      </div>
+      <!-- END Product List -->
+
+    </div>
+  </div>
+</div>
 		
 	
-		<!--try Slider banner End-->
-		<!--try recent mobail Slider Start-->
-		<div class="carousel-inner" role="listbox">
-		<div class="try_recent_mobail_main_wrapper">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<h1 class="boardTitle">렌탈마켓</h1>
-						<div class="try_recent_mob_heading_wrapper">
-							<p><span class="try_left_dots"></span>아몰랑~~<span class="try_right_dots"></span>
-							전체 <span th:text="${resultPage.totalCount}"/>건
-							</p>
-						</div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="try_rc_slider_inner_wrapper">
-							<div class="rentalProduct">
-							
-							<!-- 물품하나 -->
-								<div class="item" th:each="product :${list}">
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-											<img width="300" height="205" src= "https://dnvefa72aowie.cloudfront.net/origin/article/202205/a3c0967f7ed8cd41c35c738a5f776785f5b3d07179638e1bcbfbd1bb873898d8.webp?q=95&s=1440x1440&t=inside">
-										<!--		<!--	<h5>Sale</h5>  -->  
-											<a href="#"><i class="fa fa-heart"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2 th:text = ${product.prodName}></h2>
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-											<p th:text = ${product.rentalPrice}></p>	
-											<p th:text = ${product.deposit}></p>
-											<div class="try_mob_btn_wrapper">	<a  th:href="@{/product/getProduct(prodNo= ${product.prodNo})}" >Buy Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- 물품하나 -->
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div th:replace="/main/footer.html"></div>
 </body>
+
+	<script type="text/javascript">
+	
+	</script>
+
 
 </html>
