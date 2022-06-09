@@ -101,7 +101,9 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
+		  <span stlye="display:none;"  th:if="${session.user!= null}">
 			<a th:href="@{/user/getUser(userId= ${session.user.userId})}">내 정보 보기</a>
+			</span>
 		</span>
 	</div>
 </div>
