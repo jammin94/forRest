@@ -135,11 +135,21 @@ public class OldController {
 		System.out.println(this.getClass()+ " ADD올드 네비게이션");
 		return "old/addOld";
 	}	
+	
 	@PostMapping("addOld")
-	public String addOld( @RequestParam("old") Old old) throws Exception {
+	public String addOld( @ModelAttribute("old") Old old) throws Exception {
 		System.out.println(this.getClass()+ " ADD올드 POST");
-		return "old/listOld";
+		
+		
+		System.out.println(old);
+		oldService.addOld(old);
+		return "redirect:/old/listOld";
+		
+		
 	}	
+	
+	
+
 //	@GetMapping("updateOld/{oldNo}")
 //		
 //	public String updateOld(@PathVariable int oldNo, Model model ) throws Exception{

@@ -110,7 +110,8 @@
 						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
 <!-- 	/////////////////////// 게시물  ///////////////////////////// -->
 <!-- ////////////////oldState조건문만 단독으로 쓸때는 나란히 나오나, user 조건문까지 같이쓰면 띄엄띄엄나옴///////						 -->
-							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'">
+<!-- 							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'"> -->
+							<div class="item" th:if="${old.oldState}==1" >
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 									
@@ -140,7 +141,8 @@
 				<section id="sold" class="tab-panel">
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
-							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'">
+<!-- 							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'"> -->
+							<div class="item" th:if="${old.oldState}==0">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 									
