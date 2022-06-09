@@ -11,6 +11,7 @@ public class OwnCoupon {
 	private int ownCouponNo;
 	private User ownUser;
 	private Coupon ownCoupon;
+	private String couponName;
 	private Timestamp ownCouponCreDate;
 	private Timestamp ownCouponDelDate;
 
