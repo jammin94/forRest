@@ -96,7 +96,7 @@ public class UserController {
 			
 			//세션에 user 저장
 			session.setAttribute("user", dbUser);
-			model.addAttribute("user", dbUser);
+//			model.addAttribute("user", dbUser);	
 			
 			//신규회원 쿠폰발급
 			if(user.getJoinDate()==user.getRecentDate()) {
@@ -288,8 +288,10 @@ public class UserController {
 		
 		model.addAttribute("review1", list.get(0));
 		model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-		model.addAttribute("review2", list.get(1));
-		model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
+		model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewedUserId()).getNickname());
+//		model.addAttribute("review2", list.get(2));
+//		model.addAttribute("oldTitle2", oldService.getOld(list.get(2).getOldNo()).getOldTitle());
+//		model.addAttribute("nickname2", userService.getUser(list.get(2).getReviewedUserId()).getNickname());
 		model.addAttribute("user", dbUser);
 
 		return "user/getUser";
