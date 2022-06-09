@@ -55,9 +55,9 @@ public class CouponService {
 		ownCouponDao.addOwnCoupon(ownCoupon);
 	}
 	
-	public Map<String, Object> getOwnCouponList(Search search) throws Exception{
-		List<OwnCoupon> list =ownCouponDao.getOwnCouponList(search);
-		int totalCount = ownCouponDao.getTotalCount(search);
+	public Map<String, Object> getOwnCouponList(String userId) throws Exception{
+		List<OwnCoupon> list =ownCouponDao.getOwnCouponList(userId);
+		int totalCount = ownCouponDao.getTotalCount(userId);
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("list", list);

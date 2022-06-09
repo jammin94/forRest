@@ -72,5 +72,18 @@ public class CouponServiceTest {
 		System.out.println("\n"+map.get("list")+"\n");
 	}
 	
+	@Test
+	public void testGetOwnCouponList() throws Exception{
+		
+		User user = new User();
+		String userId = "user01@naver.com"; 
+		user.setUserId(userId);
+		
+		Map<String,Object> map = couponService.getOwnCouponList(user.getUserId());
+		
+		System.out.println("map : "+map);
+		
+	}
+	
 
 }

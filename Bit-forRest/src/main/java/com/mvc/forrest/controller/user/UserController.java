@@ -259,16 +259,24 @@ public class UserController {
 	
 	@RequestMapping("getUser")
 	public String getUser( @RequestParam("userId") String userId , Model model,
-							HttpSession session) throws Exception {
+							HttpSession session, Search search) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		
 		User dbUser = userService.getUser(userId);
 		User sessionUser = (User)session.getAttribute("user");
+
+		if(sessionUser==null) {
+			return "user/login";
+		}
+		
 		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
 			int profit = 
 					rentalService.getTotalRentalProfit(sessionUser.getUserId());
-
+			
+			Map<String , Object> map=couponService.getOwnCouponList(userId);
+			
+			model.addAttribute("list", map.get("list"));
 			model.addAttribute("user", sessionUser);
 			model.addAttribute("profit", profit);
 			return "user/getMyPage";
