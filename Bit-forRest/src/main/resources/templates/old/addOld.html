@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <link href="/css/addOld.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/addOld.css">
+
 </head>
 <body>
+    
+   
+    
+    
     <div class="container">
         <header> 중고 거래 등록 </header>
         <div class="progress-bar">
@@ -24,33 +29,25 @@
             </div>
         </div>
         <div class="form-outer">
-            <form action="#">
+            <form >
                 <div class="page slidepage">
                     <div class="title">Basic Info:</div>
                     
-                    <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
-                    </div>
-                    <input type="file" name="img-upload-input" style="display:none">
-                  </div>
-</div>
-                    
+ <div class="form-group">
+		    	<label for="oldImg" class="col-sm-offset-1 col-sm-3 control-label">사진 선택</label>
+		     	<div class="col-sm-4">
+		      		<input type="file"  class="form-control" id="oldImg" name="oldImg" accept=image/*>대표
+		     	</div>
+		   	</div>
+   
+
+<form method="post" action="/upload" enctype"multipart/form-data">
+<input type ="file" name="filename" id="filename" </form>사진
+
+        
                     <div class="field">
-                        <div class="label" >제품 이름</div>
-                        <input type="text" id="oldTitle" name="oldTitle">
+                        <div class="label">제품 이름</div>
+                        <input type="text" id= "oldTitle" name="oldTitle">
                     </div>
                     <div class="field">
                         <div class="label">카테고리</div>
@@ -67,14 +64,8 @@
                             <option value="기타용품">기타용품</option>
                         </select>
                     </div>
-                    
-                      <div class="field">
-                        <div class="label">가격</div>
-                        <input type="text" id="oldPrice" name="oldPrice">
-                    </div>
-                    
                     <div class="field nextBtn">
-                        <button>Next</button>
+                        <button type="button">Next</button>
                     </div>
                 </div>
 
@@ -84,11 +75,34 @@
                         <div class="label">제품 설명</div>
                         <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
                     </div>
+                    
+                    <div class="field">
+                        <div class="label">가격</div>
+                        <input type="text" id= "oldPrice" name="oldPrice">
+                    </div>
+                    
+                    <div class="field">
+                        <div class="label">유저 아이디</div>
+                        <input type="text" id= "userId" name="userId">
+                    </div>
+                    
+                    <div class="field">
+                        <div class="label">스테이트</div>
+                        <input type="text" id= "oldState" name="oldState">
+                    </div>
+                    
+                    
+                    
+                    <div class="field">
+                        <div class="label">조회수</div>
+                        <input type="text" id= "oldView" name="oldView">
+                    </div>
+                    
                     <div class="field">
                     	<div class="label">거래 지역</div>
                         <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
-		                ( <input type="text" name="oldAddr" id="oldAddr" size="3" class="line"  value=""  readonlycheck=""> -
-		                <input type="text" name="oldAddr" id="oldAddr" size="3" class="line"  value=""  readonlycheck=""> )
+		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
+		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
                     </div>
                     <div class="field btns">
                         <button class="prev-1 prev">Previous</button>
@@ -100,46 +114,16 @@
         </div>
     </div>
    
-</body> 
-
-
-<script type="text/javascript">
-
-
-
-function fncAddOld(){
-	var oldTitle = $("input[name='oldTitle']").val();
-	var oldDetail =$("textarea[name='oldDetail']").val();
-	var oldPrice = $("input[name='oldPrice']").val();
-	
-	if(oldTitle == null || oldTitle.length <1){
-		alert("글 제목을 입력해주세요.");
-		return;
-}
-
-	if (oldDetail == null || oldDetail.length < 1) {
-		alert("상품상세정보는 반드시 입력하여야 합니다.");
-		return;
-	}
-
-	if (oldPrice == null || oldPrice.length < 1) {
-		alert("가격은 반드시 입력하셔야 합니다.");
-		return;
-	}
-	
-	$("form").attr("method" , "POST").attr("action" , "/old/addOld").submit();	
-}
-
-$(function() {
-	//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-	$( ".submit" ).on("click" , function() {
-		fncAddOld();
-	});
-});
+     <script src="/js/jquery_min.js"></script>
+    <script src="/js/addOld.js"></script>
+    <script src="/js/addRentalReview.js"></script>
+    
+    <script type="text/javascript">
+    
+ 
 
 </script>
+    
+</body>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="/js/jquery_min.js"></script>
-<script src="/js/addOld.js"></script>
 </html>
