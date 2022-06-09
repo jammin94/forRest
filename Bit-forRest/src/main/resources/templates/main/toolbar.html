@@ -212,7 +212,7 @@ article {
           </ul>
         </li>
           <li>
-            <a th:href="@{/asas}">렌탈마켓</a>
+            <a th:href="@{/product/listProduct}">렌탈마켓</a>
         </li>
         
          <!-- 고객센터 -->
@@ -232,7 +232,7 @@ article {
         </li>
         
         <!-- 로그인 안 했으면 "로그인" -->
-         <span stlye="display:none;" th:if="${session.user==null } ">
+         <span stlye="display:none;" th:if="${session.user==null} ">
            <li>
                    <a th:href="@{/user/login}">로그인</a>
            </li>
