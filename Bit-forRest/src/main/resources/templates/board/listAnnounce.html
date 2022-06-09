@@ -54,7 +54,6 @@
 		//고정 클릭 
 		 $(function() {
 			$( '#pin' ).on("click" , function() {
-				alert("고정");
 				$("form").attr("method" , "POST").attr("action" , "/board/updateFixAnnounce").submit();
 			});
 		});
@@ -62,7 +61,6 @@
 		//삭제 클릭 
 		 $(function() {
 			$( '#delete' ).on("click" , function() {
-				alert("삭제");
 				$("form").attr("method" , "POST").attr("action" , "/board/deleteAnnounce").submit();
 			});
 		});
@@ -167,7 +165,7 @@
 	            <th align="center">No</th>
 	            <th align="center" >제목</th>   
 	            <th align="center">게시날짜</th>
-	            <span th:if="${user.role}=='admin'">
+	            <span th:if="${user}!=null and ${user.role}=='admin'" >
 	            <th align="left">
 	            	<input type="checkbox" name="totalSelector" id="totalSelector"></input>
 	            </th>	
@@ -190,7 +188,7 @@
 				</a>
 			</td>
 			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
-			<span th:if="${user.role}=='admin'">
+			<span th:if="${user}!=null and ${user.role}=='admin'" >
 				<td align="center">
 					<input type="checkbox" name="eachSelector" id="eachSelector" th:value="${board.boardNo}"/>
 				</td>
@@ -203,7 +201,7 @@
 	    </tr>
 	        </tbody>
 	     
-	     <span th:if="${user.role}=='admin'">
+	     <span th:if="${user}!=null and ${user.role}=='admin'" >
 		    <button type="submit" class="btn btn-default" id="pin">상단 고정 적용/미적용</button>
 			<button type="submit" class="btn btn-default" id="delete">삭제</button>
 			<br/>
@@ -256,7 +254,7 @@
 		</div>
 		
 		
-		<span th:if="${user.role}=='admin'">
+		<span th:if="${user}!=null and ${user.role}=='admin'" >
 			<button type="text" class="btn btn-default" id="addAnnounce">
 				<a th:href="@{/board/addAnnounce}" >
 					공지사항 등록

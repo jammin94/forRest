@@ -22,14 +22,14 @@
   <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
    <script>
    			//공지사항 등록
-   			$("#add").click(function(){
+   			$("#update").click(function(){
 				var boardTitle=$("input[name='boardTitle']").val();
 				var boardDetail=$("input[name='boardDetail']").val();
 				alert(boardTitle);
 				alert(boardDetail);
 				if(boardTitle!=null && boardDetail!=null){
-					alert("공지사항 등록 완료");
-					$("form").attr("method" , "POST").attr("action" , "/board/addAnnounce").submit();	
+					alert("공지사항 수정 완료");
+					$("form").attr("method" , "POST").attr("action" , "/board/updateAnnounce").submit();	
 				}else{
 					alert("공지사항 제목과 내용을 반드시 적어주세요");
 				}
@@ -61,21 +61,25 @@
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info">
-		 <h3>공지사항 등록</h3>
+		 <h3>공지사항 수정</h3>
 	</div>
 		
 	 <form class="form-inline" name="detailForm">
 	 
 	 	<div class="input-group">
-		  <span class="input-group-addon" id="boardTitle" name="boardTitle">제목</span>
-		  <input type="text" class="form-control" placeholder="공지사항 제목을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px">
+		  <span class="input-group-addon">제목</span>
+		  <input type="text" id="boardTitle" name="boardTitle" class="form-control"  
+		  aria-describedby="basic-addon1" style="width: 1200px"
+		  th:value=${board.boardTitle}>
 		</div>
 		
 		<br/>
 		
 		<div class="input-group">
-		  <span class="input-group-addon" id="boardDetail" name="boardDetail">내용</span>
-		  <input type="text" class="form-control" placeholder="공지사항 글 내용을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
+		  <span class="input-group-addon">내용</span>
+		  <input type="text" id="boardDetail" name="boardDetail" class="form-control" 
+		   aria-describedby="basic-addon1" style="width: 1200px; height:360px"
+		   th:value=${board.boardDetail}/>
 		</div>
 		
 		<br/>
@@ -109,9 +113,9 @@
 			</div>
 		  
 		
-		<button type="text" class="btn btn-default" id="add">등록</button>
+		<button type="text" class="btn btn-default" id="update">수정</button>
 		<button type="text" class="btn btn-default" id="cancel">
-			<a th:href="@{/board/listAnnounce}" >취소</a>
+			<a th:href="@{/board/getAnnounce?boardNo=${board.boardNo}}" >취소</a>
 		</button>
 		</div>
 
