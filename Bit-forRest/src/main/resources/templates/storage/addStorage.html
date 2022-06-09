@@ -145,7 +145,7 @@ border-bottom:3px solid #ddd !important;
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""></td>
+		<td><input type="text" name="prodName" value=""  readonlycheck=""></td>
 	</tr>
 
 	<tr>
@@ -172,29 +172,29 @@ border-bottom:3px solid #ddd !important;
 		<tr>
 		<td>크기</td>
 		<td>
-		<input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> x
-		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> x
-		<input type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> 
+		<input type="text" name="width" value="" size="3" maxlength="3"    readonlycheck=""> x
+		<input type="text" name="length" value="" size="4" maxlength="4" readonlycheck=""> x
+		<input type="text" name="height" value="" size="4" maxlength="4"  readonlycheck=""> 
 		
 		</td>
 	</tr>
 	
 	<tr>
 		<td>물품설명</td>
-		<td><textarea name="address" id="address" class="textarea" ></textarea></td>
+		<td><textarea name="prodDetail" id="prodDetail" class="textarea" ></textarea></td>
 	</tr>
 	
 	<tr>
 		<td>보관기간</td>
 		<td>
-			 <select class="category" name= "category">
+			 <select class="period" name= "period">
    
-        	 <option value="텐트">1개월</option>
-	         <option value="침대">2개월</option>
-	         <option value="의자">3개월</option>
-	         <option value="그릴">4개월</option>
-	         <option value="버너">5개월</option>
-	         <option value="조명">6개월</option>
+        	 <option value=30>1개월</option>
+	         <option value=60>2개월</option>
+	         <option value=90>3개월</option>
+	         <option value=120>4개월</option>
+	         <option value=150>5개월</option>
+	         <option value=180>6개월</option>
 	       
   
           </select>
@@ -205,7 +205,7 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>물품수량</td>
 		<td>
-		<input type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" > 개
+		<input type="text" name="prodQuantity" value="" size="3" > 개
 		
 		</td>
 	</tr>
@@ -235,31 +235,33 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>대여가능</td>
 		<td class="noline">
-		<input type="checkbox" onclick="ctrl_field(this.checked)"> 보관한물품을 대여가능하게 합니다.
+		<!-- 체크가 되어있을때 1 아닐때 0을 전달 -->
+		<input type="checkbox"  name="isRental" value=1 id="input_check"> 보관한물품을 대여가능하게 합니다.
+		<input type="hidden"  name="isRental" value=0 id="input_check_hidden"> 
 		</td>
 	</tr>
 	
 	<tr>
 		<td>물품대여가격</td>
-		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""> 원</td>
+		<td><input type="text" name="rentalPrice" value=""  readonlycheck=""> 원</td>
 	</tr>
 	
 	<tr>
 		<td>보증금</td>
-		<td><input type="text" name="nameReceiver" value="" required="" readonlycheck=""> 원</td>
+		<td><input type="text" name="deposit" value=""  readonlycheck=""> 원</td>
 	</tr>
 
 	<tr>
 		<td>계좌번호</td>
 		<td>
-			 <select class="account" name= "account">
+			 <select class="account" name= "accountBank">
    
         	 <option value="텐트">국민</option>
 	         <option value="침대">신한</option>
   
           </select>
 		 
-		  <input type="text" name="nameReceiver" value="" required="" readonlycheck="">
+		  <input type="text" name="accountNumber" value=""  readonlycheck="">
 		</td>
 	</tr>
 	
@@ -315,15 +317,15 @@ border-bottom:3px solid #ddd !important;
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
 		<td>주문하시는분</td>
-		<td><input type="text" name="nameOrder" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+		<td><input type="text" name="receiverName" value="" style="font-weight:bold"  msgr="주문하시는분의 이름을 적어주세요"></td>
 	</tr>
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="text" name="receiverPhone1" value="" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
+		<input type="text" name="receiverPhone2" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
+		<input type="text" name="receiverPhone3" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
 		</td>
 	</tr>
 	</tbody></table>
@@ -350,23 +352,16 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>픽업주소</td>
 		<td>
-		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
-		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="" required="" readonlycheck=""> -
-		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="" required="" readonlycheck=""> )
-		<a href="javascript:popup('../proc/popup_address.php',500,432);" id="addressSearch"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" align="absmiddle"></a>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td><input type="text" name="address" id="address" class="lineBig" readonly="" value="" required="" readonlycheck=""></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input type="text" name="address_sub" id="address_sub" class="lineBig" value="" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소" readonlycheck="">
-			<input type="hidden" name="road_address" id="road_address" style="width:100%" value="" class="line">
-			<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;" id="div_road_address"></div>
-			<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub"></div>
+		<div class="form-group">
+	 <div class="col-sm-5">
+		  <input type="hidden"  name="divyAddr">
+		 <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
+		 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
+	     <input type="text" id="pickup_address"  name="pickupAddress" placeholder="주소"><br>
+	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
+		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
+		   </div>
+</div>
 		</td>
 	</tr>
 	
@@ -379,26 +374,19 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>반송주소</td>
 		<td>
-		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="" readonlycheck="">
-		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="" required="" readonlycheck=""> -
-		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="" required="" readonlycheck=""> )
-		<a href="javascript:popup('../proc/popup_address.php',500,432);" id="addressSearch"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" align="absmiddle"></a>
-		</td>
+	 <div class="form-group">
+	 <div class="col-sm-5">
+		  <input type="hidden"  name="divyAddr">
+		 <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+		 <input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
+	     <input type="text" id="divy_address"  name="divyAddress" placeholder="주소"><br>
+	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
+		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
+		   </div>
+</div>  
 	</tr>
 	
-	<tr>
-		<td></td>
-		<td><input type="text" name="address" id="address" class="lineBig" readonly="" value="" required="" readonlycheck=""></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input type="text" name="address_sub" id="address_sub" class="lineBig" value="" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소" readonlycheck="">
-			<input type="hidden" name="road_address" id="road_address" style="width:100%" value="" class="line">
-			<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;" id="div_road_address"></div>
-			<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub"></div>
-		</td>
-	</tr>
+	
 	
 
 
@@ -458,7 +446,8 @@ border-bottom:3px solid #ddd !important;
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button>결제하기</button>
+	<button> 결제하기</button>
+	<button class="addrTest">주소테스트</button>
 	<button>취소하기</button>
 </div>
 	</form>
@@ -473,18 +462,139 @@ border-bottom:3px solid #ddd !important;
 	<script src="/js/addRentalReview.js"></script>
 	  <sciprt src="/js/rentalTest.js"></sciprt>
 <script src="/js/jquery_min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-	 /*  $(document).ready(function() {
-			"use strict";
-			
+	
+	 function pickup_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
 
-	  }) */
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    document.getElementById("pickup_extraAddress").value = extraAddr;
+	                
+	                } else {
+	                    document.getElementById("pickup_extraAddress").value = '';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('pickup_postcode').value = data.zonecode;
+	                document.getElementById("pickup_address").value = addr;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("pickup_detailAddress").focus();
+	            }
+	        }).open();
+	    }
+
+	 function divy_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    document.getElementById("divy_extraAddress").value = extraAddr;
+	                
+	                } else {
+	                    document.getElementById("divy_extraAddress").value = '';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('divy_postcode').value = data.zonecode;
+	                document.getElementById("divy_address").value = addr;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("divy_detailAddress").focus();
+	            }
+	        }).open();
+	    }
+	 
+
+	 
+	 //csv를 넣어 주소를 하나로 합치는 함수
+	 
+	 function combineAddr(){
+		 
+		 //디버깅
+		 //alert($("input[name='postcode']").val())
+		 
+		 var pickupAddrValue = "";
+		 
+		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupAddress']").val() + "/" 
+			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
+		
+		// alert(pickupAddrValue);
+		 
+		 var divyAddrValue = "";
+		 
+		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyAddress']").val() + "/" 
+			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
+		
+		 //alert(divyAddrValue);
+		 
+	 }
+	 
+	
+	 $(function(){
+		 $(".addrTest").on("click", function(){
+			 combineAddr();
+		 })
+	 })
+	 
+	 
+	
 	</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->

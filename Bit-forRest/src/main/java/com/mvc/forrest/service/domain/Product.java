@@ -24,7 +24,7 @@ public class Product {
 	private String account;
 	private int deposit ;
 	private String category;
-	private String returnAddress;
+	private String divyAddress;
 	private String prodImg;
 	private String recentImg;
 	private User userProd;

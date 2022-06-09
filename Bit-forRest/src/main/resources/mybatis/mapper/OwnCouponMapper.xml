@@ -37,17 +37,17 @@
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getOwnCouponList"  parameterType="String"		resultMap="ownCouponSelectMap">
-		SELECT c.couponName, oc.ownCouponCreDate, oc.ownCouponDelDate
+		SELECT c.couponName, oc.*
 		FROM coupon c, ownCoupon oc
 		WHERE oc.couponNo = c.couponNo
 		AND oc.userId = #{ownUser.userId}
 	 </select>
 	
 	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="String"	 resultType="int">
+	 <select  id="getTotalCount" parameterType="String" resultType="int">
 	  	SELECT COUNT(*)				
 	  	FROM ownCoupon
-	  	WHERE userId = #{value}
+	  	WHERE userId = #{ownUser.userId}
 	 </select>
 	 
 	
