@@ -97,10 +97,10 @@
                         <option value="텐트">4박5일</option>
                         </select>
           </span></li>
-      <li th:if = "${product.userId} == ${session.user.userId}" style = "display:none">
-			<li>계좌번호  <span  th:text = ${product.account}></span></li>
-			<li>반송주소  <span  th:text = ${product.divyAddress}></span></li>
-       </li>
+      
+			<li th:if = "${product.userId} == ${session.user.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
+			<li th:if = "${product.userId} == ${session.user.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
+       
         </ul>
       </div>
       
