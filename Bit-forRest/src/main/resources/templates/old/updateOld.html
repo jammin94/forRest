@@ -13,7 +13,7 @@
     
     
     <div class="container">
-        <header> 중고 거래 등록 </header>
+        <header> 중고 거래 수정 </header>
         <div class="progress-bar">
             <div class="step">
                 <p>name</p>
@@ -47,11 +47,11 @@
         
                     <div class="field">
                         <div class="label">제품 이름</div>
-                        <input type="text" id= "oldTitle" name="oldTitle">
+                        <input type="text" id= "oldTitle" name="oldTitle" th:value = "${old.oldTitle}">
                     </div>
                     <div class="field">
                         <div class="label">카테고리</div>
-                        <select class="category" id="category" name= "category">
+                        <select class="category" id="category" name= "category" th:value = "${old.category}">
                             <option value="텐트">텐트</option>
                             <option value="침대">침대</option>
                             <option value="의자">의자</option>
@@ -64,19 +64,6 @@
                             <option value="기타용품">기타용품</option>
                         </select>
                     </div>
-                    
-                       <div class="field">
-                        <div class="label">가격</div>
-                        <input type="text" id= "oldPrice" name="oldPrice">
-                    </div>
-                    
-                     <div class="field">
-                    	<div class="label">거래 지역</div>
-                        <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
-		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
-		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
-                    </div>
-                    
                     <div class="field nextBtn">
                         <button type="button">Next</button>
                     </div>
@@ -86,19 +73,23 @@
                     <div class="title">Basic Info:</div>
                     <div class="field temp">
                         <div class="label">제품 설명</div>
-                        <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
+                        <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px" th:value = "${old.oldDetail}">
+                        </textarea>
                     </div>
                     
-                 
+                    <div class="field">
+                        <div class="label">가격</div>
+                        <input type="text" id= "oldPrice" name="oldPrice" th:value = "${old.oldPrice}">
+                    </div>
                     
                     <div class="field">
                         <div class="label">유저 아이디</div>
-                        <input type="text" id= "userId" name="userId">
+                        <input type="text" id= "userId" name="userId" th:value = "${old.userId}">
                     </div>
                     
                     <div class="field">
                         <div class="label">스테이트</div>
-                        <input type="text" id= "oldState" name="oldState">
+                        <input type="text" id= "oldState" name="oldState" th:value = "${old.oldState}">
                     </div>
                     
                     
@@ -108,10 +99,15 @@
                         <input type="text" id= "oldView" name="oldView">
                     </div>
                     
-                   
+                    <div class="field">
+                    	<div class="label">거래 지역</div>
+                        <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
+		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
+		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
+                    </div>
                     <div class="field btns">
                         <button class="prev-1 prev">Previous</button>
-                        <button class="submit">Submit</button>
+                        <button class="submit"  th:onclick="|location.href='@{/old/updateOld}'|">Submit</button>
                     </div>
                 </div>
 
@@ -120,7 +116,7 @@
     </div>
    
      <script src="/js/jquery_min.js"></script>
-    <script src="/js/addOld.js"></script>
+    <script src="/js/updateOld.js"></script>
     <script src="/js/addRentalReview.js"></script>
     
     <script type="text/javascript">

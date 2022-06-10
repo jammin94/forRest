@@ -52,12 +52,13 @@ img{
 /* 제목 */
 
 .product-title{
-    font-size: 3rem;
+    font-size: 2.1rem;
     font-family: arial;
+    font-weight:bold ;
 /*     text-transform: capitalize; */
 /*     font-weight: 7000; */
     position: relative;
-    color: rgb(104, 104, 104);
+    color: #252525;
     margin: 1rem 0;
 }
 .product-title::after{
@@ -67,8 +68,16 @@ img{
     bottom: 0;
     height: 4px;
     width: 80px;
-    
 }
+
+.selectBox {
+  position: relative;
+  width: 150px;
+  height: 35px;
+  border-radius: 4px;
+  border: 2px  solid #d7dbd8;
+}
+
 .product-link{
     text-decoration: none;
     text-transform: uppercase;

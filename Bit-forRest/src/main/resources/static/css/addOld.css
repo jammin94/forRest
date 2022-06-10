@@ -12,7 +12,10 @@ body
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: black;
+/*     background: black; */
+background-image: url("/images/content/eee.jpg");
+background-repeat: no-repeat;
+
 }
 .container
 {
@@ -110,7 +113,7 @@ form .page .field select
 }
 .form-outer form .page .field button:hover
 {
-    background: #d43f8d;
+    background: #FF5C00;
 }
 .form-outer form .page .btns button
 {
@@ -143,7 +146,7 @@ form .page .btns button .next{
 }
 .progress-bar .step p.active
 {
-    color: #d43f8d;
+    color: #FF5C00;
 }
 .progress-bar .step .bullet
 {
@@ -156,8 +159,8 @@ form .page .btns button .next{
     transition: 0.2s;
 }
 .progress-bar .step .bullet.active{
-    border-color: #d43f8d;
-    background: #d43f8d;
+    border-color: #FF5C00;
+    background: #FF5C00;
 }
 .progress-bar .step:last-child .bullet::before,
 .progress-bar .step:last-child .bullet::after
@@ -177,7 +180,7 @@ form .page .btns button .next{
 }
 .progress-bar .step .bullet.active::after
 {
-    background: #d43f8d;
+    background: #FF5C00;
     transform: scaleX(0);
     transform-origin: left;
     animation: animate 0.3s linear forwards;
