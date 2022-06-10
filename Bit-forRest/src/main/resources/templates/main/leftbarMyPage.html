@@ -101,8 +101,24 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
+
+		</span>
+	</div>
+</div>
+
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/storage/listStorage}">보관내역조회</a>
+		</span>
+	</div>
+</div>
+
+<div class="leftBarListShow">
+<div class="leftBarListArray">
+		<span class="leftBarList">
 		  <span stlye="display:none;"  th:if="${session.user!= null}">
-			<a th:href="@{/user/getUser(userId= ${session.user.userId})}">내 정보 수정</a>
+			<a th:href="@{/user/pwdReset}">비밀번호변경</a>
 			</span>
 		</span>
 	</div>
@@ -111,68 +127,28 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/old/listOld}">중고물품리스트</a>
+			<a th:href="@{/old/listOld}">중고거래내역</a>
 		</span>
 	</div>
 </div>
 	
 
+
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/listRentalProfit}">대여수익확인</a>
+			<a th:href="@{/rental/listRentalProfit}">대여내역조회</a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/addRental}">대여주문하기</a>
+			<a th:href="@{/user/deleteUser}">탈퇴하기</a>
 		</span>
 	</div>
 </div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/rental/getRental}">결제정보</a>
-		</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/rental/getRental}">결제완료화면</a>
-		</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/testWishList}">장바구니리스트</a>
-		</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/board/listFAQ}">FAQ</a>
-		</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/board/listAnnounce}">공지사항</a>
-		</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">
-			<a th:href="@{/firebase/message}">푸시메시지테스트</a>
-		</span>
-	</div>
-</div>
+
 </div>
 
 <div>

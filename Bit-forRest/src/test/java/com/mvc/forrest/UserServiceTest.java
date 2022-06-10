@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -144,26 +145,32 @@ public class UserServiceTest {
 //	@Test
 	public void loginCouponTest() throws Exception{
 		
-		User dbUser = userService.getUser("admin");
 		OwnCoupon oc = new OwnCoupon();
+		User user = userService.getUser("admin");
 		Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
+		Calendar cal= Calendar.getInstance();
+		cal.add(Calendar.DATE,30);
 		Timestamp ts1 = new Timestamp(System.currentTimeMillis());
-		Timestamp ts2 = new Timestamp(System.currentTimeMillis());
-
+		Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
 		
-		
-		System.out.println("ts2 toString ubstring  : "+ts2.toString().substring(0, 10));
-		
-		Calendar cal2= Calendar.getInstance();
-		cal2.setTime(ts2);
-		cal2.add(Calendar.DATE,30);
-		System.out.println("cal2 : "+cal2.toString());
-		oc.setOwnUser(dbUser);
+		oc.setOwnUser(user);
 		oc.setOwnCoupon(coupon);
 		oc.setOwnCouponCreDate(ts1);
 		oc.setOwnCouponDelDate(ts2);
 		System.out.println(oc);
 		couponService.addOwnCoupon(oc);
+		
+		
+		
+		
+		
+		
+//		oc.setOwnUser(dbUser);
+//		oc.setOwnCoupon(coupon);
+//		oc.setOwnCouponCreDate(ts1);
+//		oc.setOwnCouponDelDate(ts2);
+//		System.out.println(oc);
+//		couponService.addOwnCoupon(oc);
 		
 		
 	}

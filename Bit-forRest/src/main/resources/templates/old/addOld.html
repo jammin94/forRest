@@ -64,6 +64,19 @@
                             <option value="기타용품">기타용품</option>
                         </select>
                     </div>
+                    
+                       <div class="field">
+                        <div class="label">가격</div>
+                        <input type="text" id= "oldPrice" name="oldPrice">
+                    </div>
+                    
+                     <div class="field">
+                    	<div class="label">거래 지역</div>
+                        <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
+		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
+		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
+                    </div>
+                    
                     <div class="field nextBtn">
                         <button type="button">Next</button>
                     </div>
@@ -76,10 +89,7 @@
                         <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
                     </div>
                     
-                    <div class="field">
-                        <div class="label">가격</div>
-                        <input type="text" id= "oldPrice" name="oldPrice">
-                    </div>
+                 
                     
                     <div class="field">
                         <div class="label">유저 아이디</div>
@@ -98,12 +108,7 @@
                         <input type="text" id= "oldView" name="oldView">
                     </div>
                     
-                    <div class="field">
-                    	<div class="label">거래 지역</div>
-                        <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
-		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
-		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
-                    </div>
+                   
                     <div class="field btns">
                         <button class="prev-1 prev">Previous</button>
                         <button class="submit">Submit</button>
