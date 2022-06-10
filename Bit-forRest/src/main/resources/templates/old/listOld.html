@@ -1,192 +1,349 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고거래 리스트
+    </title>
+    
+    <link rel="stylesheet" href="/css/style.css">
 
-<!-- 참조  -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="/css/listOld.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+   <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+	
+	
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip 사용 CSS-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jQuery UI toolTip 사용 JS-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        
 </head>
 <style>
-.card-img-top {
-	border-radius: 10px !important;
+.bn3637 {
+position: fixed;
+ bottom: 60px;
+ right:100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.7rem 2.2rem 0.7rem ;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff ;
+  backface-visibility: hidden;
+  border: 0.05rem solid transparent;
+   border-radius: /*0.2rem*/  100%;  
+  background : #000000;
+}
+.bn36 {
+  border-color: #000000;
+  transition: transform 0.2s cubic-bezier(0.235, 0, 0.05, 0.95);
+}
+.bn36:hover {
+  transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+}
+	
+.col-md-12{
+ margin-top: 200px
 }
 
-.page-header{
-    margin: -66px 0 20px;
+.boardTitle{
+  text-align: center;
+  top: -40px;
+  position: relative;
 }
+
+.old-list{
+margin-bottom: 210px !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;  
+}
+
+.old-list .old{  
+    border-radius: 10px;
+  width: 24%; /* olds width */  
+  margin: 7px; /* Space between olds related with nth-childs below */
+  
+  position: relative;
+  border: 2px solid #eee;
+  background: white;
+  background-image: url('http://bzy-web.netholding.com/content/assets/plugins/application/images/bg-b.png');    
+
+  min-height: 465px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 4 item list */
+.old-list .old:nth-child(4n+1){
+  margin-left: 0;
+}
+.old-list .old:nth-child(4n+4){
+  margin-right: 0;
+}
+
+.old-list .old:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.old-list .old .old-image{
+  position: relative;
+}
+
+/* Ribbon Styles */
+
+
+.ribbon {
+  background: #ff9606;
+  display: inline-block;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+  padding: 3px 0px 2px;
+  position: relative;
+  border-top-left-radius: 3px;
+  color: #fff;
+  margin-bottom: 5px;
+  width: 55px;
+  text-align: center;
+}
+
+.ribbon:before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 6px 0 0;
+  border-color: #ff9606 transparent transparent transparent;
+  position: absolute;
+  content: "";
+  right: -6px;
+  top: 0;
+}
+
+.ribbon:after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 0 6px;
+  border-color: transparent transparent transparent #ff9606;
+  position: absolute;
+  content: "";
+  right: -6px;
+  bottom: 0;
+}
+
+.old-list .old .old-image img{  
+  width: 100%;
+  display: block;
+}
+
+.old-list .old .old-info{
+  background: rgba(238,238,238,.8);
+  position: absolute;  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 10px;
+}
+
+.old-list .old:hover .old-info{
+  background: rgba(238,238,238,.9);
+}
+
+
+
+.old-list .old .old-info .old-name a{
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 18px;     /* fallback */
+  max-height: 54px;      /* fallback */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.old-list .old:hover .old-info .old-name a{
+  color: #ff9606;
+  text-overflow: ellipsis;
+}
+
+.old-list .old .old-info .old-price .old-price{
+  margin-right: 10px;
+}
+.old-list .old .old-info .old-price .new-price{
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9606;
+  text-shadow: 0 1px 3px rgba(255,255,255,1);
+}
+
+.old-list .old .old-info .add-basket a{
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #333333;
+  padding: 6px 12px 7px;
+  margin-bottom: 15px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.old-list .old:hover .old-info .add-basket a{
+  background: #ff9606;
+  color: white;
+  border: 1px solid #ff9606;
+}
+
+@media screen and (max-width: 1200px){
+  .old-list .old{
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .old-list{    
+    justify-content: space-between;
+  }
+  .old-list .old{
+    width: 48%;
+    margin: 0 0 25px 0;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .old-list{
+    justify-content: space-between;
+  }
+  .old-list .old{
+    width: 48%;
+    margin: 0 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 575px){
+  .old-list{
+    justify-content: space-around;
+  }
+  .old-list .old{
+    width: 90%;
+    margin: 0 0 30px 0;
+    min-height: unset;
+  }
+  .old-list .old .old-info{
+    position: unset;
+  }
+}
+
+
 </style>
 
 
 <body>
-	<!-- 툴바 include -->
-	<div th:replace="/main/toolbar.html"></div>
-	<div th:replace="/main/leftbar.html"></div>
 
+  <div th:replace="/main/toolbar.html"></div>
+		<div th:replace="/main/leftbar.html"></div> 
 
+<div class="container">
+  <div class="row">
+  
+  
+    <div class="col-md-12"  >
 
-
-	<!--  화면구성 div Start /////////////////////////////////////-->
-
-
-	<p>
-		<small>Source: <cite><a
-				href="https://www.bjcp.org/stylecenter.php">BJCP Style
-					Guidelines</a></cite></small>
-	</p>
-	<div class="container list">
-		
-		<div class="page-header text-info">
-			<h3>중고거래 게시물 리스트  <button  class="btn btn-outline-dark flex-shrink-0"
-				id="write" type="button">
-				<i class="bi-pencil-fill"></i> 글쓰기
-			</button>
-			<div class="container">
-  <div class="row">    
-   <div class="col-xs-8 col-xs-offset-2">
-    <div class="input-group">
-     <div class="input-group-btn search-panel">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        <span id="search_concept">All</span> <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu scrollable-dropdown" role="menu">
-        <li><a href="#">Automotive Accesories</a></li>
-        <li><a href="#">Cell Phone Accesories</a></li>
-       
+     <h2 class="boardTitle">중고마켓	</h2>
      
-      </ul>
-     </div>
-     <input type="hidden" name="search_param" value="all" id="search_param">
-     <input type="text" class="form-control" name="x" id="search" placeholder="Search">
-     <span class="input-group-btn">
-	     <button class="btn btn-default" type="button">
-	       <span class="glyphicon glyphicon-search"></span>
-	     </button>
-	 </span>
+    
+    
+     
+      <!-- BEGIN old List --> <div class="button" align=right> <i class = "fas fa-shopping-cart"></i><a th:href="@{/old/addOld}" class="bn3637 bn36">+</a></div>
+      <div class="old-list">
+
+        <!-- BEGIN old -->
+        <div class="old" th:each = "old : ${list}">
+          <div class="owl-item active" style="width: 270px; margin-right: 20px;" >
+        
+        	<div class="item">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+												<!--	<h5>Sale</h5>  -->
+											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2>[[${old.oldTitle}]]</h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+											<div class="try_mob_btn_wrapper">	<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+			 </div>
+        </div>
+        
+        
+        <!-- END old -->
+        
+
+      </div>
+      <!-- END old List -->
+
     </div>
-   </div>
   </div>
-</div></h3>
-			
-		</div>
-
-
-
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		<div class="row">
-
-			<div class="col-md-6 text-left">
-				<p class="text-primary">
-					<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->
-
-				</p>
-
-			</div>
-
-		</div>
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		<!-- Page Heading -->
-
-
-   
- 
-
-
-		<div class="tabset">
-			<!-- Tab 1 -->
-			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
-				checked> <label for="tab1">판매중</label>
-			<!-- Tab 2 -->
-			<input type="radio" name="tabset" id="tab2" aria-controls="sold">
-			<label for="tab2">거래완료</label>
-<!--    ////////////// 중고거래 게시물  판매중////////////-->
-			<div class="tab-panels">
-				<section id="selling" class="tab-panel">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
-<!-- 	/////////////////////// 게시물  ///////////////////////////// -->
-<!-- ////////////////oldState조건문만 단독으로 쓸때는 나란히 나오나, user 조건문까지 같이쓰면 띄엄띄엄나옴///////						 -->
-<!-- 							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'"> -->
-							<div class="item" th:if="${old.oldState}==1" >
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-									
-											<img width="300" height="205" th:src="@{/images/content/eee.jpg}"/>
-											
-										<!--		<!--	<h5>Sale</h5>  -->  
-											<a href="#"><i class="fa fa-heart"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2 th:text = ${old.oldTitle}></h2>
-											
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-											
-											
-											<div class="try_mob_btn_wrapper">	
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
-											</div>
-										</div>
-									</div>
-								</div>
-					</div>
-					</div>
-					</section>	
-						
-<!-- 	//////////////	중고거래 게시물 거래완료///////////// -->
-				<section id="sold" class="tab-panel">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${list}">
-<!-- 							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'"> -->
-							<div class="item" th:if="${old.oldState}==0">
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-									
-											<img width="300" height="205"  th:src="@{/images/content/bbb.jpg}"/>
-										<!--		<!--	<h5>Sale</h5>  -->  
-											<a href="#"><i class="fa fa-heart"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2 th:text = ${old.oldTitle}></h2>
-											
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-												
-											
-											<div class="try_mob_btn_wrapper">	
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
-											</div>
-										</div>
-									</div>
-								</div>
-					</div>
-					</div>
-					</section>	
-			</div>
-
-		</div>
-
-		<!-- /.row -->
-
-		<!-- Pagination -->
-		
-		<!-- 		페이지 -->
+</div>
 		
 	
-
- 
-</div>
-	<!--  화면구성 div End /////////////////////////////////////-->
-
-
+	<div th:replace="/main/footer.html"></div>
 
 <script type="text/javascript">
 	function fncGetList() {
@@ -200,7 +357,7 @@
 	$(function() {
 
 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$(".try_mob_btn_wrapper").on(
+		$(".try_rc_mob_img_cont_bottom").on(
 				"click",
 				function() {
 
@@ -208,16 +365,18 @@
 				});
 	});
 
-	$(function() {
+// 	$(function() {
 
-		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$("#write").on("click", function() {
+// 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+// 		$("#write").on("click", function() {
 
-			self.location = "/old/addOld";
-		});
-	});
+// 			self.location = "/old/addOld";
+// 		});
+// 	});
 
 </script>
- <script src="/js/listOld.js"></script>
+	
+
 </body>
+
 </html>
