@@ -33,9 +33,10 @@
 	  console.log(input);
 	   if(input){
 	  	for(var num=0; num<input.length; num++){
+		console.log(input[num]);
 	    var reader = new FileReader();
 	    reader.onload = function(e) {
-			console.log("e.target.result : "+e.target.result);
+			//console.log("e.target.result : "+e.target.result);
 	      $(".img-preview-big img")[0].src = e.target.result;
 	      $(".img-preview-small img").each(function() {
 	        $(this).removeClass("img-small-selected");

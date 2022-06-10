@@ -10,32 +10,10 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-   
-   
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  
-   <link rel="stylesheet" href="/css/style.css">    
-    <link rel="stylesheet" type="text/css" href="/css/animate.css" />
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
- 
-  
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 </head>
 <style>
+
 .table{
 	margin-bottom: 80px !important;
 }
@@ -87,14 +65,19 @@ border-bottom:3px solid #ddd !important;
 		display: flex;
     flex-direction: column;
 	}
+	
+.container.list {
+       padding-top: 255px !important;
+    }
+    
 </style>
 <body>
 <!-- 툴바 include -->
 
    <!-- Navigation-->
   <div th:replace="/main/toolbar.html"></div>
-		<div th:replace="/main/leftbar.html"></div> 
-
+<div th:replace="/main/leftbarMyPage.html"></div>
+<div th:replace="/user/topMyPage.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">

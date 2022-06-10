@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <!-- SQL : UPDATE -->
  <update	id="updateOld"		parameterType="old" >
- 	update OLD
+ 	update old
  	<set>
  		oldPrice = #{oldPrice},
  		oldTitle = #{oldTitle},

@@ -11,6 +11,12 @@
   
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
+  
+  input[type="text"]{
+  	border:none;
+  	border-bottom:1px solid #000;
+  }
+  
   .dropbtn {
   	margin-top: 20px;
     background-color: #efefef;
@@ -106,13 +112,141 @@
 	margin-left: 100px;
 }
 
+.aboutUser{
+	margin-top:150px;
+	display: flex;
+    justify-content: center;
+}
+
+.tableBottom{
+	margin-bottom:100px;
+}
+
+.hundred{
+	display:flex;
+    width: 1160px;
+    justify-content: center;
+    width:100%;
+}
+
+.container.list{
+	    margin-bottom: 100px;
+}
+
+.mypage-cont .info_views-area {
+    display: flex;
+    align-items: center;
+}
+
+.n-section-title {
+    border-bottom: 3px solid #000000;
+    padding-bottom: 14px;
+    margin-top: 48px;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    position: relative;
+}
+
+
+.n-section-title .tit {
+    display: inline-block;
+    font-size: 24px;
+    font-family: "Musinsa", sans-serif !important;
+}
+
+.n-section-title .tit > span {
+    color: #aaaaaa;
+}
+
+.mypage-cont .info_views-area > button {
+    padding: 0 15.5px;
+    margin-left: 15px;
+}
+
+.n-btn.btn-default {
+    border: 1px solid #e5e5e5;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.n-btn.btn-sm {
+    min-width: 70px;
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif !important;
+
+    margin-top : 40px;
+    margin:0 auto;
+}
+
+.n-btn {
+    display: inline-block;
+    min-width: 100px;
+    height: 40px;
+    line-height: 36px;
+    color: #ffffff;
+    box-sizing: border-box;
+    padding: 2px 8px 0 8px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    -webkit-transition: border 0.2s, background 0.2s ease-in-out;
+    -moz-transition: border 0.2s, background 0.2s ease-in-out;
+    -o-transition: border 0.2s, background 0.2s ease-in-out;
+    transition: border 0.2s, background 0.2s ease-in-out;
+}
+
+.mypage-cont .info_views-area {
+    display: flex;
+    align-items: center;
+}
+
+.n-section-title {
+    border-bottom: 3px solid #000000;
+    padding-bottom: 14px;
+    margin-top: 48px;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    position: relative;
+}
+
+.n-table {
+    width: 100%;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.n-table.table-row th, .n-table.table-row td {
+    height: auto;
+    padding: 15px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: none;
+    font-size: 14px;
+    text-align: left;
+}
+
+.editInput{
+	border:1px solid #e5e5e5;
+	padding:5px;
+}
+
+
   </style>
   
 <body>
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div>
+<div th:replace="/main/leftbarMyPage.html"></div>
+<div th:replace="/user/topMyPage.html"></div>
 
 <div class="container list" style="padding-right:150px;">
 	 <div class="title" id="titlef" style="margin-left: 30px; font-size: 25px; margin: 1.5em;  " >
@@ -130,133 +264,213 @@
 			JPEG.7wayjeju/%EB%B0%B0%EC%9A%B0%ED%94%84%EB%
 			A1%9C%ED%95%84%EC%82%AC%EC%A7%84_IMG7117.jpg?
 			type=w800" width="250" height="300" style="border-radius: 70%;" ></span>
-		<div>
-			<button id="imgChange">사진변경</button>
+		<div style="padding:20px 0 0 0;">
+			<button type="button"  class="n-btn w100 btn-sm btn-default cert-hidden" id="change-profile-image-btn">사진 변경</button>
 		</div>
 		</div>
 		<!-- 우: 이름, 닉네임, 활동내역, 수익 -->
-		<div class="col-md-5 right" style="text-align: left; ">
-			<div>
-				<span style="font-weight: bold;">이름</span>
-			</div>
-			<div>
-				<input type="text" name="userName" th:value="${user.userName}" readonly="readonly">
-			</div>
-			<div>
-				<span style="font-weight: bold;">닉네임</span>
-			</div>
-			<div>
-				<input type="text" name="nickname" th:value="${user.nickname}">
-			</div>
-			<div>
-				<span style="font-weight: bold;">활동내역</span>
-			</div>
-			<div>
-				<span><img src="https://udnxt.com/wp-content/uplo
-				ads/2019/06/53712500-7de3c980-3e8a-11e9-8358-2
-				3cd94011aeb.png" width="40%" height="40%"></span>
-			</div>
-			<div>
-				<span style="font-weight: bold;">수익금액 : [[${profit}]] 원</span>
-			</div>
-		</div>
+	
 		<div class="col-md-1"><!-- 여백 --></div>
 	</div>
+	
 		<!-- 중단 : 주소, 전화번호, 보유쿠폰조회 -->
-	<div class="info">	
-		<div class="col-md-2 right" style="height: 200px;"><!-- 여백 -->	</div>
-		<div class="col-md-8 right">
-			<div>
-				<span style="font-weight: bold;">주소</span>
-			</div>
-			<div>
-				<input type="text" th:value="${user.userAddr}"  style="width: 500px;">
-				<input type="text" th:value="${user.userAddr}"  style="width: 150px;">
-			</div>
-			<div>
-				<input type="text" th:value="${user.userAddr}"  style="width: 500px;">
-				<input type="button" value="주소검색" style="width: 150px;">
-			</div>
-		</div>
-		<div class="col-md-2 right"style="height: 200px;"><!-- 여백 --></div>
-	</div>
+	<div class="hundred">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tbody><tr>
+<td>
+
+ <section class="n-section-block">
+        <header class="n-section-title first info_views-area">
+            <h1 class="tit">기본 회원정보 <span>필수</span></h1>
+           
+        </header>
+
+        <table class="n-table table-row my-info-modify">
+            <colgroup>
+                <col style="width:190px">
+   
+                <col style="width:50%">
+            </colgroup>
+            <tbody><tr>
+            </tr>
+            
+            <!--                        사진 수정-->
+            <tr class="my-info-img" style="display: none" id="change-profile-image-area">
+                <th scope="row">사진</th>
+                <td>
+                    
+                        
+                        <div>
+                            <div class="img" id="profile-backGround-image" style="background-image: url(https://image.msscdn.net/mfile_s01/_simbols/_basic/h.png)"></div>
+                        </div>
+                    
+                    <p class="txt">회원님을 알릴 수 있는 사진을 등록해 주세요.<br>등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.</p>
+                    <div class="btn-group">
+                        <label for="profile-image" class="n-btn btn-sm btn-default">사진 선택</label>
+                        <input type="file" id="profile-image" class="n-hidden">
+                        <button type="button" class="n-btn btn-sm btn-default" id="change-default-image-btn">기본이미지로 변경</button>
+                    </div>
+                </td>
+                <td class="va-b">
+                    <button type="button" class="n-btn btn-sm btn-lighter" id="change-profile-image-cancel-btn">취소</button>
+                    <button type="button" class="n-btn btn-sm btn-accent" id="change-profile-image-finish-btn">완료</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">아이디</th>
+                <td colspan="2"><strong>
+                	<input class="editInput"> </input>
+                </strong></td>
+            </tr>
+            <tr id="password-area">
+                <th scope="row">비밀번호</th>
+                <td><strong>
+					<input class="editInput"> </input>
+</strong></td>
+          
+            </tr>
+            <!--비밀번호 변경-->
+            <tr id="change-password-area" style="display: none">
+                <th scope="row">비밀번호</th>
+                <td colspan="2">
+                    <div class="my-info-modify">
+                        <div class="my-info-modify">
+                            <input type="hidden" id="encryptPassword">
+                            <input type="hidden" id="encryptNewPassword">
+                            <input type="hidden" id="encryptConfirmPassword">
+                            <div class="input">
+                                <label for="password">현재 비밀번호</label>
+                                <div class="input-password__wrap " id="password_div">
+                                    <input type="password" class="n-input" id="password">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('password', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="password-invalid" class="validate danger"></span>
+                            </div>
+                            <div class="input">
+                                <label for="newPassword">신규 비밀번호</label>
+                                <div class="input-password__wrap " id="newPassword_div">
+                                    <input type="password" class="n-input" id="newPassword" maxlength="30">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('newPassword', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="new-password-invalid" class="validate danger"></span>
+                                <span id="valid-newPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
+                            </div>
+                            <div class="input">
+                                <label for="confirmPassword">신규 비밀번호 재 입력</label>
+                                <div class="input-password__wrap " id="confirmPassword_div">
+                                    <input type="password" class="n-input" id="confirmPassword" maxlength="30">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('confirmPassword', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="confirm-password-invalid" class="validate danger"></span>
+                                <span id="valid-confirmPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="n-btn btn-sm btn-lighter" id="change-password-cancel-btn">취소</button>
+                                <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-password-finish-btn" disabled="">완료</button>
+                            </div>
+                        </div>
+                </div></td>
+            </tr>
+            <tr>
+                <th scope="row">이름(실명)</th>
+                <td>
+               
+                    
+                        <span class="certify"><input class="editInput"> </input></span>
+                    
+                </td>
+          
+            </tr>
+            <tr id="nickName-area">
+                <th scope="row">닉네임</th>
+                <td><strong><input class="editInput"> </input></strong></td>
+                
+                
+                
+            </tr>
+
+            <!--닉네임 수정-->
+            <tr id="change-nickName-area" style="display: none">
+                <th scope="row">닉네임</th>
+                <td colspan="2">
+                    <div class="my-info-modify my-info-modify--nickname">
+                        <ul class="n-info-txt">
+                            <li class="txt-black">이번달 수정 가능 횟수 <strong>4회</strong><span class="txt-default">(월 최대 4회까지만 변경 가능합니다.)</span>
+                            </li>
+                            <li>길이는 최대 15자 이내로 작성해주세요.</li>
+                            <li>중복 닉네임 불가합니다.</li>
+                            <li>이모티콘 및 일부 특수문자 사용 불가합니다. &amp;&lt;&gt;()'/"</li>
+                        </ul>
+                        <div class="input">
+                            <input type="text" id="nickName" class="n-input" placeholder="닉네임 입력(최대 15자)" maxlength="15">
+                            <span id="currentNickName" class="validate">현재 닉네임 : 사니ㅎ</span>
+                            <span id="nicknameValidationMessage" class="validate" hidden=""></span>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="n-btn btn-sm btn-lighter" id="change-nickName-cancel-btn">취소</button>
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-nickName-finish-btn" disabled="">완료</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr id="email-area">
+                <th scope="row">이메일</th>
+                <td>
+                    <strong id="currentEmail" value="sanstory****@*****.com">
+						<input class="editInput"> </input>
+</strong>
+                    
+                </td>
+        
+            </tr>
+            <!--이메일 인증-->
+            <tr id="change-email-area" style="display: none">
+                <th scope="row">이메일</th>
+                <td colspan="2">
+                    <div class="my-info-modify">
+                        <ul class="n-info-txt">
+                            <li>메일주소 입력 후 인증하기 버튼을 누르시면, 회원님의 이메일로 이메일 인증 번호가 적힌메일이 발송됩니다.</li>
+                            <li>아래에 인증 번호를 입력하시면 인증이 완료됩니다.</li>
+                        </ul>
+                        <div class="input input-btn">
+                            <input type="text" class="n-input" placeholder="이메일 주소 입력" id="email" maxlength="50">
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="send-authentication-email" disabled="">인증</button>
+                        </div>
+                        <div class="input input-w">
+                            <input type="text" class="n-input disabled" id="email-authTempKey" placeholder="인증번호 입력">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="n-btn btn-sm btn-lighter" id="change-email-cancel-btn">취소</button>
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-email-finish-btn" disabled="">완료</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="mobile-area">
+                <th scope="row">휴대전화</th>
+                <td>
+                    
+                        <span class="certify"><input class="editInput"> </input></span>
+                    
+                </td>
+           
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="n-info-txt">
+        </ul>
+    </section>
+
+</td>
+</tr>
+</tbody></table>
+</div>
 	
-	<div class="info">	
-		<div class="col-md-2 right" style="height: 200px;"><!-- 여백 --></div>
-		<div class="col-md-8 right">
-			<div>
-				<span style="font-weight: bold;">전화번호</span>
-			</div>
-			<div>
-				<input type="text" th:value="${user.phone}"  style="width: 500px;">
-				<input type="button" value="인증번호 발송" style="width: 150px;">
-			</div>
-			<div>
-				<input type="text" value="인증번호"  style="width: 500px;">
-				<input type="button" value="인증번호 확인" style="width: 150px;">
-			</div>
-		</div>
-		<div class="col-md-2 right"style="height: 200px;"><!-- 여백 --></div>
-	</div>
-	
-	<div class="info">	
-		<div class="col-md-2 right"style="height: 100px;"><!-- 여백 --></div>
-		<div class="col-md-8 right">
-			<div class="dropdown">
-			  <button class="dropbtn">보유쿠폰</button>
-			  <div class="dropdown-content">
-			    <table class="centerTable">
-				    <thead>
-						<th align="center">쿠폰이름</th>
-						<th align="center">발급일자</th>
-						<th align="center">만료일자</th>
-				    </thead>
-				    <tbody> 
-					    <tr th:each="oc:${map}" align="center" class="tempTr">
-							<td align="left" th:text = "${oc.couponName}"></td>
-							<td th:text = "${oc.ownCouponCreDate.toString().substring(0,10)}"></td>
-							<td align="center" th:text = "${oc.ownCouponDelDate.toString().substring(0,10)}"></td>
-					    </tr>
-		        	</tbody>
-	        	</table>
-			  </div>
-			</div>		
-		</div>
-		<div class="col-md-2 right"style="height: 100px;"><!-- 여백 --></div>
-	</div>
-	
-	<div class="outer">
-		<div class="col-md-2 " style="height: 100px;"><!-- 여백 --></div>
-		<div class="col-md-2 inner2">
-			<a th:href="@{/old/listOld}">중고거래<br> 내역</a>
-		</div>
-		<div class="col-md-2 inner2">
-			<a th:href="@{/storage/listStorage}">보관내역<br> 조회</a>
-		</div>
-		<div class="col-md-2 inner2">
-			<a th:href="@{/rental/listRentalProfit}">대여내역<br> 조회</a>
-		</div>
-		<div class="col-md-4" style="height: 100px;"><!-- 여백 --></div>
-	</div>
-	
-	<div class="outer">
-		<div class="col-md-2 inner"style="height: 100px;"></div>
-		<div class="col-md-2 inner">
-			<a style="background-color: #262626;color: white;" >수정하기</a>
-		</div>
-		<div class="col-md-2 inner">
-			<a th:href="@{/user/pwdReset}" style="background-color: #262626;color: white;">비밀번호변경</a>
-		</div>
-		<div class="col-md-2 inner">
-			<a th:href="@{/user/deleteUser}" style="background-color: #262626;color: white;">탈퇴하기</a>
-		</div>
-		<div class="col-md-4 inner"style="height: 100px;"></div>
-	</div>
 	
 	
-	
-	
-	
+	 <button type="button" class="n-btn w100 btn-sm btn-default cert-hidden" id="change-mobile-btn">수정완료</button>
 	
 </div>
 <div th:replace="/main/footer.html"></div>
@@ -267,6 +481,9 @@
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 	
+	$(function(){
+
+	})
 	  	
 	</script>
 
