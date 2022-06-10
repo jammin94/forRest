@@ -77,4 +77,9 @@ public class ViewControllerTest {
 	  public String beomProduct() {
 		    return "rental/beomProduct";
 		  }
+	  
+	  @GetMapping("/topMypage")
+	  public String topMypage() {
+		    return "user/topMypage";
+		  }
 }

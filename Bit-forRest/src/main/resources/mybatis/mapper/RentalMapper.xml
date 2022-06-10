@@ -186,7 +186,7 @@
 	 
 	 <!--SELECT total rental profit-->
 	  <select  id="getTotalRentalProfit"  parameterType="string"	 resultType="int">
-	  	SELECT SUM(resultPrice)
+	  	SELECT IFNULL(SUM(resultPrice),0)
 	  	FROM transaction
 	  	WHERE userId = #{userId}
 		</select>
