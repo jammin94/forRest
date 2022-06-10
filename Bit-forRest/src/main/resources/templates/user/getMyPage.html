@@ -133,6 +133,111 @@
 	    margin-bottom: 100px;
 }
 
+.mypage-cont .info_views-area {
+    display: flex;
+    align-items: center;
+}
+
+.n-section-title {
+    border-bottom: 3px solid #000000;
+    padding-bottom: 14px;
+    margin-top: 48px;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    position: relative;
+}
+
+
+.n-section-title .tit {
+    display: inline-block;
+    font-size: 24px;
+    font-family: "Musinsa", sans-serif !important;
+}
+
+.n-section-title .tit > span {
+    color: #aaaaaa;
+}
+
+.mypage-cont .info_views-area > button {
+    padding: 0 15.5px;
+    margin-left: 15px;
+}
+
+.n-btn.btn-default {
+    border: 1px solid #e5e5e5;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.n-btn.btn-sm {
+    min-width: 70px;
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif !important;
+
+    margin-top : 40px;
+    margin:0 auto;
+}
+
+.n-btn {
+    display: inline-block;
+    min-width: 100px;
+    height: 40px;
+    line-height: 36px;
+    color: #ffffff;
+    box-sizing: border-box;
+    padding: 2px 8px 0 8px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: middle;
+    -webkit-transition: border 0.2s, background 0.2s ease-in-out;
+    -moz-transition: border 0.2s, background 0.2s ease-in-out;
+    -o-transition: border 0.2s, background 0.2s ease-in-out;
+    transition: border 0.2s, background 0.2s ease-in-out;
+}
+
+.mypage-cont .info_views-area {
+    display: flex;
+    align-items: center;
+}
+
+.n-section-title {
+    border-bottom: 3px solid #000000;
+    padding-bottom: 14px;
+    margin-top: 48px;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    position: relative;
+}
+
+.n-table {
+    width: 100%;
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.n-table.table-row th, .n-table.table-row td {
+    height: auto;
+    padding: 15px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: none;
+    font-size: 14px;
+    text-align: left;
+}
+
+.editInput{
+	border:1px solid #e5e5e5;
+	padding:5px;
+}
+
 
   </style>
   
@@ -159,8 +264,8 @@
 			JPEG.7wayjeju/%EB%B0%B0%EC%9A%B0%ED%94%84%EB%
 			A1%9C%ED%95%84%EC%82%AC%EC%A7%84_IMG7117.jpg?
 			type=w800" width="250" height="300" style="border-radius: 70%;" ></span>
-		<div>
-			<button id="imgChange">사진변경</button>
+		<div style="padding:20px 0 0 0;">
+			<button type="button"  class="n-btn w100 btn-sm btn-default cert-hidden" id="change-profile-image-btn">사진 변경</button>
 		</div>
 		</div>
 		<!-- 우: 이름, 닉네임, 활동내역, 수익 -->
@@ -174,169 +279,189 @@
 <tbody><tr>
 <td>
 
-<table width="100%" cellpadding="0" cellspacing="0">
-<tbody><tr>
-<td style="padding:10px 0" align="center">
+ <section class="n-section-block">
+        <header class="n-section-title first info_views-area">
+            <h1 class="tit">기본 회원정보 <span>필수</span></h1>
+           
+        </header>
 
-<table width="97%" cellpadding="5" cellspacing="0" border="0">
-<tbody><tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 아이디</td>
-	<td class="memberCols2">
-	<span class="eng"><b>hyeong512</b></span>
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 비밀번호</td>
-	<!-- 비밀번호 버튼 -->
-	<td class="memberCols2">
-		<a href="javascript:void(0);" onclick="openPasswordField()"><img src="/shop/data/skin/campingyo/img/common/btn_change_pwd.gif" align="absmiddle" alt="비밀번호 변경"></a>
-		<a href="javascript:void(0);" onclick="_ID('pwdManual').style.display='block';"><img src="/shop/data/skin/campingyo/img/common/btn_help_pwd.gif" align="absmiddle" alt="비밀번호 도움말"></a><br>
-		<!-- 비밀번호 도움말 -->
-		<div id="pwdManual">
-			<p>
-				비밀번호에 영문 대소문자, 숫자, 특수문자를 조합하시면 비밀번호 안전도가 높아져 도용의 위험이 줄어듭니다.
-			</p>
-			<ul>
-				<li>영문 대소문자는 구분이 되며, 한가지 문자로만 입력은 위험합니다.</li>
-				<li>사용가능한 특수문자 : ! " @ # $ % ^ &amp; ' ( ) * + = , - _ . : ; &lt; &gt; ? /  ` ~ | { } </li>
-				<li>ID, 주민번호 , 생일, 전화번호 등의 개인정보와 통상 사용 순서대로의 3자 이상 연속 사용은 피해주세요.</li>
-				<li>비밀번호는 주기적으로 바꾸어 사용하시는 것이 안전합니다.</li>
-			</ul>
-			<p class="close">
-				<a href="javascript:void(0);" onclick="_ID('pwdManual').style.display='none';"><img src="/shop/data/skin/campingyo/img/common/close_x.gif"></a>
-			</p>
-		</div>
-	</td>
-</tr>
-<tr id="pwLayer01" style="display:none;"><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-<tr id="pwLayer02" style="display:none;">
-	<td class="memberCols1">&nbsp;</td>
-	<!-- 비밀번호 버튼 -->
-	<td class="memberCols2">
-		<table cellpadding="0" cellspacing="0" border="0">
-		<tbody><tr>
-			<td class="memberCols3">현재 비밀번호</td>
-			<td>
-			<input type="password" name="originalPassword" id="originalPassword">
-			<span style="font:8pt 돋움;color:#007FC8">현재 비밀번호를 입력해 주세요.</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="memberCols3">새 비밀번호</td>
-			<td>
-			<input type="password" name="newPassword" id="newPassword" onfocus="checkPassword(this)" onkeyup="checkPassword(this)" onblur="emptyPwState()" label="새 비밀번호" option="regPass" maxlength="16">
+        <table class="n-table table-row my-info-modify">
+            <colgroup>
+                <col style="width:190px">
+   
+                <col style="width:50%">
+            </colgroup>
+            <tbody><tr>
+            </tr>
+            
+            <!--                        사진 수정-->
+            <tr class="my-info-img" style="display: none" id="change-profile-image-area">
+                <th scope="row">사진</th>
+                <td>
+                    
+                        
+                        <div>
+                            <div class="img" id="profile-backGround-image" style="background-image: url(https://image.msscdn.net/mfile_s01/_simbols/_basic/h.png)"></div>
+                        </div>
+                    
+                    <p class="txt">회원님을 알릴 수 있는 사진을 등록해 주세요.<br>등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.</p>
+                    <div class="btn-group">
+                        <label for="profile-image" class="n-btn btn-sm btn-default">사진 선택</label>
+                        <input type="file" id="profile-image" class="n-hidden">
+                        <button type="button" class="n-btn btn-sm btn-default" id="change-default-image-btn">기본이미지로 변경</button>
+                    </div>
+                </td>
+                <td class="va-b">
+                    <button type="button" class="n-btn btn-sm btn-lighter" id="change-profile-image-cancel-btn">취소</button>
+                    <button type="button" class="n-btn btn-sm btn-accent" id="change-profile-image-finish-btn">완료</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">아이디</th>
+                <td colspan="2"><strong>
+                	<input class="editInput"> </input>
+                </strong></td>
+            </tr>
+            <tr id="password-area">
+                <th scope="row">비밀번호</th>
+                <td><strong>
+					<input class="editInput"> </input>
+</strong></td>
+          
+            </tr>
+            <!--비밀번호 변경-->
+            <tr id="change-password-area" style="display: none">
+                <th scope="row">비밀번호</th>
+                <td colspan="2">
+                    <div class="my-info-modify">
+                        <div class="my-info-modify">
+                            <input type="hidden" id="encryptPassword">
+                            <input type="hidden" id="encryptNewPassword">
+                            <input type="hidden" id="encryptConfirmPassword">
+                            <div class="input">
+                                <label for="password">현재 비밀번호</label>
+                                <div class="input-password__wrap " id="password_div">
+                                    <input type="password" class="n-input" id="password">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('password', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="password-invalid" class="validate danger"></span>
+                            </div>
+                            <div class="input">
+                                <label for="newPassword">신규 비밀번호</label>
+                                <div class="input-password__wrap " id="newPassword_div">
+                                    <input type="password" class="n-input" id="newPassword" maxlength="30">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('newPassword', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="new-password-invalid" class="validate danger"></span>
+                                <span id="valid-newPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
+                            </div>
+                            <div class="input">
+                                <label for="confirmPassword">신규 비밀번호 재 입력</label>
+                                <div class="input-password__wrap " id="confirmPassword_div">
+                                    <input type="password" class="n-input" id="confirmPassword" maxlength="30">
+                                    <button type="button" class="input-password__button" onclick="togglePassword('confirmPassword', this);">비밀번호 표시</button>
+                                </div>
+                                <span id="confirm-password-invalid" class="validate danger"></span>
+                                <span id="valid-confirmPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="n-btn btn-sm btn-lighter" id="change-password-cancel-btn">취소</button>
+                                <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-password-finish-btn" disabled="">완료</button>
+                            </div>
+                        </div>
+                </div></td>
+            </tr>
+            <tr>
+                <th scope="row">이름(실명)</th>
+                <td>
+               
+                    
+                        <span class="certify"><input class="editInput"> </input></span>
+                    
+                </td>
+          
+            </tr>
+            <tr id="nickName-area">
+                <th scope="row">닉네임</th>
+                <td><strong><input class="editInput"> </input></strong></td>
+                
+                
+                
+            </tr>
 
-				<div class="passwordStrenth" id="el-password-strength-indicator">
-				<dl>
-					<dt>비밀번호 안전도</dt>
-					<dd id="el-password-strength-indicator-level"></dd>
-				</dl>
-				<p id="el-password-strength-indicator-msg"></p>
-				</div>
+            <!--닉네임 수정-->
+            <tr id="change-nickName-area" style="display: none">
+                <th scope="row">닉네임</th>
+                <td colspan="2">
+                    <div class="my-info-modify my-info-modify--nickname">
+                        <ul class="n-info-txt">
+                            <li class="txt-black">이번달 수정 가능 횟수 <strong>4회</strong><span class="txt-default">(월 최대 4회까지만 변경 가능합니다.)</span>
+                            </li>
+                            <li>길이는 최대 15자 이내로 작성해주세요.</li>
+                            <li>중복 닉네임 불가합니다.</li>
+                            <li>이모티콘 및 일부 특수문자 사용 불가합니다. &amp;&lt;&gt;()'/"</li>
+                        </ul>
+                        <div class="input">
+                            <input type="text" id="nickName" class="n-input" placeholder="닉네임 입력(최대 15자)" maxlength="15">
+                            <span id="currentNickName" class="validate">현재 닉네임 : 사니ㅎ</span>
+                            <span id="nicknameValidationMessage" class="validate" hidden=""></span>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="n-btn btn-sm btn-lighter" id="change-nickName-cancel-btn">취소</button>
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-nickName-finish-btn" disabled="">완료</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
 
-			<span style="font:8pt 돋움;color:#007FC8">새로 변경할 비밀번호를 입력해 주세요.</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="memberCols3">새 비밀번호 확인</td>
-			<td>
-			<input type="password" name="confirmPassword" id="confirmPassword" label="새 비밀번호" option="regPass" maxlength="16">
-			<span style="font:8pt 돋움;color:#007FC8">새로 변경할 비밀번호를 다시 한번 입력해 주세요.</span>
-			</td>
-		</tr>
-		</tbody></table>
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 이름</td>
-	<td class="memberCols2">
-	<input type="text" name="name" value="형산" required="" fld_esssential="" label="이름">
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
+            <tr id="email-area">
+                <th scope="row">이메일</th>
+                <td>
+                    <strong id="currentEmail" value="sanstory****@*****.com">
+						<input class="editInput"> </input>
+</strong>
+                    
+                </td>
+        
+            </tr>
+            <!--이메일 인증-->
+            <tr id="change-email-area" style="display: none">
+                <th scope="row">이메일</th>
+                <td colspan="2">
+                    <div class="my-info-modify">
+                        <ul class="n-info-txt">
+                            <li>메일주소 입력 후 인증하기 버튼을 누르시면, 회원님의 이메일로 이메일 인증 번호가 적힌메일이 발송됩니다.</li>
+                            <li>아래에 인증 번호를 입력하시면 인증이 완료됩니다.</li>
+                        </ul>
+                        <div class="input input-btn">
+                            <input type="text" class="n-input" placeholder="이메일 주소 입력" id="email" maxlength="50">
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="send-authentication-email" disabled="">인증</button>
+                        </div>
+                        <div class="input input-w">
+                            <input type="text" class="n-input disabled" id="email-authTempKey" placeholder="인증번호 입력">
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="n-btn btn-sm btn-lighter" id="change-email-cancel-btn">취소</button>
+                            <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-email-finish-btn" disabled="">완료</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="mobile-area">
+                <th scope="row">휴대전화</th>
+                <td>
+                    
+                        <span class="certify"><input class="editInput"> </input></span>
+                    
+                </td>
+           
+            </tr>
+            </tbody>
+        </table>
 
-
-
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 이메일</td>
-	<td class="memberCols2">
-	<input type="text" name="email" value="sanstory12rt@naver.com" size="30" required="" option="regEmail" label="이메일">
-	<a href="javascript:void(0)" onclick="chkEmail()"><img src="/shop/data/skin/campingyo/img/common/btn_mailcheck.gif" border="0" align="absmiddle"></a>
-	<span class="noline" style="padding-left:10px"><input type="checkbox" name="mailling"><span style="font:8pt 돋움;color:#007FC8">광고성 정보,이벤트메일수신</span></span>
-	<div style="letter-spacing:-1;color:#FF6000">※ <span style="font-size:8pt;">주문 관련 정보, 주요 공지사항 및 이벤트 당첨 안내 등은 수신 동의 여부에 관계없이 자동 발송됩니다.</span></div>
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 주소</td>
-	<td class="memberCols2">
-
-	<table>
-	<tbody><tr>
-		<td>
-		<input type="text" name="zonecode" id="zonecode" size="5" class="line" readonly="" value="18112" label="우편번호">
-		( <input type="text" name="zipcode[]" id="zipcode0" size="3" class="line" readonly="" value="181" required="" label="우편번호"> -
-		<input type="text" name="zipcode[]" id="zipcode1" size="3" class="line" readonly="" value="12" required="" label="우편번호"> )
-		<a href="javascript:popup('../proc/popup_address.php',500,432)"><img src="/shop/data/skin/campingyo/img/common/btn_zipcode.gif" border="0" align="absmiddle"></a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		<input type="text" name="address" id="address" value="경기도 오산시 세교동 587 오산세교주상1블록" readonly="" size="30" required="" label="주소">
-		<input type="text" name="address_sub" id="address_sub" value="501/1701호" size="30" onkeyup="SameAddressSub(this)" oninput="SameAddressSub(this)" label="세부주소"><br>
-		<input type="hidden" name="road_address" id="road_address" value="경기도 오산시  경기대로761번길 10 (오산세교주상1블록)">
-		<div style="padding:5px 5px 0 1px;font:12px dotum;color:#999;float:left;" id="div_road_address">경기도 오산시  경기대로761번길 10 (오산세교주상1블록)</div>
-		<div style="padding:5px 0 0 1px;font:12px dotum;color:#999;" id="div_road_address_sub">501/1701호</div>
-		</td>
-	</tr>
-	</tbody></table>
-
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 핸드폰</td>
-	<td class="memberCols2">
-	<input type="text" name="mobile[]" id="mobile0" value="010" size="4" maxlength="4" required="" option="regNum" label="핸드폰"> -
-	<input type="text" name="mobile[]" id="mobile1" value="8783" size="4" maxlength="4" required="" option="regNum" label="핸드폰"> -
-	<input type="text" name="mobile[]" id="mobile2" value="6065" size="4" maxlength="4" required="" option="regNum" label="핸드폰">
-
-	<span class="noline" style="padding-left:10px"><input type="checkbox" name="sms"><span style="font:8pt 돋움;color:#007FC8">광고성 정보,이벤트SMS수신</span></span>
-	<div style="letter-spacing:-1;color:#FF6000">※ <span style="font-size:8pt;">주문 관련 정보 등 주요 안내 사항은 수신 동의 여부에 관계없이 자동 발송됩니다.</span></div>
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-
-<tr>
-	<td class="memberCols1"><font color="FF6000">*</font> 전화번호</td>
-	<td class="memberCols2">
-	<input type="text" name="phone[]" value="010" size="4" maxlength="4" required="" option="regNum" label="전화번호"> -
-	<input type="text" name="phone[]" value="8783" size="4" maxlength="4" required="" option="regNum" label="전화번호"> -
-	<input type="text" name="phone[]" value="6065" size="4" maxlength="4" required="" option="regNum" label="전화번호">
-	</td>
-</tr>
-<tr><td colspan="2" height="1" bgcolor="#DEDEDE" style="padding:0px;"></td></tr>
-
-
-
-
-
-
-
-
-
-
-
-
-</tbody></table>
-
-</td>
-</tr>
-</tbody></table>
+        <ul class="n-info-txt">
+        </ul>
+    </section>
 
 </td>
 </tr>
@@ -345,7 +470,7 @@
 	
 	
 	
-	
+	 <button type="button" class="n-btn w100 btn-sm btn-default cert-hidden" id="change-mobile-btn">수정완료</button>
 	
 </div>
 <div th:replace="/main/footer.html"></div>
@@ -356,6 +481,9 @@
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 	
+	$(function(){
+
+	})
 	  	
 	</script>
 
