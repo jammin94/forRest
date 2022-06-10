@@ -24,7 +24,7 @@ prevBtnSec.addEventListener("click", function(){
 });
 
 submit.addEventListener("click",function(){
-	$("form").attr("method" , "POST").attr("action" , "/old/addOld").submit();	
+	$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();	
 });
 
 

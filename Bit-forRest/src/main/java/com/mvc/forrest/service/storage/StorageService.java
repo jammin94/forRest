@@ -16,7 +16,7 @@ public class StorageService {
 	
 	@Autowired
 	private StorageDAO storageDAO;
-		//가나다라마바사
+	
 	   //보관물품을 추가
 		public void addStorage(Storage storage) throws Exception{
 			storageDAO.addStorage(storage);

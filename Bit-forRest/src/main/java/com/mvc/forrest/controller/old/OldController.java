@@ -67,7 +67,8 @@ public class OldController {
 	
 	@RequestMapping("listOld")
 	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception{
-	
+//		public String listOld(@ModelAttribute("search") Search search, Model model,HttpSession httpsession) throws Exception{
+
 		System.out.println(this.getClass()+ "겟리스트");
 		
 //		if(search.getCurrentPage() ==0 ){
@@ -83,7 +84,7 @@ public class OldController {
 //		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 //		System.out.println(resultPage);
 		
-		
+//		User sessionUser= (User) httpsession.getAttribute("user");
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -160,9 +161,12 @@ public class OldController {
 	
 	@GetMapping("updateOld")
 	
-	public String updateOld( ) throws Exception{
+	public String updateOld( @RequestParam("oldNo") int oldNo,Model model) throws Exception{
 		System.out.println(this.getClass()+ "겟수정");
 		
+		oldService.getOld(oldNo);
+		Old old = new Old();
+		model.addAttribute("old",old);
 		return "old/updateOld";
 	} 
 	
