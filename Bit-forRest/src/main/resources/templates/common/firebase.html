@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-</head>
-<body>
-
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
   <script src="/js/notification.js" defer></script>
-  
+</head>
+<style>
+	.container.list2{
+	    padding-top: 160px;
+    width: calc(100% - 210px);
+	}
+</style>
+<body>
+<div th:replace="/main/toolbar.html"></div>
+<div th:replace="/main/leftbar.html"></div>  
 
-<a href="/report/messageTest">메세지테스트</a>
-  
+	<div class="container list2">
+		<div class="page-header text-info">
+		     <a href="/report/messageTest">메세지테스트</a>
+		</div>
+  	</div>
+
 </body>
 
 

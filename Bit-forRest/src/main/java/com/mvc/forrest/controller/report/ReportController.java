@@ -50,9 +50,11 @@ public class ReportController {
 	}
 	
 	@GetMapping("messageTest")
-	public String messageTest(Model model ) throws Exception {
-		
-		fcmService.sendMessage();
+	public String messageTest(Model model, HttpSession session ) throws Exception {
+		User loginUser =(User)session.getAttribute("user");
+		System.out.println(loginUser);
+		String id= loginUser.getUserId();
+		fcmService.sendMessage(id);
 		
 		 return "common/firebase";
 	}	

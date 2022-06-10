@@ -30,6 +30,10 @@ mybatis:
 #      suffix: .jsp
 
 spring:
+  redis:
+    host: 192.168.0.5
+    port: 6379
+    
   thymeleaf:
       prefix: classpath:templates/
       suffix: .html
