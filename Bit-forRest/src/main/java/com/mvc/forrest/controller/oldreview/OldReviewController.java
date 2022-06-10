@@ -33,7 +33,7 @@ public class OldReviewController {
 	@GetMapping("addOldReview")
 	public String addOldReview(Model model) throws Exception {
 				
-		return null;
+		return "/oldReview/addOldReview";
 	}
 		
 	@PostMapping("addOldReview")

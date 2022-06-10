@@ -1,82 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/addRentalReview.css">
-  
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
- 
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/addOldReview.css">
 </head>
-
 <body>
+<div th:replace="/main/toolbar.html"></div> 
+<div th:replace="/main/leftbar.html"></div> 
 
-<!-- 툴바 include -->
-	<div th:replace="/main/toolbar.html"></div> 
- <div th:replace="/main/leftbar.html"></div> 
+    <div class="container">
+        <header> 중고 거래 후기</header>
+        <div class="form-outer">
+            <form action="#">
+                <div class="page slidepage">
+                    <div class="title">거래 후기:</div>
+                    <div class="title">1111님과 거래에 대한 후기를 입력해주세요</div>
+                    <div class="field star">
+                        <div class="label">평점</div>
+                        <div class="star-rating">
+                            <input type="radio" id="5-stars" name="reviewScore" value="5" />
+                            <label for="5-stars" class="star">&#9733;</label>
+                            <input type="radio" id="4-stars" name="reviewScore" value="4" />
+                            <label for="4-stars" class="star">&#9733;</label>
+                            <input type="radio" id="3-stars" name="reviewScore" value="3" />
+                            <label for="3-stars" class="star">&#9733;</label>
+                            <input type="radio" id="2-stars" name="reviewScore" value="2" />
+                            <label for="2-stars" class="star">&#9733;</label>
+                            <input type="radio" id="1-star" name="reviewScore" value="1" />
+                            <label for="1-star" class="star">&#9733;</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">거래 한줄평</div>
+                        <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
+                    </div>
+                    <div class="field nextBtn">
+                        <button class="submit">Submit</button>
+                    </div>
+                </div>
 
-   <div class="Rentalcontainer">
- <span id="starsInfo" class="help-block">
-    구매자를 선택해주세요!
-  </span>
-
-
-
-<div class="container">
-	 <form name="selectFruit">
-  <ul>
-    <li>
-    <label><input type="checkbox" /> 사과</label>
-<!--       <label><input type="checkbox" th:text=${old.userId}/> 바나나</label> -->
-    </li>
-    <li>
-       <label><input type="checkbox" /> 사과</label>
-    </li>
-  </ul>
-</form>
-	
-
-
-</div>
- 
-
-  <span id="starsInfo" class="help-block">
-    상품에 대한 별점을 남겨주세요 !
-  </span>
-    <div class="star-rating">
-  <input type="radio" id="5-stars" name="reviewScore" value="5" />
-  <label for="5-stars" class="star">&#9733;</label>
-  <input type="radio" id="4-stars" name="reviewScore" value="4" />
-  <label for="4-stars" class="star">&#9733;</label>
-  <input type="radio" id="3-stars" name="reviewScore" value="3" />
-  <label for="3-stars" class="star">&#9733;</label>
-  <input type="radio" id="2-stars" name="reviewScore" value="2" />
-  <label for="2-stars" class="star">&#9733;</label>
-  <input type="radio" id="1-star" name="reviewScore" value="1" />
-  <label for="1-star" class="star">&#9733;</label>
-</div>
-
-<div class="form-group">
-   <!--  <label class="control-label" for="review">Your Review:</label> -->
-    <textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
-    <span id="reviewInfo" class="help-block pull-right">
-    
-    </span>
-  </div>
-  <button type="button">등록하기 </button>
-  
-<div id="review-container">
-</div>
-</div>
-
- 
-
-  
+            </form>
+        </div>
+    </div>
 </body>
-	<script src="/js/jquery_min.js"></script>
-	
-	 
-	  
 </html>
