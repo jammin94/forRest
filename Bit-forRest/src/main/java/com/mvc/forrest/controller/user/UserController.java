@@ -99,21 +99,20 @@ public class UserController {
 //			model.addAttribute("user", dbUser);	
 			
 			//신규회원 쿠폰발급
-			if(user.getJoinDate()==user.getRecentDate()) {
+			if(dbUser.getJoinDate().equals(dbUser.getRecentDate())) {
 				OwnCoupon oc = new OwnCoupon();
 				Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
+				Calendar cal= Calendar.getInstance();
+				cal.add(Calendar.DATE,30);
 				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
-				Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+				Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
 				
-				Calendar cal2= Calendar.getInstance();
-				cal2.setTime(ts2);
-				cal2.add(Calendar.DATE,30);
 				oc.setOwnUser(dbUser);
 				oc.setOwnCoupon(coupon);
 				oc.setOwnCouponCreDate(ts1);
 				oc.setOwnCouponDelDate(ts2);
-				System.out.println(oc);
 				couponService.addOwnCoupon(oc);
+				System.out.println("### 신규회원 쿠폰발급 ###");
 			}
 			
 			userService.updateRecentDate(dbUser);		//최근접속일자 update
@@ -272,14 +271,16 @@ public class UserController {
 		
 //		세션유저와 조회하고자하는 유저가 동일할 경우 myPage
 		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
+			if(rentalService.getTotalRentalProfit(sessionUser.getUserId())!=0) {
 			int profit = 
 					rentalService.getTotalRentalProfit(sessionUser.getUserId());
-			
+			model.addAttribute("profit", profit);
+			}
 			Map<String , Object> map=couponService.getOwnCouponList(userId);
 			
 			model.addAttribute("map", map.get("list"));
 			model.addAttribute("user", sessionUser);
-			model.addAttribute("profit", profit);
+			
 			return "user/getMyPage";
 		}
 		

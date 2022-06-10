@@ -53,9 +53,28 @@ public class CouponController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
 				
 		return "/coupon/manageCoupon";
+	}
+		
+	@PostMapping("addCoupon")
+	public String addCoupon(@ModelAttribute("coupon")Coupon coupon ) throws Exception {
+	
+		System.out.println("/coupon/addCoupon : POST");
+		
+		couponService.addCoupon(coupon);
+		
+		return "redirect:/coupon/manageCoupon";
+	}
+	
+	
+	@PostMapping("updateCoupon")
+	public void updateCoupon(@ModelAttribute("coupon")Coupon coupon) throws Exception {
+		
+		System.out.println("/coupon/updateCoupon : POST");
+		
+		couponService.updateCoupon(coupon);
+		
 	}
 		
 	@PostMapping("addOwnCoupon")
