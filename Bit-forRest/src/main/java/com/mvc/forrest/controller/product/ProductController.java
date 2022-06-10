@@ -130,14 +130,14 @@ public class ProductController {
 		Product product = productService.getProduct(prodNo);
 		
 		//TEST용: getProduct에서 물품주인과 구매자에 따라 다른화면출력 Test를 위한 세션생성	
-		User sessionUser = userService.getUser("user01@naver.com");
-		httpsession.setAttribute("sessionUser", sessionUser);
+		//User sessionUser = userService.getUser("user01@naver.com");
+		//httpsession.setAttribute("sessionUser", sessionUser);
 		
 		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
-		//User sessionUser = (User) httpsession.getAttribute("user");
-		
-		model.addAttribute("product", product);
-		model.addAttribute("sessionUser", sessionUser);
+//		User sessionUser = (User) httpsession.getAttribute("user");
+//		
+	model.addAttribute("product", product);
+//		model.addAttribute("sessionUser", sessionUser);
 		
 		return "product/getProduct";
 	}

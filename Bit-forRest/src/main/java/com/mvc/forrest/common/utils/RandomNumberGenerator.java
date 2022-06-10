@@ -12,22 +12,24 @@ import com.mvc.forrest.service.domain.Product;
 public class RandomNumberGenerator {
 	
 	@Autowired
-	private OldDAO oldDAO;
+	private static OldDAO oldDAO;
 	
 	@Autowired
-	private ProductDAO productDAO;	
+	private static ProductDAO productDAO;	
 	
-    public int makeRandomOldNumber() throws Exception {  	
+    public static final int makeRandomOldNumber() throws Exception {  	
         Random random = new Random();
         int ranNo = 100000+ random.nextInt(900000);
-        Old old = oldDAO.getOld(ranNo);
-	        while(old == null) {
-	        	ranNo = 100000+ random.nextInt(900000);
-	        }
+        	
+//        	if(oldDAO.getOld(ranNo) == null) {
+//        		return ranNo;
+//        	}else {
+//	        	ranNo = 100000+ random.nextInt(900000);
+//	        }
         return ranNo;
     }
     
-    public int makeRandomProductNumber() throws Exception {
+    public static final int makeRandomProductNumber() throws Exception {
         Random random = new Random();
         int ranNo = 100000+ random.nextInt(900000);
         Product product = productDAO.getProduct(ranNo);
@@ -37,7 +39,7 @@ public class RandomNumberGenerator {
 	        return ranNo;
     }
     
-    public int makeRandomTransactionNumber() throws Exception {
+    public static final int makeRandomTransactionNumber() throws Exception {
         Random random = new Random();
         int ranNo = 100000+ random.nextInt(900000);
         Product product = productDAO.getProduct(ranNo);
