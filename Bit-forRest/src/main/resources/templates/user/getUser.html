@@ -6,7 +6,8 @@
 	<!--  ///////////////////////// bootstrap  ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-
+	<link href="/css/listOld.css" rel="stylesheet" />
+	
 </head>
   
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
@@ -15,6 +16,18 @@
 .right{
 	font-size: 25px;
 	line-height: 250%;
+}
+.info{
+	margin-left: 120px;
+}
+.reviewList{
+	margin :75px;
+}
+.reviewTemp{
+	margin : 20px;
+	margin-right : 2000px;
+	width: 100%;
+    background: linear-gradient( to right, white, #f9f9f9,#f7f7f7,#f5f5f5, #f3f3f3, #cdcdcd );
 }
 
   </style>
@@ -69,17 +82,18 @@
 		</div>
 	</div>
 	
-	<div class="reviewList">
+	
+	<div class="reviewList" th:if="${list.size()!=0}">
 		 <!-- First Review -->
 		<div class="review1">
 			<div class="col-md-2"><!-- 여백 --></div>
-			<div class="col-md-8">
+			<div class="col-md-8 reviewTemp">
 				<div class="col-md-1">
 					<img src="https://avatars.githubusercontent.com/u/76616138?v=4"
-				width="100" height="100" style="border-radius: 70%;">
+				width="150" height="150" style="border-radius: 70%;">
 				</div>
-				<div class="col-md-7">
-					<div><a th:text="${review1.getReviewUserId}"></a></div>
+				<div class="col-md-7 info" >
+					<div><a th:text="${nickname1}"></a></div>
 					<div>
 						<a>
 						<img src="https://udnxt.com/wp-content/uplo
@@ -96,9 +110,117 @@
 					</div>								
 				</div>
 			</div>
+			
 			<div class="col-md-2"><!-- 여백 --></div>
 		</div>
 		
+		 <!-- Second Review -->
+		<div class="review2">
+			<div class="col-md-2"><!-- 여백 --></div>
+			<div class="col-md-8 reviewTemp" style="margin-bottom: 50px;">
+				<div class="col-md-1">
+					<img src="https://avatars.githubusercontent.com/u/97859770?v=4"
+				width="150" height="150" style="border-radius: 70%;">
+				</div>
+				<div class="col-md-7 info" >
+					<div><a th:text="${nickname2}"></a></div>
+					<div>
+						<a>
+						<img src="https://udnxt.com/wp-content/uplo
+						ads/2019/06/53712500-7de3c980-3e8a-11e9-8358-2
+						3cd94011aeb.png" width="40%" height="40%">
+						</a>
+						<a th:text="${review2.getUserRate}"></a>
+					</div>	
+					<div>
+						<a th:text="${oldTitle2}"></a>
+					</div>
+					<div>
+						<a th:text="${review2.getReviewDetail}"></a>
+					</div>								
+				</div>
+			</div>
+			
+			<div class="col-md-2"><!-- 여백 --></div>
+		</div>
+	</div>
+	
+	
+	<!-- 해당유저의 거래목록 -->
+	<div class="tradeList">
+		<div class="tabset">
+			<!-- Tab 1 -->
+			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
+				checked> <label for="tab1">판매중</label>
+			<!-- Tab 2 -->
+			<input type="radio" name="tabset" id="tab2" aria-controls="sold">
+			<label for="tab2">거래완료</label>
+<!--    ////////////// 중고거래 게시물  판매중////////////-->
+			<div class="tab-panels">
+				<section id="selling" class="tab-panel">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${oldList}">
+<!-- 	/////////////////////// 게시물  ///////////////////////////// -->
+<!-- ////////////////oldState조건문만 단독으로 쓸때는 나란히 나오나, user 조건문까지 같이쓰면 띄엄띄엄나옴///////						 -->
+<!-- 							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'"> -->
+							<div class="item" th:if="${old.oldState}==1" >
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									
+											<img width="300" height="205" th:src="@{/images/content/eee.jpg}"/>
+											
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2 th:text = ${old.oldTitle}></h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											
+											
+											<div class="try_mob_btn_wrapper">	
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+					</div>
+					</div>
+					</section>	
+						
+<!-- 	//////////////	중고거래 게시물 거래완료///////////// -->
+				<section id="sold" class="tab-panel">
+					<div class="row">
+						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${oldList}">
+<!-- 							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'"> -->
+							<div class="item" th:if="${old.oldState}==0">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									
+											<img width="300" height="205"  th:src="@{/images/content/bbb.jpg}"/>
+										<!--		<!--	<h5>Sale</h5>  -->  
+											<a href="#"><i class="fa fa-heart"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2 th:text = ${old.oldTitle}></h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+												
+											
+											<div class="try_mob_btn_wrapper">	
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+					</div>
+					</div>
+					</section>	
+			</div>
+
+		</div>
 	</div>
 </div>
 
