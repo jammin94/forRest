@@ -6,12 +6,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OldReview;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.oldreview.OldReviewService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -23,6 +31,10 @@ public class UserServiceTest {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OldReviewService oldReviewService;
+	@Autowired
+	private CouponService couponService;
 	
 //	@Test
 	public void testAddUser() throws Exception {
@@ -104,13 +116,22 @@ public class UserServiceTest {
 //	@Test
 	public void testGetUserList() throws Exception{
 		
+		User user = new User();
+		user.setUserId("user03@naver.com");
+		String userId = user.getUserId();
+		
+		System.out.println(userId);
+		
 		Search search = new Search();
 		Map<String, Object> map = userService.getUserList(search);
 		System.out.println(map.get("list"));
 		
+		List<OldReview> list = oldReviewService.getOldReviewList(userId);
+		System.out.println(list);
+		
 	}
 	
-	@Test
+//	@Test
 	public void testGetUserByName() throws Exception{
 		String userName = "user01";
 		User user = new User();
@@ -120,7 +141,32 @@ public class UserServiceTest {
 		
 	}
 
-	
+//	@Test
+	public void loginCouponTest() throws Exception{
+		
+		User dbUser = userService.getUser("admin");
+		OwnCoupon oc = new OwnCoupon();
+		Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
+		Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+		Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+
+		
+		
+		System.out.println("ts2 toString ubstring  : "+ts2.toString().substring(0, 10));
+		
+		Calendar cal2= Calendar.getInstance();
+		cal2.setTime(ts2);
+		cal2.add(Calendar.DATE,30);
+		System.out.println("cal2 : "+cal2.toString());
+		oc.setOwnUser(dbUser);
+		oc.setOwnCoupon(coupon);
+		oc.setOwnCouponCreDate(ts1);
+		oc.setOwnCouponDelDate(ts2);
+		System.out.println(oc);
+		couponService.addOwnCoupon(oc);
+		
+		
+	}
 	
 
 }

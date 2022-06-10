@@ -103,11 +103,16 @@ border-bottom:3px solid #ddd !important;
 	   
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-	 <form class="form-inline" name="detailForm" method="post">
+	 <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 	 <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
+	 
+	 <label for="uploadFile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
+	 <div class="col-sm-4">
+		   <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"> 
+		   </div>
 		 <!--  table Start /////////////////////////////////////-->
-     <div class="main-wrapper">
+     <!--  <div class="main-wrapper">
   <div class="img-upload-plugin">
                     <div class="img-upload-handler">
                       <div class="img-preview-big">
@@ -123,9 +128,9 @@ border-bottom:3px solid #ddd !important;
                         <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
                       </button>
                     </div>
-                    <input type="file" name="img-upload-input" style="display:none">
+                    <input type="file" name="uploadFile" multiple="multiple" style="display:none">
                   </div>
-</div>
+</div>-->
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- 물품정보등록 -->
@@ -146,7 +151,7 @@ border-bottom:3px solid #ddd !important;
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><input type="text" name="prodName" value=""  readonlycheck=""></td>
+		<td><input type="text" name="prodName" value="1234"  ></td>
 	</tr>
 
 	<tr>
@@ -173,16 +178,16 @@ border-bottom:3px solid #ddd !important;
 		<tr>
 		<td>크기</td>
 		<td>
-		<input type="text"  name="width" value="" size="3" maxlength="3"    readonlycheck=""> x
-		<input type="text"  name="length" value="" size="4" maxlength="4" readonlycheck=""> x
-		<input type="text"   name="height" value="" size="4" maxlength="4"  readonlycheck=""> 
+		<input type="text"  name="width" value=1 size="3" maxlength="3" > x
+		<input type="text"  name="length" value=2 size="4" maxlength="4"> x
+		<input type="text"   name="height" value=3 size="4" maxlength="4" > 
 		
 		</td>
 	</tr>
 	
 	<tr>
 		<td>물품설명</td>
-		<td><textarea name="prodDetail" id="prodDetail" class="textarea" ></textarea></td>
+		<td><textarea name="prodDetail" id="prodDetail" class="textarea"></textarea></td>
 	</tr>
 	
 	<tr>
@@ -206,7 +211,7 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>물품수량</td>
 		<td>
-		<input type="text"    name="prodQuantity"  value=""  size="3" > 개
+		<input type="text"    name="prodQuantity"  value=1  size="3" > 개
 		
 		</td>
 	</tr>
@@ -243,12 +248,12 @@ border-bottom:3px solid #ddd !important;
 	
 	<tr>
 		<td>물품대여가격</td>
-		<td><input type="text" name="rentalPrice" value=""> 원</td>
+		<td><input type="text" name="rentalPrice" value=0 > 원</td>
 	</tr>
 	
 	<tr>
 		<td>보증금</td>
-		<td><input type="text" name="deposit"  value=""> 원</td>
+		<td><input type="text" name="deposit"  value=0 > 원</td>
 	</tr>
 
 	<tr>
@@ -264,8 +269,8 @@ border-bottom:3px solid #ddd !important;
 	  
           </select>
 		 
-		  <input type="text" name="accountNumber" value=""  readonlycheck="">
-		  <input type="hidden" name="account" value="" >
+		  <input type="text" name="accountNumber" value="" >
+		  <input type="hidden"  class="account" name="account" value="" >
 		</td>
 	</tr>
 	
@@ -321,15 +326,15 @@ border-bottom:3px solid #ddd !important;
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
 		<td>주문하시는분</td>
-		<td><input type="text" name="receiverName" value="" style="font-weight:bold"  msgr="주문하시는분의 이름을 적어주세요"></td>
+		<td><input type="text" name="receiverName" value="1234" style="font-weight:bold"  msgr="주문하시는분의 이름을 적어주세요"></td>
 	</tr>
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" name="receiverPhone1" value="" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
-		<input type="text" name="receiverPhone2" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
-		<input type="text" name="receiverPhone3" value="" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+		<input type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
+		<input type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
+		<input type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
 		<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
 		</td>
 	</tr>
@@ -362,7 +367,7 @@ border-bottom:3px solid #ddd !important;
 		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
 		 <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
 		 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="pickup_address"  name="pickupAddress" placeholder="주소"><br>
+	     <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
 	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
 		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
 		   </div>
@@ -381,10 +386,10 @@ border-bottom:3px solid #ddd !important;
 		<td>
 	 <div class="form-group">
 	 <div class="col-sm-5">
-		  <input type="hidden"  class="divyAddress" name="divyAddress" value=''>
+		  <input type="hidden"  class="divyAddress" name="divyAddress" value="">
 		 <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
 		 <input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="divy_address"  name="divyAddress" placeholder="주소"><br>
+	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
 	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
 		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
 		   </div>
@@ -415,10 +420,10 @@ border-bottom:3px solid #ddd !important;
 		<tr>
 		<td>쿠폰적용</td>
 		<td>
-			 <select class="category" name= "category">
+			 <select class="coupon" name= "coupon">
    
-        	 <option value="텐트">10% 할인쿠폰</option>
-	         <option value="침대">5000원 할인쿠폰</option>
+        	 <option value="1">10% 할인쿠폰</option>
+	         <option value="1">5000원 할인쿠폰</option>
 	       
   
           </select>
@@ -428,19 +433,19 @@ border-bottom:3px solid #ddd !important;
 	
 	<tr>
 		<td>합계금액</td>
-		<td><input type="text" class="originPrice"  id="originPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원</td>
+		<td><input type="text" class="originPrice" name="originPrice" value=0 style="border:none;width:100px;text-align:right;"  readonly/> 원</td>
 	</tr>
 	<tr>
 		<td>할인금액</td>
 		<td>
-		<input type="text" class="discountPrice" id="discountPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원
+		<input type="text" class="discountPrice" name="discountPrice" value=0 style="border:none;width:100px;text-align:right;" readonly/> 원
 		</td>
 	</tr>
 
 
 	<tr>
 		<td>총 결제금액</td>
-		<td> <input type="text"  class="resultPrice" id="resultPrice" value="" style="border:none;width:100px;text-align:right;" min="0" readonly/> 원</td>
+		<td> <input type="text"  class="resultPrice"   name="resultPrice"  value=0 style="border:none;width:100px;text-align:right;" readonly/> 원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -581,19 +586,19 @@ border-bottom:3px solid #ddd !important;
 		 
 		 var pickupAddrValue = "";
 		 
-		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupAddress']").val() + "/" 
+		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupBaseAddress']").val() + "/" 
 			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
 		 
-		 $('.pickupAddr').val(pickupAddrValue);
+		 $('.pickupAddress').val(pickupAddrValue);
 		
 		//alert(pickupAddrValue);
 		 
 		 var divyAddrValue = "";
 		 
-		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyAddress']").val() + "/" 
+		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
 			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
 		 
-		 $('.divyAddr').val(divyAddrValue);
+		 $('.divyAddress').val(divyAddrValue);
 		
 		// alert(divyAddrValue);
 		 
@@ -623,14 +628,14 @@ border-bottom:3px solid #ddd !important;
 		 
 		 var account = "";
 		 
-		 var account = $(".account option:selected").val() + "/"  + $("input[name='accountNumber']").val()
+		 var account = $(".accountBank option:selected").val() + "/"  + $("input[name='accountNumber']").val()
 		 
 		$('.account').val(account);
 		// alert(account); 
 	 }
 	 
 	
-/*	
+///*	
 $(function(){
 		 $(".addrTest").on("click", function(){
 			 combineAddr();
@@ -655,15 +660,22 @@ $(function(){
 		 })
 	 }) 
 	 
-	 */
+	 //*/
 	 
 	 
 
 	 function totalPrice(){
 
-
-		var orginPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
-									$("input[name='prodQuantity']").val() *  $(".period option:selected").val() * 0.02
+		
+		console.log($("input[name='width']").val());
+		console.log($("input[name='length']").val());
+		console.log($("input[name='height']").val());
+		console.log($("input[name='prodQuantity']").val());
+		console.log($(".period option:selected").val());
+		
+		
+		var originPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
+									$("input[name='prodQuantity']").val() *  $(".period option:selected").val()
 		
 		var discountPrice = 0;
 		
@@ -676,12 +688,15 @@ $(function(){
 		}
 		*/
 		
-		var resultPrice = orginPrice - discountPrice;
+		var resultPrice = originPrice - discountPrice;
 		
-		 $('.orginPrice').val(orginPrice);
+		 $('.originPrice').val(originPrice);
 		 $('.discountPrice').val(discountPrice);
 		 $('.resultPrice').val(resultPrice);
-								
+		
+
+		//alert(originPrice);
+		//alert(discountPrice);
  		//alert("가격"+resultPrice);
 		  
 		 };

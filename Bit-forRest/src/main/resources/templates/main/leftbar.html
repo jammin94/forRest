@@ -100,38 +100,41 @@
 	
 <div class="leftBarListShow">
 <div class="leftBarListArray">
-		<span class="leftBarList">temp1</span>
+		<span class="leftBarList">
+		  <span stlye="display:none;"  th:if="${session.user!= null}">
+			<a th:href="@{/user/getUser(userId= ${session.user.userId})}">내 정보 보기</a>
+			</span>
+		</span>
+	</div>
+</div>
+
+<div class="leftBarListShow">
+<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/old/listOld}">중고물품리스트</a>
+		</span>
 	</div>
 </div>
 	
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">temp2</span>
-	</div>
-</div>
-<div class="leftBarListShow">
-	<div class="leftBarListArray">
-		<span class="leftBarList">temp3</span>
-	</div>
-</div>
+
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/listRentalProfit}">대여수익확인(테스트용)</a>
+			<a th:href="@{/rental/listRentalProfit}">대여수익확인</a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/addRental}">대여주문하기(테스트용)</a>
+			<a th:href="@{/rental/addRental}">대여주문하기</a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/getRental}">결제정보(테스트용)</a>
+			<a th:href="@{/rental/getRental}">결제정보</a>
 		</span>
 	</div>
 </div>
@@ -152,7 +155,21 @@
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/beomProduct}">범프로덕트</a>
+			<a th:href="@{/board/listFAQ}">FAQ</a>
+		</span>
+	</div>
+</div>
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/board/listAnnounce}">공지사항</a>
+		</span>
+	</div>
+</div>
+<div class="leftBarListShow">
+	<div class="leftBarListArray">
+		<span class="leftBarList">
+			<a th:href="@{/firebase/message}">푸시메시지테스트</a>
 		</span>
 	</div>
 </div>

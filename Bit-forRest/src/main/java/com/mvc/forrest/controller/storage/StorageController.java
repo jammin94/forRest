@@ -1,6 +1,8 @@
 package com.mvc.forrest.controller.storage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mvc.forrest.common.utils.FileNameUtils;
+import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.common.utils.RandomNumberGenerator;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
@@ -45,7 +50,9 @@ public class StorageController {
 	@Autowired
 	public UserService userService;
 	
-	public RandomNumberGenerator rng;
+	@Autowired
+	public FileUtils fileUtils;
+	
 	
 	public StorageController() {
 		System.out.println(this.getClass());
@@ -100,25 +107,47 @@ public class StorageController {
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
+												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
 												HttpSession session, Model model) throws Exception {
-		 
+		
+		
+		
 		System.out.println("product: "+product);
-		//product.setUserId(((User) session.getAttribute("user")).getUserId());
-		product.setUserId("user01@naver.com");
-		//prodNo를 난수로생성
-		product.setProdNo(1235);
+		System.out.println("uploadFile1: " + uploadFile.get(0).getOriginalFilename());
+		//System.out.println("uploadFile2: " + uploadFile.get(1).getOriginalFilename());
+		
+		//세션에있는 유저아이디
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        
+		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
+//        int prodNo = rng.makeRandomProductNumber();
+//        System.out.println("랜덤prodNo: "+ prodNo);
+           int prodNo = 29393;
+        
+        //랜덤으로 생성한 tranNo (TEST)
+//        int tranNo = rng.makeRandomTransactionNumber();
+//        System.out.println("랜덤tranNo: "+ tranNo);
+           int tranNo = 371919;
+        
+		product.setUserId(userId);
+		product.setProdNo(prodNo);
 		productService.addProduct(product);
 		
-//		storage.setUserId("user01@naver.com");
-//		storage.setTranNo(10000);
-//		storage.setPaymentNo("우하하 팡파레~");
-//		storage.setProdNo(1234);
-//		System.out.println("storage: "+storage);
-//		storageService.addStorage(storage);
-//		
-//		model.addAttribute("storage", storage);
+		//////////이미지업로드
+	
+		fileUtils.uploadFiles(uploadFile, prodNo, "product");
+	
+		//디버깅
+		System.out.println("storage: "+storage);
+		storage.setUserId(userId);
+		storage.setProdNo(prodNo);
+		storage.setTranNo(tranNo);
+		storage.setPaymentNo("우하하 팡파레~");
+		storageService.addStorage(storage);
 		
-		return null;
+		model.addAttribute("storage", storage);
+		
+		return "forward:/storage/getStorage?tranNo=" + tranNo ;
 	}
 	
 	@RequestMapping("listStorage")
@@ -129,11 +158,7 @@ public class StorageController {
 		}
 		
 		search.setPageSize(pageSize);
-		
-		//테스트를위해 세션아이디 임의 생성
-		User user = userService.getUser("user01@naver.com");
-		httpSession.setAttribute("user", user);
-		
+				
 		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
 		Map<String, Object> map = new HashMap<>();
@@ -214,7 +239,7 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
-	@GetMapping("getStorage")
+	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));

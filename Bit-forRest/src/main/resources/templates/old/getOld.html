@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="utf-8" />
+         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
@@ -12,8 +12,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/report.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+        
+        	<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >-->
         
     </head>
     
@@ -28,14 +29,24 @@
 		<div th:replace="/main/leftbar.html"></div> 
 		
         <!-- Product section-->
+        
+         <br>
+         
         <section class="py-5">
             <div class="container px-4  px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" width="200" height="450" src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/ec9ab4cabad061881c4ff3d1eb1addd3dfe5e31bbe017688c2b4305f1ee43d51.webp?q=95&s=1440x1440&t=inside" alt="..." /></div>
-                    <div class="col-md-6">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" width="200" height="450" th:src= "@{/images/content/eee.jpg}">
                         
                         <h1 class="display-7 fw-bolder mb-4" th:text=${old.oldTitle} ></h1>
                         <div class="fs-5 mb-3">
+                        <div class="d-flex">
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
+                               삭제
+                            </button>
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button" >
+                               수정
+                            </button> 
+                        </div>
                          <span class= "fw-bolder">  판매자:</span>
                             <span th:text = ${old.userId}></span>
 
@@ -46,44 +57,136 @@
                           <div class="fs-5 mb-3">
                          <span class= "fw-bolder">  카테고리: </span><span th:text = ${old.category}></span>
                            </div>
-                           <div class="fs-5 mb-3">
-<!--                            <span class= "fw-bolder"> 크기:</span> <span th:text = ${product.width}></span>  -->
-<!--                             <span th:text = ${product.length}></span> X -->
-<!--                             <span th:text = ${product.height}></span> -->
-                            </div>
+                          
                             
-                            <div class="fs-5 mb-3">
-<!--                           <span class= "fw-bolder"> 보증금: </span><span th:text = ${product.deposit}></span>원 -->
-                           </div>
                            
-                           <div class="fs-5 mb-3">
-<!--                          <span class= "fw-bolder">  수량:</span> <span th:text = ${product.prodQuantity}></span>개 -->
-                        </div>
+                          <div class="fs-5 mb-3">
+                         <span class= "fw-bolder"> 가격: </span><span th:text = ${old.oldPrice}></span>
+                           </div>
                         
-                           <div class="fs-5 mb-3">
-<!--                          <span class= "fw-bolder">  대여횟수:</span> <span th:text = ${product.rentalCounting}></span>회 -->
-                        </div>
-                        
-                       
+                       <div class="fs-5 mb-3">
+                         <span class= "fw-bolder"> 상세정보: </span><span th:text = ${old.oldDetail}></span>
+                           </div>
                        
                         
                     </div>
                 </div>
                
-                <div class="row gx-10 gx-lg-5 align-items-center">
-                 
-                	   <div class="fs-5 mb-3 mt-3">
-                         <span class= "fw-bolder" > 상세정보 </span>
-                           </div>         	
-                    <div class="fs-5 mb-1"><span th:text = ${old.oldDetail}></span></div>
-                    
-                        
-                   
-                </div>
+               
                       
             </div>
      
         </section>
+        
+        <!-- Related items section-->
+        <section class="py-5 bg-light"></section>
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">중고거래 게시물 추천 </h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">Fancy Product</h5>
+                                    <!-- Product price-->
+                                    $40.00 - $80.00
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">거래완료</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">Special Item</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">$20.00</span>
+                                    $18.00
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">거래완료</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">Sale Item</h5>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">$50.00</span>
+                                    $25.00
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">Popular Item</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        
+                                    </div>
+                                    <!-- Product price-->
+                                    
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <!-- Footer-->
+       
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+       
+    </body>
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
@@ -92,7 +195,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+       
     </body>
     
 

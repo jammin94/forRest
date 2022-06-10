@@ -191,14 +191,14 @@ article {
       <a th:href="@{/}">FOR REST</a>
     </div>
     <nav>
-      <div class="nav-mobile"><a id="nav-toggle" ><span></span></a></div>
+      <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
       <ul class="nav-list">
         <li>
-            <a th:href="@{/old/listOld}">중고마켓</a>
+         <a href="#mobile">중고마켓</a>
         </li>
-
+        
         <li>
-          <a>보관하기</a>
+          <a href="#Earphones">보관하기</a>
           <ul class="nav-dropdown">
             <li>
              <a th:href="@{/storage/storageMain}">보관메인</a>
@@ -212,55 +212,43 @@ article {
           </ul>
         </li>
           <li>
-            <a th:href="@{/product/listProduct}">렌탈마켓</a>
+          <a href="#!">렌탈마켓</a>
         </li>
         
          <!-- 고객센터 -->
         <li>
-          <a>고객센터</a>
+          <a href="#Earphones">고객센터</a>
           <ul class="nav-dropdown">
             <li>
              <a th:href="@{/userRental}">렌탈마켓</a>
             </li>
             <li>
-             <a>고객센터</a>
+             <a href="#Watch">고객센터</a>
             </li>
             <li>
-              <a>Graphic Design</a>
+              <a href="#!">Graphic Design</a>
             </li>
           </ul>
         </li>
         
-        <!-- 로그인 안 했으면 "로그인" -->
-         <span stlye="display:none;" th:if="${session.user==null} ">
-           <li>
-                   <a th:href="@{/user/login}">로그인</a>
-           </li>
-         </span>
-        
-        
-         	<!-- 로그인했으면 마이페이지 보기 -->
-         <span stlye="display:none;"  th:unless="${session.user== null}">
-          <li> 
-          <a>   
-      	    <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i> 
+          <li>
+          <a href="#!">   
+          
+          <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i>
+          
           </a>
           <ul class="nav-dropdown">
             <li>
-            
-               <a th:href="@{/user/getUser(userId= ${session.user.userId})}">마이페이지</a>
-             
+              <a th:href="@{/tempUser}">마이페이지(유저용)</a>
             </li>
             <li>
               <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
             </li>
             <li>
-               <a th:href="@{/user/logout}">로그아웃</a>
+              <a href="/user/login" class="btnLogout">로그인</a>
             </li>
           </ul>
         </li>
-        </span>
-        
         
       </ul>
     </nav>

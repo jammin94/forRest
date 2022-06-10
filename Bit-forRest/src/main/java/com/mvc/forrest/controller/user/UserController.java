@@ -2,6 +2,7 @@ package com.mvc.forrest.controller.user;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
@@ -94,21 +96,18 @@ public class UserController {
 			
 			//세션에 user 저장
 			session.setAttribute("user", dbUser);
-			model.addAttribute("user", dbUser);
+//			model.addAttribute("user", dbUser);	
 			
 			//신규회원 쿠폰발급
 			if(user.getJoinDate()==user.getRecentDate()) {
 				OwnCoupon oc = new OwnCoupon();
-				Coupon coupon = couponService.getCoupon(2);
+				Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
 				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
 				Timestamp ts2 = new Timestamp(System.currentTimeMillis());
 				
-//				Calendar cal1 = Calendar.getInstance();
 				Calendar cal2= Calendar.getInstance();
-//				cal1.setTime(ts1);
 				cal2.setTime(ts2);
 				cal2.add(Calendar.DATE,30);
-//				ts2.setTime(cal.getTime().getTime());
 				oc.setOwnUser(dbUser);
 				oc.setOwnCoupon(coupon);
 				oc.setOwnCouponCreDate(ts1);
@@ -213,13 +212,13 @@ public class UserController {
 		return "user/findPwd";
 	}	
 	
-//	@GetMapping("pwdReset")								//필요없음
-//	public String pwdReset() throws Exception{
-//		
-//		System.out.println("/user/pwdReset : GET");
-//		
-//		return null;
-//	}
+	@GetMapping("pwdReset")						
+	public String pwdReset() throws Exception{
+		
+		System.out.println("/user/pwdReset : GET");
+		
+		return "user/pwdReset";
+	}
 	
 	@PostMapping("pwdReset")
 	public String pwdReset(@RequestParam("password") String password, HttpSession session) throws Exception{
@@ -266,23 +265,44 @@ public class UserController {
 		User dbUser = userService.getUser(userId);
 		User sessionUser = (User)session.getAttribute("user");
 
+//		세션에 유저정보가 없을경우 로그인 nav
 		if(sessionUser==null) {
 			return "user/login";
 		}
 		
+//		세션유저와 조회하고자하는 유저가 동일할 경우 myPage
 		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
 			int profit = 
 					rentalService.getTotalRentalProfit(sessionUser.getUserId());
 			
 			Map<String , Object> map=couponService.getOwnCouponList(userId);
 			
-			model.addAttribute("list", map.get("list"));
+			model.addAttribute("map", map.get("list"));
 			model.addAttribute("user", sessionUser);
 			model.addAttribute("profit", profit);
 			return "user/getMyPage";
 		}
 		
+		List<OldReview> list = oldReviewService.getOldReviewList(userId);
+		Map<String, Object> oldList = oldService.getOldList(search);
+
+		//해당 유저에 대한 리뷰를 등록한 사람의 수
+		if(list.size()==2){
+			model.addAttribute("review1", list.get(0));
+			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+			model.addAttribute("review2", list.get(1));
+			model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
+			model.addAttribute("nickname2", userService.getUser(list.get(1).getReviewedUserId()).getNickname());
+		}else if(list.size()==1) {
+			model.addAttribute("review1", list.get(0));
+			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+		}
+		
+		model.addAttribute("list",list);
 		model.addAttribute("user", dbUser);
+		model.addAttribute("oldList", oldList.get("list"));
 
 		return "user/getUser";
 	}

@@ -42,6 +42,7 @@
 }
 
 .product-list{
+margin-bottom: 210px !important;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -58,6 +59,7 @@
 }
 
 .product-list .product{  
+    border-radius: 10px;
   width: 24%; /* Products width */  
   margin: 7px; /* Space between products related with nth-childs below */
   
@@ -253,6 +255,7 @@
   }
 }
 
+
 </style>
 
 
@@ -273,27 +276,30 @@
 
         <!-- BEGIN Product -->
         <div class="product" th:each = "product : ${list}">
-          <div class="product-image">
-            <a href="#">
-              <img src="https://dnvefa72aowie.cloudfront.net/origin/article/202204/F3BEFBCC69FE13D9641AEC5AD604CC2DA253E7CEC13598E187FC4CA2BA017505.jpg?q=95&s=1440x1440&t=inside" alt="Resim 1">              
-            </a>
-
-
-          </div>
-          <div class="product-info">
-          
-            <p class="product-name" title="Hayots Yegeghetsin yev ir Badmutyunı, Vartabedutyunı, Vartchutyunı, Paregarkutyunı, Araroghutyunı, Kraganutyunı U Nerga Gatsutyunı">
-              <a href="#">[[${product.prodName}]]</a>                
-            </p>
-            <p class="product-price">
-              <span class="new-price" th:text ="|${product.rentalPrice}원|"></span>
-              <span class="old-price">1박2일</span>
-            </p>
-            <div class="add-basket">
-              <a href="#">대여하기</a>
-            </div>            
-          </div>
+          <div class="owl-item active" style="width: 270px; margin-right: 20px;" >
+        
+        	<div class="item">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/KakaoTalk_20210331_172733437_24.jpg">
+												<!--	<h5>Sale</h5>  -->
+											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2>[[${product.prodName}]]</h2>
+											<h3>유저아이디</h3>
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p>  <span class="new-price" th:text ="|${product.rentalPrice}원|"></span></p>	
+											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+			 </div>
         </div>
+        
+        
         <!-- END Product -->
         
 
