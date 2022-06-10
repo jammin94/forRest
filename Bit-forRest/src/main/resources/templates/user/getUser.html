@@ -27,7 +27,7 @@
 	margin : 20px;
 	margin-right : 2000px;
 	width: 100%;
-    background: linear-gradient( to right, white, #f9f9f9,#f7f7f7,#f5f5f5, #f3f3f3, #cdcdcd );
+    background: linear-gradient( to right, white,white,white,#f3f3f3,#f1f1f1, #f0f0f0 );
 }
 
   </style>
@@ -38,7 +38,7 @@
 <div th:replace="/main/toolbar.html"></div>
 <div th:replace="/main/leftbar.html"></div>
 
-<div class="container list" style="padding-right:150px;">
+<div class="container list" style="padding: 0px 150px 100px 15px;">
 	 <div class="title" id="titlef" style="margin-left: 30px; font-size: 25px; margin: 1.5em;  " >
 		<span>[[${user.nickname}]]님의 Profile</span>
 	</div>
@@ -149,6 +149,7 @@
 	<!-- 해당유저의 거래목록 -->
 	<div class="tradeList">
 		<div class="tabset">
+		
 			<!-- Tab 1 -->
 			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
 				checked> <label for="tab1">판매중</label>

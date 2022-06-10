@@ -101,16 +101,13 @@ public class UserController {
 			//신규회원 쿠폰발급
 			if(user.getJoinDate()==user.getRecentDate()) {
 				OwnCoupon oc = new OwnCoupon();
-				Coupon coupon = couponService.getCoupon(2);
+				Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
 				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
 				Timestamp ts2 = new Timestamp(System.currentTimeMillis());
 				
-//				Calendar cal1 = Calendar.getInstance();
 				Calendar cal2= Calendar.getInstance();
-//				cal1.setTime(ts1);
 				cal2.setTime(ts2);
 				cal2.add(Calendar.DATE,30);
-//				ts2.setTime(cal.getTime().getTime());
 				oc.setOwnUser(dbUser);
 				oc.setOwnCoupon(coupon);
 				oc.setOwnCouponCreDate(ts1);
