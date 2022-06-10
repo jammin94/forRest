@@ -25,10 +25,11 @@ const firebaseModule = (function () {
                         .then(function() {
 						    console.log("Have permission");
 					        console.log(messaging.getToken());
+
                             return messaging.getToken();
                         })
                         .then(async function(token) {
-                            await fetch('/token/register', { method: 'post', body: token })
+                            await fetch('/token/saveToken', { method: 'post', body: token })
                             messaging.onMessage(payload => {
 								console.log('Message received. ', payload);
                                 const title = payload.data.title;
