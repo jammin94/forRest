@@ -268,31 +268,44 @@ public class UserController {
 		User dbUser = userService.getUser(userId);
 		User sessionUser = (User)session.getAttribute("user");
 
+//		세션에 유저정보가 없을경우 로그인 nav
 		if(sessionUser==null) {
 			return "user/login";
 		}
 		
+//		세션유저와 조회하고자하는 유저가 동일할 경우 myPage
 		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
 			int profit = 
 					rentalService.getTotalRentalProfit(sessionUser.getUserId());
 			
 			Map<String , Object> map=couponService.getOwnCouponList(userId);
 			
-			model.addAttribute("list", map.get("list"));
+			model.addAttribute("map", map.get("list"));
 			model.addAttribute("user", sessionUser);
 			model.addAttribute("profit", profit);
 			return "user/getMyPage";
 		}
 		
 		List<OldReview> list = oldReviewService.getOldReviewList(userId);
+		Map<String, Object> oldList = oldService.getOldList(search);
+
+		//해당 유저에 대한 리뷰를 등록한 사람의 수
+		if(list.size()==2){
+			model.addAttribute("review1", list.get(0));
+			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+			model.addAttribute("review2", list.get(1));
+			model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
+			model.addAttribute("nickname2", userService.getUser(list.get(1).getReviewedUserId()).getNickname());
+		}else if(list.size()==1) {
+			model.addAttribute("review1", list.get(0));
+			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+		}
 		
-		model.addAttribute("review1", list.get(0));
-		model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-		model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewedUserId()).getNickname());
-//		model.addAttribute("review2", list.get(2));
-//		model.addAttribute("oldTitle2", oldService.getOld(list.get(2).getOldNo()).getOldTitle());
-//		model.addAttribute("nickname2", userService.getUser(list.get(2).getReviewedUserId()).getNickname());
+		model.addAttribute("list",list);
 		model.addAttribute("user", dbUser);
+		model.addAttribute("oldList", oldList.get("list"));
 
 		return "user/getUser";
 	}
