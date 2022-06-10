@@ -209,7 +209,7 @@
 						<th align="center">만료일자</th>
 				    </thead>
 				    <tbody> 
-					    <tr th:each="oc:${list}" align="center" class="tempTr">
+					    <tr th:each="oc:${map}" align="center" class="tempTr">
 							<td align="left" th:text = "${oc.couponName}"></td>
 							<td th:text = "${oc.ownCouponCreDate.toString().substring(0,10)}"></td>
 							<td align="center" th:text = "${oc.ownCouponDelDate.toString().substring(0,10)}"></td>
