@@ -7,11 +7,4 @@
 				$('.input-group #search_param').val(param);
 		   	});
 	      });
-var a = document.getElementByTagName('a').item(0);
-$(a).on('keyup', function(evt){
-  console.log(evt);
-  if(evt.keycode === 13){
-    
-    alert('search?');
-  } 
-}); 
+	      

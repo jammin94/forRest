@@ -43,10 +43,20 @@
                             <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
                                삭제
                             </button>
-                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button" >
-                               수정
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button"
+                             th:onclick="|location.href='@{/old/updateOld(oldNo= ${old.oldNo})}'|" >
+                                수정
+                            </button> 
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
+                               판매자와 채팅하기
+                            </button>
+                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button"
+                        >
+                                카카오 공유하기
                             </button> 
                         </div>
+                        
+                                              
                          <span class= "fw-bolder">  판매자:</span>
                             <span th:text = ${old.userId}></span>
 
@@ -98,7 +108,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">자세히 보기</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" >자세히 보기</a></div>
                             </div>
                         </div>
                     </div>
@@ -180,6 +190,7 @@
                 </div>
             </div>
             
+           </script>
         <!-- Footer-->
        
         <!-- Bootstrap core JS-->
