@@ -45,6 +45,7 @@ public class StorageController {
 	@Autowired
 	public UserService userService;
 	
+	
 	public RandomNumberGenerator rng;
 	
 	public StorageController() {
@@ -101,25 +102,40 @@ public class StorageController {
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
 												HttpSession session, Model model) throws Exception {
-		 
+		
+		
+		
+		//디버깅
 		System.out.println("product: "+product);
-		//product.setUserId(((User) session.getAttribute("user")).getUserId());
-		product.setUserId("user01@naver.com");
-		//prodNo를 난수로생성
-		product.setProdNo(1004);
+		
+		//세션에있는 유저아이디
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        
+		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
+//        int prodNo = rng.makeRandomProductNumber();
+//        System.out.println("랜덤prodNo: "+ prodNo);
+           int prodNo = 14747;
+        
+        //랜덤으로 생성한 tranNo (TEST)
+//        int tranNo = rng.makeRandomTransactionNumber();
+//        System.out.println("랜덤tranNo: "+ tranNo);
+           int tranNo = 147474;
+        
+		product.setUserId(userId);
+		product.setProdNo(prodNo);
 		productService.addProduct(product);
 		
-		
-		storage.setUserId("user01@naver.com");
-		storage.setTranNo(10000);
-		storage.setPaymentNo("우하하 팡파레~");
-		storage.setProdNo(1004);
+		//디버깅
 		System.out.println("storage: "+storage);
+		storage.setUserId(userId);
+		storage.setProdNo(prodNo);
+		storage.setTranNo(tranNo);
+		storage.setPaymentNo("우하하 팡파레~");
 		storageService.addStorage(storage);
 		
 		model.addAttribute("storage", storage);
 		
-		return "forward:/storage/getStorage?tranNo="+storage.getTranNo();
+		return "forward:/storage/getStorage?tranNo=" + tranNo ;
 	}
 	
 	@RequestMapping("listStorage")
@@ -130,11 +146,7 @@ public class StorageController {
 		}
 		
 		search.setPageSize(pageSize);
-		
-		//테스트를위해 세션아이디 임의 생성
-		User user = userService.getUser("user01@naver.com");
-		httpSession.setAttribute("user", user);
-		
+				
 		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
 		Map<String, Object> map = new HashMap<>();

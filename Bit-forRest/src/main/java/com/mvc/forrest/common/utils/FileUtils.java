@@ -24,7 +24,7 @@ public class FileUtils {
 	@Autowired
 	private ImgDAO imgDAO;
 	
-    public void uploadFiles(List<MultipartFile> multipartFiles, int id, String flag, String 경로) throws Exception {
+    public void uploadFiles(List<MultipartFile> multipartFiles, int id, String flag) throws Exception {
         
     	
     	// 파일 업로드 경로 생성
