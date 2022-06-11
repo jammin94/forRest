@@ -1,131 +1,156 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="utf-8" />
+         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Item - Start Bootstrap Template</title>
+        
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/report.css" rel="stylesheet" />
+        <link href="/css/getProduct.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
         
-        	<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >-->
     </head>
-    
-    <style>
-   	.container> div{
-   		display:flex;
-   	}
-    </style>
-    <body>
+
+
+
+
+<body>
         <!-- Navigation-->
   <div th:replace="/main/toolbar.html"></div>
 		<div th:replace="/main/leftbar.html"></div> 
 		
-        <!-- Product section-->
-        <section class="py-5">
-            <div class="container px-4  px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" width="200" height="450" src="https://dnvefa72aowie.cloudfront.net/origin/article/202205/ec9ab4cabad061881c4ff3d1eb1addd3dfe5e31bbe017688c2b4305f1ee43d51.webp?q=95&s=1440x1440&t=inside" alt="..." /></div>
-                    <div class="col-md-6">
-                        
-                        <h1 class="display-7 fw-bolder mb-4" th:text=${product.prodName} ></h1>
-                        <div class="fs-5 mb-3">
-                         <span class= "fw-bolder">  판매자:</span>
-                            <span th:text = ${product.userProd.userImg}></span>
-                            <span th:text = ${product.userProd.userRate}></span>
-                            <span th:text = ${product.userProd.nickname}></span>
-                          </div>
-                          <div class="fs-5 mb-3">
-                         <span class= "fw-bolder">  카테고리: </span><span th:text = ${product.category}></span>
-                           </div>
-                           <div class="fs-5 mb-3">
-                           <span class= "fw-bolder"> 크기:</span> <span th:text = ${product.width}></span> X
-                            <span th:text = ${product.length}></span> X
-                            <span th:text = ${product.height}></span>
-                            </div>
-                            <div class="fs-5 mb-3">
-                           <span class= "fw-bolder">렌탈비용(1박2일):</span> <span th:text = ${product.rentalPrice}></span>원
-                           </div>
-                            <div class="fs-5 mb-3">
-                          <span class= "fw-bolder"> 보증금: </span><span th:text = ${product.deposit}></span>원
-                           </div>
-                           
-                           <div class="fs-5 mb-3">
-                         <span class= "fw-bolder">  수량:</span> <span th:text = ${product.prodQuantity}></span>개
-                        </div>
-                        
-                           <div class="fs-5 mb-3">
-                         <span class= "fw-bolder">  대여횟수:</span> <span th:text = ${product.rentalCounting}></span>회
-                        </div>
-                        
-                        <div class="fs-5 mb-3">
-                        <span class= "fw-bolder">대여일: </span>
-                        <select name="selection">
+		
+		
+<div class = "card-wrapper">
+  <div class = "card">
+    <!-- card left -->
+    <div class = "product-imgs">
+      <div class = "img-display">
+        <div class = "img-showcase">
+          <img th:src= "@{/images/content/fff.png}">
+          <img th:src= "@{/images/content/ccc.jpg}">
+          <img th:src= "@{/images/content/fff.png}">
+          
+          <img th:src= "@{/images/content/fff.png}">
+        </div>
+      </div>
+      <div class = "img-select">
+        <div class = "img-item">
+          <a href = "#" data-id = "1">
+            <img th:src= "@{/images/content/fff.png}">
+          </a>
+        </div>
+        <div class = "img-item">
+          <a href = "#" data-id = "2">
+            <img th:src= "@{/images/content/ccc.jpg}">
+          </a>
+        </div>
+        <div class = "img-item">
+          <a href = "#" data-id = "3">
+            <img th:src= "@{/images/content/fff.png}">
+          </a>
+        </div>
+        <div class = "img-item">
+          <a href = "#" data-id = "4">
+            <img th:src= "@{/images/content/fff.png}">
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- card right -->
+    <div class = "product-content">
+      <h2 class = "product-title" th:text=${product.prodName}></h2>
+<!--       <a href = "#" class = "product-link">visit nike store</a> -->
+    
+
+      <div class = "product-price">
+<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
+        <p class = "new-price">판매자:
+         <span>
+         [[${product.userProd.userImg}]] [[${product.userProd.userRate}]]  [[${product.userProd.nickname}]] 
+        
+        </span></p>
+      </div>
+
+      <div class = "product-detail">
+        <h2>상세정보 </h2>
+        <p class="detail" th:text="${product.prodDetail}"></p>
+        <p></p>
+        <ul>
+          <li>카테고리 <span th:text = ${product.category}></span></li>
+          <li>크기 <span >[[${product.width}]] x [[${product.length}]] x [[${product.height}]] </span></li>
+          <li>렌탈비용(1박2일) <span th:text = "|${product.rentalPrice}원|"></span></li>
+          <li>보증금 <span th:text = "|${product.deposit}원|"></span></li>
+          <li>수량 <span th:text = "|${product.prodQuantity}개|"></span></li>
+          <li>대여횟수 <span  th:text = "|${product.rentalCounting}회|"></span></li>
+          <li>대여일 <span>
+           <select class="selectBox" name="selection">
                         <option value="텐트">1박2일</option>
                         <option value="텐트">2박3일</option>
                         <option value="텐트">3박4일</option>
                         <option value="텐트">4박5일</option>
                         </select>
-                        </div>
-                        
-                        <div class="d-flex" th:if="${product.userId} == ${session.user.userId}">
-                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
-                               꺼내쓰기
-                            </button>
-                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|" >
-                               수정
-                            </button> 
-                        </div>
-                        <div class="d-flex" th:unless="${product.userId} == ${session.user.userId}">
-                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
-                               바로구매
-                            </button>
-                            <button class="btn btn-outline-dark flex-shrink-0 btn-lg" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                               장바구니
-                            </button>
-                            
-                        </div>
-                    </div>
-                </div>
-               
-                <div class="row gx-10 gx-lg-5 align-items-center">
-                 
-                	   <div class="fs-5 mb-3 mt-3">
-                         <span class= "fw-bolder" > 상세정보 </span>
-                           </div>         	
-                    <div class="fs-5 mb-1"><span th:text = ${product.prodDetail}></span></div>
-                    
-                        <div th:if = "${product.userId} == ${session.user.userId}">
-						    <div class="fs-5 mb-3 mt-3">
-                         <span class= "fw-bolder"> 계좌정보 </span>
-                           </div>  
-                         <div class="fs-5 mb-1">  계좌번호: <span th:text = ${product.account}></span></div>
-                          <div class="fs-5 mb-1"> 반송주소: <span th:text = ${product.divyAddress}></span></div>
-                            </div>
-                   
-                </div>
-                      
-            </div>
-     
-        </section>
-
-        <!-- Footer-->
-        <div th:replace="/main/footer.html"></div>
-           
+          </span></li>
+      
+			<li th:if = "${product.userId} == ${session.user.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
+			<li th:if = "${product.userId} == ${session.user.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
+        </ul>
+      </div>
+      
+        <div class = "purchase-info" th:if="${product.userId} == ${session.user.userId}">
         
-        <script src="js/scripts.js"></script>
-    </body>
-    
+        <button type = "button" class = "btn">꺼내쓰기</button>
+        <button type = "button" class = "btn" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|">수정</button>
+     
+      </div>
+
+      <div class="purchase-info" th:unless="${product.userId} == ${session.user.userId}">
+        
+        <button type = "button" class = "btn">구매하기</button>
+        <button type = "button" class = "btn">
+          장바구니 <i class = "fas fa-shopping-cart"></i>
+        </button>
+      </div>
+      
+
+      <div class = "social-links">
+        <p>공유하기 </p>
+        <a href = "#">
+          <i class = "fab fa-facebook-f"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-twitter"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-instagram"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-whatsapp"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-pinterest"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+<!-- Footer-->
+        <div th:replace="/main/footer.html"></div>
+
+<script src="/js/getProduct.js"></script>
+<script>
+   
+</script>
+</body>
 
 </html>

@@ -1,131 +1,177 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/css/getOld.css" rel="stylesheet" />
+<link href="/css/listOld.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
         
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="/css/getOld.css" rel="stylesheet" />
-        
-        
-    </head>
+</head>
 
 
 
 
 <body>
-        <!-- Navigation-->
-  <div th:replace="/main/toolbar.html"></div>
-		<div th:replace="/main/leftbar.html"></div> 
-		
-		
-		
-<div class = "card-wrapper">
-  <div class = "card">
-    <!-- card left -->
-    <div class = "product-imgs">
-      <div class = "img-display">
-        <div class = "img-showcase">
-          <img th:src= "@{/images/content/fff.png}">
-          <img th:src= "@{/images/content/ccc.jpg}">
-          <img th:src= "@{/images/content/fff.png}">
-          
-          <img th:src= "@{/images/content/fff.png}">
-        </div>
-      </div>
-      <div class = "img-select">
-        <div class = "img-item">
-          <a href = "#" data-id = "1">
-            <img th:src= "@{/images/content/fff.png}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "2">
-            <img th:src= "@{/images/content/ccc.jpg}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "3">
-            <img th:src= "@{/images/content/fff.png}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "4">
-            <img th:src= "@{/images/content/fff.png}">
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- card right -->
-    <div class = "product-content">
-      <h2 class = "product-title" th:text=${old.oldTitle}></h2>
-<!--       <a href = "#" class = "product-link">visit nike store</a> -->
-      <div class = "product-rating">
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star-half-alt"></i>
-        <span>4.7(21)</span>
-      </div>
+	<!-- Navigation-->
+	<div th:replace="/main/toolbar.html"></div>
+	<div th:replace="/main/leftbar.html"></div>
 
-      <div class = "product-price">
-<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
-        <p class = "new-price">New Price: <span>$249.00 (5%)</span></p>
-      </div>
 
-      <div class = "product-detail">
-        <h2>about this item: </h2>
-        <p class="detail" th:text=${old.oldDetail}></p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
-        <ul>
-          <li>Color: <span>Black</span></li>
-          <li>Available: <span>in stock</span></li>
-          <li>Category: <span>Shoes</span></li>
-          <li>Shipping Area: <span>All over the world</span></li>
-          <li>Shipping Fee: <span>Free</span></li>
-        </ul>
-      </div>
 
-      <div class = "purchase-info">
-        
-        <button type = "button" class = "btn">
-          Add to Cart <i class = "fas fa-shopping-cart"></i>
-        </button>
-        <button type = "button" class = "btn">Compare</button>
-      </div>
+	<div class="card-wrapper">
 
-      <div class = "social-links">
-        <p>Share At: </p>
-        <a href = "#">
-          <i class = "fab fa-facebook-f"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-twitter"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-instagram"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-whatsapp"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-pinterest"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-  
-  
-</div>
+		<div class="card">
+			<!-- card left -->
+
+			<div class="product-imgs">
+				<div class="img-display">
+					<div class="img-showcase">
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/ccc.jpg}">
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/fff.png}">
+					</div>
+				</div>
+				<div class="img-select">
+					<div class="img-item">
+						<a href="#" data-id="1"> <img
+							th:src="@{/images/content/fff.png}">
+						</a>
+					</div>
+					<div class="img-item">
+						<a href="#" data-id="2"> <img
+							th:src="@{/images/content/ccc.jpg}">
+						</a>
+					</div>
+					<div class="img-item">
+						<a href="#" data-id="3"> <img
+							th:src="@{/images/content/fff.png}">
+						</a>
+					</div>
+					<div class="img-item">
+						<a href="#" data-id="4"> <img
+							th:src="@{/images/content/fff.png}">
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- card right -->
+			<div class="product-content">
+
+				<h2 class="product-title" th:text=${old.oldTitle}></h2>
+
+				<div class="categoryaddr">
+
+					<div class="category" th:text=${old.category}></div>
+					/
+					<div class="oldAddr" th:text=${old.oldAddr}></div>
+
+				</div>
+				<!--       <a href = "#" class = "product-link">visit nike store</a> -->
+				<!--     <div class="userProfile">   -->
+				<!--     <p class="fa-solid fa-circle-user"></p> -->
+				<!--      </div> -->
+
+				<!--     <a href = "#"> -->
+				<!--           <img alt="" src="/images/content/danielstorage"> -->
+				<!--         </a> -->
+				<!--      //////////////////// -->
+				<div class="user">
+
+					<table>
+						<tr>
+							<td>
+
+								<div class="userProfile">
+
+
+									<a th:href="@{/user/getUser(userId=${old.userId})}"
+										style="height: 54;"> <img
+										src="https://randomuser.me/api/portraits/men/52.jpg"
+										alt="A man smiling" /></a>
+
+								</div>
+
+							</td>
+
+							<td>
+								<p>
+									<span class="a" th:text=${old.userId}></span>
+								</p>
+
+								<div class="product-rating">
+
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star-half-alt"></i>
+									<!-- 						<span th:text=${oldreview.userRate}></span> -->
+
+								</div>
+
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+				<div class="purchase-info">
+
+					<button type="button" class="btn">
+						채팅하기<i class="fa-solid fa-comments"></i>
+					</button>
+
+				</div>
+
+				<div class="social-links">
+					<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
+					</a>
+
+				</div>
+				<div class="product-price">
+					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
+					<span th:text=${old.oldPrice}></span> <span>원</span>
+				</div>
+
+				<div class="product-detail">
+
+
+
+					<p class="detail" th:text=${old.oldDetail}></p>
+
+				</div>
+
+
+				<!-- END old List -->
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+	
+	
+<!-- Footer-->
+        <div th:replace="/main/footer.html"></div>
 
 <script src="/js/getOld.js"></script>
+<script>
+   
+</script>
 </body>
 
 </html>

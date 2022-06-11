@@ -9,7 +9,7 @@ import lombok.Data;
 public class Coupon {
 	
 	///Field
-	private int couponNo;
+	private String couponNo;
 	private String couponName;
 	private double discount;
 	private Timestamp couponCreDate;

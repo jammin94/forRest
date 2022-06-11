@@ -18,7 +18,7 @@ public interface CouponDAO {
 	
 	public void updateCoupon(Coupon coupon) throws Exception ;
 	
-	public void deleteCoupon(int couponNo) throws Exception ;
+	public void deleteCoupon(String couponNo) throws Exception ;
 	
 	public List<Coupon> getCouponList(Search search) throws Exception ;
 	

@@ -2,47 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
-	
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	
-	<!--  ///////////////////////// java Script ////////////////////////// -->
-	<script type="text/javascript">
-		
-		//회원가입 버튼 event
-		
-		$(function(){
-			$("#addCoupon").on("click", fncAddCoupon);
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+<style type="text/css">
 
-		});
-		
-		function fncAddCoupon() {
-
-			const couponName = $('#couponName'.val());
-			const discount = $('input[name="discount"]'.val());
-			const couponCreDate = $('input[name="couponCreDate"]'.val());
-			const couponDelDate = $('input[name="couponDelDate"]'.val());
-			alert(couponName, discount,couponCreDate, couponDelDate);
-			
-			$.ajax({
-				type	: "POST",
-				url		: "coupon/json/addCoupon",
-				data	: $('form').serialize(),
-				error	: function(error){
-						console.log("error");
-				},
-				success	: function(data){
-						console.log("success");
-				}
-			})
-			
-		}
-		
-		
-	</script>
+.formData{
+	margin: 10px 0px 10px 0px;
+}
+.left{
+	margin: 20px 0px 20px 0px;
+}
+.right{
+	margin: 20px 0px 20px 0px;
+}
+.couponList{
+	margin: 30px 0px 30px 0px;
+}
+</style>
+	
+	
 	
 </head>
 
@@ -56,59 +35,48 @@
 
 
 <!--  화면구성 div Start /////////////////////////////////////-->
-<div class="coupon list">
 <div class="container list">
-	<div class="page-header text-info">
+	
+	
+	<div><!-- 쿠폰 생성/수정  -->
+		<div>
+			<h2 style="color: black; margin: 30px 0 30px 0px;">쿠폰관리</h2>
+			<h3 style="color: black; margin: 15px 0 15px 0px;">쿠폰 생성/수정</h3>
 		</div>
-		
-				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
-	    <div class="row">
-	    
-		    <div class="col-md-6 text-left">
-		    	<p class="text-primary">
-		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
-		    	</p>
-		    </div>
-	    	
-		</div>
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-	<div>
-	<h1>쿠폰관리</h1><hr><br>
-	<h2>쿠폰 생성/관리</h2><hr><br>
 	
 	<form>
- 		<div id="add">
-		<div class="col-md-6" align="center">
-			<div>
-				<label>쿠폰이름</label>
-				<input type="text" name="couponName" id="couponName">
+		<input type="hidden" name="couponNo" id="couponNo">
+ 		<div class="formData" align="center">
+			<div class="col-md-6 left">
+				<div style="margin: 10px 0px 10px 30px;">
+					<label>쿠폰이름</label>
+					<input type="text" name="couponName" id="couponName">
+				</div>
+				<div style="margin: 10px 0px 10px 0px;">
+					<label>쿠폰발급일자</label>
+					<input type="text" name="couponCreDate" id="couponCreDate" readonly="readonly">
+				</div>
 			</div>
-			<div>
-				<label>쿠폰발급일자</label>
-				<input type="text" name="couponCreDate" id="couponCreDate">
+			<div class="col-md-6 right">
+				<div style="margin: 10px 0px 10px 30px;">
+					<label >할인내용</label>
+					<input type="text" name="discount" id="discount">
+				</div>
+				<div style="margin: 10px 0px 10px 0px;">
+					<label>쿠폰만료일자</label>
+					<input type="text" name="couponDelDate" id="couponDelDate" readonly="readonly">
+				</div>
 			</div>
-		</div>
-		<div class="col-md-6" align="center">
-			<div>
-				<label >할인내용</label>
-				<input type="text" name="discount" id="discount">
-			</div>
-			<div>
-				<label>쿠폰만료일자</label>
-				<input type="text" name="couponDelDate" id="couponDelDate">
-			</div>
-		</div>
      </div>
 	     <div align="center">
-	     	<button  id="addCoupon">등록/수정</button>
+	     	<button type="button" class="btn btn-default conditionBtn" id="summit">등록/수정</button>
 		</div>
      </form>
-	</div>
-	<hr>
+	</div><!-- 쿠폰 생성/수정  끝-->
 	
 
-	<div>
-      <h2 >쿠폰목록</h2>
+	<div class="couponList">
+      <h2 style="color: black; margin: 15px 0 15px 0;">쿠폰목록</h2>
       <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
@@ -125,12 +93,21 @@
 	        <tbody>
 			    <tr th:each="coupon,n :${list}" align="center">
 			    	<td th:text = "${n.index+1}">
-				    <td th:text = "${coupon.couponNo}"></td>
-					<td th:text = "${coupon.couponName}"></td>
-					<td th:text = "${coupon.discount}"></td>
-					<td th:text = "${coupon.couponCreDate}"></td>
-					<td th:text = "${coupon.couponDelDate}"></td>
-					<td ><input type="button" value="수정" id="updatebtn"></td>
+				    <td th:value = "${coupon.couponNo}" class="listCouponNo">[[${coupon.couponNo}]]</td>
+					<td th:value = "${coupon.couponName}" class="listCouponName">[[${coupon.couponName}]]</td>
+					<td th:value = "${coupon.discount}" class="listDiscount">[[${coupon.discount}]]</td>
+					<td th:value = "${coupon.couponCreDate}" class="listCreDate">[[${coupon.couponCreDate}]]</td>
+					<td th:value = "${coupon.couponDelDate}" class="listDelDate">[[${coupon.couponDelDate}]]</td>
+					<td >
+						<button type="button" class="btn btn-default conditionBtn"
+								th:value="${coupon.couponNo}" id="updateBtn">
+							수정
+						</button>
+						<button type="button" class="btn btn-default conditionBtn"
+								th:value="${coupon.couponNo}" id="deleteBtn">
+							삭제
+						</button>
+					</td>
 			    </tr>
 	        </tbody>
 
@@ -139,11 +116,117 @@
 		<!--  table End /////////////////////////////////////-->
 		
 	</div>
-</div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
 
 
 </body>
+
+
+<!--  ///////////////////////// java Script ////////////////////////// -->
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript">
+		
+	  $(function() {
+			$( "#summit" ).on("click" , function() {
+				console.log("summit Click");
+				fncAddCoupon();
+			});
+			$(updateBtn).on("click" , function() {
+				console.log("update Click");
+				fncUpdateCoupon();
+			});
+			$(deleteBtn ).on("click" , function() {
+				console.log("delete Click");
+				if(confirm("해당 쿠폰을 삭제하시겠습니까?"))
+				 {
+					fncDeleteCoupon();
+				 }
+				 else
+				 {
+				 return;
+				 }
+			});
+		});	
+	 
+	 function fncAddCoupon(){
+		 
+		 	var couponNo 	=	"20";
+		 	var	couponName	=	$("input[name='couponName']").val();
+		 	var discount	=	$("input[name='discount']").val();
+		 	var couponCreDate =	$("input[name='couponCreDate']").val()+" 00:00:00";
+		 	var	couponDelDate =	$("input[name='couponDelDate']").val()+" 00:00:00";
+		 	
+		 	
+		 	if(couponName == null|| couponName.length<1){
+		 		alert("쿠폰이름을 입력해 주세요");
+		 		return;
+		 	}
+		 	if(discount == null|| discount.length<1){
+		 		alert("할인내용을 입력해 주세요");
+		 		return;
+		 	}
+		 	if(couponCreDate == null|| couponCreDate.length<1){
+		 		alert("쿠폰발급일자를 입력해 주세요");
+		 		return;
+		 	}
+		 	if(couponDelDate == null|| couponDelDate.length<1){
+		 		alert("쿠폰만료일자를 입력해 주세요");
+		 		return;
+		 	}
+		 	if(couponCreDate == couponDelDate){
+		 		alert("발급일자와 만료일자가 같습니다");
+		 		return;
+		 	}
+		 	if(couponDelDate < couponCreDate){
+		 		alert("만료일자는 발급일자보다 커야합니다");
+		 		return;
+		 	}
+		 	$("input[name='couponDelDate']").val(couponDelDate);
+		 	$("input[name='couponCreDate']").val(couponCreDate);
+		 	$("input[name='couponNo']").val(couponNo);
+
+		 	$("form").attr("method" , "POST").attr("action" , "/coupon/addCoupon").submit();
+ 
+	 } 
+	
+	function fncUpdateCoupon(){
+		 console.log("fncUpdateCoupon");
+		 
+		 /* 수정버튼을 누르면 상단에 인풋창으로 찍힐 수 있도록 해야함  */
+		 
+	 }
+ 	
+	function fncDeleteCoupon(){
+		console.log("fncDeleteCoupon");
+ 		
+		var listCouponNo = document.querySelector(".listCouponNo").innerHTML;
+	 	$("input[name='couponNo']").val(listCouponNo);
+
+		
+	 	
+	  	 $("form").attr("method" , "POST").attr("action" , "/coupon/deleteCoupon").submit();
+	 }
+	 
+	function random(){
+		
+		
+		
+	}
+	</script>
+
+ 	
+ 	<!-- 날짜표시 date picker  -->
+ 	<script> 
+		$('#couponCreDate').datepicker({
+			dateFormat: 'yy-mm-dd',
+			minDate: "+1D"
+			});
+		$('#couponDelDate').datepicker({
+			dateFormat: 'yy-mm-dd',
+			minDate: "+1D",
+			}); 
+	</script>
 
 </html>

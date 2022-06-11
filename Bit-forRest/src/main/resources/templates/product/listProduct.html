@@ -30,9 +30,15 @@
         
 </head>
 <style>
-	
+
+.container.tempList{
+     padding-top: 120px;
+    width: calc(100% - 210px);
+    float: right;
+    max-width: 1500px;
+}
 .col-md-12{
- margin-top: 200px
+ margin-top: 60px
 }
 
 .boardTitle{
@@ -60,7 +66,7 @@ margin-bottom: 210px !important;
 
 .product-list .product{  
     border-radius: 10px;
-  width: 24%; /* Products width */  
+  /* width: 24%; Products width */  
   margin: 7px; /* Space between products related with nth-childs below */
   
   position: relative;
@@ -93,48 +99,7 @@ margin-bottom: 210px !important;
   position: relative;
 }
 
-/* Ribbon Styles */
 
-
-.ribbon {
-  background: #ff9606;
-  display: inline-block;
-  font-size: 11px;
-  font-style: italic;
-  font-weight: bolder;
-  line-height: normal;
-  padding: 3px 0px 2px;
-  position: relative;
-  border-top-left-radius: 3px;
-  color: #fff;
-  margin-bottom: 5px;
-  width: 55px;
-  text-align: center;
-}
-
-.ribbon:before {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 9px 6px 0 0;
-  border-color: #ff9606 transparent transparent transparent;
-  position: absolute;
-  content: "";
-  right: -6px;
-  top: 0;
-}
-
-.ribbon:after {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 9px 0 0 6px;
-  border-color: transparent transparent transparent #ff9606;
-  position: absolute;
-  content: "";
-  right: -6px;
-  bottom: 0;
-}
 
 .product-list .product .product-image img{  
   width: 100%;
@@ -177,19 +142,10 @@ margin-bottom: 210px !important;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.product-list .product:hover .product-info .product-name a{
-  color: #ff9606;
-  text-overflow: ellipsis;
-}
+
 
 .product-list .product .product-info .product-price .old-price{
   margin-right: 10px;
-}
-.product-list .product .product-info .product-price .new-price{
-  font-size: 18px;
-  font-weight: bold;
-  color: #ff9606;
-  text-shadow: 0 1px 3px rgba(255,255,255,1);
 }
 
 .product-list .product .product-info .add-basket a{
@@ -209,11 +165,7 @@ margin-bottom: 210px !important;
   transition: all 0.2s ease-in-out;
 }
 
-.product-list .product:hover .product-info .add-basket a{
-  background: #ff9606;
-  color: white;
-  border: 1px solid #ff9606;
-}
+
 
 @media screen and (max-width: 1200px){
   .product-list .product{
@@ -226,7 +178,7 @@ margin-bottom: 210px !important;
     justify-content: space-between;
   }
   .product-list .product{
-    width: 48%;
+  
     margin: 0 0 25px 0;
   }
 }
@@ -236,7 +188,7 @@ margin-bottom: 210px !important;
     justify-content: space-between;
   }
   .product-list .product{
-    width: 48%;
+ 
     margin: 0 0 20px 0;
   }
 }
@@ -246,7 +198,7 @@ margin-bottom: 210px !important;
     justify-content: space-around;
   }
   .product-list .product{
-    width: 90%;
+  
     margin: 0 0 30px 0;
     min-height: unset;
   }
@@ -256,21 +208,128 @@ margin-bottom: 210px !important;
 }
 
 
+/* 검색바 */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.searchKeyword {
+  width: 30%;
+  border: 3px solid #333333;
+  border-right: none;
+  padding: 5px;
+  height: 42px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #333333;
+   font-size: 18px;
+}
+
+.searchTerm:focus{
+  color: #333333;
+}
+
+.searchButton {
+  width: 40px;
+  height: 42px;
+  border: 1px solid #333333;
+  background: #333333;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.wrap{
+ 	margin-bottom: 30px;
+}
+
+
+/*정렬조건바*/
+
+
+.dropdown-dark:before {
+  border-bottom-color: #333333;
+}
+
+.dropdown-dark:after {
+  border-top-color: #aaa;
+}
+
+.dropdown-dark .dropdown-select {
+  color: #fff;
+  text-shadow: 0 1px black;
+  background: #333333;  /* Fallback for IE 8 */
+  width: 130px;
+  height: 35px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  
+  
+}
+
+.dropdown-dark .dropdown-select:focus {
+  color:#fff;
+}
+
+.dropdown-dark .dropdown-select > option {
+  background: #333333;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+
+
 </style>
 
 
 <body>
 
   <div th:replace="/main/toolbar.html"></div>
-		<div th:replace="/main/leftbar.html"></div> 
+ 
+  <div th:replace="/product/categoryLeftbar.html"></div> 
 
-<div class="container">
+<div class="container tempList">
   <div class="row">
   
   
     <div class="col-md-12"  >
 
      <h2 class="boardTitle">렌탈마켓</h2>
+     
+    <form name="detailForm"  method="post">
+    
+    <input type="hidden"  class="searchCategory" name="searchCategory"  value="">
+    <!-- 검색바 시작 -->
+    <div class="wrap">
+   <div class="search">
+   
+       <input type="text" class="searchKeyword" name="searchKeyword" 
+       th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
+
+       
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+   </div>
+</div>
+  <!-- 검색바 끝 -->
+  
+  <!-- 정렬조건 바  시작-->
+  <section class="container">
+<div class="dropdown dropdown-dark">
+    <select name="orderCondition" class="dropdown-select"  th:field=${search.orderCondition} th:value=${search.orderCondition} >
+      <option th:value="prodNoDESC">최신순</option>
+      <option th:value="rentalPriceASC">낮은가격순</option>
+      <option th:value="rentalPriceDESC">높은가격순</option>
+      <option th:value="rentalCountingDESC">인기순</option>
+    </select>
+  </div>
+  </section>
+  <!-- 정렬조건 바  끝-->
+  </form>  
       <!-- BEGIN Product List -->
       <div class="product-list">
 
@@ -291,7 +350,7 @@ margin-bottom: 210px !important;
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>  <span class="new-price" th:text ="|${product.rentalPrice}원|"></span></p>	
-											<div class="try_mob_btn_wrapper">	<a href="#">구매하기</a>
+											<div class="try_mob_btn_wrapper">	<a th:href ="@{/product/getProduct(prodNo = ${product.prodNo})}">구매하기</a>
 											</div>
 										</div>
 									</div>
@@ -314,7 +373,41 @@ margin-bottom: 210px !important;
 	<div th:replace="/main/footer.html"></div>
 </body>
 
-	<script type="text/javascript">
+	<script>
+	
+	//검색클릭
+	$(function(){
+		$(".searchButton").on("click", function(){
+			
+			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+			
+		})
+	});
+	
+	//셀렉트박스(정렬조건) 클릭
+	$(function(){
+		$(".dropdown-select").on("change", function(){
+			
+			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+			
+		})
+	});
+	
+	
+	$(function(){
+		$(".leftBarList ").on("click", function(){
+			
+			var category = $(this).val();
+			alert(category);
+			
+			$(".searchCategoryVal").val(category);
+			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+			
+			 
+			 
+		})
+	});
+	
 	
 	</script>
 

@@ -27,7 +27,7 @@ CREATE TABLE product
    length INTEGER NOT NULL,
    height INTEGER NOT NULL,
    userId VARCHAR(30) NOT NULL,
-   prodCondition VARCHAR(30) NOT NULL DEFAULT '¹°Ç°º¸°ü½ÂÀÎ½ÅÃ»Áß',
+   prodCondition VARCHAR(30) NOT NULL DEFAULT 'ë¬¼í’ˆë³´ê´€ìŠ¹ì¸ì‹ ì²­ì¤‘',
    prodName VARCHAR(40) NOT NULL,
    prodQuantity INTEGER NOT NULL,
    prodDetail VARCHAR(600) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE old (
 
 
 CREATE TABLE coupon(
-   couponNo   INTEGER   NOT NULL AUTO_INCREMENT,
+   couponNo   VARCHAR(50) NOT NULL ,
    couponName   VARCHAR(50)   NOT NULL,
    couponCreDate   DATETIME      ,
    couponDelDate   DATETIME      ,   
@@ -105,12 +105,12 @@ CREATE TABLE coupon(
 CREATE TABLE ownCoupon(
    ownCouponNo         INTEGER      NOT NULL AUTO_INCREMENT,
    userId            VARCHAR(30)      NOT NULL,
-   couponNo            INTEGER      NOT NULL,
+   couponNo            VARCHAR(50)	NOT NULL,
    ownCouponCreDate   DATETIME         NOT NULL,
    ownCouponDelDate   DATETIME         NOT NULL,
    PRIMARY KEY(ownCouponNo),
    FOREIGN KEY(userId) REFERENCES user(userId),
-   FOREIGN KEY(couponNo) REFERENCES coupon(couponNo)
+   FOREIGN KEY(couponNo) REFERENCES coupon(couponNo) ON DELETE CASCADE
 );
 
 
@@ -263,90 +263,90 @@ INSERT INTO user
 VALUES ('user20@naver.com','user20','user20Phone','2020','user20Name','user20Addr','restrict',CURDATE(),'own','user20Img',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO old
-VALUES (NULL,'user01@naver.com',40000,'¾ßÀüÄ§´ë','Á¢ÀÌ½Ä',CURRENT_TIMESTAMP(),0,'Ä§´ë',TRUE,'aaa.jpg','»ï¼ºµ¿');
+VALUES (NULL,'user01@naver.com',40000,'ì•¼ì „ì¹¨ëŒ€','ì ‘ì´ì‹',CURRENT_TIMESTAMP(),0,'ì¹¨ëŒ€',TRUE,'aaa.jpg','ì‚¼ì„±ë™');
 
 INSERT INTO old
-VALUES (NULL,'user02@naver.com',90000,'1ÀÎ¿ë ÅÙÆ®','º£ÀÌÁö»ö',CURRENT_TIMESTAMP(),0,'ÅÙÆ®',TRUE,'bbb.jpg','¼­±³µ¿');
+VALUES (NULL,'user02@naver.com',90000,'1ì¸ìš© í…íŠ¸','ë² ì´ì§€ìƒ‰',CURRENT_TIMESTAMP(),0,'í…íŠ¸',TRUE,'bbb.jpg','ì„œêµë™');
 
 INSERT INTO old
-VALUES (NULL,'user03@naver.com',40000,'Á¢ÀÌ½Ä ÀÇÀÚ','´ëÇü',CURRENT_TIMESTAMP(),0,'ÀÇÀÚ',TRUE,'ccc.jpg','¼­±³µ¿');
+VALUES (NULL,'user03@naver.com',40000,'ì ‘ì´ì‹ ì˜ì','ëŒ€í˜•',CURRENT_TIMESTAMP(),0,'ì˜ì',TRUE,'ccc.jpg','ì„œêµë™');
 
 INSERT INTO old
-VALUES (NULL,'user04@naver.com',30000,'¹Ùº£Å¥ ±×¸±','2¹ø »ç¿ë',CURRENT_TIMESTAMP(),0,'±×¸±',TRUE,'ddd.jpg','´ëÈ«µ¿');
+VALUES (NULL,'user04@naver.com',30000,'ë°”ë² í ê·¸ë¦´','2ë²ˆ ì‚¬ìš©',CURRENT_TIMESTAMP(),0,'ê·¸ë¦´',TRUE,'ddd.jpg','ëŒ€í™ë™');
 
 INSERT INTO old
-VALUES (NULL,'user05@naver.com',5000,'ÈŞ´ë¿ë ¹ö³Ê','°¡¼ººñ',CURRENT_TIMESTAMP(),0,'¹ö³Ê',TRUE,'eee.jpg','¿°¸®µ¿');
+VALUES (NULL,'user05@naver.com',5000,'íœ´ëŒ€ìš© ë²„ë„ˆ','ê°€ì„±ë¹„',CURRENT_TIMESTAMP(),0,'ë²„ë„ˆ',TRUE,'eee.jpg','ì—¼ë¦¬ë™');
 
 INSERT INTO old
-VALUES (NULL,'user06@naver.com',20000,'·£ÅÏÁ¶¸í','LED',CURRENT_TIMESTAMP(),0,'Á¶¸í',TRUE,'fff.jpg','¸Á¿øµ¿');
+VALUES (NULL,'user06@naver.com',20000,'ëœí„´ì¡°ëª…','LED',CURRENT_TIMESTAMP(),0,'ì¡°ëª…',TRUE,'fff.jpg','ë§ì›ë™');
 
 INSERT INTO old
-VALUES (NULL,'user01@naver.com',70000,'Á¢ÀÌ½Ä Å×ÀÌºí','°ÅÀÇ»õ°Í',CURRENT_TIMESTAMP(),0,'Å×ÀÌºí',TRUE,'ggg.jpg','¸Á¿øµ¿');
+VALUES (NULL,'user01@naver.com',70000,'ì ‘ì´ì‹ í…Œì´ë¸”','ê±°ì˜ìƒˆê²ƒ',CURRENT_TIMESTAMP(),0,'í…Œì´ë¸”',TRUE,'ggg.jpg','ë§ì›ë™');
 
 INSERT INTO old
-VALUES (NULL,'user02@naver.com',20000,'ÄÅ ¼öÀú ½Ä±â ¼¼Æ®','½ºÅÄ304',CURRENT_TIMESTAMP(),0,'½Ä±â',TRUE,'hhh.jpg','»ï¼ºµ¿');
+VALUES (NULL,'user02@naver.com',20000,'ì»µ ìˆ˜ì € ì‹ê¸° ì„¸íŠ¸','ìŠ¤íƒ 304',CURRENT_TIMESTAMP(),0,'ì‹ê¸°',TRUE,'hhh.jpg','ì‚¼ì„±ë™');
 
 INSERT INTO old
-VALUES (NULL,'user03@naver.com',120000,'¼®À¯³­·Î','ÀÛ³â¿¡ »ò¾î¿ä', CURRENT_TIMESTAMP(),0,'³­·Î',FALSE,'iii.jpg','¼­ÃÊµ¿');
+VALUES (NULL,'user03@naver.com',120000,'ì„ìœ ë‚œë¡œ','ì‘ë…„ì— ìƒ€ì–´ìš”', CURRENT_TIMESTAMP(),0,'ë‚œë¡œ',FALSE,'iii.jpg','ì„œì´ˆë™');
 
 INSERT INTO old
-VALUES (NULL,'user04@naver.com',10000,'¾ÆÀÌ½º¹Ú½º','10L',CURRENT_TIMESTAMP(),0,'±âÅ¸¿ëÇ°',FALSE,'jjj.jpg','¼­ÃÊµ¿');
+VALUES (NULL,'user04@naver.com',10000,'ì•„ì´ìŠ¤ë°•ìŠ¤','10L',CURRENT_TIMESTAMP(),0,'ê¸°íƒ€ìš©í’ˆ',FALSE,'jjj.jpg','ì„œì´ˆë™');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', '´ë¿©Áß', 'Æ¯´ëÇü ´©ºöÅÙÆ®1', 1, 'Æ¯´ëÇü ´©ºö ÅÙÆ® ÆÇ¸ÅÇÕ´Ï´Ù. ¿ÃÇØÃÊ ½ÅÇ° ±¸¸ÅÈÄ 3È¸»ç¿ëÇß½À´Ï´Ù. »çÁø»ó ¸¶Áö¸· Ä·ÇÎ Àå¼Ò°¡ Àú·¡¼­ ½ºÄ¿Æ® ºÎºĞ¿¡ Èë¸ÕÁö ÀÖÀ»¼ö ÀÖ½À´Ï´Ù. »óÅÂ ÁÁ½À´Ï´Ù.', 1, 0, 10000, '±¹¹Î 478102-04-386651', 30000, 'ÅÙÆ®', '13271 ¼º³²½Ã ¼öÁ¤±¸ ½ÅÈï2µ¿ ÇÑ½Å¾ÆÆÄÆ® 5µ¿ 502È£', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', 'ëŒ€ì—¬ì¤‘', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸1', 1, 'íŠ¹ëŒ€í˜• ëˆ„ë¹” í…íŠ¸ íŒë§¤í•©ë‹ˆë‹¤. ì˜¬í•´ì´ˆ ì‹ í’ˆ êµ¬ë§¤í›„ 3íšŒì‚¬ìš©í–ˆìŠµë‹ˆë‹¤. ì‚¬ì§„ìƒ ë§ˆì§€ë§‰ ìº í•‘ ì¥ì†Œê°€ ì €ë˜ì„œ ìŠ¤ì»¤íŠ¸ ë¶€ë¶„ì— í™ë¨¼ì§€ ìˆì„ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìƒíƒœ ì¢‹ìŠµë‹ˆë‹¤.', 1, 0, 10000, 'êµ­ë¯¼ 478102-04-386651', 30000, 'í…íŠ¸', '13271 ì„±ë‚¨ì‹œ ìˆ˜ì •êµ¬ ì‹ í¥2ë™ í•œì‹ ì•„íŒŒíŠ¸ 5ë™ 502í˜¸', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', 'º¸°üÁß', 'Æ¯´ëÇü ´©ºöÅÙÆ®2', 1, 'Æ¯´ëÇü ´©ºö ÅÙÆ® ÆÇ¸ÅÇÕ´Ï´Ù. ¿ÃÇØÃÊ ½ÅÇ° ±¸¸ÅÈÄ 3È¸»ç¿ëÇß½À´Ï´Ù. »çÁø»ó ¸¶Áö¸· Ä·ÇÎ Àå¼Ò°¡ Àú·¡¼­ ½ºÄ¿Æ® ºÎºĞ¿¡ Èë¸ÕÁö ÀÖÀ»¼ö ÀÖ½À´Ï´Ù. »óÅÂ ÁÁ½À´Ï´Ù.', 1, 0, 10000, '±¹¹Î 478102-04-386651', 30000, 'ÅÙÆ®', '13271 ¼º³²½Ã ¼öÁ¤±¸ ½ÅÈï2µ¿ ÇÑ½Å¾ÆÆÄÆ® 5µ¿ 502È£', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', 'ë³´ê´€ì¤‘', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸2', 1, 'íŠ¹ëŒ€í˜• ëˆ„ë¹” í…íŠ¸ íŒë§¤í•©ë‹ˆë‹¤. ì˜¬í•´ì´ˆ ì‹ í’ˆ êµ¬ë§¤í›„ 3íšŒì‚¬ìš©í–ˆìŠµë‹ˆë‹¤. ì‚¬ì§„ìƒ ë§ˆì§€ë§‰ ìº í•‘ ì¥ì†Œê°€ ì €ë˜ì„œ ìŠ¤ì»¤íŠ¸ ë¶€ë¶„ì— í™ë¨¼ì§€ ìˆì„ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìƒíƒœ ì¢‹ìŠµë‹ˆë‹¤.', 1, 0, 10000, 'êµ­ë¯¼ 478102-04-386651', 30000, 'í…íŠ¸', '13271 ì„±ë‚¨ì‹œ ìˆ˜ì •êµ¬ ì‹ í¥2ë™ í•œì‹ ì•„íŒŒíŠ¸ 5ë™ 502í˜¸', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', 'º¸°üÁß', 'Æ¯´ëÇü ´©ºöÅÙÆ®3', 1, 'Æ¯´ëÇü ´©ºö ÅÙÆ® ÆÇ¸ÅÇÕ´Ï´Ù. ¿ÃÇØÃÊ ½ÅÇ° ±¸¸ÅÈÄ 3È¸»ç¿ëÇß½À´Ï´Ù. »çÁø»ó ¸¶Áö¸· Ä·ÇÎ Àå¼Ò°¡ Àú·¡¼­ ½ºÄ¿Æ® ºÎºĞ¿¡ Èë¸ÕÁö ÀÖÀ»¼ö ÀÖ½À´Ï´Ù. »óÅÂ ÁÁ½À´Ï´Ù.', 1, 0, 10000, '±¹¹Î 478102-04-386651', 30000, 'ÅÙÆ®', '13271 ¼º³²½Ã ¼öÁ¤±¸ ½ÅÈï2µ¿ ÇÑ½Å¾ÆÆÄÆ® 5µ¿ 502È£', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (100, 30, 12, 'user01@naver.com', 'ë³´ê´€ì¤‘', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸3', 1, 'íŠ¹ëŒ€í˜• ëˆ„ë¹” í…íŠ¸ íŒë§¤í•©ë‹ˆë‹¤. ì˜¬í•´ì´ˆ ì‹ í’ˆ êµ¬ë§¤í›„ 3íšŒì‚¬ìš©í–ˆìŠµë‹ˆë‹¤. ì‚¬ì§„ìƒ ë§ˆì§€ë§‰ ìº í•‘ ì¥ì†Œê°€ ì €ë˜ì„œ ìŠ¤ì»¤íŠ¸ ë¶€ë¶„ì— í™ë¨¼ì§€ ìˆì„ìˆ˜ ìˆìŠµë‹ˆë‹¤. ìƒíƒœ ì¢‹ìŠµë‹ˆë‹¤.', 1, 0, 10000, 'êµ­ë¯¼ 478102-04-386651', 30000, 'í…íŠ¸', '13271 ì„±ë‚¨ì‹œ ìˆ˜ì •êµ¬ ì‹ í¥2ë™ í•œì‹ ì•„íŒŒíŠ¸ 5ë™ 502í˜¸', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (40, 30, 15, 'user01@naver.com', 'º¸°üÁß', 'Ä·ÇÎ °­¿°¹ö³Ê ¹ö³Ê', 1, 'Ä·ÇÎÇÏ´Â µ¿¾È Àß ½è´Âµ¥ ´Ù¸¥ Á¦Ç°À» ±¸¸ÅÇÏ°Ô µÅ¼­ °øÀ¯ÇÕ´Ï´Ù. »ç¿ë°¨ ¸¹Áö¸¸ °íÀåÀÌ³ª ÇÏÀÚ ¾ø¾î¼­ »ç¿ëÇÏ´Âµ¥ ÀüÇô ¹®Á¦ ¾ø½À´Ï´Ù~', 1, 0, 8000, '±¹¹Î 478102-04-386651', 10000, '¹ö³Ê', '13271 ¼º³²½Ã ¼öÁ¤±¸ ½ÅÈï2µ¿ ÇÑ½Å¾ÆÆÄÆ® 5µ¿ 502È£', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (40, 30, 15, 'user01@naver.com', 'ë³´ê´€ì¤‘', 'ìº í•‘ ê°•ì—¼ë²„ë„ˆ ë²„ë„ˆ', 1, 'ìº í•‘í•˜ëŠ” ë™ì•ˆ ì˜ ì¼ëŠ”ë° ë‹¤ë¥¸ ì œí’ˆì„ êµ¬ë§¤í•˜ê²Œ ë¼ì„œ ê³µìœ í•©ë‹ˆë‹¤. ì‚¬ìš©ê° ë§ì§€ë§Œ ê³ ì¥ì´ë‚˜ í•˜ì ì—†ì–´ì„œ ì‚¬ìš©í•˜ëŠ”ë° ì „í˜€ ë¬¸ì œ ì—†ìŠµë‹ˆë‹¤~', 1, 0, 8000, 'êµ­ë¯¼ 478102-04-386651', 10000, 'ë²„ë„ˆ', '13271 ì„±ë‚¨ì‹œ ìˆ˜ì •êµ¬ ì‹ í¥2ë™ í•œì‹ ì•„íŒŒíŠ¸ 5ë™ 502í˜¸', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (30, 30, 60, 'user01@naver.com', 'º¸°üÁß', '¾ËÆÄÄ«TS-77AÄŞÆÑÆ®Ä·ÇÎ³­·Î', 1, '¾ËÆÄÄ«TS-77SÄŞÆÑÆ® Ä·ÇÎ³­·Î ½ÉÁö³­·Î ¼®À¯³­·Î µîÀ¯³­·Î ±â¸§³­·Î ³­·Î ¼®À¯Åë ÀÚ¹Ù¶ó ³­·ÎÀü¿ë°¡¹æ ³­·Î 4°¡Áö¼¼Æ®ÆÇ¸Å 2021³â8¿ùÁ¦Á¶', 1, 0, 10000, '±¹¹Î 478102-04-386651', 30000, 'ÅÙÆ®', '13271 ¼º³²½Ã ¼öÁ¤±¸ ½ÅÈï2µ¿ ÇÑ½Å¾ÆÆÄÆ® 5µ¿ 502È£', '1.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (30, 30, 60, 'user01@naver.com', 'ë³´ê´€ì¤‘', 'ì•ŒíŒŒì¹´TS-77Aì½¤íŒ©íŠ¸ìº í•‘ë‚œë¡œ', 1, 'ì•ŒíŒŒì¹´TS-77Sì½¤íŒ©íŠ¸ ìº í•‘ë‚œë¡œ ì‹¬ì§€ë‚œë¡œ ì„ìœ ë‚œë¡œ ë“±ìœ ë‚œë¡œ ê¸°ë¦„ë‚œë¡œ ë‚œë¡œ ì„ìœ í†µ ìë°”ë¼ ë‚œë¡œì „ìš©ê°€ë°© ë‚œë¡œ 4ê°€ì§€ì„¸íŠ¸íŒë§¤ 2021ë…„8ì›”ì œì¡°', 1, 0, 10000, 'êµ­ë¯¼ 478102-04-386651', 30000, 'í…íŠ¸', '13271 ì„±ë‚¨ì‹œ ìˆ˜ì •êµ¬ ì‹ í¥2ë™ í•œì‹ ì•„íŒŒíŠ¸ 5ë™ 502í˜¸', '1.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail,isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (60, 30, 20, 'user02@naver.com', 'º¸°üÁß', 'Äı³ª ÈŞ´ë¿ëÀü±â±×¸±', 1, 'Å×½ºÆ®·Î1È¸»ç¿ëÇÔ ±ú²ıÇÏ°Ô ´Û¾Æµ×À¸´Ï¹Ù·Î»ç¿ë°¡´É ºñ½Ñ°Å »õ°Å »çÁö¸¶½Ã°í ÁÁÀº°Å Àú·ÅÇÏ°Ô ÀÌ¿ëÇÏ¼¼¿ä. ', 1, 0, 5000, '±¹¹Î 478102-04-386651', 10000, '±×¸±', '18125 °æ±â ¿À»ê½Ã °¡¼ö1·Î 13 (°¡¼öÁÖ°ø¾ÆÆÄÆ®) 102µ¿ 1201È£ ', '2.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail,isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES (60, 30, 20, 'user02@naver.com', 'ë³´ê´€ì¤‘', 'í€¸ë‚˜ íœ´ëŒ€ìš©ì „ê¸°ê·¸ë¦´', 1, 'í…ŒìŠ¤íŠ¸ë¡œ1íšŒì‚¬ìš©í•¨ ê¹¨ë—í•˜ê²Œ ë‹¦ì•„ë’€ìœ¼ë‹ˆë°”ë¡œì‚¬ìš©ê°€ëŠ¥ ë¹„ì‹¼ê±° ìƒˆê±° ì‚¬ì§€ë§ˆì‹œê³  ì¢‹ì€ê±° ì €ë ´í•˜ê²Œ ì´ìš©í•˜ì„¸ìš”. ', 1, 0, 5000, 'êµ­ë¯¼ 478102-04-386651', 10000, 'ê·¸ë¦´', '18125 ê²½ê¸° ì˜¤ì‚°ì‹œ ê°€ìˆ˜1ë¡œ 13 (ê°€ìˆ˜ì£¼ê³µì•„íŒŒíŠ¸) 102ë™ 1201í˜¸ ', '2.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (20, 60, 10, 'user03@naver.com', 'º¸°üÁß', '¸¶ÃßÇÈÃß ¸±·º½º Ã¼¾î', 1, '³×ÀÌ¹ö Ä·ÇÎÀÇÀÚ ·©Å· »óÀ§ÀÇ ¸¶ÃßÇÈÃß ¸±·º½ºÃ¼¾îÀÔ´Ï´Ù. Ä·ÇÎÀÌ³ª ³¬½Ã µî¿¡ È°¿ë °¡´ÉÇÒ °Í °°³×¿ä »ö»óÀº ¹ö°ÇµğÀÔ´Ï´Ù. 3È¸¹Û¿¡ »ç¿ë¾ÈÇØ¼­ »óÅÂ´Â Á¦°Å¿Í Å©°Ô ´Ù¸§ ¾ø½À´Ï´Ù.', 'ÀÇÀÚ', '01849 ¼­¿ï ³ë¿ø±¸ °ø¸ª·Î 111 (¾ÖÁöºô¶ó) Aµ¿ 103È£', '3.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (20, 60, 10, 'user03@naver.com', 'ë³´ê´€ì¤‘', 'ë§ˆì¶”í”½ì¶” ë¦´ë ‰ìŠ¤ ì²´ì–´', 1, 'ë„¤ì´ë²„ ìº í•‘ì˜ì ë­í‚¹ ìƒìœ„ì˜ ë§ˆì¶”í”½ì¶” ë¦´ë ‰ìŠ¤ì²´ì–´ì…ë‹ˆë‹¤. ìº í•‘ì´ë‚˜ ë‚šì‹œ ë“±ì— í™œìš© ê°€ëŠ¥í•  ê²ƒ ê°™ë„¤ìš” ìƒ‰ìƒì€ ë²„ê±´ë””ì…ë‹ˆë‹¤. 3íšŒë°–ì— ì‚¬ìš©ì•ˆí•´ì„œ ìƒíƒœëŠ” ì œê±°ì™€ í¬ê²Œ ë‹¤ë¦„ ì—†ìŠµë‹ˆë‹¤.', 'ì˜ì', '01849 ì„œìš¸ ë…¸ì›êµ¬ ê³µë¦‰ë¡œ 111 (ì• ì§€ë¹Œë¼) Aë™ 103í˜¸', '3.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user04@naver.com', 'ÀÔ°íÁß', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü', 1, 'È®ÀåÇü¿ìµåÅ×ÀÌºí+¿î¹İ»óÀÚ6È£', 'Å×ÀÌºí', '¼º³²½Ã Áß¿ø±¸ ÀºÇà2µ¿ ÁÖ°ø¾ÆÆÄÆ® 120µ¿ 1001È£', '4.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user04@naver.com', 'ì…ê³ ì¤‘', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•', 1, 'í™•ì¥í˜•ìš°ë“œí…Œì´ë¸”+ìš´ë°˜ìƒì6í˜¸', 'í…Œì´ë¸”', 'ì„±ë‚¨ì‹œ ì¤‘ì›êµ¬ ì€í–‰2ë™ ì£¼ê³µì•„íŒŒíŠ¸ 120ë™ 1001í˜¸', '4.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', 'Ãâ°í¿Ï·á', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü1', 1, 'È®ÀåÇü¿ìµåÅ×ÀÌºí+¿î¹İ»óÀÚ6È£', 'Å×ÀÌºí', '¼º³²½Ã Áß¿ø±¸ ÀºÇà2µ¿ ÁÖ°ø¾ÆÆÄÆ® 120µ¿ 1001È£', '4.jpg');
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', 'ì¶œê³ ì™„ë£Œ', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•1', 1, 'í™•ì¥í˜•ìš°ë“œí…Œì´ë¸”+ìš´ë°˜ìƒì6í˜¸', 'í…Œì´ë¸”', 'ì„±ë‚¨ì‹œ ì¤‘ì›êµ¬ ì€í–‰2ë™ ì£¼ê³µì•„íŒŒíŠ¸ 120ë™ 1001í˜¸', '4.jpg');
 
-INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', 'Ãâ°í¿Ï·á', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü2', 1, 'È®ÀåÇü¿ìµåÅ×ÀÌºí+¿î¹İ»óÀÚ6È£', 'Å×ÀÌºí', '¼º³²½Ã Áß¿ø±¸ ÀºÇà2µ¿ ÁÖ°ø¾ÆÆÄÆ® 120µ¿ 1001È£', '4.jpg');
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (1, 'user01@naver.com', 1, '½ÅÈïµ¿1', '½ÅÈïµ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-4114-9697', '¹Ú¹ü¼ö', 'Æ¯´ëÇü ´©ºöÅÙÆ®1', '1.jpg', 20000, 2000, 18000);
+INSERT INTO product  (width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg) VALUES (73, 45, 10, 'user01@naver.com', 'ì¶œê³ ì™„ë£Œ', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•2', 1, 'í™•ì¥í˜•ìš°ë“œí…Œì´ë¸”+ìš´ë°˜ìƒì6í˜¸', 'í…Œì´ë¸”', 'ì„±ë‚¨ì‹œ ì¤‘ì›êµ¬ ì€í–‰2ë™ ì£¼ê³µì•„íŒŒíŠ¸ 120ë™ 1001í˜¸', '4.jpg');
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (2, 'user01@naver.com', 2, '½ÅÈïµ¿1', '½ÅÈïµ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-4114-9697', '¹Ú¹ü¼ö', 'Æ¯´ëÇü ´©ºöÅÙÆ®2', '1.jpg', 20000, 2000, 18000);
+values (1, 'user01@naver.com', 1, 'ì‹ í¥ë™1', 'ì‹ í¥ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-4114-9697', 'ë°•ë²”ìˆ˜', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸1', '1.jpg', 20000, 2000, 18000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (3, 'user01@naver.com', 3, '½ÅÈïµ¿1', '½ÅÈïµ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-4114-9697', '¹Ú¹ü¼ö', 'Æ¯´ëÇü ´©ºöÅÙÆ®3', '1.jpg', 20000, 2000, 18000);
+values (2, 'user01@naver.com', 2, 'ì‹ í¥ë™1', 'ì‹ í¥ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-4114-9697', 'ë°•ë²”ìˆ˜', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸2', '1.jpg', 20000, 2000, 18000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (4, 'user01@naver.com', 4, '½ÅÈïµ¿1', '½ÅÈïµ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-4114-9697', '¹Ú¹ü¼ö', 'Ä·ÇÎ °­¿°¹ö³Ê ¹ö³Ê', '1.jpg', 20000, 2000, 18000);
+values (3, 'user01@naver.com', 3, 'ì‹ í¥ë™1', 'ì‹ í¥ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-4114-9697', 'ë°•ë²”ìˆ˜', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸3', '1.jpg', 20000, 2000, 18000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (5, 'user01@naver.com', 5, '½ÅÈïµ¿1', '½ÅÈïµ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-4114-9697', '¹Ú¹ü¼ö', '¾ËÆÄÄ«TS-77AÄŞÆÑÆ®Ä·ÇÎ³­·Î', '1.jpg', 20000, 2000, 18000);
+values (4, 'user01@naver.com', 4, 'ì‹ í¥ë™1', 'ì‹ í¥ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-4114-9697', 'ë°•ë²”ìˆ˜', 'ìº í•‘ ê°•ì—¼ë²„ë„ˆ ë²„ë„ˆ', '1.jpg', 20000, 2000, 18000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (6, 'user02@naver.com', 6, '°­³²±¸1', '°­³²±¸2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-8283-5621', '±è¹ü¼ö', 'Äı³ª ÈŞ´ë¿ëÀü±â±×¸±', '2.jpg', 25000, 1000, 24000);
+values (5, 'user01@naver.com', 5, 'ì‹ í¥ë™1', 'ì‹ í¥ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-4114-9697', 'ë°•ë²”ìˆ˜', 'ì•ŒíŒŒì¹´TS-77Aì½¤íŒ©íŠ¸ìº í•‘ë‚œë¡œ', '1.jpg', 20000, 2000, 18000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (7, 'user03@naver.com', 7, 'ºñÆ®Ä·ÇÁ1', 'ºñÆ®Ä·ÇÁ2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+90 day), 90, 'imp-1004', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-2091-9728', 'ÀÌ»ó¹Î', '¸¶ÃßÇÈÃß ¸±·º½º Ã¼¾î', '3.jpg', 30000, 0, 30000);
+values (6, 'user02@naver.com', 6, 'ê°•ë‚¨êµ¬1', 'ê°•ë‚¨êµ¬2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-8283-5621', 'ê¹€ë²”ìˆ˜', 'í€¸ë‚˜ íœ´ëŒ€ìš©ì „ê¸°ê·¸ë¦´', '2.jpg', 25000, 1000, 24000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (8, 'user04@naver.com', 8, 'º¹Á¤µ¿1', 'º¹Á¤µ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-8294-1923', '±è¸í¼±', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü', '4.jpg', 40000, 0, 40000);
+values (7, 'user03@naver.com', 7, 'ë¹„íŠ¸ìº í”„1', 'ë¹„íŠ¸ìº í”„2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+90 day), 90, 'imp-1004', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-2091-9728', 'ì´ìƒë¯¼', 'ë§ˆì¶”í”½ì¶” ë¦´ë ‰ìŠ¤ ì²´ì–´', '3.jpg', 30000, 0, 30000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (9, 'user01@naver.com', 9, 'º¹Á¤µ¿1', 'º¹Á¤µ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-8294-1923', '±è¸í¼±', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü1', '4.jpg', 40000, 0, 40000);
+values (8, 'user04@naver.com', 8, 'ë³µì •ë™1', 'ë³µì •ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-8294-1923', 'ê¹€ëª…ì„ ', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•', '4.jpg', 40000, 0, 40000);
 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values (10, 'user01@naver.com', 10, 'º¹Á¤µ¿1', 'º¹Á¤µ¿2', '»¡¸®Áà', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ÀÌ´Ï½Ã½º', '010-8294-1923', '±è¸í¼±', 'Ä·ÇÎÅ×ÀÌºí Ä·ÇÎ¹Ú½º È®ÀåÇü2', '4.jpg', 40000, 0, 40000);
+values (9, 'user01@naver.com', 9, 'ë³µì •ë™1', 'ë³µì •ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-8294-1923', 'ê¹€ëª…ì„ ', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•1', '4.jpg', 40000, 0, 40000);
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('10031', 'user02@naver.com', '1', '¼­¿ïÆ¯º°½Ã ºñÆ®Ä·ÇÁ', 'ºÎ»ê±¤¿ª½Ã ÇØ¿î´ë±¸', '»¡¸®Áà', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '°èÁÂÀÌÃ¼', '01087836060', 'È«±æµ¿', 'Æ¯´ëÇü ´©ºöÅÙÆ®' , '1.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
+values (10, 'user01@naver.com', 10, 'ë³µì •ë™1', 'ë³µì •ë™2', 'ë¹¨ë¦¬ì¤˜', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), 'ì´ë‹ˆì‹œìŠ¤', '010-8294-1923', 'ê¹€ëª…ì„ ', 'ìº í•‘í…Œì´ë¸” ìº í•‘ë°•ìŠ¤ í™•ì¥í˜•2', '4.jpg', 40000, 0, 40000);
+
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('10031', 'user02@naver.com', '1', 'ì„œìš¸íŠ¹ë³„ì‹œ ë¹„íŠ¸ìº í”„', 'ë¶€ì‚°ê´‘ì—­ì‹œ í•´ìš´ëŒ€êµ¬', 'ë¹¨ë¦¬ì¤˜', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', 'ê³„ì¢Œì´ì²´', '01087836060', 'í™ê¸¸ë™', 'íŠ¹ëŒ€í˜• ëˆ„ë¹”í…íŠ¸' , '1.jpg', '10000', '1000', '9000' );
 
 INSERT INTO wishlist (wishlistNo, prodNo, userId) VALUES (NULL, '1', 'user05@naver.com');
 
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, '1.jpg', '»óÇ°»ó¼¼¼³¸íÀÔ´Ï´Ù', '3', '1', 'user03@naver.com', '20210525');
+INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, '1.jpg', 'ìƒí’ˆìƒì„¸ì„¤ëª…ì…ë‹ˆë‹¤', '3', '1', 'user03@naver.com', '20210525');
 
 INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `ownerUserId`, `inquireUserExit`, `ownerUserExit`, `createdAt`) VALUES
 	(1, 1, NULL, 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:21:00'),
@@ -355,29 +355,31 @@ INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `owner
 	(4, NULL, 1, 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32');
 
 INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`) VALUES
-	(1, 1, 'user02@naver.com', 'ÇÏÀÌ¿è', '2022-05-30 18:23:17', 0),
-	(2, 1, 'user02@naver.com', 'ÆÈ·È³ª¿ä?', '2022-05-30 18:23:17', 0),
-	(3, 1, 'user01@naver.com', '¾Æ´Ï¿ä', '2022-05-30 18:23:17', 1),
-	(4, 2, 'user03@naver.com', '¾È³çÇÏ¼¼¿ä', '2022-05-30 18:28:47', 1),
-	(5, 2, 'user03@naver.com', 'Àß Áö³»¼¼¿ä?', '2022-05-30 18:28:47', 1),
+	(1, 1, 'user02@naver.com', 'í•˜ì´ìš¤', '2022-05-30 18:23:17', 0),
+	(2, 1, 'user02@naver.com', 'íŒ”ë ¸ë‚˜ìš”?', '2022-05-30 18:23:17', 0),
+	(3, 1, 'user01@naver.com', 'ì•„ë‹ˆìš”', '2022-05-30 18:23:17', 1),
+	(4, 2, 'user03@naver.com', 'ì•ˆë…•í•˜ì„¸ìš”', '2022-05-30 18:28:47', 1),
+	(5, 2, 'user03@naver.com', 'ì˜ ì§€ë‚´ì„¸ìš”?', '2022-05-30 18:28:47', 1),
 	(6, 3, 'user04@naver.com', ' HI', '2022-05-30 18:32:54', 1),
 	(7, 4, 'user02@naver.com', 'dkssudgktpdy', '2022-05-30 18:36:47', 1);
 
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('°øÁö»çÇ×1', '¾îÂ¼°íÀúÂ¼°í1', '2022-06-02 11:37:35', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('°øÁö»çÇ×2', '¾îÂ¼°íÀúÂ¼°í2', '2022-06-02 11:37:36', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('°øÁö»çÇ×3', '¾îÂ¼°íÀúÂ¼°í3', '2022-06-02 11:37:37', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('°øÁö»çÇ×4', '¾îÂ¼°íÀúÂ¼°í4', '2022-06-02 11:37:38', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ1', '¾îÂ¼°íÀúÂ¼°í1', '2022-06-02 11:37:35', 'F', 'ÀÌ¿ë¹æ¹ı');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ2', '¾îÂ¼°íÀúÂ¼°í2', '2022-06-02 11:37:36', 'F', 'ÀÌ¿ë¹æ¹ı');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ3', '¾îÂ¼°íÀúÂ¼°í3', '2022-06-02 11:37:37', 'F', '°áÁ¦°ü·Ã');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ4', '¾îÂ¼°íÀúÂ¼°í4', '2022-06-02 11:37:38', 'F', '°èÁ¤');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('ê³µì§€ì‚¬í•­1', 'ì–´ì©Œê³ ì €ì©Œê³ 1', '2022-06-02 11:37:35', 'A');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('ê³µì§€ì‚¬í•­2', 'ì–´ì©Œê³ ì €ì©Œê³ 2', '2022-06-02 11:37:36', 'A');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('ê³µì§€ì‚¬í•­3', 'ì–´ì©Œê³ ì €ì©Œê³ 3', '2022-06-02 11:37:37', 'A');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('ê³µì§€ì‚¬í•­4', 'ì–´ì©Œê³ ì €ì©Œê³ 4', '2022-06-02 11:37:38', 'A');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ1', 'ì–´ì©Œê³ ì €ì©Œê³ 1', '2022-06-02 11:37:35', 'F', 'ì´ìš©ë°©ë²•');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ2', 'ì–´ì©Œê³ ì €ì©Œê³ 2', '2022-06-02 11:37:36', 'F', 'ì´ìš©ë°©ë²•');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ3', 'ì–´ì©Œê³ ì €ì©Œê³ 3', '2022-06-02 11:37:37', 'F', 'ê²°ì œê´€ë ¨');
+INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('FAQ4', 'ì–´ì©Œê³ ì €ì©Œê³ 4', '2022-06-02 11:37:38', 'F', 'ê³„ì •');
 
-INSERT INTO coupon (couponname, couponcredate, coupondeldate, discount)
-VALUES('[°¡Á¤ÀÇ´Ş 5Ãµ¿øÄíÆù]', '2022-06-01','2022-12-31', 5000);
-INSERT INTO coupon (couponname, discount)
-VALUES('[½Å±ÔÈ¸¿ø 1000¿øÇÒÀÎÄíÆù',1000 );
-INSERT INTO coupon (couponname, discount)
-VALUES('[º¹±ÍÈ¸¿ø 15%ÇÒÀÎÄíÆù', 0.15);
+INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
+VALUES('1', '[ê°€ì •ì˜ë‹¬ 5ì²œì›ì¿ í°]', '2022-06-01','2022-12-31', 5000);
+INSERT INTO coupon (couponno, couponname, discount)
+VALUES('2', '[ì‹ ê·œíšŒì› 1000ì›í• ì¸ì¿ í°]',1000 );
+INSERT INTO coupon (couponno, couponname, discount)
+VALUES('3', '[ë³µê·€íšŒì› 15%í• ì¸ì¿ í°]', 0.15);
+INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
+VALUES('4', '[ê°œë°œìíŠ¹ì „ 80%í• ì¸ì¿ í°]','2022-06-01','2022-12-31', 0.8);
 
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',1,'2022-06-01','2022-06-30');
@@ -387,29 +389,29 @@ INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user02@naver.com',2,'2022-06-01','2022-06-30');
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user02@naver.com', 2, null, '¼±Á¤¼º', '½Î°¡Áö°¡ ¾øÀ½', null, 0);
+VALUES(NULL, 'admin' , 'user02@naver.com', 2, null, 'ì„ ì •ì„±', 'ì‹¸ê°€ì§€ê°€ ì—†ìŒ', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user03@naver.com', 3, null, '¼±Á¤¼º',  '°¡°İ ¾È±ğ¾ÆÁÜ', null, 0);
+VALUES(NULL, 'admin' , 'user03@naver.com', 3, null, 'ì„ ì •ì„±',  'ê°€ê²© ì•ˆê¹ì•„ì¤Œ', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user04@naver.com', 4, null, '±¤°í¼º',  '¿åÇÔ', null, 0);
+VALUES(NULL, 'admin' , 'user04@naver.com', 4, null, 'ê´‘ê³ ì„±',  'ìš•í•¨', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory,reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user05@naver.com', 5, null, '¼±Á¤¼º',  '³Ê¹« ¸ø»ı±è', null, 0);
+VALUES(NULL, 'admin' , 'user05@naver.com', 5, null, 'ì„ ì •ì„±',  'ë„ˆë¬´ ëª»ìƒê¹€', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user06@naver.com', 6, null, '¼±Á¤¼º',  '±×³É', null, 0);
+VALUES(NULL, 'admin' , 'user06@naver.com', 6, null, 'ì„ ì •ì„±',  'ê·¸ëƒ¥', null, 0);
 
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 1, '±Â¸Å³Ê', 5);
+VALUES(NULL, 'admin', 'user01@naver.com', 1, 'êµ¿ë§¤ë„ˆ', 5);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user02@naver.com', 2, '°³¸Å³Ê', 1);
+VALUES(NULL, 'admin', 'user02@naver.com', 2, 'ê°œë§¤ë„ˆ', 1);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 3, '»ìÂ¦ ºÒÄ£Àı', 3);
+VALUES(NULL, 'admin', 'user03@naver.com', 3, 'ì‚´ì§ ë¶ˆì¹œì ˆ', 3);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 4, '¹°°Ç°ª ±ğ¾ÆÁÜ', 4);
+VALUES(NULL, 'admin', 'user03@naver.com', 4, 'ë¬¼ê±´ê°’ ê¹ì•„ì¤Œ', 4);

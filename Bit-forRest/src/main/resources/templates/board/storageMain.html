@@ -4,19 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/css/storageMain.css">
+    <link rel="stylesheet" type="text/css" href="storageMain.css">
     <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
-    
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-    
 </head>
 <body>
-
- <div th:replace="/main/toolbar.html"></div>
- 
-    <section id="sectionId">
+    <section>
         <h2 id="text"><span>또 하나의 공간</span><br>Forrest 를 만나보세요</h2>
         <img src="/images/content/bird1.png" id="bird1">
         <img src="/images/content/bird2.png" id="bird2">
@@ -90,7 +83,5 @@
             forrest.style.top = value*0.25+'px';
         })
     </script>
-    
-    <div th:replace="/main/footer.html"></div>
 </body>
 </html>

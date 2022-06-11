@@ -145,6 +145,8 @@ public class ProductController {
 	@RequestMapping("listProduct")
 	public String listProduct(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
+		System.out.println("search: "+ search);
+		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}

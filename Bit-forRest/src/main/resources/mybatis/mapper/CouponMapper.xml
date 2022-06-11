@@ -7,7 +7,7 @@
 <mapper namespace="com.mvc.forrest.dao.coupon.CouponDAO">
  	
 	<resultMap id="couponSelectMap" type="coupon">
-		<result	property="couponNo"			column="couponNo"		jdbcType="INTEGER"/>
+		<result	property="couponNo"			column="couponNo"		jdbcType="VARCHAR"/>
 		<result	property="couponName"		column="couponName"		jdbcType="VARCHAR"/>
 		<result	property="couponCreDate"	column="couponCreDate"	jdbcType="TIMESTAMP"/>
 		<result	property="couponDelDate"	column="couponDelDate"	jdbcType="TIMESTAMP"/>
@@ -17,8 +17,8 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addCoupon"		parameterType="Coupon" >
 		INSERT 
-	 	INTO coupon(couponName, couponCreDate, couponDelDate, discount) 
-	 	VALUES (#{couponName}, #{couponCreDate}, #{couponDelDate}, #{discount})
+	 	INTO coupon(couponNo ,couponName, couponCreDate, couponDelDate, discount) 
+	 	VALUES (#{couponNo}, #{couponName}, #{couponCreDate}, #{couponDelDate}, #{discount})
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
@@ -41,7 +41,7 @@
 	 </update>
 	 
 	 <!-- SQL : DELETE -->
-	 <delete	id="deleteCoupon"	parameterType="int" >
+	 <delete	id="deleteCoupon"	parameterType="String" >
 	   	DELETE
 	   	FROM coupon
 	   	WHERE couponNo = #{couponNo}
