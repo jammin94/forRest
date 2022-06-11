@@ -176,7 +176,7 @@
     line-height: 30px;
     padding-top: 0;
     font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif !important;
-
+display: flex;
     margin-top : 40px;
     margin:0 auto;
 }
@@ -317,69 +317,19 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row">아이디</th>
+                <th scope="row">비밀번호</th>
                 <td colspan="2"><strong>
                 	<input class="editInput"> </input>
                 </strong></td>
             </tr>
-            <tr id="password-area">
-                <th scope="row">비밀번호</th>
-                <td><strong>
-					<input class="editInput"> </input>
-</strong></td>
-          
-            </tr>
+
             <!--비밀번호 변경-->
-            <tr id="change-password-area" style="display: none">
-                <th scope="row">비밀번호</th>
-                <td colspan="2">
-                    <div class="my-info-modify">
-                        <div class="my-info-modify">
-                            <input type="hidden" id="encryptPassword">
-                            <input type="hidden" id="encryptNewPassword">
-                            <input type="hidden" id="encryptConfirmPassword">
-                            <div class="input">
-                                <label for="password">현재 비밀번호</label>
-                                <div class="input-password__wrap " id="password_div">
-                                    <input type="password" class="n-input" id="password">
-                                    <button type="button" class="input-password__button" onclick="togglePassword('password', this);">비밀번호 표시</button>
-                                </div>
-                                <span id="password-invalid" class="validate danger"></span>
-                            </div>
-                            <div class="input">
-                                <label for="newPassword">신규 비밀번호</label>
-                                <div class="input-password__wrap " id="newPassword_div">
-                                    <input type="password" class="n-input" id="newPassword" maxlength="30">
-                                    <button type="button" class="input-password__button" onclick="togglePassword('newPassword', this);">비밀번호 표시</button>
-                                </div>
-                                <span id="new-password-invalid" class="validate danger"></span>
-                                <span id="valid-newPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
-                            </div>
-                            <div class="input">
-                                <label for="confirmPassword">신규 비밀번호 재 입력</label>
-                                <div class="input-password__wrap " id="confirmPassword_div">
-                                    <input type="password" class="n-input" id="confirmPassword" maxlength="30">
-                                    <button type="button" class="input-password__button" onclick="togglePassword('confirmPassword', this);">비밀번호 표시</button>
-                                </div>
-                                <span id="confirm-password-invalid" class="validate danger"></span>
-                                <span id="valid-confirmPassword" class="validate" style="display: none">사용 가능한 비밀번호입니다.</span>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="n-btn btn-sm btn-lighter" id="change-password-cancel-btn">취소</button>
-                                <button type="button" class="n-btn btn-sm btn-accent disabled" id="change-password-finish-btn" disabled="">완료</button>
-                            </div>
-                        </div>
-                </div></td>
-            </tr>
+         
             <tr>
                 <th scope="row">이름(실명)</th>
                 <td>
-               
-                    
                         <span class="certify"><input class="editInput"> </input></span>
-                    
                 </td>
-          
             </tr>
             <tr id="nickName-area">
                 <th scope="row">닉네임</th>
@@ -415,7 +365,7 @@
             </tr>
 
             <tr id="email-area">
-                <th scope="row">이메일</th>
+                <th scope="row">주소</th>
                 <td>
                     <strong id="currentEmail" value="sanstory****@*****.com">
 						<input class="editInput"> </input>

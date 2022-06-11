@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<!--  ///////////////////////// 무신사 로그인 CDN ////////////////////////////////// -->
+	<link rel="stylesheet" href="https://static.msscdn.net/ui/build/m/css/common.css">
+    <link rel="stylesheet" href="https://static.msscdn.net/ui/build/m/css/login.css">
+
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+	
+	<style type="text/css">
+	    h1 {
+      font-size: 2em;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+	</style>
+	<link rel="stylesheet" href="/css/login.css">
+	
+	
+	
+	<!--  ///////////////////////// java Script ////////////////////////// -->
+	<script type="text/javascript">
+		
+	//회원가입, 이메일찾기, 비밀번호찾기 event
+		$(function() {
+	
+			$('a[name="addUser"]').on("click", function() {
+				self.location = "/user/addUser"
+			});
+	
+			$('a[name="findId"]').on("click", function() {
+				self.location = "/user/findId"
+			});
+	
+			$('a[name="findPwd"]').on("click", function() {
+				self.location = "/user/findPwd"
+			});
+			
+			$('h1').on("click", function() {
+				self.location = "/user/login"
+			});
+	
+		});
+
+	
+		//로그인 event	
+		$(function() {
+			login();
+		});
+	
+		function login() {
+	
+			//var message = '${message}';
+	
+			$('.loginMessage').text(message).css("color", "red");
+	
+			$('input[name="userId"]').focus();
+	
+			$('a[name="loginBtn"]').on("click", function() {
+						var id = $("input[name='userId']").val();
+						var pw = $("input[name='password']").val();
+						console.log(id);
+						console.log(pw);	
+						if (id == null || id.length < 1) {
+							swal('Email을 입력해주세요!');
+							$("input[name='email']").focus();
+							return;
+						}
+	
+						if (pw == null || pw.length < 1) {
+							swal('비밀번호를 입력해주세요!');
+							$("input[name='password']").focus();
+							return;
+						}
+
+						$('form[name="loginForm"]').attr("method", "POST").attr("action",
+								"/user/login").attr("target", "_parent").submit();
+					});
+		}
+	
+	
+	</script>
+
+
+</head>
+
+<body>
+
+        <section class="content content--no-interval">
+        	<!-- 배경 동영상 -->
+            <div class="bannerVideo" id="slideShow">
+                <video src="/video/Bonfire.mp4" autoplay muted loop class="active"></video>
+            </div>
+            <!-- login-member -->
+            <div class="login-member">
+                
+                <form name="loginform" class="login-form" action="/user/login" method="post">
+                    <div class="login-member_form">
+                    	<!-- 히든 심어놓기 예시 
+                        <input type="hidden" id="cipherKey" name="cipherKey" value="2a10870bee172c4a49e80ef51dedbe64"/>
+                        <input type="hidden" id="cipherVersion" name="cipherVersion" value="V1"/>
+                        <input type="hidden" id="csrfToken" name="csrfToken" value="2a10870bee172c4a49e80ef51dedbe64f9ba8e31"/>
+                        <input type="hidden" id="eventPage" name="eventPage" value=""/>
+                        <input type="hidden" id="eventCode" name="eventCode" value=""/>
+                      	-->
+                        <div class="login-input">	<!-- userId -->
+                            <div class="login-input__wrap">
+                                <input type="text" name="userId" class="login-input__input" placeholder="아이디">
+                            </div>
+                        </div>
+                        <div class="login-input">	<!-- password -->
+                            <div class="login-input__wrap">
+                                <input type="password" name="password" class="login-input__input" placeholder="비밀번호">
+                            </div>
+                            <div align="center">	<!-- 회원정보 맞지 않을때 메시지칸 -->
+								<span th:text = "${message}"></span>
+							</div>
+                        </div>
+                    </div>
+                    
+                    <div class="login-button login-button--static">
+                        <button type="submit" class="login-button__item login-button__item--black" name="loginbtn">로그인</button>
+                    </div>
+                    <div class="login-member__util">
+                        <ul class="login-member__util__list">
+                            <li class="login-member__util__item">
+                                <a id="findId" href="#" class="gtm-catch-click" name="findId">아이디 찾기</a>
+                            </li>
+                            <li class="login-member__util__item">
+                                <a id="findPwd" href="#" class="gtm-catch-click" name="findPwd">비밀번호 찾기</a>
+                            </li>
+                             <li class="login-member__util__item">
+                                <a id="addUser" href="#" class="gtm-catch-click" name="addUser">회원가입</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div><!-- //login-member -->
+            
+        </section><!-- //content -->
+  </body>
+</html>
