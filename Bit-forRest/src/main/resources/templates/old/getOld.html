@@ -140,6 +140,20 @@
 					</a>
 
 				</div>
+				
+				<button type="button" class="btn">
+						수정
+					</button>
+					
+				<button type="button" class="btn">
+						삭제
+					</button>
+					
+					<button type="button" class="btn">
+						끌어올리기
+					</button>
+					
+					
 				<div class="product-price">
 					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
 					<span th:text=${old.oldPrice}></span> <span>원</span>
@@ -154,10 +168,44 @@
 				</div>
 
 
-				<!-- END old List -->
+				
 
 			</div>
+			
+<!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
+   <div class="old-list">
+<h2>중고거래 게시물 추천</h2>
+        <!-- BEGIN old -->
+        <div class="old" th:each = "old : ${list}">
+          <div class="owl-item active" style="width: 270px; margin-right: 20px;" >
+        
+        	<div class="item">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+												<!--	<h5>Sale</h5>  -->
+											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2>[[${old.oldTitle}]]</h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+											<div class="try_mob_btn_wrapper">	<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											</div>
+										</div>
+									</div>
+								</div>
+			 </div>
+        </div>
+        
+        
+        <!-- END old -->
+        
 
+      </div>
+      <!-- END old List -->
 
 		</div>
 

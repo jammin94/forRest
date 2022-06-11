@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Report;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.firebase.FCMService;
+import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
@@ -41,11 +43,16 @@ public class ReportController {
 	public ReportService reportService;
 	
 	@Autowired
+	public OldService oldService;
+	
+	@Autowired
 	public FCMService fcmService;	
 	
 	@GetMapping("addReport")
-	public String addReport(Model model ) throws Exception {
-		
+	public String addReport(@RequestParam("oldNo") int oldNo,Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
+		User loginUser =(User)session.getAttribute("user");
+		System.out.println(loginUser);
+		String id= loginUser.getUserId();
 		 return "common/firebase";
 	}
 	
@@ -70,8 +77,12 @@ public class ReportController {
 	@GetMapping("getReport")
 	public String getReport(@RequestParam("reportNo") int reportNo, Model model ) throws Exception {
 		System.out.println("getReport 실행됨");
-		reportService.getReport(reportNo);
+		Report report = reportService.getReport(reportNo);
+		
 		System.out.println(reportService.getReport(reportNo));
+		
+		Old old= oldService.getOld(report.getReportOldNo());
+		model.addAttribute("old", old);
 		return "report/getReport";
 	}	
 	
