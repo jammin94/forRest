@@ -190,6 +190,12 @@ public class StorageController {
 			search.setSearchProductCondition(null);
 		}
 		
+		if(search.getSearchKeyword() == "") {
+			search.setSearchKeyword(null);
+		}
+		
+		
+		
 		//디버깅
 		System.out.println("serarch:" + search);
 		

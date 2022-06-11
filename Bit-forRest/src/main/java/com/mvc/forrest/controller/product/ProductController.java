@@ -147,6 +147,17 @@ public class ProductController {
 		
 		System.out.println("search: "+ search);
 		
+		//카테고리중 전체를 클릭했을때 서치카테고리의 value를 null로 만듬
+		if(search.getSearchCategory()=="") {
+			search.setSearchCategory(null);
+		}
+		
+		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
+		
+		System.out.println("search2: "+ search);
+		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}

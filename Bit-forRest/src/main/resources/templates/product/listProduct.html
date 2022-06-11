@@ -12,21 +12,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
-   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
    
-   
-   <!-- jQuery UI toolTip 사용 CSS-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <!-- jQuery UI toolTip 사용 JS-->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        
         
 </head>
 <style>
@@ -72,7 +58,7 @@ margin-bottom: 210px !important;
   position: relative;
   border: 2px solid #eee;
   background: white;
-  background-image: url('http://bzy-web.netholding.com/content/assets/plugins/application/images/bg-b.png');    
+ 
 
   min-height: 465px;
 
@@ -252,12 +238,14 @@ margin-bottom: 210px !important;
 /*정렬조건바*/
 
 
+
 .dropdown-dark:before {
   border-bottom-color: #333333;
 }
 
 .dropdown-dark:after {
   border-top-color: #aaa;
+  
 }
 
 .dropdown-dark .dropdown-select {
@@ -282,14 +270,62 @@ margin-bottom: 210px !important;
 }
 
 
+/*카테고리 바*/
+#primary_nav_wrap
+{
+	height: 50px;
+}
+
+#primary_nav_wrap ul li
+{
+	position:relative;
+	float:left;
+	margin:20;
+	padding:0
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#primary_nav_wrap ul a
+{
+	display:block;
+	color:#333;
+	text-decoration:none;
+	font-weight:700;
+	font-size:12px;
+	line-height:32px;
+	padding:0 15px;
+	
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+	background:#ddd
+}
+
+#primary_nav_wrap ul li:hover
+{
+	background:#f6f6f6
+}
+
+
+
+
 </style>
 
 
 <body>
 
   <div th:replace="/main/toolbar.html"></div>
+  <!--  <div th:replace="/product/categoryLeftbar.html"></div>-->
  
-  <div th:replace="/product/categoryLeftbar.html"></div> 
 
 <div class="container tempList">
   <div class="row">
@@ -301,7 +337,7 @@ margin-bottom: 210px !important;
      
     <form name="detailForm"  method="post">
     
-    <input type="hidden"  class="searchCategory" name="searchCategory"  value="">
+    
     <!-- 검색바 시작 -->
     <div class="wrap">
    <div class="search">
@@ -317,6 +353,7 @@ margin-bottom: 210px !important;
 </div>
   <!-- 검색바 끝 -->
   
+  
   <!-- 정렬조건 바  시작-->
   <section class="container">
 <div class="dropdown dropdown-dark">
@@ -328,8 +365,32 @@ margin-bottom: 210px !important;
     </select>
   </div>
   </section>
+
   <!-- 정렬조건 바  끝-->
-  </form>  
+  
+  <!--카테고리바  시작-->
+  <!-- 카테고리내에서 검색조건을 유지 어케함 -->
+ <input type="hidden" class="searchCategory" name="searchCategory" value="">
+<div id="primary_nav_wrap">
+<ul>
+  <li><a>전체</a></li>
+  <li ><a>텐트</a></li>
+  <li><a>침대</a></li>
+  <li><a>의자</a></li>
+  <li><a>그릴</a></li>
+  <li><a>버너</a></li>
+  <li><a>조명</a></li>
+  <li><a>테이블</a></li>
+  <li><a>식기</a></li>
+  <li><a>난로</a></li>
+  <li><a>기타용품</a></li>
+</ul>
+</div>
+
+</form> 
+   <!--카테고리바  끝->
+   
+   
       <!-- BEGIN Product List -->
       <div class="product-list">
 
@@ -393,20 +454,27 @@ margin-bottom: 210px !important;
 		})
 	});
 	
-	
 	$(function(){
-		$(".leftBarList ").on("click", function(){
+		$("li").on("click", function(){
 			
-			var category = $(this).val();
-			alert(category);
+			var categoryValue = $(this).find('a').text();
+			//alert(categoryValue);
 			
-			$(".searchCategoryVal").val(category);
+			if(categoryValue=="전체"){
+				categoryValue="";
+			}
+			
+			$('.searchCategory').attr('value',categoryValue);
+	    	//alert(($('.searchCategory').val()));
+			
 			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
 			
-			 
-			 
 		})
 	});
+	
+
+
+
 	
 	
 	</script>

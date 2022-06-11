@@ -36,9 +36,6 @@
     color: rgb(20, 170, 255);
 }
 
-.leftBarNav.on ul {
-	
-}
 
 .leftBarMenu {
     display: flex;
@@ -52,6 +49,7 @@
     font-size: 20px;
     font-weight: normal;
     line-height: 40px;
+    border-bottom: solid;
    
     
 }
@@ -110,8 +108,19 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
+			<a >전체
+			<input type="hidden" class="searchCategoryData" name="searchCategoryData"  value="">
+			</a>
+		</span>
+	</div>
+</div>
+	
+	
+<div class="leftBarListShow">
+<div class="leftBarListArray">
+		<span class="leftBarList">
 			<a >텐트
-			<input type="hidden" class="searchCategoryDate" name="searchCategoryDate"  value="텐트">
+			<input type="hidden" class="searchCategoryData" name="searchCategoryData"  value="텐트">
 			</a>
 		</span>
 	</div>
@@ -120,7 +129,7 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>침대<input type="hidden"  class="searchCategoryDate" name="searchCategoryDate" value="침대"></a>
+			<a>침대<input type="hidden"  class="searchCategoryData" name="searchCategoryData" value="침대"></a>
 		</span>
 	</div>
 </div>
@@ -129,7 +138,7 @@
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>의자<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="의자"></a>
+			<a>의자<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="의자"></a>
 		</span>
 	</div>
 </div>
@@ -137,7 +146,7 @@
 	<div class="leftBarListArray">
 		<span class="leftBarList">
 			<a>
-			<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="그릴">
+			<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="그릴">
 			그릴</a>
 		</span>
 	</div>
@@ -145,42 +154,42 @@
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>버너<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="버너"></a>
+			<a>버너<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="버너"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>조명<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="조명"></a>
+			<a>조명<input type="hidden" name="searchCategory" value="조명"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>테이블<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="테이블"></a>
+			<a>테이블<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="테이블"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>식기<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="식기"></a>
+			<a>식기<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="식기"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a>난로<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="난로"></a>
+			<a>난로<input type="hidden" class="searchCategoryData" name="searchCategoryData" value="난로"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a><input type="hidden" class="searchCategoryDate"  name="searchCategoryDate" value="그릴">기타용품</a>
+			<a><input type="hidden" class="searchCategoryData"  name="searchCategoryData" value="기타용품">기타용품</a>
 		</span>
 	</div>
 </div>
@@ -194,18 +203,5 @@
 </body>
 	<script src="/js/jquery_min.js"></script>
 	<script>
-		$(function(){
-			
-			const leftBarNav = $('.leftBarList');
-			const leftBarListArray = $('.leftBarListArray');
-			const leftBarIcon = $('.leftBarListArray i');
-			const leftBarListShow = $('.leftBarListShow');
-			
-			leftBarListArray.on("click",function(){
-				$(this).parent().toggleClass('on');
-			})
-			
-			
-		})
-		
+	
 	</script>
