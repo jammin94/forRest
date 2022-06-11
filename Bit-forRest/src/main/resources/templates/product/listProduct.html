@@ -30,9 +30,15 @@
         
 </head>
 <style>
-	
+
+.container.tempList{
+     padding-top: 120px;
+    width: calc(100% - 210px);
+    float: right;
+    max-width: 1500px;
+}
 .col-md-12{
- margin-top: 200px
+ margin-top: 60px
 }
 
 .boardTitle{
@@ -60,7 +66,7 @@ margin-bottom: 210px !important;
 
 .product-list .product{  
     border-radius: 10px;
-  width: 24%; /* Products width */  
+  /* width: 24%; Products width */  
   margin: 7px; /* Space between products related with nth-childs below */
   
   position: relative;
@@ -172,7 +178,7 @@ margin-bottom: 210px !important;
     justify-content: space-between;
   }
   .product-list .product{
-    width: 48%;
+  
     margin: 0 0 25px 0;
   }
 }
@@ -182,7 +188,7 @@ margin-bottom: 210px !important;
     justify-content: space-between;
   }
   .product-list .product{
-    width: 48%;
+ 
     margin: 0 0 20px 0;
   }
 }
@@ -192,7 +198,7 @@ margin-bottom: 210px !important;
     justify-content: space-around;
   }
   .product-list .product{
-    width: 90%;
+  
     margin: 0 0 30px 0;
     min-height: unset;
   }
@@ -285,7 +291,7 @@ margin-bottom: 210px !important;
  
   <div th:replace="/product/categoryLeftbar.html"></div> 
 
-<div class="container">
+<div class="container tempList">
   <div class="row">
   
   
