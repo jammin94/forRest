@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="storageMain.css">
+    <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
+</head>
+<body>
+    <section>
+        <h2 id="text"><span>또 하나의 공간</span><br>Forrest 를 만나보세요</h2>
+        <img src="/images/content/bird1.png" id="bird1">
+        <img src="/images/content/bird2.png" id="bird2">
+        <img src="/images/content/forest.png" id="forrest">
+        <a href="#" id="btn">시작하기</a>
+
+        <img src="/images/content/rocks.png" id="rocks">
+        <img src="/images/content/water.png" id="water">
+    </section>
+    <div class="sec">
+        <section class="section__service" id="service">
+            <div class="container-wrapper">
+                <h2 class="heading__title">
+                    <span class="text__brick">또 하나의 공간,</span>
+                    <span class="text__brick">Forrest를 만나보세요.</span>
+                </h2>
+                <ul class="list__service">
+                    <li class="list-item__service">
+                        <p class="text__service">
+                            <i class="fa-solid fa-tent"></i><br />
+                            <br />
+                            <strong class="text__emphasis">어떤 용품이든 원하는 대로</strong><br />
+                            유연한 이용기간(최소 30일부터)<br />
+                            개별 물품 단위로 보관 가능(택배가능)
+                        </p>
+                    </li>
+                    <li class="list-item__service">
+                        <p class="text__service">
+                            <i class="fa-solid fa-truck-pickup"></i><br />
+                            <br />
+                            <strong class="text__emphasis">픽업서비스로 편리하게</strong><br />
+                            365일 픽업서비스로<br />
+                            안전하고 편안하게 이용가능<br />
+                        </p>
+                    </li>
+                    <li class="list-item__service">
+                        <p class="text__service">
+                            <i class="fa-solid fa-temperature-arrow-down"></i><br />
+                            <br />
+                            <strong class="text__emphasis">한큐에 안전하게</strong><br />
+                            물품보관에 최적의 환경(항온, 항습)<br />
+                            다중 보안시스템<br />
+                            비대면 , 비접촉 계약<br />
+                            도난, 화재보험<br />
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+ 
+    </div>
+    <script>
+        let text=document.getElementById('text');
+        let bird1=document.getElementById('bird1');
+        let bird2=document.getElementById('bird2');
+        let btn=document.getElementById('btn');
+        let forest=document.getElementById('forrest');
+        let rocks=document.getElementById('rocks');
+        let water=document.getElementById('water');
+        
+        
+        window.addEventListener('scroll',function(){
+            let value = window.scrollY;
+            text.style.top = 20+ value*-0.5 + '%';
+            bird1.style.top= value*-1.5 + 'px';
+            bird1.style.left= value*2 + 'px';
+            bird2.style.top= value*-1.5 + 'px';
+            bird2.style.left= value*-5 + 'px';
+            btn.style.marginTop = value*1.5+'px'
+            rocks.style.top = value* -0.12+'px';
+            forrest.style.top = value*0.25+'px';
+        })
+    </script>
+</body>
+</html>
