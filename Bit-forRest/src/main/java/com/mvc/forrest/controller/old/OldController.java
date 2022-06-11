@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldLike;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
+import com.mvc.forrest.service.oldreview.OldReviewService;
 import com.mvc.forrest.service.user.UserService;
 
 @Controller
@@ -41,7 +43,8 @@ public class OldController {
 	@Autowired
 	public OldLikeService oldLikeService;
 	
-	
+	@Autowired
+	public OldReviewService oldReviewService;
 
 	
 	@Value("5")
@@ -117,7 +120,7 @@ public class OldController {
 		System.out.println("getOld Start");
 		
 		Old old = oldService.getOld(oldNo);
-		
+
 		
 		model.addAttribute("old", old);
 		
