@@ -28,7 +28,7 @@
 	   	WHERE wishNo = #{wishNo}
 	 </delete>
 	 
-	 <!-- SELECT LIST 장바구니 리스트 -->
+	 <!-- SELECT LIST 장바구니 리스트 
 	<select  id="getWishList"  parameterType="search"	resultMap="wishListSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
@@ -36,18 +36,17 @@
 											) inner_table 
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
-	 
-	 <select  id="getRentalList"  parameterType="map"	resultMap="wishListSelectMap">
+	 </select>-->
+	 <!--  	 -->
+	 <select  id="getWishList"  parameterType="map"	resultMap="wishListSelectMap">
 	  SELECT 
 	  		*
 	 	FROM wishList
-	  					FROM		
 	  				<where>
 				 		userId = #{userId}
 	 				</where>
-	 				ORDER BY t.tranNo DESC
+	 				ORDER BY wishList.wishListNo
 	 </select>
-	 
+
 
 </mapper>

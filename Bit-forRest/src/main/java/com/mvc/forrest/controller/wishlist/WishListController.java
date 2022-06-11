@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.wishlist;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.domain.WishList;
+import com.mvc.forrest.service.rental.RentalService;
+import com.mvc.forrest.service.user.UserService;
+import com.mvc.forrest.service.wishlist.WishListService;
+
 
 //==> ȸ������ Controller
-//@Controller
-//@RequestMapping("/user/*")
+@Controller
+@RequestMapping("/wishlist/*")
 public class WishListController {
+	
+	@Autowired
+	public WishListService wishlistService;
+	
+	@Autowired
+	public UserService userService;
+	
+	
+
+//	@Autowired
+//	public CouponService couponService;  ( 대기 )
+	
+	@Value("5")
+	int pageUnit;
+	
+	@Value("10")
+	int pageSize;
+	
+	
 	
 	//-----------장바구니 추가 ------------//
 	
@@ -42,9 +70,29 @@ public class WishListController {
 
 	//-----------장바구니 리스트 화면------------//
 		@GetMapping("getWishList")
-		public String getWishListView( ) throws Exception{
+		public String getWishListView(@ModelAttribute("search") Search search , Model model,HttpSession session ) throws Exception{
+
+			System.out.println("listRentalProfitView 테스트");
 			
-			return null;
+			if(search.getCurrentPage() ==0 ){
+				search.setCurrentPage(1);
+			}
+			search.setPageSize(pageSize);
+			
+			String userId = ((User)session.getAttribute("user")).getUserId();
+			
+
+			Map<String, Object> mapWishList =	wishlistService.getWishList(search,userId);
+			
+			Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
+			
+			// Model 과 View 연결
+			
+			model.addAttribute("list", mapWishList.get("list"));
+			model.addAttribute("resultPage", resultPage);
+			model.addAttribute("search", search);
+			
+			return "wishList/wishList";
 		}
 		
 		@PostMapping("getWishList")
