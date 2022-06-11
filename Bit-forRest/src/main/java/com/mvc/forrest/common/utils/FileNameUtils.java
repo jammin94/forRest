@@ -14,6 +14,15 @@ public class FileNameUtils {
         return builder.toString();
     }
 
+    public static String couponG() {
+        StringBuilder builder = new StringBuilder();
+        UUID uuid = UUID.randomUUID();
+
+        builder.append(uuid);
+
+        return builder.toString();
+    }
+    
     
     private static String getExtension(String fileName) {
         int pos = fileName.lastIndexOf(".");

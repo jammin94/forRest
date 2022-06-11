@@ -45,7 +45,7 @@ public class CouponService {
 		return map;	
 	}
 	
-	public void deleteCoupon(int couponNo) throws Exception{
+	public void deleteCoupon(String couponNo) throws Exception{
 		couponDao.deleteCoupon(couponNo);
 	}
 
