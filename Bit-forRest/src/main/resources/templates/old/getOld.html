@@ -15,8 +15,10 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/getOld.css" rel="stylesheet" />
-
-
+<link href="/css/listOld.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+        
 </head>
 
 
@@ -37,10 +39,10 @@
 			<div class="product-imgs">
 				<div class="img-display">
 					<div class="img-showcase">
-						<img th:src="@{/images/content/fff.png}"> <img
-							th:src="@{/images/content/ccc.jpg}"> <img
-							th:src="@{/images/content/fff.png}"> <img
-							th:src="@{/images/content/fff.png}">
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/ccc.jpg}">
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/fff.png}">
 					</div>
 				</div>
 				<div class="img-select">
@@ -74,8 +76,9 @@
 				<div class="categoryaddr">
 
 					<div class="category" th:text=${old.category}></div>
-					/<div class="oldAddr" th:text=${old.oldAddr}></div>
-				
+					/
+					<div class="oldAddr" th:text=${old.oldAddr}></div>
+
 				</div>
 				<!--       <a href = "#" class = "product-link">visit nike store</a> -->
 				<!--     <div class="userProfile">   -->
@@ -87,42 +90,43 @@
 				<!--         </a> -->
 				<!--      //////////////////// -->
 				<div class="user">
-				
-				<table>
-				<tr>
-				<td>
-				
-				<div class="userProfile">
+
+					<table>
+						<tr>
+							<td>
+
+								<div class="userProfile">
 
 
-					<a th:href="@{/user/getUser(userId=${old.userId})}" style="height:54;"> <img
-						src="https://randomuser.me/api/portraits/men/52.jpg"
-						alt="A man smiling" /></a> 
+									<a th:href="@{/user/getUser(userId=${old.userId})}"
+										style="height: 54;"> <img
+										src="https://randomuser.me/api/portraits/men/52.jpg"
+										alt="A man smiling" /></a>
+
+								</div>
+
+							</td>
+
+							<td>
+								<p>
+									<span class="a" th:text=${old.userId}></span>
+								</p>
+
+								<div class="product-rating">
+
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star-half-alt"></i>
+									<!-- 						<span th:text=${oldreview.userRate}></span> -->
+
+								</div>
+
+							</td>
+						</tr>
+					</table>
 
 				</div>
 
-				</td>
-				
-				<td>
-				<p>
-				<span class="a" th:text=${old.userId}></span>
-				</p>
-				
-				<div class="product-rating">
-
-					<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-						class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-						class="fas fa-star-half-alt"></i> 
-						<span th:text=${oldreview.userRate}></span>
-
-				</div>
-				
-				</td>
-				</tr>
-				</table>
-				
-				</div>
-				
 				<div class="purchase-info">
 
 					<button type="button" class="btn">
@@ -132,7 +136,7 @@
 				</div>
 
 				<div class="social-links">
-										<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
+					<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
 					</a>
 
 				</div>
@@ -150,15 +154,24 @@
 				</div>
 
 
-
+				<!-- END old List -->
 
 			</div>
+
+
 		</div>
 
 
 	</div>
+	
+	
+<!-- Footer-->
+        <div th:replace="/main/footer.html"></div>
 
-	<script src="/js/getOld.js"></script>
+<script src="/js/getOld.js"></script>
+<script>
+   
+</script>
 </body>
 
 </html>
