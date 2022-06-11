@@ -15,15 +15,15 @@
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 		
-		//아이디찾기 버튼 event
+		//회원가입 버튼 event
 		
 		$(function(){
-			$("#findId").on("click", fncFindId);
+			$("#addUser").on("click", fncAddUser);
 			
 		});
 		
-		function fncFindId() {
-			$("form").attr("method" , "POST").attr("action" , "/user/findId").submit();
+		function fncAddUser() {
+			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 		}
 		
 		
@@ -35,9 +35,12 @@
     html {
       background: #000;
       font-family: 'Montserrat', sans-serif;
+      
     }
 
-    body {}
+    body {
+    	
+    }
 
     a {
       display: block;
@@ -73,14 +76,12 @@
 
     input {
       margin: 0% 0;
-    width: 100%;
-    font-size: 1.5em;
-    padding: 0 5px 1%;
-    border-bottom: 2px solid #BDC3C7;
-    border: none;
-    border-radius: 25px;
-    background: #fff;
-    margin-bottom: 10px;
+      border: none;
+      width: 100%;
+      font-size: 1.5em;
+      padding: 0 5px 1%;
+      background: none;
+      border-bottom: 2px solid #BDC3C7;
       
     }
 
@@ -95,20 +96,19 @@
 
 
     label {
-     color: #000;
+      color: #BDC3C7;
       text-transform: uppercase;
       font-size: 0.9em;
       letter-spacing: 4px;
     }
 
-    #findId {
-    background: #eea54b;
-    border-radius:25px;
+    #addUser {
+         background: #000;
       border: none;
       width: 100%;
       min-height: 50px;
       margin: 10px 0 10px;
-   
+      border-radius: 2.5%;
       color: white;
       padding: 0.5% 0 0;
       font-size: 1.75em;
@@ -116,27 +116,12 @@
       -moz-transition: background 1s ease-out;
       -o-transition: background 1s ease-out;
       transition: background 1s ease-out;
- 
+     
     }
 
     #button:hover {
       background-position: -400px;
     }
-
-	.findId{
-		position:relative;
-	}
-	
-	.findId:before{
-	    content: "";
-    display: inline-block;
-    position: absolute;
-    width: 130px;
-    background-color: #eea54b;
-    height: 2px;
-    top: 48px;
-    left: 135px;
-	}
   </style>
 
   <style>
@@ -150,6 +135,7 @@
     form {
       background: rgba(255, 255, 255, 0.95);
     }
+    
   </style>
   
 </head>
@@ -158,22 +144,56 @@
 
   <form>
     <span>
-      <h1 class="findId">Find ID</h1>
+      <h1>Sign Up</h1>
       
 		<!-- hidden data -->
+		<input type="hidden" id="joinPath" name="joinPath" value="own" >
 
+      <br>
+      <label for="userId">Id</label>
+      <input id="userId" type="text" name="userId" placeholder="이메일형식">
+	      <span>AJAX자리 "사용가능합니다"</span>
+      
+	  <br><br>
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password"
+      		 placeholder="특수문자, 영어, 숫자 1개이상 사용 8~16자">
+      <input id="password2" type="password" name="password2"
+      		 placeholder="비밀번호 확인">
+      	      <span>비밀번호가 일치하지 않습니다</span>
+      
 	  <br><br>
       <label for="userName">Name</label>
       <input id="userName" type="text" name="userName" placeholder="이름">
+
+	  <br><br>
+      <label for="nickname">Nickname</label>
+      <input id="nickname" type="text" name="nickname"
+     		 placeholder="한글, 영어사용 2~8자">
+	      <span>AJAX자리 이미사용중인 닉네임입니다</span>
 
 	  <br><br>
       <label for="phone">Phone</label>
       <input id="phone" type="text" name="phone" placeholder="전화번호입력">
 	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
       
+	  <br><br>
+      <label for="userAddr">Address</label>
+      <input id="userAddr" type="text" name="userAddr"
+      		 placeholder="주소입력">
+      <input id="userAddr2" type="text" name="userAddr2"
+      		 placeholder="주소입력">
+      <input id="userAddr3" type="text" name="userAddr3"
+      		 placeholder="상세주소입력">      
+            
+	  <br><br>
+      <label for="userImg">Profile Img</label>
+      <input id="userImg" type="text" name="userImg" placeholder="(선택) 1장">            
+
 
 	  <br><br>
-      <input id="findId" type="submit" value="아이디찾기">
+      <input id="addUser" type="submit" value="가입하기">
+      <a th:href="@{/user/login}">Login</a>
      </span>
   </form>
 

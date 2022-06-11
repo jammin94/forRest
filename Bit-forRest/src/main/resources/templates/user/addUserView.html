@@ -33,11 +33,14 @@
     @import url(https://fonts.googleapis.com/css?family=Monsterrat);
 
     html {
-      background: #ECF0F1;
+      background: #000;
       font-family: 'Montserrat', sans-serif;
+      
     }
 
-    body {}
+    body {
+    	
+    }
 
     a {
       display: block;
@@ -73,13 +76,14 @@
 
     input {
       margin: 0% 0;
-      border: none;
-      width: 100%;
-      font-size: 1.5em;
-      padding: 0 5px 1%;
-      background: none;
-      border-bottom: 2px solid #BDC3C7;
-      
+         width: 100%;
+    font-size: 1.5em;
+    padding: 0 5px 1%;
+    border-bottom: 2px solid #BDC3C7;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    margin-bottom: 10px;
     }
 
     input::placeholder{
@@ -91,55 +95,21 @@
       outline: 0;
     }
 
-    #userId {
-      border-bottom: 2px solid #FBD75C;
-    }
-    
-    #password {
-      border-bottom: 2px solid #BDC3C7;
-    }
-    #password2 {
-      border-bottom: 2px solid #BDC3C7;
-    }
-
-    #name {
-      border-bottom: 2px solid #FBD75C;
-    }
-
-    #nickname {
-      border-bottom: 2px solid #FBD75C;
-    }
-
-    #userAddr {
-      border-bottom: 2px solid #FBD75C;
-    }
-    
-    #userImg {
-      border-bottom: 2px solid #FBD75C;
-    }
-    
-    #phone {
-      border-bottom: 2px solid #F2B07E;
-    }
-    #sms {
-      border-bottom: 2px solid #F2B07E;
-    }
-
 
     label {
-      color: #BDC3C7;
+     color: #000;
       text-transform: uppercase;
       font-size: 0.9em;
       letter-spacing: 4px;
     }
 
     #addUser {
-      background: none;
+          background: #eea54b;
       border: none;
       width: 100%;
       min-height: 50px;
       margin: 10px 0 10px;
-      border-radius: 2.5%;
+          border-radius: 25px;
       color: white;
       padding: 0.5% 0 0;
       font-size: 1.75em;
@@ -147,28 +117,13 @@
       -moz-transition: background 1s ease-out;
       -o-transition: background 1s ease-out;
       transition: background 1s ease-out;
-      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2b07e+0,fbd75c+100 */
-      background: #f2b07e;
-      /* Old browsers */
-      background: -moz-linear-gradient(left, #f2b07e 0%, #fbd75c 100%);
-      /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, right top, color-stop(0%, #f2b07e), color-stop(100%, #fbd75c));
-      /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(left, #f2b07e 0%, #fbd75c 100%);
-      /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(left, #f2b07e 0%, #fbd75c 100%);
-      /* Opera 11.10+ */
-      background: -ms-linear-gradient(left, #f2b07e 0%, #fbd75c 100%);
-      /* IE10+ */
-      background: linear-gradient(to right, #f2b07e 0%, #fbd75c 100%);
-      /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2b07e', endColorstr='#fbd75c', GradientType=1);
-      /* IE6-9 */
+     
     }
 
     #button:hover {
       background-position: -400px;
     }
+
   </style>
 
   <style>
@@ -182,6 +137,23 @@
     form {
       background: rgba(255, 255, 255, 0.95);
     }
+    
+    .signUpText{
+    	position:relative;
+    	}
+	    
+	.signUpText:before {
+	        content: "";
+    display: inline-block;
+    position: absolute;
+    width: 151px;
+    background-color: #eea54b;
+    height: 2px;
+    top: 48px;
+    left: 124px;
+	}
+ 
+    
   </style>
   
 </head>
@@ -190,7 +162,7 @@
 
   <form>
     <span>
-      <h1>Sign Up</h1>
+      <h1 class="signUpText">FOR REST</h1>
       
 		<!-- hidden data -->
 		<input type="hidden" id="joinPath" name="joinPath" value="own" >

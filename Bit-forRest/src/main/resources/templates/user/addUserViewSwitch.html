@@ -12,7 +12,67 @@
 	 <link rel="stylesheet" href="/css/addUserView.css">
 
 	<!--  ///////////////////////// java Script ////////////////////////// -->
+	<script type="text/javascript">
+		
+	//회원가입, 이메일찾기, 비밀번호찾기 event
+		$(function() {
 	
+			$('a[name="addUser"]').on("click", function() {
+				self.location = "/user/addUser"
+			});
+	
+			$('a[name="findId"]').on("click", function() {
+				self.location = "/user/findId"
+			});
+	
+			$('a[name="findPwd"]').on("click", function() {
+				self.location = "/user/findPwd"
+			});
+			
+			$('h1').on("click", function() {
+				self.location = "/user/login"
+			});
+	
+		});
+
+	
+		//로그인 event	
+		$(function() {
+			login();
+		});
+	
+		function login() {
+	
+			//var message = '${message}';
+	
+			$('.loginMessage').text(message).css("color", "red");
+	
+			$('input[name="userId"]').focus();
+	
+			$('a[name="loginBtn"]').on("click", function() {
+						var id = $("input[name='userId']").val();
+						var pw = $("input[name='password']").val();
+						console.log(id);
+						console.log(pw);	
+						if (id == null || id.length < 1) {
+							swal('Email을 입력해주세요!');
+							$("input[name='email']").focus();
+							return;
+						}
+	
+						if (pw == null || pw.length < 1) {
+							swal('비밀번호를 입력해주세요!');
+							$("input[name='password']").focus();
+							return;
+						}
+
+						$('form[name="loginForm"]').attr("method", "POST").attr("action",
+								"/user/login").attr("target", "_parent").submit();
+					});
+		}
+	
+	
+	</script>
 
 
 </head>
@@ -40,11 +100,11 @@ a{color:inherit;text-decoration:none}
   border-radius:10px;
 }
 .login-html{
-     width: 440px;
+     width: 100%;
     height: 100%;
     position: absolute;
-  	padding: 225px 70px 50px 70px;
-    background: #000000;
+    padding: 145px 70px 50px 70px;
+        background: #000000;
     border-radius: 10px;
 }
 
@@ -76,15 +136,12 @@ a{color:inherit;text-decoration:none}
   margin:0 15px 10px 0;
   display:inline-block;
   border-bottom:2px solid transparent;
-  color: #959595;
-  margin: 0;
-  margin-bottom: 10px;
- 
+      color: #959595;
 }
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
   color:#fff;
-  border-color: #eea54b;
+  border-color:#1161ee;
 }
 .login-form{
   min-height:345px;
@@ -99,16 +156,15 @@ a{color:inherit;text-decoration:none}
 .login-form .group .input,
 .login-form .group .button{
   width:100%;
-
+  color:#fff;
   display:block;
-      margin-bottom: 10px;
 }
 .login-form .group .input,
 .login-form .group .button{
   border:none;
   padding:15px 20px;
   border-radius:25px;
-
+  background:#505050;
 }
 .login-form .group input[data-type="password"]{
   text-security:circle;
@@ -119,7 +175,7 @@ a{color:inherit;text-decoration:none}
   font-size:12px;
 }
 .login-form .group .button{
-  background:#eea54b;
+  background:#1161ee;
 }
 .login-form .group label .icon{
   width:15px;
@@ -127,7 +183,7 @@ a{color:inherit;text-decoration:none}
   border-radius:2px;
   position:relative;
   display:inline-block;
-    background: #eea54b !important;
+  background:rgba(255,255,255,.1);
 }
 .login-form .group label .icon:before,
 .login-form .group label .icon:after{
@@ -175,12 +231,6 @@ a{color:inherit;text-decoration:none}
 }
 .foot-lnk{
   text-align:center;
-  color:#fff;
-}
-
-.signIn{
-	background:#000;
-	cursor:pointer;
 }
 </style>
 <body>
@@ -191,104 +241,76 @@ a{color:inherit;text-decoration:none}
             </div>
 
 <div class="container">
-  <form name="loginform" class="login-form" action="/user/login" method="post">
      <div class="login-wrap">
   <div class="login-html">
-    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" >LOGIN</label>
-    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
     <div class="login-form">
       <div class="sign-in-htm">
         <div class="group">
-          <input id="user" type="text" class="input" name="userId">
+          <label for="user" class="label">Username</label>
+          <input id="user" type="text" class="input">
         </div>
         <div class="group">
-          <input id="pass" type="password" class="input" data-type="password" name="password">
+          <label for="pass" class="label">Password</label>
+          <input id="pass" type="password" class="input" data-type="password">
         </div>
         <div class="group">
-         
+          <input id="check" type="checkbox" class="check" checked>
+          <label for="check"><span class="icon"></span> Keep me Signed in</label>
         </div>
         <div class="group">
-          <input type="submit" class="button signIn" value="로그인" name="loginBtn">
+          <input type="submit" class="button" value="Sign In">
         </div>
- 
+        <div class="hr"></div>
         <div class="foot-lnk">
-          <a href="#forgot" style="colof:#fff;" name="findId">아이디찾기</a>
-          <a href="#forgot" style="colof:#fff;" name="findPwd">/ 비밀번호찾기</a>
-          <a href="#forgot" style="colof:#fff;" name="addUser">/ 회원가입</a>
+          <a href="#forgot">Forgot Password?</a>
         </div>
       </div>
       <div class="sign-up-htm">
       <div>
       <div>
-		        </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		</form>
+        <div class="group">
+          <label for="user" class="label">아이디</label>
+          <input id="user" type="text" class="input">
+        </div>
+        <div class="group">
+          <label for="pass" class="label">비밀번호</label>
+          <input id="pass" type="password" class="input" data-type="password">
+        </div>
+        <div class="group">
+          <label for="pass" class="label">이름</label>
+          <input id="pass" type="password" class="input" data-type="password">
+        </div>
+        </div>
+        <div>
+        <div class="group">
+          <label for="pass" class="label">닉네임</label>
+          <input id="pass" type="text" class="input">
+        </div>
+     <div class="group">
+          <label for="pass" class="label">전화번호</label>
+          <input id="pass" type="password" class="input" data-type="password">
+        </div>
+        <div class="group">
+          <label for="pass" class="label">주소</label>
+          <input id="pass" type="password" class="input" data-type="password">
+        </div>
+           <div class="group">
+          <label for="pass" class="label">프로필이미지</label>
+          <input id="pass" type="password" class="input" data-type="password">
+        </div>
+        </div>
+        </div>
+        <div class="hr"></div>
+        <div class="foot-lnk">
+          <label for="tab-1">Already Member?</a>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+    </div>
+      <script src="/js/addUserView.js"></script>
   </body>
-  
-  <script src="/js/jquery_min.js"></script>
-  <script type="text/javascript">
-		
-	//회원가입, 이메일찾기, 비밀번호찾기 event
-		$(function() {
-	
-			$('a[name="addUser"]').on("click", function() {
-				self.location = "/user/addUser"
-			});
-	
-			$('a[name="findId"]').on("click", function() {
-				self.location = "/user/findId"
-			});
-	
-			$('a[name="findPwd"]').on("click", function() {
-				self.location = "/user/findPwd"
-			});
-			
-			$('h1').on("click", function() {
-				self.location = "/user/login"
-			});
-	
-		});
-
-	
-		//로그인 event	
-		$(function() {
-			login();
-		});
-	
-		function login() {
-	
-			//var message = '${message}';
-	
-			//$('.loginMessage').text(message).css("color", "red");
-	
-			$('input[name="userId"]').focus();
-	
-			$('input[name="loginBtn"]').on("click", function() {
-						var id = $("input[name='userId']").val();
-						var pw = $("input[name='password']").val();
-						console.log(id);
-						console.log(pw);	
-						if (id == null || id.length < 1) {
-							swal('Email을 입력해주세요!');
-							$("input[name='email']").focus();
-							return;
-						}
-	
-						if (pw == null || pw.length < 1) {
-							swal('비밀번호를 입력해주세요!');
-							$("input[name='password']").focus();
-							return;
-						}
-
-						$('form[name="loginForm"]').attr("method", "POST").attr("action",
-								"/user/login").attr("target", "_parent").submit();
-					});
-		}
-
-	</script>
 </html>

@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+*
+{
+
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body{
+    margin-top: 10%;
+    overflow-x: hidden;
+    background: #fff;
+    min-height: 100vh;
+}
+section
+{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+section::before
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, #094b65, transparent);
+    z-index: 10;
+}
+section img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+section #text
+{
+    position: absolute;
+    top:20%;
+    color: #094b65;
+    font-size: 4vw;
+    text-align: center;
+    line-height: 0.8em;
+    transform: translateY(-20%);
+}
+section #text span
+{
+    font-size: 0.40em;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+#btn
+{
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 30px;
+    background: #fff;
+    color: #094b65;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    transform: translateY(100px);
+}
+.sec
+{
+    position: relative;
+    padding: 100px;
+    background: #094b65;
+}
+.sec h2
+{
+    font-size: 3.5em;
+    color: #fff;
+    margin-bottom: 100px;
+}
+.sec p{
+    font-size: 1 em;
+    color: #fff;
+}
+.section__service{
+    height: 500px;
+    margin-bottom: 50px;
+}
+.list__service
+{
+
+    text-align: center;
+    display: flex;
+}
+.list__service li{
+    margin: 0 40px;
+}
+ul{
+    list-style:none;
+}
+i{
+    font-size: 250px;
+}
+.section__service::before
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to top, #094b65, transparent);
+    z-index: 10;
+}
