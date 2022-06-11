@@ -282,9 +282,9 @@ margin-bottom: 210px !important;
 <body>
 
   <div th:replace="/main/toolbar.html"></div>
-  <form name="detailForm"  method="post">
-		<div th:replace="/product/categoryLeftbar.html"></div> 
-</form>
+ 
+  <div th:replace="/product/categoryLeftbar.html"></div> 
+
 <div class="container">
   <div class="row">
   
@@ -294,6 +294,8 @@ margin-bottom: 210px !important;
      <h2 class="boardTitle">렌탈마켓</h2>
      
     <form name="detailForm"  method="post">
+    
+    <input type="hidden"  class="searchCategory" name="searchCategory"  value="">
     <!-- 검색바 시작 -->
     <div class="wrap">
    <div class="search">
@@ -385,6 +387,20 @@ margin-bottom: 210px !important;
 		})
 	});
 	
+	
+	$(function(){
+		$(".leftBarList ").on("click", function(){
+			
+			var category = $(this).val();
+			alert(category);
+			
+			$(".searchCategoryVal").val(category);
+			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+			
+			 
+			 
+		})
+	});
 	
 	
 	</script>
