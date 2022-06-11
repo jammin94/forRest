@@ -2873,6 +2873,13 @@ width:100%;
   
     float: right;
 }
+
+.container.tempList{
+     padding-top: 120px;
+    width: calc(100% - 210px);
+    float: right;
+    max-width: 1500px;
+}
 .tableHeader th{
 	text-align:center;
 }
