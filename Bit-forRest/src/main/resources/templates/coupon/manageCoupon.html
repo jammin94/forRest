@@ -70,6 +70,8 @@
      </div>
 	     <div align="center">
 	     	<button type="button" class="btn btn-default conditionBtn" id="summit">등록/수정</button>
+	     	<button type="button" class="btn btn-default conditionBtn" id="reset">초기화</button>
+	     	
 		</div>
      </form>
 	</div><!-- 쿠폰 생성/수정  끝-->
@@ -99,6 +101,7 @@
 					<td th:value = "${coupon.couponCreDate}" class="listCreDate">[[${coupon.couponCreDate}]]</td>
 					<td th:value = "${coupon.couponDelDate}" class="listDelDate">[[${coupon.couponDelDate}]]</td>
 					<td >
+						<input type="hidden" name="couponNo" id="couponNo">
 						<button type="button" class="btn btn-default conditionBtn"
 								th:value="${coupon.couponNo}" id="updateBtn">
 							수정
@@ -129,24 +132,74 @@
 	<script type="text/javascript">
 		
 	  $(function() {
+			
+		 	// 쿠폰등록/수정 이벤트
 			$( "#summit" ).on("click" , function() {
 				console.log("summit Click");
-				fncAddCoupon();
+				
+				
+			 	var inputNo =  $("input[name='couponNo']").val();
+				console.log(inputNo);
+				
+				if(inputNo == 0){
+					console.log("inputNo : "+inputNo);
+					console.log("inputNo 없을 경우 add");
+					if(confirm("쿠폰을 생성하시겠습니까?")){
+		            	fncAddCoupon();
+		             }
+		             else
+		             {
+		             return;
+		             }
+				}else if(inputNo != 0){
+					console.log("inputNo : "+inputNo);
+					console.log("inputNo 있을 경우 update");
+					if(confirm("쿠폰을 수정하시겠습니까?")){
+		            	fncUpdateCoupon();
+		             }
+		             else
+		             {
+		             return;
+		             }
+				}
 			});
+			
+		 	// 입력내용 초기화 내용
+			$( "#reset" ).on("click" , function() {
+				console.log("reset Click");
+				location.reload();
+			});
+		 	
+		 	// 쿠폰수정 이벤트
 			$(updateBtn).on("click" , function() {
 				console.log("update Click");
-				fncUpdateCoupon();
+				
+				var listCouponNo = $(this).parent().parent().find(".listCouponNo").text();
+				var listCouponName = $(this).parent().parent().find(".listCouponName").text();
+				var listDiscount = $(this).parent().parent().find(".listDiscount").text();
+				var listCreDate = $(this).parent().parent().find(".listCreDate").text().substring(0,10);
+				var listDelDate = $(this).parent().parent().find(".listDelDate").text().substring(0,10);
+
+			 	$("input[name='couponNo']").val(listCouponNo);
+			 	$("input[name='couponName']").val(listCouponName);
+			 	$("input[name='discount']").val(listDiscount);
+			 	$("input[name='couponCreDate']").val(listCreDate);
+			 	$("input[name='couponDelDate']").val(listDelDate);
+				
 			});
-			$(deleteBtn ).on("click" , function() {
-				console.log("delete Click");
-				if(confirm("해당 쿠폰을 삭제하시겠습니까?"))
-				 {
-					fncDeleteCoupon();
-				 }
-				 else
-				 {
-				 return;
-				 }
+		 	
+			// 쿠폰삭제버튼 이벤트
+			$(deleteBtn).on("click" , function() {
+	            console.log("delete Click");
+	            if(confirm("해당 쿠폰을 삭제하시겠습니까?")){
+	            	var listCouponNo = $(this).val();
+	                $("input[name='couponNo']").val(listCouponNo);
+	                $("form").attr("method" , "POST").attr("action" , "/coupon/deleteCoupon").submit();
+	             }
+	             else
+	             {
+	             return;
+	             }
 			});
 		});	
 	 
@@ -165,6 +218,10 @@
 		 	}
 		 	if(discount == null|| discount.length<1){
 		 		alert("할인내용을 입력해 주세요");
+		 		return;
+		 	}
+		 	if(discount<0 || 1<discount<999 || 300000<discount){
+		 		alert("0~1 또는 1,000~300,000 범위내에서 입력해주세요");
 		 		return;
 		 	}
 		 	if(couponCreDate == null|| couponCreDate.length<1){
@@ -194,26 +251,53 @@
 	function fncUpdateCoupon(){
 		 console.log("fncUpdateCoupon");
 		 
-		 /* 수정버튼을 누르면 상단에 인풋창으로 찍힐 수 있도록 해야함  */
-		 
-	 }
- 	
-	function fncDeleteCoupon(){
-		console.log("fncDeleteCoupon");
- 		
-		var listCouponNo = document.querySelector(".listCouponNo").innerHTML;
-	 	$("input[name='couponNo']").val(listCouponNo);
+		 	var couponNo 	=	$("input[name='couponNo']").val();
+		 	var	couponName	=	$("input[name='couponName']").val();
+		 	var discount	=	$("input[name='discount']").val();
+		 	var couponCreDate =	$("input[name='couponCreDate']").val()+" 00:00:00";
+		 	var	couponDelDate =	$("input[name='couponDelDate']").val()+" 00:00:00";
+		 	
+		 	
+		 	if(couponNo == null|| couponNo.length<1){
+		 		alert("쿠폰을 선택해 주세요");
+		 		return;
+		 	}
+		 	if(couponName == null|| couponName.length<1){
+		 		alert("쿠폰이름을 입력해 주세요");
+		 		return;
+		 	}
+		 	if(discount == null|| discount.length<1){
+		 		alert("할인내용을 입력해 주세요");
+		 		return;
+		 	}
+		 	if(discount<0 || 1<discount<999 || 300000<discount){
+		 		alert("0~1 또는 1,000~300,000 범위내에서 입력해주세요");
+		 		return;
+		 	}
+		 	if(couponCreDate == null|| couponCreDate.length<1){
+		 		alert("쿠폰발급일자를 입력해 주세요");
+		 		return;
+		 	}
+		 	if(couponDelDate == null|| couponDelDate.length<1){
+		 		alert("쿠폰만료일자를 입력해 주세요");
+		 		return;
+		 	}
+		 	if(couponCreDate == couponDelDate){
+		 		alert("발급일자와 만료일자가 같습니다");
+		 		return;
+		 	}
+		 	if(couponDelDate < couponCreDate){
+		 		alert("만료일자는 발급일자보다 커야합니다");
+		 		return;
+		 	}
+		 	$("input[name='couponDelDate']").val(couponDelDate);
+		 	$("input[name='couponCreDate']").val(couponCreDate);
+		 	$("input[name='couponNo']").val(couponNo);
+		 	
+		 	$("form").attr("method" , "POST").attr("action" , "/coupon/updateCoupon").submit();
 
-		
-	 	
-	  	 $("form").attr("method" , "POST").attr("action" , "/coupon/deleteCoupon").submit();
 	 }
-	 
-	function random(){
-		
-		
-		
-	}
+
 	</script>
 
  	
