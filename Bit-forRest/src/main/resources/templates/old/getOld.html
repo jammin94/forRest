@@ -20,16 +20,15 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
         
 </head>
-
+<style>
+	
+</style>
 
 
 
 <body>
 	<!-- Navigation-->
 	<div th:replace="/main/toolbar.html"></div>
-	<div th:replace="/main/leftbar.html"></div>
-
-
 
 	<div class="card-wrapper">
 
@@ -44,6 +43,19 @@
 						<img th:src="@{/images/content/fff.png}"> 
 						<img th:src="@{/images/content/fff.png}">
 					</div>
+						<div class="buttons">
+					<button type="button" class="btn">
+							수정
+						</button>
+						
+					<button type="button" class="btn">
+							삭제
+						</button>
+						
+						<button type="button" class="btn">
+							끌어올리기
+						</button>
+				</div>
 				</div>
 				<div class="img-select">
 					<div class="img-item">
@@ -67,6 +79,8 @@
 						</a>
 					</div>
 				</div>
+				
+			
 			</div>
 			<!-- card right -->
 			<div class="product-content">
@@ -119,6 +133,7 @@
 										class="fas fa-star-half-alt"></i>
 									<!-- 						<span th:text=${oldreview.userRate}></span> -->
 
+				
 								</div>
 
 							</td>
@@ -141,17 +156,6 @@
 
 				</div>
 				
-				<button type="button" class="btn">
-						수정
-					</button>
-					
-				<button type="button" class="btn">
-						삭제
-					</button>
-					
-					<button type="button" class="btn">
-						끌어올리기
-					</button>
 					
 					
 				<div class="product-price">
@@ -171,18 +175,25 @@
 				
 
 			</div>
-			
-<!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
+	
+		</div>
+		
+	</div>
+	<div class="container tempList">
+  <div class="row">
+    <div class="col-md-12"  >
+    <!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
+    	<h2>중고거래 게시물 추천</h2>
    <div class="old-list">
-<h2>중고거래 게시물 추천</h2>
+	
         <!-- BEGIN old -->
         <div class="old" th:each = "old : ${list}">
-          <div class="owl-item active" style="width: 270px; margin-right: 20px;" >
+          <div class="owl-item active" style="width: 270px;" >
         
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+									<img class="imgTemp" width="220" height="205"  th:src= "@{/images/content/fff.png}">
 												<!--	<h5>Sale</h5>  -->
 											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
 										</div>
@@ -206,11 +217,11 @@
 
       </div>
       <!-- END old List -->
-
-		</div>
-
-
+    
 	</div>
+	</div>
+	</div>
+
 	
 	
 <!-- Footer-->

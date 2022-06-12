@@ -17,12 +17,13 @@ body{
 	margin:0;
 }
 div img{
-    width: 100%;
+    width: 100% !important;
     display: block;
     height: 100%
 }
 .img-display{
     overflow: hidden;
+    position:relative;
 }
 .img-showcase{
     display: flex;
@@ -239,6 +240,209 @@ div img{
         padding-top: 0;
     }
     
+    .img-display{
+		positioin:relative !important;
+	}
+	
+	.buttons{
+		position:absolute;
+		top:0;
+		left:0;
+		padding:10px;
+	}
     
 
+}
+
+
+.container.tempList{
+   padding-top: 0 !important;
+   
+    max-width: 1262px;
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.old-list{
+margin-bottom: 210px !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;  
+}
+
+.old-list .old{  
+    border-radius: 10px;
+  
+  margin: 7px; /* Space between olds related with nth-childs below */
+  
+  position: relative;
+  border: 2px solid #eee;
+  background: white;
+  
+
+  min-height: 465px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 4 item list */
+.old-list .old:nth-child(4n+1){
+  margin-left: 0;
+}
+.old-list .old:nth-child(4n+4){
+  margin-right: 0;
+}
+
+.old-list .old:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.old-list .old .old-image{
+  position: relative;
+}
+
+/* Ribbon Styles */
+
+
+.ribbon {
+  background: #ff9606;
+  display: inline-block;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+  padding: 3px 0px 2px;
+  position: relative;
+  border-top-left-radius: 3px;
+  color: #fff;
+  margin-bottom: 5px;
+  width: 55px;
+  text-align: center;
+}
+
+.ribbon:before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 6px 0 0;
+  border-color: #ff9606 transparent transparent transparent;
+  position: absolute;
+  content: "";
+  right: -6px;
+  top: 0;
+}
+
+.ribbon:after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 0 6px;
+  border-color: transparent transparent transparent #ff9606;
+  position: absolute;
+  content: "";
+  right: -6px;
+  bottom: 0;
+}
+
+.old-list .old .old-image img{  
+  width: 100%;
+  display: block;
+}
+
+.old-list .old .old-info{
+  background: rgba(238,238,238,.8);
+  position: absolute;  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 10px;
+}
+
+.old-list .old:hover .old-info{
+  background: rgba(238,238,238,.9);
+}
+
+
+
+.old-list .old .old-info .old-name a{
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 18px;     /* fallback */
+  max-height: 54px;      /* fallback */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.old-list .old:hover .old-info .old-name a{
+  color: #ff9606;
+  text-overflow: ellipsis;
+}
+
+.old-list .old .old-info .old-price .old-price{
+  margin-right: 10px;
+}
+.old-list .old .old-info .old-price .new-price{
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9606;
+  text-shadow: 0 1px 3px rgba(255,255,255,1);
+}
+
+.old-list .old .old-info .add-basket a{
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #333333;
+  padding: 6px 12px 7px;
+  margin-bottom: 15px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.old-list .old:hover .old-info .add-basket a{
+  background: #ff9606;
+  color: white;
+  border: 1px solid #ff9606;
+}
+
+.imgTemp{
+	width:220px !important;
+	height:auto;
+	
 }

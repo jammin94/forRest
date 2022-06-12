@@ -114,16 +114,19 @@ public class OldController {
 //	}
 	 
 	@RequestMapping("getOld")
-	public String getOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception {
+	public String getOld(@ModelAttribute("search") Search search,@RequestParam("oldNo") int oldNo, Model model) throws Exception {
 		
 		//디버깅
 		System.out.println("getOld Start");
 		
 		Old old = oldService.getOld(oldNo);
 
+		Map<String, Object> map = oldService.getOldList(search);
 		
 		model.addAttribute("old", old);
-		
+		model.addAttribute("list", map.get("list"));
+//		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
 		
 		return "old/getOld";
 	}

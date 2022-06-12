@@ -1270,7 +1270,7 @@ background: rgb(38 38 38);
      opacity:1;
 }
 .try_rc_mob_img img{
-	width:auto !important;
+	width:auto;
 	display:inline-block !important;
 	border-radius:10px;
 }
@@ -2612,6 +2612,8 @@ width:100%;
 	background: #3f6236;
 	padding-top:100px;
 	    background: #262626;
+	        height: 549px;
+    position: relative;
 }
 .try_footer_first_sec_wrapper{
 	float:left;
@@ -2875,13 +2877,54 @@ width:100%;
 }
 
 .container.tempList{
-     padding-top: 120px;
-    width: calc(100% - 210px);
-    float: right;
-    max-width: 1500px;
+   padding-top: 120px;
+   
+    max-width: 1227px;
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 .tableHeader th{
 	text-align:center;
 }
 
+
+/*	버튼 푸터 고정*/
+* {
+  margin:0;
+  padding:0;
+}
+
+main {
+  position:relative;
+}
+
+#content {
+  height: 1500px;
+}
+
+footer {
+  background: #333;
+  height: 300px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.plusBtn {
+      position: fixed;
+    right: 220px;
+    bottom: 50px;
+    width: 50px;
+    height: 50px;
+    background: black;
+    line-height: 57px;
+    z-index:1;
+}
+
+.plusBtn.on {
+  position: absolute;
+  left: 9999px;
+}
 

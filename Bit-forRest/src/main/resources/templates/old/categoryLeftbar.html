@@ -11,7 +11,15 @@
     
     height: 630px;
     padding-top:0;
+    position:fixed;
 }
+
+.leftBarNav.on{
+	
+}
+
+
+
   .leftBarNav::-webkit-scrollbar {
     width: 3px;
   }
@@ -44,6 +52,7 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
+    
 }
 
 .leftBarMenu > h3 {
@@ -51,6 +60,8 @@
     font-size: 20px;
     font-weight: normal;
     line-height: 40px;
+   
+    
 }
 
 .leftBarMenu > div {
@@ -76,6 +87,12 @@
 .leftBarListShow{
 	cursor:pointer;
 }	
+
+.leftBarListShow a:hover{
+	font-weight: 900;
+}	
+
+
 	
 .leftBarListShow ul {
 	display:none;
@@ -95,15 +112,15 @@
 <nav class="leftBarNav">
 <h2>Mypage Navigation Menus</h2>
 <span></span>
+
 <div class="leftBarMenu">
-	<h3>나의 쇼핑 활동</h3>
-	
+	<h3>카테고리</h3>
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
-		  <span stlye="display:none;"  th:if="${session.user!= null}">
-			<a th:href="@{/user/getUser(userId= ${session.user.userId})}">내 정보 수정</a>
-			</span>
+			<a >텐트
+			<input type="hidden" class="searchCategoryDate" name="searchCategoryDate"  value="텐트">
+			</a>
 		</span>
 	</div>
 </div>
@@ -111,7 +128,7 @@
 <div class="leftBarListShow">
 <div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/old/listOld}">중고물품리스트</a>
+			<a>침대<input type="hidden"  class="searchCategoryDate" name="searchCategoryDate" value="침대"></a>
 		</span>
 	</div>
 </div>
@@ -120,60 +137,63 @@
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/listRentalProfit}">대여수익확인</a>
+			<a>의자<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="의자"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/addRental}">대여주문하기</a>
+			<a>
+			<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="그릴">
+			그릴</a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/getRental}">결제정보</a>
+			<a>버너<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="버너"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/rental/getRental}">결제완료화면</a>
+			<a>조명<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="조명"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/testWishList}">장바구니리스트</a>
+			<a>테이블<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="테이블"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/board/listFAQ}">FAQ</a>
+			<a>식기<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="식기"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/board/listAnnounce}">공지사항</a>
+			<a>난로<input type="hidden" class="searchCategoryDate" name="searchCategoryDate" value="난로"></a>
 		</span>
 	</div>
 </div>
 <div class="leftBarListShow">
 	<div class="leftBarListArray">
 		<span class="leftBarList">
-			<a th:href="@{/firebase/message}">푸시메시지테스트</a>
+			<a><input type="hidden" class="searchCategoryDate"  name="searchCategoryDate" value="그릴">기타용품</a>
 		</span>
 	</div>
 </div>
 </div>
+
 
 <div>
 
@@ -195,4 +215,5 @@
 			
 			
 		})
+		
 	</script>
