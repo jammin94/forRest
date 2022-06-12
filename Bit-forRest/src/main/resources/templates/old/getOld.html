@@ -16,12 +16,13 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/getOld.css" rel="stylesheet" />
 <link href="/css/listOld.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-        
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 </head>
 <style>
-	
 </style>
 
 
@@ -38,24 +39,18 @@
 			<div class="product-imgs">
 				<div class="img-display">
 					<div class="img-showcase">
-						<img th:src="@{/images/content/fff.png}"> 
-						<img th:src="@{/images/content/ccc.jpg}">
-						<img th:src="@{/images/content/fff.png}"> 
-						<img th:src="@{/images/content/fff.png}">
+						<img th:src="@{/images/content/fff.png}"> <img
+							th:src="@{/images/content/ccc.jpg}"> <img
+							th:src="@{/images/content/fff.png}"> <img
+							th:src="@{/images/content/fff.png}">
 					</div>
-						<div class="buttons">
-					<button type="button" class="btn">
-							수정
-						</button>
-						
-					<button type="button" class="btn">
-							삭제
-						</button>
-						
-						<button type="button" class="btn">
-							끌어올리기
-						</button>
-				</div>
+					<div class="buttons">
+						<button type="button" class="btn">수정</button>
+
+						<button type="button" class="btn">삭제</button>
+
+						<button type="button" class="btn">끌어올리기</button>
+					</div>
 				</div>
 				<div class="img-select">
 					<div class="img-item">
@@ -79,8 +74,8 @@
 						</a>
 					</div>
 				</div>
-				
-			
+
+
 			</div>
 			<!-- card right -->
 			<div class="product-content">
@@ -131,9 +126,9 @@
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star-half-alt"></i>
-									<!-- 						<span th:text=${oldreview.userRate}></span> -->
+									<!-- 															<span th:text=${oldreview.userRate}></span> -->
+									<span>5</span>
 
-				
 								</div>
 
 							</td>
@@ -150,14 +145,23 @@
 
 				</div>
 
-				<div class="social-links">
-					<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
-					</a>
 
+				<div class="kakaolike">
+
+					<div class="social-links">
+						<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
+						</a>
+
+					</div>
+					<div class="oldLike">
+
+						<button type="button" class="btn">
+							찜하기<i class="fa-solid fa-heart"></i>
+						</button>
+
+					</div>
 				</div>
-				
-					
-					
+
 				<div class="product-price">
 					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
 					<span th:text=${old.oldPrice}></span> <span>원</span>
@@ -172,65 +176,69 @@
 				</div>
 
 
-				
+
 
 			</div>
-	
+
 		</div>
-		
+
 	</div>
 	<div class="container tempList">
-  <div class="row">
-    <div class="col-md-12"  >
-    <!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
-    	<h2>중고거래 게시물 추천</h2>
-   <div class="old-list">
-	
-        <!-- BEGIN old -->
-        <div class="old" th:each = "old : ${list}">
-          <div class="owl-item active" style="width: 270px;" >
-        
-        	<div class="item">
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-									<img class="imgTemp" width="220" height="205"  th:src= "@{/images/content/fff.png}">
-												<!--	<h5>Sale</h5>  -->
-											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2>[[${old.oldTitle}]]</h2>
-											
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
-											<div class="try_mob_btn_wrapper">	<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
-											</div>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
+				<h2>중고거래 게시물 추천</h2>
+				<div class="old-list">
+
+					<!-- BEGIN old -->
+					<div class="old" th:each="old : ${list}">
+						<div class="owl-item active" style="width: 270px;">
+
+							<div class="item">
+								<div class="try_rc_mob_box_wrapper">
+									<div class="try_rc_mob_img">
+										<img class="imgTemp" width="220" height="205"
+											th:src="@{/images/content/fff.png}">
+										<!--	<h5>Sale</h5>  -->
+										<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+									</div>
+									<div class="try_rc_mob_img_cont">
+										<h2>[[${old.oldTitle}]]</h2>
+
+									</div>
+									<div class="try_rc_mob_img_cont_bottom">
+										<p>
+											<span class="new-price" th:text="|${old.oldPrice}원|"></span>
+										</p>
+										<div class="try_mob_btn_wrapper">
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
 										</div>
 									</div>
 								</div>
-			 </div>
-        </div>
-        
-        
-        <!-- END old -->
-        
+							</div>
+						</div>
+					</div>
 
-      </div>
-      <!-- END old List -->
-    
-	</div>
-	</div>
+
+					<!-- END old -->
+
+
+				</div>
+				<!-- END old List -->
+
+			</div>
+		</div>
 	</div>
 
-	
-	
-<!-- Footer-->
-        <div th:replace="/main/footer.html"></div>
 
-<script src="/js/getOld.js"></script>
-<script>
-   
-</script>
+
+	<!-- Footer-->
+	<div th:replace="/main/footer.html"></div>
+
+	<script src="/js/getOld.js"></script>
+	<script>
+		
+	</script>
 </body>
 
 </html>
