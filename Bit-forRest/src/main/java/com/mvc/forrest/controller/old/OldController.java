@@ -170,8 +170,7 @@ public class OldController {
 	public String updateOld( @RequestParam("oldNo") int oldNo,Model model) throws Exception{
 		System.out.println(this.getClass()+ "겟수정");
 		
-		oldService.getOld(oldNo);
-		Old old = new Old();
+		Old old = oldService.getOld(oldNo);
 		model.addAttribute("old",old);
 		return "old/updateOld";
 	} 
