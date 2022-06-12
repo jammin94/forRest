@@ -15,7 +15,6 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/getOld.css" rel="stylesheet" />
-<link href="/css/listOld.css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -87,8 +86,11 @@
 					<div class="category" th:text=${old.category}></div>
 					/
 					<div class="oldAddr" th:text=${old.oldAddr}></div>
-
+					/ 조회
+					<div class="oldView" th:text= ${old.oldView}></div>
 				</div>
+				
+				<div class="oldDate" th:text= ${old.oldDate}></div>
 				<!--       <a href = "#" class = "product-link">visit nike store</a> -->
 				<!--     <div class="userProfile">   -->
 				<!--     <p class="fa-solid fa-circle-user"></p> -->
@@ -149,10 +151,12 @@
 				<div class="kakaolike">
 
 					<div class="social-links">
-						<a href="#"> <img alt="" src="/images/content/kakao.png"></i>
+						<a href="#"> 공유하기 <!-- 			<img alt="" src="/images/content/kakao.png"></i> -->
+
 						</a>
 
 					</div>
+
 					<div class="oldLike">
 
 						<button type="button" class="btn">
@@ -187,7 +191,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
-				<h2>중고거래 게시물 추천</h2>
+				<h2>같은 카테고리의 물품들</h2>
 				<div class="old-list">
 
 					<!-- BEGIN old -->

@@ -69,7 +69,7 @@ div img{
 
 	font-style: italic;
 	display: flex;
-	margin-bottom: 2rem;
+	margin-bottom: 0rem;
 }
 .category{
 	
@@ -77,11 +77,18 @@ div img{
 }
 .oldAddr{
 	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
+.oldView{
+	margin-left: 0.5rem;
+	
+}
 
-
-
+.oldDate{
+	margin-bottom:2rem;
+	font-style: italic;
+}
 .product-title::after{
     content: "";
     position: absolute;
@@ -129,9 +136,9 @@ div img{
 
 .product-price{
     margin: 2rem 0;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color:#000000;
+    color:#636363;
 }
 .product-price span{
     font-weight: 400;
@@ -148,7 +155,7 @@ div img{
     font-size: 17px;
     padding: 0.3rem;
     opacity: 0.8;
-    color: #707070;
+    color: #474747;
 }
 /* .product-detail ul{ */
 /*     margin: 1rem 0; */
@@ -172,7 +179,7 @@ div img{
 }
 .purchase-info input,
 .purchase-info .btn{
-    border: 1.5px solid #ddd;
+    border: 1.5px solid transparent;
     border-radius: 10px;
     text-align: center;
     padding: 0.5rem 0.8rem;
@@ -196,7 +203,35 @@ div img{
     background:   #8000ff;
 }
 .purchase-info .btn:hover{
-    opacity: 0.9;
+    opacity: 0.8;
+    color:#000000;
+}
+
+.kakaolike{
+	display: flex;
+}
+
+.oldLike .btn{
+	border:1px solid #808080;
+}
+.oldLike .btn:first-of-type{
+	background: #ffffff;
+}
+
+.oldLike .btn:hover{
+	background:#f0f0f0;
+	border-color: transparent;
+}
+.oldLike i:hover{
+/* 	background: #000000; */
+	font-size: 1.1rem;
+}
+.oldLike i{
+	 width: 30px;
+	 color: #ff0000;
+}
+.oldLike{
+	color: #000000;
 }
 .social-links{
     display: flex;
@@ -206,12 +241,12 @@ div img{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: rgb(254, 228, 48);
-    border: 1px solid rgb(254, 228, 48);
+    width: 105px;
+    height: 34px;
+    color: #000000;
+    border: 1px solid #808080;
     margin: 0 0.2rem;
-    border-radius: 10%;
+    border-radius: 7%;
     text-decoration: none;
     font-size: 0.8rem;
     transition: all 0.5s ease;
@@ -253,6 +288,7 @@ div img{
 		top:0;
 		left:0;
 		padding:10px;
+	
 	}
     
 
@@ -274,7 +310,7 @@ div img{
 .old-list{
 margin-bottom: 210px !important;
   padding: 0;
-  margin: 0;
+  margin: 20px;
   list-style: none;
   -ms-box-orient: horizontal;
   display: -webkit-box;
