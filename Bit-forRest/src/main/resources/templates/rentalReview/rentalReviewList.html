@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/addRentalReview.css">
+ 
+</head>
+<style>
+
+
+.bodyContainer {
+  min-height: 100vh;
+  font-family: "Poppins";
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.user--1 {
+  background-image: url("https://i.pravatar.cc/150?img=32");
+}
+.user--2 {
+  background-image: url("https://i.pravatar.cc/150?img=12");
+}
+.user--3 {
+  background-image: url("https://i.pravatar.cc/150?img=10");
+}
+.user--4 {
+  background-image: url("https://i.pravatar.cc/150?img=7");
+}
+
+.text-muted {
+  color: #7e7e7e;
+}
+
+.text-secondary {
+  color: #3e4954 !important;
+}
+
+.tag {
+  background-color: #ffeae6;
+  color: #ff6d4d;
+}
+
+.star--active {
+  color: #2f4cdd;
+}
+.star--muted {
+  color: #d9d9d9;
+}
+    
+</style>
+<body>
+
+<!-- 툴바 include -->
+	<div th:replace="/main/toolbar.html"></div> 
+
+
+  <div class="bodyContainer">
+
+    <div class="flex flex-col justify-center h-auto flex-auto bg-white gap-2">
+
+        <!-- Headings   -->
+        <div class="flex flex-col flex-auto px-6 pt-6 gap-1.5">
+          <h1 class="text-2xl font-medium">최신리뷰</h1>
+          </p>
+        </div>
+        
+        <!-- Review List   -->
+        <div class="flex flex-col flex-auto">
+        
+          <!-- Review Item -->
+          <div class="flex flex-col md:flex-row flex-1 p-6 gap-3 border-b-2">
+            <div class="flex gap-3">
+              <!-- Avatar -->
+              <div class="user user--1 flex-initial h-16 w-16 rounded-full  bg-center bg-cover bg-no-repeat"></div>
+              <!-- Content -->
+              <div class="flex flex-col flex-1 gap-3">
+                <!-- Info -->
+                <div class="flex flex-col gap-1">
+                  <h1 class="text-2xl font-medium">유저아이디</h1>
+                  <div class="flex gap-4 text-xs text-muted font-medium">
+                    <span>2022-06-13</span>
+                  </div>
+                </div>
+                <!-- Review -->
+                <p class="text-secondary">좋아요조앙요아조아요자요자용요요요 상품</p>
+              </div>
+            </div>
+      
+            <!-- Ratings -->
+            <div class="flex md:flex-col flex-initial md:justify-center items-center gap-5">
+              <h1 class="text-3xl font-semibold">4.5</h1>
+              <div class="flex gap-1 text-base star--active">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star star--muted"></i>
+              </div>
+            </div>
+          </div>
+      
+      <div class="flex flex-col md:flex-row flex-1 p-6 gap-3 border-b-2">
+            <div class="flex gap-3">
+              <!-- Avatar -->
+              <div class="user user--1 flex-initial h-16 w-16 rounded-full  bg-center bg-cover bg-no-repeat"></div>
+              <!-- Content -->
+              <div class="flex flex-col flex-1 gap-3">
+                <!-- Info -->
+                <div class="flex flex-col gap-1">
+                  <h1 class="text-2xl font-medium">유저아이디</h1>
+                  <div class="flex gap-4 text-xs text-muted font-medium">
+                    <span>2022-06-13</span>
+                  </div>
+                </div>
+                <!-- Review -->
+                <p class="text-secondary">좋아요조앙요아조아요자요자용요요요 상품</p>
+              </div>
+            </div>
+      
+            <!-- Ratings -->
+            <div class="flex md:flex-col flex-initial md:justify-center items-center gap-5">
+              <h1 class="text-3xl font-semibold">4.5</h1>
+              <div class="flex gap-1 text-base star--active">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star star--muted"></i>
+              </div>
+            </div>
+          </div>
+     
+      
+        </div>
+      
+      </div>
+</div>
+</body>
+	
+	  
+</html>

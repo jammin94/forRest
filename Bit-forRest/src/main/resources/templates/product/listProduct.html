@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>보관등록페이지</title>
-    <link rel="stylesheet" href="/css/style.css">
+  
 
    <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -17,12 +17,7 @@
 </head>
 <style>
 
-.container.tempList{
-     padding-top: 120px;
-    width: calc(100% - 210px);
-    float: right;
-    max-width: 1500px;
-}
+
 .col-md-12{
  margin-top: 60px
 }
@@ -184,7 +179,7 @@ margin-bottom: 210px !important;
     justify-content: space-around;
   }
   .product-list .product{
-  
+      width: 90%;
     margin: 0 0 30px 0;
     min-height: unset;
   }
@@ -396,7 +391,7 @@ margin-bottom: 210px !important;
 
         <!-- BEGIN Product -->
         <div class="product" th:each = "product : ${list}">
-          <div class="owl-item active" style="width: 270px; margin-right: 20px;" >
+          <div class="owl-item active" style="width: 270px;" >
         
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
