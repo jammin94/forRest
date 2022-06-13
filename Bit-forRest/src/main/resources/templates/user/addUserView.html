@@ -3,34 +3,7 @@
 
 <head>
 	
-	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-	
-	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
-	<!--  ///////////////////////// java Script ////////////////////////// -->
-	<script type="text/javascript">
-		
-		//회원가입 버튼 event
-		
-		$(function(){
-			$("#addUser").on("click", fncAddUser);
-			
-		});
-		
-		function fncAddUser() {
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
-		}
-		
-		
-	</script>
-
   <style>
-    @import url(https://fonts.googleapis.com/css?family=Monsterrat);
 
     html {
       background: #000;
@@ -104,7 +77,7 @@
     }
 
     #addUser {
-          background: #eea54b;
+      background: #eea54b;
       border: none;
       width: 100%;
       min-height: 50px;
@@ -118,10 +91,6 @@
       -o-transition: background 1s ease-out;
       transition: background 1s ease-out;
      
-    }
-
-    #button:hover {
-      background-position: -400px;
     }
 
   </style>
@@ -152,8 +121,20 @@
     top: 48px;
     left: 124px;
 	}
- 
-    
+	.addrBtn{
+	background-color: #eea54b;
+	color: white;
+	width: 100px;
+	}
+	
+	#userImg{
+	border-radius: 50px;
+	color: #757575;
+	cursor: pointer;
+	padding: 0;
+	font-size: 20px;
+	}
+	
   </style>
   
 </head>
@@ -170,7 +151,7 @@
       <br>
       <label for="userId">Id</label>
       <input id="userId" type="text" name="userId" placeholder="이메일형식">
-	      <span>AJAX자리 "사용가능합니다"</span>
+	      <span class="userId_check"></span>
       
 	  <br><br>
       <label for="password">Password</label>
@@ -178,7 +159,7 @@
       		 placeholder="특수문자, 영어, 숫자 1개이상 사용 8~16자">
       <input id="password2" type="password" name="password2"
       		 placeholder="비밀번호 확인">
-      	      <span>비밀번호가 일치하지 않습니다</span>
+      	      <span class="password_check"></span>
       
 	  <br><br>
       <label for="userName">Name</label>
@@ -194,19 +175,27 @@
       <label for="phone">Phone</label>
       <input id="phone" type="text" name="phone" placeholder="전화번호입력">
 	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
-      
+
 	  <br><br>
+      <label for="userAddr">Address</label>
+	  <input type="text" id="sample6_postcode" name= "addr1" placeholder="우편번호"onclick="sample6_execDaumPostcode()" readonly="readonly">
+	  <input type="text" id="sample6_address" name= "addr2" placeholder="주소"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
+	  <input type="text" id="sample6_detailAddress" name= "addr3" placeholder="상세주소">
+	  <input type="text" id="sample6_extraAddress" name= "addr4" placeholder="참고항목">
+
+      
+<!-- 	  <br><br>
       <label for="userAddr">Address</label>
       <input id="userAddr" type="text" name="userAddr"
       		 placeholder="주소입력">
       <input id="userAddr2" type="text" name="userAddr2"
       		 placeholder="주소입력">
       <input id="userAddr3" type="text" name="userAddr3"
-      		 placeholder="상세주소입력">      
+      		 placeholder="상세주소입력">   -->    
             
 	  <br><br>
       <label for="userImg">Profile Img</label>
-      <input id="userImg" type="text" name="userImg" placeholder="(선택) 1장">            
+      <input id="userImg" type="file" name="userImg" placeholder="(선택) 1장">            
 
 
 	  <br><br>
@@ -216,5 +205,120 @@
   </form>
 
 </body>
+
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<script type="text/javascript">
+
+		$(function(){
+			$("#addUser").on("click", function(){
+				console.log("가입하기 Click");
+				
+//				$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			});
+			
+			$("#userId").keyup(function(){
+				fncCheckUserIdDuplication();
+			});
+			
+			$("#password").keyup(function(){
+				checkPassword($('#password').val());
+			});
+		});
+		
+		//userId가 이미 가입되어 있는지 확인
+		function fncCheckUserIdDuplication() {
+			var userId = $("#userId").val();
+			
+			$.ajax({
+				url : "/user/json/checkUserId?userId="+userId,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData, status) {
+					
+					console.log(JSONData)
+					if (JSONData == 1) {
+						$(".userId_check").text("사용중인 이메일입니다.");
+						$(".userId_check").css("color", "red");
+						
+					} else {
+						$(".userId_check").text("사용가능한 이메일입니다.");
+						$(".userId_check").css("color", "blue");
+						
+					}
+				}
+			});
+		}// 유저아이디 중복 끝
+		
+		//비밀번호 유효성 검사
+		function checkPassword(password){
+		    
+			var checkNumber = password.search(/[0-9]/g);
+		    var checkEnglish = password.search(/[a-z]/ig);
+			
+		    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/.test(password)){            
+		        $(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
+				$(".password_check").css("color", "red");
+		    }    
+		    
+		    if(checkNumber <0 || checkEnglish <0){
+		        $(".password_check").text("숫자와 영문자를 혼용하여야 합니다.");
+				$(".password_check").css("color", "red");
+		    }
+		    $(".password_check").text("사용가능한 비밀번호입니다.");
+			$(".password_check").css("color", "blue");		        
+		}//비밀번호 유효성 검사 끝
+
+		
+		
+	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                if(data.userSelectedType === 'R'){
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+	</script>
 
 </html>

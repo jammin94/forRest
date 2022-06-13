@@ -55,7 +55,7 @@ public class UserController {
 	public UserController(){
 	}
 	
-	@GetMapping("login")
+	@GetMapping("login")			//유저, 관리자
 	public String login() throws Exception{
 		
 		System.out.println("/user/login : GET");
@@ -63,7 +63,7 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@PostMapping("login")
+	@PostMapping("login")			//유저, 관리자
 	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
 		
 		System.out.println("/user/login : POST");
@@ -127,7 +127,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("logout")
+	@GetMapping("logout")				//유저, 관리자
 	public String logout(HttpSession session ) throws Exception{
 		
 		System.out.println("/user/logout : GET");
@@ -137,7 +137,7 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("addUser")
+	@GetMapping("addUser")				//유저, 관리자
 	public String addUser() throws Exception{
 		
 		System.out.println("/user/addUser : GET");
@@ -145,7 +145,7 @@ public class UserController {
 		return "user/addUserView";
 	}
 	
-	@RequestMapping("addUser")
+	@RequestMapping("addUser")			//유저, 관리자
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
 		System.out.println("/user/addUser : POST");
@@ -155,7 +155,7 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@GetMapping("findId")
+	@GetMapping("findId")				//유저, 관리자
 	public String findId () throws Exception{
 
 		System.out.println("/user/findId : GET");
@@ -163,7 +163,7 @@ public class UserController {
 		return "user/findIdView";
 	}
 	
-	@PostMapping("findId")
+	@PostMapping("findId")				//유저, 관리자
 	public String findId (@ModelAttribute("user") User user, String sms,
 							Model model) throws Exception{
 		System.out.println("/user/findId : POST");
@@ -183,7 +183,7 @@ public class UserController {
 		return "user/findIdView";
 	}
 	
-	@GetMapping("findPwd")
+	@GetMapping("findPwd")				//유저, 관리자
 	public String findPwd() throws Exception{
 		
 		System.out.println("/user/findPwd : GET");
@@ -191,7 +191,7 @@ public class UserController {
 		return "user/findPwd";
 	}
 	
-	@PostMapping("findPwd")
+	@PostMapping("findPwd")				//유저, 관리자
 	public String findPwd(@ModelAttribute("user") User user, String sms, 
 							HttpSession session, Model model) throws Exception{
 		
@@ -211,7 +211,7 @@ public class UserController {
 		return "user/findPwd";
 	}	
 	
-	@GetMapping("pwdReset")						
+	@GetMapping("pwdReset")				//유저, 관리자				
 	public String pwdReset() throws Exception{
 		
 		System.out.println("/user/pwdReset : GET");
@@ -219,7 +219,7 @@ public class UserController {
 		return "user/pwdReset";
 	}
 	
-	@PostMapping("pwdReset")
+	@PostMapping("pwdReset")			//유저, 관리자
 	public String pwdReset(@RequestParam("password") String password, HttpSession session) throws Exception{
 		
 		System.out.println("/user/pwdReset : POST");
@@ -231,7 +231,7 @@ public class UserController {
 		return "main/index";
 	}
 	
-	@RequestMapping("getUserList")
+	@RequestMapping("getUserList")		//관리자
 	public String getUserList( @ModelAttribute("search") Search search , Model model ) throws Exception{
 		
 		System.out.println("/user/getUserList : GET / POST");
@@ -255,11 +255,11 @@ public class UserController {
 		return "user/getUserList";
 	}
 	
-	@RequestMapping("getUser")
+	@RequestMapping("getUser")		//유저, 관리자
 	public String getUser( @RequestParam("userId") String userId , Model model,
 							HttpSession session, Search search) throws Exception {
 		
-		System.out.println("/user/getUser : GET");
+		System.out.println("/user/getUser : POST / GET");
 		
 		User dbUser = userService.getUser(userId);
 		User sessionUser = (User)session.getAttribute("user");
@@ -320,7 +320,7 @@ public class UserController {
 //		return "user/getMyPage";
 //	}
 	
-	@GetMapping("deleteUser")
+	@GetMapping("deleteUser")		//유저, 관리자
 	public String deleteUser()throws Exception {
 		
 		System.out.println("/user/deleteUser : GET");
@@ -328,7 +328,7 @@ public class UserController {
 		return "user/deleteUserView";
 	}
 	
-	@PostMapping("deleteUser")
+	@PostMapping("deleteUser")		//유저, 관리자
 	public String deleteUser(@RequestParam("password") String password, HttpSession session)throws Exception {
 		
 		System.out.println("/user/deleteUser : POST");
