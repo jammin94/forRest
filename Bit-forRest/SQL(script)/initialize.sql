@@ -6,7 +6,7 @@ CREATE TABLE user (
    userId      VARCHAR(30)   NOT NULL,
    nickname      VARCHAR(30)    NOT NULL UNIQUE,
    phone VARCHAR(20) NOT NULL UNIQUE, 
-   password VARCHAR(20) NOT NULL,
+   password VARCHAR(100) NOT NULL,
    userName VARCHAR(20) NOT NULL,
    userAddr VARCHAR(100) NOT NULL,
    role VARCHAR(10) NOT NULL DEFAULT 'user',
@@ -236,10 +236,10 @@ CREATE TABLE report(
 
 
 INSERT INTO user
-VALUES ('admin','adminNickname','adminphone','1234','adminName','adminAddr','admin',CURDATE(),'own','adminImg',CURDATE(),NULL,NULL,NULL);
+VALUES ('admin','adminNickname','adminphone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','adminName','adminAddr','admin',CURDATE(),'own','adminImg',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
-VALUES ('user01@naver.com','user01','user01Phone','1111','user01Name','user01Addr','user',CURDATE(),'own','user01Img',CURDATE(),NULL,NULL,NULL);
+VALUES ('user01@naver.com','user01','user01Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user01Name','user01Addr','user',CURDATE(),'own','user01Img',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
 VALUES ('user02@naver.com','user02','user02Phone','2222','user02Name','user02Addr','user',CURDATE(),'own','user02Img',CURDATE(),NULL,NULL,NULL);

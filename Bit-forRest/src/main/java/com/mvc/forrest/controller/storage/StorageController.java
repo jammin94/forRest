@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.common.utils.RandomNumberGenerator;
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -119,8 +121,10 @@ public class StorageController {
 		System.out.println("uploadFile1: " + uploadFile.get(0).getOriginalFilename());
 		//System.out.println("uploadFile2: " + uploadFile.get(1).getOriginalFilename());
 		
-		//세션에있는 유저아이디
-        String userId = ((User) session.getAttribute("user")).getUserId();
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+
         
 		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
 //        int prodNo = rng.makeRandomProductNumber();
@@ -161,9 +165,13 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
+	
 		search.setPageSize(pageSize);
-				
-		String userId = ((User)httpSession.getAttribute("user")).getUserId();
+		
+		//암호화된 userId를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("search", search);
@@ -204,14 +212,6 @@ public class StorageController {
 		if(search.getSearchCondition() == "") {
 			search.setSearchCondition(null);
 		}
-		
-
-	
-		
-		
-
-	
-		
 		
 		//디버깅
 		System.out.println("serarch:" + search);

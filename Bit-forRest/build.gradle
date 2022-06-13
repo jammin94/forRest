@@ -39,7 +39,9 @@ dependencies {
 	implementation 'commons-io:commons-io:2.6'
 	// redis 사용
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
- 
+ 	
+ 	//타임리프에서 스프링시큐리티 사용
+ 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }
 
 group = 'com.cos'

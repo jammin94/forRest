@@ -1,5 +1,6 @@
 package com.mvc.forrest.config.auth;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,7 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.mvc.forrest.service.domain.User;
 
-public class LoginUser implements UserDetails {
+import lombok.Data;
+
+@Data
+public class LoginUser  implements UserDetails {
 
 	/**
 	 로그인 했을 때 정보들
@@ -19,9 +23,35 @@ public class LoginUser implements UserDetails {
 	
 	private User user;
 	
+	private String userId;
+	private String password;
+	private String nickname;
+	private String userName;
+	private String userAddr;
+	private String phone;
+	private String role;
+	private String joinPath;
+	private String userImg;
+	private String pushToken;
+	private String reportedCount;
+	private String reviewedCount;
+	private double userRate;
+	private int profit;
+	private int couponCount;
+	private Timestamp leaveApplyDate;
+	private Timestamp leaveDate;
+	private Timestamp recentDate;
+	private Timestamp joinDate;
+	
+	
 	public LoginUser(User user) {
+		System.out.println(user);
 		this.user=user;
 	}
+	
+
+	
+	
 	//getter setter 만들어 줘야 해
 	
 	public LoginUser() {
@@ -51,8 +81,9 @@ public class LoginUser implements UserDetails {
 	@Override
 	public String getUsername() {
 		//id
-		return user.getUserName();
+		return user.getUserId();
 	}
+	
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -78,4 +109,7 @@ public class LoginUser implements UserDetails {
 		return true;
 	}
 
+
+	
+		
 }

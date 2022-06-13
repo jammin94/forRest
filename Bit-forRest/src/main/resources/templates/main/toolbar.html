@@ -229,7 +229,7 @@ article {
         </li>
         
         <!-- 로그인 안 했으면 "로그인" -->
-         <span stlye="display:none;" th:if="${session.user==null} ">
+         <span sec:authorize="isAnonymous()">
            <li>
                    <a th:href="@{/user/login}">로그인</a>
            </li>
@@ -237,7 +237,7 @@ article {
         
         
          	<!-- 로그인했으면 마이페이지 보기 -->
-         <span stlye="display:none;"  th:unless="${session.user== null}">
+         <span sec:authorize="isAuthenticated()">
           <li> 
           <a>   
       	    <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i> 
@@ -273,8 +273,7 @@ article {
 <script>
 
    $(function(){
-      
-      const mypageIcon = $('.mypageIcon');
+     const mypageIcon = $('.mypageIcon');
       const dropLayer = $('.dropHeader .member');
       const toggleArrow = $('.toggleArrow');
       

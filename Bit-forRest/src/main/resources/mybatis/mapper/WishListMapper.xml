@@ -5,7 +5,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
-<mapper namespace="com.mvc.forrest.service.WishListMapper"> 	
+<mapper namespace="com.mvc.forrest.dao.wishlist.WishListDAO"> 	
  	
 	<resultMap id="wishListSelectMap" type="wishList">
 		<result property="wishListNo" 				column="wishListNo" 				jdbcType="INTEGER"/>
@@ -28,16 +28,7 @@
 	   	WHERE wishNo = #{wishNo}
 	 </delete>
 	 
-	 <!-- SELECT LIST 장바구니 리스트 
-	<select  id="getWishList"  parameterType="search"	resultMap="wishListSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT wishList.* 
-											) inner_table 
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>-->
-	 <!--  	 -->
+	 <!-- SELECT LIST 장바구니 리스트 -->
 	 <select  id="getWishList"  parameterType="map"	resultMap="wishListSelectMap">
 	  SELECT 
 	  		*
@@ -45,8 +36,12 @@
 	  				<where>
 				 		userId = #{userId}
 	 				</where>
-	 				ORDER BY wishList.wishListNo
+	 				ORDER BY wishListNo
 	 </select>
 
+ 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM wishList
+	 </select>
 
 </mapper>
