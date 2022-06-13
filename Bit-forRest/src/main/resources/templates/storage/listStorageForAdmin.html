@@ -132,7 +132,7 @@
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-				</form>
+				
 	    	</div>
 	    	
 		</div>
@@ -177,6 +177,7 @@
 			<td>
 			
 			<input type="hidden"  class="prodNum" name="prodNo" th:value="${storage.prodNo}" />
+		
 			
 			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인 <span style="display:none">물품보관승인신청중</span></button>
 			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기 <span style="display:none">입고중</span> </button>
@@ -190,8 +191,8 @@
 
       </table>
 		<!--  table End /////////////////////////////////////-->
-
- <button type="button" class="updateProdAllCon-btn">일괄업데이트</button>
+</form>
+ <button  class="updateProdAllCon-btn">일괄업데이트</button>
 
 	<ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#"
@@ -280,7 +281,7 @@
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 	    	
-		   $('.form-check').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
+		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
 	 		
 		}); 
 	  

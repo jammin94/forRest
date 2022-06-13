@@ -153,7 +153,7 @@ public class ProductController {
 			}
 			//대여관련
 			
-			productService.updateProduct(product);
+			productService.updateProductCondition(product);
 		}
 		
 		
