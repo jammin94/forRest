@@ -16,6 +16,11 @@
   --border: #eee;
 }
 
+.smInfo{
+	color: white;
+	align-items: center;
+}
+
 .cardMypage {
     position: absolute;
     top: 0;
@@ -348,7 +353,7 @@
   
 <body>
 
-<!-- 툴바 include -->
+<!-- ���� include -->
 
    <div class="cardMypage">
         <div class="card__header">
@@ -359,9 +364,9 @@
             />
           </div>
           <div class="card__name">
-            <h2>다니엘 스토리지</h2>
+            <h2>[[${session.user.nickname}]]</h2>
             <div class="card__handle">
-              <span class="handle">hyeong512</span>
+              <span class="handle">[[${session.user.userName}]]</span>
               <span class="circle"></span>
               <span class="category">
             	<img src="/images/header/starReview.png" width="20%" height="20%">
@@ -411,46 +416,18 @@
           <div class="card__heading">
             <div class="heading">My Page</div>
             <div class="date">
-              May 24 - June 24
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather feather-chevron-down"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+              <a class="smInfo" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></a>
             </div>
           </div>
           <div class="insights">
             <div class="insight">
               <div class="heading">
-                총 수익 금액
-                <div class="score">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 262.361 262.362"
-                    width="8"
-                    height="8"
-                    fill="#44c790"
-                  >
-                    <path
-                      d="M286.935 197.287L159.028 69.381c-3.613-3.617-7.895-5.424-12.847-5.424s-9.233 1.807-12.85 5.424L5.424 197.287C1.807 200.904 0 205.186 0 210.134s1.807 9.233 5.424 12.847c3.621 3.617 7.902 5.425 12.85 5.425h255.813c4.949 0 9.233-1.808 12.848-5.425 3.613-3.613 5.427-7.898 5.427-12.847s-1.814-9.23-5.427-12.847z"
-                    />
-                  </svg>
-                  <span>7%</span>
-                </div>
+                	수익금액
               </div>
               <div class="number">
-                1,090
+                [[${session.user.profit}]]
                 <div class="info">
-                  More Info
+                  <a class="smInfo"  th:href="@{/rental/listRentalProfit}">More Info </a>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -465,31 +442,18 @@
                   >
                     <polyline points="9 18 15 12 9 6"></polyline>
                   </svg>
+                 
                 </div>
               </div>
             </div>
             <div class="insight">
               <div class="heading">
-                보유쿠폰
-                <div class="score">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 262.361 262.362"
-                    width="8"
-                    height="8"
-                    fill="#44c790"
-                  >
-                    <path
-                      d="M286.935 197.287L159.028 69.381c-3.613-3.617-7.895-5.424-12.847-5.424s-9.233 1.807-12.85 5.424L5.424 197.287C1.807 200.904 0 205.186 0 210.134s1.807 9.233 5.424 12.847c3.621 3.617 7.902 5.425 12.85 5.425h255.813c4.949 0 9.233-1.808 12.848-5.425 3.613-3.613 5.427-7.898 5.427-12.847s-1.814-9.23-5.427-12.847z"
-                    />
-                  </svg>
-                  <span>25%</span>
-                </div>
+				보유쿠폰
               </div>
               <div class="number">
-                305
+                [[${session.user.couponCount}]]
                 <div class="info">
-                  More Info
+                  <a class="smInfo" id="couponPop">More Info</a>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -519,6 +483,18 @@
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 	
+	$("#couponPop").on("click",function(){
+		
+		popup();
+		
+	});
+	
+	function popup(){
+        var url = "/coupon/test";
+        var name = "popup test";
+        var option = "width = 500, height = 500, top = 100, left = 200, location = yes"
+        window.open(url, name, option);
+    }
 	  	
 	</script>
 
