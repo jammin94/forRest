@@ -165,8 +165,8 @@ public class StorageController {
 		
 		
 		search.setPageSize(pageSize);
-		LoginUser user= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userId= user.getUser().getUserId();
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
 //		System.out.println(userId);
 //		String userId = principal.getUserName();
 //		String userId = ((User)httpSession.getAttribute("user")).getUserId();
