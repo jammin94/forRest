@@ -21,6 +21,8 @@
 		<result property="pushToken"		column="pushToken"		jdbcType="VARCHAR"/>
 		<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
 		<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>
+		<result	property="profit"			column="profit"			jdbcType="NUMERIC"/>
+		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -33,13 +35,20 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
 		SELECT
-		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount'
-		FROM user LEFT OUTER JOIN 	  	
+		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount', profit, couponCount
+		FROM user
+		LEFT OUTER JOIN 	  	
 			(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
 		ON user.userId = B.reportedUser
 		LEFT OUTER join
 			(SELECT COUNT(*) COUNT, reviewedUserId FROM oldreview Group by reviewedUserId) C 
 		ON user.userId = C.reviewedUserId
+		LEFT OUTER JOIN 	  	
+			(SELECT SUM(resultPrice)AS 'profit',userId FROM transaction GROUP BY userId) D
+		ON user.userId = D.userId
+		LEFT OUTER JOIN 	  	
+			(SELECT COUNT(*) AS 'couponCount', userId FROM owncoupon GROUP BY userId) E
+		ON user.userId = E.userId
 		WHERE user.userId = #{value}
 	 </select>
 	 

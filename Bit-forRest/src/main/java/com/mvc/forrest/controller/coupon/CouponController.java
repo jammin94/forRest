@@ -92,6 +92,20 @@ public class CouponController {
 		return "redirect:/coupon/manageCoupon";
 	}
 	
+	@RequestMapping("ownCouponList")
+	public String ownCouponList( Model model, HttpSession session, Search search) throws Exception{
+		
+		System.out.println("/coupon/ownCouponList : GET");
+		
+		User sessionUser = (User)session.getAttribute("user");
+		
+		Map<String , Object> map=couponService.getOwnCouponList(sessionUser.getUserId());
+		
+		model.addAttribute("map", map.get("list"));
+
+		return "/coupon/ownCouponList";
+	}
+	
 	@PostMapping("deleteCoupon")
 	public String deleteCoupon(@RequestParam String couponNo) throws Exception{
 		

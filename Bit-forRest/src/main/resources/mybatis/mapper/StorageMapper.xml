@@ -111,12 +111,33 @@
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo
+	 		
+	 	
+	 		
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
-	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
-	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 		
+	 	<if test="searchCondition != null">
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 1  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
 	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		
+	 			<if test="searchKeyword != null and searchCondition == 1 and searchProductCondition == null" >
+	 		 and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2 and searchProductCondition == null" >
+	 		 and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 	</if>
+	 	
 	 		
 	 		
 	 	</where>
@@ -143,12 +164,31 @@
 	  	FROM product p, transaction t
 	  	<where>
 	 		p.prodNo = t.prodNo
+	 		
+	 		
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
-	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
-	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 		
+	 	<if test="searchCondition != null">
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 1  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
 	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		
+	 			<if test="searchKeyword != null and searchCondition == 1 and searchProductCondition == null" >
+	 		 and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2 and searchProductCondition == null" >
+	 		 and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 	</if>
 	 		
 	 	</where>
 	  	

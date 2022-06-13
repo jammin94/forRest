@@ -30,9 +30,21 @@ public class UserRestController {
 	public UserRestController(){
 	}
 	
-	@RequestMapping("json/userIdValid")
-	public String userIdValid(String userId) throws Exception {
-		return null;
+	@RequestMapping("json/checkUserId")
+	public int userIdValid(@RequestParam String userId) throws Exception {
+		
+		System.out.println("user/json/checkUserId : GET");
+		
+		System.out.println("받은 값"+userId);
+		
+		if(userService.getUser(userId)==null) {
+			System.out.println("아이디 없음 : "+userService.getUser(userId));
+			return 0;
+		}else {
+			System.out.println("아이디 있음 : "+userService.getUser(userId));
+			return 1;
+		}
+		
 	}
 	
 	@RequestMapping(value="json/pwdValid")
