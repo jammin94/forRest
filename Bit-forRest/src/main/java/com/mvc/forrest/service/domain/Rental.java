@@ -1,8 +1,9 @@
 package com.mvc.forrest.service.domain;
 
 import java.io.File;
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+
 import java.util.List;
 
 import lombok.Data;
