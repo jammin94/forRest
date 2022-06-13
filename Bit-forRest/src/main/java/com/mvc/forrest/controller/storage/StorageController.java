@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.common.utils.RandomNumberGenerator;
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -67,6 +68,7 @@ public class StorageController {
 		
 	
 	//보관 메인화면 단순 네비게이션
+	//비회원도 접근가능
 	@GetMapping("storageMain")
 	public String storageMain() throws Exception  {
 		
@@ -74,6 +76,7 @@ public class StorageController {
 	}
 	
 	//보관물품등록을 위한 페이지로 네비게이션
+	//회원, 어드민 가능
 	@GetMapping("addStorage")
 	public String addStorageGet(Model model, HttpSession session) throws Exception {
 		
@@ -105,6 +108,7 @@ public class StorageController {
 //	}
 	
 	//결제구현전 테스트
+	//회원, 어드민 가능
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
@@ -151,6 +155,7 @@ public class StorageController {
 		return "forward:/storage/getStorage?tranNo=" + tranNo ;
 	}
 	
+	//회원, 어드민 가능
 	@RequestMapping("listStorage")
 	public String listStorage(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception {
 		
@@ -158,9 +163,11 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
+		
 		search.setPageSize(pageSize);
-		String userId = (String) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		System.out.println(userId);
+		LoginUser user= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= user.getUser().getUserId();
+//		System.out.println(userId);
 //		String userId = principal.getUserName();
 //		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
@@ -181,6 +188,8 @@ public class StorageController {
 		return "storage/listStorage";
 	}
 	
+	
+	//admin만 접근가능
 	@RequestMapping("listStorageForAdmin")
 	public String listStorageForAdmin(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
@@ -188,6 +197,7 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
+		//더좋은 방법이 있을듯
 		//전체 보관물품을 볼때 SearchProductCondition을 null로 만들기위한코드
 		if(search.getSearchProductCondition() == "") {
 			search.setSearchProductCondition(null);
@@ -197,6 +207,16 @@ public class StorageController {
 			search.setSearchKeyword(null);
 		}
 		
+		if(search.getSearchCondition() == "") {
+			search.setSearchCondition(null);
+		}
+		
+
+	
+		
+		
+
+	
 		
 		
 		//디버깅
@@ -215,7 +235,8 @@ public class StorageController {
 		
 		return "storage/listStorageForAdmin";
 	}
-		
+	
+	//회원, 어드민 가능
 	@GetMapping("extendStorage")
 	public String extendStorageGet(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		
@@ -225,6 +246,7 @@ public class StorageController {
 	}
 	
 	//보관물품의 기간을 연장
+	//회원, 어드민 가능
 	@PostMapping("extendStorage")
 	public String extendStoragePost(@ModelAttribute("storage") Storage storage,
 													@RequestParam("imp_uid") String imp_uid, //아임포트에서 리턴해주는 번호
@@ -248,6 +270,7 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
+	//회원, 어드민 가능
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
 		

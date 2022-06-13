@@ -39,9 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- SQL : SELECT ONE -->
 <select 	id="getOld"	parameterType="Int"	resultMap="oldSelectMap">
-	SELECT *
-	FROM old
-	WHERE oldNo = #{oldNo}
+SELECT old.*, oldReview.userRate
+FROM old
+LEFT OUTER JOIN oldReview
+ON old.oldNo= oldReview.oldNo
+WHERE old.oldNo=#{oldNo}
 	 </select>
 
  <!-- SQL : UPDATE -->

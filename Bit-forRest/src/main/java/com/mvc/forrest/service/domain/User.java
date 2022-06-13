@@ -21,6 +21,8 @@ public class User {
 	private String reportedCount;
 	private String reviewedCount;
 	private double userRate;
+	private int profit;
+	private int couponCount;
 	private Timestamp leaveApplyDate;
 	private Timestamp leaveDate;
 	private Timestamp recentDate;

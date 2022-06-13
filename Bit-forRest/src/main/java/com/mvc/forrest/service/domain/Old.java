@@ -17,5 +17,5 @@ public class Old {
 	private String oldImg;
 	private String userId;
 	private String oldAddr;
-
+	private OldReview oldReview;
 	}

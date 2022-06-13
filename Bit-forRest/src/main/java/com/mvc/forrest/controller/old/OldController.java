@@ -1,8 +1,8 @@
 package com.mvc.forrest.controller.old;
 
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.mvc.forrest.service.domain.Board;
-import com.mvc.forrest.service.domain.Old;
-import com.mvc.forrest.service.domain.OldLike;
-import com.mvc.forrest.service.domain.OldReview;
-import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Search;
-import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
 import com.mvc.forrest.service.oldreview.OldReviewService;
@@ -33,30 +28,32 @@ import com.mvc.forrest.service.user.UserService;
 @RequestMapping("/old/*")
 public class OldController {
 
-	//Field
+	// Field
 	@Autowired
 	public OldService oldService;
-	
+
 	@Autowired
 	public UserService userservice;
-	
+
 	@Autowired
 	public OldLikeService oldLikeService;
-	
+
 	@Autowired
 	public OldReviewService oldReviewService;
 
-	
+	@Autowired
+	public FileUtils fileUtils;
+
 	@Value("5")
 	int pageUnit;
-	
+
 	@Value("10")
 	int pageSize;
-	
+
 	///////////////////////////////////////////////////
-	
-	//리스트 네비게이터//	
-	
+
+	// 리스트 네비게이터//
+
 //	@GetMapping("listOld")
 //	public String listOld() throws Exception {
 //		
@@ -65,15 +62,15 @@ public class OldController {
 //		return "old/listOld";	
 //	}
 //	
-	
-	//검색시 리스트//
-	
+
+	// 검색시 리스트//
+
 	@RequestMapping("listOld")
-	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception{
+	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception {
 //		public String listOld(@ModelAttribute("search") Search search, Model model,HttpSession httpsession) throws Exception{
 
-		System.out.println(this.getClass()+ "겟리스트");
-		
+		System.out.println(this.getClass() + "겟리스트");
+
 //		if(search.getCurrentPage() ==0 ){
 //			search.setCurrentPage(1);
 //		}
@@ -81,25 +78,21 @@ public class OldController {
 //		
 //			
 		Map<String, Object> map = oldService.getOldList(search);
-		
-		System.out.println(this.getClass()+ "포스트리스트");
-		
+
+		System.out.println(this.getClass() + "포스트리스트");
+
 //		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 //		System.out.println(resultPage);
-		
+
 //		User sessionUser= (User) httpsession.getAttribute("user");
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
-		
+
 		return "old/listOld";
-		//return "redirect:/old/listOld?oldNo="+old.getOldNo();
+		// return "redirect:/old/listOld?oldNo="+old.getOldNo();
 	}
 
-	
-	
-	
 //	
 //	@GetMapping("getOld/{oldNo}")
 //	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
@@ -112,50 +105,60 @@ public class OldController {
 //		//return "forward:/old/getOld";	
 //		
 //	}
-	 
+
 	@RequestMapping("getOld")
-	public String getOld(@ModelAttribute("search") Search search,@RequestParam("oldNo") int oldNo, Model model) throws Exception {
-		
-		//디버깅
+	public String getOld(@ModelAttribute("search") Search search, @RequestParam("oldNo") int oldNo, Model model)
+			throws Exception {
+
+		// 디버깅
 		System.out.println("getOld Start");
-		
+
 		Old old = oldService.getOld(oldNo);
 
 		Map<String, Object> map = oldService.getOldList(search);
-		
+
 		model.addAttribute("old", old);
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
+
 		return "old/getOld";
 	}
-	
+
 //	@GetMapping("getOld")
 //	public String getOld( Model model ) throws Exception {
 //		System.out.println(this.getClass()+ "겟올드");
 //		return "old/getOld";
 //	}	
-	
+
 	@GetMapping("addOld")
-	public String addOld( Model model ) throws Exception {
-		System.out.println(this.getClass()+ " ADD올드 네비게이션");
+	public String addOld(Model model) throws Exception {
+		System.out.println(this.getClass() + " ADD올드 네비게이션");
 		return "old/addOld";
-	}	
-	
+	}
+
 	@PostMapping("addOld")
-	public String addOld( @ModelAttribute("old") Old old) throws Exception {
-		System.out.println(this.getClass()+ " ADD올드 POST");
+
+	public String addOld(@ModelAttribute("old") Old old, @RequestParam("uploadFile") List<MultipartFile> uploadFile,
+
+			Model model) throws Exception {
+
+		System.out.println(this.getClass() + " ADD올드 POST");
+
+		 int oldNo = 33;
 		
+		 oldService.addOld(old);
+		 fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	
+		 old.setOldNo(oldNo);
 		
-		System.out.println(old);
-		oldService.addOld(old);
+		 System.out.println(old);
+	
+		model.addAttribute("old",old);
+		
 		return "redirect:/old/listOld";
-		
-		
-	}	
-	
-	
+
+	}
 
 //	@GetMapping("updateOld/{oldNo}")
 //		
@@ -164,52 +167,47 @@ public class OldController {
 //		model.addAttribute(oldService.getOld(oldNo));
 //		return "old/updateOld";
 //	} 
-	
+
 	@GetMapping("updateOld")
-	
-	public String updateOld( @RequestParam("oldNo") int oldNo,Model model) throws Exception{
-		System.out.println(this.getClass()+ "겟수정");
-		
+
+	public String updateOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception {
+		System.out.println(this.getClass() + "겟수정");
+
 		Old old = oldService.getOld(oldNo);
-		model.addAttribute("old",old);
+		model.addAttribute("old", old);
 		return "old/updateOld";
-	} 
-	
+	}
+
 	@PostMapping("updateOld")
-	public String updateOld( @RequestParam("old") Old old) throws Exception{
-		System.out.println(this.getClass()+ "포스트수정");
+	public String updateOld(@RequestParam("old") Old old) throws Exception {
+		System.out.println(this.getClass() + "포스트수정");
 		oldService.updateOld(old);
-		
+
 		return "old/getOld";
-	} 
-	
-	
+	}
+
 	@PostMapping("deleteOld")
-	public String deleteOld(@ModelAttribute("old") Old old, Model model) throws Exception{
+	public String deleteOld(@ModelAttribute("old") Old old, Model model) throws Exception {
 		oldService.deleteOld(old.getOldNo());
-		
+
 		System.out.println("중고거래 찜하기 테스트 중");
 		return "old/listOld";
 	}
-	
+
 	@PostMapping("updateOldState")
-	public String updateOldState( @RequestParam("old") Old old,Model model) throws Exception{
-		System.out.println(this.getClass()+ "포스트상태");
+	public String updateOldState(@RequestParam("old") Old old, Model model) throws Exception {
+		System.out.println(this.getClass() + "포스트상태");
 		oldService.updateOld(old);
-		 
+
 		return "old/getOld";
-	} 
-	
-	
-	
+	}
+
 	@PostMapping("addOldReport")
-	public String addOldReport( @RequestParam("old") Old old) throws Exception{
-		System.out.println(this.getClass()+ "포스트상태");
+	public String addOldReport(@RequestParam("old") Old old) throws Exception {
+		System.out.println(this.getClass() + "포스트상태");
 		oldService.updateOld(old);
-		
+
 		return "old/getOld";
-	} 
-	
-	
-	
+	}
+
 }
