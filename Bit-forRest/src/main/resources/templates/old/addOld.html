@@ -1,134 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/addOld.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet" href="/css/addOld.css">
 
 </head>
 <body>
-    
-   
-    
-    
-    <div class="container">
-        <header> 중고 거래 등록 </header>
-        <div class="progress-bar">
-            <div class="step">
-                <p>name</p>
-                <div class="bullet">
-                    <span>1</span>
-                </div>
-            </div>
-            <div class="step">
-                <p>name</p>
-                <div class="bullet">
-                    <span>2</span>
-                </div>
-            </div>
-        </div>
-        <div class="form-outer">
-            <form >
-                <div class="page slidepage">
-                    <div class="title">Basic Info:</div>
-                    
- <div class="form-group">
-		    	<label for="oldImg" class="col-sm-offset-1 col-sm-3 control-label">사진 선택</label>
-		     	<div class="col-sm-4">
-		      		<input type="file"  class="form-control" id="oldImg" name="oldImg" accept=image/*>대표
-		     	</div>
-		   	</div>
-   
 
-<!-- <form method="post" action="/upload" enctype"multipart/form-data"> -->
-<!-- <input type ="file" name="filename" id="filename" </form>사진 -->
 
-        
-                    <div class="field">
-                        <div class="label">제품 이름</div>
-                        <input type="text" id= "oldTitle" name="oldTitle">
-                    </div>
-                    <div class="field">
-                        <div class="label">카테고리</div>
-                        <select class="category" id="category" name= "category">
-                            <option value="텐트">텐트</option>
-                            <option value="침대">침대</option>
-                            <option value="의자">의자</option>
-                            <option value="그릴">그릴</option>
-                            <option value="버너">버너</option>
-                            <option value="조명">조명</option>
-                            <option value="테이블">테이블</option>
-                            <option value="식기">식기</option>
-                            <option value="난로">난로</option>
-                            <option value="기타용품">기타용품</option>
-                        </select>
-                    </div>
-                    
-                       <div class="field">
-                        <div class="label">가격</div>
-                        <input type="text" id= "oldPrice" name="oldPrice">
-                    </div>
-                    
-                     <div class="field">
-                    	<div class="label">거래 지역</div>
-                        <input type="text" name="oldAddr" id="oldAddr" size="5" class="line" value="" readonlycheck="">
-		                ( <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"  value=""  readonlycheck=""> -
-		                <input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line"  value=""  readonlycheck=""> )
-                    </div>
-                    
-                    <div class="field nextBtn">
-                        <button type="button">Next</button>
-                    </div>
-                </div>
 
-                <div class="page">
-                    <div class="title">Basic Info:</div>
-                    <div class="field temp">
-                        <div class="label">제품 설명</div>
-                        <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
-                    </div>
-                    
-                 
-                    
-                    <div class="field">
-                        <div class="label">유저 아이디</div>
-                        <input type="text" id= "userId" name="userId">
-                    </div>
-                    
-                    <div class="field">
-                        <div class="label">스테이트</div>
-                        <input type="text" id= "oldState" name="oldState">
-                    </div>
-                    
-                    
-                    
-                    <div class="field">
-                        <div class="label">조회수</div>
-                        <input type="text" id= "oldView" name="oldView">
-                    </div>
-                    
-                   
-                    <div class="field btns">
-                        <button class="prev-1 prev">Previous</button>
-                        <button class="submit">Submit</button>
-                    </div>
-                </div>
 
-            </form>
-        </div>
-    </div>
-   
-     <script src="/js/jquery_min.js"></script>
-    <script src="/js/addOld.js"></script>
-<!--     <script src="/js/addRentalReview.js"></script> -->
-    
-    <script type="text/javascript">
-    
- 
+	<div class="container">
+		<header> 중고 거래 등록 </header>
+		<div class="progress-bar">
+			<div class="step">
+				<p>name</p>
+				<div class="bullet">
+					<span>1</span>
+				</div>
+			</div>
+			<div class="step">
+				<p>name</p>
+				<div class="bullet">
+					<span>2</span>
+				</div>
+			</div>
+		</div>
+		<div class="form-outer">
+			<form method="post" action="/upload" enctype="multipart/form-data">
+				<div class="page slidepage">
+					<div class="title">Basic Info:</div>
 
-</script>
-    
+					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
+					<div class="form-group">
+						<label for="oldImg" class="col-sm-offset-1 col-sm-3 control-label">사진
+							선택</label>
+						<div class="col-sm-4">
+							<input type="file" class="form-control" id="uploadFile"
+								name="uploadFile" multiple="multiple" placeholder="img"
+								accept=image/*>대표
+						</div>
+					</div>
+
+
+					<!-- <form method="post" action="/upload" enctype="multipart/form-data"> -->
+					<!-- <input type ="file" name="filename" id="filename" </form>사진 -->
+
+
+					<div class="field">
+						<div class="label">제품 이름</div>
+						<input type="text" id="oldTitle" name="oldTitle">
+					</div>
+					<div class="field">
+						<div class="label">카테고리</div>
+						<select class="category" id="category" name="category">
+							<option value="텐트">텐트</option>
+							<option value="침대">침대</option>
+							<option value="의자">의자</option>
+							<option value="그릴">그릴</option>
+							<option value="버너">버너</option>
+							<option value="조명">조명</option>
+							<option value="테이블">테이블</option>
+							<option value="식기">식기</option>
+							<option value="난로">난로</option>
+							<option value="기타용품">기타용품</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<div class="label">가격</div>
+						<input type="text" id="oldPrice" name="oldPrice">
+					</div>
+
+					<div class="field">
+						<div class="label">거래 지역</div>
+						<input type="text" name="oldAddr" id="oldAddr" size="5"
+							class="line" value="" readonlycheck=""> ( <input
+							type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"
+							value="" readonlycheck=""> - <input type="text"
+							name="oldAddr[]" id="oldAddr1" size="3" class="line" value=""
+							readonlycheck=""> )
+					</div>
+
+					<div class="field nextBtn">
+						<button type="button">Next</button>
+					</div>
+				</div>
+
+				<div class="page">
+					<div class="title">Basic Info:</div>
+					<div class="field temp">
+						<div class="label">제품 설명</div>
+						<textarea name="oldDetail" id="oldDetail" class="oldDetail"
+							height="200px"></textarea>
+					</div>
+
+
+
+					<div class="field">
+						<div class="label">유저 아이디</div>
+						<input type="text" id="userId" name="userId">
+					</div>
+
+					<div class="field">
+						<div class="label">스테이트</div>
+						<input type="text" id="oldState" name="oldState">
+					</div>
+
+
+
+					<div class="field">
+						<div class="label">조회수</div>
+						<input type="text" id="oldView" name="oldView">
+					</div>
+
+
+					<div class="field btns">
+						<button class="prev-1 prev">Previous</button>
+						<button class="submit">Submit</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+	<script src="/js/jquery_min.js"></script>
+	<script src="/js/addOld.js"></script>
+	<!--     <script src="/js/addRentalReview.js"></script> -->
+
+	<script type="text/javascript">
+		
+	</script>
+
 </body>
 
 </html>

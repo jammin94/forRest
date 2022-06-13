@@ -138,14 +138,24 @@ public class OldController {
 	}
 
 	@PostMapping("addOld")
+
 	public String addOld(@ModelAttribute("old") Old old, @RequestParam("uploadFile") List<MultipartFile> uploadFile,
-			HttpSession session, Model model) throws Exception {
+
+			Model model) throws Exception {
+
 		System.out.println(this.getClass() + " ADD올드 POST");
-		int oldNo =33333;
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
-		old.setOldNo(oldNo);
-		System.out.println(old);
-		oldService.addOld(old);
+
+		 int oldNo = 33;
+		
+		 oldService.addOld(old);
+		 fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	
+		 old.setOldNo(oldNo);
+		
+		 System.out.println(old);
+	
+		model.addAttribute("old",old);
+		
 		return "redirect:/old/listOld";
 
 	}
