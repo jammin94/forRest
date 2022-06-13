@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -158,8 +159,10 @@ public class StorageController {
 		}
 		
 		search.setPageSize(pageSize);
-				
-		String userId = ((User)httpSession.getAttribute("user")).getUserId();
+		String userId = (String) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		System.out.println(userId);
+//		String userId = principal.getUserName();
+//		String userId = ((User)httpSession.getAttribute("user")).getUserId();
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("search", search);

@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.mvc.forrest.service.domain.User;
 
+import lombok.Data;
+
+@Data
 public class LoginUser implements UserDetails {
 
 	/**
@@ -20,6 +23,7 @@ public class LoginUser implements UserDetails {
 	private User user;
 	
 	public LoginUser(User user) {
+		System.out.println(user);
 		this.user=user;
 	}
 	//getter setter 만들어 줘야 해
@@ -51,7 +55,7 @@ public class LoginUser implements UserDetails {
 	@Override
 	public String getUsername() {
 		//id
-		return user.getUserName();
+		return user.getUserId();
 	}
 
 	@Override

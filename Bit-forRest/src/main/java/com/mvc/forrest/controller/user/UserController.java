@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +46,10 @@ public class UserController {
 	private OldReviewService oldReviewService;
 	@Autowired
 	private RentalService rentalService;
-	@Autowired
+//	@Autowired
 //	private OldReviewService oldReivewService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Value("5")
 	int pageUnit;
@@ -127,15 +131,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("logout")
-	public String logout(HttpSession session ) throws Exception{
-		
-		System.out.println("/user/logout : GET");
-		
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+
 	
 	@GetMapping("addUser")
 	public String addUser() throws Exception{
@@ -149,7 +145,7 @@ public class UserController {
 	public String addUser( @ModelAttribute("user") User user ) throws Exception {
 
 		System.out.println("/user/addUser : POST");
-		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userService.addUser(user);
 				
 		return "user/login";
