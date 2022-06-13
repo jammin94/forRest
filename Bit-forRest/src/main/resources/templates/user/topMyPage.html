@@ -364,9 +364,9 @@
             />
           </div>
           <div class="card__name">
-            <h2>[[${session.user.nickname}]]</h2>
+            <h2>nickname</h2>
             <div class="card__handle">
-              <span class="handle">[[${session.user.userName}]]</span>
+              <span class="handle">userName</span>
               <span class="circle"></span>
               <span class="category">
             	<img src="/images/header/starReview.png" width="20%" height="20%">
@@ -395,8 +395,8 @@
                 ></path>
               </svg>
               <span>
-               <span stlye="display:none;"  th:if="${session.user!= null}">
-              <a th:href="@{/user/getUser(userId= ${session.user.userId})}">Edit</a>
+               <span sec:authorize="isAuthenticated()">
+            <!--   <a th:href="@{/user/getUser(userId= ${authentication.user.userId})}">Edit</a> -->
                 </span>
               </span>
             </button>
@@ -425,7 +425,7 @@
                 	수익금액
               </div>
               <div class="number">
-                [[${session.user.profit}]]
+            profit
                 <div class="info">
                   <a class="smInfo"  th:href="@{/rental/listRentalProfit}">More Info </a>
                   <svg
@@ -451,8 +451,8 @@
 				보유쿠폰
               </div>
               <div class="number">
-                [[${session.user.couponCount}]]
-                <div class="info">
+
+couponcount                <div class="info">
                   <a class="smInfo" id="couponPop">More Info</a>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
