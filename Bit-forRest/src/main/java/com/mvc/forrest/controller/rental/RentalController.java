@@ -111,9 +111,33 @@ public class RentalController {
 	
 	//------------대여물품리스트 화면------------//
 	@GetMapping("listRental")
-	public String listProductView( ) throws Exception{
+	public String listProductView(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception{
 		
-		return null;
+
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+				
+		String userId = ((User)httpSession.getAttribute("user")).getUserId();
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("search", search);
+		map.put("userId", userId);
+		
+		Map<String, Object> mapRental = rentalService.getRentalList(map);
+		
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
+		
+		//System.out.println("디버그 "+mapStorage.get("list"));
+		
+		model.addAttribute("list", mapRental.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "rental/listRental";
+		
 	}
 	
 	@PostMapping("listRental")
