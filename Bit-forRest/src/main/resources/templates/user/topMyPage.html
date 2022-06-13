@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	
 	<!--  ///////////////////////// bootstrap  ////////////////////////// -->
@@ -364,9 +364,9 @@
             />
           </div>
           <div class="card__name">
-            <h2>nickname</h2>
+            <h2 sec:authentication="principal.user.nickname"></h2>
             <div class="card__handle">
-              <span class="handle">userName</span>
+              <span class="handle" sec:authentication="principal.user.userName">userName</span>
               <span class="circle"></span>
               <span class="category">
             	<img src="/images/header/starReview.png" width="20%" height="20%">
@@ -425,7 +425,7 @@
                 	수익금액
               </div>
               <div class="number">
-            profit
+            <span sec:authentication="principal.user.profit"></span>
                 <div class="info">
                   <a class="smInfo"  th:href="@{/rental/listRentalProfit}">More Info </a>
                   <svg
@@ -451,8 +451,8 @@
 				보유쿠폰
               </div>
               <div class="number">
-
-couponcount                <div class="info">
+             <span sec:authentication="principal.user.couponCount"></span>
+                <div class="info">
                   <a class="smInfo" id="couponPop">More Info</a>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
