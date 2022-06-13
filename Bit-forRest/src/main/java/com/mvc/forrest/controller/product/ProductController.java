@@ -50,13 +50,14 @@ public class ProductController {
 	
 	
 	
-		
+	//어드민만 접근가능
 	@PostMapping("updateRecentImg")
 	public String updateRecentImg() throws Exception {
 	
 		return null;
 	}
 	
+	//회원, 어드민 가능
 	@GetMapping("updateProduct")
 	public String updateProductGet(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
 		
@@ -72,6 +73,7 @@ public class ProductController {
 	}
 	
 	//이미지여러개 어케함???
+	//회원, 어드민 가능
 	@PostMapping("updateProduct")
 	public String updateProductPost(@ModelAttribute("product") Product product) throws Exception {
 		
@@ -84,11 +86,25 @@ public class ProductController {
 		return "forward:/product/getProduct?prodNo="+product.getProdNo();
 	}
 	
+	//회원, 어드민 가능
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") int prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
 		
 		Product product = productService.getProduct(prodNo);
-		product.setProdCondition(productCondition);
+		
+		if(productCondition.equals("물품보관승인신청중")) {
+			product.setProdCondition("입고중");
+		} else if (productCondition.equals("입고중")){
+			product.setProdCondition("보관중");
+		} else if (productCondition.equals("출고승인신청중")){
+			product.setProdCondition("출고완료");
+		//보관관련
+			
+		} else if(productCondition.equals("물품대여승인신청중")) {
+			product.setProdCondition("배송중");
+		} else if(productCondition.equals("배송중")) {
+			product.setProdCondition("대여중");
+		}
 		
 		productService.updateProduct(product);
 	
@@ -96,6 +112,7 @@ public class ProductController {
 	}
 	
 	//관리자가 물품상태를 일괄처리하기위한 코드
+	//어드민만 가능
 	@RequestMapping("updateProductAllCondition")
 	public String updateProductAllCondition(@RequestParam("prodNo") int[] prodNo, @RequestParam("productCondition") String[] productCondition) throws Exception {
 		
@@ -111,7 +128,22 @@ public class ProductController {
 		for(int i=0; i<prodNo.length; i++) {
 			
 			Product product = productService.getProduct(prodNo[i]);
-			product.setProdCondition(productCondition[i]);
+	
+			if(productCondition[i].equals("물품보관승인신청중")) {
+				product.setProdCondition("입고중");
+			} else if (productCondition[i].equals("입고중")){
+				product.setProdCondition("보관중");
+			} else if (productCondition[i].equals("출고승인신청중")){
+				product.setProdCondition("출고완료");
+			//보관관련
+				
+			} else if(productCondition[i].equals("물품대여승인신청중")) {
+				product.setProdCondition("배송중");
+			} else if(productCondition[i].equals("배송중")) {
+				product.setProdCondition("대여중");
+			}
+			//대여관련
+			
 			productService.updateProduct(product);
 		}
 		
@@ -120,7 +152,7 @@ public class ProductController {
 		return "redirect:/storage/listStorageForAdmin";
 	}
 	
-	
+	//회원, 어드민 가능
 	@RequestMapping("getProduct")
 	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpSession httpsession) throws Exception {
 		
@@ -142,6 +174,7 @@ public class ProductController {
 		return "product/getProduct";
 	}
 	
+	//비회원가능
 	@RequestMapping("listProduct")
 	public String listProduct(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
