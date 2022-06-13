@@ -121,8 +121,10 @@ public class StorageController {
 		System.out.println("uploadFile1: " + uploadFile.get(0).getOriginalFilename());
 		//System.out.println("uploadFile2: " + uploadFile.get(1).getOriginalFilename());
 		
-		//세션에있는 유저아이디
-        String userId = ((User) session.getAttribute("user")).getUserId();
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+
         
 		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
 //        int prodNo = rng.makeRandomProductNumber();
@@ -163,13 +165,13 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
-		
+	
 		search.setPageSize(pageSize);
+		
+		//암호화된 userId를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-//		System.out.println(userId);
-//		String userId = principal.getUserName();
-//		String userId = ((User)httpSession.getAttribute("user")).getUserId();
+
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("search", search);
@@ -210,14 +212,6 @@ public class StorageController {
 		if(search.getSearchCondition() == "") {
 			search.setSearchCondition(null);
 		}
-		
-
-	
-		
-		
-
-	
-		
 		
 		//디버깅
 		System.out.println("serarch:" + search);

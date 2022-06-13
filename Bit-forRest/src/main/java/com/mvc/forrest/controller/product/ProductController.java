@@ -92,7 +92,12 @@ public class ProductController {
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") int prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
 		
+		System.out.println("updateProductCondition start");
+		
 		Product product = productService.getProduct(prodNo);
+		
+		System.out.println("prodNo:"+prodNo);
+		System.out.println("productCondition"+productCondition);
 		
 		if(productCondition.equals("물품보관승인신청중")) {
 			product.setProdCondition("입고중");
@@ -108,7 +113,9 @@ public class ProductController {
 			product.setProdCondition("대여중");
 		}
 		
-		productService.updateProduct(product);
+		System.out.println("after:"+product.getProdCondition());
+		
+		productService.updateProductCondition(product);
 	
 		return "redirect:/storage/listStorageForAdmin";
 	}
@@ -163,14 +170,14 @@ public class ProductController {
 		
 		Product product = productService.getProduct(prodNo);
 		
+		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
 		System.out.println("userId: "+userId);
 		
 		//TEST용: getProduct에서 물품주인과 구매자에 따라 다른화면출력 Test를 위한 세션생성	
 		User sessionUser = userService.getUser(userId);
-		//httpsession.setAttribute("sessionUser", sessionUser);
-		
+	
 		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
 		//User sessionUser = (User) httpsession.getAttribute("user");
 
