@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class WishList {
 	
-	private int wishiListNo;
+	private int wishListNo;
 	private int prodNo;
 	private String userId;
 	private int period;
