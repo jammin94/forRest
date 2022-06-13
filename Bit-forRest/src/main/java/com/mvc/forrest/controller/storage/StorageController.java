@@ -78,10 +78,7 @@ public class StorageController {
 	//보관물품등록을 위한 페이지로 네비게이션
 	//회원, 어드민 가능
 	@GetMapping("addStorage")
-	public String addStorageGet(Model model, HttpSession session) throws Exception {
-		
-//		String userId = ((User) session.getAttribute("user")).getUserId();
-//		model.addAttribute("user", userService.getUser(userId));
+	public String addStorageGet() throws Exception {
 		
 		return "storage/addStorage";
 	}
@@ -214,7 +211,7 @@ public class StorageController {
 		}
 		
 		//디버깅
-		System.out.println("serarch:" + search);
+		System.out.println("serarch in StorageController:" + search);
 		
 		search.setPageSize(pageSize);
 		
