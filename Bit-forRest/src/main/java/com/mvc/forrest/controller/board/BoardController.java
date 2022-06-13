@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.board.BoardService;
 import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Page;
@@ -29,20 +31,11 @@ public class BoardController {
 	@Autowired
 	public BoardService boardService;
 	
-	//test
-	@GetMapping("chat")
-	public String getChat() throws Exception {	
-		return "chat/chatchat";
-	}
-	
 	//getAnnounce navi
-	@GetMapping("getAnnounce")
-	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model, HttpSession session) throws Exception {	
+	@GetMapping("getAnnounce")	
+	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
-		System.out.println(boardNo);
-		System.out.println(session.getAttribute("user"));
 		model.addAttribute("board", boardService.getBoard(boardNo));
-		model.addAttribute("user", session.getAttribute("user"));
 		
 		return "/board/getAnnounce";
 	}
@@ -124,7 +117,8 @@ public class BoardController {
 	
 	
 	@RequestMapping("listAnnounce")
-	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model, HttpSession session) throws Exception {	
+	//public String getlistAnnounce(@ModelAttribute("search") Search search, Model model, HttpSession session) throws Exception {	
+	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model) throws Exception {	
 		System.out.println("Controller GET: getlistAnnounce ");
 		
 		Board board= new Board();
@@ -137,10 +131,11 @@ public class BoardController {
 		}
 		search.setPageSize(pageSize); 
 		
-		int newStartRowNum=search.getStartRowNum()-1;
+		int newStartRowNum=(search.getCurrentPage()-1)*pageSize;
 		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
 		//그래서 직접넣자 걍
 		
+		System.out.println("newStartRowNum : "+newStartRowNum);
 		System.out.println("search : "+search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -154,8 +149,6 @@ public class BoardController {
 		model.addAttribute("list", boardService.getListBoard(map));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		model.addAttribute("user", session.getAttribute("user"));
-		System.out.println("session user : "+session.getAttribute("user"));
 
 		return "board/listAnnounce";
 	}
