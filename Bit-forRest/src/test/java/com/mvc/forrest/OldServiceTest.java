@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.old.OldService;
+import com.mvc.forrest.service.oldreview.OldReviewService;
 
 
 
@@ -39,8 +41,9 @@ public class OldServiceTest {
 	
 	@Autowired
 	public OldService oldService;
+	public OldReviewService oldReviewService;
 
-	@Test
+//	@Test
 	public void testUpdateOld() throws Exception {
 		
 		
@@ -155,7 +158,8 @@ public class OldServiceTest {
 		Old old = new Old();
 		old = oldService.getOld(3);
 		
-		
+	
+	
 		assertEquals(3, old.getOldNo());
 	}
 
