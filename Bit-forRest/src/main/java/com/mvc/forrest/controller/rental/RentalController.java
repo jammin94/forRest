@@ -57,25 +57,14 @@ public class RentalController {
 	int pageSize;
 	
 	
-	//------------대여물품add  view 화면 (네비게이션용) ------------//
-	@GetMapping("addRentalReview")
-	public String addRentalReView(@ModelAttribute("product") Product product, @ModelAttribute("user") User user, Model model ) throws Exception {
+	
+	//------------대여물품add 화면구현------------//
+	@GetMapping("addRental")
+	public String addRentalView( ) throws Exception{
 		
-		//0. RequestParam("tranNo") 는 i'm port 때문에 미리 받아야함 ( 아직 결정안남 )
-		
-		//0-1. couponService.getCouponList(user.getUserId());	쿠폰리스트 (대기)
-		
-		//1. 해당 product return 되었음
-		//productService.getProduct(product.getProdNo());		
-		//2. 해당 user return 되었음
-		//userService.getUser(user.getUserId());
-		
-		//3. addRentalView.jsp에서 product와 user 정보 꺼내쓰면됨
-		model.addAttribute("product",product);
-		model.addAttribute("user",user);
-		
-		 return "rentalReview/addRentalReview";
+		return "rental/addRental";
 	}
+	
 	
 	//------------대여물품add 기능구현------------//
 	@PostMapping("addRental")
@@ -249,11 +238,7 @@ public class RentalController {
 		return null;
 	}
 	
-	@GetMapping("addRental")
-	public String addRentalView( ) throws Exception{
-		
-		return "rental/addRental";
-	}
+
 	
 	
 	
