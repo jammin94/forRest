@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldlike.OldLikeService;
 import com.mvc.forrest.service.oldreview.OldReviewService;
@@ -33,7 +35,7 @@ public class OldController {
 	public OldService oldService;
 
 	@Autowired
-	public UserService userservice;
+	public UserService userService;
 
 	@Autowired
 	public OldLikeService oldLikeService;
@@ -93,19 +95,6 @@ public class OldController {
 		// return "redirect:/old/listOld?oldNo="+old.getOldNo();
 	}
 
-//	
-//	@GetMapping("getOld/{oldNo}")
-//	public String getOld(@PathVariable int oldNo, Model model) throws Exception {
-//		
-//		System.out.println(this.getClass());
-//		
-//		model.addAttribute(oldService.getOld(oldNo));
-//		System.out.println(oldService.getOld(oldNo));
-//		return "old/getOld";
-//		//return "forward:/old/getOld";	
-//		
-//	}
-
 	@RequestMapping("getOld")
 	public String getOld(@ModelAttribute("search") Search search, @RequestParam("oldNo") int oldNo, Model model)
 			throws Exception {
@@ -113,6 +102,7 @@ public class OldController {
 		// 디버깅
 		System.out.println("getOld Start");
 
+		//oldService의 getOld 메서드에 oldNo 인자값을 넣어줌
 		Old old = oldService.getOld(oldNo);
 
 		Map<String, Object> map = oldService.getOldList(search);
@@ -121,15 +111,22 @@ public class OldController {
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		
 
+		Old testOld = oldService.getOld(oldNo);
+		String testUserId = testOld.getUserId();
+		
+		
+		User user =  userService.getUser( testUserId);
+		System.out.println("불러온 유저"+user);
+		
+		double oldReview = oldReviewService.getUserRate(testUserId);
+		user.setUserRate(oldReview);
+		
+		
+		model.addAttribute("oldReview", user);
 		return "old/getOld";
 	}
-
-//	@GetMapping("getOld")
-//	public String getOld( Model model ) throws Exception {
-//		System.out.println(this.getClass()+ "겟올드");
-//		return "old/getOld";
-//	}	
 
 	@GetMapping("addOld")
 	public String addOld(Model model) throws Exception {
@@ -145,28 +142,19 @@ public class OldController {
 
 		System.out.println(this.getClass() + " ADD올드 POST");
 
-		 int oldNo = 33;
-		
-		 oldService.addOld(old);
-		 fileUtils.uploadFiles(uploadFile, oldNo, "old");
-	
-		 old.setOldNo(oldNo);
-		
-		 System.out.println(old);
-	
-		model.addAttribute("old",old);
-		
+		int oldNo = 33;
+
+		oldService.addOld(old);
+		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+		old.setOldNo(oldNo);
+
+		System.out.println(old);
+
+		model.addAttribute("old", old);
+
 		return "redirect:/old/listOld";
 
 	}
-
-//	@GetMapping("updateOld/{oldNo}")
-//		
-//	public String updateOld(@PathVariable int oldNo, Model model ) throws Exception{
-//		System.out.println(this.getClass()+ "겟수정");
-//		model.addAttribute(oldService.getOld(oldNo));
-//		return "old/updateOld";
-//	} 
 
 	@GetMapping("updateOld")
 

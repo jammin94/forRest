@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
          <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -241,20 +241,20 @@
                         </select>
           </span></li>
       
-			<li th:if = "${product.userId} == ${session.user.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
-			<li th:if = "${product.userId} == ${session.user.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
+			<li th:if = "${product.userId} == ${sessionUser.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
+			<li th:if = "${product.userId} == ${sessionUser.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
        
         </ul>
       </div>
       
-        <div class = "purchase-info" th:if="${product.userId} == ${session.user.userId}">
+        <div class = "purchase-info" th:if="${product.userId} == ${sessionUser.userId}">
         
         <button type = "button" class = "btn">꺼내쓰기</button>
         <button type = "button" class = "btn" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|">수정</button>
      
       </div>
 
-      <div class="purchase-info" th:unless="${product.userId} == ${session.user.userId}">
+      <div class="purchase-info" th:unless="${product.userId} == ${sessionUser.userId}">
         
         <button type = "button" class = "btn">구매하기</button>
         <button type = "button" class = "btn">

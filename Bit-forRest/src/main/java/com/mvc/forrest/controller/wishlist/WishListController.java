@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -70,7 +72,7 @@ public class WishListController {
 
 	//-----------장바구니 리스트 화면------------//
 		@GetMapping("getWishList")
-		public String getWishListView(@ModelAttribute("search") Search search , Model model,HttpSession session ) throws Exception{
+		public String getWishListView(@ModelAttribute("search") Search search , Model model ) throws Exception{
 
 			System.out.println("listRentalProfitView 테스트");
 			
@@ -78,19 +80,27 @@ public class WishListController {
 				search.setCurrentPage(1);
 			}
 			search.setPageSize(pageSize);
+		
+//			String userId = ((User)session.getAttribute("user")).getUserId();
 			
-			String userId = ((User)session.getAttribute("user")).getUserId();
+			//세션에 있는 유저아이디 꺼낸다
+			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		    String userId= loginUser.getUser().getUserId();
+		      
+			System.out.println("userId:"+userId);
 			
-
+			//"세션아이디" 와 일치하는 것의 리스트들을 꺼낸다 (장바구니 목록)
 			Map<String, Object> mapWishList =	wishlistService.getWishList(search,userId);
-			
-			Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
+			System.out.println("listRentalProfitView 테스트2");
+		    Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
 			
 			// Model 과 View 연결
 			
 			model.addAttribute("list", mapWishList.get("list"));
-			model.addAttribute("resultPage", resultPage);
+		model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
+			
+			System.out.println("모델리스트"+mapWishList.get("list"));
 			
 			return "wishList/wishList";
 		}

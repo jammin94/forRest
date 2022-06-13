@@ -34,19 +34,22 @@ public class WishListService {
 		
 		//장바구니 리스트
 		public Map<String, Object> getWishList(Search search, String userId) throws Exception{
-
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("search",search);
 			map.put("userId", userId);
 			
+			System.out.println("map:"+map);
+		
 			//mapper에 있는 sql을 통해 return값을 얻음
 			List<WishList> list =wishListDAO.getWishList(map);
+			System.out.println("위시리스트 서비스");
 			int totalCount = wishListDAO.getTotalCount(search);
-			
+		
 			//map에 담음
 			map.put("list", list);
-			map.put("totalCount", new Integer(totalCount));
+			map.put("totalCount", totalCount);
 			
 			return map;
 		}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   
@@ -37,8 +37,8 @@
 <body>
 
 <!-- 툴바 include -->
-<div th:replace="/main/toolbarForAdmin.html"></div>
-<div th:replace="/main/leftbarForAdmin.html"></div>
+<!--  <div th:replace="/main/toolbarForAdmin.html"></div>-->
+<!--  <div th:replace="/main/leftbarForAdmin.html"></div>-->
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -91,7 +91,7 @@
 		</div>
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    	  전체  [[${resultPage.totalCount }]] 건
+		    	  전체  [[${resultPage.totalCount}]] 건
 		    	
 		    	</p>
 		    </div>
@@ -132,7 +132,7 @@
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-				</form>
+				
 	    	</div>
 	    	
 		</div>
@@ -152,7 +152,8 @@
 	            <th align="center">결제금액</th>
 	            <th align="center">주문일자</th>			
 	  		    <th align="center">진행상태</th>		
-	  		    <th align="center">보관현황</th>		
+	  		    <th align="center"></th>
+	  		    <th align="center">보관현황</th>
 	          </tr>
 	        </thead>
 	        
@@ -160,24 +161,38 @@
 	    
 	    
 	    <tr th:each="storage :${list}">
-	    	<td align="left"> <input  type="checkbox" class="cb2" name="prodCondition" value="${storage.storageProd.prodCondition}"></td>
+	    
+	    	<td align="left" th:if="${storage.storageProd.prodCondition} != '보관중' and ${storage.storageProd.prodCondition} != '출고완료' "> 
+	    	<input  type="checkbox" class="cb2" name="prodCondition" th:value="${storage.storageProd.prodCondition}">
+	    	</td>
+	    	<td align="left" th:unless="${storage.storageProd.prodCondition} != '보관중' and ${storage.storageProd.prodCondition} != '출고완료' "> 
+	    	
+	    	</td>
 		    <td  th:text = "${storage.tranNo}"></td>
 			<td align="center" th:text = "${storage.userId}"></td>
 			<td align="center" th:text = "${storage.prodName}"></td>
 			<td align="center" th:text = "${storage.resultPrice}"></td>
 			<td align="center" th:text = "${storage.paymentDate}"></td>
-			<td align="center" th:text = "${storage.storageProd.prodCondition}">
-			<div><button>기간연장</button></div>
-			</td>	 
+			<td align="center" th:text = "${storage.storageProd.prodCondition}"></td>
+			<td>
+			
+			<input type="hidden"  class="prodNum" name="prodNo" th:value="${storage.prodNo}" />
+		
+			
+			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인 <span style="display:none">물품보관승인신청중</span></button>
+			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기 <span style="display:none">입고중</span> </button>
+			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인<span style="display:none">출고승인신청중</span></button>
+			</td>	  
 			<td align="center" th:text = "${storage.storageProd.recentImg}"></td>	 
+		
 	    </tr>
 	    
 	        </tbody>
 
       </table>
 		<!--  table End /////////////////////////////////////-->
-
- <button type="button" class="btn btn-primary">일괄업데이트</button>
+</form>
+ <button  class="updateProdAllCon-btn">일괄업데이트</button>
 
 	<ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#"
@@ -264,10 +279,22 @@
 	  });
 	  
 	  //일괄업데이트
-	   $( "button:contains('선택상품배송')" ).on("click" , function() {
+	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 	    	
-		   $('.form-check').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
+		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
 	 		
+		}); 
+	  
+	   //단일업데이트
+	   $( ".prodCondition-button" ).on("click" , function() {
+		   
+		   var prodCondition= $(this).find('span').text();
+	    	var prodNum = $(this).parent().find('.prodNum').val();
+	    	
+	    	console.log(prodCondition);
+	    	console.log(prodNum);
+	    	
+		   self.location = "/product/updateProductCondition?prodNo="+prodNum +"&productCondition="+prodCondition
 		}); 
 	  
 	  
