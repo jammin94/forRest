@@ -68,10 +68,7 @@ public class ViewControllerTest {
 		    return "rental/tempUser";
 		  }
 	  
-	  @GetMapping("/testWishList")
-	  public String getWishList() {
-		    return "wishList/wishList";
-		  }
+
 	  
 	  @GetMapping("/beomProduct")
 	  public String beomProduct() {
@@ -81,5 +78,10 @@ public class ViewControllerTest {
 	  @GetMapping("/topMypage")
 	  public String topMypage() {
 		    return "user/topMypage";
+		  }
+	  
+	  @GetMapping("/reviewTest")
+	  public String reviewTest() {
+		    return "rentalReview/rentalReviewList";
 		  }
 }

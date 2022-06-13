@@ -111,7 +111,7 @@
 		SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity
 	 	FROM product p, transaction t
 	 	<where>
-	 		p.prodNo = t.prodNo and t.userId = #{userId}
+	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
 	 		<if test="searchProductCondition != null">
 	 		<!-- 현재보관중인 물품만 보기위한 조건-->
 	 		 and p.prodCondition = #{searchProductCondition}
