@@ -92,34 +92,15 @@ public class StorageController {
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
 		
-		model.addAttribute("list", map.get("list"));
-		
 		//디버깅
 		System.out.println("쿠폰list:" + map.get("list"));
+		
+		model.addAttribute("list", map.get("list"));
+		
 		
 		return "storage/addStorage";
 	}
 	
-	//결제정보를 리턴받고 물품과 보관테이블에 동시에 추가
-//	@PostMapping("addStorage")
-//	public String addStoragePost(@RequestParam("imp_uid") String imp_uid,   //아임포트에서 리턴해주는 번호
-//												@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
-//												@ModelAttribute("product") Product product,
-//												@ModelAttribute("storage") Storage storage,
-//												HttpSession session, Model model) throws Exception {
-//
-//		product.setUserId(((User) session.getAttribute("user")).getUserId());
-//		productService.addProduct(product);
-//		
-//		storage.setTranNo(merchant_uid);
-//		storage.setPaymentNo(imp_uid);
-//		
-//		storageService.addStorage(storage);
-//		
-//		model.addAttribute("storage", storage);
-//		
-//		return "storage/getStorage";
-//	}
 	
 	//결제구현전 테스트
 	//회원, 어드민 가능
@@ -146,16 +127,18 @@ public class StorageController {
         //랜덤으로 생성한 tranNo
            String tranNo = FileNameUtils.getRandomString();
         
+        //product에 필요한값 셋팅후 등록
 		product.setUserId(userId);
 		product.setProdNo(prodNo);
 		productService.addProduct(product);
 		
 		//////////이미지업로드
-	
 		fileUtils.uploadFiles(uploadFile, prodNo, "product");
 	
 		//디버깅
 		System.out.println("storage: "+storage);
+		
+		//storage에 필요한값 셋팅후 등록
 		storage.setUserId(userId);
 		storage.setProdNo(prodNo);
 		storage.setTranNo(tranNo);

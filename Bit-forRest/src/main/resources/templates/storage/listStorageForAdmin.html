@@ -170,9 +170,9 @@
 			<input type="hidden"  class="prodNum" name="prodNo" th:value="${storage.prodNo}" />
 		
 			
-			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인 <span style="display:none">물품보관승인신청중</span></button>
-			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기 <span style="display:none">입고중</span> </button>
-			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인<span style="display:none">출고승인신청중</span></button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인</button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기</button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인</button>
 			</td>	  
 			<td align="center" th:text = "${storage.storageProd.recentImg}"></td>	 
 		
@@ -282,14 +282,9 @@
 	   //단일업데이트
 	   $( ".prodCondition-button" ).on("click" , function() {
 		   
-		   var prodCondition= $(this).find('span').text();
 	    	var prodNum = $(this).parent().find('.prodNum').val();
-	    	
-	    	//alert(prodCondition);
-	    	//alert(prodNum);
-	  
-	    	
-		   self.location = "/product/updateProductCondition?prodNo="+prodNum +"&productCondition="+prodCondition
+
+		   self.location = "/product/updateProductCondition?prodNo="+prodNum;
 		}); 
 	  
 	  
