@@ -37,8 +37,8 @@ sequelize.sync({ force: false })
   const sessionMiddleware = session({
     resave: false, //false
     saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
-    //secret: 'forrest',
+    //secret: process.env.COOKIE_SECRET,
+    secret: 'forrest',
     cookie: {
       httpOnly: true,
       secure: false,
@@ -53,8 +53,8 @@ app.use(express.json()); //parsing application을 위하여!
 app.use(express.urlencoded({ extended: true })); // req.body parsing을 위하여!
 //app.use(express.urlencoded({ extended: false }));
 
-app.use(cookieParser(process.env.COOKIE_SECRET));
-//app.use(cookieParser('forrest'));
+//app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser('forrest'));
 app.use(sessionMiddleware);
 
 
