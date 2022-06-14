@@ -8,7 +8,7 @@
 <mapper namespace="com.mvc.forrest.dao.product.ProductDAO"> 	
  	
 	<resultMap id="productSelectMap" type="product">
-		<result property="prodNo" 				column="prodNo" 				jdbcType="INTEGER"/>
+		<result property="prodNo" 				column="prodNo" 				jdbcType="VARCHAR"/>
 		<result property="width"	   			column="width" 				jdbcType="INTEGER" />
 		<result property="length" 			column="LENGTH" 			jdbcType="INTEGER" />
 		<result property="height" 			column="height" 		jdbcType="INTEGER" />
@@ -45,7 +45,7 @@
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
+	 <select 	id="getProduct"	parameterType="String"	resultMap="productSelectMap">
 		SELECT *
 	    FROM product p, user u
 		where p.prodNo =  #{prodNo} and p.userId = u.userId
@@ -127,6 +127,18 @@
 	  	</if>
 	 
 	 </select>
+	 
+	 <!-- SQL : SELECT LIST -->
+	 <!-- 인덱스페이지에 프로덕트리스트를 최신순으로 4개 띄우는 쿼리 -->
+	   <select    id="getProductListForIndex"   resultMap="productSelectMap">
+       SELECT inner_table.* , inner_table.ROWNO
+                    FROM(
+                        SELECT product.*, transaction.paymentDate, ROW_NUMBER() OVER() AS ROWNO
+                        FROM product left outer Join transaction on product.prodNo = transaction.prodNo
+                        where transaction.tranCode = 0
+                        order by transaction.paymentDate DESC )  inner_table
+      WHERE inner_table.ROWNO &lt;= 4         
+    </select>
 
 	
 	<!-- SQL : SELECT ROW Count -->	 

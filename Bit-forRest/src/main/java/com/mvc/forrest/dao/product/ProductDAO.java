@@ -19,13 +19,15 @@ public interface ProductDAO {
 		
 		void addProduct(Product product) throws Exception;
 		
-		Product getProduct(int prodNo) throws Exception;
+		Product getProduct(String prodNo) throws Exception;
 		
 		void updateProduct(Product product) throws Exception;
 		
 		void updateProductCondition(Product product) throws Exception;
 		
 		List<Product> getProductList(Search search) throws Exception;
+		
+		List<Product> getProductListForIndex() throws Exception;
 		
 		int getTotalCount(Search search) throws Exception;
 		

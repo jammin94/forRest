@@ -25,7 +25,7 @@ public class ProductService {
 		productDAO.addProduct(product);
 	}
 	
-	public Product getProduct(int prodNo) throws Exception{
+	public Product getProduct(String prodNo) throws Exception{
 		 return productDAO.getProduct(prodNo);
 	}
 	
@@ -51,6 +51,14 @@ public class ProductService {
 		
 		return map;
 	}
+	
+	//렌탈마켓 상품중 최신순 4개를 메인화면에 출력
+	public List<Product> getProductListForIndex() throws Exception{
+		List<Product> list= productDAO.getProductListForIndex();
+		
+		return list;
+	}
+	
 	
 		
 }

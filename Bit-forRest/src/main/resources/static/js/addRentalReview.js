@@ -162,12 +162,13 @@ function starsReducer(state, action) {
 	  var initWidth = $(".img-preview-big")[0].offsetWidth;
 	  $(".img-preview-big").css("height", initWidth + "px");
 	};
-
-	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
+	/*
+	$("#rating").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
 	  var mouse_is_inside = ev.type === 'mouseenter';
 	  if ($(".img-preview-small").length > 0) {
 	    if (mouse_is_inside) {
-	      $(".img-delete").css("display", "flex");
+		console.log('asdfadsf');
+	      $(".img-delete").css("display", "flex");	
 	    } else {
 	      $(".img-delete").css("display", "none");
 	    }
@@ -175,16 +176,31 @@ function starsReducer(state, action) {
 	    $(".img-delete").css("display", "none");
 	  }
 	});
+  */
 
+	$("#rating").hover(function(ev) {
+	  var mouse_is_inside = ev.type === 'mouseenter';
+	  if ($(".img-preview-small").length > 0) {
+	    if (mouse_is_inside) {
+		console.log('asdfadsf');
+	      $(".img-delete").css("display", "flex");	
+	    } else {
+	      $(".img-delete").css("display", "none");
+	    }
+	  } else {
+	    $(".img-delete").css("display", "none");
+	  }
+	});
+ 
 	$(".img-add-more").click(function() {
 		console.log("click test");
-		
-	 if ($(".img-preview-small").length <2) {
+	 if ($(".img-preview-small").length <1) {
+		console.log('test');
 		 $("input[type='file']").click();
 		  } 
 	  
 	  if ($(".img-preview-small").length >1) {
-		   	alert("최대2장까지 추가할 수 있습니다 ");
+		   	alert("1장만 업로드 할 수 있습니다. ");
 		  } 
 	})
 
@@ -236,9 +252,10 @@ function starsReducer(state, action) {
 		
 	  $(".img-small-selected")[0].parentElement.remove();
 	  if ($(".img-preview-small").length > 0) {
+
 	    $(".img-preview-small img")[0].classList.add("img-small-selected");
 	    $(".img-preview-big img")[0].src = $(".img-preview-small img")[0].src;
-	    $('.img-preview-operate').scrollLeft(0);
+	    $('.img-preview-operate').scrollLeft(0);   
 	  } else {
 	    $(".img-preview-big img")[0].src = "https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png";
 	    $(".img-delete").css("display", "none");

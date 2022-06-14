@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Product {
 	
-	private int prodNo;
+	private String prodNo;
 	private int width;
 	private int length;
 	private int height;

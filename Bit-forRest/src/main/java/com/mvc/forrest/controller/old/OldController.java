@@ -54,19 +54,6 @@ public class OldController {
 
 	///////////////////////////////////////////////////
 
-	// 리스트 네비게이터//
-
-//	@GetMapping("listOld")
-//	public String listOld() throws Exception {
-//		
-//		System.out.println(this.getClass()+"겟리스트");
-//		//return "redirect:/old/listOld";
-//		return "old/listOld";	
-//	}
-//	
-
-	// 검색시 리스트//
-
 	@RequestMapping("listOld")
 	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception {
 //		public String listOld(@ModelAttribute("search") Search search, Model model,HttpSession httpsession) throws Exception{
@@ -102,7 +89,7 @@ public class OldController {
 		// 디버깅
 		System.out.println("getOld Start");
 
-		//oldService의 getOld 메서드에 oldNo 인자값을 넣어줌
+		// oldService의 getOld 메서드에 oldNo 인자값을 넣어줌
 		Old old = oldService.getOld(oldNo);
 
 		Map<String, Object> map = oldService.getOldList(search);
@@ -111,19 +98,16 @@ public class OldController {
 		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
 
 		Old testOld = oldService.getOld(oldNo);
 		String testUserId = testOld.getUserId();
-		
-		
-		User user =  userService.getUser( testUserId);
-		System.out.println("불러온 유저"+user);
-		
+
+		User user = userService.getUser(testUserId);
+		System.out.println("불러온 유저" + user);
+
 		double oldReview = oldReviewService.getUserRate(testUserId);
 		user.setUserRate(oldReview);
-		
-		
+
 		model.addAttribute("oldReview", user);
 		return "old/getOld";
 	}
@@ -161,8 +145,8 @@ public class OldController {
 	public String updateOld(@RequestParam("oldNo") int oldNo, Model model) throws Exception {
 		System.out.println(this.getClass() + "겟수정");
 
-		Old old = oldService.getOld(oldNo);
-		model.addAttribute("old", old);
+		oldService.getOld(oldNo);
+	
 		return "old/updateOld";
 	}
 
@@ -170,8 +154,8 @@ public class OldController {
 	public String updateOld(@RequestParam("old") Old old) throws Exception {
 		System.out.println(this.getClass() + "포스트수정");
 		oldService.updateOld(old);
-
-		return "old/getOld";
+	
+		return "redirect:/old/listOld";
 	}
 
 	@PostMapping("deleteOld")

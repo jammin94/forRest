@@ -1,6 +1,6 @@
 package com.mvc.forrest.controller.common;
 
-import static com.mvc.forrest.common.utils.RandomNumberGenerator.makeRandomOldNumber;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 

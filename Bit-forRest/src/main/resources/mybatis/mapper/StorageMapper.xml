@@ -8,9 +8,9 @@
 <mapper namespace="com.mvc.forrest.dao.storage.StorageDAO"> 	
  	
 	<resultMap id="storageSelectMap" type="Storage">
-		<result property="tranNo" 				column="tranNo" 				jdbcType="INTEGER"/>
+		<result property="tranNo" 				column="tranNo" 				jdbcType="VARCHAR"/>
 		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
-		<result property="prodNo" 			column="prodNo" 			jdbcType="INTEGER" />
+		<result property="prodNo" 			column="prodNo" 			jdbcType="VARCHAR" />
 		<result property="divyRequest" 			column="divyRequest" 		jdbcType="VARCHAR" />
 		<result property="divyAddress" 			column="divyAddress" 		jdbcType="VARCHAR" />
 		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
@@ -32,7 +32,7 @@
 		<result property="rentalEndDate" 				column="red" 				jdbcType="DATE"  />
 		
 		<association property="storageProd" javaType="product">
-			<id property="prodNo" column="prodNo"  jdbcType="INTEGER"/>
+			<id property="prodNo" column="prodNo"  jdbcType="VARCHAR"/>
 			<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
 			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 			<result property="width" 				column="width" 				jdbcType="INTEGER"  />
@@ -55,7 +55,7 @@
 	 
 	  
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getStorage"	parameterType="int"	resultMap="storageSelectMap">
+	 <select 	id="getStorage"	parameterType="String"	resultMap="storageSelectMap">
 		SELECT * FROM transaction t, product p 
 		where t.tranNo =  #{tranNo} and t.prodNo = p.prodNo
 	 </select>
@@ -86,7 +86,7 @@
 	 <!-- SQL : DELETE -->
 	 <!-- 기간연장시 기존의 저장된 물품정보를 삭제 -->
 	 
-	 <delete id="deleteStorage" parameterType="int">
+	 <delete id="deleteStorage" parameterType="String">
 	 DELETE FROM transaction where tranNo = #{tranNo}
 	 </delete>
 		 

@@ -24,8 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
-import com.mvc.forrest.common.utils.RandomNumberGenerator;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -53,7 +53,11 @@ public class StorageController {
 	public UserService userService;
 	
 	@Autowired
+	public CouponService couponService;
+	
+	@Autowired
 	public FileUtils fileUtils;
+	
 	
 	
 	public StorageController() {
@@ -78,7 +82,20 @@ public class StorageController {
 	//보관물품등록을 위한 페이지로 네비게이션
 	//회원, 어드민 가능
 	@GetMapping("addStorage")
-	public String addStorageGet() throws Exception {
+	public String addStorageGet(Model model) throws Exception {
+		
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+		System.out.println("userId: "+userId);
+		
+		//회원의 보유쿠폰리스트를 받아옴
+		Map<String,Object> map =couponService.getOwnCouponList(userId);
+		
+		model.addAttribute("list", map.get("list"));
+		
+		//디버깅
+		System.out.println("쿠폰list:" + map.get("list"));
 		
 		return "storage/addStorage";
 	}
@@ -124,14 +141,10 @@ public class StorageController {
 
         
 		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
-//        int prodNo = rng.makeRandomProductNumber();
-//        System.out.println("랜덤prodNo: "+ prodNo);
-           int prodNo = 29393;
+          String prodNo = FileNameUtils.getRandomString();
         
-        //랜덤으로 생성한 tranNo (TEST)
-//        int tranNo = rng.makeRandomTransactionNumber();
-//        System.out.println("랜덤tranNo: "+ tranNo);
-           int tranNo = 371919;
+        //랜덤으로 생성한 tranNo
+           String tranNo = FileNameUtils.getRandomString();
         
 		product.setUserId(userId);
 		product.setProdNo(prodNo);
@@ -178,7 +191,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		//System.out.println("디버그 "+mapStorage.get("list"));
+		System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -229,7 +242,7 @@ public class StorageController {
 	
 	//회원, 어드민 가능
 	@GetMapping("extendStorage")
-	public String extendStorageGet(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
+	public String extendStorageGet(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 		
@@ -238,32 +251,32 @@ public class StorageController {
 	
 	//보관물품의 기간을 연장
 	//회원, 어드민 가능
-	@PostMapping("extendStorage")
-	public String extendStoragePost(@ModelAttribute("storage") Storage storage,
-													@RequestParam("imp_uid") String imp_uid, //아임포트에서 리턴해주는 번호
-													@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
-													Model model) throws Exception {
-		
-		//기존에 보관한 물품에 변경되는 정보를 업데이트
-		storage.setPaymentNo(imp_uid);
-		storageService.updateStorage(storage);
-		
-		//업데이트된 보관물품정보를 테이블에 새로 추가
-		Storage storageExtended = storageService.getStorage(storage.getTranNo());
-		storageExtended.setTranNo(merchant_uid);
-		
-		storageService.addStorage(storageExtended);
-		
-		//기존에 보관한물품기록을 삭제
-		storageService.deleteStorage(storage.getTranNo());
-		
-		
-		return "storage/getStorage";
-	}
+//	@PostMapping("extendStorage")
+//	public String extendStoragePost(@ModelAttribute("storage") Storage storage,
+//													@RequestParam("imp_uid") String imp_uid, //아임포트에서 리턴해주는 번호
+//													@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
+//													Model model) throws Exception {
+//		
+//		//기존에 보관한 물품에 변경되는 정보를 업데이트
+//		storage.setPaymentNo(imp_uid);
+//		storageService.updateStorage(storage);
+//		
+//		//업데이트된 보관물품정보를 테이블에 새로 추가
+//		Storage storageExtended = storageService.getStorage(storage.getTranNo());
+//		storageExtended.setTranNo(merchant_uid);
+//		
+//		storageService.addStorage(storageExtended);
+//		
+//		//기존에 보관한물품기록을 삭제
+//		storageService.deleteStorage(storage.getTranNo());
+//		
+//		
+//		return "storage/getStorage";
+//	}
 	
 	//회원, 어드민 가능
 	@RequestMapping("getStorage")
-	public String getStorage(@RequestParam("tranNo") int tranNo, Model model) throws Exception {
+	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 	
