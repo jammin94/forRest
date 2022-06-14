@@ -19,7 +19,6 @@ public class UserService {
 	
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
-		System.out.println("UserService // addUser");
 	}
 	
 	public User getUser(String userId) throws Exception {

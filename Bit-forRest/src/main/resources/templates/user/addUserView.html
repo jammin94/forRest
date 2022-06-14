@@ -194,7 +194,7 @@
             
 	  <br><br>
       <label for="userImg">Profile Img</label>
-      <input id="userImg" type="file" name="userImg" placeholder="(선택) 1장">            
+      <input id="userImgFile" type="file" name="userImgFile" placeholder="(선택) 1장">            
 
 
 	  <br><br>
@@ -230,9 +230,9 @@
 								+$("input[name='addr2']").val()+"/"
 								+$("input[name='addr3']").val()+"/"
 								+$("input[name='addr4']").val();
-				var userImg = $("input[name='userImg']").val();
+				var userImgFile = $("input[name='userImgFile']").val();
 				
-				console.log(userId,password,userName,nickname,phone,userAddr,userImg);
+				console.log(userId,password,userName,nickname,phone,userAddr,userImgFile);
 			
 				$("input:hidden[name='userAddr']").val( userAddr );
 				

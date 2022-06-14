@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OldReview;
@@ -156,23 +157,22 @@ public class UserController {
 	
 	@RequestMapping("addUser")			//유저, 관리자
 	public String addUser( @ModelAttribute("user") User user,
-							@RequestParam("userImg")MultipartFile file ) throws Exception {
+							@RequestParam("userImgFile")MultipartFile file ) throws Exception {
 
-		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\bin\\main\\static\\uesrImg";
+		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
 		
 		System.out.println("/user/addUser : POST");
 		
 		if (!file.getOriginalFilename().isEmpty()) {
             String filename = file.getOriginalFilename();
-            String fullPath = temDir +"\\"+ filename;
-            file.transferTo(new File(fullPath));
-            System.out.println("fullPath : "+fullPath);
+            filename =  FileNameUtils.fileNameConvert(filename);
+            file.transferTo(new File(temDir,filename));
             user.setUserImg(filename);
         }
 		
-//		user.setPassword(passwordEncoder.encode(user.getPassword()));
-//		
-//		userService.addUser(user);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		userService.addUser(user);
 				
 		return "user/login";
 	}
@@ -309,23 +309,23 @@ public class UserController {
 		List<OldReview> list = oldReviewService.getOldReviewList(userId);
 		Map<String, Object> oldList = oldService.getOldList(search);
 
-		//해당 유저에 대한 리뷰를 등록한 사람의 수
-		if(list.size()==2){
-			model.addAttribute("review1", list.get(0));
-			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
-			model.addAttribute("review2", list.get(1));
-			model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
-			model.addAttribute("nickname2", userService.getUser(list.get(1).getReviewedUserId()).getNickname());
-		}else if(list.size()==1) {
-			model.addAttribute("review1", list.get(0));
-			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
-		}
-		
-		model.addAttribute("list",list);
-		model.addAttribute("user", dbUser);
-		model.addAttribute("oldList", oldList.get("list"));
+//		//해당 유저에 대한 리뷰를 등록한 사람의 수
+//		if(list.size()==2){
+//			model.addAttribute("review1", list.get(0));
+//			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+//			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+//			model.addAttribute("review2", list.get(1));
+//			model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
+//			model.addAttribute("nickname2", userService.getUser(list.get(1).getReviewedUserId()).getNickname());
+//		}else if(list.size()==1) {
+//			model.addAttribute("review1", list.get(0));
+//			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
+//			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
+//		}
+//		
+//		model.addAttribute("list",list);
+//		model.addAttribute("user", dbUser);
+//		model.addAttribute("oldList", oldList.get("list"));
 
 		return "user/getUser";
 	}
