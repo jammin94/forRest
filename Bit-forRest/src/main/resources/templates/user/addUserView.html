@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	
@@ -8,11 +8,6 @@
     html {
       background: #000;
       font-family: 'Montserrat', sans-serif;
-      
-    }
-
-    body {
-    	
     }
 
     a {
@@ -134,6 +129,10 @@
 	padding: 0;
 	font-size: 20px;
 	}
+	.userId_check{
+	margin-left: 20px;
+	margin-top: -5px;
+	}
 	
   </style>
   
@@ -150,7 +149,7 @@
 
       <br>
       <label for="userId">Id</label>
-      <input id="userId" type="text" name="userId" placeholder="이메일형식">
+      <input id="userId" type="text" name="userId" placeholder="이메일형식" style="margin-bottom: 0">
 	      <span class="userId_check"></span>
       
 	  <br><br>
@@ -232,6 +231,29 @@
 			$("#password").keyup(function(){
 				checkPassword($('#password').val());
 			});
+			
+			$("#nickname").keyup(function(){
+				console.log("닉네임");
+			});
+			
+			$("#password2").keyup(function(){
+				var password =	$("#password").val();
+				var password2 =	$("#password2").val();
+				if(password != password2){
+					console.log(password+"///"+password2);
+					console.log("틀려");
+					$("#password2").css("border", "1px solid red");
+					$(".password_check").css("font-size", "12px");
+					$(".password_check").text("비밀번호가 일치하지 않습니다.");
+					$(".password_check").css("color", "red");
+				}else{
+					console.log("일치");
+					$("#password2").css("border", "1px solid green");
+					$(".password_check").css("color", "green");
+					$(".password_check").css("font-size", "12px");
+					$(".password_check").text("비밀번호가 일치합니다.");
+				}
+			});
 		});
 		
 		//userId가 이미 가입되어 있는지 확인
@@ -250,37 +272,77 @@
 					
 					console.log(JSONData)
 					if (JSONData == 1) {
-						$(".userId_check").text("사용중인 이메일입니다.");
+						$("#userId").css("border", "1px solid red");
+						$(".userId_check").text("사용불가능한 이메일입니다.");
 						$(".userId_check").css("color", "red");
-						
+						$(".userId_check").css("font-size", "12px");
 					} else {
+						$("#userId").css("border", "1px solid green");
 						$(".userId_check").text("사용가능한 이메일입니다.");
-						$(".userId_check").css("color", "blue");
+						$(".userId_check").css("color", "green");
+						$(".userId_check").css("font-size", "12px");
 						
 					}
 				}
 			});
 		}// 유저아이디 중복 끝
 		
+		//닉네임 중복 확인
+		function fncCheckUserIdDuplication() {
+			var nickname = $("#nickname").val();
+			
+			$.ajax({
+				url : "/user/json/checkNickname?nickname="+nickname,
+				method : "GET" ,
+				dataType : "json" ,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(JSONData, status) {
+					
+					console.log(JSONData)
+					if (JSONData == 1) {
+						console.log("1");
+					} else {
+						console.log("2");
+					}
+				}
+			});
+		}// 닉네임 중복 끝
+		
+		
+		
 		//비밀번호 유효성 검사
 		function checkPassword(password){
-		    
 			var checkNumber = password.search(/[0-9]/g);
 		    var checkEnglish = password.search(/[a-z]/ig);
-			
-		    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/.test(password)){            
-		        $(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
+		    var checkSpecial = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+		    var regex = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		    
+		    if(regex.test(password)){
+		    	$("#password").css("border", "1px solid green");
+		        $(".password_check").text("사용가능합니다.");
+				$(".password_check").css("color", "green");
+				
+		    }else{
+		    	$("#password").css("border", "1px solid red");
+		    	$(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
 				$(".password_check").css("color", "red");
+				$(".password_check").css("font-size", "12px");
+				
+				if(checkNumber <0 || checkEnglish <0 || checkSpecial <0 ){
+					$("#password").css("border", "1px solid red");
+			        $(".password_check").text("숫자와 영문자를 혼용하여야 합니다.");
+					$(".password_check").css("color", "red");
+					$(".password_check").css("font-size", "12px");
+			    }
 		    }    
 		    
-		    if(checkNumber <0 || checkEnglish <0){
-		        $(".password_check").text("숫자와 영문자를 혼용하여야 합니다.");
-				$(".password_check").css("color", "red");
-		    }
-		    $(".password_check").text("사용가능한 비밀번호입니다.");
-			$(".password_check").css("color", "blue");		        
-		}//비밀번호 유효성 검사 끝
+		    
+		    
 
+		}//비밀번호 유효성 검사 끝
 		
 		
 	</script>

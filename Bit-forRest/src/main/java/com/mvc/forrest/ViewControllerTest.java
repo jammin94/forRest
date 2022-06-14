@@ -1,87 +1,35 @@
 package com.mvc.forrest;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.old.OldService;
+import com.mvc.forrest.service.product.ProductService;
 
 @Controller
 public class ViewControllerTest {
-
-	@GetMapping("/auth/signup")
-	public String signupPage() {
-		return "auth/signup";
+	
+	@Autowired
+	public OldService oldService;
+	
+	@Autowired
+	public ProductService productService;
+	
+	@GetMapping("/")
+	public String room(Model model) throws Exception {
+		
+//		list<Old> listOld = oldService.getOldListForIndex();
+		List<Product> listProduct = productService.getProductListForIndex();
+//		model.addAttribute("listOld", listOld);
+		model.addAttribute("listProd", listProduct);
+		
+		return "main/index";
 	}
-	
-	@GetMapping("/addTest")
-	public String add() {
-		return "oldLike/addOldLikeTest";
-	}	
-	
-	@GetMapping("/auth/signin")
-	public String signinPage() {
-		return "auth/signin";
-	}
-	
-	@GetMapping("/image/story")
-	public String storyPage() {
-		return "image/story";
-	}
-	
-	@GetMapping("/image/popular")
-	public String popularPage() {
-		return "image/popular";
-	}
-	
-	@GetMapping("/image/upload")
-	public String uploadPage() {
-		return "image/upload";
-	}
-	
-	@GetMapping("/user/profile")
-	public String profilePage() {
-		return "user/profile";
-	}
-
-	@GetMapping("/user/update")
-	public String updatePage() {
-		return "user/update";
-	}
-	
-	
-	
-	@GetMapping("/toolbar/toolbar")
-	public String toolbarView() {
-		return "main/toolbar";
-	}
-	
-	  @GetMapping("/")
-	  public String room() {
-	    return "main/index";
-	  }
-	  
-	  @GetMapping("/leftbar")
-	  public String mypage() {
-		    return "main/leftbar";
-		  }
-	  
-	  @GetMapping("/tempUser")
-	  public String tempUser() {
-		    return "rental/tempUser";
-		  }
-	  
-
-	  
-	  @GetMapping("/beomProduct")
-	  public String beomProduct() {
-		    return "rental/beomProduct";
-		  }
-	  
-	  @GetMapping("/topMypage")
-	  public String topMypage() {
-		    return "user/topMypage";
-		  }
-	  
-	  @GetMapping("/reviewTest")
-	  public String reviewTest() {
-		    return "rentalReview/rentalReviewList";
-		  }
 }

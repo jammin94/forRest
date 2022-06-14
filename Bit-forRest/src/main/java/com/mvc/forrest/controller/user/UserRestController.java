@@ -47,9 +47,16 @@ public class UserRestController {
 		
 	}
 	
-	@RequestMapping(value="json/pwdValid")
-	public String pwdValid(String password) throws Exception {
-		return null;
+	@RequestMapping(value="json/checkNickname")
+	public int nicknameValid(String nickname) throws Exception {
+		
+		System.out.println("user/json/checkNickname : GET");
+
+		System.out.println("받은 값"+nickname);
+		
+
+		
+		return 0;
 	}
 	
 	@RequestMapping(value="json/sendSMS")
@@ -62,10 +69,7 @@ public class UserRestController {
 		return null;
 	}
 	
-	@RequestMapping(value="json/nicknameValid")
-	public String nicknameValid(String nickname) throws Exception {
-		return null;
-	}
+
 	
 	@RequestMapping(value="json/updateUser")
 	public User updateUser(@ModelAttribute User user) throws Exception {

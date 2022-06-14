@@ -26,6 +26,7 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.common.utils.RandomNumberGenerator;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -53,6 +54,9 @@ public class StorageController {
 	public UserService userService;
 	
 	@Autowired
+	public CouponService couponService;
+	
+	@Autowired
 	public FileUtils fileUtils;
 	
 	
@@ -78,10 +82,20 @@ public class StorageController {
 	//보관물품등록을 위한 페이지로 네비게이션
 	//회원, 어드민 가능
 	@GetMapping("addStorage")
-	public String addStorageGet(Model model, HttpSession session) throws Exception {
+	public String addStorageGet(Model model) throws Exception {
 		
-//		String userId = ((User) session.getAttribute("user")).getUserId();
-//		model.addAttribute("user", userService.getUser(userId));
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+		System.out.println("userId: "+userId);
+		
+		//회원의 보유쿠폰리스트를 받아옴
+		Map<String,Object> map =couponService.getOwnCouponList(userId);
+		
+		model.addAttribute("list", map.get("list"));
+		
+		//디버깅
+		System.out.println("쿠폰list:" + map.get("list"));
 		
 		return "storage/addStorage";
 	}
@@ -214,7 +228,7 @@ public class StorageController {
 		}
 		
 		//디버깅
-		System.out.println("serarch:" + search);
+		System.out.println("serarch in StorageController:" + search);
 		
 		search.setPageSize(pageSize);
 		

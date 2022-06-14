@@ -11,17 +11,6 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-    <!-- Bootstrap Dropdown Hover JS -->
-  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
-   
-   
-     
-  
-  <!-- jQuery UI toolTip 사용 JS-->
-<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 </head>
 <style>
@@ -37,8 +26,8 @@
 <body>
 
 <!-- 툴바 include -->
-<!--  <div th:replace="/main/toolbarForAdmin.html"></div>-->
-<!--  <div th:replace="/main/leftbarForAdmin.html"></div>-->
+ <div th:replace="/main/toolbarForAdmin.html"></div>
+ <div th:replace="/main/leftbarForAdmin.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -109,6 +98,7 @@
 				<select class="form-control"    name="searchCondition" >
 					
 					<!-- 서치키워드 입력안하고 검색눌렀을때 어케할까? -->
+					<!-- 엔터는 먹히고 검색직접클릭은 안먹힘 -->
 						<option th:value=null >전체</option>
 						<option th:value="1" th:selected="${search.searchCondition} == '1' ">상품명</option>
 						<option th:value="2" th:selected="${search.searchCondition} == '2' ">회원아이디</option>
@@ -132,13 +122,14 @@
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-				</form>
+			</form>	
 	    	</div>
 	    	
 		</div>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 		 <!--  table Start /////////////////////////////////////-->
+		  <form class="form-inline2" name="detailForm">
       <table class="table table-hover table-striped">
            
 	       <thead>
@@ -157,8 +148,8 @@
 	          </tr>
 	        </thead>
 	        
-	        <tbody> 
 	    
+	        <tbody> 
 	    
 	    <tr th:each="storage :${list}">
 	    
@@ -177,21 +168,22 @@
 			<td>
 			
 			<input type="hidden"  class="prodNum" name="prodNo" th:value="${storage.prodNo}" />
+		
 			
-			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인 <span style="display:none">물품보관승인신청중</span></button>
-			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기 <span style="display:none">입고중</span> </button>
-			<button class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인<span style="display:none">출고승인신청중</span></button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='물품보관승인신청중' ">물품보관승인 <span style="display:none">물품보관승인신청중</span></button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기 <span style="display:none">입고중</span> </button>
+			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인<span style="display:none">출고승인신청중</span></button>
 			</td>	  
 			<td align="center" th:text = "${storage.storageProd.recentImg}"></td>	 
 		
 	    </tr>
 	    
 	        </tbody>
-
       </table>
+		</form>
 		<!--  table End /////////////////////////////////////-->
 
- <button type="button" class="updateProdAllCon-btn">일괄업데이트</button>
+ <button  class="updateProdAllCon-btn">일괄업데이트</button>
 
 	<ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#"
@@ -219,11 +211,13 @@
 			
 		     $('.coditionBtnhs').on("click",function(){
 		    	var inputValue= $(this).find('span').text();
-		    	console.log(inputValue);
+		    	//alert(inputValue);
+		    	
 		    
 		    		
 		    	$('.prodCondition').attr('value',inputValue);
 		    	console.log($('.prodCondition').val());
+		    	//alert($('.prodCondition').val());
 		    	
 		    	 $(".form-inline").attr("method" , "POST").attr("action" , "/storage/listStorageForAdmin").submit(); 
 		    		
@@ -233,6 +227,7 @@
 		    
 	  })
 	  
+	  //검색버튼 클릭시 발생이벤트
 	  	$(function(){
 			$(".search-btn").on("click", function(){
 			
@@ -280,7 +275,7 @@
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 	    	
-		   $('.form-check').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
+		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
 	 		
 		}); 
 	  
@@ -290,8 +285,9 @@
 		   var prodCondition= $(this).find('span').text();
 	    	var prodNum = $(this).parent().find('.prodNum').val();
 	    	
-	    	console.log(prodCondition);
-	    	console.log(prodNum);
+	    	//alert(prodCondition);
+	    	//alert(prodNum);
+	  
 	    	
 		   self.location = "/product/updateProductCondition?prodNo="+prodNum +"&productCondition="+prodCondition
 		}); 
