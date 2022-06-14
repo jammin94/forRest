@@ -53,6 +53,13 @@
 	 </select>
 	 
 	 <!-- SQL : SELECT ONE -->
+	 <select 	id="getUserByNickname"	parameterType="String"	resultMap="userSelectMap">
+		SELECT *
+		FROM user
+		WHERE nickname = #{value}
+	 </select>
+	 
+	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUserByName"	parameterType="String"	resultMap="userSelectMap">
 		SELECT *
 		FROM user

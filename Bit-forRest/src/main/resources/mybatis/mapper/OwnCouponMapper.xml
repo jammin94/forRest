@@ -8,10 +8,36 @@
  	
 	<resultMap id="ownCouponSelectMap" type="ownCoupon">
 		<result	property="ownCouponNo"			column="ownCouponNo"		jdbcType="INTEGER"/>
-		<result property="ownUser.userId"		column="userId"				jdbcType="VARCHAR"/>
-		<result property="ownCoupon.couponNo"	column="couponNo"			jdbcType="INTEGER"/>
 		<result	property="ownCouponCreDate"		column="ownCouponCreDate"	jdbcType="TIMESTAMP"/>
 		<result	property="ownCouponDelDate"		column="ownCouponDelDate"	jdbcType="TIMESTAMP"/>	
+		
+		<association property="ownUser" javaType="user">
+			<id property="userId" 				column="userId" 			jdbcType="VARCHAR"/>
+			<result property="password"			column="password"		jdbcType="VARCHAR"/>
+			<result property="nickname"			column="nickname"		jdbcType="VARCHAR"/>
+			<result property="userName"			column="userName"		jdbcType="VARCHAR"/>
+			<result property="userAddr"			column="userAddr"		jdbcType="VARCHAR"/>
+			<result property="phone"			column="phone"			jdbcType="VARCHAR"/>
+			<result property="role"				column="role"			jdbcType="VARCHAR"/>
+			<result property="joinDate"			column="joinDate"		jdbcType="TIMESTAMP"/>
+			<result property="joinPath"			column="joinPath"		jdbcType="VARCHAR"/>
+			<result property="userImg"			column="userImg"		jdbcType="VARCHAR"/>
+			<result property="recentDate"		column="recentDate"		jdbcType="TIMESTAMP"/>
+			<result property="pushToken"		column="pushToken"		jdbcType="VARCHAR"/>
+			<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
+			<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>
+			<result	property="profit"			column="profit"			jdbcType="NUMERIC"/>
+		</association>
+		
+		<association property="ownCoupon" javaType="Coupon">
+			<id property="couponNo"				column="couponNo" 		jdbcType="VARCHAR"/>
+			<result	property="couponName"		column="couponName"		jdbcType="VARCHAR"/>
+			<result	property="couponCreDate"	column="couponCreDate"	jdbcType="TIMESTAMP"/>
+			<result	property="couponDelDate"	column="couponDelDate"	jdbcType="TIMESTAMP"/>
+			<result	property="discount"			column="discount"		jdbcType="NUMERIC"/>
+		</association>
+		
+		
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -23,9 +49,10 @@
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getOwnCoupon"	parameterType="int"	resultMap="ownCouponSelectMap">
-		SELECT *
-		FROM ownCoupon
-		WHERE owncouponNo = #{value}
+		SELECT oc.*, c.discount
+		FROM owncoupon oc, coupon c
+		WHERE oc.couponNo = c.couponNo
+		AND oc.ownCouponNo = #{value}
 	 </select>
 	 	 
 	 <!-- SQL : DELETE -->
