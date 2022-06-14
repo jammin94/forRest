@@ -193,8 +193,11 @@ article {
     <nav>
       <div class="nav-mobile"><a id="nav-toggle" ><span></span></a></div>
       <ul class="nav-list">
-        <li>
+        <li sec:authorize="isAnonymous()">
             <a th:href="@{/old/listOld}">중고마켓</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/old/listOldAfterLogin}">중고마켓</a>
         </li>
   
          <li>

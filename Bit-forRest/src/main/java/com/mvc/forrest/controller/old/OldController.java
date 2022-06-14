@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.old;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.api.client.http.HttpRequest;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
@@ -54,19 +59,18 @@ public class OldController {
 	int pageSize;
 
 	///////////////////////////////////////////////////
-
-	@RequestMapping("listOld")
-	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception {
+	@RequestMapping("listOldAfterLogin")
+	public String listOldAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest) throws Exception {
 
 		System.out.println(this.getClass() + "겟리스트");
 
-//		if(search.getCurrentPage() ==0 ){
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//		
-//			
-		Map<String, Object> map = oldService.getOldList(search);
+
+			
+			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId= loginUser.getUser().getUserId();
+			List<Old> list= oldService.getOldListHasUser(search, userId);
+			model.addAttribute("list", list);
+		
 
 		System.out.println(this.getClass() + "포스트리스트");
 
@@ -74,12 +78,33 @@ public class OldController {
 //		System.out.println(resultPage);
 
 //		User sessionUser= (User) httpsession.getAttribute("user");
-		model.addAttribute("list", map.get("list"));
+//		model.addAttribute("list", map.get("list"));
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 
 		return "old/listOld";
-		// return "redirect:/old/listOld?oldNo="+old.getOldNo();
+	}
+	
+	
+	@RequestMapping("listOld")
+	public String listOld(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest) throws Exception {
+
+		System.out.println(this.getClass() + "겟리스트");
+			
+			Map<String, Object> map = oldService.getOldList(search);
+			model.addAttribute("list", map.get("list"));
+		
+		System.out.println(this.getClass() + "포스트리스트");
+
+//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+//		System.out.println(resultPage);
+
+//		User sessionUser= (User) httpsession.getAttribute("user");
+//		model.addAttribute("list", map.get("list"));
+//		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+
+		return "old/listOld";
 	}
 
 	@RequestMapping("getOld")
@@ -88,18 +113,19 @@ public class OldController {
 
 		// 디버깅
 		System.out.println("getOld Start");
-
+		//복사 붙여넣기 너무 심하게 한다.. list받아오는 거랑 하나 받아오는거랑 method 가 똑같아..
+		
 		// oldService의 getOld 메서드에 oldNo 인자값을 넣어줌
-		Old old = oldService.getOld(oldNo);
+		Old old = oldService.getOld(oldNo); // 1
 
-		Map<String, Object> map = oldService.getOldList(search);
+//		Map<String, Object> map = oldService.getOldList(search); 이게 왜 들어갔는지 설명해줘
 
 		model.addAttribute("old", old);
-		model.addAttribute("list", map.get("list"));
+//		model.addAttribute("list", map.get("list")); 이게 왜 들어갔는지 설명해줘
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 
-		Old testOld = oldService.getOld(oldNo);
+		Old testOld = oldService.getOld(oldNo); // 1을 하고 2를 한 이유는?
 		String testUserId = testOld.getUserId();
 
 		User user = userService.getUser(testUserId);

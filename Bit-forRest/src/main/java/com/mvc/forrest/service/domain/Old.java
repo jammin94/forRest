@@ -18,4 +18,6 @@ public class Old {
 	private String userId;
 	private String oldAddr;
 	private OldReview oldReview;
+	private boolean oldLikeCheck;
+	private int oldLikeNo;
 	}

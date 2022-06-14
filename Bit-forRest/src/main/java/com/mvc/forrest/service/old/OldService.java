@@ -38,6 +38,16 @@ public class OldService {
 		oldDAO.deleteOld(oldNo);
 	}
 	
+	public List<Old> getOldListHasUser(Search search, String userId) throws Exception{
+		System.out.println("getOldList 성공");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("search", search);
+		
+		return oldDAO.getOldListHasUser(map);
+}
+	
+	
 	public Map<String, Object> getOldList(Search search) throws Exception{
 		System.out.println("getOldList 성공");
 		List<Old> list= oldDAO.getOldList(search);

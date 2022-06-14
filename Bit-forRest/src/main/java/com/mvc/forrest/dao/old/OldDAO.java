@@ -24,6 +24,8 @@ public interface OldDAO {
 
 	public List<Old> getOldList(Search search) throws Exception; 
 	
+	public List<Old> getOldListHasUser(Map<String,Object> map) throws Exception; 
+	
 	public List<Old> getOldListForIndex( ) throws Exception;
 	
 }
