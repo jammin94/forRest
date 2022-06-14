@@ -15,7 +15,10 @@
       text-decoration: none;
       color: #A2A5A6;
       text-align: center;
-      padding: 20px 0 0;
+      border: 2px solid #eea54b;
+      border-radius: 25px;
+      font-size: 20px;
+      
     }
 
     form {
@@ -77,7 +80,7 @@
       width: 100%;
       min-height: 50px;
       margin: 10px 0 10px;
-          border-radius: 25px;
+      border-radius: 25px;
       color: white;
       padding: 0.5% 0 0;
       font-size: 1.75em;
@@ -85,7 +88,6 @@
       -moz-transition: background 1s ease-out;
       -o-transition: background 1s ease-out;
       transition: background 1s ease-out;
-     
     }
 
   </style>
@@ -152,7 +154,7 @@
       <input id="userId" type="text" name="userId" placeholder="이메일형식" style="margin-bottom: 0">
 	      <span class="userId_check check"></span>
       
-	  <br><br>
+	  <br>
       <label for="password">Password</label>
       <input id="password" type="password" name="password"
       		 placeholder="특수문자, 영어, 숫자 1개이상 사용 8~16자">
@@ -160,7 +162,7 @@
       		 placeholder="비밀번호 확인">
       	      <span class="password_check check"></span>
       
-	  <br><br>
+	  <br>
       <label for="userName">Name</label>
       <input id="userName" type="text" name="userName" placeholder="이름">
 
@@ -170,7 +172,7 @@
      		 placeholder="한글, 영어사용 2~8자">
 	      <span class="nickname_check check"></span>
 
-	  <br><br>
+	  <br>>
       <label for="phone">Phone</label>
       <input id="phone" type="text" name="phone" placeholder="전화번호입력">
 	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
@@ -192,14 +194,13 @@
       <input id="userAddr3" type="text" name="userAddr3"
       		 placeholder="상세주소입력">   -->    
             
-	  <br><br>
+	  <br>
       <label for="userImg">Profile Img</label>
-      <input id="userImgFile" type="file" name="userImgFile" placeholder="(선택) 1장">            
+      <input id="userImgFile" type="file" name="userImgFile" placeholder="(선택) 1장">
+      <img id="preView" name="preView" style="width: 80%; height: 80%; margin-top: 20px;"/>
 
-
-	  <br><br>
-      <input id="addUser" type="button" value="가입하기">
-      <a th:href="@{/user/login}">Login</a>
+	  <input id="addUser" type="button" value="가입하기">
+      <a th:href="@{/user/login}" class="loginBtn">Login</a>
      </span>
   </form>
 
@@ -265,6 +266,10 @@
 					$(".password_check").css("font-size", "12px");
 					$(".password_check").text("비밀번호가 일치합니다.");
 				}
+			});
+			
+			$("#userImgFile").on("change", function(){
+				preView(this);
 			});
 		});
 		
@@ -376,11 +381,18 @@
 					$(".password_check").css("font-size", "12px");
 			    }
 		    }    
-		    
-		    
-		    
-
 		}//비밀번호 유효성 검사 끝
+		
+		//업로드파일 미리보기
+		function preView(input){
+		   if (input.files && input.files[0]){
+		      var reader = new FileReader();
+		      reader.onload = function (e){
+		         $('#preView').attr('src', e.target.result); 
+		      }
+		      reader.readAsDataURL(input.files[0]);
+		   }
+		}	//업로드파일 미리보기 끝
 		
 		
 	</script>

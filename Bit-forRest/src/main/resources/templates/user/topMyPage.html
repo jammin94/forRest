@@ -396,7 +396,7 @@
               </svg>
               <span>
                <span sec:authorize="isAuthenticated()">
-            <!--   <a th:href="@{/user/getUser(userId= ${authentication.user.userId})}">Edit</a> -->
+               <a th:href="@{/user/getUser(userId= ${#authentication.principal.user.userId})}">Edit</a>
                 </span>
               </span>
             </button>

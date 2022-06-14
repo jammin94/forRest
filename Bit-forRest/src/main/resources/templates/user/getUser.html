@@ -40,7 +40,7 @@
 
 <div class="container list" style="padding: 0px 150px 100px 15px;">
 	 <div class="title" id="titlef" style="margin-left: 30px; font-size: 25px; margin: 1.5em;  " >
-		<span>[[${user.nickname}]]님의 Profile</span>
+		<span>닉네임""님의 Profile</span>
 	</div>
 	<div class="aboutUser">
 		<div class="col-md-6 left" style="text-align: center;" >
@@ -62,7 +62,7 @@
 			</div>
 			<div>
 				<span style="margin-left: 10px;">
-				[[${user.joinDate.toString().substring(0, 10)}]]
+				조인데이트
 				</span>
 			</div>
 			<div>
@@ -70,14 +70,14 @@
 			</div>
 			<div>
 				<span style="margin-left: 10px;">
-				[[${user.userAddr}]]
+				유저어드레스
 				</span>
 			</div>
 			<div>
 				<span style="font-weight: bold;">중고거래 횟수</span>
 			</div>
 			<div>
-				<span style="margin-left: 10px;">[[${user.reviewedCount}]] 회</span>
+				<span style="margin-left: 10px;">리뷰카운트 회</span>
 			</div>
 		</div>
 	</div>
@@ -145,84 +145,6 @@
 		</div>
 	</div>
 	
-	
-	<!-- 해당유저의 거래목록 -->
-	<div class="tradeList">
-		<div class="tabset">
-		
-			<!-- Tab 1 -->
-			<input type="radio" name="tabset" id="tab1" aria-controls="selling"
-				checked> <label for="tab1">판매중</label>
-			<!-- Tab 2 -->
-			<input type="radio" name="tabset" id="tab2" aria-controls="sold">
-			<label for="tab2">거래완료</label>
-<!--    ////////////// 중고거래 게시물  판매중////////////-->
-			<div class="tab-panels">
-				<section id="selling" class="tab-panel">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${oldList}">
-<!-- 	/////////////////////// 게시물  ///////////////////////////// -->
-<!-- ////////////////oldState조건문만 단독으로 쓸때는 나란히 나오나, user 조건문까지 같이쓰면 띄엄띄엄나옴///////						 -->
-<!-- 							<div class="item" th:if="${old.oldState}==1 and ${old.userId} == 'user03@naver.com'"> -->
-							<div class="item" th:if="${old.oldState}==1" >
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-									
-											<img width="300" height="205" th:src="@{/images/content/eee.jpg}"/>
-											
-										<!--		<!--	<h5>Sale</h5>  -->  
-											<a href="#"><i class="fa fa-heart"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2 th:text = ${old.oldTitle}></h2>
-											
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-											
-											
-											<div class="try_mob_btn_wrapper">	
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
-											</div>
-										</div>
-									</div>
-								</div>
-					</div>
-					</div>
-					</section>	
-						
-<!-- 	//////////////	중고거래 게시물 거래완료///////////// -->
-				<section id="sold" class="tab-panel">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="old :${oldList}">
-<!-- 							<div class="item" th:if="${old.oldState}==0 and ${old.userId} == 'user01@naver.com'"> -->
-							<div class="item" th:if="${old.oldState}==0">
-									<div class="try_rc_mob_box_wrapper">
-										<div class="try_rc_mob_img">
-									
-											<img width="300" height="205"  th:src="@{/images/content/bbb.jpg}"/>
-										<!--		<!--	<h5>Sale</h5>  -->  
-											<a href="#"><i class="fa fa-heart"></i></a>
-										</div>
-										<div class="try_rc_mob_img_cont">
-											<h2 th:text = ${old.oldTitle}></h2>
-											
-										</div>
-										<div class="try_rc_mob_img_cont_bottom">
-												
-											
-											<div class="try_mob_btn_wrapper">	
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
-											</div>
-										</div>
-									</div>
-								</div>
-					</div>
-					</div>
-					</section>	
-			</div>
-
-		</div>
-	</div>
 </div>
 
 

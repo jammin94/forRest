@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OldReview;
@@ -284,27 +286,27 @@ public class UserController {
 		System.out.println("/user/getUser : POST / GET");
 		
 		User dbUser = userService.getUser(userId);
-		User sessionUser = (User)session.getAttribute("user");
+		LoginUser sessionUser= 
+				(LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//		세션에 유저정보가 없을경우 로그인 nav
-		if(sessionUser==null) {
-			return "user/login";
-		}
-		
-//		세션유저와 조회하고자하는 유저가 동일할 경우 myPage
-		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
-			if(rentalService.getTotalRentalProfit(sessionUser.getUserId())!=0) {
-			int profit = 
-					rentalService.getTotalRentalProfit(sessionUser.getUserId());
-			model.addAttribute("profit", profit);
-			}
-			Map<String , Object> map=couponService.getOwnCouponList(userId);
-			
-			model.addAttribute("map", map.get("list"));
-			model.addAttribute("user", sessionUser);
-			
-			return "user/getMyPage";
-		}
+//		세션유저와 조회하고자하는 유저가 동일할 경우 myPage / 220614 시큐리티로 인한 생략
+//		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
+//			if(rentalService.getTotalRentalProfit(sessionUser.getUserId())!=0) {
+//			int profit = 
+//					rentalService.getTotalRentalProfit(sessionUser.getUserId());
+//			model.addAttribute("profit", profit);
+//			}
+//			Map<String , Object> map=couponService.getOwnCouponList(userId);
+//			
+//			model.addAttribute("map", map.get("list"));
+//			model.addAttribute("user", sessionUser);
+//			
+//			return "/storage/listStorage";
+//		}
+
+		Map<String , Object> map=couponService.getOwnCouponList(userId);
+		model.addAttribute("map", map.get("list"));
+		model.addAttribute("user", sessionUser);
 		
 		List<OldReview> list = oldReviewService.getOldReviewList(userId);
 		Map<String, Object> oldList = oldService.getOldList(search);
@@ -322,10 +324,10 @@ public class UserController {
 //			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
 //			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
 //		}
-//		
-//		model.addAttribute("list",list);
-//		model.addAttribute("user", dbUser);
-//		model.addAttribute("oldList", oldList.get("list"));
+		
+		model.addAttribute("list",list);
+		model.addAttribute("user", dbUser);
+		model.addAttribute("oldList", oldList.get("list"));
 
 		return "user/getUser";
 	}

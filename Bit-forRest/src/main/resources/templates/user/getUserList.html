@@ -53,7 +53,7 @@
 	        </thead>
 		        
 	        <tbody> 
-			    <tr th:each="user,n :${list}" align="center" th:href = "@{/user/login}">
+			    <tr th:each="user,n :${list}" align="center">
 			    	<td th:text = "${n.index+1}">
 				    <td><a style="color: black;" th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
 					<td th:text = "${user.nickname}"></td>
