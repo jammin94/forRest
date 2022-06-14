@@ -8,10 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import com.mvc.forrest.dao.owncoupon.OwnCouponDAO;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OwnCoupon;
@@ -28,6 +31,8 @@ public class CouponServiceTest {
 
 	@Autowired
 	private CouponService couponService;
+	@Autowired
+	private OwnCouponDAO ownCouponDao;
 	
 //	@Test
 	public void testAddCoupon() throws Exception{
@@ -55,7 +60,7 @@ public class CouponServiceTest {
 //	@Test
 	public void testGetCoupon() throws Exception{
 		Coupon c = new Coupon();
-		c = couponService.getCoupon(4);
+		c = couponService.getCoupon("4");
 		
 		System.out.println(c);
 		
@@ -72,18 +77,46 @@ public class CouponServiceTest {
 		System.out.println("\n"+map.get("list")+"\n");
 	}
 	
-	@Test
+//	@Test
 	public void testGetOwnCouponList() throws Exception{
-		
+
+		Map<String,Object> map = new HashMap<String, Object>();
 		User user = new User();
 		String userId = "user01@naver.com"; 
 		user.setUserId(userId);
 		
-		Map<String,Object> map = couponService.getOwnCouponList(user.getUserId());
+		List<OwnCoupon> list =ownCouponDao.getOwnCouponList(userId);
+		int totalCount = ownCouponDao.getTotalCount(userId);
 		
-		System.out.println("map : "+map);
+		for(int i= 0 ; i<list.size() ; i++ ) {
+			String couponNo = list.get(i).getOwnCoupon().getCouponNo();	//리스트 내의 쿠폰번호
+			Coupon coupon = couponService.getCoupon(couponNo);
+			double discount =  coupon.getDiscount();
+			
+			System.out.println("coupon : "+coupon);
+			
+			map.put("discount"+i, discount);
+			
+			System.out.println(discount);
+		}
+
 		
+		map.put("list", list);
+//		map.put("totalCount", totalCount);
+		
+		
+		System.out.println("map : "+ map);
 	}
 	
+	
+	@Test
+	public void testNewMapperTest() throws Exception{
+		
+		OwnCoupon oc = new OwnCoupon();
+		oc = couponService.getOwnCoupon(1);
+		
+		System.out.println(oc);
+		
+	}
 
 }

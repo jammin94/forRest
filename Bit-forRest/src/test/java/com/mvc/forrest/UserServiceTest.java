@@ -147,7 +147,7 @@ public class UserServiceTest {
 		
 		OwnCoupon oc = new OwnCoupon();
 		User user = userService.getUser("admin");
-		Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
+		Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
 		Calendar cal= Calendar.getInstance();
 		cal.add(Calendar.DATE,30);
 		Timestamp ts1 = new Timestamp(System.currentTimeMillis());
@@ -175,5 +175,15 @@ public class UserServiceTest {
 		
 	}
 	
+//	@Test
+	public void getNickname() throws Exception{
+		
+		String nickname = "user01";
+		
+		User user = userService.getUserByNickname(nickname);
+		
+		System.out.println("결과 : "+user);
+		
+	}
 
 }

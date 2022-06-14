@@ -35,13 +35,9 @@ public class UserRestController {
 		
 		System.out.println("user/json/checkUserId : GET");
 		
-		System.out.println("받은 값"+userId);
-		
 		if(userService.getUser(userId)==null) {
-			System.out.println("아이디 없음 : "+userService.getUser(userId));
 			return 0;
 		}else {
-			System.out.println("아이디 있음 : "+userService.getUser(userId));
 			return 1;
 		}
 		
@@ -52,11 +48,13 @@ public class UserRestController {
 		
 		System.out.println("user/json/checkNickname : GET");
 
-		System.out.println("받은 값"+nickname);
-		
+		if(userService.getUserByNickname(nickname)==null) {
+			return 0;
+		}else {
+			return 1;
+		}
 
 		
-		return 0;
 	}
 	
 	@RequestMapping(value="json/sendSMS")

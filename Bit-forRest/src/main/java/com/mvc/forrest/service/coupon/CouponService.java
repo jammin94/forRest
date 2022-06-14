@@ -30,7 +30,7 @@ public class CouponService {
 		couponDao.updateCoupon(coupon);
 	}
 	
-	public Coupon getCoupon(int couponNo) throws Exception{
+	public Coupon getCoupon(String couponNo) throws Exception{
 		return couponDao.getCoupon(couponNo);
 	}
 	
@@ -65,8 +65,12 @@ public class CouponService {
 		
 		return map;	
 	}
+
+	public OwnCoupon getOwnCoupon(int ownCouponNo) throws Exception{
+		return ownCouponDao.getOwnCoupon(ownCouponNo);
+	}
 	
-	public void deleteOwnCoupon(int ownCouponNo) throws Exception{
+	public void deleteOwnCoupon(String ownCouponNo) throws Exception{
 		ownCouponDao.deleteOwnCoupon(ownCouponNo);
 	}
 }
