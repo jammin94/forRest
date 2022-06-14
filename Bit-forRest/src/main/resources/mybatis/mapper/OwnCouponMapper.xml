@@ -64,7 +64,7 @@
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getOwnCouponList"  parameterType="String"		resultMap="ownCouponSelectMap">
-		SELECT c.couponName, oc.*
+		SELECT c.discount, c.couponName, oc.*
 		FROM coupon c, ownCoupon oc
 		WHERE oc.couponNo = c.couponNo
 		AND oc.userId = #{ownUser.userId}
