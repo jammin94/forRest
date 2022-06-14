@@ -92,30 +92,32 @@ public class ProductController {
 		return "forward:/product/getProduct?prodNo="+product.getProdNo();
 	}
 	
-	//회원, 어드민 가능
+	//어드민 가능
+	// 관리자가 물품의 상태변경
 	@RequestMapping("updateProductCondition")
-	public String updateProductCondition(@RequestParam("prodNo") String prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
+	public String updateProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
 		
 		System.out.println("updateProductCondition start");
 		
 		Product product = productService.getProduct(prodNo);
 		
 		System.out.println("prodNo:"+prodNo);
-		System.out.println("productCondition"+productCondition);
 		
-		if(productCondition.equals("물품보관승인신청중")) {
+		
+		if(product.getProdCondition().equals("물품보관승인신청중")) {
 			product.setProdCondition("입고중");
-		} else if (productCondition.equals("입고중")){
+		} else if (product.getProdCondition().equals("입고중")){
 			product.setProdCondition("보관중");
-		} else if (productCondition.equals("출고승인신청중")){
+		} else if (product.getProdCondition().equals("출고승인신청중")){
 			product.setProdCondition("출고완료");
 		//보관관련
 			
-		} else if(productCondition.equals("물품대여승인신청중")) {
+		} else if(product.getProdCondition().equals("물품대여승인신청중")) {
 			product.setProdCondition("배송중");
-		} else if(productCondition.equals("배송중")) {
+		} else if(product.getProdCondition().equals("배송중")) {
 			product.setProdCondition("대여중");
 		}
+		//대여관련
 		
 		System.out.println("after:"+product.getProdCondition());
 		
@@ -124,8 +126,8 @@ public class ProductController {
 		return "redirect:/storage/listStorageForAdmin";
 	}
 	
-	//관리자가 물품상태를 일괄처리하기위한 코드
 	//어드민만 가능
+	//관리자가 물품상태를 일괄변경
 	@RequestMapping("updateProductAllCondition")
 	public String updateProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
 		
@@ -171,6 +173,27 @@ public class ProductController {
 		return "redirect:/storage/listStorageForAdmin";
 	}
 	
+	//유저가 물품보관승인신청을 취소하거나 보관중인 물품을 되돌려받을때 사용
+	@RequestMapping("cancleProduct")
+	public String cancleProduct (@RequestParam("prodNo") String prodNo) throws Exception {
+		
+		Product product = productService.getProduct(prodNo);
+		
+		if(product.getProdCondition().equals("물품보관승인신청중")) {
+			product.setProdCondition("취소완료");
+		}
+		
+		if(product.getProdCondition().equals("보관중")) {
+			product.setProdCondition("출고승인신청중");
+		}
+		
+		productService.updateProductCondition(product);
+		
+		
+		return "redirect:/storage/listStorage";
+	}
+	
+	
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
 	public String getProduct(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
@@ -185,11 +208,8 @@ public class ProductController {
 		String userId= loginUser.getUser().getUserId();
 		System.out.println("userId: "+userId);
 		
-		//TEST용: getProduct에서 물품주인과 구매자에 따라 다른화면출력 Test를 위한 세션생성	
+		//getProduct에서 물품주인과 구매자에 따라 다른화면출력을 위한 유저정보
 		User sessionUser = userService.getUser(userId);
-	
-		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
-		//User sessionUser = (User) httpsession.getAttribute("user");
 		
 		//물품상세보기에서 리뷰리스트를 받아옴
 		Map<String, Object> map = rentalReviewService.getRentalReviewList(prodNo);
