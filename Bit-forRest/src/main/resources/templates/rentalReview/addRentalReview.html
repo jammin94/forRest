@@ -8,32 +8,63 @@
  
 </head>
 
+<style>
+
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+</style>
+
+
 <body>
 
 <!-- 툴바 include -->
 	<div th:replace="/main/toolbar.html"></div> 
- <div th:replace="/main/leftbar.html"></div> 
 
    <div class="Rentalcontainer">
 <p>
   리뷰쓰기
 </p>
 <form id="review-form" action="/rentalReview/addRentalReview" method="post">
-  <h2>상품이미지 / 간략상세정보 </h2>
+  <h2>
+  <!-- 
+	<div>
+				    	<div class="productInfo" style="display:flex; justify-content:center;">
+					    		<img style="width:80px; height:80px;" class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&amp;s=1440x1440&amp;t=inside">
+					    	<div style="width:200px;padding:10px; font-size:16px;">
+					    	 <a href="/product/getProduct?prodNo=10">
+						    		<p style="margin-bottom: 10px; font-weight: bold">캠핑테이블 캠핑박스 확장형2<br></p>
+						    </a>
+						    	<p>	2022-06-14 ~ 2022-10-12<br></p>
+						    		<p>	1개</p>
+					    	</div>
+						</div>
+				    </div>
+				     -->
+ </h2>
   <div id="rating">
  
 
 <div class="main-wrapper">
   <div class="img-upload-plugin">
                     <div class="img-upload-handler">
-                      <div class="img-preview-big">
+                      <div class="img-preview-big img-add-more">
                         <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
+                     
+                      </div>
+                         <div class="img-delete">
                           <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
                         </div>
-                      </div>
                     </div>
-                    <div class="img-preview-operate">
+                    <div class="img-preview-operate" style="display:none;">
                       <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
                       <button type="button" class="img-add-more">
                         <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
@@ -56,7 +87,6 @@
   <label for="3-stars" class="star">&#9733;</label>
   <input type="radio" id="2-stars" name="reviewScore" value="2" />
   <label for="2-stars" class="star color">&#9733;</label>
-    <label for="2-stars" class="star">&#9733;</label>
   <input type="radio" id="1-star" name="reviewScore" value="1" />
   <label for="1-star" class="star">&#9733;</label>
 </div>
@@ -67,7 +97,7 @@
     
     </span>
   </div>
-  <button type="button">등록하기 </button>
+  <button class="regBtn">등록하기 </button>
   </form>
 <div id="review-container">
 </div>

@@ -126,6 +126,18 @@
     margin: 0 auto;
     margin-bottom:20px;
  }
+ 
+ .reviewContainer{
+ 	max-width:1100px;
+ 	margin: 0 auto;
+ 	margin-bottom:100px;
+ }
+ 
+ .reviewContainer li{
+ 	border-bottom : 1px solid #b1b1b1;
+ 	padding:10px;
+ 	padding-bottom:0px;
+ }
   li{
         list-style: none;
     }
@@ -152,12 +164,74 @@
     display: inline-block;
 }
 
+
+.listCursor .reviewContent:nth-of-type(1){
+	display:none;	
+}
+.listCursor .reviewContent:nth-of-type(2){
+	display:block;
+	  white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 955px;
+    margin-top:10px;
+}
+.listCursor.on .reviewContent:nth-of-type(1){
+	display:block;	
+	    margin-bottom: 10px;
+}
+.listCursor.on .reviewContent:nth-of-type(2){
+	display:none !important;
+}
+
 .thumbImg{
     margin-left: 20px;
 }
 
 .thumbImg.on{
     display:none;
+}
+
+.listCursor.on .reviewImg{
+    display: inline-block;
+}
+
+.listCursor .reviewImg{
+    display: none;
+}
+
+
+
+.profileImg{
+	width:30px;
+	height:30px;
+}
+
+.thumbImg > img{
+	width:100px;
+	height:100px;
+}
+
+.reviewImg > img{
+	width:300px;
+	height:300px;	
+}
+
+.reviewMainText{
+	border-bottom: 2px solid #000;
+	padding-bottom:10px;
+	font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.reviewSideText{
+	font-size:12px;
+	color:#c6c6c6;
+}
+
+.profileFlex{
+	display:flex;
 }
 
 </style>
@@ -306,58 +380,72 @@ flex-none, flex-initial, flex-auto, flex-1
 -->
 
 <!-- Container  -->
-<ul>
-  <li>
-    <div>
-        <div>
-  
-            <div>
-                <div>
-                    <div style="display:flex;">
-                        <div>
-                            <div>
-                                <div>
-                                프로필이미지
-                                </div>
-                                <div>
-                                    <div>
-                                        <span>
-                                            <span style="width: 100%;">
-                                                <span class="blind">평점</span>
-                                            </span>
-                                        </span>
-                                        <em>5</em>
-                                    </div>
+			<ul class="reviewContainer">
+				<p class="reviewMainText">
+				상품리뷰<br/>
+				<span class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
+				</p>
+			 <li>  
+                   <div style="display:flex;">
+                       <div>
+                              <div class="profileFlex">
+                              	<img class="profileImg" src="/images/header/profileImg.jpg"></img>
+                              	<span style="padding:0 10px;">★★★★★</span>
+                              </div>
+                                <div>                                 
                                     <div>
                                         <strong>nova****</strong>
                                         <span>22.05.28.</span>
-                                            
                                         </div>
-                                      
-                                    </div>
-                                </div>
-                                <div>
+                                  </div>
                                     <div class="listCursor">
-                               		     <div class="reviewImg">bb</div>
-                                        <span style="display:block;">좋은제품 구매 했습니다. 먼저 색상이 깔끔하니 좋습니다. 두번째 엡싱처리가 되어 있어서 잘 닦이고요 세번째 두께는 두꺼운 편이 아니지만 한장으로 사용하게 충분합니다.</span>
+                               		     <div class="reviewImg">
+												<img src="//img.danawa.com/prod_img/500000/453/831/img/14831453_1.jpg?shrink=330:330&amp;_v=20210727091348" alt="메이튼 레드와일드 캠핑 오두막 텐트_이미지" id="baseImage" onerror="javascript:this.src='//img.danawa.com/new/noData/img/noImg_360.gif'">
+										</div>
+                                        <span class="reviewContent" >좋은제품 구매 했습니다. 먼저 색상이 깔끔하니 좋습니다. 두번째 엡싱처리가 되어 있어서 잘 닦이고요 세번째 두께는 두꺼운 편이 아니지만 한장으로 사용하게 충분합니다.</span>
+                                        <span class="reviewContent" >좋은제품 구매 했습니다. 먼저 색상이 깔끔하니 좋습니다. 두번째 엡싱처리가 되어 있어서 잘 닦이고요 세번째 두께는 두꺼운 편이 아니지만 한장으로 사용하게 충분합니다.</span>
                                     </div>
-                                </div>
-                            </div>
+                         </div>
                             <div>
                                 <span>
-                                <div class="thumbImg">aa</div>
+                                <div class="thumbImg">
+									<img src="//img.danawa.com/prod_img/500000/453/831/img/14831453_1.jpg?shrink=330:330&amp;_v=20210727091348" alt="메이튼 레드와일드 캠핑 오두막 텐트_이미지" id="baseImage" onerror="javascript:this.src='//img.danawa.com/new/noData/img/noImg_360.gif'">
+								</div>                                
                                 </span>
-                            </div>
+                            </div>                 
                         </div>
-                    </div>
-                    <div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-</ul>
+				    </li>
+				     <li>  
+                   <div style="display:flex;">
+                       <div>
+                              <div class="profileFlex">
+                              	<img class="profileImg" src="/images/header/profileImg.jpg"></img>
+                              	<span style="padding:0 10px;">★★★★★</span>
+                              </div>
+                                <div>                                 
+                                    <div>
+                                        <strong>nova****</strong>
+                                        <span>22.05.28.</span>
+                                        </div>
+                                  </div>
+                                    <div class="listCursor">
+                               		     <div class="reviewImg">
+												<img src="//img.danawa.com/prod_img/500000/453/831/img/14831453_1.jpg?shrink=330:330&amp;_v=20210727091348" alt="메이튼 레드와일드 캠핑 오두막 텐트_이미지" id="baseImage" onerror="javascript:this.src='//img.danawa.com/new/noData/img/noImg_360.gif'">
+										</div>
+                                        <span class="reviewContent" >좋은제품 구매 했습니다. 먼저 색상이 깔끔하니 좋습니다. 두번째 엡싱처리가 되어 있어서 잘 닦이고요 세번째 두께는 두꺼운 편이 아니지만 한장으로 사용하게 충분합니다.</span>
+                                        <span class="reviewContent" >좋은제품 구매 했습니다. 먼저 색상이 깔끔하니 좋습니다. 두번째 엡싱처리가 되어 있어서 잘 닦이고요 세번째 두께는 두꺼운 편이 아니지만 한장으로 사용하게 충분합니다.</span>
+                                    </div>
+                         </div>
+                            <div>
+                                <span>
+                                <div class="thumbImg">
+									<img src="//img.danawa.com/prod_img/500000/453/831/img/14831453_1.jpg?shrink=330:330&amp;_v=20210727091348" alt="메이튼 레드와일드 캠핑 오두막 텐트_이미지" id="baseImage" onerror="javascript:this.src='//img.danawa.com/new/noData/img/noImg_360.gif'">
+								</div>                                
+                                </span>
+                            </div>                 
+                        </div>
+				    </li>
+				</ul>
 
 <!-- Footer-->
         <div th:replace="/main/footer.html"></div>
@@ -370,7 +458,7 @@ $(function(){
     $('.listCursor').on('click',function(){
 		console.log('listcursor');
         $(this).toggleClass('on');
-        $(this).parent().parent().parent().parent().find('.thumbImg').toggleClass('on');
+        $(this).parent().parent().find('.thumbImg').toggleClass('on');
     })
 
 })
