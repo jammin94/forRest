@@ -15,12 +15,15 @@
   }
   #review-form input[type="text"],
   #review-form textarea {
-    width: 75%;
+         width: 35%;
     padding: 10px;
     margin: 0 auto;
+    border: none;
+    background: #e9eef1;
   }
   #review-form .form-group {
     margin-bottom: 15px;
+        margin-top: 20px;
   }
   
   #review-form .help-block {
@@ -41,7 +44,7 @@
 
 .Rentalcontainer{
 	text-align:center;
-	padding-top: 10%;
+	    padding-top: 150px;
     max-width: 1200px;
     margin: auto;
 }
@@ -170,17 +173,21 @@ article {
   background-color: #2F4356;
 }
 
+.img-upload-handler{
+	position:relative;
+}
+
 .img-delete {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+      display: none;
+    width: 250px;
+    height: 252px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 .img-delete img {

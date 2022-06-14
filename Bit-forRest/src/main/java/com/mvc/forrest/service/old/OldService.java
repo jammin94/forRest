@@ -51,6 +51,11 @@ public class OldService {
 		return map;
 }
 	
+	public List<Old> getOldListForIndex() throws Exception{
+							
+		return oldDAO.getOldListForIndex();
+	
+	}
 	
 		
 	}

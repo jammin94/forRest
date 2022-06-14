@@ -16,8 +16,10 @@ $(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', functio
   if ($(".img-preview-small").length > 0) {
     if (mouse_is_inside) {
       $(".img-delete").css("display", "flex");
+      console.log('asdfasdf');
     } else {
       $(".img-delete").css("display", "none");
+      console.log('111212121');
     }
   } else {
     $(".img-delete").css("display", "none");
