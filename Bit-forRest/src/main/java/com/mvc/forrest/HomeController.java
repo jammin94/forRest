@@ -15,7 +15,7 @@ import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.product.ProductService;
 
 @Controller
-public class ViewControllerTest {
+public class HomeController {
 	
 	@Autowired
 	public OldService oldService;
