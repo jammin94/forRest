@@ -83,67 +83,6 @@
 	</div>
 	
 	
-	<div class="reviewList" th:if="${list.size()!=0}">
-		 <!-- First Review -->
-		<div class="review1">
-			<div class="col-md-2"><!-- 여백 --></div>
-			<div class="col-md-8 reviewTemp">
-				<div class="col-md-1">
-					<img src="https://avatars.githubusercontent.com/u/76616138?v=4"
-				width="150" height="150" style="border-radius: 70%;">
-				</div>
-				<div class="col-md-7 info" >
-					<div><a th:text="${nickname1}"></a></div>
-					<div>
-						<a>
-						<img src="https://udnxt.com/wp-content/uplo
-						ads/2019/06/53712500-7de3c980-3e8a-11e9-8358-2
-						3cd94011aeb.png" width="40%" height="40%">
-						</a>
-						<a th:text="${review1.getUserRate}"></a>
-					</div>	
-					<div>
-						<a th:text="${oldTitle1}"></a>
-					</div>
-					<div>
-						<a th:text="${review1.getReviewDetail}"></a>
-					</div>								
-				</div>
-			</div>
-			
-			<div class="col-md-2"><!-- 여백 --></div>
-		</div>
-		
-		 <!-- Second Review -->
-		<div class="review2">
-			<div class="col-md-2"><!-- 여백 --></div>
-			<div class="col-md-8 reviewTemp" style="margin-bottom: 50px;">
-				<div class="col-md-1">
-					<img src="https://avatars.githubusercontent.com/u/97859770?v=4"
-				width="150" height="150" style="border-radius: 70%;">
-				</div>
-				<div class="col-md-7 info" >
-					<div><a th:text="${nickname2}"></a></div>
-					<div>
-						<a>
-						<img src="https://udnxt.com/wp-content/uplo
-						ads/2019/06/53712500-7de3c980-3e8a-11e9-8358-2
-						3cd94011aeb.png" width="40%" height="40%">
-						</a>
-						<a th:text="${review2.getUserRate}"></a>
-					</div>	
-					<div>
-						<a th:text="${oldTitle2}"></a>
-					</div>
-					<div>
-						<a th:text="${review2.getReviewDetail}"></a>
-					</div>								
-				</div>
-			</div>
-			
-			<div class="col-md-2"><!-- 여백 --></div>
-		</div>
-	</div>
 	
 </div>
 

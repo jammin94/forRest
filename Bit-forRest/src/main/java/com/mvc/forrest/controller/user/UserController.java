@@ -289,60 +289,27 @@ public class UserController {
 		LoginUser sessionUser= 
 				(LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-//		세션유저와 조회하고자하는 유저가 동일할 경우 myPage / 220614 시큐리티로 인한 생략
-//		if(sessionUser.getUserId().equals(dbUser.getUserId())) {
-//			if(rentalService.getTotalRentalProfit(sessionUser.getUserId())!=0) {
-//			int profit = 
-//					rentalService.getTotalRentalProfit(sessionUser.getUserId());
-//			model.addAttribute("profit", profit);
-//			}
-//			Map<String , Object> map=couponService.getOwnCouponList(userId);
-//			
-//			model.addAttribute("map", map.get("list"));
-//			model.addAttribute("user", sessionUser);
-//			
-//			return "/storage/listStorage";
-//		}
-
 		Map<String , Object> map=couponService.getOwnCouponList(userId);
 		model.addAttribute("map", map.get("list"));
 		model.addAttribute("user", sessionUser);
 		
-		List<OldReview> list = oldReviewService.getOldReviewList(userId);
-		Map<String, Object> oldList = oldService.getOldList(search);
 
-		//해당 유저에 대한 리뷰를 등록한 사람의 수
-//		if(list.size()==2){
-//			model.addAttribute("review1", list.get(0));
-//			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-//			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
-//			model.addAttribute("review2", list.get(1));
-//			model.addAttribute("oldTitle2", oldService.getOld(list.get(1).getOldNo()).getOldTitle());
-//			model.addAttribute("nickname2", userService.getUser(list.get(1).getReviewedUserId()).getNickname());
-//		}else if(list.size()==1) {
-//			model.addAttribute("review1", list.get(0));
-//			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
-//			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
-//		}
-//		
-		model.addAttribute("list",list);
 		model.addAttribute("user", dbUser);
-		model.addAttribute("oldList", oldList.get("list"));
 
 		return "user/getUser";
 	}
 	
-//	@GetMapping("getMyPage")				getUser 통합
-//	public String getMyPage( @RequestParam("userId") String userId , Model model ) throws Exception {
-//		
-//		System.out.println("/user/getMyPage : GET");
-//		
-//		User user = userService.getUser(userId);
-//
-//		model.addAttribute("user", user);
-//		
-//		return "user/getMyPage";
-//	}
+	@GetMapping("updateUser")
+	public String getMyPage( @RequestParam("userId") String userId , Model model ) throws Exception {
+		
+		System.out.println("/user/getMyPage : GET");
+		
+		User user = userService.getUser(userId);
+
+		model.addAttribute("user", user);
+		
+		return "user/updateUser";
+	}
 	
 	@GetMapping("deleteUser")		//유저, 관리자
 	public String deleteUser()throws Exception {

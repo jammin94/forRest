@@ -11,90 +11,105 @@
   
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
-  .dropbtn {
-  	margin-top: 20px;
-    background-color: #efefef;
-    color: #707070;
-    font-size: 20px;
-    cursor: pointer;
-    width: 650px;
-   	border-color: gray;
-   	border-width: 1px;
+  
+  table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
+table caption {
+  font-size: 1.8em;
+  margin: .5em 0 .75em;
+  caption-side: top;
+  text-align: center;
 }
 
-.dropdown-content {
-	z-index: 200;
-    display: none;
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th, table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: 1.2em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.4em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 650px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
 }
-
-.dropdown-content table {
-    color: gray;
-    padding: 12px 16px;
-    text-decoration: none;
-    /*display: block;*/
-    overflow-y: scroll;
-    height: 250px;
-    margin:0 auto;
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-    overflow-y: scroll;
-    height: 250px;
-}
-.list{
-width: 100%
-}
-
-.right{
-	font-size: 20px;
-	line-height: 250%;
-}
-
-.centerTable{
-	text-align:center;
-}
-
-.centerTable thead th{
-	text-align:center;
-}
-
-.tempTr td{
-	padding:0 10px;
-}
-.info{
-	margin-left: 100px;
-	align-content: center;
-}
-
   </style>
   
 <body>
-	<div class="dropdown right info">
-	  <button class="dropbtn">보유쿠폰</button>
-	    <table class="centerTable">
-		    <thead>
+	<div>
+	<table >
+		<caption>보유쿠폰</caption>
+		<thead>
+			<tr>
 				<th align="center">쿠폰이름</th>
 				<th align="center">쿠폰생성일자</th>
 				<th align="center">쿠폰만료일자</th>
-		    </thead>
-		    <tbody> 
-			    <tr th:each="oc:${map}" align="center" class="tempTr">
-					<td align="left" th:text = "${oc.couponName}"></td>
-					<td th:text = "${oc.ownCouponCreDate.toString().substring(0,10)}"></td>
-					<td align="center" th:text = "${oc.ownCouponDelDate.toString().substring(0,10)}"></td>
-			    </tr>
-	       	</tbody>
-	      	</table>
+			</tr>
+		</thead>
+		<tbody> 
+			<tr th:each="oc:${map}" align="center" class="tempTr">
+				<td align="left" th:text = "${oc.ownCoupon.couponName}"></td>
+				<td th:text = "${oc.ownCouponCreDate.toString().substring(0,10)}"></td>
+				<td align="center" th:text = "${oc.ownCouponDelDate.toString().substring(0,10)}"></td>
+			</tr>
+		</tbody>
+	</table>
 	</div>		
 </body>
 

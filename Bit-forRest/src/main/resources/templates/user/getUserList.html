@@ -16,62 +16,41 @@
 <div th:replace="/main/toolbarForAdmin.html"></div>
 <div th:replace="/main/leftbarForAdmin.html"></div>
 
-
-<!--  화면구성 div Start /////////////////////////////////////-->
-<div class="container list">
-	<div class="page-header text-info">
-		       <h3 style="color: black;">유저 목록</h3>
+	<div class="container list">
+		<div class="page-header text-info">
+			<h3 style="color: black;">유저 목록</h3>
 		</div>
+		 <form class="form-inline" name="detailForm">
+			 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		      <table class="table table-hover table-striped">
+			       <thead>
+			          <tr class="tableHeader">
+			            <th align="center">No</th>
+			            <th align="center" >회원ID</th>   
+			            <th align="center">닉네임</th>
+			            <th align="center">이름</th>
+			            <th align="center">가입일자</th>	
+			            <th align="center">유저프로필사진</th>
+			            <th align="center">신고횟수</th>			
+			            	
+			          </tr>
+			        </thead>
+				        
+			        <tbody> 
+					    <tr th:each="user,n :${list}" align="center">
+					    	<td th:text = "${n.index+1}">
+						    <td><a style="color: black;" th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
+							<td th:text = "${user.nickname}"></td>
+							<td th:text = "${user.userName}"></td>
+							<td th:text = "${user.joinDate.toString().substring(0, 10)}"></td>
+							<td th:text = "${user.userImg}"></td>
+							<td th:text = "${user.reportedCount}"></td>
+					    </tr>
+			        </tbody>
 		
-				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
-	    <div class="row">
-	    
-		    <div class="col-md-6 text-left">
-		    	<p class="text-primary">
-		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
-		    	</p>
-		    </div>
-	    	
-		</div>
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		
-	 <form class="form-inline" name="detailForm">
-	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-		 <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped">
-	       <thead>
-	          <tr class="tableHeader">
-	            <th align="center">No</th>
-	            <th align="center" >회원ID</th>   
-	            <th align="center">닉네임</th>
-	            <th align="center">이름</th>
-	            <th align="center">가입일자</th>	
-	            <th align="center">유저프로필사진</th>
-	            <th align="center">신고횟수</th>			
-	            	
-	          </tr>
-	        </thead>
-		        
-	        <tbody> 
-			    <tr th:each="user,n :${list}" align="center">
-			    	<td th:text = "${n.index+1}">
-				    <td><a style="color: black;" th:href="@{/user/getUser(userId= ${user.userId})}">[[${user.userId}]]</a></td>
-					<td th:text = "${user.nickname}"></td>
-					<td th:text = "${user.userName}"></td>
-					<td th:text = "${user.joinDate.toString().substring(0, 10)}"></td>
-					<td th:text = "${user.userImg}"></td>
-					<td th:text = "${user.reportedCount}"></td>
-			    </tr>
-	        </tbody>
-
-      </table>
-		<!--  table End /////////////////////////////////////-->
-	</form>
-</div>
-<!--  화면구성 div End /////////////////////////////////////-->
-
-
+		      </table>
+		</form>
+	</div>
 
 </body>
-
 </html>

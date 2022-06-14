@@ -15,7 +15,10 @@
   --light-bg: #f4f4f4;
   --border: #eee;
 }
-
+.userRate{
+	color: white;
+	align-items: center;
+}
 .smInfo{
 	color: white;
 	align-items: center;
@@ -45,8 +48,8 @@
   
   .card__profile img {
     border-radius: 50%;
-    height: 5rem;
-    width: 5rem;
+    height: 8rem;
+    width: 8rem;
     -o-object-fit: cover;
        object-fit: cover;
   }
@@ -270,6 +273,7 @@
       margin-left:20px;
       	color:#fff;
   }
+ 
 
   
   /*
@@ -358,18 +362,18 @@
    <div class="cardMypage">
         <div class="card__header">
           <div class="card__profile">
-            <img
-              src="https://randomuser.me/api/portraits/men/52.jpg"
-              alt="A man smiling"
-            />
+            <img class="userImg"
+              th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"/
+              alt="">
           </div>
           <div class="card__name">
             <h2 sec:authentication="principal.user.nickname"></h2>
             <div class="card__handle">
-              <span class="handle" sec:authentication="principal.user.userName">userName</span>
+              <span class="handle" sec:authentication="principal.user.userName"></span>
               <span class="circle"></span>
               <span class="category">
             	<img src="/images/header/starReview.png" width="20%" height="20%">
+            	<a class="userRate"sec:authentication="principal.user.userRate"></a>
 				</span>
             </div>
           </div>
@@ -396,22 +400,13 @@
               </svg>
               <span>
                <span sec:authorize="isAuthenticated()">
-               <a th:href="@{/user/getUser(userId= ${#authentication.principal.user.userId})}">Edit</a>
+               <a th:href="@{/user/updateUser(userId= ${#authentication.principal.user.userId})}">Edit</a>
                 </span>
               </span>
             </button>
           </div>
         </div>
         <hr class="border" />
-        <!-- <nav>
-          <ul class="navlinks">
-            <li class="link__item">Home</li>
-            <li class="link__item">Projects</li>
-            <li class="link__item">About</li>
-            <li class="link__item">Jobs</li>
-            <li class="link__item">Contact</li>
-          </ul>
-        </nav> -->
         <div class="card__insights">
           <div class="card__heading">
             <div class="heading">My Page</div>
@@ -491,7 +486,7 @@
 	function popup(){
         var url = "/coupon/ownCouponList";
         var name = "popup test";
-        var option = "width = 800, height = 500, top = 100, left = 400, location = yes"
+        var option = "width = 650, height = 500, top = 100, left = 400, location = yes"
         window.open(url, name, option);
     }
 	  	
