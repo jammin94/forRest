@@ -10,7 +10,7 @@ public class Report {
 	private int reportNo;
 	private String reportUser;
 	private String reportedUser;
-	private int reportOldNo;
+	private String reportOldNo;
 	private int reportChatroomNo;
 	private String reportCategory;
 	private Date reportDate;

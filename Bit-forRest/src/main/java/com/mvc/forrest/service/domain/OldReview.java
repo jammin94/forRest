@@ -9,7 +9,7 @@ public class OldReview {
 	private int oldReviewNo;
 	private String reviewUserId;
 	private String reviewedUserId;
-	private int oldNo;
+	private String oldNo;
 	private String reviewDetail;
 	private double userRate;
 	private Date reviewDate;
