@@ -74,7 +74,7 @@ public class CouponController {
 	
 		System.out.println("/coupon/addCoupon : POST");
 		
-		coupon.setCouponNo(fileNameUtils.couponG());
+		coupon.setCouponNo(fileNameUtils.getRandomString());
 		
 		couponService.addCoupon(coupon);
 		

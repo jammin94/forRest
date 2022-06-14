@@ -181,7 +181,7 @@
 	  <input type="text" id="sample6_address" name= "addr2" placeholder="주소"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
 	  <input type="text" id="sample6_detailAddress" name= "addr3" placeholder="상세주소">
 	  <input type="text" id="sample6_extraAddress" name= "addr4" placeholder="참고항목">
-
+	  <input type="hidden" id="userAddr" name="userAddr">
       
 <!-- 	  <br><br>
       <label for="userAddr">Address</label>
@@ -233,6 +233,8 @@
 				var userImg = $("input[name='userImg']").val();
 				
 				console.log(userId,password,userName,nickname,phone,userAddr,userImg);
+			
+				$("input:hidden[name='userAddr']").val( userAddr );
 				
 				$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 			});
