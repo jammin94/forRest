@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INTO OLD(oldNo,userId, oldPrice, oldTitle, oldDetail, oldDate,oldView,
 		category, oldState, oldImg, oldAddr)
 		values
-		(NULL,#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg},#{oldAddr})
+		(#{oldNo},#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg},#{oldAddr})
 	</insert>
 
 	<!-- SQL : DELETE -->

@@ -1,12 +1,12 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
+<!------ Include the above in your HEAD tag ---------->
 
 <!DOCTYPE html><html class=''>
 <head>
 <meta charset='UTF-8'><meta name="robots" content="noindex">
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
 <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
 <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
 <link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
@@ -16,6 +16,8 @@
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
+
 <style class="cp-pen-styles">body {
   display: flex;
   align-items: center;
@@ -277,7 +279,7 @@
       <p class="oldState">{{old.oldState}}</p>
 			<div class="social-media">
 				<i class="fa fa-exclamation" aria-hidden="true"></i>
-        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        		<i class="fa fa-sign-out" id="confirm" aria-hidden="true"></i>
 			</div>
 		</div>
 		<div class="messages">
@@ -322,7 +324,7 @@
 			  <i class="fa fa-paperclip attachment" aria-hidden="true" for="image"></i>
         <input type="hidden" id="chatRoomNo" name="chatRoomNo" value="{{chatRoomNo}}"/>
 			  <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-      </form>
+     	 </form>
 			</div>
 		</div>
 	</div>
@@ -349,6 +351,21 @@ $(".expand-button").click(function() {
   $("#profile").toggleClass("expanded");
 	$("#contacts").toggleClass("expanded");
 });
+
+
+//나가기 버튼 누를시
+$(".fa-sign-out").click(async function(){
+	try{
+		if(confirm('정말로 나가시겠습니까?')){
+			//라우터 나가기 처리
+			return await axios.get('/oldChat/chat/exit?chatRoomNo={{chatRoomNo}}');
+		}else{
+			return false;
+		}
+	}catch(error){
+		
+	}
+})
 
 
 //접속시 시스템 메세지

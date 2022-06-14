@@ -2,10 +2,33 @@ const express = require('express');
 const {QueryTypes} = require('sequelize');
 const Query = require('../queries/query'); 
 const db = require('../models/index');
-//const Old = require('../models/old');
 
 
 const router = express.Router();
+
+//중고거래 채팅방 나가기
+router.get('/init', async (req, res, next) => {
+  try {
+    
+    res.render('oldChatRoom',{lists});
+
+  }catch (err) {
+    console.error(err)
+    next(err)
+  }
+});
+
+//중고거래 채팅하기 버튼 눌렀을 시
+router.get('/init', async (req, res, next) => {
+  try {
+    
+    res.render('oldChatRoom',{lists});
+
+  }catch (err) {
+    console.error(err)
+    next(err)
+  }
+});
 
 //기본화면. 중고거래 채팅방 목록을 보여준다.
 router.get('/', async (req, res, next) => {

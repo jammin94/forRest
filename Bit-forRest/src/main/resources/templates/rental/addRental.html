@@ -181,15 +181,15 @@ input{
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
 		<td>주문하시는분</td>
-		<td><input type="text" class="orderName" name="nameOrder" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+		<td><input type="text" class="orderName" name="receiverName" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
 	</tr>
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" class="hpNum1" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" class="hpNum2" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" class="hpNum3" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="text" class="receiverPhone1" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone2" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone3" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
 		</td>
 	</tr>
 	
@@ -215,8 +215,8 @@ input{
 		</td>
 	</tr>
 	<tr>
-		<td>받으실분</td>
-		<td><input type="text" class="inputRecevierName" name="nameReceiver" value="" required="" readonlycheck=""></td>
+		<td></td>
+		<td></td>
 	</tr>
 	
 	<tr>
@@ -251,18 +251,10 @@ input{
 	</tr>
 	
 	
-	<tr>
-		<td>핸드폰번호</td>
-		<td>
-		<input class="hpNum11" type="text" name="mobileReceiver[]" value="" size="3" maxlength="3" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
-		<input class="hpNum22" type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck=""> -
-		<input class="hpNum33" type="text" name="mobileReceiver[]" value="" size="4" maxlength="4" option="regNum" required="" label="수령자 핸드폰번호" readonlycheck="">
-		
-		</td>
-	</tr>
+
 	<tr>
 		<td>남기실 말씀</td>
-		<td><input type="text" name="memo" style="width:100%"></td>
+		<td><input type="text" name="divyRequest" style="width:100%"></td>
 	</tr>
 	<tr id="delivery_check" style="display:none;">
 		<td>&nbsp;</td>
@@ -273,10 +265,10 @@ input{
 	</tr>
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr id="paper_delivery_menu">
-		<td>배송선택</td>
+		<td></td>
 		<td class="noline">
 	
-		<div style="float:left"><input type="radio" name="deliPoli" value="0" checked="" onclick="getDelivery()" onblur="chk_emoney(document.frmOrder.emoney)"> 기본배송</div>
+		<div style="float:left"> </div>
 		</td>
 	</tr>
 	</tbody></table>
@@ -285,35 +277,19 @@ input{
 </tr>
 </tbody></table>
 <div style="font-size:0;height:5px"></div>
+
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
 	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-		03 쿠폰
+		03 쿠폰 
 	</td>
 	<td style="padding:10px">
-
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody><tr>
-		<td>대여상품 합계금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
-	</tr>
-	<tr>
-		<td>배송비</td>
-		<td>
-		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
-		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
-		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
-		</td>
-	</tr>
-
-
-	<tr>
-		<td>총 결제금액</td>
-		<td><span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
-	</tr>
-	</tbody></table>
+	 <select class="coupon" name= "coupon">   				
+   			<option >-- 선택 --</option>
+	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
+	       	 </option>  	
+          </select>	 
 	</td>
 </tr>
 </tbody>
@@ -331,10 +307,18 @@ input{
 
 	<table>
 	<colgroup><col width="100">
-	</colgroup><tbody><tr>
-		<td>대여상품 합계금액</td>
+	</colgroup><tbody>
+	
+	<tr>
+		<td>대여상품<br/> 합계금액</td>
 		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
 	</tr>
+	
+	<tr>
+		<td>쿠폰할인금액</td>
+		<td><p id="couponPrice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</p> 원</td>
+	</tr>
+	
 	<tr>
 		<td>배송비</td>
 		<td>
@@ -347,7 +331,7 @@ input{
 
 	<tr>
 		<td>총 결제금액</td>
-		<td><span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+		<td><span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -356,7 +340,7 @@ input{
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button>결제하기</button>
+	<button class="payBtn">결제하기</button>
 	<button>취소하기</button>
 </div>
 	</form>
@@ -466,11 +450,43 @@ function divy_execDaumPostcode() {
         }
     }).open();
 }
-   
-    function inputCheckClick(){
-    	console.log("inputCheckClick");
-    }
 
+ 
+    $(function(){
+    	
+    	const PRICE = $('#paper_goodsprice').text().replace(",","");
+    	
+    	console.log(PRICE);
+    	
+    	$(".coupon").on("click",function(){
+    		
+    		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
+    			       		    			   
+    	    	    var sText = $('#paper_goodsprice').text();
+    	    	    var rText=  sText.replace(",",""); //90870원    	    	    
+    	    	
+    	    		$('#couponPrice').text($(".coupon option:selected").val().replace(".0","")).toLocaleString();    	    		    	   
+    	    	    
+    	    		var outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
+    	    		var convertPrice = outPutPrice.toLocaleString();
+    	    		
+    	    	    //계산
+    	    	    var resultPrice = rText -$(".coupon option:selected").val();    
+    	    	    
+    	    	    //계산값
+    	    	    console.log(resultPrice);
+    	    	    
+    	    	    
+    	    	    //계산값 텍스트 대체
+    	    	    $('#resultPrice').text(convertPrice);
+    		}
+    	 
+    	})
+    	    		
+    	$('.payBtn').on("click",function(){
+    		console.log('adsfasdf');
+    	})
+    })
     
     
    

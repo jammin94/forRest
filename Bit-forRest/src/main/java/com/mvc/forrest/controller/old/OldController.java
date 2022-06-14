@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
@@ -125,14 +126,17 @@ public class OldController {
 
 		System.out.println(this.getClass() + " ADD올드 POST");
 
-		String oldNo = "ll";
-
-		oldService.addOld(old);
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+		String oldNo = FileNameUtils.getRandomString();
+		System.out.println(oldNo);
+		// add하기 전에 oldNo가 set 되어야 함.
 		old.setOldNo(oldNo);
+
+		// flag: old인지 product인지
+		fileUtils.uploadFiles(uploadFile, oldNo, "old");
 
 		System.out.println(old);
 
+		oldService.addOld(old);
 		model.addAttribute("old", old);
 
 		return "redirect:/old/listOld";
@@ -150,19 +154,35 @@ public class OldController {
 	}
 
 	@PostMapping("updateOld")
-	public String updateOld(@RequestParam("old") Old old) throws Exception {
-		System.out.println(this.getClass() + "포스트수정");
-		oldService.updateOld(old);
+
+	public String updateOld(@ModelAttribute("old") Old old, @RequestParam("uploadFile") List<MultipartFile> uploadFile,
+
+			Model model) throws Exception {
+
+		System.out.println(this.getClass() + " UPDATE올드 POST");
+
+		String oldNo = FileNameUtils.getRandomString();
+		System.out.println(oldNo);
+		// add하기 전에 oldNo가 set 되어야 함.
+		old.setOldNo(oldNo);
+
+		// flag: old인지 product인지
+		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+
+		System.out.println(old);
+
+		oldService.addOld(old);
+		model.addAttribute("old", old);
 
 		return "redirect:/old/listOld";
 	}
 
-	@PostMapping("deleteOld")
-	public String deleteOld(@ModelAttribute("old") Old old, Model model) throws Exception {
-		oldService.deleteOld(old.getOldNo());
-
-		System.out.println("중고거래 찜하기 테스트 중");
-		return "old/listOld";
+	@RequestMapping("deleteOld")
+	public String deleteOld(@ModelAttribute("oldNo") String oldNo) throws Exception {
+		System.out.println("delete");
+		
+		oldService.deleteOld(oldNo);
+		return "redirect:/old/listOld";
 	}
 
 	@PostMapping("updateOldState")
