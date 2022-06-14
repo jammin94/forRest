@@ -1,6 +1,7 @@
 package com.mvc.forrest.controller.rentalReview;
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.User;
@@ -65,9 +68,26 @@ public class RentalReviewController {
 		
 		//리뷰등록하기 기능구현
 		@PostMapping("addRentalReview")
-		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model,@RequestParam("fileName") MultipartFile file) throws Exception {
+			System.out.println(rentalReview.getReviewImg());
+			
+			String temDir = "C:\\Users\\bitcamp\\Desktop\\testimgpath";
+			String fileName = "";
+			String fileConvert = FileNameUtils.fileNameConvert(file.getOriginalFilename());
+			
+			if(!file.getOriginalFilename().isEmpty()) {
+				
+				file.transferTo(new File(temDir, fileConvert));
+				System.out.println("파일명 :: "+fileConvert);
+				
+				fileName =fileConvert;			
+				rentalReview.setReviewImg(fileName);				
+			}else {
+				System.out.println("파일업로드 실패...?");
+			}
+			
 		
-			rentalReview.setReviewImg("텐트.jpg");
+			
 			rentalReview.setProdNo(3); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
 			rentalReview.setUserId("user01@naver.com"); // 참고: 무결성제약조건 userId는 기존값 존재해야함
 			

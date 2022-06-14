@@ -11,7 +11,7 @@
 		<result property="oldReviewNo" 				column="oldReviewNo" 				jdbcType="INTEGER"/>
 		<result property="reviewUserId"	   			column="reviewUserId" 				jdbcType="VARCHAR" />
 		<result property="reviewedUserId"	   			column="reviewedUserId" 				jdbcType="VARCHAR" />
-		<result property="oldNo"	   			column="oldNo" 				jdbcType="INTEGER" />
+		<result property="oldNo"	   			column="oldNo" 				jdbcType="VARCHAR" />
 		<result property="reviewDetail"	   			column="reviewDetail" 				jdbcType="VARCHAR" />
 		<result property="userRate"	   			column="userRate" 				jdbcType="DOUBLE" />
 		<result property="reviewDate"	   			column="reviewDate" 				jdbcType="DATE" />

@@ -14,6 +14,7 @@ public class RentalReview {
 	private int prodNo;
 	private String userId;
 	private Date regDate;
+	private User user;
 	
 	public RentalReview(){
 	}

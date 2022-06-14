@@ -203,7 +203,7 @@ function starsReducer(state, action) {
 		   	alert("1장만 업로드 할 수 있습니다. ");
 		  } 
 	})
-
+	/* */
 	$("input[type='file']").change(function() {
 	  var input = $("input[type='file']")[0];
 	  if (input.files && input.files[0]) {

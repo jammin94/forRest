@@ -124,14 +124,14 @@ input{
 				    	<div class="productInfo">
 					    	<img _ngcontent-ysc-c102="" alt="" src="//img.29cm.co.kr/next-product/2022/05/23/2b8de2e8a22b42578820af6f1c1e5092_20220523235755.jpg?width=300">
 					    	<span>
-						    		3인용 텐트<br/>
+						    		[[${product.prodName}]]<br/>
 						    		2020.03.14 ~ 2020.03.20<br/>
-						    		89000원 / 수량 1개
+						    		[[${product.rentalPrice}]]원 
 					    	</span>
 						</div>
 				    </td>
 					<td align="center">무료배송</td>
-					<td align="center">입금완료</td>
+					<td align="center">[[${product.prodCondition}]]</td>
 			    </tr>
 	        </tbody>
 
@@ -191,10 +191,6 @@ input{
 		<input type="text" class="hpNum2" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
 		<input type="text" class="hpNum3" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
 		</td>
-	</tr>
-	<tr>
-		<td>이메일</td>
-		<td><input type="text" class="regEmail" name="email" value="" required="" option="regEmail"></td>
 	</tr>
 	
 	</tbody></table>
@@ -290,9 +286,46 @@ input{
 </tbody></table>
 <div style="font-size:0;height:5px"></div>
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
-<tbody><tr>
+<tbody>
+<tr>
 	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-		03 결제금액
+		03 쿠폰
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody><tr>
+		<td>대여상품 합계금액</td>
+		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+	</tr>
+	<tr>
+		<td>배송비</td>
+		<td>
+		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
+		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
+		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td>총 결제금액</td>
+		<td><span id="paper_settlement" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+</tbody>
+
+</table>
+<div style="font-size:0;height:5px"></div>
+
+<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+		04 결제금액
 	</td>
 	<td style="padding:10px">
 
