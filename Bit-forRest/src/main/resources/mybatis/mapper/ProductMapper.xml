@@ -29,8 +29,8 @@
 		
 		<association property="userProd" javaType="User">
 			<id property="userId" column="userId"  jdbcType="VARCHAR"/>
-			<id property="userImg" column="userImg"  jdbcType="VARCHAR"/>
-			<id property="userRate" column="userRate"  jdbcType="DOUBLE"/>
+			<result property="userImg" column="userImg"  jdbcType="VARCHAR"/>
+			<result property="userRate" column="userRate"  jdbcType="DOUBLE"/>
 			<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
 		</association>
 	</resultMap>
