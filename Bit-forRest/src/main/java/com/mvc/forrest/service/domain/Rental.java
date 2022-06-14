@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class Rental {
 	
-	private int tranNo;
+	private String tranNo;
 	private String userId;
-	private int prodNo;
+	private String prodNo;
 	private String divyAddress;
 	private String pickupAddress;
 	private Date startDate;
