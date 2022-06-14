@@ -96,9 +96,9 @@
 	 	FROM product p, transaction t left outer join (SELECT prodNo, startDate, endDate FROM transaction WHERE tranCode = 1 AND endDate > DATE(NOW())) a on t.prodNo = a.prodNo
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and tranCode = 0
-	 		<if test="searchProductCondition != null">
+	 		<if test="search.searchProductCondition != null">
 	 		<!-- 현재보관중인 물품만 보기위한 조건-->
-	 		 and p.prodCondition = #{searchProductCondition}
+	 		 and p.prodCondition = #{search.searchProductCondition}
 	 		</if>
 	 	</where>
 	 	ORDER BY t.tranNo DESC

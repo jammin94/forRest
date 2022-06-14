@@ -169,13 +169,14 @@ public class StorageController {
 	
 	//회원, 어드민 가능
 	@RequestMapping("listStorage")
-	public String listStorage(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception {
+	public String listStorage(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		
-	
+		System.out.println("search:" + search);
+		
 		search.setPageSize(pageSize);
 		
 		//암호화된 userId를 받아옴
@@ -243,6 +244,9 @@ public class StorageController {
 	//회원, 어드민 가능
 	@GetMapping("extendStorage")
 	public String extendStorageGet(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
+		
+		System.out.println("extendStorage Get Start");
+		System.out.println("tranNo:"+tranNo);
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 		
