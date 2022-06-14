@@ -25,5 +25,5 @@ public interface RentalReviewDAO {
 	
 	void updateRentalReview(RentalReview rentalReview) throws Exception;
 	
-	List<RentalReview> getRentalReviewList(Search search) throws Exception;
+	List<RentalReview> getRentalReviewList(String prodNo) throws Exception;
 }

@@ -9,7 +9,7 @@
  	
 	<resultMap id="ImgSelectMap" type="img">
 		<result property="imgNo" 				column="imgNo" 				jdbcType="INTEGER"/>
-		<result property="contentsNo" 				column="contentsNo" 				jdbcType="INTEGER"/>
+		<result property="contentsNo" 				column="contentsNo" 				jdbcType="VARCHAR"/>
 		<result property="fileName" 				column="fileName" 				jdbcType="VARCHAR"/>
 		<result property="contentsFlag" 				column="contentsFlag" 				jdbcType="VARCHAR"/>
 	</resultMap>

@@ -3,12 +3,12 @@
 //const fs = require('fs');
 //const path = require('path');
 const Sequelize = require('sequelize');
-const User = require('./user');
-const Old = require('./old');
-const Product = require('./product');
-const Chat = require('./chat');
-const ChatRoom = require('./chatRoom');
-const ChatImg = require('./chatImg');
+//const User = require('./user');
+//const Old = require('./old');
+//const Product = require('./product');
+//const Chat = require('./chat');
+//const ChatRoom = require('./chatRoom');
+//const ChatImg = require('./chatImg');
 
 //const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -45,6 +45,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 //db.Sequelize = Sequelize;
 
+/*
 db.User = User;
 db.Old = Old;
 db.Product= Product;
@@ -65,5 +66,5 @@ Product.associate(db);
 Chat.associate(db);
 ChatRoom.associate(db);
 ChatImg.associate(db);
-
+*/
 module.exports = db;
