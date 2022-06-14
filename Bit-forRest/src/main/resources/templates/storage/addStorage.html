@@ -422,8 +422,8 @@ border-bottom:3px solid #ddd !important;
 		<td>
 			 <select class="coupon" name= "coupon">
    				
-   			<option >-- 선택 --</option>
-	       	 <option th:each="ownCoupon : ${list}" th:text="|${ownCoupon.ownCoupon.discount} ${ownCoupon.couponName}|">
+   			<option th:value=0>-- 선택 --</option>
+	       	 <option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}">
 	       	 </option>
   
           </select>
@@ -663,7 +663,7 @@ $(function(){
 	 //*/
 	 
 	 
-
+	//금액계산
 	 function totalPrice(){
 
 		
@@ -677,16 +677,18 @@ $(function(){
 		var originPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
 									$("input[name='prodQuantity']").val() *  $(".period option:selected").val()
 		
-		var discountPrice = 0;
+		var discountPrice = $(".couponValue").val();
+		
+		alert("discount: "+discountPrice);
 		
 		//금액할인과 %할인에따른 조건
-		/*
-		if(discount > 0 && discount<1){
-			discountPrice = orginPrice * discount;
+		
+		if(discountPrice > 0 && discountPrice<1){
+			discountPrice = orginPrice * discountPrice;
 		} else{
-			discountPrice = discount;
+			discountPrice = discountPrice + 0;
 		}
-		*/
+		
 		
 		var resultPrice = originPrice - discountPrice;
 		
@@ -695,9 +697,9 @@ $(function(){
 		 $('.resultPrice').val(resultPrice);
 		
 
-		//alert(originPrice);
-		//alert(discountPrice);
- 		//alert("가격"+resultPrice);
+		alert(originPrice);
+		alert(discountPrice);
+ 		alert("가격"+resultPrice);
 		  
 		 };
 	 
@@ -710,7 +712,7 @@ $(function(){
 	}).change();
 	
 	
-	//계산
+	//결제
 	$(function(){
 		 $(".payment").on("click", function(){
 			 combineAddr();

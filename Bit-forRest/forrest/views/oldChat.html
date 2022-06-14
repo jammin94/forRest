@@ -1,0 +1,472 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html><html class=''>
+<head>
+<meta charset='UTF-8'><meta name="robots" content="noindex">
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+
+<script src="https://use.typekit.net/hoy3lrg.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
+
+<style class="cp-pen-styles">body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /*background: #ffffff;*/
+  /*background-image: url("/images/gif/9df0332215c378644d370e50ec110331.gif");*/
+  font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+  font-size: 1em;
+  letter-spacing: 0.1px;
+  color: #32465a;
+  text-rendering: optimizeLegibility;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  -webkit-font-smoothing: antialiased;
+}
+
+#frame {
+  width: 100%;
+  min-width: 360px;
+  max-width: 1600px;
+  height: 92vh;
+  min-height: 300px;
+  max-height: 820px;
+  background: #E6EAEA;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 360px) {
+  #frame {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+#frame .content {
+  float: right;
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  top: 15px;
+}
+@media screen and (max-width: 735px) {
+  #frame .content {
+    width: calc(100% - 58px);
+    min-width: 300px !important;
+  }
+}
+@media screen and (min-width: 900px) {
+  #frame .content {
+    width: calc(100% - 340px);
+  }
+}
+#frame .content .contact-profile {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background: #f5f5f5;
+}
+#frame .content .contact-profile img {
+  width: 40px;
+  border-radius: 50%;
+  float: left;
+  margin: 9px 12px 0 9px;
+}
+#frame .content .contact-profile p {
+  float: left;
+}
+/********************************************/
+#frame .content .contact-profile p.oldState{
+  font-size: 0.8em;
+}
+/********************************************/
+#frame .content .contact-profile .social-media {
+  top: 10px;
+  float: right;
+}
+#frame .content .contact-profile .social-media i {
+  
+  margin-left: 14px;
+  cursor: pointer;
+}
+#frame .content .contact-profile .social-media i:nth-last-child(1) {
+  margin-right: 20px;
+}
+#frame .content .contact-profile .social-media i:hover {
+  color: #435f7a;
+}
+#frame .content .messages {
+  height: auto;
+  min-height: calc(100% - 93px);
+  max-height: calc(100% - 93px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+@media screen and (max-width: 735px) {
+  #frame .content .messages {
+    max-height: calc(100% - 105px);
+  }
+}
+#frame .content .messages::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+#frame .content .messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+#frame .content .messages ul li {
+  display: inline-block;
+  clear: both;
+  /*float: right;*/  /*left*/
+  margin: 15px 15px 5px 15px;
+  width: calc(100% - 25px);
+  font-size: 0.9em;
+}
+#frame .content .messages ul li:nth-last-child(1) {
+  margin-bottom: 20px;
+}
+
+/*채팅창에서 내 유저 이미지 */
+#frame .content .messages ul li.sent img {
+  margin: 6px 8px 0 0;
+}
+
+/*내가 보낸 메세지 설정 */
+#frame .content .messages ul li.sent p {
+  background: #435f7a;
+  color: #f5f5f5;
+  float: right; /*원래 없었음*/
+}
+
+#frame .content .messages ul li.sent span.sent, div.sent{
+  float: right; /*원래 없었음*/
+}
+
+/*채팅창에서 대화상대 이미지 */
+#frame .content .messages ul li.replies img {
+  float: left; 
+  margin: 6px 0 0 8px;
+}
+
+/*남이 보낸 메세지 설정 */
+#frame .content .messages ul li.replies p {
+  background: #f5f5f5;
+  float: left;  
+}
+
+#frame .content .messages ul li.replies{
+  float: left; /*원래 없었음*/
+}
+
+/*채팅창 에서의 유저이미지 공통 설정*/
+#frame .content .messages ul li img {
+  width: 22px;
+  border-radius: 50%;
+  float: right; 
+}
+
+/*채팅창 에서의 메세지 공통 설정*/
+#frame .content .messages ul li p {
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 205px;
+  line-height: 130%;
+}
+/*읽은 사람 숫자 설정*/
+#frame .content .messages ul li span{
+  font-size: 0.7em;
+  color:blueviolet;
+}
+/*채팅 시각 설정*/
+#frame .content .messages ul li div{
+  font-size: 0.7em;
+}
+@media screen and (min-width: 735px) {
+  #frame .content .messages ul li p {
+    max-width: 300px;
+  }
+}
+#frame .content .message-input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
+}
+#frame .content .message-input .wrap {
+  position: relative;
+}
+#frame .content .message-input .wrap input {
+  font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
+  float: left;
+  border: none;
+  width: calc(100% - 90px);
+  padding: 11px 32px 10px 8px;
+  font-size: 0.8em;
+  color: #32465a;
+  border-radius: 100px;
+}
+@media screen and (max-width: 735px) {
+  #frame .content .message-input .wrap input {
+    padding: 15px 32px 16px 8px;
+  }
+}
+#frame .content .message-input .wrap input:focus {
+  outline: none;
+}
+#frame .content .message-input .wrap .attachment {
+  position: absolute;
+  right: 60px;
+  z-index: 4;
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #435f7a;
+  opacity: .5;
+  cursor: pointer;
+}
+@media screen and (max-width: 735px) {
+  #frame .content .message-input .wrap .attachment {
+    margin-top: 17px;
+    right: 65px;
+  }
+}
+#frame .content .message-input .wrap .attachment:hover {
+  opacity: 1;
+}
+#frame .content .message-input .wrap button {
+  float: right;
+  border: none;
+  width: 50px;
+  padding: 12px 0;
+  cursor: pointer;
+  background: #32465a;
+  color: #f5f5f5;
+}
+@media screen and (max-width: 735px) {
+  #frame .content .message-input .wrap button {
+    padding: 16px 0;
+  }
+}
+#frame .content .message-input .wrap button:hover {
+  background: #435f7a;
+}
+#frame .content .message-input .wrap button:focus {
+  outline: none;
+}
+</style></head><body>
+<div th:replace="/main/toolbar.html"></div>
+
+<div id="frame">
+	<div class="content">
+		<div class="contact-profile">
+			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+       <!-- <img src="{{old.oldImg}} alt="" class="oldImg">-->
+			<p class="oldTitle">{{old.oldTitle}} &nbsp&nbsp</p>
+      <p class="oldPrice">{{old.oldPrice}}원&nbsp&nbsp</p>
+      <p class="oldState">{{old.oldState}}</p>
+			<div class="social-media">
+				<i class="fa fa-exclamation" aria-hidden="true"></i>
+        		<i class="fa fa-sign-out" id="confirm" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="messages">
+			<ul>
+        {% for chatList in chatLists %}
+          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+            <li class="sent">
+          {% elif sendUserId === 'system' %}    
+            <li class="system">
+          {% else %}
+            <li class="replies">
+          {% endif %}
+            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+            <!--<img src="{{list.ownerImg}}" alt="" /> --><!--세션 해결하면 수정!-->
+
+            <p>{{chatList.chatMessage}}</p>
+            <br/>
+          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+            <span class="sent">
+          {% else %}    
+            <span class="replies">
+          {% endif %}
+            {{chatList.readOrNot}}</span>
+            <br/>
+
+          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+            <div class="sent">
+          {% else %}    
+            <div class="replies">
+          {% endif %}
+          {{chatList.createdAt}}</div>
+            </li>
+        {% endfor %}
+			</ul>
+		</div>
+		<div class="message-input">
+			<div class="wrap">
+      <!--<form action="/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}" id="chat-form" method="post" enctype="multipart/form-data">-->
+        <form id="chat-form" method="post" enctype="multipart/form-data"></form>
+			  <input type="text" id="chat" name="chat" placeholder="채팅을 입력하세요" />
+        <input type="file" id="image" name="image" style="display:none">
+			  <i class="fa fa-paperclip attachment" aria-hidden="true" for="image"></i>
+        <input type="hidden" id="chatRoomNo" name="chatRoomNo" value="{{chatRoomNo}}"/>
+			  <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+     	 </form>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script >
+const socket = io.connect('http://localhost:3001/oldChat',{
+  path: '/socket.io'
+});//room namespace사용
+
+//새방 이벤트 시 새 방 생성
+
+$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+$("#profile-img").click(function() {
+	$("#status-options").toggleClass("active");
+});
+
+$(".expand-button").click(function() {
+  $("#profile").toggleClass("expanded");
+	$("#contacts").toggleClass("expanded");
+});
+
+
+//나가기 버튼 누를시
+$(".fa-sign-out").click(async function(){
+	try{
+		if(confirm('정말로 나가시겠습니까?')){
+			//라우터 나가기 처리
+			return await axios.get('/oldChat/chat/exit?chatRoomNo={{chatRoomNo}}');
+		}else{
+			return false;
+		}
+	}catch(error){
+		
+	}
+})
+
+
+//접속시 시스템 메세지
+socket.on('join',function(data){
+  console.log('소켓 드가자');
+  const li = document.createElement('li');
+  li.classList.add(data.user);
+  console.log("data.user : "+data.user)
+  
+  const p = document.createElement('p');
+  p.textContent(data.chat);
+  li.appendChild(p);
+  console.log("data.chat : "+data.chat)
+
+  document.querySelector('ul').appendChild(li);
+
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+}); 
+
+
+socket.on('oldChat',function(data){
+  const li = document.createElement('li');
+  console.log('user는 현재 '+'{{user}}');
+  console.log('JSON.stringify(data)'+JSON.stringify(data));
+  console.log('data.chat[0].chatMessage : '+data.chat[0].chatMessage);
+
+  if(data.chat[0].sendUserId==='{{user}}'){
+    li.classList.add('sent');
+  }else{
+    li.classList.add('replies');
+  }
+  const ownerImg = document.createElement('img');
+  ownerImg.src='http://emilcarlsson.se/assets/mikeross.png'
+  //ownerImg.src='data.chat[0].userImg'
+  li.appendChild(ownerImg);
+
+  const chatMessage= document.createElement('p');
+  chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
+  li.appendChild(chatMessage);
+
+  const readOrNot= document.createElement('span');
+  readOrNot.classList.add('sent')
+  readOrNot.textContent=data.chat[0].readOrNot;  //수정요망
+  li.appendChild(readOrNot);
+
+  const br = document.createElement('br');
+  li.appendChild(br);
+
+  const div = document.createElement('div');
+  div.classList.add('sent');
+  div.textContent=data.chat[0].createdAt; //수정요망
+  li.appendChild(div);
+
+  document.querySelector('ul').appendChild(li);
+
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+}); 
+
+//메세지 보내기
+function newMessage(){
+  var text = $("input[type='text']").val()
+  if(text!==null){
+    axios.post('/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}',{
+      chat: text,
+    });
+    $("input[type='text']").val('');
+  }
+}
+
+$(".submit").on('click', function(){
+  newMessage();
+});
+
+//enter 눌러도 전송
+$(window).on('keydown', function(e) {
+  if (e.which == 13) {
+    newMessage();
+    return false;
+  }
+});
+
+//판매중, 판매완료 처리!
+$(document).ready(function(){
+  var oldState=$(".oldState").text();
+  if(oldState==1){
+    $(".oldState").text('판매중');
+  }else{
+    $(".oldState").text('판매완료');
+  }
+
+  $(".chatCreatedAt").text();
+});
+
+//클립모양 클릭시 파일업로드
+$("i.fa-paperclip").on('click',function(){
+  $("input[type='file']").click();
+})
+
+
+//# sourceURL=pen.js
+</script>
+<!--</body>-->
+
+</html>

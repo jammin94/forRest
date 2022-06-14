@@ -38,9 +38,9 @@ public class RentalReviewService {
 	}
 	
 	//렌탈리뷰 리스트
-	public Map<String, Object> getRentalReviewList(Search search) throws Exception{
+	public Map<String, Object> getRentalReviewList(String prodNo) throws Exception{
 		
-		List<RentalReview> list= rentalReviewDAO.getRentalReviewList(search);		
+		List<RentalReview> list= rentalReviewDAO.getRentalReviewList(prodNo);		
 				
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
