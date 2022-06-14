@@ -191,7 +191,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		//System.out.println("디버그 "+mapStorage.get("list"));
+		System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
