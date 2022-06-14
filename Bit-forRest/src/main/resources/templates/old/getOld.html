@@ -38,14 +38,16 @@
 			<div class="product-imgs">
 				<div class="img-display">
 					<div class="img-showcase">
-						<img th:src="@{/images/content/fff.png}"> <img
-							th:src="@{/images/content/ccc.jpg}"> <img
-							th:src="@{/images/content/fff.png}"> <img
-							th:src="@{/images/content/fff.png}">
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/ccc.jpg}"> 
+						<img th:src="@{/images/content/fff.png}"> 
+						<img th:src="@{/images/content/fff.png}">
 					</div>
 					<div class="buttons">
 
-						<button type="button" class="btn">삭제</button>
+						<button type="button" class="btn">
+							<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
+						</button>
 						<button type="button" class="btn">
 							<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 						</button>
@@ -56,8 +58,7 @@
 
 				<div class="img-select">
 					<div class="img-item">
-						<a href="#" data-id="1"> <img
-							th:src="@{/images/content/fff.png}">
+						<a href="#" data-id="1"> <img th:src="@{/images/uploadFiles/}">
 						</a>
 					</div>
 					<div class="img-item">
@@ -131,7 +132,7 @@
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star-half-alt"></i> <span
-										th:text=${oldReview.userRate}></span> 
+										th:text=${oldReview.userRate}></span>
 
 								</div>
 
