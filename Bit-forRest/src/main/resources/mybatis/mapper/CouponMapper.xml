@@ -22,7 +22,7 @@
 	 </insert>	 
 	 
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getCoupon"	parameterType="int"	resultMap="couponSelectMap">
+	 <select 	id="getCoupon"	parameterType="String"	resultMap="couponSelectMap">
 		SELECT c.*
 		FROM coupon c
 		WHERE c.couponNo = #{value}

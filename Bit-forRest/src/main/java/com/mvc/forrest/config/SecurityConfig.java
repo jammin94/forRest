@@ -24,7 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//super 삭제 - 기존 시큐리티가 가지고 있는 기능이 없어짐 (Overriding)
 		http.csrf().disable();//csrf 토큰을 사용하지 않겠다.
 		http.authorizeHttpRequests()  //인가 요청이 오면
-			.antMatchers("/user/manager","/product/getProduct").authenticated()
+			.antMatchers("/user/manager","/product/getProduct","/storage/listStorage", "/storage/extendStorage", "/storage/getStorage").authenticated()
+			.antMatchers("/user/getUser", "/user/deleteUser").authenticated()
+			.antMatchers("storage/listStorageForAdmin").hasRole("admin")
 			.anyRequest().permitAll()
 		.and()
 		.formLogin()

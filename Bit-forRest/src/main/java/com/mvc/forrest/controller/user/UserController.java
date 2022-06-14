@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.user;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
@@ -59,79 +61,82 @@ public class UserController {
 	public UserController(){
 	}
 	
-	@GetMapping("login")			//유저, 관리자
-	public String login() throws Exception{
-		
-		System.out.println("/user/login : GET");
-
-		return "user/login";
-	}
 	
-	@PostMapping("login")			//유저, 관리자
-	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
-		
-		System.out.println("/user/login : POST");
-		
-		User dbUser=userService.getUser(user.getUserId());
-		
-		System.out.println("입력받은 ID/PW : "+user);
-		System.out.println("DB와 일치하는 ID/PW : "+dbUser);
-		
-		//db에 아이디가 없을 경우
-		if(dbUser==null) {
-			model.addAttribute("message", "가입되지않은 아이디입니다.");
-			return "user/login";
-		}
-		
-		//db에 아이디가 있지만 회원탈퇴
-		if(dbUser.getRole()=="leave") {
-			model.addAttribute("message", "탈퇴처리된 회원입니다..");
-			return "user/login";	
-		}
-		
-		//db에 아이디가 있지만 로그인제한된 유저
-		if(dbUser.getRole()=="restrict") {
-			model.addAttribute("message", "이용제한된 회원입니다..");
-			return "user/login";	
-		}
-		
-		//해당 id와 pwd가 일치할 경우
-		if( user.getPassword().equals(dbUser.getPassword())){
-			
-			//세션에 user 저장
-			session.setAttribute("user", dbUser);
-//			model.addAttribute("user", dbUser);	
-			
-			//신규회원 쿠폰발급
-			if(dbUser.getJoinDate().equals(dbUser.getRecentDate())) {
-				OwnCoupon oc = new OwnCoupon();
-				Coupon coupon = couponService.getCoupon(2);	//2번 쿠폰 = 신규회원 쿠폰
-				Calendar cal= Calendar.getInstance();
-				cal.add(Calendar.DATE,30);
-				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
-				Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
-				
-				oc.setOwnUser(dbUser);
-				oc.setOwnCoupon(coupon);
-				oc.setOwnCouponCreDate(ts1);
-				oc.setOwnCouponDelDate(ts2);
-				couponService.addOwnCoupon(oc);
-				System.out.println("### 신규회원 쿠폰발급 ###");
-			}
-			
-			userService.updateRecentDate(dbUser);		//최근접속일자 update
-				
-			return "main/index";
-			
-		//해당 id와 pwd가 불일치할 경우	
-		}else{
-			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "user/login";
-		}
-		
-	}
+//		### spring security 사용으로 인한 미사용 method	###
+//	@GetMapping("login")			//유저, 관리자
+//	public String login() throws Exception{
+//		
+//		System.out.println("/user/login : GET");
+//
+//		return "user/login";
+//	}
+//	
+//	@PostMapping("login")			//유저, 관리자
+//	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
+//		
+//		System.out.println("/user/login : POST");
+//		
+//		User dbUser=userService.getUser(user.getUserId());
+//		
+//		System.out.println("입력받은 ID/PW : "+user);
+//		System.out.println("DB와 일치하는 ID/PW : "+dbUser);
+//		
+//		//db에 아이디가 없을 경우
+//		if(dbUser==null) {
+//			model.addAttribute("message", "가입되지않은 아이디입니다.");
+//			return "user/login";
+//		}
+//		
+//		//db에 아이디가 있지만 회원탈퇴
+//		if(dbUser.getRole()=="leave") {
+//			model.addAttribute("message", "탈퇴처리된 회원입니다..");
+//			return "user/login";	
+//		}
+//		
+//		//db에 아이디가 있지만 로그인제한된 유저
+//		if(dbUser.getRole()=="restrict") {
+//			model.addAttribute("message", "이용제한된 회원입니다..");
+//			return "user/login";	
+//		}
+//		
+//		//해당 id와 pwd가 일치할 경우
+//		if( user.getPassword().equals(dbUser.getPassword())){
+//			
+//			//세션에 user 저장
+//			session.setAttribute("user", dbUser);
+////			model.addAttribute("user", dbUser);	
+//			
+//			//신규회원 쿠폰발급
+//			if(dbUser.getJoinDate().equals(dbUser.getRecentDate())) {
+//				OwnCoupon oc = new OwnCoupon();
+//				Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
+//				Calendar cal= Calendar.getInstance();
+//				cal.add(Calendar.DATE,30);
+//				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+//				Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
+//				
+//				oc.setOwnUser(dbUser);
+//				oc.setOwnCoupon(coupon);
+//				oc.setOwnCouponCreDate(ts1);
+//				oc.setOwnCouponDelDate(ts2);
+//				couponService.addOwnCoupon(oc);
+//				System.out.println("### 신규회원 쿠폰발급 ###");
+//			}
+//			
+//			userService.updateRecentDate(dbUser);		//최근접속일자 update
+//				
+//			return "redirect:/";
+//			
+//		//해당 id와 pwd가 불일치할 경우	
+//		}else{
+//			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+//			return "user/login";
+//		}
+//		
+//	}
 	
 
+//		### spring security 사용으로 인한 미사용 method	###
 //	@GetMapping("logout")				//유저, 관리자
 //	public String logout(HttpSession session ) throws Exception{
 //		
@@ -151,11 +156,24 @@ public class UserController {
 	}
 	
 	@RequestMapping("addUser")			//유저, 관리자
-	public String addUser( @ModelAttribute("user") User user ) throws Exception {
+	public String addUser( @ModelAttribute("user") User user, 
+							@RequestParam("userImg")MultipartFile file ) throws Exception {
 
+		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\bin\\main\\static\\uesrImg";
+		
 		System.out.println("/user/addUser : POST");
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userService.addUser(user);
+		
+		if (!file.getOriginalFilename().isEmpty()) {
+            String filename = file.getOriginalFilename();
+            String fullPath = temDir +"\\"+ filename;
+            file.transferTo(new File(fullPath));
+            System.out.println("fullPath : "+fullPath);
+            user.setUserImg(filename);
+        }
+		
+//		user.setPassword(passwordEncoder.encode(user.getPassword()));
+//		
+//		userService.addUser(user);
 				
 		return "user/login";
 	}
@@ -233,7 +251,7 @@ public class UserController {
 		sessionUser.setPassword(password);
 		userService.updatePassword(sessionUser);
 		
-		return "main/index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("getUserList")		//관리자
@@ -347,6 +365,6 @@ public class UserController {
 		}
 		
 
-		return "main/index";
+		return "redirect:/";
 	}
 }

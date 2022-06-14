@@ -14,7 +14,7 @@ public interface CouponDAO {
 	
 	public void addCoupon(Coupon coupon) throws Exception ;
 	
-	public Coupon getCoupon(int couponNo) throws Exception ;
+	public Coupon getCoupon(String couponNo) throws Exception ;
 	
 	public void updateCoupon(Coupon coupon) throws Exception ;
 	

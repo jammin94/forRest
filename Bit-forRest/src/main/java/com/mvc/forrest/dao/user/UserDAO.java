@@ -16,6 +16,8 @@ public interface UserDAO {
 	
 	public User getUser(String userId) throws Exception ;
 	
+	public User getUserByNickname(String nickname) throws Exception ;
+	
 	public User getUserByName(String userName) throws Exception ;
 	
 	public User getUserByPhone(String Phone) throws Exception ;

@@ -26,6 +26,11 @@ public class UserService {
 		return userDao.getUser(userId);
 	}
 	
+	public User getUserByNickname(String nickname) throws Exception {
+		return userDao.getUserByNickname(nickname);
+	}
+
+	
 	public User getUserByName(String userName) throws Exception {
 		return userDao.getUserByName(userName);
 	}

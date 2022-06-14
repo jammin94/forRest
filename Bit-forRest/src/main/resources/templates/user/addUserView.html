@@ -129,7 +129,7 @@
 	padding: 0;
 	font-size: 20px;
 	}
-	.userId_check{
+	.check{
 	margin-left: 20px;
 	margin-top: -5px;
 	}
@@ -140,7 +140,7 @@
 
 <body>
 
-  <form>
+  <form enctype="multipart/form-data">
     <span>
       <h1 class="signUpText">FOR REST</h1>
       
@@ -150,7 +150,7 @@
       <br>
       <label for="userId">Id</label>
       <input id="userId" type="text" name="userId" placeholder="이메일형식" style="margin-bottom: 0">
-	      <span class="userId_check"></span>
+	      <span class="userId_check check"></span>
       
 	  <br><br>
       <label for="password">Password</label>
@@ -158,7 +158,7 @@
       		 placeholder="특수문자, 영어, 숫자 1개이상 사용 8~16자">
       <input id="password2" type="password" name="password2"
       		 placeholder="비밀번호 확인">
-      	      <span class="password_check"></span>
+      	      <span class="password_check check"></span>
       
 	  <br><br>
       <label for="userName">Name</label>
@@ -168,7 +168,7 @@
       <label for="nickname">Nickname</label>
       <input id="nickname" type="text" name="nickname"
      		 placeholder="한글, 영어사용 2~8자">
-	      <span>AJAX자리 이미사용중인 닉네임입니다</span>
+	      <span class="nickname_check check"></span>
 
 	  <br><br>
       <label for="phone">Phone</label>
@@ -198,7 +198,7 @@
 
 
 	  <br><br>
-      <input id="addUser" type="submit" value="가입하기">
+      <input id="addUser" type="button" value="가입하기">
       <a th:href="@{/user/login}">Login</a>
      </span>
   </form>
@@ -221,7 +221,20 @@
 			$("#addUser").on("click", function(){
 				console.log("가입하기 Click");
 				
-//				$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+				var userId = $("input[name='userId']").val();
+				var password = $("input[name='password']").val();
+				var userName = $("input[name='userName']").val();
+				var nickname = $("input[name='nickname']").val();
+				var phone = $("input[name='phone']").val();
+				var userAddr = $("input[name='addr1']").val()+"/"
+								+$("input[name='addr2']").val()+"/"
+								+$("input[name='addr3']").val()+"/"
+								+$("input[name='addr4']").val();
+				var userImg = $("input[name='userImg']").val();
+				
+				console.log(userId,password,userName,nickname,phone,userAddr,userImg);
+				
+				$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 			});
 			
 			$("#userId").keyup(function(){
@@ -233,21 +246,18 @@
 			});
 			
 			$("#nickname").keyup(function(){
-				console.log("닉네임");
+				fncCheckNicknameDuplication();
 			});
 			
 			$("#password2").keyup(function(){
 				var password =	$("#password").val();
 				var password2 =	$("#password2").val();
 				if(password != password2){
-					console.log(password+"///"+password2);
-					console.log("틀려");
 					$("#password2").css("border", "1px solid red");
 					$(".password_check").css("font-size", "12px");
 					$(".password_check").text("비밀번호가 일치하지 않습니다.");
 					$(".password_check").css("color", "red");
 				}else{
-					console.log("일치");
 					$("#password2").css("border", "1px solid green");
 					$(".password_check").css("color", "green");
 					$(".password_check").css("font-size", "12px");
@@ -271,26 +281,42 @@
 				success : function(JSONData, status) {
 					
 					console.log(JSONData)
-					if (JSONData == 1) {
+					
+					
+					/* if (JSONData == 1 && $("#userId").val().indexOf("@") && $("#userId").val().length>3) {
 						$("#userId").css("border", "1px solid red");
 						$(".userId_check").text("사용불가능한 이메일입니다.");
 						$(".userId_check").css("color", "red");
 						$(".userId_check").css("font-size", "12px");
-					} else {
+					} else if(JSONData == 0 && $("#userId").val().indexOf("@") && $("#userId").val().length>3) {
 						$("#userId").css("border", "1px solid green");
 						$(".userId_check").text("사용가능한 이메일입니다.");
 						$(".userId_check").css("color", "green");
 						$(".userId_check").css("font-size", "12px");
-						
+					} */
+					
+					if (JSONData == 0 && $("#userId").val().includes("@") 
+						&& $("#userId").val().includes(".")&& $("#userId").val().length>3) {
+						$("#userId").css("border", "1px solid green");
+						$(".userId_check").text("사용가능한 이메일입니다.");
+						$(".userId_check").css("color", "green");
+						$(".userId_check").css("font-size", "12px");
+					} else {
+						$("#userId").css("border", "1px solid red");
+						$(".userId_check").text("사용불가능한 이메일입니다.");
+						$(".userId_check").css("color", "red");
+						$(".userId_check").css("font-size", "12px");
 					}
+					
+					
 				}
 			});
 		}// 유저아이디 중복 끝
 		
 		//닉네임 중복 확인
-		function fncCheckUserIdDuplication() {
+		function fncCheckNicknameDuplication() {
 			var nickname = $("#nickname").val();
-			
+
 			$.ajax({
 				url : "/user/json/checkNickname?nickname="+nickname,
 				method : "GET" ,
@@ -302,10 +328,20 @@
 				success : function(JSONData, status) {
 					
 					console.log(JSONData)
-					if (JSONData == 1) {
-						console.log("1");
+					if (JSONData == 0 && $("#nickname").val().length>1
+							&&$("#nickname").val().length<9) {
+						$("#nickname").css("border", "1px solid green");
+						$(".nickname_check").text("사용가능한 닉네임입니다.");
+						$(".nickname_check").css("color", "green");
+						$(".nickname_check").css("font-size", "12px");
 					} else {
-						console.log("2");
+						$("#nickname").css("border", "1px solid red");
+						$(".nickname_check").text("사용불가능한 닉네임입니다.");
+						$(".nickname_check").css("color", "red");
+						$(".nickname_check").css("font-size", "12px");
+						if($("#nickname").val().length>9){
+							$(".nickname_check").text("2~8자로 입력해주세요");
+						}
 					}
 				}
 			});
