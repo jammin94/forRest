@@ -35,7 +35,7 @@ public class OldLikeController {
 		
 		Old old = new Old();
 		oldLike.setUserId("admin");
-		old.setOldNo(1);
+		old.setOldNo("1");
 		oldLike.setOld(old);
 		
 		oldLikeService.addOldLike(oldLike);
@@ -50,7 +50,7 @@ public class OldLikeController {
 		
 		Old old = new Old();
 		oldLike.setUserId("admin");
-		old.setOldNo(1);
+		old.setOldNo("1");
 		oldLike.setOld(old);
 		
 		oldLikeService.addOldLike(oldLike);
