@@ -34,7 +34,7 @@ module.exports.listOldChatRoom=
 +'ORDER BY recentTime DESC';
 
 //:oldNo chat toolbar for old
-module.exports.getOld = 'select oldNo, oldImg, oldState, oldTitle, oldPrice from old where oldNo=:oldNo'
+module.exports.getOld = 'select oldNo, userId, oldImg, oldState, oldTitle, oldPrice from old where oldNo=:oldNo'
 
 //:userId == session userId
 module.exports.listProductChatRoom=
@@ -73,13 +73,13 @@ module.exports.listProductChatRoom=
 
 //:prodNo
 //chat toolbar for product
-module.exports.getProduct='select prodNo, prodName, prodImg, isRental, prodQuantity, deposit, rentalPrice from product where prodNo=:prodNo';
+module.exports.getProduct='select prodNo, userId, prodName, prodImg, isRental, prodQuantity, deposit, rentalPrice from product where prodNo=:prodNo';
 
 //:oldNo, :inquireUserId(sessionUserId), :ownerUserId
-module.exports.insertOldChatRoom='INSERT INTO chatRoom VALUES (NULL, :oldNo, NULL, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
+module.exports.insertOldChatRoom='INSERT INTO chatRoom (oldNo, inquireUserId, ownerUserId, inquireUserExit, ownerUserExit, createdAt) VALUES (:oldNo, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
 
 //:prodNo, :inquireUserId(sessionUserId), :ownerUserId
-module.exports.insertProductChatRoom='INSERT INTO chatRoom VALUES (NULL, NULL, :prodNo, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
+module.exports.insertProductChatRoom='INSERT INTO chatRoom (prodNo, inquireUserId, ownerUserId, inquireUserExit, ownerUserExit, createdAt) VALUES (:prodNo, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
 
 // :chatRoomNo
 //enable to see chatRoom if anyone who belongs to some chat room chated!
@@ -109,3 +109,6 @@ module.exports.getTotalUnreadMsg=
 'SELECT COUNT(c.chatMessageNo) totalUnreadMsgCount FROM chatroom r, chat c '
 +'WHERE ((r.ownerUserId=:userId AND r.ownerUserExit=1) OR (r.inquireUserId=:userId AND r.inquireUserExit=1)) '
 +'AND r.chatRoomNo=c.chatRoomNo AND c.readOrNot=1 AND c.sendUserId <>:userId';
+
+//:userId
+module.exports.getUser = 'select * from user where userId=:userId';

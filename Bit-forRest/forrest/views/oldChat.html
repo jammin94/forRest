@@ -285,7 +285,7 @@
 		<div class="messages">
 			<ul>
         {% for chatList in chatLists %}
-          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if sendUserId ==='{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
             <li class="sent">
           {% elif sendUserId === 'system' %}    
             <li class="system">
@@ -297,7 +297,7 @@
 
             <p>{{chatList.chatMessage}}</p>
             <br/>
-          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if sendUserId === '{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
             <span class="sent">
           {% else %}    
             <span class="replies">
@@ -305,7 +305,7 @@
             {{chatList.readOrNot}}</span>
             <br/>
 
-          {% if sendUserId === 'user01@naver.com'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if sendUserId === '{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
             <div class="sent">
           {% else %}    
             <div class="replies">

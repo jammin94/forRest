@@ -10,9 +10,10 @@ dotenv.config();
 const webSocket = require('./socket');
 
 const { sequelize } = require('./models');
-//const indexRouter = require('./routes');
+
 const oldChatRouter = require('./routes/oldChat');
 const rentalChatRouter = require('./routes/rentalChat');
+const sessionLoginLogoutRouter = require('./routes/sessionLoginLogout');
 
 
 const app = express();
@@ -41,7 +42,7 @@ sequelize.sync({ force: false })
     secret: 'forrest',
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: false, /*false*/
     },
   });
   
@@ -50,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/gif', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json()); //parsing application을 위하여!
-app.use(express.urlencoded({ extended: true })); // req.body parsing을 위하여!
+app.use(express.urlencoded({ extended: false })); // req.body parsing을 위하여!
 //app.use(express.urlencoded({ extended: false }));
 
 //app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -62,6 +63,7 @@ app.use(sessionMiddleware);
 //app.use('/', indexRouter);
 app.use('/oldChat', oldChatRouter);
 app.use('/rentalChat', rentalChatRouter);
+app.use('/sessionLoginLogout', sessionLoginLogoutRouter);
 
 
 //에러처리
@@ -82,6 +84,8 @@ app.use((err, req, res, next) => {
 const server = app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
+
+/*****************session 실험 */
 
 //webSocket(server, app);
 webSocket(server, app, sessionMiddleware);

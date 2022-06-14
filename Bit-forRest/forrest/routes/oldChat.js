@@ -7,7 +7,7 @@ const db = require('../models/index');
 const router = express.Router();
 
 //중고거래 채팅방 나가기
-router.get('/init', async (req, res, next) => {
+router.get('/out', async (req, res, next) => {
   try {
     
     res.render('oldChatRoom',{lists});
@@ -34,9 +34,11 @@ router.get('/init', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     //listOldChatRoom
+    const sessionId= req.session.user
+    console.log(sessionId);
     let query=Query.listOldChatRoom;
     const lists = await db.sequelize.query(query, {
-      replacements: {userId : 'user01@naver.com'}, //sessionId 끌어오는 법 알아내서 수정하자
+      replacements: {userId : sessionId}, //sessionId 끌어오는 법 알아내서 수정하자
       type: QueryTypes.SELECT,
       raw: true
     });
@@ -73,10 +75,10 @@ router.get('/:oldNo', async (req, res, next) => {
 
     const old = oldArr[0];
     const chatRoomNo = req.query.chatRoomNo
-    //const user = {user: req.session} 세션 해결하면 하자
+    const user = req.session.user
 
     //response에 담아서 'oldChatRoom.html'로 보내기
-    res.render('oldChat',{chatLists, old, user:'user02@naver.com', chatRoomNo});
+    res.render('oldChat',{chatLists, old, user, chatRoomNo});
 
   }catch (err) {
     console.error(err)
@@ -97,7 +99,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     const insertChat = await db.sequelize.query(query, {
       replacements: 
       { chatRoomNo : roomNo,
-        sendUserId : 'user02@naver.com', //일단 얘로 하자..., //sessionId 끌어오는 법 알아내서 수정하자
+        sendUserId : req.session.user, //일단 얘로 하자..., //sessionId 끌어오는 법 알아내서 수정하자
         chatMessage : chatMessage,
         }, 
       type: QueryTypes.INSERT,
