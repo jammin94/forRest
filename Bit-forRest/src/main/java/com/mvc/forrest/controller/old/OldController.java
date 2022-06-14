@@ -57,7 +57,6 @@ public class OldController {
 	@RequestMapping("listOld")
 	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception {
 
-
 		System.out.println(this.getClass() + "겟리스트");
 
 //		if(search.getCurrentPage() ==0 ){
@@ -144,9 +143,9 @@ public class OldController {
 
 	public String updateOld(@RequestParam("oldNo") String oldNo, Model model) throws Exception {
 		System.out.println(this.getClass() + "겟수정");
-
+		Old old = oldService.getOld(oldNo);
 		oldService.getOld(oldNo);
-	
+		model.addAttribute("old", old);
 		return "old/updateOld";
 	}
 
@@ -154,7 +153,7 @@ public class OldController {
 	public String updateOld(@RequestParam("old") Old old) throws Exception {
 		System.out.println(this.getClass() + "포스트수정");
 		oldService.updateOld(old);
-	
+
 		return "redirect:/old/listOld";
 	}
 

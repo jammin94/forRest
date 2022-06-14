@@ -13,7 +13,7 @@
 
 
 	<div class="container">
-		<header> 중고 거래 등록 </header>
+		<header> 중고 거래 수정 </header>
 		<div class="progress-bar">
 			<div class="step">
 				<p>name</p>
@@ -29,33 +29,33 @@
 			</div>
 		</div>
 		<div class="form-outer">
-			<form method="post" action="/upload" enctype="multipart/form-data">
+			<form>
 				<div class="page slidepage">
 					<div class="title">Basic Info:</div>
 
-					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
 					<div class="form-group">
 						<label for="oldImg" class="col-sm-offset-1 col-sm-3 control-label">사진
 							선택</label>
 						<div class="col-sm-4">
-							<input type="file" class="form-control" id="uploadFile"
-								name="uploadFile" multiple="multiple" placeholder="img"
-								accept=image/* >대표
+							<input type="file" class="form-control" id="oldImg" name="oldImg"
+								accept=image/*>대표
 						</div>
 					</div>
 
 
-					<!-- <form method="post" action="/upload" enctype="multipart/form-data"> -->
+					<!-- <form method="post" action="/upload" enctype"multipart/form-data"> -->
 					<!-- <input type ="file" name="filename" id="filename" </form>사진 -->
 
 
 					<div class="field">
 						<div class="label">제품 이름</div>
-						<input type="text" id="oldTitle" name="oldTitle"  th:value="${old.oldTitle}">
+						<input type="text" id="oldTitle" name="oldTitle"
+							th:value="${old.oldTitle}">
 					</div>
 					<div class="field">
 						<div class="label">카테고리</div>
-						<select class="category" id="category" name="category">
+						<select class="category" id="category" name="category"
+							th:value="${old.category}">
 							<option value="텐트">텐트</option>
 							<option value="침대">침대</option>
 							<option value="의자">의자</option>
@@ -68,10 +68,43 @@
 							<option value="기타용품">기타용품</option>
 						</select>
 					</div>
+					<div class="field nextBtn">
+						<button type="button">Next</button>
+					</div>
+				</div>
+
+				<div class="page">
+					<div class="title">Basic Info:</div>
+					<div class="field temp">
+						<div class="label">제품 설명</div>
+						<textarea name="oldDetail" id="oldDetail" class="oldDetail"
+							height="200px" >[[${old.oldDetail}]]</textarea>
+					</div>
 
 					<div class="field">
 						<div class="label">가격</div>
-						<input type="text" id="oldPrice" name="oldPrice">
+						<input type="text" id="oldPrice" name="oldPrice"
+							th:value="${old.oldPrice}">
+					</div>
+
+					<div class="field">
+						<div class="label">유저 아이디</div>
+						<input type="text" id="userId" name="userId"
+							th:value="${old.userId}">
+					</div>
+
+					<div class="field">
+						<div class="label">스테이트</div>
+						<input type="text" id="oldState" name="oldState"
+							th:value="${old.oldState}">
+					</div>
+
+
+
+					<div class="field">
+						<div class="label">조회수</div>
+						<input type="text" id="oldView" name="oldView"
+							th:value="${old.oldState}">
 					</div>
 
 					<div class="field">
@@ -83,43 +116,10 @@
 							name="oldAddr[]" id="oldAddr1" size="3" class="line" value=""
 							readonlycheck=""> )
 					</div>
-
-					<div class="field nextBtn">
-						<button type="button">Next</button>
-					</div>
-				</div>
-
-				<div class="page">
-					<div class="title">Basic Info:</div>
-					<div class="field temp">
-						<div class="label">제품 설명</div>
-						<textarea name="oldDetail" id="oldDetail" class="oldDetail"
-							height="200px"></textarea>
-					</div>
-
-
-
-					<div class="field">
-						<div class="label">유저 아이디</div>
-						<input type="text" id="userId" name="userId">
-					</div>
-
-					<div class="field">
-						<div class="label">스테이트</div>
-						<input type="text" id="oldState" name="oldState">
-					</div>
-
-
-
-					<div class="field">
-						<div class="label">조회수</div>
-						<input type="text" id="oldView" name="oldView">
-					</div>
-
-
 					<div class="field btns">
 						<button class="prev-1 prev">Previous</button>
-						<button class="submit">Submit</button>
+						<button class="submit"
+							th:onclick="|location.href='@{/old/updateOld}'|">Submit</button>
 					</div>
 				</div>
 
@@ -128,7 +128,7 @@
 	</div>
 
 	<script src="/js/jquery_min.js"></script>
-	<script src="/js/addOld.js"></script>
+	<script src="/js/updateOld.js"></script>
 	<!--     <script src="/js/addRentalReview.js"></script> -->
 
 	<script type="text/javascript">
