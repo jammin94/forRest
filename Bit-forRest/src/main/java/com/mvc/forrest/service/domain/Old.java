@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Old {
-	private int oldNo;
+	private String oldNo;
 	private int oldPrice;
 	private String oldTitle;
 	private String oldDetail;

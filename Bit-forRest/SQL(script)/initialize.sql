@@ -1,7 +1,6 @@
 SET foreign_key_checks=0;
 DROP TABLE board, chat, chatimg, chatroom, coupon, imgs, `old`, oldlike, oldreview, owncoupon, product, rentalreview, report, `transaction`, user, wishlist;
 
-
 CREATE TABLE user (
    userId      VARCHAR(30)   NOT NULL,
    nickname      VARCHAR(30)    NOT NULL UNIQUE,
@@ -75,7 +74,7 @@ ALTER TABLE transaction ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
 
 
 CREATE TABLE old (
-   oldNo INTEGER NOT NULL AUTO_INCREMENT,
+   oldNo VARCHAR(40) NOT NULL,
    userId VARCHAR(30) NOT NULL,
    oldPrice INTEGER NOT NULL,
    oldTitle VARCHAR(100) NOT NULL,
@@ -142,7 +141,7 @@ ALTER TABLE rentalReview ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
 
 CREATE TABLE `chatRoom` (
   `chatRoomNo` int NOT NULL AUTO_INCREMENT,
-  `oldNo` int DEFAULT NULL,
+  `oldNo` varchar(40) DEFAULT NULL,
   `prodNo` varchar(40) DEFAULT NULL,
   `inquireUserId` varchar(30) NOT NULL,
   `ownerUserId` varchar(30) NOT NULL,
@@ -204,7 +203,7 @@ CREATE TABLE `imgs` (
 
 CREATE TABLE oldlike(
 	oldLikeNo			INTEGER 	NOT NULL	AUTO_INCREMENT,
-	oldNo 			INTEGER		NOT NULL 	REFERENCES     old(oldNo),
+	oldNo 			VARCHAR(40)		NOT NULL 	REFERENCES     old(oldNo),
 	userId			VARCHAR(30)	NOT NULL 	REFERENCES     user(userId),
 	PRIMARY KEY(oldLikeNo)
 );
@@ -213,7 +212,7 @@ CREATE TABLE oldReview(
 	oldReviewNo	INTEGER		NOT NULL	AUTO_INCREMENT,
 	reviewUserId	VARCHAR(30)	NOT NULL	REFERENCES	user(userId),
 	reviewedUserId	VARCHAR(30)	NOT NULL	REFERENCES	user(userId),
-	oldNo		INTEGER		NOT NULL	REFERENCES	old(oldNo),
+	oldNo		VARCHAR(40)		NOT NULL	REFERENCES	old(oldNo),
 	reviewDetail	VARCHAR(100),
 	userRate		DOUBLE,
 	reviewDate	DATE 		NOT NULL	DEFAULT (CURRENT_DATE),
@@ -224,7 +223,7 @@ CREATE TABLE report(
 	reportNo		INTEGER		NOT NULL	AUTO_INCREMENT,
 	reportUser		VARCHAR(30)	NOT NULL 	REFERENCES	user(userId),
 	reportedUser	VARCHAR(30)	NOT NULL 	REFERENCES	user(userId),
-	reportOldNo	INTEGER		NOT NULL	REFERENCES	old(oldNo),
+	reportOldNo	VARCHAR(40)		NOT NULL	REFERENCES	old(oldNo),
 	reportChatroomNo	INTEGER,
 	reportCategory	VARCHAR(20),
 	reportDate	DATETIME	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
@@ -263,34 +262,34 @@ INSERT INTO user
 VALUES ('user20@naver.com','user20','user20Phone','2020','user20Name','user20Addr','restrict',CURDATE(),'own','user20Img',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO old
-VALUES (NULL,'user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
+VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
 
 INSERT INTO old
-VALUES (NULL,'user02@naver.com',90000,'1인용 텐트','베이지색',CURRENT_TIMESTAMP(),0,'텐트',TRUE,'bbb.jpg','서교동');
+VALUES ('b','user02@naver.com',90000,'1인용 텐트','베이지색',CURRENT_TIMESTAMP(),0,'텐트',TRUE,'bbb.jpg','서교동');
 
 INSERT INTO old
-VALUES (NULL,'user03@naver.com',40000,'접이식 의자','대형',CURRENT_TIMESTAMP(),0,'의자',TRUE,'ccc.jpg','서교동');
+VALUES ('c','user03@naver.com',40000,'접이식 의자','대형',CURRENT_TIMESTAMP(),0,'의자',TRUE,'ccc.jpg','서교동');
 
 INSERT INTO old
-VALUES (NULL,'user04@naver.com',30000,'바베큐 그릴','2번 사용',CURRENT_TIMESTAMP(),0,'그릴',TRUE,'ddd.jpg','대홍동');
+VALUES ('d','user04@naver.com',30000,'바베큐 그릴','2번 사용',CURRENT_TIMESTAMP(),0,'그릴',TRUE,'ddd.jpg','대홍동');
 
 INSERT INTO old
-VALUES (NULL,'user05@naver.com',5000,'휴대용 버너','가성비',CURRENT_TIMESTAMP(),0,'버너',TRUE,'eee.jpg','염리동');
+VALUES ('e','user05@naver.com',5000,'휴대용 버너','가성비',CURRENT_TIMESTAMP(),0,'버너',TRUE,'eee.jpg','염리동');
 
 INSERT INTO old
-VALUES (NULL,'user06@naver.com',20000,'랜턴조명','LED',CURRENT_TIMESTAMP(),0,'조명',TRUE,'fff.jpg','망원동');
+VALUES ('f','user06@naver.com',20000,'랜턴조명','LED',CURRENT_TIMESTAMP(),0,'조명',TRUE,'fff.jpg','망원동');
 
 INSERT INTO old
-VALUES (NULL,'user01@naver.com',70000,'접이식 테이블','거의새것',CURRENT_TIMESTAMP(),0,'테이블',TRUE,'ggg.jpg','망원동');
+VALUES ('g','user01@naver.com',70000,'접이식 테이블','거의새것',CURRENT_TIMESTAMP(),0,'테이블',TRUE,'ggg.jpg','망원동');
 
 INSERT INTO old
-VALUES (NULL,'user02@naver.com',20000,'컵 수저 식기 세트','스탠304',CURRENT_TIMESTAMP(),0,'식기',TRUE,'hhh.jpg','삼성동');
+VALUES ('h','user02@naver.com',20000,'컵 수저 식기 세트','스탠304',CURRENT_TIMESTAMP(),0,'식기',TRUE,'hhh.jpg','삼성동');
 
 INSERT INTO old
-VALUES (NULL,'user03@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
+VALUES ('i','user03@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
 
 INSERT INTO old
-VALUES (NULL,'user04@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
+VALUES ('j','user04@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 

@@ -78,8 +78,7 @@
 					<div class="field temp">
 						<div class="label">제품 설명</div>
 						<textarea name="oldDetail" id="oldDetail" class="oldDetail"
-							height="200px" th:value="${old.oldDetail}">
-                        </textarea>
+							height="200px" >[[${old.oldDetail}]]</textarea>
 					</div>
 
 					<div class="field">
@@ -105,7 +104,7 @@
 					<div class="field">
 						<div class="label">조회수</div>
 						<input type="text" id="oldView" name="oldView"
-						th:value="${old.oldState}">
+							th:value="${old.oldState}">
 					</div>
 
 					<div class="field">
