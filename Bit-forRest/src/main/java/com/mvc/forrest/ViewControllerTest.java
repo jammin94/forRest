@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.product.ProductService;
@@ -25,9 +26,9 @@ public class ViewControllerTest {
 	@GetMapping("/")
 	public String room(Model model) throws Exception {
 		
-//		list<Old> listOld = oldService.getOldListForIndex();
+		List<Old> listOld = oldService.getOldListForIndex();
 		List<Product> listProduct = productService.getProductListForIndex();
-//		model.addAttribute("listOld", listOld);
+		model.addAttribute("listOld", listOld);
 		model.addAttribute("listProd", listProduct);
 		
 		return "main/index";
