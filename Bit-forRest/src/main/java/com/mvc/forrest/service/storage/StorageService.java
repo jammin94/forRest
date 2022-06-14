@@ -23,7 +23,7 @@ public class StorageService {
 		}
 		
 		//보관물품정보 상세조회
-		public Storage getStorage(int tranNo) throws Exception{
+		public Storage getStorage(String tranNo) throws Exception{
 			return storageDAO.getStorage(tranNo);
 		}
 		
@@ -37,7 +37,7 @@ public class StorageService {
 		}
 		
 		//기간연장시 기존의 보관정보를 삭제
-		public void deleteStorage(int tranNo) throws Exception {
+		public void deleteStorage(String tranNo) throws Exception {
 			storageDAO.deleteStorage(tranNo);
 		}
 		

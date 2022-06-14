@@ -15,13 +15,13 @@ public interface StorageDAO {
 	
 	void addStorage(Storage storage) throws Exception;
 	
-	Storage getStorage(int tranNo) throws Exception;
+	Storage getStorage(String tranNo) throws Exception;
 	
 	int getMaxTranNoForStorage() throws Exception;
 	
 	void updateStorage(Storage storage) throws Exception;
 	
-	void deleteStorage(int tranNo) throws Exception;
+	void deleteStorage(String tranNo) throws Exception;
 	
 	List<Storage> getStorageList(Map<String,Object> map) throws Exception;
 	

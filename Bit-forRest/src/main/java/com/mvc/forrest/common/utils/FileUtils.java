@@ -25,7 +25,7 @@ public class FileUtils {
 	@Autowired
 	private ImgDAO imgDAO;
 	
-    public void uploadFiles(List<MultipartFile> multipartFiles, int id, String flag) throws Exception {
+    public void uploadFiles(List<MultipartFile> multipartFiles, String id, String flag) throws Exception {
         
     	System.out.println("uploadFiles start");
     	

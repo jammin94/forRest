@@ -14,7 +14,7 @@ public class FileNameUtils {
         return builder.toString();
     }
 
-    public static String couponG() {
+    public static String getRandomString() {
         StringBuilder builder = new StringBuilder();
         UUID uuid = UUID.randomUUID();
 

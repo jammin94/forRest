@@ -8,7 +8,7 @@
 <mapper namespace="com.mvc.forrest.dao.product.ProductDAO"> 	
  	
 	<resultMap id="productSelectMap" type="product">
-		<result property="prodNo" 				column="prodNo" 				jdbcType="INTEGER"/>
+		<result property="prodNo" 				column="prodNo" 				jdbcType="VARCHAR"/>
 		<result property="width"	   			column="width" 				jdbcType="INTEGER" />
 		<result property="length" 			column="LENGTH" 			jdbcType="INTEGER" />
 		<result property="height" 			column="height" 		jdbcType="INTEGER" />
@@ -45,7 +45,7 @@
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getProduct"	parameterType="int"	resultMap="productSelectMap">
+	 <select 	id="getProduct"	parameterType="String"	resultMap="productSelectMap">
 		SELECT *
 	    FROM product p, user u
 		where p.prodNo =  #{prodNo} and p.userId = u.userId
