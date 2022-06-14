@@ -234,6 +234,18 @@
 	display:flex;
 }
 
+.reviewMainText >span{
+	display: flex;
+    justify-content: space-between;
+}
+
+.makeText{
+	text-decoration: auto;
+    border-bottom: 2px solid #cac6c6;
+    color:#a0a0a0;
+    cursor:pointer;
+}
+
 </style>
 
 
@@ -382,8 +394,11 @@ flex-none, flex-initial, flex-auto, flex-1
 <!-- Container  -->
 			<ul class="reviewContainer">
 				<p class="reviewMainText">
-				상품리뷰<br/>
-				<span class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
+					<span>
+						<span>상품리뷰</span><br/>
+					</span>
+															
+					<span class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
 				</p>
 			 <li>  
                    <div style="display:flex;">
