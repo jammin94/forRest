@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.rental.RentalDAO;
 import com.mvc.forrest.dao.rentalreview.RentalReviewDAO;
+import com.mvc.forrest.dao.user.UserDAO;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Search;
@@ -19,6 +20,9 @@ public class RentalReviewService {
 
 	@Autowired
 	private RentalReviewDAO rentalReviewDAO;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 	
 	//렌탈리뷰 추가 
@@ -34,15 +38,12 @@ public class RentalReviewService {
 	}
 	
 	//렌탈리뷰 리스트
-	public Map<String, Object> getRentalReviewList(Search search) throws Exception{
-		List<Product> list= rentalReviewDAO.getRentalReviewList(search);
+	public Map<String, Object> getRentalReviewList(String prodNo) throws Exception{
 		
-		int totalCount = rentalReviewDAO.getTotalCount(search);
-		
-		
+		List<RentalReview> list= rentalReviewDAO.getRentalReviewList(prodNo);		
+				
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list );
-		map.put("totalCount", totalCount);
 		
 		return map;
 	}

@@ -11,10 +11,18 @@
 		<result property="reviewNo" 				column="reviewNo" 				jdbcType="INTEGER"/>
 		<result property="reviewImg"	   			column="reviewImg" 				jdbcType="VARCHAR" />
 		<result property="reviewDetail" 			column="reviewDetail" 			jdbcType="VARCHAR" />
-		<result property="reviewScore" 				column="reviewScore" 				jdbcType="VARCHAR"/>
-		<result property="prodNo"	   			column="prodNo" 				jdbcType="INTEGER" />
+		<result property="reviewScore" 				column="reviewScore" 				jdbcType="INTEGER"/>
+		<result property="prodNo"	   			column="prodNo" 				jdbcType="VARCHAR" />
 		<result property="userId" 			column="userId" 			jdbcType="VARCHAR" />
 		<result property="regDate" 			column="regDate" 			jdbcType="DATE" />
+		
+		<association property="user" javaType="User">
+		    <id property="userId" column="userId" jdbcType="VARCHAR"/>
+			<result property="nickname"			column="nickname"		jdbcType="VARCHAR"/>
+			<result property="userImg"			column="userImg"		jdbcType="VARCHAR"/>
+		 </association>
+		
+		
 	</resultMap>
 	
 	<!-- INSERT 
@@ -50,13 +58,12 @@
 	 </delete>
 		 
 	<!-- SELECT LIST -->
-	<select  id="getRentalReviewList"  parameterType="search"	resultMap="rentalReviewSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT rentalReview.* 
-											) inner_table 
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	<select  id="getRentalReviewList"  parameterType="String"	resultMap="rentalReviewSelectMap">
+	  	SELECT r.*,u.*
+	  	FROM rentalReview r , user u
+	  	<where>
+	  	r.userId = u.userId and  prodNo = #{prodNo}
+	  	</where>
 	 </select>
 	 
 	

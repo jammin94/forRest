@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Rental;
@@ -47,6 +49,9 @@ public class RentalController {
 	@Autowired
 	public ProductService productService;
 	
+	@Autowired
+	public CouponService couponService;
+	
 //	@Autowired
 //	public CouponService couponService;  ( 대기 )
 	
@@ -60,7 +65,16 @@ public class RentalController {
 	
 	//------------대여물품add 화면구현------------//
 	@GetMapping("addRental")
-	public String addRentalView( ) throws Exception{
+	public String addRentalView(@ModelAttribute("search") Search search,@RequestParam("prodNo") String prodNo, Model model) throws Exception{
+		
+		//prodNo를 받아서 productService.getProduct 로 product객체를 받고, html에서 product.~~로 페이지내에서 사용
+		Product product = productService.getProduct(prodNo);		
+		
+		//쿠폰받기
+		Map<String,Object> mapCoupon = couponService.getCouponList(search);
+		
+		model.addAttribute("product",product);
+		model.addAttribute("coupon",mapCoupon.get("list"));
 		
 		return "rental/addRental";
 	}

@@ -77,7 +77,7 @@ public class CouponServiceTest {
 		System.out.println("\n"+map.get("list")+"\n");
 	}
 	
-//	@Test
+	@Test
 	public void testGetOwnCouponList() throws Exception{
 
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -88,28 +88,17 @@ public class CouponServiceTest {
 		List<OwnCoupon> list =ownCouponDao.getOwnCouponList(userId);
 		int totalCount = ownCouponDao.getTotalCount(userId);
 		
-		for(int i= 0 ; i<list.size() ; i++ ) {
-			String couponNo = list.get(i).getOwnCoupon().getCouponNo();	//리스트 내의 쿠폰번호
-			Coupon coupon = couponService.getCoupon(couponNo);
-			double discount =  coupon.getDiscount();
-			
-			System.out.println("coupon : "+coupon);
-			
-			map.put("discount"+i, discount);
-			
-			System.out.println(discount);
-		}
 
 		
 		map.put("list", list);
-//		map.put("totalCount", totalCount);
+		map.put("totalCount", totalCount);
 		
 		
 		System.out.println("map : "+ map);
 	}
 	
 	
-	@Test
+//	@Test
 	public void testNewMapperTest() throws Exception{
 		
 		OwnCoupon oc = new OwnCoupon();

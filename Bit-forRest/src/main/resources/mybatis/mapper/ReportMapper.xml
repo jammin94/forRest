@@ -11,7 +11,7 @@
 		<result property="reportNo" 				column="reportNo" 				jdbcType="INTEGER"/>
 		<result property="reportUser" 				column="reportUser" 				jdbcType="VARCHAR"/>
 		<result property="reportedUser" 				column="reportedUser" 				jdbcType="VARCHAR"/>
-		<result property="reportOldNo" 				column="reportOldNo" 				jdbcType="INTEGER"/>
+		<result property="reportOldNo" 				column="reportOldNo" 				jdbcType="VARCHAR"/>
 		<result property="reportChatroomNo" 				column="reportChatroomNo" 				jdbcType="INTEGER"/>
 		<result property="reportCategory" 				column="reportCategory" 				jdbcType="VARCHAR"/>
 		<result property="reportDate"	   			column="reportDate" 				jdbcType="DATE" />
