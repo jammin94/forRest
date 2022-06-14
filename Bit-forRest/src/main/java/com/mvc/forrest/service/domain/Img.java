@@ -8,7 +8,7 @@ import lombok.Data;
 public class Img {
 
 		private int imgNo;
-		private int contentsNo;
+		private String contentsNo;
 		private String fileName;
 		private String contentsFlag;
 		//private String boardImg; 

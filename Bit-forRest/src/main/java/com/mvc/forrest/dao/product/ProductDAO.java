@@ -19,7 +19,7 @@ public interface ProductDAO {
 		
 		void addProduct(Product product) throws Exception;
 		
-		Product getProduct(int prodNo) throws Exception;
+		Product getProduct(String prodNo) throws Exception;
 		
 		void updateProduct(Product product) throws Exception;
 		

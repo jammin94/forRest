@@ -61,7 +61,7 @@ public class ProductController {
 	
 	//회원, 어드민 가능
 	@GetMapping("updateProduct")
-	public String updateProductGet(@RequestParam("prodNo") int prodNo, Model model) throws Exception {
+	public String updateProductGet(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
 		
 		System.out.println("updateProductGet start");
 		
@@ -90,7 +90,7 @@ public class ProductController {
 	
 	//회원, 어드민 가능
 	@RequestMapping("updateProductCondition")
-	public String updateProductCondition(@RequestParam("prodNo") int prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
+	public String updateProductCondition(@RequestParam("prodNo") String prodNo, @RequestParam("productCondition") String productCondition) throws Exception {
 		
 		System.out.println("updateProductCondition start");
 		
@@ -123,10 +123,10 @@ public class ProductController {
 	//관리자가 물품상태를 일괄처리하기위한 코드
 	//어드민만 가능
 	@RequestMapping("updateProductAllCondition")
-	public String updateProductAllCondition(@RequestParam("prodNo") int[] prodNo) throws Exception {
+	public String updateProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
 		
 		//디버깅
-		for(int no: prodNo) {
+		for(String no: prodNo) {
 			System.out.println(no);
 		}
 		
@@ -169,7 +169,7 @@ public class ProductController {
 	
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
-	public String getProduct(@RequestParam("prodNo") int prodNo, Model model, HttpSession httpsession) throws Exception {
+	public String getProduct(@RequestParam("prodNo") String prodNo, Model model, HttpSession httpsession) throws Exception {
 		
 		//디버깅
 		System.out.println("getProduct Start");

@@ -25,7 +25,7 @@ public class ProductService {
 		productDAO.addProduct(product);
 	}
 	
-	public Product getProduct(int prodNo) throws Exception{
+	public Product getProduct(String prodNo) throws Exception{
 		 return productDAO.getProduct(prodNo);
 	}
 	
