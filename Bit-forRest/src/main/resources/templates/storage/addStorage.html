@@ -108,11 +108,11 @@ border-bottom:3px solid #ddd !important;
 	 <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
 	 
 	 <label for="uploadFile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
-	<div class="col-sm-4">
+<!--  	<div class="col-sm-4">
 		   <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"> 
-		   </div>
+		   </div>-->
 		 <!--  table Start /////////////////////////////////////-->
-     <!--   <div class="main-wrapper">
+       <div class="main-wrapper">
   <div class="img-upload-plugin">
                     <div class="img-upload-handler">
                       <div class="img-preview-big">
@@ -130,7 +130,7 @@ border-bottom:3px solid #ddd !important;
                     </div>
                     <input type="file" name="uploadFile" multiple="multiple" style="display:none">
                   </div>
-</div>-->
+</div>
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- 물품정보등록 -->
@@ -421,10 +421,10 @@ border-bottom:3px solid #ddd !important;
 		<td>쿠폰적용</td>
 		<td>
 			 <select class="coupon" name= "coupon">
-   
-        	 <option value="1">10% 할인쿠폰</option>
-	         <option value="1">5000원 할인쿠폰</option>
-	       
+   				
+   			<option >-- 선택 --</option>
+	       	 <option th:each="ownCoupon : ${list}" th:text="|${ownCoupon.ownCoupon.discount} ${ownCoupon.couponName}|">
+	       	 </option>
   
           </select>
 		
@@ -473,8 +473,8 @@ border-bottom:3px solid #ddd !important;
  
 </body>
 <script src="/js/jquery_min.js"></script>
-	<script src="/js/addRentalReview.js"></script>
-	  <sciprt src="/js/rentalTest.js"></sciprt>
+	<script src="/js/addRentalReviewImg.js"></script>
+	  
 <script src="/js/jquery_min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
