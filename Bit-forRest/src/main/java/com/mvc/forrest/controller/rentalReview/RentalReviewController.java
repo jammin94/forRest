@@ -88,8 +88,8 @@ public class RentalReviewController {
 			
 		
 			
-			rentalReview.setProdNo(3); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
-			rentalReview.setUserId("user01@naver.com"); // 참고: 무결성제약조건 userId는 기존값 존재해야함
+			rentalReview.setProdNo("a"); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
+			rentalReview.setUserId("user03@naver.com"); // 참고: 무결성제약조건 userId는 기존값 존재해야함
 			
 			rentalReviewService.addRentalReview(rentalReview);
 			

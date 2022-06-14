@@ -24,6 +24,7 @@ import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
+import com.mvc.forrest.service.rentalreview.RentalReviewService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -39,6 +40,9 @@ public class ProductController {
 	
 	@Autowired
 	public UserService userService;
+	
+	@Autowired
+	public RentalReviewService rentalReviewService;
 	
 	public ProductController() {
 		System.out.println(this.getClass());
@@ -169,7 +173,7 @@ public class ProductController {
 	
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
-	public String getProduct(@RequestParam("prodNo") String prodNo, Model model, HttpSession httpsession) throws Exception {
+	public String getProduct(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
 		
 		//디버깅
 		System.out.println("getProduct Start");
@@ -186,9 +190,15 @@ public class ProductController {
 	
 		//실제구현용: 세션아이디와 물품의 유저아이디가 일치할때 다른화면을 표시하기위한 코드
 		//User sessionUser = (User) httpsession.getAttribute("user");
-
+		
+		//물품상세보기에서 리뷰리스트를 받아옴
+		Map<String, Object> map = rentalReviewService.getRentalReviewList(prodNo);
+		
+		System.out.println("map안에 list출력:"+map.get("list"));
+		
 		model.addAttribute("product", product);
 		model.addAttribute("sessionUser", sessionUser);
+		model.addAttribute("list", map.get("list"));
 		
 		return "product/getProduct";
 	}
