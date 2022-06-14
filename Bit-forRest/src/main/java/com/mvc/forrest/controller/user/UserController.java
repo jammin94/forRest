@@ -311,7 +311,7 @@ public class UserController {
 		List<OldReview> list = oldReviewService.getOldReviewList(userId);
 		Map<String, Object> oldList = oldService.getOldList(search);
 
-//		//해당 유저에 대한 리뷰를 등록한 사람의 수
+		//해당 유저에 대한 리뷰를 등록한 사람의 수
 //		if(list.size()==2){
 //			model.addAttribute("review1", list.get(0));
 //			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
@@ -324,7 +324,7 @@ public class UserController {
 //			model.addAttribute("oldTitle1", oldService.getOld(list.get(0).getOldNo()).getOldTitle());
 //			model.addAttribute("nickname1", userService.getUser(list.get(0).getReviewUserId()).getNickname());
 //		}
-		
+//		
 		model.addAttribute("list",list);
 		model.addAttribute("user", dbUser);
 		model.addAttribute("oldList", oldList.get("list"));
