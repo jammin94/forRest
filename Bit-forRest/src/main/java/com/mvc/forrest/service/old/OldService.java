@@ -22,7 +22,7 @@ public class OldService {
 		oldDAO.addOld(old);
 	}
 	
-	public Old getOld(int oldNo) throws Exception{
+	public Old getOld(String oldNo) throws Exception{
 		System.out.println("getOld 성공");
 		return oldDAO.getOld(oldNo);
 		
@@ -33,7 +33,7 @@ public class OldService {
 		oldDAO.updateOld(old);
 	}
 	
-	public void deleteOld(int oldNo) throws Exception{
+	public void deleteOld(String oldNo) throws Exception{
 		System.out.println("deleteOld 성공");
 		oldDAO.deleteOld(oldNo);
 	}

@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap id="oldSelectMap" type="old">
 		<!-- result property="필드" column="테이블" -->
-		<result property="oldNo" column="oldNo" jdbcType="INTEGER" />
+		<result property="oldNo" column="oldNo" jdbcType="VARCHAR" />
 		<result property="userId" column="userId" jdbcType="VARCHAR" />
 		<result property="oldPrice" column="oldPrice"
 			jdbcType="INTEGER" />
@@ -39,14 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- SQL : DELETE -->
-	<delete id="deleteOld" parameterType="Int">
+	<delete id="deleteOld" parameterType="String">
 		DELETE
 		FROM OLD
 		WHERE oldNo = #{oldNo}
 	</delete>
 
 	<!-- SQL : SELECT ONE -->
-	<select id="getOld" parameterType="Int" resultMap="oldSelectMap">
+	<select id="getOld" parameterType="String" resultMap="oldSelectMap">
 		SELECT old.*, oldReview.userRate
 		FROM old
 		LEFT OUTER JOIN oldReview
