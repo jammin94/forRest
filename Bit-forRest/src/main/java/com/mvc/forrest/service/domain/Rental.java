@@ -12,7 +12,6 @@ import lombok.Data;
 public class Rental {
 	
 	private String tranNo;
-	private String userId;
 	private String prodNo;
 	private String divyAddress;
 	private String pickupAddress;

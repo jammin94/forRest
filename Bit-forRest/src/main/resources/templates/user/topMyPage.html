@@ -363,8 +363,9 @@
         <div class="card__header">
           <div class="card__profile">
             <img class="userImg"
-              th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"/
-              alt="">
+              th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
+              alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'"
+              >
           </div>
           <div class="card__name">
             <h2 sec:authentication="principal.user.nickname"></h2>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.rental.RentalDAO;
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
@@ -63,8 +64,22 @@ public class RentalService {
 		return totalCount ;
 	}
 	
-	
-	
+	//물품대여 리스트 ( Admin 용 )
+		public Map<String, Object> getRentalListProfit(Search search, String userId) throws Exception{
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("search", search);
+			map.put("userId", userId);
+			
+			List<Rental> list = rentalDAO.getRentalListProfit(map);
+			int totalCount = rentalDAO.getTotalCount(search);
+			
+			map.put("list", list);
+			map.put("totalCount", totalCount);
+			
+			return map;
+		}
+		
 	
 
 }

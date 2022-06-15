@@ -116,13 +116,11 @@
 	        </thead>
 	        
 	        <tbody> 
-	    
-	    
 	    <tr th:each="rental :${list}">
 	    
 		    <td class="tdCenter" th:text = "${rental.tranNo}"></td>
 			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
-			<td class="tdCenter" th:text = "${rental.receiverName}"></td>
+	 <td class="tdCenter" th:text = "${rental.buyer.userId}"></td> 
 			<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 	    </tr>
 	    

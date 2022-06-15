@@ -3,16 +3,19 @@ package com.mvc.forrest.config.auth;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.kakao.OAuth2UserInfo;
 
 import lombok.Data;
 
 @Data
-public class LoginUser  implements UserDetails {
+public class LoginUser  implements UserDetails , OAuth2User{
 
 	/**
 	 로그인 했을 때 정보들
@@ -22,6 +25,8 @@ public class LoginUser  implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private User user;
+
+	private OAuth2UserInfo oAuth2UserInfo;
 	
 
 	
@@ -31,7 +36,10 @@ public class LoginUser  implements UserDetails {
 		this.user=user;
 	}
 	
-
+    public LoginUser(User user, OAuth2UserInfo oAuth2UserInfo) {
+        this.user = user;
+        this.oAuth2UserInfo = oAuth2UserInfo;
+    }
 	
 	
 	//getter setter 만들어 줘야 해
@@ -89,6 +97,18 @@ public class LoginUser  implements UserDetails {
 	public boolean isEnabled() {
 		// 계정 활성화 검사 휴면 유저면 false
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return oAuth2UserInfo.getAttributes();
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return oAuth2UserInfo.getProviderId();
 	}
 
 
