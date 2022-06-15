@@ -211,14 +211,27 @@ a{color:inherit;text-decoration:none}
           <input type="submit" class="button signIn" value="로그인" name="loginBtn">
         </div>
 		
+		<!-- SNS LOGIN -->
+		<div class="SNSLogin">
 		<!-- 카카오 -->
 		<div>
 			<a class="form-group" href="https://kauth.kakao.com/oauth/authorize?
 			client_id=ab70541f4fbb493e0fd22d7f73cd2940
-			&redirect_uri=http://localhost:8080/kakaoLogin/kakaoLogin
+			&redirect_uri=http://localhost:8080/snsLogin/kakaoLogin
 			&response_type=code">
 				<img th:src= "@{/images/content/kakao_login_medium.png}">
 			</a>
+			
+			<a class="form-group" href="https://nid.naver.com/oauth2.0/authorize?
+			response_type=code&client_id=RxuYhXapOnqUmHtxXu7S
+			&state=state&redirect_uri=http://localhost:8080/snsLogin/naverLogin">
+				<img th:src= "@{/images/content/btnG_축약형.png}" width="90" height="45">
+			</a>
+		</div>
+		<!-- 네이버 -->
+ 		<div id="naver_id_login">
+		</div>
+ 		
 	  	</div>
         <div class="foot-lnk">
           <a href="#forgot" style="colof:#fff;" name="findId">아이디찾기</a>
@@ -240,6 +253,8 @@ a{color:inherit;text-decoration:none}
   </body>
   
   <script src="/js/jquery_min.js"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script type="text/javascript">
 		
 	//회원가입, 이메일찾기, 비밀번호찾기 event
@@ -260,7 +275,6 @@ a{color:inherit;text-decoration:none}
 			$('h1').on("click", function() {
 				self.location = "/user/login"
 			});
-	
 		});
 
 	
@@ -298,6 +312,12 @@ a{color:inherit;text-decoration:none}
 								"/user/login").attr("target", "_parent").submit();
 					});
 		}
-
+		
+		var naver_id_login = new naver_id_login("RxuYhXapOnqUmHtxXu7S", "http://localhost:8080/snsLogin/naverLogin");
+	  	var state = naver_id_login.getUniqState();
+	  	naver_id_login.setButton("green", 2,40);
+	  	naver_id_login.setDomain("http://localhost:8080/");
+	  	naver_id_login.setState(state);
+	  	naver_id_login.init_naver_id_login();
 	</script>
 </html>

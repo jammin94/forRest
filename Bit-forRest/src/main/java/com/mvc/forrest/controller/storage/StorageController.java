@@ -92,7 +92,7 @@ public class StorageController {
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
 		//디버깅
-		System.out.println("쿠폰list:" + map.get("list"));
+		//System.out.println("쿠폰list:" + map.get("list"));
 		
 		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
 		 String reserveTranNo = FileNameUtils.getRandomString();
@@ -117,14 +117,14 @@ public class StorageController {
 												 Model model) throws Exception {
 		
 		//디버깅
-		System.out.println("product: "+product);
-		System.out.println("storage: "+storage);
+		//System.out.println("product: "+product);
+		//System.out.println("storage: "+storage);
 		
 		for(MultipartFile mf: uploadFile) {
 			System.out.println("fileName:"+mf.getOriginalFilename());
 		}
 		//System.out.println("uploadFile2: " + uploadFile.get(0).getOriginalFilename());
-		System.out.println("paymentNo"+paymentNo);
+	//	System.out.println("paymentNo"+paymentNo);
 		//System.out.println("paymentWay"+paymentWay);
 		
 		//암호화된 유저아이디를 받아옴
@@ -163,7 +163,7 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
-		System.out.println("search:" + search);
+		//System.out.println("search:" + search);
 		
 		search.setPageSize(pageSize);
 		
@@ -180,7 +180,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		System.out.println("디버그 "+mapStorage.get("list"));
+		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);

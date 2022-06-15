@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ import com.mvc.forrest.service.kakao.KakaoLoginService;
 import com.mvc.forrest.service.user.UserService;
 
 @Controller
-@RequestMapping("/kakaoLogin/*")
+@RequestMapping("/snsLogin/*")
 
 public class KakaoLoginController {
 
@@ -46,9 +47,9 @@ public class KakaoLoginController {
 
 		System.out.println("/kakaoLogin/kakaoLogin : GET");
 
-		String access_Token = kakaoLoginService.getAccessToken(code);
+		String access_Token = kakaoLoginService.getKakaoToken(code);
 		
-		Map<String, Object> userInfo = kakaoLoginService.getUserInfo(access_Token);
+		Map<String, Object> userInfo = kakaoLoginService.getKakaoInfo(access_Token);
 	    	System.out.println(userInfo);
 	    	System.out.println(userInfo.get("kakaoEmail"));
 	    	System.out.println(userInfo.get("kakaoImg"));
@@ -98,5 +99,19 @@ public class KakaoLoginController {
 			principalDetailsService.loadUserByUsername(kakaoUser.getUserId());
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping("naverLogin")
+	public String naverLogin(@RequestParam String code, @RequestParam String state) throws Exception{
+		
+		System.out.println("받은 code : "+code+" 받은 state : "+state);
+		
+		String access_Token = kakaoLoginService.getNaverToken(code,state);
+		System.out.println(access_Token);	
+		
+		Map<String, Object> userInfo = kakaoLoginService.getKakaoInfo(access_Token);
+		System.out.println(userInfo);
+		
+		return "redirect:/";
 	}
 }
