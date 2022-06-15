@@ -102,7 +102,7 @@ module.exports.getChat = 'select * from chat where chatMessageNo=:chatMessageNo'
 module.exports.insertChat = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot) values (:chatRoomNo, :sendUserId, :chatMessage, CURRENT_TIMESTAMP, 1)';
 
 //:chatRoomNo, :userId(session)
-module.exports.updateReadOrExit='update chat set readOrNot=0 where chatRoomNo=:chatRoomNo and sendUserId<>:userId and createdAt < CURRENT_TIMESTAMP';
+module.exports.updateReadOrNot='update chat set readOrNot=NULL where chatRoomNo=:chatRoomNo and sendUserId<>:userId and createdAt < CURRENT_TIMESTAMP';
 
 //:userId(session)
 module.exports.getTotalUnreadMsg=

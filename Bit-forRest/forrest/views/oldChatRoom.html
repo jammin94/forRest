@@ -13,6 +13,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 
 <script src="https://use.typekit.net/hoy3lrg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
@@ -596,7 +597,10 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script >
-const socket = io.connect('http://192.168.0.240:3001:3001/oldChatRoom',{
+
+//내 맥북 192.168.0.240:3001
+//비트 컴 192.168.0.42:3001
+const socket = io.connect('http://192.168.0.42:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 

@@ -13,6 +13,7 @@
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 
 <script src="https://use.typekit.net/hoy3lrg.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
@@ -151,9 +152,10 @@
   float: right; /*원래 없었음*/
 }
 
-#frame .content .messages ul li.sent span.sent, div.sent{
+#frame .content .messages ul li .sent{
   float: right; /*원래 없었음*/
 }
+
 
 /*채팅창에서 대화상대 이미지 */
 #frame .content .messages ul li.replies img {
@@ -285,9 +287,9 @@
 		<div class="messages">
 			<ul>
         {% for chatList in chatLists %}
-          {% if sendUserId ==='{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if chatList.sendUserId === user %} 
             <li class="sent">
-          {% elif sendUserId === 'system' %}    
+          {% elif chatList.sendUserId === 'system' %}    
             <li class="system">
           {% else %}
             <li class="replies">
@@ -297,7 +299,7 @@
 
             <p>{{chatList.chatMessage}}</p>
             <br/>
-          {% if sendUserId === '{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if chatList.sendUserId === user %} 
             <span class="sent">
           {% else %}    
             <span class="replies">
@@ -305,7 +307,7 @@
             {{chatList.readOrNot}}</span>
             <br/>
 
-          {% if sendUserId === '{{user}}'%} <!-- 세션아이디가 sendUserId와 일치하면 보낸사람!. 이것도 session 해결하면 수정사항-->
+          {% if chatList.sendUserId === user %} 
             <div class="sent">
           {% else %}    
             <div class="replies">
@@ -335,9 +337,12 @@
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script >
+moment.locale('ko'); //한글로 시간 표시
 
 //서버의 아이피를 사용할 것!
-const socket = io.connect('http://192.168.0.240:3001/oldChat',{
+//내 맥북 192.168.0.240:3001
+//비트 컴 192.168.0.42:3001
+const socket = io.connect('http://192.168.0.42:3001/oldChat',{
   path: '/socket.io'
 });//room namespace사용
 
@@ -360,7 +365,7 @@ $(".fa-sign-out").click(async function(){
 	try{
 		if(confirm('정말로 나가시겠습니까?')){
 			//라우터 나가기 처리
-			return await axios.get('/oldChat/chat/exit?chatRoomNo={{chatRoomNo}}');
+			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');
 		}else{
 			return false;
 		}
@@ -408,18 +413,28 @@ socket.on('oldChat',function(data){
   const chatMessage= document.createElement('p');
   chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
   li.appendChild(chatMessage);
+  
+  li.appendChild(document.createElement('br'));
+  
 
   const readOrNot= document.createElement('span');
-  readOrNot.classList.add('sent')
+  if(data.chat[0].sendUserId==='{{user}}'){
+	readOrNot.classList.add('sent')
+  }else{
+	readOrNot.classList.add('replies')
+  }
   readOrNot.textContent=data.chat[0].readOrNot;  //수정요망
   li.appendChild(readOrNot);
 
-  const br = document.createElement('br');
-  li.appendChild(br);
+  li.appendChild(document.createElement('br'));
 
   const div = document.createElement('div');
-  div.classList.add('sent');
-  div.textContent=data.chat[0].createdAt; //수정요망
+  if(data.chat[0].sendUserId==='{{user}}'){
+	 div.classList.add('sent');
+  }else{
+	  div.classList.add('replies');
+  }
+  div.textContent=moment(data.chat[0].createdAt).format('LT'); 
   li.appendChild(div);
 
   document.querySelector('ul').appendChild(li);
@@ -429,8 +444,8 @@ socket.on('oldChat',function(data){
 
 //메세지 보내기
 function newMessage(){
-  var text = $("input[type='text']").val()
-  if(text!==null){
+  var text = $("input[type='text']").val().trim();
+  if(text!=''){
     axios.post('/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}',{
       chat: text,
     });
@@ -459,7 +474,7 @@ $(document).ready(function(){
     $(".oldState").text('판매완료');
   }
 
-  $(".chatCreatedAt").text();
+  
 });
 
 //클립모양 클릭시 파일업로드
