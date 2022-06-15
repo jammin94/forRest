@@ -54,6 +54,7 @@ public class OldLikeRestController {
 		
 		Old old = new Old();
 		OldLike oldLike = new OldLike();
+		System.out.println(oldNo);
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
 		oldLike.setUserId(userId);

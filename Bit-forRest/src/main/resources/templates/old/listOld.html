@@ -477,8 +477,8 @@ margin-bottom: 210px !important;
 												<!--	<h5>Sale</h5>  -->
 												
 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-											<span th:if="${old.oldLikeCheck}"><a href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-											<span th:unless="${old.oldLikeCheck}"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
 										</div>
 										<div class="try_rc_mob_img_cont">
 											<h2>[[${old.oldTitle}]]</h2>
@@ -561,10 +561,9 @@ margin-bottom: 210px !important;
 			
 		
 	
-		$( ".fa.fa-heart" ).on("click" , function() {
+		$( ".heart" ).on("click" , function() {
 	        
 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
-			alert(oldNo);
 			console.log(oldNo);
 			
 			$.ajax({
@@ -575,23 +574,24 @@ margin-bottom: 210px !important;
 	            error : function(){
 	               alert("통신 에러");
 	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
 	            success : function(heartCheck) {
 	                
 	                    if(heartCheck){
-	                    	alert("찜하기 완료.");
-	           
-				        $(".fa.fa-heart").addClass('filled');
-				           
-	                    location.reload();
 	                    	
+	                    console.log("찜하기 완료");
+				        $(this).addClass('filled');
+				        location.reload();
+                    	
 	                    	
 	    					
 	                    }
 	                    else if (heartCheck){
 	                     alert("이미 찜한 물품 입니다");
 	                     
-	                     	$("#like_btn").removeClass('bi-heart-fill');
-				            $("#like_btn").addClass('bi-heart');
 				         
 	                  
 	                    	location.reload();
