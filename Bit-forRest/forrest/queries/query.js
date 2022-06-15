@@ -1,8 +1,8 @@
 //:userId == session userId
 module.exports.listOldChatRoom=
-'SELECT rr.chatRoomNo chatRoomNo, u.userId ownerUserId, u.nickname ownerNickname, u.userAddr ownerAddr, u.userImg ownerImg, o.oldTitle oldTitle, o.oldNo oldNo, o.oldState oldState, o.oldImg oldImg, msg.recentMsg recentMsg, unread.unreadcount unreadcount, msg.recentTime recentTime '
+'SELECT rr.chatRoomNo chatRoomNo, u.userId inquireUserId, u.nickname inquireNickname, u.userAddr inquireAddr, u.userImg inquireImg, o.oldTitle oldTitle, o.oldNo oldNo, o.oldState oldState, o.oldImg oldImg, msg.recentMsg recentMsg, unread.unreadcount unreadcount, msg.recentTime recentTime '
 +'FROM chatroom rr '
-+'JOIN user u ON (rr.ownerUserId=u.userId) '
++'JOIN user u ON (rr.inquireUserId=u.userId) '
 +'JOIN old o ON (rr.oldNo = o.oldNo) '
 +'LEFT OUTER JOIN '
 +'(SELECT c.chatRoomNo msgroom ,c.chatMessageNo, c.chatMessage recentMsg, c.createdAt recentTime '
@@ -44,7 +44,7 @@ module.exports.listProductChatRoom=
 +'JOIN product p ON (rr.prodNo = p.prodNo) '
 +'LEFT OUTER JOIN '
 +'(SELECT c.chatRoomNo msgroom ,c.chatMessageNo, c.chatMessage recentMsg, c.createdAt recentTime '
-+'FROM chat c '
++'FROM chat c ' 
 +'JOIN chatroom r ON (r.chatRoomNo=c.chatRoomNo) '
 +'JOIN ( '
 +'SELECT MAX(chatMessageNo) AS maxVal '

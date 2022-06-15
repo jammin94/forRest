@@ -348,6 +348,7 @@ const socket = io.connect('http://192.168.0.42:3001/oldChat',{
 
 //새방 이벤트 시 새 방 생성
 
+//$(".messages").animate({ scrollTop: $(document).height()-$(window).height() });
 $(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
 $("#profile-img").click(function() {
@@ -366,6 +367,7 @@ $(".fa-sign-out").click(async function(){
 		if(confirm('정말로 나가시겠습니까?')){
 			//라우터 나가기 처리
 			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');
+			window.close();
 		}else{
 			return false;
 		}
@@ -438,8 +440,8 @@ socket.on('oldChat',function(data){
   li.appendChild(div);
 
   document.querySelector('ul').appendChild(li);
-
-  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+  $(".messages").animate({ scrollTop: $(document).height()-$(window).height() });
+  //$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 }); 
 
 //메세지 보내기

@@ -564,16 +564,16 @@
         <li class="contact active" value="{{list.chatRoomNo}}">
           <div class="wrap">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="userImg">
-              <input type="hidden" name="ownerUserId" value="{{list.ownerUserId}}"/>
+              <input type="hidden" name="inquireUserId" value="{{list.inquireUserId}}"/>
             </img>
-            <!-- <img src="{{list.ownerImg}} alt="" class="userImg">-->
+            <!-- <img src="{{list.inquireImg}} alt="" class="userImg">-->
             <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" class="oldImg">
               <input type="hidden" name="oldNo" value="{{list.oldNo}}"/>
             </img>
             <!-- <img src="{{list.oldImg}} alt="" class="oldImg">-->
             <div class="meta">
-              <div class="name">{{list.ownerNickname}}
-                <span class="ownerAddr">{{list.ownerAddr}}</span>
+              <div class="name">{{list.inquireNickname}}
+                <span class="inquireAddr">{{list.inquireAddr}}</span>
                 <span class="recentTime">{{list.recentTime}}</span>
                 {% if list.unreadcount %}
                 <span class="unreadcount">{{list.unreadcount}}</span>
