@@ -475,7 +475,10 @@ margin-bottom: 210px !important;
 										<div class="try_rc_mob_img">
 									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
 												<!--	<h5>Sale</h5>  -->
-											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+												
+											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+											<span th:if="${old.oldLikeCheck}"><a href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+											<span th:unless="${old.oldLikeCheck}"><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
 										</div>
 										<div class="try_rc_mob_img_cont">
 											<h2>[[${old.oldTitle}]]</h2>
@@ -555,7 +558,52 @@ margin-bottom: 210px !important;
 		      $leftbar.removeClass('on');
 		  }
 		  });
-
+			
+		
+	
+		$( ".fa.fa-heart" ).on("click" , function() {
+	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			alert(oldNo);
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/addOldLike",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	alert("찜하기 완료.");
+	           
+				        $(".fa.fa-heart").addClass('filled');
+				           
+	                    location.reload();
+	                    	
+	                    	
+	    					
+	                    }
+	                    else if (heartCheck){
+	                     alert("이미 찜한 물품 입니다");
+	                     
+	                     	$("#like_btn").removeClass('bi-heart-fill');
+				            $("#like_btn").addClass('bi-heart');
+				         
+	                  
+	                    	location.reload();
+	                }
+	                    
+	                    
+	            }
+	        })
+			
+		}); 
+		
+		
 		});
 
 // 	$(function() {

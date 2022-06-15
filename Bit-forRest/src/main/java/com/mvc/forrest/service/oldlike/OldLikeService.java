@@ -28,5 +28,14 @@ public class OldLikeService {
 	public void deleteOldLike(int oldLikeNo) throws Exception{
 		System.out.println("deleteOldLike 실행 됨");
 		oldLikeDAO.deleteOldLike(oldLikeNo);
-	}	
+	}
+	
+	public boolean oldLikeDuplicationCheck(OldLike oldLike) throws Exception{
+		boolean result=false;
+		oldLike = oldLikeDAO.oldLikeDuplicationCheck(oldLike);
+		if(oldLike != null) {
+			result=true;
+		}
+		return result;
+	}
 }

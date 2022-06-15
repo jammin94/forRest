@@ -1269,6 +1269,28 @@ background: rgb(38 38 38);
     transition: all 0.5s;
      opacity:1;
 }
+
+.try_rc_mob_img a:hover{
+	color:#db4e4e;
+	-webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+     opacity:1;
+}
+
+.try_rc_mob_img a .fa fa-heart filled{
+	color:#db4e4e;
+	-webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+     opacity:1;
+}
+
+
 .try_rc_mob_img img{
 	width:auto;
 	display:inline-block !important;

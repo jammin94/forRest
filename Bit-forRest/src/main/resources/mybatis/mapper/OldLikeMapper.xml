@@ -34,6 +34,12 @@
 		where oldLikeNo =  #{oldLikeNo}
 	 </delete>
 	 
+	<select  id="oldLikeDuplicationCheck"  parameterType="oldLike"	resultMap="oldLikeSelectMap">
+		SELECT *
+		FROM oldLike
+		WHERE userId = #{userId} and oldNo = #{old.oldNo}
+	 </select>
+	 
 	 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getOldLikeList"  parameterType="String"	resultMap="oldLikeSelectMap">

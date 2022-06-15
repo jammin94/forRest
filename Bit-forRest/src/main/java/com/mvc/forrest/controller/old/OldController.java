@@ -62,7 +62,7 @@ public class OldController {
 	@RequestMapping("listOldAfterLogin")
 	public String listOldAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest) throws Exception {
 
-		System.out.println(this.getClass() + "겟리스트");
+		System.out.println(this.getClass() + "겟리스트로그인");
 
 
 			
@@ -121,7 +121,7 @@ public class OldController {
 //		Map<String, Object> map = oldService.getOldList(search); 이게 왜 들어갔는지 설명해줘
 
 		model.addAttribute("old", old);
-//		model.addAttribute("list", map.get("list")); 이게 왜 들어갔는지 설명해줘
+//		model.addAttribute("list", map.get("list")); 
 //		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 
