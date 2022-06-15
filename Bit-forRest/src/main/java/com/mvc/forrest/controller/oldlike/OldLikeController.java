@@ -23,8 +23,8 @@ import com.mvc.forrest.service.oldlike.OldLikeService;
 
 
 
-@Controller
-@RequestMapping("/oldLike/*")
+//@Controller
+//@RequestMapping("/oldLike/*")
 public class OldLikeController {
 	
 	@Autowired

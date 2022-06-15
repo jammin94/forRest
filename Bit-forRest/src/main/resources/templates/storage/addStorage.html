@@ -8,6 +8,8 @@
 	 <link rel="stylesheet" href="/css/addRentalReview.css">
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<!-- 아임포트 -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 	
 </head>
 <style>
@@ -445,7 +447,7 @@ border-bottom:3px solid #ddd !important;
 
 	<tr>
 		<td>총 결제금액</td>
-		<td> <input type="text"  class="resultPrice"   name="resultPrice"  value=0 style="border:none;width:100px;text-align:right;" readonly/> 원</td>
+		<td> <input type="text"  class="resultPrice"   name="resultPrice"  value=100 style="border:none;width:100px;text-align:right;" readonly/> 원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -457,11 +459,14 @@ border-bottom:3px solid #ddd !important;
 	<button class="payment"> 결제하기</button>
 	<button>취소하기</button>
 	
+	<input type="hidden" name=tranNo th:value="${reserveTranNo}">
 	
-	<button class="addrTest">주소테스트</button>
-	<button class="phoneTest">번호테스트</button>
-	<button class="accountTest">계좌테스트</button>
-	<button class="priceTest">계산테스트</button>
+	
+	<button  type="button" class="addrTest">주소테스트</button>
+	<button  type="button" class="phoneTest">번호테스트</button>
+	<button  type="button" class="accountTest">계좌테스트</button>
+	<button  type="button" class="priceTest">계산테스트</button>
+	<button  type="button" class="imPortTest">아임포트테스트</button>
 	
 </div>
 	</form>
@@ -660,12 +665,24 @@ $(function(){
 		 })
 	 }) 
 	 
+	 $(function(){
+		 $(".imPortTest").on("click", function(){
+			 combineAddr();
+			 combinePhone();
+			 combineAccount();
+			 totalPrice();
+			 
+			 request_pay();
+		 })
+	 }) 
+	 
 	 //*/
 	 
 	 
 	//금액계산
 	 function totalPrice(){
 
+		
 		
 		console.log($("input[name='width']").val());
 		console.log($("input[name='length']").val());
@@ -677,18 +694,16 @@ $(function(){
 		var originPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
 									$("input[name='prodQuantity']").val() *  $(".period option:selected").val()
 		
-		var discountPrice = $(".couponValue").val();
+		//var discountPrice = $(".couponValue").val();
+		var discountPrice = 0;
 		
-		alert("discount: "+discountPrice);
-		
+		//alert("discount: "+discountPrice);
+		alert($("input[name='tranNo']").val());
 		//금액할인과 %할인에따른 조건
 		
-		if(discountPrice > 0 && discountPrice<1){
+		/*if(discountPrice<1){
 			discountPrice = orginPrice * discountPrice;
-		} else{
-			discountPrice = discountPrice + 0;
-		}
-		
+		}*/
 		
 		var resultPrice = originPrice - discountPrice;
 		
@@ -697,9 +712,9 @@ $(function(){
 		 $('.resultPrice').val(resultPrice);
 		
 
-		alert(originPrice);
-		alert(discountPrice);
- 		alert("가격"+resultPrice);
+		//alert(originPrice);
+		//alert(discountPrice);
+ 		//alert("가격"+resultPrice);
 		  
 		 };
 	 
@@ -720,9 +735,48 @@ $(function(){
 			 combineAccount()
 			 totalPrice()
 			 
-			 $('form').attr('method', 'POST').attr('action','/storage/addStorage').submit();
+		
+			
 		 })
-	 }) 
+	 })
+	
+	
+	///////아임포트 
+	
+	function request_pay(){
+		
+		IMP.init("imp88340030");
+			
+		 IMP.request_pay({
+		    	pg : "html5_inicis", 
+		        pay_method : 'card',
+		        merchant_uid : $("input[name='tranNo']").val(),//주문번호
+		        name : $("input[name='prodName']").val(),
+		        amount :  $("input[name='resultPrice']").val(),
+		        buyer_name : $("input[name='receiverName']").val(),
+		        buyer_tel : $("input[name='receiverPhone']").val(),
+		        buyer_addr :$("input[name='pickupAddress']").val()
+		    }, function(rsp) {
+		        if ( rsp.success ) {
+		        	
+		        	console.log("rsp.imp_uid"+rsp.imp_uid);
+		        	$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+	
+		        } else {
+		        	alert("실패.. 코드: "+rsp.error_code+" / 메시지: "+rsp.error_msg);
+		            
+		        }
+		    });
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	</script>
