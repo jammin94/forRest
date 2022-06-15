@@ -9,8 +9,6 @@ const router = express.Router();
 //중고거래 채팅방 나가기
 router.get('/out', async (req, res, next) => {
   try {
-    
-    res.render('oldChatRoom',{lists});
 
   }catch (err) {
     console.error(err)
@@ -18,27 +16,98 @@ router.get('/out', async (req, res, next) => {
   }
 });
 
-//중고거래 채팅하기 버튼 눌렀을 시
-router.get('/init', async (req, res, next) => {
+
+
+
+//중고물품 상세조회에서 중고거래 채팅하기 버튼 눌렀을 시
+router.get('/init/:userId/:oldNo', async (req, res, next) => {
   try {
-    
-    res.render('oldChatRoom',{lists});
+	const sessionId = req.params.userId;
+	const oldNo = req.params.oldNo;
+ 	//overwrite
+	req.session.user = sessionId;
+	req.session.save();
+	
+	//getOld
+	let query=Query.getOld;
+	const oldArr = await db.sequelize.query(query,{
+		replacements: {
+			oldNo: oldNo,
+		},
+		type: QueryTypes.SELECT,
+      	raw: true
+	});
+	//물건주인 추적
+	const ownerUserId = oldArr[0].userId;
+	
+	//원래 있던 방인가? 아니면 처음인가?
+	query=Query.isNewOldChat;
+	const isNewOldChat = await db.sequelize.query(query,{
+		replacements: {
+			oldNo: oldNo,
+			inquireUserId: sessionId,
+		},
+		type: QueryTypes.SELECT,
+      	raw: true
+	});
+	//console.log(isNewOldChat);
+
+	let chatRoomNo;
+	
+	//처음이면 채팅방 생성. 아직 둘다 exit가 0,0상태임.
+	if(isNewOldChat[0]===undefined){
+		query=Query.insertOldChatRoom;
+		var makeRoom = await db.sequelize.query(query,{
+			replacements: {
+				oldNo: oldNo,
+				inquireUserId: sessionId,
+				ownerUserId: ownerUserId,
+			},
+			type: QueryTypes.INSERT,
+	      	raw: true
+		});
+		chatRoomNo=makeRoom[0]
+		console.log('새로 생성됨. chatRoomNo : '+chatRoomNo);
+	}else{
+		chatRoomNo=isNewOldChat[0].chatRoomNo
+		console.log('원래 있었음. chatRoomNo : '+chatRoomNo);
+	}
+
+	query=Query.listOldChatRoom;
+    const lists = await db.sequelize.query(query, {
+      replacements: {userId : sessionId}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+	
+    //response에 담아서 'oldChatRoom.html'로 보내기
+    //console.log(lists);
+    //console.log('chatRoomNo: '+chatRoomNo);
+    const immediate = {chatRoomNo: chatRoomNo, oldNo: oldNo};
+    res.render('oldChatRoom',{lists, immediate});
 
   }catch (err) {
     console.error(err)
     next(err)
   }
 });
+
+
+
 
 //기본화면. 중고거래 채팅방 목록을 보여준다.
-router.get('/', async (req, res, next) => {
+router.get('/list/:userId', async (req, res, next) => {
   try {
-    //listOldChatRoom
-    const sessionId= req.session.user
-    console.log(sessionId);
-    let query=Query.listOldChatRoom;
+	//nodejs session
+	const sessionId = req.params.userId
+	
+	//overwrite
+	req.session.user = sessionId;
+	req.session.save()
+	
+	let query=Query.listOldChatRoom;
     const lists = await db.sequelize.query(query, {
-      replacements: {userId : sessionId}, //sessionId 끌어오는 법 알아내서 수정하자
+      replacements: {userId : sessionId}, 
       type: QueryTypes.SELECT,
       raw: true
     });
@@ -52,6 +121,9 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 });
+
+
+
 
 //해당 채팅방 더블클릭시 채팅창 이동
 // '/oldChat/:oldNo?chatRoomNo=something'
@@ -87,6 +159,10 @@ router.get('/:oldNo', async (req, res, next) => {
 });
 
 
+
+
+
+
 //채팅창 채팅치기
 // '/oldChat/:oldNo/chat?chatRoomNo=something'
 router.post('/chat/:oldNo', async (req, res, next) => {
@@ -106,8 +182,17 @@ router.post('/chat/:oldNo', async (req, res, next) => {
       raw: true
     });
     //console.log("insertChat : "+insertChat); // sequelize insert는 primekey, foreignkey만 return해준다.
+    
+    //칠때마다 채팅방 나가기를 취소하고 채팅방이 보이게 한다.
+    query=Query.updateChatRoomToSee
+    const updateChatRoomToSee = await db.sequelize.query(query, {
+      replacements: 
+      { chatRoomNo : req.query.chatRoomNo}, 
+      type: QueryTypes.UPDATE,
+      raw: true
+    });
 
-    //보낸 채팅 얻기
+    //보낸 채팅 얻어서 실시간으로 채팅창에 띄우기
     query=Query.getChat
     const getChat = await db.sequelize.query(query, {
       replacements: 
@@ -115,12 +200,9 @@ router.post('/chat/:oldNo', async (req, res, next) => {
       type: QueryTypes.SELECT,
       raw: true
     });
-    console.log(getChat);
 
-    const data={chat: getChat};
-    
+	const data={chat: getChat};
     req.app.get('io').of('/oldChat').to(roomNo).emit('oldChat',data);
-    res.send('ok');
 
   }catch (err) {
     console.error(err)

@@ -6,7 +6,6 @@
 
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
 <mapper namespace="com.mvc.forrest.dao.rental.RentalDAO"> 	
- 	
 	<resultMap id="rentalSelectMap" type="rental">
 		<result property="tranNo" 				column="tranNo" 				jdbcType="VARCHAR"/>
 		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
@@ -27,6 +26,7 @@
 		<result property="originPrice" 				column="originPrice" 				jdbcType="INTEGER"  />
 		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
+		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
 		
 		 <association property="purchaseProd" javaType="product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>
@@ -68,32 +68,32 @@
 		
 	</resultMap>
 	
-	<!--INSERT -->
+	<!--INSERT-->
 	<insert 	id="addRental"		parameterType="rental" >
 		INSERT 
 	 	INTO transaction(
-	 			tranNo,userId,prodNo,divyAddress,pickupAddress,startDate,endDate,period,tranCode,paymentNo,paymentDate,paymentWay,receiverPhone,receiverName,prodName,prodImg,originPrice,discount,resultPrice) 
+	 			paymentNo,prodNo,tranNo,prodName,prodImg,userId,receiverName,receiverPhone,divyAddress,pickupAddress,divyRequest,originPrice,resultPrice,startDate, endDate,period) 
 	 	VALUES (
-	 			    	#{tranNo},
- 			     	  #{userId}, 
-	 				  #{prodNo},
+	 				#{paymentNo},
+	 					#{prodNo},
+	 					#{tranNo},
+	 					#{prodName},
+	 					#{prodImg},
+	 					#{userId},
+	 			    	#{receiverName},
+ 			     	  #{receiverPhone}, 
 	 				  #{divyAddress},
 	 				  #{pickupAddress},
-	 				    date_add(curdate(), interval 3 day) , <!--대여 시작날짜 -->
-	 				    date_add(curdate(), interval 1+#{period} day), 
-	 				     #{period}, 
-	 				     #{tranCode}, 
-	 				     #{paymentNo}, 
-	 				     current_timestamp(), <!--결제날짜시간 -->
-	 				     #{paymentWay}, 
-	 				     #{receiverPhone},
-	 				      #{receiverName}, 
-	 				      #{prodName} ,
-	 				       #{prodImg}, 
-	 				       #{originPrice}, 
-	 				       #{discountPrice}, 
-	 				       #{resultPrice} )
+	 				     #{divyRequest},
+	 				      #{originPrice}, 
+	 				     #{resultPrice},
+	 				     date_add(curdate(), interval 1 day), 
+	 				     date_add(curdate(), interval 1+#{period} day),
+	 				     #{period}
+	 				     )
 	 </insert>
+	 
+	 
 	 
 	 
 	 <!-- SELECT -->
@@ -121,17 +121,42 @@
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->
-	<select  id="getRentalListForAdmin"  parameterType="search"	resultMap="rentalSelectMap">
-		 		SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
+	<select  id="getRentalListForAdmin"  parameterType="Search"	resultMap="rentalSelectMap">
+	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
-	 		p.prodNo = t.prodNo and t.tranCode=1
+	 		 p.prodNo = t.prodNo AND  
+	 		(p.prodCondition ='물품대여승인신청중' OR 
+	 		 p.prodCondition = '배송중' OR
+	 		 p.prodCondition = '대여중')
+	 		 
+	 		<!-- ProductCondition만 선택한경우-->
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
-	 		<if test="searchKeyword != null and searchCondition != null and searchProductCondition != null" >
-	 		 and (p.prodCondition = #{searchProductCondition}) and (t.#{searchCondition} LIKE CONCAT('%',#{searchKeyword},'%'))
+	 	
+	 		
+	 	<if test="searchCondition != null">
+	 	
+	 		<!-- ProductCondition과  searchCondition, searchKeyword 모두 선택한경우-->
+	 		<if test="searchKeyword != null and searchCondition == 1  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
 	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+
+	 		<!-- searchCondition, searchKeyword 를 선택한경우-->
+	 			<if test="searchKeyword != null and searchCondition == 1 and searchProductCondition == null" >
+	 		 and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2 and searchProductCondition == null" >
+	 		 and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 	</if>
+	 	
 	 		
 	 		
 	 	</where>
@@ -150,6 +175,7 @@
 	 		</if>
 	 	</if>
 	 </select>
+
 	 
 	 
 	<!--SELECT Total Count -->	 
