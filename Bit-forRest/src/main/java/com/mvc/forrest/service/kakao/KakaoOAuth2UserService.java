@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.mvc.forrest.config.SecurityConfig;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
@@ -29,8 +30,8 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService {
 	
     @Autowired 
     private UserService userService;
-    @Autowired 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -54,7 +55,7 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService {
         String username = providerId;  			
 
         String uuid = UUID.randomUUID().toString().substring(0, 6);
-        String password = bCryptPasswordEncoder.encode("패스워드"+uuid); 
+        String password = "dsfdsfdsfdsfds"; 
 
         String email = oAuth2UserInfo.getEmail();
         Role role = Role.ROLE_USER;

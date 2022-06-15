@@ -40,7 +40,7 @@ public class KakaoLoginService {
 		sb.append("grant_type=authorization_code");
 		
 		sb.append("&client_id=ab70541f4fbb493e0fd22d7f73cd2940");
-		sb.append("&redirect_uri=http://localhost:8080/kakaoLogin/kakaoLogin");
+		sb.append("&redirect_uri=http://localhost:8080/snsLogin/kakaoLogin");
         
 		sb.append("&code=" + authorization_code);
 		bw.write(sb.toString());

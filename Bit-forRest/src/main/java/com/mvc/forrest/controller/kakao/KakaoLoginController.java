@@ -24,7 +24,7 @@ import com.mvc.forrest.service.kakao.KakaoLoginService;
 import com.mvc.forrest.service.user.UserService;
 
 @Controller
-@RequestMapping("/kakaoLogin/*")
+@RequestMapping("/snsLogin/*")
 
 public class KakaoLoginController {
 
