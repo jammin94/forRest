@@ -179,64 +179,41 @@ public class RentalController {
 	}
 	
 	//------------대여물품리스트 관리자 화면------------//
-	@GetMapping("listRentalForAdmin")
-	public String listRentalMngView( @ModelAttribute("search") Search search , Model model ) throws Exception{
-		System.out.println("listRentalProfitView 테스트");
-				
+	@RequestMapping("listRentalForAdmin")
+	public String listRentalForAdmin(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		System.out.println(search.getSearchProductCondition());
+		if (search.getCurrentPage() == 0) {
+			search.setCurrentPage(1);
+		}
 		
-				if(search.getCurrentPage() ==0 ){
-					search.setCurrentPage(1);
-				}
-				search.setPageSize(pageSize);
-				
-				if(search.getSearchProductCondition()!=null) {
-					search.setSearchProductCondition(search.getSearchProductCondition());
-				}
-				
-				// Business logic 수행
-				Map<String , Object> map=rentalService.getRentalListForAdmin(search);
-				
-				System.out.println("테스트"+map.get("list"));
-							
-				Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-				System.out.println(resultPage);
-				
-				// Model 과 View 연결
-				model.addAttribute("list", map.get("list"));
-				model.addAttribute("resultPage", resultPage);
-				model.addAttribute("search", search);
-				
-		return "rental/listRentalForAdmin";
-	}
+		//더좋은 방법이 있을듯
+		//전체 보관물품을 볼때 SearchProductCondition을 null로 만들기위한코드
+		if(search.getSearchProductCondition() == "") {
+			search.setSearchProductCondition(null);
+		}
+		
+		if(search.getSearchKeyword() == "") {
+			search.setSearchKeyword(null);
+		}
+		
+		if(search.getSearchCondition() == "") {
+			search.setSearchCondition(null);
+		}
+		
+		//디버깅
+		System.out.println("serarch in RentalController:" + search);
+		
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = rentalService.getRentalListForAdmin(search);
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize );
+		
 	
-	@PostMapping("listRentalForAdmin")
-	public String listRentalMng( @ModelAttribute("search") Search search , Model model) throws Exception{
-		System.out.println("listRentalProfitView 테스트");
 		
-		System.out.println(search.getSearchProductCondition());
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
 		
-				if(search.getCurrentPage() ==0 ){
-					search.setCurrentPage(1);
-				}
-				search.setPageSize(pageSize);
-				
-				search.setSearchProductCondition(search.getSearchProductCondition());
-				
-				// Business logic 수행
-				Map<String , Object> map=rentalService.getRentalListForAdmin(search);
-				
-				System.out.println("테스트"+map.get("list"));
-							
-				Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-				System.out.println(resultPage);
-				
-				// Model 과 View 연결
-				model.addAttribute("list", map.get("list"));
-				model.addAttribute("resultPage", resultPage);
-				model.addAttribute("search", search);
-				
 		return "rental/listRentalForAdmin";
 	}
 	

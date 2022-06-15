@@ -121,8 +121,8 @@
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
 	 		</if>
-	 	
-	 		
+
+
 	 	<if test="searchCondition != null">
 	 	
 	 		<!-- ProductCondition과  searchCondition, searchKeyword 모두 선택한경우-->
