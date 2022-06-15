@@ -95,14 +95,12 @@
 	 
 	 
 	 <!-- SELECT -->
-	 <select 	id="getRental"	parameterType="int"	resultMap="rentalSelectMap">
-		SELECT 
-			*
-		FROM transaction
-		WHERE tranNo = #{tranNo}
+	 <select 	id="getRental"	parameterType="String"	resultMap="rentalSelectMap">
+			SELECT * FROM transaction t, product p 
+			where t.tranNo =  #{tranNo} and t.prodNo = p.prodNo
 	 </select>
 	 
-	
+
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">

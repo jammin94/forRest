@@ -2,21 +2,31 @@ const express = require('express');
 const {QueryTypes} = require('sequelize');
 const Query = require('../queries/query'); 
 const db = require('../models/index');
+const moment = require('moment');
 
+moment.locale('ko'); //한글로 시간 표시  
 
 const router = express.Router();
 
 //중고거래 채팅방 나가기
-router.get('/out', async (req, res, next) => {
+router.get('/exit', async (req, res, next) => {
   try {
-
-  }catch (err) {
+	let query=Query.updateChatRoomExit;
+	const updateChatRoomExit = await db.sequelize.query(query,{
+		replacements: {
+			chatRoomNo: req.query.chatRoomNo,
+			userId : req.session.user,
+		},
+		type: QueryTypes.UPDATE,
+	  	raw: true
+	});
+	res.send('1');
+	
+	}catch (err) {
     console.error(err)
     next(err)
-  }
+ 	}
 });
-
-
 
 
 //중고물품 상세조회에서 중고거래 채팅하기 버튼 눌렀을 시
@@ -79,7 +89,11 @@ router.get('/init/:userId/:oldNo', async (req, res, next) => {
       type: QueryTypes.SELECT,
       raw: true
     });
-	
+    
+    for(let list of lists){
+		list.recentTime = moment(list.recentTime).fromNow();
+	}
+    
     //response에 담아서 'oldChatRoom.html'로 보내기
     //console.log(lists);
     //console.log('chatRoomNo: '+chatRoomNo);
@@ -91,9 +105,6 @@ router.get('/init/:userId/:oldNo', async (req, res, next) => {
     next(err)
   }
 });
-
-
-
 
 //기본화면. 중고거래 채팅방 목록을 보여준다.
 router.get('/list/:userId', async (req, res, next) => {
@@ -111,8 +122,13 @@ router.get('/list/:userId', async (req, res, next) => {
       type: QueryTypes.SELECT,
       raw: true
     });
+    
+    //~~분전 ~~시간 전
+    for(let list of lists){
+		list.recentTime = moment(list.recentTime).fromNow();
+	}
 
-    //response에 담아서 'oldChatRoom.html'로 보내기
+	//response에 담아서 'oldChatRoom.html'로 보내기
     console.log(lists);
     res.render('oldChatRoom',{lists});
 
@@ -136,6 +152,10 @@ router.get('/:oldNo', async (req, res, next) => {
       type: QueryTypes.SELECT,
       raw: true
     });
+    
+    for(let chatList of chatLists){
+		chatList.createdAt = moment(chatList.createdAt).format('LT');
+	}
 
     //getOld
     query=Query.getOld;
@@ -148,7 +168,17 @@ router.get('/:oldNo', async (req, res, next) => {
     const old = oldArr[0];
     const chatRoomNo = req.query.chatRoomNo
     const user = req.session.user
-
+    
+    //접속하면 읽음표시 ㄱㄱ
+    query=Query.updateReadOrNot;
+    const updateReadOrNot = await db.sequelize.query(query, {
+      replacements: {
+		chatRoomNo : chatRoomNo,
+		userId : user}, 
+      type: QueryTypes.UPDATE,
+      raw: true
+    });
+    
     //response에 담아서 'oldChatRoom.html'로 보내기
     res.render('oldChat',{chatLists, old, user, chatRoomNo});
 
@@ -175,7 +205,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     const insertChat = await db.sequelize.query(query, {
       replacements: 
       { chatRoomNo : roomNo,
-        sendUserId : req.session.user, //일단 얘로 하자..., //sessionId 끌어오는 법 알아내서 수정하자
+        sendUserId : req.session.user, //sessionId 
         chatMessage : chatMessage,
         }, 
       type: QueryTypes.INSERT,

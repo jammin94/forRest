@@ -104,6 +104,12 @@
     	 
     }
     
+    .getRentalLink{
+    	color:green;
+    	cursor:pointer;
+    	text-decoration:underline;
+    }
+    
 </style>
 <body>
 
@@ -145,7 +151,7 @@
 		    </div>
 	    	
 		</div>
-	
+		<form>
 		 <!--  table Start /////////////////////////////////////-->
       <table class="table table-hover table-striped">
 	       <thead>
@@ -154,6 +160,7 @@
 	            <th align="center" >주문일자</th>   
 	            <th align="center">결제금액</th>
 	            <th align="center">진행상태</th>
+	            <th></th>
 	          </tr>
 	        </thead>
 	        
@@ -161,7 +168,9 @@
 	  			  <tr  class="tableBody"  th:each="rental :${list}">
 		 		    <td align="left">
 				<!--     <a th:href ="@{/rental/getStorage(tranNo = ${rental.tranNo})}" > -->
-				 	<span   th:text="|주문번호: ${rental.paymentNo}|"></span>
+				<a th:href ="@{/rental/getRental(tranNo = ${rental.tranNo})}" >
+					<span class="getRentalLink"  th:text="|주문번호: ${rental.paymentNo}|"></span>
+				</a>
 				 	</a>
 				    	<div class="productInfo">
 				    	<!-- 	<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" > -->
@@ -179,9 +188,10 @@
 				    </td>
 			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
-			<td class="tdCenter" th:text = "${rental.purchaseProd.prodCondition}"></td>
+				<td class="tdCenter" th:text = "${rental.purchaseProd.prodCondition}"></td>
+				<td th:if="${rental.purchaseProd.prodCondition} == '대여중' "><button>취소접수</button></td>
+				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' "></td>
 	    </tr>
-	    
 	        </tbody>
 
       </table>
@@ -211,5 +221,13 @@
  
  
 </body>
+<script src="/js/jquery_min.js"></script>
+<script>
+$(function(){
+	$('.getRentalLink').on("click",function(){
+			$(location).attr('href','/rental/getRental');
+	})
+})
+</script>
 
 </html>

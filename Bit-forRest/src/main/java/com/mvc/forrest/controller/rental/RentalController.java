@@ -134,11 +134,16 @@ public class RentalController {
 	//------------결제완료 상세 화면------------//
 //	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
 	@GetMapping("getRental")
-	public String getRental() throws Exception {
-		System.out.println("형산");
+	public String getRental(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
+		System.out.println("getRental Start");
+		System.out.println("tranNo: "+tranNo);
+		
+		model.addAttribute("rental", rentalService.getRental(tranNo));
+		
 		 return "rental/getRental";
 	}
 	
+
 	
 	//------------대여물품리스트 화면------------//
 	@GetMapping("listRental")
