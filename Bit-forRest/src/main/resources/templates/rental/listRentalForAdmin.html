@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   
@@ -11,15 +11,6 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-    <!-- Bootstrap Dropdown Hover JS -->
-  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
-   
-   
-  <!-- jQuery UI toolTip 사용 JS-->
-<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 </head>
 <style>
@@ -35,16 +26,14 @@
 <body>
 
 <!-- 툴바 include -->
-<div th:replace="/main/toolbarForAdmin.html"></div>
-<div th:replace="/main/leftbarForAdmin.html"></div>
+ <div th:replace="/main/toolbarForAdmin.html"></div>
+ <div th:replace="/main/leftbarForAdmin.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
 	<div class="page-header text-info" >
 		       <h3 style="color:#000;">대여물품관리</h3>
-		       <h2>
-		       <input type="checkbox">   현재보관중인 물품만 보기</input>
-		       </h2>
+		   
 		</div>
 		
 			  <!-- table 위쪽 검색 Start /////////////////////////////////////-->
@@ -56,13 +45,13 @@
 		        <button type="button" class="btn btn-default conditionBtn">
 		        	전체
 		        </button>
-		        <span style="display:none">전체</span>
+		        <span style="display:none"></span>
 		        </span>
 			     	<span class="coditionBtnhs">
 		        <button type="button" class="btn btn-default conditionBtn">
-		        	대여물품승인신청중
+		        	물품대여승인신청중
 		        </button>
-		        <span style="display:none">대여물품승인신청중</span>
+		        <span style="display:none">물품대여승인신청중</span>
 		        </span>
 			    <span class="coditionBtnhs">
 		        <button type="button" class="btn btn-default conditionBtn">
@@ -72,27 +61,17 @@
 		        </span>
 	            <span class="coditionBtnhs">
 		        <button type="button" class="btn btn-default conditionBtn">
-		        	회수신청중
-		        </button>
-		        <span style="display:none">회수신청중</span>
-		        </span>
-	           <span class="coditionBtnhs">
-		        <button type="button" class="btn btn-default conditionBtn">
 		        	대여중
 		        </button>
 		        <span style="display:none">대여중</span>
 		        </span>
-			     <span class="coditionBtnhs">
-		        <button type="button" class="btn btn-default conditionBtn">
-		        	보관중
-		        </button>
-		        <span style="display:none">보관중</span>
-		        </span>
+	          
+			
 		</div>
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    	<!-- 전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지  -->
-		    	전체 10 건수, 현재 1페이지
+		    	  전체  [[${resultPage.totalCount}]] 건
+		    	
 		    	</p>
 		    </div>
 	    </div>
@@ -102,71 +81,95 @@
 		    <div class="col-md-6 text-right rowBelow">
 			    <form class="form-inline" name="detailForm">
 			    
-	 <input type="hidden" class="prodCondition" name="searchProductCondition" value="" />
+	 <input type="hidden" class="prodCondition" name="searchProductCondition" th:value=${search.searchProductCondition}  />
 	 <input type="hidden" id="currentPage" name="currentPage" value="1"/>
-	 
-				  <div class="form-group">
-				<!--     <select class="form-control" name="searchCondition" > -->
-				  <select class="form-control" >
-					<!-- 	<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option> -->
-				 	<option>상품명 </option>
-						<option>회원아이디 </option> 
-					</select>
-				  </div>
+				
+			 <div class="form-group">
+				<select class="form-control"    name="searchCondition" >
+					
+					<!-- 서치키워드 입력안하고 검색눌렀을때 어케할까? -->
+					<!-- 엔터는 먹히고 검색직접클릭은 안먹힘 -->
+						<option th:value=null >전체</option>
+						<option th:value="1" th:selected="${search.searchCondition} == '1' ">상품명</option>
+						<option th:value="2" th:selected="${search.searchCondition} == '2' ">회원아이디</option>
+						<!--  <option th:value="${not #strings.isEmpty(search.searchCondition)} and ${search.searchCondition} == 'prodName' ? 'prodName' : ''  " >상품명</option>--> 
+					
+					
+					</select> 
+				 </div>
 				  
-				  <div class="form-group">
+				 <div class="form-group">
 				    <label class="sr-only" for="searchKeyword">검색어</label>
-			<!--  <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >  -->
-				    	<!--   <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value=""  >   -->
-				    			 
-				    			   <input type="text" class="form-control" id="searchKeyword"  placeholder="검색어"
-				    			 value=""  >  
-				  </div>
+			 
+		<input type="text" class="form-control"   id="searchKeyword" name="searchKeyword" 
+       th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="검색어">
+       
+       </div>
+				  <button type="button" class="btn btn-default search-btn">검색</button>
+				 
 				  
-				  <button type="button" class="btn btn-default">검색</button>
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
-			
+			</form>	
 	    	</div>
 	    	
 		</div>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 		 <!--  table Start /////////////////////////////////////-->
+		  <form class="form-inline2" name="detailForm">
       <table class="table table-hover table-striped">
+           
 	       <thead>
 	          <tr class="tableHeader">
+	          <th align="center">
+             <input type="checkbox" id="cb1">
+            </th>
 	            <th align="center">대여번호</th>
 	            <th align="center" >유저아이디</th>   
 	            <th align="center">상품정보</th>
 	            <th align="center">결제금액</th>
 	            <th align="center">주문일자</th>			
-	  		    <th align="center">진행상태</th>			
+	  		    <th align="center">진행상태</th>		
+	  		    <th align="center"></th>
 	          </tr>
 	        </thead>
 	        
+	    
 	        <tbody> 
 	    
-	    
 	    <tr th:each="rental :${list}">
-		    <td th:text = "${rental.tranNo}"></td>
-			<td th:text = "${rental.userId}"></td>
-			<td th:text = "${rental.prodName}"></td>
-			<td th:text = "${rental.resultPrice}"></td>
-			<td th:text = "${rental.paymentDate}"></td>
-			<td th:text = "${rental.purchaseProd.prodCondition}"></td>	 
+	    
+	    	<td align="left" th:if="${rental.purchaseProd.prodCondition} != '보관중' "> 
+	    		<input  type="checkbox" class="cb2" name="prodCondition" th:value="${rental.purchaseProd.prodCondition}">
+	    	</td>
+	  
+		    <td  th:text = "${rental.tranNo}"></td>
+			<td align="center" th:text = "${rental.userId}"></td>
+			<td align="center" th:text = "${rental.prodName}"></td>
+			<td align="center" th:text = "${rental.resultPrice}"></td>
+			<td align="center" th:text = "${rental.paymentDate}"></td>
+			<td align="center" th:text = "${rental.purchaseProd.prodCondition}"></td>
+			<td>
+			
+			<input type="hidden"  class="prodNum" name="prodNo" th:value="${rental.prodNo}" />
+		
+			
+			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='물품대여승인신청중'">배송하기</button>
+			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='배송중'">배송완료</button>
+			</td>	  
+		
 	    </tr>
 	    
 	        </tbody>
-
       </table>
+		</form>
 		<!--  table End /////////////////////////////////////-->
-	</form>
+
+ <button  class="updateProdAllCon-btn">일괄업데이트</button>
+
 	<ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
@@ -189,18 +192,87 @@
 	<script>
 	  $(document).ready(function() {
 			"use strict";
-
+			
+			
 		     $('.coditionBtnhs').on("click",function(){
 		    	var inputValue= $(this).find('span').text();
-		    	console.log(inputValue);
-		    			    
+		    	//alert(inputValue);
+		    	
+		    
+		    		
 		    	$('.prodCondition').attr('value',inputValue);
 		    	console.log($('.prodCondition').val());
+		    	//alert($('.prodCondition').val());
 		    	
 		    	 $(".form-inline").attr("method" , "POST").attr("action" , "/rental/listRentalForAdmin").submit(); 
+		    		
+		    
+		    			    
 		    }) 
 		    
 	  })
+	  
+	  //검색버튼 클릭시 발생이벤트
+	  	$(function(){
+			$(".search-btn").on("click", function(){
+			
+			 $('form').attr('method', 'POST').attr('action','/rental/listRentalForAdmin').submit();
+			
+		})
+	});
+	  
+///////////////일괄체크
+	  $(function(){
+	  	$('#cb1').on("click", function(){
+	  		
+	  	
+	  		
+	  		if($('#cb1').prop('checked')){
+	  			
+	  		$('.cb2').prop('checked', true);
+	  			
+	  		} else{
+	  			
+	  		$('.cb2').prop('checked', false);
+	  		
+	  		}
+	  		
+	  	})
+	  	
+	  	$('.cb2').on("click", function(){
+	  		
+	  	
+	  		
+	  		if($("input[name='check']:checked").length == 11){
+	  			
+	  		$('#cb1').prop('checked', true);
+	  			
+	  		} else{
+	  			
+	  		$('#cb1').prop('checked', false);
+	  		
+	  		}
+	  		
+	  	})
+	  	
+	  });
+	  
+	  //일괄업데이트
+	   $( ".updateProdAllCon-btn" ).on("click" , function() {
+	    	
+		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
+	 		
+		}); 
+	  
+	   //단일업데이트
+	   $( ".prodCondition-button" ).on("click" , function() {
+		   
+	    	var prodNum = $(this).parent().find('.prodNum').val();
+
+		   self.location = "/product/updateProductCondition?prodNo="+prodNum;
+		}); 
+	  
+	  
 	</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->

@@ -3,8 +3,8 @@ DROP TABLE board, chat, chatimg, chatroom, coupon, imgs, `old`, oldlike, oldrevi
 
 CREATE TABLE user (
    userId      VARCHAR(30)   NOT NULL,
-   nickname      VARCHAR(30)    NOT NULL UNIQUE,
-   phone VARCHAR(20) NOT NULL UNIQUE, 
+   nickname      VARCHAR(100)    NOT NULL UNIQUE,
+   phone VARCHAR(100) NOT NULL UNIQUE, 
    password VARCHAR(100) NOT NULL,
    userName VARCHAR(20) NOT NULL,
    userAddr VARCHAR(100) NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE ownCoupon(
    ownCouponCreDate   DATETIME         NOT NULL,
    ownCouponDelDate   DATETIME         NOT NULL,
    PRIMARY KEY(ownCouponNo),
-   FOREIGN KEY(userId) REFERENCES user(userId),
+   FOREIGN KEY(userId) REFERENCES user(userId) ON DELETE CASCADE,
    FOREIGN KEY(couponNo) REFERENCES coupon(couponNo) ON DELETE CASCADE
 );
 
@@ -145,9 +145,9 @@ CREATE TABLE `chatRoom` (
   `prodNo` varchar(40) DEFAULT NULL,
   `inquireUserId` varchar(30) NOT NULL,
   `ownerUserId` varchar(30) NOT NULL,
-  `inquireUserExit` tinyint(1) NOT NULL DEFAULT '0',
-  `ownerUserExit` tinyint(1) NOT NULL DEFAULT '0',
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `inquireUserExit` tinyint(1) DEFAULT '0',
+  `ownerUserExit` tinyint(1) DEFAULT '0',
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chatRoomNo`),
   KEY `oldNo` (`oldNo`),
   KEY `prodNo` (`prodNo`),
@@ -164,8 +164,8 @@ CREATE TABLE `chat` (
   `chatRoomNo` int NOT NULL,
   `sendUserId` varchar(30) NOT NULL,
   `chatMessage` varchar(4000) NOT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `readOrNot` tinyint(1) NOT NULL DEFAULT '1',
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  `readOrNot` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`chatMessageNo`),
   KEY `chatRoomNo` (`chatRoomNo`),
   KEY `sendUserId` (`sendUserId`),
@@ -195,7 +195,7 @@ CREATE TABLE `board` (
 
 CREATE TABLE `imgs` (
   `imgNo` int NOT NULL AUTO_INCREMENT,
-  `contentsNo` int DEFAULT NULL,
+  `contentsNo` varchar(80) DEFAULT NULL,
   `fileName` varchar(100) DEFAULT NULL,
   `contentsFlag` varchar(20) NOT NULL,
   PRIMARY KEY (`imgNo`)
