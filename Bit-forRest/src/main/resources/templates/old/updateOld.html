@@ -92,14 +92,13 @@
 
 					<div class="field">
 						<div class="label">유저 아이디</div>
-						<input type="text" id="userId" name="userId"
-							th:value="${old.userId}">
+						<input type="text" id="userId" name="userId" th:value="${old.userId}">
 					</div>
 
 					<div class="field">
 						<div class="label">스테이트</div>
-						<input type="text" id="oldState" name="oldState"
-							th:value="${old.oldState}">
+						<input type="text" id="oldState" name="oldState" th:value="${old.oldState}">
+						<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}">
 					</div>
 
 
@@ -120,9 +119,8 @@
 							readonlycheck=""> )
 					</div>
 					<div class="field btns">
-						<button class="prev-1 prev">Previous</button>
-						<button class="submit"
-							th:onclick="|location.href='@{/old/updateOld}'|">Submit</button>
+						<button type="button" class="prev-1 prev">Previous</button>
+						<button class="submit" th:onclick="|location.href='@{/old/updateOld}'|">Submit</button>
 					</div>
 				</div>
 

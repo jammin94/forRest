@@ -58,42 +58,35 @@ public class OldController {
 	@Value("10")
 	int pageSize;
 
-	///////////////////////////////////////////////////
+	///////////////////// 회원만 가능//////////////////////////////
 	@RequestMapping("listOldAfterLogin")
-	public String listOldAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest) throws Exception {
+	public String listOldAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
+			throws Exception {
 
 		System.out.println(this.getClass() + "겟리스트로그인");
 
-
-			
-			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String userId= loginUser.getUser().getUserId();
-			List<Old> list= oldService.getOldListHasUser(search, userId);
-			model.addAttribute("list", list);
-		
+		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = loginUser.getUser().getUserId();
+		List<Old> list = oldService.getOldListHasUser(search, userId);
+		model.addAttribute("list", list);
 
 		System.out.println(this.getClass() + "포스트리스트");
 
-//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-//		System.out.println(resultPage);
-
-//		User sessionUser= (User) httpsession.getAttribute("user");
-//		model.addAttribute("list", map.get("list"));
-//		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 
 		return "old/listOld";
 	}
-	
-	
+
+	///////////////////// 비회원만 가능//////////////////////////////
 	@RequestMapping("listOld")
-	public String listOld(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest) throws Exception {
+	public String listOld(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
+			throws Exception {
 
 		System.out.println(this.getClass() + "겟리스트");
-			
-			Map<String, Object> map = oldService.getOldList(search);
-			model.addAttribute("list", map.get("list"));
-		
+
+		Map<String, Object> map = oldService.getOldList(search);
+		model.addAttribute("list", map.get("list"));
+
 		System.out.println(this.getClass() + "포스트리스트");
 
 //		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
@@ -107,22 +100,30 @@ public class OldController {
 		return "old/listOld";
 	}
 
+	
+	
+	
+	
+	
+	
+/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
 	@RequestMapping("getOld")
 	public String getOld(@ModelAttribute("search") Search search, @RequestParam("oldNo") String oldNo, Model model)
 			throws Exception {
 
 		// 디버깅
 		System.out.println("getOld Start");
-		//복사 붙여넣기 너무 심하게 한다.. list받아오는 거랑 하나 받아오는거랑 method 가 똑같아..
-		
+		// 복사 붙여넣기 너무 심하게 한다.. list받아오는 거랑 하나 받아오는거랑 method 가 똑같아..
+
 		// oldService의 getOld 메서드에 oldNo 인자값을 넣어줌
 		Old old = oldService.getOld(oldNo); // 1
 
-//		Map<String, Object> map = oldService.getOldList(search); 이게 왜 들어갔는지 설명해줘
+		Map<String, Object> map = oldService.getOldList(search);
 
 		model.addAttribute("old", old);
-//		model.addAttribute("list", map.get("list")); 
-//		model.addAttribute("resultPage", resultPage);
+
+		model.addAttribute("list", map.get("list"));
+
 		model.addAttribute("search", search);
 
 		Old testOld = oldService.getOld(oldNo); // 1을 하고 2를 한 이유는?
@@ -138,11 +139,31 @@ public class OldController {
 		return "old/getOld";
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////
 	@GetMapping("addOld")
-	public String addOld(Model model) throws Exception {
+	public String addOld(HttpSession session, Model model) throws Exception {
+
 		System.out.println(this.getClass() + " ADD올드 네비게이션");
-		return "old/addOld";
+
+		// principal : 인증된 사용자 정보 , Authentication : principal 관리 , SecurityContext:
+		// Authentication 관리
+		// Authentication 자체는 인증된 정보로, SecurityContextHolder 가 가지고 있는 값을 통해 인증 여부를 확인할 수
+		// 있다.
+		// =>Authentication.isAuthenticated();
+		// threadLocal : 한 쓰레드 내에서 사용하는 공용 저장소
+		// thread : 프로세스 내에서 실제로 작업을 수행하는 주체. 하나의 프로세스를 구성하는 쓰레드들은 프로세스에 할당된 메모리, 자원을
+		// 공유한다.
+		// Security는 session보다 깊은 곳에 정보 저장하므로 session에서 userId 받아올 수 없다.
+		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		String userId = loginUser.getUser().getUserId();
+
+		System.out.println(userId + "유저아이디");
+
+		return "/old/addOld";
+
 	}
+
+/////////////////////회원, 어드민 가능//////////////////////////////	
 
 	@PostMapping("addOld")
 
@@ -153,6 +174,7 @@ public class OldController {
 		System.out.println(this.getClass() + " ADD올드 POST");
 
 		String oldNo = FileNameUtils.getRandomString();
+
 		System.out.println(oldNo);
 		// add하기 전에 oldNo가 set 되어야 함.
 		old.setOldNo(oldNo);
@@ -164,53 +186,61 @@ public class OldController {
 
 		oldService.addOld(old);
 		model.addAttribute("old", old);
-
 		return "redirect:/old/listOld";
 
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////
 	@GetMapping("updateOld")
 
-	public String updateOld(@RequestParam("oldNo") String oldNo, Model model) throws Exception {
+	public String updateOld(@RequestParam("oldNo") String oldNo, HttpSession session, Model model) throws Exception {
 		System.out.println(this.getClass() + "겟수정");
-		Old old = oldService.getOld(oldNo);
-		oldService.getOld(oldNo);
-		model.addAttribute("old", old);
+
+		
+		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		String userId = loginUser.getUser().getUserId();
+
+		System.out.println(userId + "유저아이디");
+		
+		model.addAttribute(oldService.getOld(oldNo));
+		model.addAttribute("oldNo", oldNo);
+		System.out.println("올드넘버" + oldNo);
 		return "old/updateOld";
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////	
 	@PostMapping("updateOld")
-
 	public String updateOld(@ModelAttribute("old") Old old, @RequestParam("uploadFile") List<MultipartFile> uploadFile,
-
-			Model model) throws Exception {
+			Model model, @RequestParam("oldNo") String oldNo) throws Exception {
 
 		System.out.println(this.getClass() + " UPDATE올드 POST");
+		System.out.println("올드" + old);
 
-		String oldNo = FileNameUtils.getRandomString();
+		
 		System.out.println(oldNo);
-		// add하기 전에 oldNo가 set 되어야 함.
+		
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
 		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	
+		oldService.updateOld(old);
 
-		System.out.println(old);
-
-		oldService.addOld(old);
-		model.addAttribute("old", old);
-
+		model.addAttribute("올드", old);
+	
 		return "redirect:/old/listOld";
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////	
 	@RequestMapping("deleteOld")
 	public String deleteOld(@ModelAttribute("oldNo") String oldNo) throws Exception {
 		System.out.println("delete");
-		
+
 		oldService.deleteOld(oldNo);
 		return "redirect:/old/listOld";
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////	
 	@PostMapping("updateOldState")
 	public String updateOldState(@RequestParam("old") Old old, Model model) throws Exception {
 		System.out.println(this.getClass() + "포스트상태");
@@ -219,6 +249,7 @@ public class OldController {
 		return "old/getOld";
 	}
 
+/////////////////////회원, 어드민 가능//////////////////////////////	
 	@PostMapping("addOldReport")
 	public String addOldReport(@RequestParam("old") Old old) throws Exception {
 		System.out.println(this.getClass() + "포스트상태");

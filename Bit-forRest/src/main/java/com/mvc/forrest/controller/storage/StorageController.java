@@ -91,30 +91,41 @@ public class StorageController {
 		
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
-		
 		//디버깅
 		System.out.println("쿠폰list:" + map.get("list"));
 		
+		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
+		 String reserveTranNo = FileNameUtils.getRandomString();
+	
+		
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("reserveTranNo", reserveTranNo);
+		
 		
 		
 		return "storage/addStorage";
 	}
 	
 	
-	//결제구현전 테스트
+
 	//회원, 어드민 가능
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
 												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
-												HttpSession session, Model model) throws Exception {
+												@RequestParam("paymentNo") String paymentNo,
+												 Model model) throws Exception {
 		
-		
-		
+		//디버깅
 		System.out.println("product: "+product);
-		System.out.println("uploadFile1: " + uploadFile.get(0).getOriginalFilename());
-		//System.out.println("uploadFile2: " + uploadFile.get(1).getOriginalFilename());
+		System.out.println("storage: "+storage);
+		
+		for(MultipartFile mf: uploadFile) {
+			System.out.println("fileName:"+mf.getOriginalFilename());
+		}
+		//System.out.println("uploadFile2: " + uploadFile.get(0).getOriginalFilename());
+		System.out.println("paymentNo"+paymentNo);
+		//System.out.println("paymentWay"+paymentWay);
 		
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -124,9 +135,6 @@ public class StorageController {
 		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
           String prodNo = FileNameUtils.getRandomString();
         
-        //랜덤으로 생성한 tranNo
-           String tranNo = FileNameUtils.getRandomString();
-        
         //product에 필요한값 셋팅후 등록
 		product.setUserId(userId);
 		product.setProdNo(prodNo);
@@ -134,20 +142,17 @@ public class StorageController {
 		
 		//////////이미지업로드
 		fileUtils.uploadFiles(uploadFile, prodNo, "product");
-	
-		//디버깅
-		System.out.println("storage: "+storage);
 		
 		//storage에 필요한값 셋팅후 등록
 		storage.setUserId(userId);
 		storage.setProdNo(prodNo);
-		storage.setTranNo(tranNo);
-		storage.setPaymentNo("우하하 팡파레~");
+		storage.setPaymentNo(paymentNo);
+		//storage.setPaymentNo(paymentWay);
 		storageService.addStorage(storage);
 		
 		model.addAttribute("storage", storage);
 		
-		return "forward:/storage/getStorage?tranNo=" + tranNo ;
+		return "forward:/storage/getStorage";
 	}
 	
 	//회원, 어드민 가능
@@ -229,6 +234,7 @@ public class StorageController {
 	public String extendStorageGet(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
 		System.out.println("extendStorage Get Start");
+		
 		System.out.println("tranNo:"+tranNo);
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
@@ -265,8 +271,11 @@ public class StorageController {
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
+		System.out.println("getStorage Start");
+		System.out.println("tranNo: "+tranNo);
+		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
-	
+
 		return "storage/getStorage";
 	}
 	
