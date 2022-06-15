@@ -76,10 +76,10 @@ module.exports.listProductChatRoom=
 module.exports.getProduct='select prodNo, userId, prodName, prodImg, isRental, prodQuantity, deposit, rentalPrice from product where prodNo=:prodNo';
 
 //:oldNo, :inquireUserId(sessionUserId), :ownerUserId
-module.exports.insertOldChatRoom='INSERT INTO chatRoom (oldNo, inquireUserId, ownerUserId, inquireUserExit, ownerUserExit, createdAt) VALUES (:oldNo, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
+module.exports.insertOldChatRoom='INSERT INTO chatRoom (oldNo, inquireUserId, ownerUserId) VALUES (:oldNo, :inquireUserId, :ownerUserId)';
 
 //:prodNo, :inquireUserId(sessionUserId), :ownerUserId
-module.exports.insertProductChatRoom='INSERT INTO chatRoom (prodNo, inquireUserId, ownerUserId, inquireUserExit, ownerUserExit, createdAt) VALUES (:prodNo, :inquireUserId, :ownerUserId,0, 0, CURRENT_TIMESTAMP)';
+module.exports.insertProductChatRoom='INSERT INTO chatRoom (prodNo, inquireUserId, ownerUserId) VALUES (:prodNo, :inquireUserId, :ownerUserId)';
 
 // :chatRoomNo
 //enable to see chatRoom if anyone who belongs to some chat room chated!
@@ -112,3 +112,9 @@ module.exports.getTotalUnreadMsg=
 
 //:userId
 module.exports.getUser = 'select * from user where userId=:userId';
+
+//:oldNo, :userId
+module.exports.isNewOldChat = 'select * from chatRoom where inquireUserId=:inquireUserId and oldNo=:oldNo';
+
+//:prodNo, :userId
+module.exports.isNewProductChat = 'select * from chatRoom where inquireUserId=:inquireUserId and prodNo=:prodNo';

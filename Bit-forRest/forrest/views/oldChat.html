@@ -335,7 +335,9 @@
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script >
-const socket = io.connect('http://localhost:3001/oldChat',{
+
+//서버의 아이피를 사용할 것!
+const socket = io.connect('http://192.168.0.240:3001/oldChat',{
   path: '/socket.io'
 });//room namespace사용
 
@@ -386,6 +388,7 @@ socket.on('join',function(data){
 }); 
 
 
+//
 socket.on('oldChat',function(data){
   const li = document.createElement('li');
   console.log('user는 현재 '+'{{user}}');
