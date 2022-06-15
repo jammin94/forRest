@@ -22,6 +22,28 @@
 
 </head>
 <style>
+	.custom{
+		    background: #000;
+    padding: 3px;
+    color: #fff !important;
+	}
+	
+	.custom a{
+    color: #fff !important;
+	}
+	
+	.custom:hover{
+		  
+    padding: 4px;
+    color: #ecf542 !important;
+	}
+	
+	.custom a:hover{
+		  
+    padding: 4px;
+    color: #ecf542 !important;
+	}
+	
 </style>
 
 
@@ -47,13 +69,13 @@
 
 					<div class="buttons">
 						<span sec:authorize="isAuthenticated()">
-							<button type="button" class="btn">
+							<button type="button" class="btn custom">
 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
 							</button>
-							<button type="button" class="btn">
+							<button type="button" class="btn custom">
 								<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 							</button>
-							<button type="button" class="btn">끌어올리기</button>
+							<button type="button" class="btn custom">끌어올리기</button>
 						</span>
 					</div>
 				</div>
@@ -61,7 +83,7 @@
 
 				<div class="img-select">
 					<div class="img-item">
-						<a href="#" data-id="1"> <img th:src="@{/images/uploadFiles/}">
+						<a href="#" data-id="1"> <img th:src="@{/images/content/fff.png}">
 						</a>
 					</div>
 					<div class="img-item">

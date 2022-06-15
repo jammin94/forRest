@@ -91,22 +91,22 @@ public class OldServiceTest {
 	}
 	
 	//@Test
-	public void testgetOldList() throws Exception{
-		
-		Search search = new Search();
-		search.setSearchKeyword("야전");
-		search.setSearchCategory("");
-		search.setStartRowNum(1);
-		search.setEndRowNum(5);
-		
-		System.out.println(search);
-		Map<String,Object> map = oldService.getOldList(search);
-		
-		
-		System.out.println(map);
-	
-		
-	}
+//	public void testgetOldList() throws Exception{
+//		
+//		Search search = new Search();
+//		search.setSearchKeyword("야전");
+//		search.setSearchCategory("");
+//		search.setStartRowNum(1);
+//		search.setEndRowNum(5);
+//		
+//		System.out.println(search);
+//		Map<String,Object> map = oldService.getOldList(search);
+//		
+//		
+//		System.out.println(map);
+//	
+//		
+//	}
 	
 	//@Test
 	public void testAddOld() throws Exception{

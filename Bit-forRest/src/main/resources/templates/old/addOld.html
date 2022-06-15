@@ -101,12 +101,12 @@
 
 					<div class="field">
 						<div class="label">유저 아이디</div>
-						<input type="text" id="userId" name="userId">
+						<input type="text" id="userId" name="userId" th:value="${userId}" readonly>
 					</div>
 
 					<div class="field">
 						<div class="label">스테이트</div>
-						<input type="text" id="oldState" name="oldState">
+						<input type="text" id="oldState" name="oldState" >
 					</div>
 
 
@@ -118,7 +118,7 @@
 
 
 					<div class="field btns">
-						<button class="prev-1 prev">Previous</button>
+						<button class="prev-1 prev" type="button">Previous</button>
 						<button class="submit">Submit</button>
 					</div>
 				</div>

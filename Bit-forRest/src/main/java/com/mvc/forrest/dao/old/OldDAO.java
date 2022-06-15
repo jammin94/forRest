@@ -20,8 +20,6 @@ public interface OldDAO {
 	
 	public void deleteOld(String oldNo) throws Exception ;	
 
-	public int getTotalCount(Search search) throws Exception;
-
 	public List<Old> getOldList(Search search) throws Exception; 
 	
 	public List<Old> getOldListHasUser(Map<String,Object> map) throws Exception; 
