@@ -27,9 +27,9 @@ public class RentalService {
 	}
 	
 	// 결제상세조회
-		public void getRental(int tranNo) throws Exception{
+		public Rental getRental(String tranNo) throws Exception{
 			System.out.println("getRental 실행 됨");
-			rentalDAO.getRental(tranNo);
+			return rentalDAO.getRental(tranNo);
 		}
 	
 	// 물품대여 리스트

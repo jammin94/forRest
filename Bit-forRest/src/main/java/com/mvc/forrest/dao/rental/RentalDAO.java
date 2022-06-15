@@ -18,7 +18,7 @@ public interface RentalDAO {
 	
 	void addRental(Rental rental) throws Exception;
 	
-	Rental getRental(int tranNo) throws Exception;
+	Rental getRental(String tranNo) throws Exception;
 	
 	List<Rental> getRentalList(Map<String,Object> map) throws Exception;
 	
