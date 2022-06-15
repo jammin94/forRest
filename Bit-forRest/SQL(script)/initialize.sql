@@ -153,10 +153,10 @@ CREATE TABLE `chatRoom` (
   KEY `prodNo` (`prodNo`),
   KEY `inquireUserId` (`inquireUserId`),
   KEY `ownerUserId` (`ownerUserId`),
-  CONSTRAINT `chatroom_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`),
-  CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`),
-  CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`),
-  CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) 
+  CONSTRAINT `chatroom_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE 
 );
 
 CREATE TABLE `chat` (
@@ -169,8 +169,8 @@ CREATE TABLE `chat` (
   PRIMARY KEY (`chatMessageNo`),
   KEY `chatRoomNo` (`chatRoomNo`),
   KEY `sendUserId` (`sendUserId`),
-  CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatRoom` (`chatRoomNo`),
-  CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) 
+  CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatRoom` (`chatRoomNo`) ON DELETE CASCADE,
+  CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 );
 
 CREATE TABLE `chatImg` (
