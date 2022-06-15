@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.mvc.forrest.service.domain.User;
-import com.mvc.forrest.service.kakao.OAuth2UserInfo;
 
 import lombok.Data;
 
@@ -25,8 +24,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	private static final long serialVersionUID = 1L;
 	
 	private User user;
-
-	private OAuth2UserInfo oAuth2UserInfo;
+	private Map<String, Object> attributes;
 	
 
 	
@@ -36,9 +34,11 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		this.user=user;
 	}
 	
-    public LoginUser(User user, OAuth2UserInfo oAuth2UserInfo) {
+    public LoginUser(User user, Map<String, Object> attribute) {
+    	System.out.println("여기서 오류 나는 거니?");
         this.user = user;
-        this.oAuth2UserInfo = oAuth2UserInfo;
+        this.attributes = attributes;
+        System.out.println("여기서 오류 나는 거니?2");
     }
 	
 	
@@ -70,7 +70,9 @@ public class LoginUser  implements UserDetails , OAuth2User{
 
 	@Override
 	public String getUsername() {
-		//id
+		if(user.getUserId()==null) {
+			return user.getUserName();
+		}
 		return user.getUserId();
 	}
 	
@@ -99,17 +101,24 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		return true;
 	}
 
-	@Override
-	public Map<String, Object> getAttributes() {
-		// TODO Auto-generated method stub
-		return oAuth2UserInfo.getAttributes();
-	}
+    /**
+     * OAuth2User 구현
+     * @return
+     */
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return oAuth2UserInfo.getProviderId();
-	}
+    /**
+     * OAuth2User 구현
+     * @return
+     */
+    @Override
+    public String getName() {
+        String sub = attributes.get("sub").toString();
+        return sub;
+    }
 
 
 	
