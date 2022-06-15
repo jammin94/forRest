@@ -61,9 +61,23 @@ spring:
       max-file-size: 2MB
 
   security:
-    user:
-      name: test
-      password: 1234   
-
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id:  14488329bb0ccdf08f6b761a0726ab5a
+            client-name: Kakao
+            redirect-uri: 'http://localhost:8080/login/oauth2/code/kakao'
+            # http://localhost:8080/login/oauth2/code/kakao
+            scope: profile_image, account_email
+            authorization-grant-type: authorization_code
+            client-authentication-method: POST
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id 
+            
 fcm:
   certification: bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json

@@ -10,6 +10,7 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
     -->
+    <link rel="shortcut icon" type="image/png" href="/images/header/favicon.png" />
     <link rel="stylesheet" href="/css/style.css"> 
    <link rel="stylesheet" href="/css/toolbar.css"> 
 <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
@@ -248,7 +249,8 @@ article {
               <a th:href="@{/wishList/getWishList}">장바구니</a>
             </li>
             <li>
-               <a th:href="@{/user/logout}">로그아웃</a>
+               <a href="https://kauth.kakao.com/oauth/logout?client_id=ab70541f4fbb493e0fd22d7f73cd2940&logout_redirect_uri=http://localhost:8080/">
+               	로그아웃</a>
             </li>
           </ul>
         </li>

@@ -8,8 +8,6 @@
 <mapper namespace="com.mvc.forrest.dao.rental.RentalDAO"> 	
 	<resultMap id="rentalSelectMap" type="rental">
 		<result property="tranNo" 				column="tranNo" 				jdbcType="VARCHAR"/>
-		<result property="userId"	   			column="userId" 				jdbcType="VARCHAR" />
-		<result property="prodNo" 			column="prodNo" 			jdbcType="VARCHAR" />
 		<result property="divyAddress" 			column="divyAddress" 		jdbcType="VARCHAR" />
 		<result property="pickupAddress" 				column="pickupAddress" 					jdbcType="VARCHAR" />
 		<result property="startDate" 			column="startDate" 			jdbcType="DATE" />
@@ -49,7 +47,7 @@
 			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 		 </association>
 		
-		 <association property="buyer" javaType="user">
+		 <association property="buyer" javaType="User">
 		    <id property="userId" column="userId" jdbcType="VARCHAR"/>
 			<result property="password"			column="password"		jdbcType="VARCHAR"/>
 			<result property="nickname"			column="nickname"		jdbcType="VARCHAR"/>
@@ -97,14 +95,12 @@
 	 
 	 
 	 <!-- SELECT -->
-	 <select 	id="getRental"	parameterType="int"	resultMap="rentalSelectMap">
-		SELECT 
-			*
-		FROM transaction
-		WHERE tranNo = #{tranNo}
+	 <select 	id="getRental"	parameterType="String"	resultMap="rentalSelectMap">
+			SELECT * FROM transaction t, product p 
+			where t.tranNo =  #{tranNo} and t.prodNo = p.prodNo
 	 </select>
 	 
-	
+
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
@@ -208,6 +204,16 @@
 													order by PRODUCT.PROD_NO
 												</if>
 											</if>) countTable						
+	 </select>
+	 
+	 	<!-- SELECT PROFIT LIST -->
+	<select  id="getRentalListProfit"  parameterType="map"	resultMap="rentalSelectMap">
+			SELECT transaction.tranNo, product.prodName , transaction.userId, transaction.resultPrice
+		 	FROM transaction LEFT OUTER JOIN (SELECT * FROM transaction WHERE tranCode=0) A ON transaction.prodNo = A.prodNo
+		 	LEFT OUTER JOIN product ON product.prodNo = transaction.prodNo
+	 	<where>
+	 		transaction.tranCode='1' and A.userId= #{userId}
+	 	</where>
 	 </select>
 	 
 	 <!--SELECT total rental profit-->

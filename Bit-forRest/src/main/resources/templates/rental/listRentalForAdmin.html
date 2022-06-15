@@ -147,7 +147,7 @@
 	    	</td>
 	  
 		    <td  th:text = "${rental.tranNo}"></td>
-			<td align="center" th:text = "${rental.userId}"></td>
+			<td align="center" th:text = "${rental.buyer.userId}"></td>
 			<td align="center" th:text = "${rental.prodName}"></td>
 			<td align="center" th:text = "${rental.resultPrice}"></td>
 			<td align="center" th:text = "${rental.paymentDate}"></td>
@@ -198,8 +198,7 @@
 		    	var inputValue= $(this).find('span').text();
 		    	//alert(inputValue);
 		    	
-		    
-		    		
+
 		    	$('.prodCondition').attr('value',inputValue);
 		    	console.log($('.prodCondition').val());
 		    	//alert($('.prodCondition').val());
