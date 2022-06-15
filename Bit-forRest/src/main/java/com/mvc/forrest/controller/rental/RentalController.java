@@ -116,7 +116,6 @@ public class RentalController {
         rental.setOriginPrice(10000); // 임시 오리진 프라이스
         
         rental.setTranNo(tranNo);
-        rental.setUserId(userId);
 		rental.setPeriod(3);
         
 		//1. i'm port에서 나온 값 + 화면상 입력값들 transaction 테이블에 insert
@@ -145,14 +144,16 @@ public class RentalController {
 	@GetMapping("listRental")
 	public String listProductView(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception{
 		
-
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
 		
 		search.setPageSize(pageSize);
 				
-		String userId = ((User)httpSession.getAttribute("user")).getUserId();
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("search", search);
@@ -169,7 +170,6 @@ public class RentalController {
 		model.addAttribute("search", search);
 		
 		return "rental/listRental";
-		
 	}
 	
 	@PostMapping("listRental")
@@ -228,23 +228,17 @@ public class RentalController {
 		}
 		search.setPageSize(pageSize);
 		
-		//테스트를위해 세션아이디 임의 생성
-		User user = userService.getUser("user01@naver.com");
-		session.setAttribute("user", user);
-		
-		String userId = ((User)session.getAttribute("user")).getUserId();
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("search", search);
-		map.put("userId", userId);
-		
-		Map<String, Object> mapStorage = rentalService.getRentalList(map);
-		
-		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+		System.out.println(userId);
+		Map<String, Object> mapRental = rentalService.getRentalListProfit(search,userId);
+		System.out.println(mapRental);
+		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
 		
 		// Model 과 View 연결
 		
-		model.addAttribute("list", mapStorage.get("list"));
+		model.addAttribute("list", mapRental.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		

@@ -9,7 +9,7 @@
  	
 	<resultMap id="wishListSelectMap" type="wishList">
 		<result property="wishListNo" 				column="wishListNo" 				jdbcType="INTEGER"/>
-		<result property="prodNo"	   			column="prodNo" 				jdbcType="INTEGER" />
+		<result property="prodNo"	   			column="prodNo" 				jdbcType="VARCHAR" />
 		<result property="userId" 			column="userId" 			jdbcType="VARCHAR" />
 		<result property="period" 			column="period" 		jdbcType="INTEGER" />
 	</resultMap>
