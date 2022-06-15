@@ -561,8 +561,7 @@ margin-bottom: 210px !important;
 			
 		
 	
-		$( ".heart" ).on("click" , function() {
-	        
+		$( ".heart" ).on("click" , function() {	        
 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
 			console.log(oldNo);
 			
@@ -595,13 +594,49 @@ margin-bottom: 210px !important;
 				         
 	                  
 	                    	location.reload();
-	                }
+	                	}
 	                    
 	                    
-	            }
-	        })
+	            	}
+	        	})
 			
-		}); 
+			}); 
+		
+		$( ".heart.filled" ).on("click" , function() {	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/deleteOldLikeOnList",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜삭제 완료");
+				        $(this).removeClass('filled');
+				        location.reload();
+	
+	                    }
+	                    else if (heartCheck){
+	                    	alert("이미 삭제한 물품 입니다");                 
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
 		
 		
 		});
