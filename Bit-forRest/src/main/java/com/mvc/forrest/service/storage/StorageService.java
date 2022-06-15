@@ -24,6 +24,7 @@ public class StorageService {
 		
 		//보관물품정보 상세조회
 		public Storage getStorage(String tranNo) throws Exception{
+			System.out.println("서비스 tranNo:"+tranNo);
 			return storageDAO.getStorage(tranNo);
 		}
 		
