@@ -63,7 +63,7 @@ public class OldController {
 	public String listOldAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
 
-		System.out.println(this.getClass() + "겟리스트");
+		System.out.println(this.getClass() + "겟리스트로그인");
 
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = loginUser.getUser().getUserId();
@@ -123,7 +123,11 @@ public class OldController {
 		Map<String, Object> map = oldService.getOldList(search);
 
 		model.addAttribute("old", old);
+
 		model.addAttribute("list", map.get("list"));
+
+
+
 		model.addAttribute("search", search);
 
 		Old testOld = oldService.getOld(oldNo); // 1을 하고 2를 한 이유는?

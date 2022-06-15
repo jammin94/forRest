@@ -20,4 +20,17 @@ public class Old {
 	private OldReview oldReview;
 	private boolean oldLikeCheck;
 	private int oldLikeNo;
+	
+	public boolean isOldLikeCheck() {
+		return oldLikeCheck;
+	}
+	
+	public void setOldLikeCheck(boolean oldLikeCheck) {
+		if(this.oldLikeNo==0) {
+			this.oldLikeCheck = false;
+		}else {
+			this.oldLikeCheck = true;
+		}	
+	}
+	
 	}
