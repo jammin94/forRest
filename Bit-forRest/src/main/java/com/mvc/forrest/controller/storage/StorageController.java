@@ -98,7 +98,6 @@ public class StorageController {
 		 String reserveTranNo = FileNameUtils.getRandomString();
 	
 		
-		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("reserveTranNo", reserveTranNo);
 		
@@ -108,7 +107,7 @@ public class StorageController {
 	}
 	
 	
-	//결제구현전 테스트
+
 	//회원, 어드민 가능
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
@@ -153,7 +152,7 @@ public class StorageController {
 		
 		model.addAttribute("storage", storage);
 		
-		return "forward:/storage/getStorage?tranNo=" + storage.getTranNo() ;
+		return "forward:/storage/getStorage";
 	}
 	
 	//회원, 어드민 가능
@@ -235,6 +234,7 @@ public class StorageController {
 	public String extendStorageGet(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
 		System.out.println("extendStorage Get Start");
+		
 		System.out.println("tranNo:"+tranNo);
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
@@ -271,8 +271,11 @@ public class StorageController {
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
+		System.out.println("getStorage Start");
+		System.out.println("tranNo: "+tranNo);
+		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
-	
+
 		return "storage/getStorage";
 	}
 	

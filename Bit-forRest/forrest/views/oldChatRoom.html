@@ -596,7 +596,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script >
-const socket = io.connect('http://localhost:3001/oldChatRoom',{
+const socket = io.connect('http://192.168.0.240:3001:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
@@ -621,12 +621,14 @@ $("li.contact").dblclick(function() {
 });
 
 
-
-
-
-
-
-
+//만약 중고거래 채팅하기 버튼으로 들어왔을 시에는 바로 새창으로 채팅창도 열어주기
+$(document).ready(function(){
+	if('{{immediate}}'!==''){
+		//console.log('중고물품 상세조회에서 중고거래 채팅하기로 들어옴');
+		//바로 채팅창 띄워주기
+		window.open('/oldChat/{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}');
+	}
+});
 
 
 /*
