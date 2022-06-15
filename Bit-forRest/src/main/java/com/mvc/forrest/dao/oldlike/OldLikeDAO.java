@@ -14,5 +14,9 @@ public interface OldLikeDAO {
 	List<OldLike> getOldLikeList(String userId) throws Exception;
 	
 	void deleteOldLike(int oldLikeNo) throws Exception;
+	
+	void deleteOldLikeOnList(OldLike oldLike) throws Exception;
+	
+	OldLike oldLikeDuplicationCheck(OldLike oldLike) throws Exception;
 
 }

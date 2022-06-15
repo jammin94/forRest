@@ -46,7 +46,7 @@ ALTER TABLE product ADD FOREIGN KEY(userId) REFERENCES user(userId);
 
 CREATE TABLE transaction
 (
-   tranNo VARCHAR(40) NOT NULL,
+   tranNo VARCHAR(100) NOT NULL,
    userId VARCHAR(30) NOT NULL,
    prodNo VARCHAR(40) NOT NULL,
    divyRequest VARCHAR(100),

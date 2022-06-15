@@ -107,9 +107,12 @@ input{
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 	 <form class="form-inline" name="detailForm">
-	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+	  <input type="hidden" name="prodName" th:value="${product.prodName}">
+	 <input type="hidden" name="prodNo" th:value="${product.prodNo}">
+	<!--  <input type="hidden" id="currentPage" name="currentPage" value=""/>-->
 		 <!--  table Start /////////////////////////////////////-->
       <table class="table table-hover table-striped">
+      
 	       <thead>
 	          <tr class="tableHeader">
 	            <th align="center">상품정보</th>
@@ -181,15 +184,16 @@ input{
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
 		<td>주문하시는분</td>
-		<td><input type="text" class="orderName" name="receiverName" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+		<td><input type="text" class="receiverName" name="receiverName" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
 	</tr>
 	
 	<tr>
 		<td>핸드폰번호</td>
 		<td>
-		<input type="text" class="receiverPhone1" name="mobileOrder[]" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" class="receiverPhone2" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
-		<input type="text" class="receiverPhone3" name="mobileOrder[]" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="text" class="receiverPhone1" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone2" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone3"  value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
 		</td>
 	</tr>
 	
@@ -254,8 +258,9 @@ input{
 
 	<tr>
 		<td>남기실 말씀</td>
-		<td><input type="text" name="divyRequest" style="width:100%"></td>
+		<td><input type="text" name="divyRequest" style="width:100%" class="divyRequest"></td>
 	</tr>
+	
 	<tr id="delivery_check" style="display:none;">
 		<td>&nbsp;</td>
 		<td>
@@ -263,6 +268,7 @@ input{
 			<input type="checkbox" name="delivery_default" id="delivery_default" value="y" onclick="deliveryAddCheck('delivery_default', this);"><label for="delivery_default">기본 배송지로 선택</label>
 		</td>
 	</tr>
+	
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr id="paper_delivery_menu">
 		<td></td>
@@ -332,6 +338,7 @@ input{
 	<tr>
 		<td>총 결제금액</td>
 		<td><span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+		<input type="hidden" name="resultPrice" class="resultHiddenPrice"></input>
 	</tr>
 	</tbody></table>
 	</td>
@@ -340,7 +347,7 @@ input{
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button class="payBtn">결제하기</button>
+	<button type="button" class="payment">결제하기</button>
 	<button>취소하기</button>
 </div>
 	</form>
@@ -482,11 +489,77 @@ function divy_execDaumPostcode() {
     		}
     	 
     	})
-    	    		
-    	$('.payBtn').on("click",function(){
-    		console.log('adsfasdf');
-    	})
+    	 
     })
+    
+    
+	 //csv를 넣어 주소를 하나로 합치는 함수
+	 
+	 function combineAddr(){
+		 
+		 //디버깅
+		 //alert($("input[name='postcode']").val())
+		 
+		 var pickupAddrValue = "";
+		 
+		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupBaseAddress']").val() + "/" 
+			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
+		 
+		 $('.pickupAddress').val(pickupAddrValue);
+		
+		//alert(pickupAddrValue);
+		 
+		 var divyAddrValue = "";
+		 
+		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
+			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
+		 
+		 $('.divyAddress').val(divyAddrValue);
+		
+		// alert(divyAddrValue);
+		 
+	 }
+	 
+	 //csv를 넣어 전화번호를 합치는 함수
+	 function combinePhone(){
+		 
+		 //디버깅
+		 
+		 var receiverPhone = "";
+		 
+		 var receiverPhone = $(".receiverPhone1").val() + "/"  + $(".receiverPhone2").val() + "/" 
+			+  $(".receiverPhone3").val();
+		 
+		 $('.receiverPhone').val(receiverPhone);
+			
+		
+		
+		// alert(receiverPhone); 
+	 }
+	 
+		$(function(){
+			 $(".payment").on("click", function(){
+				 
+				 combineAddr(); // 주소합침
+				 combinePhone();//폰 번호 합침
+				 var numConvert = parseInt($('#resultPrice').text().replace(",","")); 
+				 
+				 console.log("정수치환"+numConvert);
+				 
+				 $('.resultHiddenPrice').val(numConvert) //최종결제금액 , 파싱해서 전달
+				 
+				 console.log("receiverName"+$('.receiverName').val()); // receiverName
+				 console.log("최종 결제 금액"+$('.resultHiddenPrice').val()); // 최종 결제 금액
+				 console.log("주문자 휴대폰번호"+$('.receiverPhone').val()); // 주문자 휴대폰번호
+				 console.log("픽업주소"+$('.pickupAddress').val()); // 픽업주소
+				 console.log("반송주소"+$('.divyAddress').val());     //반송주소
+				 console.log("남기실말씀"+$('.divyRequest').val());     //남기실말씀
+
+				 
+				$('form').attr('method', 'POST').attr('action','/rental/addRental').submit();
+			 })
+		 }) 
+	 
     
     
    
