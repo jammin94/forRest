@@ -178,6 +178,11 @@ public class KakaoLoginService {
 		JsonParser parser = new JsonParser();
 		JsonElement element = parser.parse(result);
 	 		System.out.println("element : "+element);
+		String naverEmail = element.getAsJsonObject().get("response").getAsJsonObject().get("email").toString().replace("\"", "");
+		String naverImg = element.getAsJsonObject().get("response").getAsJsonObject().get("profile_image").toString().replace("\"", "");
+		
+		userInfo.put("naverEmail", naverEmail);
+		userInfo.put("naverImg", naverImg);
 		
 		return userInfo;
 	}

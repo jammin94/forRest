@@ -39,14 +39,17 @@ public class User {
     }
     
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public User(String username, String password, String email, Role role, String provider, String providerId, String id) {
-        this.userName = username;
+    public User(String userName, String password, String email, Role role, String provider
+    			, String providerId, String id, String nickname, String userAddr, String phone) {
+        this.userName = userName;
         this.password = password;
         this.email = email;
         this.role = "user";
         this.joinPath = provider;
         this.userId=id;
-//        this.providerId = providerId;
+        this.nickname=nickname;
+        this.userAddr=userAddr;
+        this.phone=phone;
     }
 
 	public User() {
