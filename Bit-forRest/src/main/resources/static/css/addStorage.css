@@ -19,10 +19,11 @@ div
 
  textarea {
     width: 500px;
-    height:150px;
+    height:110px;
     resize: none;
     
   }
+  
 
 body
 {
@@ -38,8 +39,8 @@ body
     background: #fff;
     border-radius: 5px;
     text-align: center;
-    padding: 50px 35px 10px 35px;
-    margin-top: 70px;
+    padding: 90px 35px 10px 35px;
+    margin-top: 80px;
 
 }
 .container header
@@ -77,6 +78,12 @@ body
     display: flex;
     position: relative;
 }
+.form-outer form .page .field.txtarea
+{
+
+    margin-bottom	: 120px;
+
+}
 .form-outer form .page .field .label
 {
     position: absolute;
@@ -92,6 +99,9 @@ body
     font-size: 18;
     padding-left: 15px;
 }
+
+.form-outer form .page .field input:focus {outline: 1px solid #000;}
+
 form .page .field select
 {
     width: 100%;
@@ -187,6 +197,7 @@ form .page .btns button .next{
 .progress-bar .step .bullet.active::after
 {
     background: #FF5C00;;
+    transform: scaleX(0);
     transform-origin: left;
     animation: animate 0.3s linear forwards;
 
