@@ -29,7 +29,7 @@
 
 /* base64로 이미지 저장시 필요함. 근데 우리는 다른데..? */
 	$("input[type='file']").change(function() {
-	  var input = $("input[type='file']")[0].files;
+	  var input = $("input[type='file' ]")[0].files;
 	  console.log(input);
 	   if(input){
 	  	for(var num=0; num<input.length; num++){
