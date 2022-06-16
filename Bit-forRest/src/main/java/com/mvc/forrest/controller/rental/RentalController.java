@@ -241,7 +241,10 @@ public class RentalController {
 		System.out.println(mapRental);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
 		
+		
+		
 		// Model 과 View 연결
+		System.out.println( mapRental.get("list"));
 		
 		model.addAttribute("list", mapRental.get("list"));
 		model.addAttribute("resultPage", resultPage);
