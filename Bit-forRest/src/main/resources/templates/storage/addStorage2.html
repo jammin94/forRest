@@ -77,6 +77,96 @@ border-bottom:3px solid #ddd !important;
     height:200px;
     resize: none;
   }
+  
+ 
+ body {
+            background: #efd;
+        }
+        .desc{
+            font-size: 14px;
+            color: #999;
+        }
+        .section {
+            width: 1200px;
+            margin: 30px auto;
+        }
+        .article {
+            border: 1px solid #ccc;
+            padding: 20px;
+            min-height: 230px;
+        }
+        .item {
+            display: inline-block;
+            position: relative;
+            margin: 12px;
+            width: 200px;
+            height: 200px;
+        }
+        .addImg {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .addImg .plus-icon{
+            margin: 6px;
+            height: 180px;
+            text-align: center;
+            font-size: 20px;
+            border: dashed 4px #292c26;
+        }
+        .addImg .plus-icon .fa{
+            line-height: 180px;
+        }
+        .preview,.preBlock{
+            position: absolute;
+            display: block;
+            width: 200px;
+            height: 200px;
+            left: 0;
+            top: 0;
+        }
+        .delete {
+            width: 22px;
+            position: absolute;
+            right: -12px;
+            top: -12px;
+            cursor: pointer;
+            display: none;
+            text-align: center;
+            line-height: 22px;
+            font-size: 14px;
+            color: #fff;
+            font-weight: bold;
+            background: #999;
+            border-radius: 50%;
+        }
+        .preBlock img {
+            display: block;
+            width: 200px;
+            height: 200px;
+        }
+        .upload_input{
+            display: block;
+            width: 0;
+            height: 0;
+            -webkit-opacity: 0.0;
+            /* Netscape and Older than Firefox 0.9 */
+            -moz-opacity: 0.0;
+            /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+            -khtml-opacity: 0.0;
+            /* IE9 + etc...modern browsers */
+            opacity: .0;
+            /* IE 4-9 */
+            filter:alpha(opacity=0);
+            /*This works in IE 8 & 9 too*/
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            /*IE4-IE9*/
+            filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        }
 </style>
 <body>
 
@@ -114,25 +204,73 @@ border-bottom:3px solid #ddd !important;
 		   <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"> 
 		   </div>  -->
 		 <!--  table Start /////////////////////////////////////-->
-      <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
-                    </div>
-                    <input type="file" name="uploadFile" multiple="multiple" style="display:none">
-                  </div>
-</div> 
+<div class="section">
+
+  
+    <div class="article">
+        <div class="item">
+            <div class="addImg">
+                <div class="plus-icon">
+                    <i class="fa fa-plus-circle fa-4x"></i>
+                </div>
+            </div>
+            <input name="url" type="file" class="upload_input" onchange="change(this)" />
+            <div class="preBlock">
+                <img class="preview" id="preview" alt="" name="pic" width="200" height="200" />
+            </div>
+            <div class="delete">×</div>
+        </div>
+        <div class="item">
+            <div class="addImg">
+                <div class="plus-icon">
+                    <i class="fa fa-plus-circle fa-4x"></i>
+                </div>
+            </div>
+            <input name="url" type="file" class="upload_input" onchange="change(this)" />
+            <div class="preBlock">
+                <img class="preview" alt="" name="pic" width="200" height="200" />
+            </div>
+            <div class="delete">×</div>
+        </div>
+        <div class="item">
+            <div class="addImg">
+                <div class="plus-icon">
+                    <i class="fa fa-plus-circle fa-4x"></i>
+                </div>
+            </div>
+            <input name="url" type="file" class="upload_input" onchange="change(this)" />
+            <div class="preBlock">
+                <img class="preview" alt="" name="pic" width="200" height="200" />
+            </div>
+            <div class="delete">×</div>
+        </div>
+        <div class="item">
+            <div class="addImg">
+                <div class="plus-icon">
+                    <i class="fa fa-plus-circle fa-4x"></i>
+                </div>
+            </div>
+            <input name="url" type="file" class="upload_input" onchange="change(this)" />
+            <div class="preBlock">
+                <img class="preview" alt="" name="pic" width="200" height="200" />
+            </div>
+            <div class="delete">×</div>
+        </div>
+        <div class="item">
+            <div class="addImg">
+                <div class="plus-icon">
+                    <i class="fa fa-plus-circle fa-4x"></i>
+                </div>
+            </div>
+            <input name="url" type="file" class="upload_input" onchange="change(this)" />
+            <div class="preBlock">
+                <img class="preview" alt="" name="pic" width="200" height="200" />
+            </div>
+            <div class="delete">×</div>
+        </div>
+    </div>
+      <input type="file" name="uploadFile" multiple="multiple" style="display:none">
+</div>
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- 물품정보등록 -->
@@ -213,6 +351,7 @@ border-bottom:3px solid #ddd !important;
 	<tr>
 		<td>물품수량</td>
 		<td>
+		 <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"   style="width:50px;"> 개
 		
 		
 		</td>
@@ -446,7 +585,7 @@ border-bottom:3px solid #ddd !important;
 
 	<tr>
 		<td>총 결제금액</td>
-		<td> <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;" readonly/> 원</td>
+		<td> <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"  value=200  style="border:none;width:100px;text-align:right;" readonly/> 원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -834,6 +973,76 @@ $("#resv_quantity").on("propertychange change paste input", function() {
     	 
     })
     
+	
+	///////////////////////////
+	
+	 $('body').on('click', '.addImg', function(){
+        $(this).parent().find('.upload_input').click();
+    });
+    //点击
+    $('body').on('click', '.delete', function(){
+        $(this).parent().find('input').val('');
+        $(this).parent().find('img.preview').attr("src","");
+        //IE9以下
+        $(this).parent().find('img.preview').css("filter","");
+        $(this).hide();
+        $(this).parent().find('.addImg').show();
+    });
+    //选择图片
+    function change(file) {
+        //预览
+        var pic = $(file).parent().find(".preview");
+        //添加按钮
+        var addImg = $(file).parent().find(".addImg");
+        //删除按钮
+        var deleteImg = $(file).parent().find(".delete");
+
+        var ext=file.value.substring(file.value.lastIndexOf(".")+1).toLowerCase();
+
+        // gif在IE浏览器暂时无法显示
+        if(ext!='png'&&ext!='jpg'&&ext!='jpeg'){
+            if (ext != '') {
+                alert("图片的格式必须为png或者jpg或者jpeg格式！");
+            }
+            return;
+        }
+        //判断IE版本
+        var isIE = navigator.userAgent.match(/MSIE/)!= null,
+            isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+        isIE10 = navigator.userAgent.match(/MSIE 10.0/)!= null;
+        if(isIE && !isIE10) {
+            file.select();
+
+            //ie8,9,10拒绝访问 updated by fli at 20180730
+            $(file).blur();
+
+            var reallocalpath = document.selection.createRange().text;
+            // IE6浏览器设置img的src为本地路径可以直接显示图片
+            if (isIE6) {
+                pic.attr("src",reallocalpath);
+            }else{
+                // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+                pic.css("filter","progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale',src=\"" + reallocalpath + "\")");
+                // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+                pic.attr('src','data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+            }
+            addImg.hide();
+            deleteImg.show();
+        }else {
+            html5Reader(file,pic,addImg,deleteImg);
+        }
+    }
+    //H5渲染
+    function html5Reader(file,pic,addImg,deleteImg){
+        var file = file.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e){
+            pic.attr("src",this.result);
+        }
+        addImg.hide();
+        deleteImg.show();
+    }
 	
 	
 	
