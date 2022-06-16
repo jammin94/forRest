@@ -604,10 +604,42 @@ const socket = io.connect('http://192.168.0.42:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
-//새방 이벤트 시 새 방 생성
-socket.on('newRoom', function(data){
-
+//누가 채팅치면 업데이트
+socket.on('updateRoom',function(data){
+	const chatRoomNo=data.chatRoomNo;
+	$("li[value="+chatRoomNo+"]").remove();
+	
+	let html='<li class="contact active" value="'+data.chatRoomNo+'">'+
+          '<div class="wrap">'+
+            '<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="userImg">'+
+              '<input type="hidden" name="inquireUserId" value='+data.inquireUserId+'"/>'+
+            '</img>'+
+            '<!-- <img src="'+data.inquireImg+' alt="" class="userImg">-->'+
+            '<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" class="oldImg">'+
+              '<input type="hidden" name="oldNo" value="'+data.oldNo+'"/>'+
+            '</img>'+
+            '<!-- <img src="{{list.oldImg}} alt="" class="oldImg">-->'+
+            '<div class="meta">'+
+              '<div class="name">'+data.inquireNickname+
+                ' <span class="inquireAddr">'+data.inquireAddr+' </span>'+
+                '<span class="recentTime">'+data.recentTime+' </span>'+
+                (data.unreadcount===null ? '' : '<span class="unreadcount">'+data.unreadcount+'</span>')+
+              '</div>'+
+              '<div class="preview">'+data.recentMsg+'</div>'+
+            '</div>'+
+          '</div>'+
+        '</li>';
+        
+      $("ul").prepend(html);
 });
+
+//채팅방 나가기 실시간 적용
+socket.on('exitRoom',function(data){
+	const chatRoomNo=data
+	$("li[value="+chatRoomNo+"]").remove();
+});
+
+
 
 $("#profile-img").click(function() {
 	$("#status-options").toggleClass("active");

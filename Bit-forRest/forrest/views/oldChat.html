@@ -366,8 +366,9 @@ $(".fa-sign-out").click(async function(){
 	try{
 		if(confirm('정말로 나가시겠습니까?')){
 			//라우터 나가기 처리
-			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');
 			window.close();
+			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');
+			
 		}else{
 			return false;
 		}
@@ -378,20 +379,12 @@ $(".fa-sign-out").click(async function(){
 
 
 //접속시 시스템 메세지
-socket.on('join',function(data){
-  console.log('소켓 드가자');
-  const li = document.createElement('li');
-  li.classList.add(data.user);
-  console.log("data.user : "+data.user)
-  
-  const p = document.createElement('p');
-  p.textContent(data.chat);
-  li.appendChild(p);
-  console.log("data.chat : "+data.chat)
+socket.on('isConnected',function(data){
+  console.log(data.chat);
+}); 
 
-  document.querySelector('ul').appendChild(li);
-
-  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+socket.on('isNotConnected',function(data){
+  console.log(data.chat);
 }); 
 
 
