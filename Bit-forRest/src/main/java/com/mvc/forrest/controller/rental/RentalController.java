@@ -238,17 +238,19 @@ public class RentalController {
 		String userId= loginUser.getUser().getUserId();
 		System.out.println(userId);
 		Map<String, Object> mapRental = rentalService.getRentalListProfit(search,userId);
+		
+		int profitTotal = rentalService.getRentalProfitTotal(userId);
+		
 		System.out.println(mapRental);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
-		
-		
-		
+					
 		// Model 과 View 연결
 		System.out.println( mapRental.get("list"));
 		
 		model.addAttribute("list", mapRental.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		model.addAttribute("profitTotal",profitTotal);
 		
 		return "rental/listRentalProfit";
 	}

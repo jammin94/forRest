@@ -26,7 +26,7 @@ public interface RentalDAO {
 	
 	List<Rental> getRentalListProfit(Map<String,Object> map) throws Exception;
 	
-	List<Rental> getRentalProfitTotal(String userId) throws Exception;
+	int getRentalProfitTotal(String userId) throws Exception;
 	
 	int getTotalCount(Search search) throws Exception;	
 	
