@@ -153,7 +153,7 @@
 			<td align="center" th:text = "${rental.paymentDate}"></td>
 			<td align="center" th:text = "${rental.purchaseProd.prodCondition}"></td>
 			<td>			
-			<input type="hidden"  class="prodNum" name="prodNo" th:value="${rental.prodNo}" />				
+			<input type="hidden"  class="prodNum" name="prodNo" th:value="${rental.purchaseProd.prodNo}" />				
 			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='물품대여승인신청중'">배송하기</button>
 			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='배송중'">배송완료</button>
 			</td>	  
@@ -256,7 +256,7 @@
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 	    	
-		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition').submit();
+		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition2').submit();
 	 		
 		}); 
 	  
@@ -264,8 +264,8 @@
 	   $( ".prodCondition-button" ).on("click" , function() {
 		   
 	    	var prodNum = $(this).parent().find('.prodNum').val();
-
-		   self.location = "/product/updateProductCondition?prodNo="+prodNum;
+			console.log(prodNum);
+		 	self.location = "/product/updateProductCondition2?prodNo="+prodNum;
 		}); 
 	  
 	  

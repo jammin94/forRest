@@ -96,16 +96,10 @@ public class ProductController {
 	}
 	
 	//어드민 가능
-	// 관리자가 물품의 상태변경
+	// 관리자가 물품의 상태변경 ( 보관 )
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
-		
-		System.out.println("updateProductCondition start");
-		
-		Product product = productService.getProduct(prodNo);
-		
-		System.out.println("prodNo:"+prodNo);
-		
+		Product product = productService.getProduct(prodNo);		
 		
 		if(product.getProdCondition().equals("물품보관승인신청중")) {
 			product.setProdCondition("입고중");
@@ -115,12 +109,7 @@ public class ProductController {
 			product.setProdCondition("출고완료");
 		//보관관련
 			
-		} else if(product.getProdCondition().equals("물품대여승인신청중")) {
-			product.setProdCondition("배송중");
-		} else if(product.getProdCondition().equals("배송중")) {
-			product.setProdCondition("대여중");
-		}
-		//대여관련
+		} 
 		
 		System.out.println("after:"+product.getProdCondition());
 		
@@ -128,6 +117,27 @@ public class ProductController {
 	
 		return "redirect:/storage/listStorageForAdmin";
 	}
+	
+	//어드민 가능
+		// 관리자가 물품의 상태변경 ( 대여 )
+		@RequestMapping("updateProductCondition2")
+		public String updateProductCondition2(@RequestParam("prodNo") String prodNo) throws Exception {
+			Product product = productService.getProduct(prodNo);		
+
+			//대여관련
+			 if(product.getProdCondition().equals("물품대여승인신청중")) {
+				product.setProdCondition("배송중");
+			} else if(product.getProdCondition().equals("배송중")) {
+				product.setProdCondition("대여중");
+			}
+			
+			
+			System.out.println("after:"+product.getProdCondition());
+			
+			productService.updateProductCondition(product);
+		
+			return "redirect:/rental/listRentalForAdmin";
+		}
 	
 	//어드민만 가능
 	//관리자가 물품상태를 일괄변경
@@ -175,6 +185,47 @@ public class ProductController {
 	
 		return "redirect:/storage/listStorageForAdmin";
 	}
+	
+		//어드민만 가능
+		//관리자가 물품상태를 일괄변경 ( 대여 )
+		@RequestMapping("updateProductAllCondition2")
+		public String updateProductAllCondition2(@RequestParam("prodNo") String[] prodNo) throws Exception {
+			
+			//디버깅
+			for(String no: prodNo) {
+				System.out.println(no);
+			}
+			
+			//prodNo를 통해 productCondition배열에 값을 셋팅
+			String[] productCondition =  new String[prodNo.length];
+			for(int i=0; i<prodNo.length; i++) {
+				productCondition[i] = productService.getProduct(prodNo[i]).getProdCondition();
+			}
+			
+			for(String proCon: productCondition) {
+				System.out.println(proCon);
+			}
+			
+			for(int i=0; i<prodNo.length; i++) {
+				
+				Product product = productService.getProduct(prodNo[i]);
+		
+				//대여관련
+				
+				if(productCondition[i].equals("물품대여승인신청중")) {
+					product.setProdCondition("배송중");
+				} else if(productCondition[i].equals("배송중")) {
+					product.setProdCondition("대여중");
+				}
+			
+				
+				productService.updateProductCondition(product);
+			}
+			
+			
+		
+			return "redirect:/rental/listRentalForAdmin";
+		}
 	
 	//유저가 물품보관승인신청을 취소하거나 보관중인 물품을 되돌려받을때 사용
 	@RequestMapping("cancleProduct")
