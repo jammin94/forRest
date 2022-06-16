@@ -175,35 +175,41 @@
 	 
 	 
 	<!--SELECT Total Count -->	 
-	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
 	  	SELECT COUNT(*)
-	 	 FROM(	SELECT * FROM TRANSACTION 	
-	 	  
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				PROD_NO LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 2 and searchKeyword !='' ">
-										 				PROD_NAME LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 3 and searchKeyword !='' ">
-										 				PRICE = #{searchKeyword} 
-													</if>
-												</where>
-											</if>
-											
-											<if test="orderCondition != null">
-												<if test='orderCondition == "priceAsc"'>
-													order by PRICE ASC
-												</if>
-												<if test='orderCondition == "priceDesc"'>
-													order by PRICE DESC
-												</if>
-												<if test='orderCondition == "prodNoAsc"'>
-													order by PRODUCT.PROD_NO
-												</if>
-											</if>) countTable						
+	  	FROM product p, transaction t
+	  	<where>
+	 		 p.prodNo = t.prodNo AND  
+	 		(p.prodCondition ='물품대여승인신청중' OR 
+	 		 p.prodCondition = '배송중' OR
+	 		 p.prodCondition = '대여중')
+	 			 		
+	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition}
+	 		</if>
+	 		
+	 	<if test="searchCondition != null">
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 1  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2  and searchProductCondition != null" >
+	 		 and p.prodCondition = #{searchProductCondition} and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		
+	 			<if test="searchKeyword != null and searchCondition == 1 and searchProductCondition == null" >
+	 		 and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="searchKeyword != null and searchCondition == 2 and searchProductCondition == null" >
+	 		 and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		</if>
+	 	</if>
+	 		 		
+	 	</where>
+	  	
 	 </select>
 	 
 	 	<!-- SELECT PROFIT LIST -->
