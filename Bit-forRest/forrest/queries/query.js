@@ -118,3 +118,6 @@ module.exports.isNewOldChat = 'select * from chatRoom where inquireUserId=:inqui
 
 //:prodNo, :userId
 module.exports.isNewProductChat = 'select * from chatRoom where inquireUserId=:inquireUserId and prodNo=:prodNo';
+
+//:userId. :chatRoomNo
+module.exports.getOtherUser = 'SELECT (CASE WHEN inquireUserId = :userId THEN ownerUserId ELSE inquireUserId END) AS userId FROM chatroom WHERE chatroomNo=:chatRoomNo';

@@ -28,6 +28,8 @@ public interface WishlistDAO {
 	int getTotalCount(Search search) throws Exception;	
 	
 	Wishlist wishlistDuplicationCheck(Wishlist wishlist) throws Exception;
+	
+	int getWishlistTotalSum(String userId) throws Exception;
 
 	void deleteOldLikeOnList(Wishlist wishlist);
 

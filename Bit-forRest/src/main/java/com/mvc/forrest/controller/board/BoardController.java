@@ -32,6 +32,7 @@ public class BoardController {
 	public BoardService boardService;
 	
 	//getAnnounce navi
+	//비회원, 회원, 관리자
 	@GetMapping("getAnnounce")	
 	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
@@ -41,6 +42,7 @@ public class BoardController {
 	}
 	
 	//addAnnounce navi
+	//관리자
 	@GetMapping("addAnnounce")
 	public String addAnnounce() throws Exception {	
 		System.out.println("Controller GET: addAnnounce ");
@@ -48,6 +50,7 @@ public class BoardController {
 	}
 	
 	//addAnnounce 실행
+	//관리자
 	@PostMapping("addAnnounce")
 	public String addAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: addAnnounce ");
@@ -58,17 +61,18 @@ public class BoardController {
 	}
 	
 	//updateAnnounce navi
+	//관리자
 	@GetMapping("updateAnnounce")
 	public String updateAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: updateAnnounce ");
 		System.out.println("시스템으로 주는 데이터 : "+boardService.getBoard(boardNo));
 		model.addAttribute(boardService.getBoard(boardNo));
-		
-		
+	
 		return "/board/updateAnnounce";
 	}
 	
 	//updateAnnounce 실행
+	//관리자
 	@PostMapping("updateAnnounce")
 	public String updateAnnounce(@ModelAttribute("board") Board board) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
@@ -79,6 +83,7 @@ public class BoardController {
 	}
 	
 	//상세페이지에서 삭제
+	//관리자
 	@GetMapping("deleteAnnounce")
 	public String deleteAnnounce(@RequestParam("boardNo") int boardNo) throws Exception {	
 		System.out.println("Controller GET: deleteAnnounce ");
@@ -86,6 +91,7 @@ public class BoardController {
 		return "redirect:/board/listAnnounce";
 	}	
 	//상세페이지에서 고정
+	//관리자
 	@GetMapping("updateFixAnnounce")
 	public String updateFixAnnounce(@RequestParam("boardNo") int boardNo) throws Exception {	
 		System.out.println("Controller GET: updateFixAnnounce ");
@@ -95,6 +101,7 @@ public class BoardController {
 	}
 	
 	//listAnnounce에서 여러개 삭제
+	//관리자
 	@PostMapping("deleteAnnounce")
 	public String deleteAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
 		System.out.println("Controller POST: deleteAnnounce ");
@@ -105,6 +112,7 @@ public class BoardController {
 	}	
 		
 	//listAnnounce에서 여러개 고정
+	//관리자
 	@PostMapping("updateFixAnnounce")
 	public String updateFixAnnounce(@RequestParam("eachSelector") int[] arr ) throws Exception {	
 		System.out.println("Controller POST: updateFixAnnounce ");
@@ -117,6 +125,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("listAnnounce")
+	//회원, 비회원, 관리자
 	//public String getlistAnnounce(@ModelAttribute("search") Search search, Model model, HttpSession session) throws Exception {	
 	public String getlistAnnounce(@ModelAttribute("search") Search search, Model model) throws Exception {	
 		System.out.println("Controller GET: getlistAnnounce ");

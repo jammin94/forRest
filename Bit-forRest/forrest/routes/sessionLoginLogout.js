@@ -10,25 +10,7 @@ router.get('/login/:userId', async (req, res, next) => {
    req.session.user= sessionId;
    req.session.save();
    console.log('sessionId 저장 : '+req.session.user);
-   res.send(req.session.user);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
-
-router.get('/', async (req, res, next) => {
-  try {
-    console.log('req.session.user');
-    console.log(req.session.user);
-    console.log('**********');
-    console.log('req.session.id');
-    console.log(req.session.id);
-    console.log('**********');
-    console.log('req.session.cookie');
-    console.log(req.session.cookie);
-
-    res.send(req.session.user);
+   res.send(null);
   } catch (err) {
     console.error(err);
     next(err);
@@ -41,13 +23,10 @@ router.get('/delete', async (req, res, next) => {
   try {
     if(req.session){
 	console.log('sessionId: '+req.session.user);
-        req.session.destroy(()=>{
-			
-            res.send('세션제거 완료');
-        });
+        req.session.destroy();
     }
     else {
-       		console.log('제거할 세션이 없습니다.');
+       	console.log('제거할 세션이 없습니다.');
     }
   } catch (err) {
     console.error(err);
