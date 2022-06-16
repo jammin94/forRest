@@ -147,7 +147,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         }//end of kakaoLogin
         
 		///////////////////////////////////////////////////////////////
-        try {
+/*
         	System.out.println("  채팅시도 시작");
 		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+snsUser.getUserId();
 		URL url = new URL(reqURL);
@@ -159,7 +159,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         	e.printStackTrace();
         }
     	System.out.println("  채팅시도 끝");
-		
+	*/	
 		////////////////////////////////////////////////////////////////
         
 		httpSession.setAttribute("login_info", oAuth2UserInfo);
