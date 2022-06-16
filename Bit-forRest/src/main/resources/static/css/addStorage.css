@@ -17,6 +17,13 @@ div
 	color:black;
 }
 
+ textarea {
+    width: 500px;
+    height:150px;
+    resize: none;
+    
+  }
+
 body
 {
     display: flex;
