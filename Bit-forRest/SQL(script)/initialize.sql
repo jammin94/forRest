@@ -408,8 +408,8 @@ INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `owner
 	(4, NULL, 'a', 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32');
 
 INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`) VALUES
-	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', 0),
-	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', 0),
+	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', NULL),
+	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', NULL),
 	(3, 1, 'user01@naver.com', '아니요', '2022-05-30 18:23:17', 1),
 	(4, 2, 'user03@naver.com', '안녕하세요', '2022-05-30 18:28:47', 1),
 	(5, 2, 'user03@naver.com', '잘 지내세요?', '2022-05-30 18:28:47', 1),
