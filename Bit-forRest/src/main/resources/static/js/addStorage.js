@@ -312,8 +312,8 @@ $("#resv_width").on("propertychange change paste input", function() {
     var resv_period = fnReplace($("#resv_period").val());
     var resv_quantity = fnReplace($("#resv_quantity").val());
     
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
 });
  
 $("#resv_length").on("propertychange change paste input", function() {
@@ -324,8 +324,8 @@ $("#resv_length").on("propertychange change paste input", function() {
     var resv_period = fnReplace($("#resv_period").val());
     var resv_quantity = fnReplace($("#resv_quantity").val());
     
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
 });
  
 $("#resv_height").on("propertychange change paste input", function() {
@@ -336,8 +336,8 @@ $("#resv_height").on("propertychange change paste input", function() {
     var resv_period = fnReplace($("#resv_period").val());
     var resv_quantity = fnReplace($("#resv_quantity").val());
     
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
 });
  
 $("#resv_period").on("propertychange change paste input", function() {
@@ -348,8 +348,8 @@ $("#resv_period").on("propertychange change paste input", function() {
     var resv_period = fnReplace($("#resv_period").val());
     var resv_quantity = fnReplace($("#resv_quantity").val());
    
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
 });
  
 $("#resv_quantity").on("propertychange change paste input", function() {
@@ -359,8 +359,8 @@ $("#resv_quantity").on("propertychange change paste input", function() {
     var resv_period = fnReplace($("#resv_period").val());
     var resv_quantity = fnReplace($("#resv_quantity").val());
     console.log(resv_width *  resv_length * resv_height * resv_quantity * 0.1);
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
 });
  
 });
@@ -382,7 +382,7 @@ $("#resv_quantity").on("propertychange change paste input", function() {
     		
     		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
     			       		    			   
-    	    	    var originPrice =   $("#resv_originPrice").val();
+    	    	    var originPrice =    $("#resv_originPrice").val();
     	    	    console.log(originPrice);
     	    		
     	    	   
@@ -404,11 +404,18 @@ $("#resv_quantity").on("propertychange change paste input", function() {
 	    	    	    var resultPrice = originPrice - discountPrice;
 	    	    	    console.log(resultPrice);
 	    	    	    
-    	    	    //계산값 텍스트 대체
-    	    	    $('#resv_resultPrice').val(resultPrice);
+    	    	    //계산값 텍스트 대체 , 할인금액 >=계산금액일때 계산불가
+    	    	    if(resultPrice<=0){
+							 $('#resv_resultPrice').val("양심어디....? ㅡ.ㅡ;");
+					} else{
+						
+    	    	    	$('#resv_resultPrice').val(resultPrice);
+						
+					}
+						
     		} else {
     			
-    			 $('#discountPrice').val("");
+    			 $('#discountPrice').val(0);
     			 $('#resv_resultPrice').val($("#resv_originPrice").val());
     		}
     	 

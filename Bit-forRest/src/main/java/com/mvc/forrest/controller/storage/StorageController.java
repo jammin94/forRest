@@ -120,6 +120,9 @@ public class StorageController {
 		//System.out.println("product: "+product);
 		//System.out.println("storage: "+storage);
 		
+		//결제완료후 사용한 쿠폰 삭제
+		//couponService.deleteOwnCoupon(paymentNo);
+		
 		for(MultipartFile mf: uploadFile) {
 			System.out.println("fileName:"+mf.getOriginalFilename());
 		}
