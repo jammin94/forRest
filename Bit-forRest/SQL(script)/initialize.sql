@@ -277,22 +277,22 @@ INSERT INTO old
 VALUES ('d','user04@naver.com',30000,'바베큐 그릴','2번 사용',CURRENT_TIMESTAMP(),0,'그릴',TRUE,'ddd.jpg','대홍동');
 
 INSERT INTO old
-VALUES ('e','user05@naver.com',5000,'휴대용 버너','가성비',CURRENT_TIMESTAMP(),0,'버너',TRUE,'eee.jpg','염리동');
+VALUES ('e','user01@naver.com',5000,'휴대용 버너','가성비',CURRENT_TIMESTAMP(),0,'버너',TRUE,'eee.jpg','염리동');
 
 INSERT INTO old
-VALUES ('f','user06@naver.com',20000,'랜턴조명','LED',CURRENT_TIMESTAMP(),0,'조명',TRUE,'fff.jpg','망원동');
+VALUES ('f','user01@naver.com',20000,'랜턴조명','LED',CURRENT_TIMESTAMP(),0,'조명',TRUE,'fff.jpg','망원동');
 
 INSERT INTO old
 VALUES ('g','user01@naver.com',70000,'접이식 테이블','거의새것',CURRENT_TIMESTAMP(),0,'테이블',TRUE,'ggg.jpg','망원동');
 
 INSERT INTO old
-VALUES ('h','user02@naver.com',20000,'컵 수저 식기 세트','스탠304',CURRENT_TIMESTAMP(),0,'식기',TRUE,'hhh.jpg','삼성동');
+VALUES ('h','user01@naver.com',20000,'컵 수저 식기 세트','스탠304',CURRENT_TIMESTAMP(),0,'식기',FALSE,'hhh.jpg','삼성동');
 
 INSERT INTO old
-VALUES ('i','user03@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
+VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
 
 INSERT INTO old
-VALUES ('j','user04@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
+VALUES ('j','user02@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
@@ -458,13 +458,33 @@ VALUES(NULL, 'admin' , 'user06@naver.com', 6, null, '선정성',  '그냥', null
 
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 1, '굿매너', 5);
+VALUES(NULL, 'admin', 'user01@naver.com', 'a', '굿매너', 5);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user02@naver.com', 2, '개매너', 1);
+VALUES(NULL, 'admin', 'user02@naver.com', 'b', '개매너', 1);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 3, '살짝 불친절', 3);
+VALUES(NULL, 'admin', 'user03@naver.com', 'c', '살짝 불친절', 3);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 4, '물건값 깎아줌', 4);;
+VALUES(NULL, 'admin', 'user03@naver.com', 'd', '물건값 깎아줌', 4);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user01@naver.com', 'e', '굿매너', 5);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user01@naver.com', 'f', '굿매너', 5);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user01@naver.com', 'g', '굿매너', 5);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user01@naver.com', 'h', '굿매너', 5);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user01@naver.com', 'i', '굿매너', 5);
+
+INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+VALUES(NULL, 'admin', 'user02@naver.com', 'j', '개매너', 1);
+
+
