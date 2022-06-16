@@ -87,9 +87,20 @@ public class OldController {
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
 
-		return "/old/listOld";
+		return "old/listOld";
 	}
+	
+	@RequestMapping("listOldMine")
+	public String listOldMine(@ModelAttribute("search") Search search, Model model) throws Exception {
+		System.out.println("리스트");
 
+		List<Old> list = oldService.getOldList(search);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("search", search);
+
+		return "/old/listOldMine";
+	}
 /////////////////////비회원, 회원, 어드민 가능//////////////////////////////
 	@RequestMapping("getOld")
 	public String getOld(@ModelAttribute("search") Search search, @RequestParam("oldNo") String oldNo, Model model)
@@ -106,12 +117,8 @@ public class OldController {
 		double oldReview = oldReviewService.getUserRate(userId);
 		user.setUserRate(oldReview);
 		
-		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String loginuserId = loginUser.getUser().getUserId();
 		
-		System.out.println("로그인아이디"+loginuserId);
 		
-		model.addAttribute("loginuserId",loginuserId);
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 
@@ -123,7 +130,7 @@ public class OldController {
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
 
-		return "/old/getOld";
+		return "old/getOld";
 	}
 
 
@@ -176,7 +183,7 @@ public class OldController {
 		
 		
 		model.addAttribute("old", old);
-		return "redirect:/old/listOld";
+		return "redirect:old/listOld";
 
 	}
 
@@ -215,7 +222,7 @@ public class OldController {
 
 		model.addAttribute("올드", old);
 
-		return "redirect:/old/listOld";
+		return "redirect:old/listOld";
 	}
 
 /////////////////////회원, 어드민 가능//////////////////////////////	
@@ -224,7 +231,7 @@ public class OldController {
 		System.out.println("delete");
 
 		oldService.deleteOld(oldNo);
-		return "redirect:/old/listOld";
+		return "redirect:old/listOld";
 	}
 
 /////////////////////회원, 어드민 가능//////////////////////////////	
@@ -242,7 +249,7 @@ public class OldController {
 		System.out.println(this.getClass() + "포스트상태");
 		oldService.updateOld(old);
 
-		return "/old/getOld";
+		return "old/getOld";
 	}
 
 }

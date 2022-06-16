@@ -164,6 +164,7 @@ select{
                   </div>
 </div>
 <input type="hidden"  name="prodImg" th:value="${product.prodImg}">
+<input type="hidden"  name="prodNo" th:value="${product.prodNo}">
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- 물품정보등록 -->
@@ -184,7 +185,7 @@ select{
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><input type="text" id="name" name="prodName"  th:value = "${product.prodName}"></td>
+		<td><input type="text" id="name" name="prodName"  th:value = "${product.prodName}" readonly></td>
 	</tr>
 
 	<tr>
@@ -271,7 +272,7 @@ select{
 		<td>계좌번호</td>
 		<td>
 			 <select class="accountBank" name= "accountBank">
-   
+   			 
         	 <option value="국민">국민</option>
 	         <option value="기업">기업</option>
 	         <option value="외환">외환</option>
@@ -281,9 +282,9 @@ select{
           </select>
 		 
 		  
-		  <!-- <input type="text" name="accountNumber" th:value = "${product.account}" > -->
-		  <input type="text" name="accountNumber" th:value = "${product.account}" >
-		  <input type="hidden"  class="account" name="account" value="" >
+		  <input type="text" name="accountNumber" > 
+		 
+		  <input type="hidden"  class="account" name="account" >
 		</td>
 	</tr>
 	
@@ -325,12 +326,12 @@ select{
 	 <div class="col-sm-5">
 		  <input type="hidden"  class="divyAddress" name="divyAddress" value="">
 		  <span style="display:flex;">	
-		 	<input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+		 	<input type="text" id="divy_postcode" name="divyPostcode" >
 		 	<input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기" style="background:#9a9a9a; color:#fff;"><br>
 		 </span>
-	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소"   style="width:310px"><br>
-	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목"  style="width:310px">
-		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소"  style="width:310px">
+	     <input type="text" id="divy_address"  name="divyBaseAddress"    style="width:310px"><br>
+	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress"   style="width:310px">
+		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress"   style="width:310px">
 		   </div>
 </div>  
 	</tr>
@@ -345,13 +346,16 @@ select{
 </tbody></table>
 
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<!--  <button th:onclick="|location.href='@{/product/updateProduct(prodNo = ${product.prodNo})}'|">저장하기</button>-->
-	<button class="update-btn" th:onclick="|location.href='@{/product/updateProduct}'|">저장하기</button>
+	
+	<button class="update-btn">저장하기</button>
 	<button class="priv-btn">이전</button>
 </div>
 
 
 	</form>
+	
+	<input type="hidden"  class="parsingAcc" name="accountAcc" th:value = "${product.account}">
+	<input type="hidden"  class="parsingAddr" name="parsingAddr" th:value = "${product.divyAddress}">
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
@@ -366,17 +370,6 @@ select{
 	
 <script>
 
-function combineAccount(){
-	 
-	 //디버깅
-	 
-	 var account = "";
-	 
-	 var account = $(".accountBank option:selected").val() + "/"  + $("input[name='accountNumber']").val()
-	 
-	$('.account').val(account);
-	// alert(account); 
-}
 
 //반송주소변경
 function divy_execDaumPostcode() {
@@ -427,21 +420,75 @@ function divy_execDaumPostcode() {
     }).open();
 }
 
+//csv를 넣어 주소를 하나로 합치는 함수
 function combineAddr(){
 	 
-	 
+	alert("combineAddr실행");
 	 var divyAddrValue = "";
 	 
 	 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
 		+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
 	 
+	alert(divyAddrValue);
 	 $('.divyAddress').val(divyAddrValue);
+	 
 	
-	// alert(divyAddrValue);
 	 
 }
 
-$(document).ready(function() { alert("첫번째 ready()"); });
+//csv를넣어 계좌를 합침
+function combineAccount(){
+	 
+	 //디버깅
+	 alert("combineAccount실행");
+	 
+	 var account = "";
+	 
+	 var account = $(".accountBank option:selected").val() + "/"  + $("input[name='accountNumber']").val()
+	 
+	alert(account); 
+	$('.account').val(account);
+}
+
+//업데이트화면에 들어왔을때 기존의 정보를 파싱해서 화면에 출력
+$(document).ready(function(){
+	
+	//계좌번호
+	var account = $(".parsingAcc").val();
+	var accountArr = account.split("/");
+	var account1 = accountArr[0];
+	var account2 = accountArr[1];
+	
+	 $("select[name='accountBank']").val(account1);
+	 $("input[name='accountNumber']").val(account2);
+	 
+	 //주소
+	 var divyAddress = $(".parsingAddr").val();
+	 var divyAddressAddr = divyAddress.split("/");
+	 var divyAddress1 = divyAddressAddr[0];
+	 var divyAddress2 = divyAddressAddr[1];
+	 var divyAddress3 = divyAddressAddr[2];
+	 var divyAddress4 = divyAddressAddr[3];
+	 
+	 
+	 $("#divy_postcode").val(divyAddress1);
+	 $("#divy_address").val(divyAddress2);
+	 $("#divy_extraAddress").val(divyAddress3);
+	 $("#divy_detailAddress").val(divyAddress4);
+
+	});
+	
+//저장하기 클릭시 업데이트 
+$(function(){
+	 $(".update-btn").on("click", function(){
+		 combineAccount();
+		 combineAddr();
+		 
+		 $('form').attr('method', 'POST').attr('action', '/product/updateProduct');
+		 
+	 })
+})
+	
 
 </script>
 	<!--  <script src="/js/custom.js"></script> -->

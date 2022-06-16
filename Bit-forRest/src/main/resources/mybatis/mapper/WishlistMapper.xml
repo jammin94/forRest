@@ -81,6 +81,15 @@
 	 				</where>
 	 				ORDER BY wishListNo
 	 </select>
+	 
+	 	 <select  id="getWishlistTotalSum"  parameterType="string" resultType="int">
+			  SELECT 
+			  		SUM(p.rentalPrice)
+			 	FROM wishlist w, product p
+			  				<where>
+						 		wishedUserId = #{userId} and w.prodNo = p.prodNo
+			 				</where>
+	 </select>
 
  	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT COUNT(*)

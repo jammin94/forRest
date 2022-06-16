@@ -72,5 +72,14 @@ public class WishlistService {
 			}
 			return result;
 		}
+		
+		public int getWishlistTotalSum(String userId) throws Exception{
+			
+			
+			int totalPrice = wishlistDAO.getWishlistTotalSum(userId);
+					
+			return totalPrice;
+			
+		}
 	
 }
