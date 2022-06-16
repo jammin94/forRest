@@ -216,13 +216,21 @@
 	 	</where>
 	 </select>
 	 
+	 <select id="getRentalProfitTotal" parameterType="string"  resultType="int">
+	 		SELECT SUM(transaction.resultPrice)
+		 	FROM transaction LEFT OUTER JOIN (SELECT * FROM transaction WHERE tranCode=0) A ON transaction.prodNo = A.prodNo
+		 	LEFT OUTER JOIN product ON product.prodNo = transaction.prodNo
+	 	<where>
+	 		transaction.tranCode='1' and A.userId= #{userId}
+	 	</where>
+	 </select>
+	 
 	 <!--SELECT total rental profit-->
 	  <select  id="getTotalRentalProfit"  parameterType="string"	 resultType="int">
 	  	SELECT IFNULL(SUM(resultPrice),0)
 	  	FROM transaction
 	  	WHERE userId = #{userId}
-		</select>
-		
+			 </select>
 		
 		
 </mapper>

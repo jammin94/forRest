@@ -24,7 +24,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@200&family=Hi+Melody&family=Nanum+Gothic+Coding&family=Noto+Sans+KR:wght@300;400&family=Whisper&display=swap');
 
 body, html {
-	    font-family: 'lato', sans-serif;
+	 font-family: 'Noto Sans KR', sans-serif;
 	font-size: 16px;
 	line-height: 23px;
 	color: #707070;
@@ -2625,7 +2625,6 @@ width:100%;
 	background: #3f6236;
 	padding-top:100px;
 	    background: #262626;
-	        height: 549px;
     position: relative;
 }
 .try_footer_first_sec_wrapper{

@@ -398,7 +398,9 @@ margin-bottom: 210px !important;
 										<div class="try_rc_mob_img">
 									<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/KakaoTalk_20210331_172733437_24.jpg">
 												<!--	<h5>Sale</h5>  -->
-											<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+											<input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
+											<span th:unless="${product.wishlistNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+											<span th:if="${product.wishlistNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
 										</div>
 										<div class="try_rc_mob_img_cont">
 											<h2>[[${product.prodName}]]</h2>
@@ -465,7 +467,87 @@ margin-bottom: 210px !important;
 			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
 			
 		})
-	});
+		
+		
+		$( ".heart" ).on("click" , function() {	        
+			var prodNo = $(this).parent().parent().parent().find("#prodNo").val();
+			console.log(prodNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/wishlist/addWishlist",       
+	            dataType : "json",   
+	            data : prodNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜하기 완료");
+				        $(this).addClass('filled');
+				        location.reload();
+                    	
+	                    	
+	    					
+	                    }
+	                    else if (heartCheck){
+	                     alert("이미 찜한 물품 입니다");
+	                     
+				         
+	                  
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+		
+		$( ".heart.filled" ).on("click" , function() {	        
+			var prodNo = $(this).parent().parent().parent().find("#prodNo").val();
+			console.log(prodNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/wishlist/deleteWishlistOnList",       
+	            dataType : "json",   
+	            data : prodNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜삭제 완료");
+				        $(this).removeClass('filled');
+				        location.reload();
+	
+	                    }
+	                    else if (heartCheck){
+	                    	alert("이미 삭제한 물품 입니다");                 
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+		
+		
+		});
 	
 
 

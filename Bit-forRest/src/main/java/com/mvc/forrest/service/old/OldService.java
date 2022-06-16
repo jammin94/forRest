@@ -45,7 +45,7 @@ public class OldService {
 		map.put("search", search);
 		
 		return oldDAO.getOldListHasUser(map);
-}
+	}
 	
 	
 	public List<Old> getOldList(Search search) throws Exception{
@@ -53,7 +53,7 @@ public class OldService {
 
 		
 		return oldDAO.getOldList(search);
-}
+	}
 	
 	public List<Old> getOldListForIndex() throws Exception{
 							

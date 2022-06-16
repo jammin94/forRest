@@ -71,7 +71,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 	        if(byUsername == null){
 	            byUsername = User.oauth2Register()
 	                    .username(username).password(password).email(email).role(role)
-	                    .provider(provider).providerId(providerId).id(email)
+	                    .provider(provider).providerId(providerId)
 	                    .build();
 	            userService.addUser(byUsername);
 	            System.out.println("시큐리티 테스트 3단계");
