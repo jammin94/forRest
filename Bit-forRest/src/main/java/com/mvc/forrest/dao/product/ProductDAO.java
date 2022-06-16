@@ -1,12 +1,9 @@
 package com.mvc.forrest.dao.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 
 import com.mvc.forrest.service.domain.Product;
@@ -31,6 +28,6 @@ public interface ProductDAO {
 		
 		int getTotalCount(Search search) throws Exception;
 		
-		
+		List<Product> getProductListHasUser(Map<String,Object> map) throws Exception;
 
 }

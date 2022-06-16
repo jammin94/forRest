@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -139,15 +142,13 @@ public class UserController {
 	
 
 //		### spring security 사용으로 인한 미사용 method	###
-//	@GetMapping("logout")				//유저, 관리자
-//	public String logout(HttpSession session ) throws Exception{
-//		
-//		System.out.println("/user/logout : GET");
-//		
-//		session.invalidate();
-//		
-//		return "redirect:/";
-//	}
+	@GetMapping("logout")				//유저, 관리자
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+			
+		
+	        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+	        return "redirect:/";
+	}
 	
 	@GetMapping("addUser")				//유저, 관리자
 	public String addUser() throws Exception{

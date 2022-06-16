@@ -9,23 +9,26 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Search;
-import com.mvc.forrest.service.domain.WishList;
+import com.mvc.forrest.service.domain.Wishlist;
 
 
 @Mapper
-public interface WishListDAO {
+public interface WishlistDAO {
 	
-	void addWishList(WishList wishList) throws Exception;
+	void addWishlist(Wishlist wishlist) throws Exception;
 	
-	void deleteWishList(int wishListNo) throws Exception;
+	void deleteWishlist(int wishlistNo) throws Exception;
 	
-	List<WishList> getWishList(Map<String,Object> map) throws Exception;
+	List<Wishlist> getWishlist(Map<String,Object> map) throws Exception;
 	
 	int getTotalCount(Search search) throws Exception;	
 	
-	
+	Wishlist wishlistDuplicationCheck(Wishlist wishlist) throws Exception;
+
+	void deleteOldLikeOnList(Wishlist wishlist);
 
 }
