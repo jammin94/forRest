@@ -36,17 +36,16 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		this.user=user;
 		///////////////////////////////////////////////////////////////
         try {
-        	System.out.println("  채팅시도 시작");
+        	System.out.println(":: Connect to Chatting Service");
 		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		int responseCode = conn.getResponseCode();
-		System.out.println("채팅 responseCode : " + responseCode);
+		System.out.println(":: Chatting Service responseCode : " + responseCode);
         }catch(Exception e){
         	e.printStackTrace();
         }
-    	System.out.println("  채팅시도 끝");
 		
 		////////////////////////////////////////////////////////////////
 	}
