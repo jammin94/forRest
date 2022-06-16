@@ -92,7 +92,7 @@ public class ProductController {
 		
 		productService.updateProduct(product);
 	
-		return "forward:/product/getProduct?prodNo="+product.getProdNo();
+		return "forward:/product/getProduct";
 	}
 	
 	//어드민 가능
@@ -254,6 +254,8 @@ public class ProductController {
 		
 		//디버깅
 		System.out.println("getProduct Start");
+		
+		System.out.println(prodNo);
 		
 		Product product = productService.getProduct(prodNo);
 		
