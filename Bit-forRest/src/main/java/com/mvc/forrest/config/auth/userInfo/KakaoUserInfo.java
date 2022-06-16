@@ -43,6 +43,10 @@ public class KakaoUserInfo implements OAuth2UserInfo{
         return "Kakao";
     }
 
+    public String getUserId() {
+        return attributesAccount.get("email").toString();
+    }
+    
     @Override
     public String getEmail() {
         return attributesAccount.get("email").toString();
