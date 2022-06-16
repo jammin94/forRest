@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.wishlist.WishlistDAO"> 	
+ 	
+	<resultMap id="wishlistSelectMap" type="wishlist">
+		<result property="wishlistNo" 				column="wishlistNo" 				jdbcType="INTEGER"/>
+		<result property="wishedUserId" 			column="wishedUserId" 			jdbcType="VARCHAR" />
+		<result property="period" 			column="period" 		jdbcType="INTEGER" />
+		<association property="product" 	javaType="Product">
+        	<id property="prodNo" 	column="prodNo"/>
+			<result property="width"	   			column="width" 				jdbcType="INTEGER" />
+			<result property="length" 			column="LENGTH" 			jdbcType="INTEGER" />
+			<result property="height" 			column="height" 		jdbcType="INTEGER" />
+			<result property="userId" 				column="userId" 					jdbcType="VARCHAR" />
+			<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
+			<result property="prodQuantity" 				column="prodQuantity" 				jdbcType="INTEGER" />
+			<result property="prodName" 			column="prodName" 				jdbcType="VARCHAR"  />
+			<result property="prodDetail" 				column="prodDetail" 				jdbcType="VARCHAR"  />
+			<result property="isRental" 				column="isRental" 				jdbcType="TINYINT"  />
+			<result property="rentalCounting" 				column="rentalCounting" 				jdbcType="INTEGER"  />
+			<result property="rentalPrice" 				column="rentalPrice" 				jdbcType="INTEGER"  />
+			<result property="account" 				column="ACCOUNT" 				jdbcType="VARCHAR"  />
+			<result property="deposit" 				column="deposit" 				jdbcType="INTEGER"  />
+			<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
+			<result property="divyAddress" 				column="divyAddress" 				jdbcType="VARCHAR"  />
+			<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
+			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
+			<result property="wishlistNo" 			column="wishlistNo" 				jdbcType="INTEGER" />
+			<association property="userProd" javaType="User">
+				<id property="userId" column="userId"  jdbcType="VARCHAR"/>
+				<result property="userImg" column="userImg"  jdbcType="VARCHAR"/>
+				<result property="userRate" column="userRate"  jdbcType="DOUBLE"/>
+				<result property="nickname" 			column="nickname" 			jdbcType="VARCHAR" />
+			</association>
+    	</association>
+	</resultMap>
+	
+	<!--장바구니 중복 검사 -->
+	<select  id="wishlistDuplicationCheck"  parameterType="wishlist"	resultMap="wishlistSelectMap">
+		SELECT *
+		FROM wishlist
+		WHERE wishedUserId = #{wishedUserId} and prodNo = #{product.prodNo}
+	 </select>
+	
+	
+	<!--INSERT 장바구니 추가 -->
+	<insert 	id="addWishlist"		parameterType="wishlist" >
+		INSERT 
+	 	INTO wishlist(wishListNo, prodNo, wishedUserId,period) 
+	 	values (null, #{product.prodNo}, #{wishedUserId}, #{period})
+	 </insert>
+	 
+	 <!--DELETE 리스트에서 장바구니 삭제 -->
+	 <delete id="deleteOldLikeOnList"	 parameterType="wishlist">
+		DELETE
+		FROM wishlist
+		WHERE wishedUserId = #{wishedUserId} and prodNo = #{product.prodNo}
+	 </delete>
+	 
+	 
+	 
+	 <!--DELETE 장바구니 삭제 -->
+	 <delete	id="deleteWishlist"	parameterType="int" >
+	   	DELETE
+	   	FROM wishlist
+	   	WHERE wishNo = #{wishNo}
+	 </delete>
+	 
+	 <!-- SELECT LIST 장바구니 리스트 -->
+	 <select  id="getWishlist"  parameterType="map"	resultMap="wishlistSelectMap">
+	  SELECT 
+	  		*
+	 	FROM wishList
+	  				<where>
+				 		userId = #{userId}
+	 				</where>
+	 				ORDER BY wishListNo
+	 </select>
+
+ 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM wishList
+	 </select>
+
+</mapper>

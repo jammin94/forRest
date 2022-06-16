@@ -1,6 +1,8 @@
 SET foreign_key_checks=0;
 DROP TABLE board, chat, chatimg, chatroom, coupon, imgs, `old`, oldlike, oldreview, owncoupon, product, rentalreview, report, `transaction`, user, wishlist;
 
+
+
 CREATE TABLE user (
    userId      VARCHAR(30)   NOT NULL,
    nickname      VARCHAR(100)    NOT NULL UNIQUE,
@@ -113,15 +115,16 @@ CREATE TABLE ownCoupon(
 );
 
 
-CREATE TABLE wishList
+CREATE TABLE wishlist
 (
    wishlistNo INTEGER NOT NULL AUTO_INCREMENT,
    prodNo VARCHAR(40) NOT NULL,
-   userId VARCHAR(30) NOT NULL,
+   wishedUserId VARCHAR(30) NOT NULL,
+   period INTEGER,
    PRIMARY KEY (wishlistNo)
 );
 
-ALTER TABLE wishList ADD FOREIGN KEY(userId) REFERENCES user(userId);
+ALTER TABLE wishList ADD FOREIGN KEY(wishedUserId) REFERENCES user(userId);
 ALTER TABLE wishList ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
 
 CREATE TABLE rentalReview
@@ -350,7 +353,7 @@ INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pi
 INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkag', 'user01@naver.com', 'd', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
 
-INSERT INTO wishlist (wishlistNo, prodNo, userId) VALUES (NULL, '1', 'user05@naver.com');
+INSERT INTO wishlist (wishlistNo, prodNo, wishedUserId) VALUES (NULL, '1', 'user05@naver.com');
 
 INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, '1.jpg', '상품상세설명입니다', '3', '1', 'user03@naver.com', '20210525');
 
@@ -420,4 +423,4 @@ INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDe
 VALUES(NULL, 'admin', 'user03@naver.com', 3, '살짝 불친절', 3);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 4, '물건값 깎아줌', 4);
+VALUES(NULL, 'admin', 'user03@naver.com', 4, '물건값 깎아줌', 4);;

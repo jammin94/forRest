@@ -29,7 +29,7 @@ public class Product {
 	private String recentImg;
 	private User userProd;
 	//주소 따로or jsp에서??
-
+	private int wishlistNo;
 	
 
 	

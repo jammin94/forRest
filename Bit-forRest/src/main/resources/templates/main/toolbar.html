@@ -205,8 +205,12 @@ article {
             <a th:href="@{/storage/storageMain}">장비보관</a>
         </li>
         
-          <li>
+        
+        <li sec:authorize="isAnonymous()">
             <a th:href="@{/product/listProduct}">렌탈마켓</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/product/listProductAfterLogin}">렌탈마켓</a>
         </li>
         
          <!-- 고객센터 -->
