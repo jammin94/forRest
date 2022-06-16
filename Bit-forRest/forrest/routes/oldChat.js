@@ -21,10 +21,8 @@ router.get('/exit', async (req, res, next) => {
 	  	raw: true
 	});
 	const io = req.app.get('io');
-	io.of('/oldChatRoom').emit('exitRoom', req.query.chatRoomNo);
-	//채팅방 나가기 실시간 적용
-	
-	
+	io.of('/oldChatRoom').to(req.session.user).emit('exitRoom', req.query.chatRoomNo);
+
 	}catch (err) {
     console.error(err)
     next(err)
@@ -100,7 +98,7 @@ router.get('/init/:userId/:oldNo', async (req, res, next) => {
     //response에 담아서 'oldChatRoom.html'로 보내기
     //console.log(lists);
     //console.log('chatRoomNo: '+chatRoomNo);
-    const immediate = {chatRoomNo: chatRoomNo, oldNo: oldNo};
+    const immediate = {chatRoomNo: chatRoomNo, oldNo: oldNo, userId: sessionId};
     res.render('oldChatRoom',{lists, immediate});
 
   }catch (err) {
@@ -148,6 +146,7 @@ router.get('/list/:userId', async (req, res, next) => {
 // '/oldChat/:oldNo?chatRoomNo=something'
 router.get('/:oldNo', async (req, res, next) => {
   try {
+	console.log('req.session.user : '+ req.session.user)
 	
 	//접속하면 읽음표시 ㄱㄱ
     let query=Query.updateReadOrNot;
@@ -240,20 +239,40 @@ router.post('/chat/:oldNo', async (req, res, next) => {
 	const io = req.app.get('io');
     io.of('/oldChat').to(roomNo).emit('oldChat',data);
     
+    
      //실시간으로 채팅방 나가기 취소하고, 해당 채팅방을 맨 위로.
     query=Query.listOldChatRoom;
-    const lists = await db.sequelize.query(query, {
+    const mineLists = await db.sequelize.query(query, {
       replacements: {userId : req.session.user}, 
       type: QueryTypes.SELECT,
       raw: true
     });
     
-    lists[0].recentTime = moment(lists[0].recentTime).fromNow();
-    console.log(lists[0]);
-
-    io.of('/oldChatRoom').emit('updateRoom', lists[0]);
+    //보낸 사람 채팅방에 실시간 업데이트
+    mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
+    io.of('/oldChatRoom').to(req.session.user).emit('updateRoom', mineLists[0]);
     
-   
+    
+    //다른 상대방 유저 알아내서
+    query=Query.getOtherUser;
+    const getOtherUser = await db.sequelize.query(query, {
+      replacements: {
+		userId : req.session.user,
+		chatRoomNo: roomNo}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+	
+    query=Query.listOldChatRoom;
+    const othersLists = await db.sequelize.query(query, {
+      replacements: {userId : getOtherUser[0].userId}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+    
+    //다른 사람 채팅방에 실시간 업데이트
+    othersLists[0].recentTime = moment(othersLists[0].recentTime).fromNow();
+    io.of('/oldChatRoom').to(getOtherUser[0].userId).emit('updateRoom', othersLists[0]);
 
   }catch (err) {
     console.error(err)

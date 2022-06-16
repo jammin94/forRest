@@ -388,7 +388,7 @@ socket.on('isNotConnected',function(data){
 }); 
 
 
-//
+//채팅 치면 실시간으로 채팅창 업데이트
 socket.on('oldChat',function(data){
   const li = document.createElement('li');
   console.log('user는 현재 '+'{{user}}');

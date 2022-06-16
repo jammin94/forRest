@@ -650,20 +650,37 @@ $(".expand-button").click(function() {
 	$("#contacts").toggleClass("expanded");
 });
 
+
 //채팅방 더블클릭시 해당 채팅방 입장
 $("li.contact").dblclick(function() {
   //location.href='/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val();
-  window.open('/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
+  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
 });
+
+/*
+const observer = new MutationObserver(function(mutations) {
+	mutations.forEach(function(mutation) {
+		console.log(mutation);
+		$("li.contact").dblclick(function() {
+		  //location.href='/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val();
+		  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
+		});
+	});
+});
+observer.observe(document.getElementById('ul'), { childList: true });
+*/
+
 
 
 //만약 중고거래 채팅하기 버튼으로 들어왔을 시에는 바로 새창으로 채팅창도 열어주기
 $(document).ready(function(){
 	if('{{immediate}}'!==''){
 		//console.log('중고물품 상세조회에서 중고거래 채팅하기로 들어옴');
-		//바로 채팅창 띄워주기
-		window.open('/oldChat/{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}');
+		//바로 채팅창 띄워주
+		window.open('http://192.168.0.42:3001/oldChat/{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}');
 	}
+	
+	
 });
 
 

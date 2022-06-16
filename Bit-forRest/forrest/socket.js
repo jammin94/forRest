@@ -16,9 +16,16 @@ module.exports = (server, app, sessionMiddleware) => {
   });
 
   room.on('connection', (socket) => {
-    console.log('oldChatRoom 네임스페이스에 접속');
+    //unreadcount 때문에 room도 room을 따로 만들어보자.
+   // socket.join(socket.request.connection._peername.address);
+   //console.log(socket.request.connection);
+	const userId = new URL(socket.request.headers.referer).pathname.split('/')[3];
+	console.log('oldChatRoom 네임스페이스에 접속 : room='+userId);
+	socket.join(userId);
+
     socket.on('disconnect', () => {
-      console.log('oldChatRoom 네임스페이스 접속 해제');
+       console.log('oldChatRoom 네임스페이스에 해제 : room='+userId);
+      socket.leave(userId);
     });
   });
   
@@ -37,10 +44,9 @@ module.exports = (server, app, sessionMiddleware) => {
     //emit(이벤트 이름, 데이터) : 클라이언트에게 '이벤트 이름'으로 '데이터'를 보낸다
     //클라이언트가 이 데이터를 받으려면 '이벤트 이름'으로 된 이벤트 리스너를 달아야 한다.
      
-     console.log("connection info :",
-			socket.request.connection._peername.address);
-			console.log(socket.adapter);
-	
+    //console.log("connection info :",
+	//socket.request.connection._peername.address);
+	//console.log(socket.adapter);
 
     socket.on('disconnect', () => {
       console.log('chat 네임스페이스 접속 해제');
