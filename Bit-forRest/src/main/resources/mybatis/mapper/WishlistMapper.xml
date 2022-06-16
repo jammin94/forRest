@@ -75,9 +75,9 @@
 	 <select  id="getWishlist"  parameterType="map"	resultMap="wishlistSelectMap">
 	  SELECT 
 	  		*
-	 	FROM wishList
+	 	FROM wishlist w, product p
 	  				<where>
-				 		userId = #{userId}
+				 		wishedUserId = #{userId} and w.prodNo = p.prodNo
 	 				</where>
 	 				ORDER BY wishListNo
 	 </select>

@@ -80,6 +80,14 @@ public class RentalService {
 			return map;
 		}
 		
+		public int getRentalProfitTotal(String userId) throws Exception{
+			
+			
+			int totalPrice = rentalDAO.getRentalProfitTotal(userId);
+					
+			return totalPrice;
+			
+		}
 	
 
 }

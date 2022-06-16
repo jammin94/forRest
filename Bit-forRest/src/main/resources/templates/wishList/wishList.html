@@ -105,11 +105,9 @@
 	        <tbody> 
 	    
 	   
-	    <tr th:each="wishlist :${list}">
-	    
-		    <td class="tdCenter" th:text = "${wishlist.wishListNo}"></td>
-			<td class="tdCenter" th:text = "${wishlist.prodNo}"></td>
-			<td class="tdCenter" th:text = "${wishlist.userId}"></td>
+	    <tr th:each="wishlist :${list}">	    
+		    <td class="tdCenter" th:text = "${wishlist.wishlistNo}"></td>
+		     <td class="tdCenter" th:text = "${wishlist.product.prodName}"></td>
 	    </tr>
 	 
 	        </tbody>
