@@ -250,6 +250,7 @@
                         <div class="label">쿠폰적용</div>
                         <select class="coupon" name= "coupon">
    						<option>-- 선택 --</option>
+   						<!-- 여기서 쿠폰넘버를 어케 심ㅇ줄까.....???? -->
 	       	 			<option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}">
 	       	 			</option>
   
@@ -264,7 +265,7 @@
                     </div>
                     <div class="field">
                         <div class="label">할인금액</div>
-                        <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" style="border:none;width:100px;text-align:right;" readonly/> 원
+                        <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" value=0 style="border:none;width:100px;text-align:right;" readonly/> 원
                         </select>
                     </div>
                      <div class="field">

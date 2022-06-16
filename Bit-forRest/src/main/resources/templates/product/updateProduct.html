@@ -112,6 +112,7 @@ border-bottom:3px solid #ddd !important;
 
 select{
 		border: none;
+	    BACKGROUND: #F3F3F3;
 }
 
 
@@ -272,7 +273,6 @@ select{
 		<td>계좌번호</td>
 		<td>
 			 <select class="accountBank" name= "accountBank">
-   			 
         	 <option value="국민">국민</option>
 	         <option value="기업">기업</option>
 	         <option value="외환">외환</option>
@@ -423,13 +423,13 @@ function divy_execDaumPostcode() {
 //csv를 넣어 주소를 하나로 합치는 함수
 function combineAddr(){
 	 
-	alert("combineAddr실행");
+	
 	 var divyAddrValue = "";
 	 
 	 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
 		+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
 	 
-	alert(divyAddrValue);
+	//alert(divyAddrValue);
 	 $('.divyAddress').val(divyAddrValue);
 	 
 	
@@ -439,14 +439,11 @@ function combineAddr(){
 //csv를넣어 계좌를 합침
 function combineAccount(){
 	 
-	 //디버깅
-	 alert("combineAccount실행");
-	 
 	 var account = "";
 	 
 	 var account = $(".accountBank option:selected").val() + "/"  + $("input[name='accountNumber']").val()
 	 
-	alert(account); 
+	//alert(account); 
 	$('.account').val(account);
 }
 
