@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -66,9 +67,8 @@
 							th:src="@{/images/content/fff.png}">
 					</div>
 
-
-					<div class="buttons">
-						<span sec:authorize="isAuthenticated()">
+					<span sec:authorize="isAuthenticated()">
+					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
 							<button type="button" class="btn custom">
 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
 							</button>
@@ -76,8 +76,8 @@
 								<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 							</button>
 							<button type="button" class="btn custom">끌어올리기</button>
-						</span>
 					</div>
+					</span>
 				</div>
 
 
@@ -120,15 +120,7 @@
 				</div>
 
 				<div class="oldDate" th:text=${old.oldDate}></div>
-				<!--       <a href = "#" class = "product-link">visit nike store</a> -->
-				<!--     <div class="userProfile">   -->
-				<!--     <p class="fa-solid fa-circle-user"></p> -->
-				<!--      </div> -->
-
-				<!--     <a href = "#"> -->
-				<!--           <img alt="" src="/images/content/danielstorage"> -->
-				<!--         </a> -->
-				<!--      //////////////////// -->
+			
 				<div class="user">
 
 					<table>
@@ -149,7 +141,7 @@
 
 							<td>
 								<p>
-									<span class="a" th:text=${loginuserId}></span>
+									<span class="a" th:text=${old.userId}></span>
 								</p>
 
 								<div class="product-rating">
@@ -168,18 +160,28 @@
 				</div>
 
 				<div class="purchase-info">
-
+				<div class="loginUser">
+					<span sec:authorize="isAuthenticated()">
+					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}">
+					<button type="button" class="btn">
+					채팅하기
+						<i class="fa-solid fa-comments"></i>
+					</button>
+					</a>
+					</div>
+					
+					<div class="logoutUser">
+					<span sec:authorize="isAnonymous()">
 					<button type="button" class="btn">
 					
-					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${loginuserId}+'/'+${old.oldNo}}" target='_blank'>
-					채팅하기
+					<a th:href="@{/user/login}">
+					채팅하기(login)
 					</a>
 						<i class="fa-solid fa-comments">
 						 
 						</i>
 					</button>
-					
-					
+					</div>
 			
 				</div>
 
@@ -226,7 +228,7 @@
 	<div class="container tempList">
 		<div class="row">
 			<div class="col-md-12">
-				<!-- 	형산오빠  get 화면 밑에 중고거래게시물추천으로 list 나오게 하고싶은데  안나와.. 이부분부터임		 -->
+			
 				<h2>같은 카테고리의 물품들</h2>
 				<div class="old-list">
 
@@ -243,7 +245,7 @@
 										<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									</div>
 									<div class="try_rc_mob_img_cont">
-										<h2>title</h2>
+										<h2 class="product-title" th:text=${old.oldTitle}></h2>
 
 									</div>
 									<div class="try_rc_mob_img_cont_bottom">

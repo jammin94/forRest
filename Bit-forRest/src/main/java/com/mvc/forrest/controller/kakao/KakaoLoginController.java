@@ -1,5 +1,7 @@
 package com.mvc.forrest.controller.kakao;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -88,7 +90,6 @@ public class KakaoLoginController {
 			
 			principalDetailsService.loadUserByUsername(newUser.getUserId());
 			
-			return "redirect:/";
 		}else {
 			User kakaoUser = userService.getUser(kakaoId);
 			userService.updateRecentDate(newUser);
@@ -97,8 +98,10 @@ public class KakaoLoginController {
 			System.out.println("           kakaoUser.getUserId : "+kakaoUser.getUserId());
 			
 			principalDetailsService.loadUserByUsername(kakaoUser.getUserId());
-			return "redirect:/";
 		}
+		
+		
+		return "redirect:/"; 
 	}
 	
 	@GetMapping("naverLogin")
@@ -109,9 +112,55 @@ public class KakaoLoginController {
 		String access_Token = kakaoLoginService.getNaverToken(code,state);
 		System.out.println(access_Token);	
 		
-		Map<String, Object> userInfo = kakaoLoginService.getKakaoInfo(access_Token);
-		System.out.println(userInfo);
+		Map<String, Object> userInfo = kakaoLoginService.getNaverInfo(access_Token);
 		
+		System.out.println(userInfo);
+		System.out.println(userInfo.get("naverEmail"));
+    	System.out.println(userInfo.get("naverImg"));
+    	
+    	String naverId = userInfo.get("naverEmail").toString();
+		System.out.println(naverId);
+		
+		User newUser = new User();
+
+		if(userService.getUser((String)userInfo.get("naverEmail"))==null) {
+			newUser.setUserId(naverId);
+			newUser.setNickname(FileNameUtils.getRandomString());
+			newUser.setPassword(FileNameUtils.getRandomString());
+			newUser.setPhone(FileNameUtils.getRandomString());
+			newUser.setUserName("userName");
+			newUser.setUserAddr(FileNameUtils.getRandomString());
+			newUser.setJoinDate(new Timestamp(System.currentTimeMillis()));
+			newUser.setRecentDate(new Timestamp(System.currentTimeMillis()));
+			newUser.setJoinPath("naver");
+			newUser.setUserImg(userInfo.get("naverImg").toString());
+			userService.addUser(newUser);
+			System.out.println("### SNS 신규회원 ###");			
+
+			OwnCoupon oc = new OwnCoupon();
+			Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
+			Calendar cal= Calendar.getInstance();
+			cal.add(Calendar.DATE,30);
+			Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+			Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
+			oc.setOwnUser(newUser);
+			oc.setOwnCoupon(coupon);
+			oc.setOwnCouponCreDate(ts1);
+			oc.setOwnCouponDelDate(ts2);
+			couponService.addOwnCoupon(oc);
+			System.out.println("### 신규회원 쿠폰발급 ###");			
+			
+			principalDetailsService.loadUserByUsername(newUser.getUserId());
+			
+		}else {
+			User naverUser = userService.getUser(naverId);
+			userService.updateRecentDate(newUser);
+			
+			System.out.println("           kakaoUser : "+naverUser);
+			System.out.println("           kakaoUser.getUserId : "+naverUser.getUserId());
+			
+			principalDetailsService.loadUserByUsername(naverUser.getUserId());
+		}
 		return "redirect:/";
 	}
 }

@@ -320,10 +320,10 @@
           <li>대여횟수 <span  th:text = "|${product.rentalCounting}회|"></span></li>
           <li>대여일 <span>
            <select class="selectBox" name="selection">
-                        <option value="텐트">1박2일</option>
-                        <option value="텐트">2박3일</option>
-                        <option value="텐트">3박4일</option>
-                        <option value="텐트">4박5일</option>
+                        <option value="1">1박2일</option>
+                        <option value="2">2박3일</option>
+                        <option value="3">3박4일</option>
+                        <option value="4">4박5일</option>
                         </select>
           </span></li>
       
@@ -342,10 +342,13 @@
 
       <div class="purchase-info" th:unless="${product.userId} == ${sessionUser.userId}">
         
-        <button type = "button" class = "btn">구매하기</button>
-        <button type = "button" class = "btn">
+        <button type = "button" class = "btn" >구매하기</button>
+        <button type = "button" class = "btn" name="wishlist">
+
           장바구니 <i class = "fas fa-shopping-cart"></i>
         </button>
+        <input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
+        <input type="hidden" id="period" name="period" value="1"/>
       </div>
       
 
@@ -448,7 +451,50 @@ $(function(){
         $(this).toggleClass('on');
         $(this).parent().parent().find('.thumbImg').toggleClass('on');
     })
+    
+    $('[name=wishlist]').on('click',function(){
+    	var prodNo = $(this).parent().find('#prodNo').val();
+    	console.log(prodNo);
+    	var period = $("#period").val();
+    	console.log(period);
+    	
+		$.ajax({
+            type : "GET",  
+            url : "/wishlist/addWishlistOnDetail?prodNo="+prodNo+"&period="+period,       
+            dataType : "json",   
+            error : function(){
+               alert("통신 에러");
+            },
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+            success : function(heartCheck) {
+                
+                    if(heartCheck){
+                    	
+                    console.log("장바구니 삭제 완료");
+			        location.reload();
 
+                    }
+                    else if (heartCheck){
+                    	alert("이미 삭제한 물품 입니다");                 
+                    	location.reload();
+                	}
+                    
+                    
+            	}
+        	})
+    })
+    
+    $(".selectBox").on("click",function(){
+    		
+    	var select = $(".selectBox option:selected").val();
+    	console.log(select);
+    	$("#period").val(select);
+    	var period1 = $("#period").val();
+		console.log(period1);
+    })
 })
 </script>
 </body>

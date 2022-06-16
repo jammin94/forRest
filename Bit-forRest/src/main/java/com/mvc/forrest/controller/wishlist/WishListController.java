@@ -91,23 +91,20 @@ public class WishListController {
 			
 			//"세션아이디" 와 일치하는 것의 리스트들을 꺼낸다 (장바구니 목록)
 			Map<String, Object> mapWishList =	wishlistService.getWishlist(search,userId);
-			System.out.println("listRentalProfitView 테스트2");
 		    Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
 			
+		    int totalPrice = wishlistService.getWishlistTotalSum(userId);
+		    
 			// Model 과 View 연결
 			
 			model.addAttribute("list", mapWishList.get("list"));
-		model.addAttribute("resultPage", resultPage);
+			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
-			
+			model.addAttribute("totalPrice",totalPrice);
+			 
 			System.out.println("모델리스트"+mapWishList.get("list"));
 			
 			return "wishList/wishList";
 		}
 		
-		@PostMapping("getWishList")
-		public String getWishList( ) throws Exception{
-			
-			return null;
-		}
 }
