@@ -48,6 +48,7 @@
 	      var left = $('.img-preview-operate').width();
 	      $('.img-preview-operate').scrollLeft(left);
 	      }
+	      
 	      reader.readAsDataURL(input[num]);
 	     }
 	    }
