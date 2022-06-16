@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable();//csrf 토큰을 사용하지 않겠다.
 		http.authorizeHttpRequests()  //인가 요청이 오면
 			.antMatchers("/user/manager","/product/getProduct","/storage/listStorage", "/storage/extendStorage", "/storage/getStorage").authenticated()
-			.antMatchers("/user/getUser", "/user/deleteUser", "/old/listOldAfterLogin", "/oldLike/addOldLike", "oldLike/deleteOldLikeOnList").authenticated()
+			.antMatchers("/user/getUser", "/user/deleteUser", "/old/listOldAfterLogin", "/oldLike/addOldLike", "oldLike/deleteOldLikeOnList","/storage/addStorage").authenticated()
 			.antMatchers("storage/listStorageForAdmin").hasRole("admin")
 			.anyRequest().permitAll()
 			.and()
@@ -38,11 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginProcessingUrl("/user/login") //POST
 			.defaultSuccessUrl("/")
 			.and()
-			.logout()
-			.logoutUrl("/user/logout")// 로그인과 로그아웃은 csrf 사용시 사용 안할 때는 로그아웃은 get방식도 가능
+			.logout()// 로그인과 로그아웃은 csrf 사용시 사용 안할 때는 로그아웃은 get방식도 가능
 			.invalidateHttpSession(true)
 			.logoutSuccessUrl("/").and()			
-			.oauth2Login().loginPage("/user/login").failureUrl("/user/login").userInfoEndpoint().userService(principalOauth2UserService);
+			.oauth2Login().loginPage("/user/login")
+			.failureUrl("/user/login")
+			.userInfoEndpoint()
+			.userService(principalOauth2UserService);
 			//1. antMatchers 안에 있는 주소에 접속 할 때는 인증이 필요하다
 			//2. 그 외 모든 리퀘스트는 다 승인한다
 			//3. 그리고

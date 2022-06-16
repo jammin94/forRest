@@ -149,7 +149,7 @@
 
 							<td>
 								<p>
-									<span class="a" th:text=${old.userId}></span>
+									<span class="a" th:text=${loginuserId}></span>
 								</p>
 
 								<div class="product-rating">
@@ -170,9 +170,17 @@
 				<div class="purchase-info">
 
 					<button type="button" class="btn">
-						채팅하기<i class="fa-solid fa-comments"></i>
+					
+					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${loginuserId}+'/'+${old.oldNo}}">
+					채팅하기
+					</a>
+						<i class="fa-solid fa-comments">
+						 
+						</i>
 					</button>
-
+					
+					
+			
 				</div>
 
 
@@ -273,28 +281,6 @@
 	</script>
 </body>
 
-<script type="text/javascript">
-	function fncUpdateOld() {
 
-		self.location = "/old/updateOld?oldNo="
-				+ $(this).children("input").val();
-
-		// 	$("form").attr("method" , "GET").attr("action" , "/old/getOld").submit();
-
-	}
-
-	$(function() {
-
-		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		$("#updateOld").on(
-				"click",
-				function() {
-
-					self.location = "/old/updateOld?oldNo="
-							+ $(this).children("input").val();
-
-				});
-	});
-</script>
 
 </html>

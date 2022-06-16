@@ -105,10 +105,17 @@ public class OldController {
 
 		double oldReview = oldReviewService.getUserRate(userId);
 		user.setUserRate(oldReview);
-
+		
+		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String loginuserId = loginUser.getUser().getUserId();
+		
+		System.out.println("로그인아이디"+loginuserId);
+		
+		model.addAttribute("loginuserId",loginuserId);
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 
+		
 		// getOld 밑에 list 뜨는 것
 		
 		List<Old> list = oldService.getOldList(search);
@@ -140,11 +147,7 @@ public class OldController {
 		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		String userId = loginUser.getUser().getUserId();
 		
-		
-		
-		
-		System.out.println(userId + "유저아이디");
-		
+		//add화면에 userId 보여주기 위함
 		model.addAttribute("userId", userId);
 		
 		return "/old/addOld";
