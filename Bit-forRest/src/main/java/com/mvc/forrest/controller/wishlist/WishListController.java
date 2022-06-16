@@ -93,11 +93,14 @@ public class WishListController {
 			Map<String, Object> mapWishList =	wishlistService.getWishlist(search,userId);
 		    Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
 			
+		    int totalPrice = wishlistService.getWishlistTotalSum(userId);
+		    
 			// Model 과 View 연결
 			
 			model.addAttribute("list", mapWishList.get("list"));
 			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
+			model.addAttribute("totalPrice",totalPrice);
 			 
 			System.out.println("모델리스트"+mapWishList.get("list"));
 			

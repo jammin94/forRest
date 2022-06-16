@@ -127,7 +127,7 @@
 				</div>
 		    </td>
 		    <td></td>
-		    <td class="tdCenter" th:text = "${wishlist.product.rentalPrice}"></td>
+		    <td class="tdCenter wishPrice" th:text = "${wishlist.product.rentalPrice}"></td>
 		    <td></td>
 		    <td></td>
 		     <td></td>
@@ -135,11 +135,11 @@
 	    </tr>
 	    
 	    <tr>
-	    	     <td align="left">
+    	     <td align="left">
 		    	총 합계
 		    </td>
 		    <td></td>
-		    <td>sss</td>
+		    <td>[[${totalPrice}]]</td>
 		    <td></td>
 		    <td></td>
 		     <td></td>
@@ -167,7 +167,12 @@
 </body>
 
 <script src="/js/jquery_min.js"></script>
-
+<script>
+	$(function(){
+		
+		
+	})
+</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->
 <!-- <script src="/js/custom.js"></script> -->

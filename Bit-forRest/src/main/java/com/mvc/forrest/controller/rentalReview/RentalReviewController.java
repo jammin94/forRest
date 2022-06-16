@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.User;
@@ -71,7 +73,7 @@ public class RentalReviewController {
 		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model,@RequestParam("fileName") MultipartFile file) throws Exception {
 			System.out.println(rentalReview.getReviewImg());
 			
-			String temDir = "C:\\Users\\bitcamp\\Desktop\\testimgpath";
+			String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
 			String fileName = "";
 			String fileConvert = FileNameUtils.fileNameConvert(file.getOriginalFilename());
 			
@@ -86,10 +88,12 @@ public class RentalReviewController {
 				System.out.println("파일업로드 실패...?");
 			}
 			
-		
+			//암호화된 유저아이디를 받아옴
+			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId= loginUser.getUser().getUserId();
 			
 			rentalReview.setProdNo("a"); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
-			rentalReview.setUserId("user03@naver.com"); // 참고: 무결성제약조건 userId는 기존값 존재해야함
+			rentalReview.setUserId(userId); // 참고: 무결성제약조건 userId는 기존값 존재해야함
 			
 			rentalReviewService.addRentalReview(rentalReview);
 			
