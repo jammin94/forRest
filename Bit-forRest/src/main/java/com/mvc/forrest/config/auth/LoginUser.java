@@ -1,5 +1,7 @@
 package com.mvc.forrest.config.auth;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,13 +34,28 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	public LoginUser(User user) {
 		System.out.println(user);
 		this.user=user;
+		///////////////////////////////////////////////////////////////
+        try {
+        	System.out.println(":: Connect to Chatting Service");
+		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		int responseCode = conn.getResponseCode();
+		System.out.println(":: Chatting Service responseCode : " + responseCode);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
+		
+		////////////////////////////////////////////////////////////////
 	}
 	
     public LoginUser(User user, Map<String, Object> attribute) {
-    	System.out.println("여기서 오류 나는 거니?");
+    	System.out.println("LoginUser : "+user);
         this.user = user;
         this.attributes = attributes;
-        System.out.println("여기서 오류 나는 거니?2");
+        
+        
     }
 	
 	

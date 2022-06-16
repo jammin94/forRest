@@ -10,12 +10,14 @@
 </head>
 
 <style>
-
+.table{
+	max-width: 100%;
+}
 .container.list {
     padding-top: 95px !important;
     width: calc(100% - 210px);
-    float: right;
-   height:600px;
+    float:none !important;
+
 }
 .leftDiv{
     display: flex;
@@ -37,6 +39,26 @@
 	display: flex;
     align-items: center;
     justify-content: flex-end;
+    max-width:80%;
+}
+
+.productInfo{
+	display:flex;
+	align-items:center;
+}
+
+.productImg{
+    width: 50px;
+    height: 50px;
+}
+
+.try_footer_main_section_wrapper{
+    position: absolute !important;
+    left: 0;
+}
+.orderBtn{
+	display:flex;
+	justify-content:center;
 }
 </style>
 
@@ -69,73 +91,78 @@
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 	
-	 <div class="searchRight">
-	   <div class="form-group">
-				<!--     <select class="form-control" name="searchCondition" > -->
-				  <select class="form-control" >
-					<!-- 	<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>회원ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>회원명</option> -->
-				 	<option>상품명 </option>
-						<option>회원아이디 </option> 
-					</select>
-				  </div>
-	   <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">검색어</label>
-			<!--  <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >  -->
-				    	<!--   <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
-				    			 value=""  >   -->
-				    			 
-				    			   <input type="text" class="form-control" id="searchKeyword"  placeholder="검색어"
-				    			 value=""  >  
-				  </div>
-				   <button type="button" class="btn btn-default">검색</button>
-	 </div>
+
 	 			
 		 <!--  table Start /////////////////////////////////////-->
        <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
-	            <th align="center" >상품정보</th>   
-	            <th align="center">결제금액</th>
-	            <th align="center">주문일자</th>
+		            <th align="center">상품정보</th>
+		            <th></th>
+		            <th align="center">결제금액</th>
+		            <th></th>
+	                <th></th>
+	                <th></th>
+	                <th></th>
 	          </tr>
 	        </thead>
 	        
 	        <tbody> 
 	    
 	   
-	    <tr th:each="wishlist :${list}">
-	    
-		    <td class="tdCenter" th:text = "${wishlist.wishListNo}"></td>
-			<td class="tdCenter" th:text = "${wishlist.prodNo}"></td>
-			<td class="tdCenter" th:text = "${wishlist.userId}"></td>
+	    <tr th:each="wishlist :${list}">	    		    
+		     <td align="left">
+		    	<div class="productInfo">
+		    		<a href="/product/getProduct?prodNo=j">
+			    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&amp;s=1440x1440&amp;t=inside">
+			    	</a>
+			    	
+			    	<div style="width:220px;padding:10px;">
+			    	 <a href="/product/getProduct?prodNo=j">
+				    		<p style="margin-bottom: 10px; font-weight: bold">[[${wishlist.product.prodName}]]<br></p>
+				    </a>
+				    	<p>	2022-06-17 ~ 2022-10-15<br></p>
+				    		<p>	1개</p>
+			    	</div>
+				</div>
+		    </td>
+		    <td></td>
+		    <td class="tdCenter" th:text = "${wishlist.product.rentalPrice}"></td>
+		    <td></td>
+		    <td></td>
+		     <td></td>
+		     <td></td>
 	    </tr>
-	 
+	    
+	    <tr>
+	    	     <td align="left">
+		    	총 합계
+		    </td>
+		    <td></td>
+		    <td>sss</td>
+		    <td></td>
+		    <td></td>
+		     <td></td>
+		     <td></td>
+	    </tr>
+	
 	        </tbody>
 
       </table>
 		<!--  table End /////////////////////////////////////-->
+		 <span class="orderBtn" style="margin-bottom:30px;">
+			 <button style=" padding:10px;">
+			 주문하기
+			 </button>
+		 </span>
 	</form>
-	<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
-		</ul>
-	
+
+	     <div th:replace="/main/footer.html"></div>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
 <!-- footer -->
-     <div th:replace="/main/footer.html"></div>
+
  
 </body>
 

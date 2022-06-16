@@ -219,6 +219,9 @@ public class RentalController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
+		System.out.println("list보기"+map.get("list"));
+		
+		
 		return "rental/listRentalForAdmin";
 	}
 	
