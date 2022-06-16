@@ -80,6 +80,18 @@ public class RentalService {
 			return map;
 		}
 		
+		public Map<String,Object> getRentalProfitTotal(String userId) throws Exception{
+			
+			Map<String, Object> map = new HashMap<String, Object>(); 
+			map.put("userId", userId);
+			
+			List<Rental> list = rentalDAO.getRentalProfitTotal(userId);
+			
+			map.put("list", list);
+			
+			return map;
+			
+		}
 	
 
 }
