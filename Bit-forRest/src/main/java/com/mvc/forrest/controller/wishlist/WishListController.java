@@ -23,10 +23,10 @@ import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
-import com.mvc.forrest.service.domain.WishList;
+import com.mvc.forrest.service.domain.Wishlist;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
-import com.mvc.forrest.service.wishlist.WishListService;
+import com.mvc.forrest.service.wishlist.WishlistService;
 
 
 //==> ȸ������ Controller
@@ -35,7 +35,7 @@ import com.mvc.forrest.service.wishlist.WishListService;
 public class WishListController {
 	
 	@Autowired
-	public WishListService wishlistService;
+	public WishlistService wishlistService;
 	
 	@Autowired
 	public UserService userService;
@@ -55,7 +55,7 @@ public class WishListController {
 	
 	//-----------장바구니 추가 ------------//
 	
-		@PostMapping("addWishList")
+//		@PostMapping("addWishList")
 		public String addWishList( ) throws Exception{
 			
 			return null;
@@ -63,7 +63,7 @@ public class WishListController {
 	
 	//-----------장바구니 삭제------------//
 	
-		@PostMapping("deleteWishList")
+//		@PostMapping("deleteWishList")
 		public String deleteWishList( ) throws Exception{
 			
 			return null;
@@ -71,7 +71,7 @@ public class WishListController {
 			
 
 	//-----------장바구니 리스트 화면------------//
-		@GetMapping("getWishList")
+		@GetMapping("getWishlist")
 		public String getWishListView(@ModelAttribute("search") Search search , Model model ) throws Exception{
 
 			System.out.println("listRentalProfitView 테스트");
@@ -90,24 +90,18 @@ public class WishListController {
 			System.out.println("userId:"+userId);
 			
 			//"세션아이디" 와 일치하는 것의 리스트들을 꺼낸다 (장바구니 목록)
-			Map<String, Object> mapWishList =	wishlistService.getWishList(search,userId);
-			System.out.println("listRentalProfitView 테스트2");
+			Map<String, Object> mapWishList =	wishlistService.getWishlist(search,userId);
 		    Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapWishList.get("totalCount")).intValue(), pageUnit, pageSize );
 			
 			// Model 과 View 연결
 			
 			model.addAttribute("list", mapWishList.get("list"));
-		model.addAttribute("resultPage", resultPage);
+			model.addAttribute("resultPage", resultPage);
 			model.addAttribute("search", search);
-			
+			 
 			System.out.println("모델리스트"+mapWishList.get("list"));
 			
 			return "wishList/wishList";
 		}
 		
-		@PostMapping("getWishList")
-		public String getWishList( ) throws Exception{
-			
-			return null;
-		}
 }

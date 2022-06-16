@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.mvc.forrest.dao.product.ProductDAO;
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 
@@ -50,6 +51,15 @@ public class ProductService {
 		map.put("totalCount", totalCount);
 		
 		return map;
+	}
+	
+	public List<Product> getProductListHasUser(Search search, String userId) throws Exception{
+		System.out.println("getProductListHasUser 성공");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("search", search);
+		
+		return productDAO.getProductListHasUser(map);
 	}
 	
 	//렌탈마켓 상품중 최신순 4개를 메인화면에 출력

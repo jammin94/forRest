@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.product;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.api.client.http.HttpRequest;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -253,6 +256,37 @@ public class ProductController {
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		
+		return "product/listProduct";
+	}
+	
+	@RequestMapping("listProductAfterLogin")
+	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
+			throws Exception {
+
+		System.out.println(this.getClass());
+		
+		if(search.getSearchCategory()=="") {
+			search.setSearchCategory(null);
+		}
+		
+		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+
+		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = loginUser.getUser().getUserId();
+		
+		List<Product> list = productService.getProductListHasUser(search, userId);
+		
+		System.out.println(list);
+		model.addAttribute("list", list);
+		model.addAttribute("search", search);
+
 		return "product/listProduct";
 	}
 

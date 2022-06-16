@@ -205,8 +205,12 @@ article {
             <a th:href="@{/storage/storageMain}">장비보관</a>
         </li>
         
-          <li>
+        
+        <li sec:authorize="isAnonymous()">
             <a th:href="@{/product/listProduct}">렌탈마켓</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/product/listProductAfterLogin}">렌탈마켓</a>
         </li>
         
          <!-- 고객센터 -->
@@ -246,7 +250,7 @@ article {
               <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
             </li>
               <li>
-              <a th:href="@{/wishList/getWishList}">장바구니</a>
+              <a th:href="@{/wishlist/getWishlist}">장바구니</a>
             </li>
             <li>
                <a href="/logout">

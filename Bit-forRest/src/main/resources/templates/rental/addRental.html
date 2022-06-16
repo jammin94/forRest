@@ -65,16 +65,47 @@ border-bottom:3px solid #ddd !important;
     margin-left: 15px;
 }
 .container.list{
-	padding-right:150px;
+    display: flex;
+    justify-content: center;
+	padding-right:180px;
+	padding-top: 120px;
+    width: calc(100% - 210px);
+    float: right;
 }
 
 input{
-    font-weight: bold;
+    border-radius: 10px;
     border: none;
-    border-bottom: 1px solid #000;
+    background: #efefef;
+    margin: 6px;
+    padding: 5px;
+    font-size:14px;
 }
 
+#couponPrice.red{
+	color:#ff4d4d;
+}
 
+.divyRequest{
+	width: 80% !important;
+    margin-left: 19px;
+}
+
+.payment{
+	padding:5px;
+	background:#262626;
+	border:none;	
+	border-radius:10px;
+	color:#fff;
+}
+
+.cancel{
+	padding:5px;
+	background:#262626;
+	border:none;	
+	border-radius:10px;
+	color:#fff;
+}
 </style>
 <body>
 
@@ -88,9 +119,9 @@ input{
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
+
 	<div class="page-header text-info">
-		       <h3>주문하기</h3>
-		</div>
+		</div> <br/>
 		
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	    <div class="row">
@@ -112,7 +143,7 @@ input{
 	<!--  <input type="hidden" id="currentPage" name="currentPage" value=""/>-->
 		 <!--  table Start /////////////////////////////////////-->
       <table class="table table-hover table-striped">
-      
+      	       <h3 style="margin-bottom:40px;">주문하기</h3>
 	       <thead>
 	          <tr class="tableHeader">
 	            <th align="center">상품정보</th>
@@ -139,38 +170,10 @@ input{
 	        </tbody>
 
       </table>
-		<!--  table End /////////////////////////////////////-->
-		
-		<div style="margin-top:20px; color:red;padding-bottom:10px;">
-			이용약관
-		</div>
-		<div style="padding-top:10; background:#F1F1F1;  text-align:center;">
-<div align="left" style="height:26;padding:20px 0 0 10px;">
-<b>● 비회원 주문에 대한 개인정보 수집에 대한 동의</b> (자세한 내용은 “<a href="/shop/service/private.php?&amp;">개인정보처리방침</a>”을 확인하시기 바랍니다)
-</div>
-<div id="privateBoxScroll" class="boxScroll">
-■ 수집하는 개인정보 항목<br>
-<br>
-포레스트는 회원제 서비스 이용에 따른 본인 확인 절차를 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
-○ 수집항목: 성명, 비밀번호, 이메일, 휴대폰번호, 주소, 전화번호<br>
-<br>
-■ 개인정보의 수집 및 이용목적<br>
-<br>
-포레스트는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br>
-○ 서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 불만처리 등 민원처리, 회원관리 등을 위한 목적<br>
-<br>
-■ 개인정보의 보유 및 이용기간<br>
-<br>
-포레스트는 개인정보 수집 및 이용목적이 달성된 후에는 예외없이 해당 정보를 지체없이 파기합니다.
-</div>
-<div align="center" class="noline" style="height:30;margin-top:10px;padding-bottom:30px;">
-<input type="radio" name="private" value="y" onclick="javascript:document.frmOrder.private.value='y';"> 동의합니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="private" value="n" onclick="javascript:document.frmOrder.private.value='';"> 동의하지 않습니다
-</div>
-</div>
+		<!--  table End /////////////////////////////////////-->			
      
       
-    <div style="margin-top:20px; color:red;padding-bottom:10px;">
+    <div style="margin-top:20px; color:#a76161; padding-bottom:10px;">
 			주문서작성
 		</div>
       <table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
@@ -228,12 +231,14 @@ input{
 		<td>
 		<div class="form-group">
 	 <div class="col-sm-5">
-		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
-		 <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
-		 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
-	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
-		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
+		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>		
+		  <span style="display:flex;">	
+		  <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
+		  	 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기" style="background:#9a9a9a; color:#fff;"><br>
+		  </span>
+	     <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소" style="width:310px"><br>
+	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목" style="width:310px">
+		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소" style="width:310px">
 		   </div>
 </div>
 		</td>
@@ -245,11 +250,13 @@ input{
 	 <div class="form-group">
 	 <div class="col-sm-5">
 		  <input type="hidden"  class="divyAddress" name="divyAddress" value="">
-		 <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
-		 <input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
-	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
-		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
+		  <span style="display:flex;">	
+		 	<input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+		 	<input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기" style="background:#9a9a9a; color:#fff;"><br>
+		 </span>
+	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소"   style="width:310px"><br>
+	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목"  style="width:310px">
+		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소"  style="width:310px">
 		   </div>
 </div>  
 	</tr>
@@ -291,8 +298,9 @@ input{
 		03 쿠폰 
 	</td>
 	<td style="padding:10px">
-	 <select class="coupon" name= "coupon">   				
-   			<option >-- 선택 --</option>
+	 <select class="coupon" name= "coupon">
+	 		<option >-- 선택 --</option>   				
+   			<option >0.4</option>
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
@@ -316,7 +324,7 @@ input{
 	</colgroup><tbody>
 	
 	<tr>
-		<td>대여상품<br/> 합계금액</td>
+		<td>합계금액</td>
 		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
 	</tr>
 	
@@ -325,14 +333,6 @@ input{
 		<td><p id="couponPrice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</p> 원</td>
 	</tr>
 	
-	<tr>
-		<td>배송비</td>
-		<td>
-		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
-		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
-		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
-		</td>
-	</tr>
 
 
 	<tr>
@@ -348,7 +348,7 @@ input{
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
 	<button type="button" class="payment">결제하기</button>
-	<button>취소하기</button>
+	<button class="cancel">취소하기</button>
 </div>
 	</form>
 </div>
@@ -470,23 +470,46 @@ function divy_execDaumPostcode() {
     		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
     			       		    			   
     	    	    var sText = $('#paper_goodsprice').text();
-    	    	    var rText=  sText.replace(",",""); //90870원    	    	    
-    	    	 
-    	    		$('#couponPrice').text($(".coupon option:selected").val().replace(".0","")).toLocaleString();    	    		    	   
+    	    	    var rText=  sText.replace(",",""); //90870원    	    	
+    	    	    let outPutPrice;
+    	    	    let convertPrice;
+    	    	 	let couponPrice;
+    	            let convertCouponPrice;
+    	    			    	   
     	    	    
-    	    		var outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
-    	    		var convertPrice = outPutPrice.toLocaleString();
+
+    	    		  if($(".coupon option:selected").val()<1){    	    			      	    			  
+    	    		  		 outPutPrice =PRICE - PRICE.replace(".0","") *$(".coupon option:selected").val().replace(".0","");		
+    	    	    		 convertPrice = outPutPrice.toLocaleString();
+    	    	    		 couponPrice = PRICE*$(".coupon option:selected").val();
+    	    	    		 convertCouponPrice =  couponPrice.toLocaleString();    	  
+    	    	    		 $('#couponPrice').addClass("red");
+      	    	    } else{      	    	    	
+	      	    	  		 outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
+	        	    		 convertPrice = outPutPrice.toLocaleString();
+	        	    		 couponPrice = $(".coupon option:selected").val().replace(".0","") // 5000원
+	        	    		 convertCouponPrice = parseInt(couponPrice).toLocaleString();        	
+	        	    		 $('#couponPrice').addClass("red");
+      	    	    }
     	    		
+
     	    	    //계산
     	    	    var resultPrice = rText -$(".coupon option:selected").val();    
     	    	    
     	    	    //계산값
-    	    	    console.log(resultPrice);
+    	    	    console.log("계산값"+resultPrice);
     	    	    
+    	    	    
+    	    	    //쿠폰값 텍스트 대체
+    	    	    $('#couponPrice').text("-"+convertCouponPrice);  
     	    	    
     	    	    //계산값 텍스트 대체
     	    	    $('#resultPrice').text(convertPrice);
-    		}
+    		}else{
+    			 $('#couponPrice').removeClass("red");
+    			   $('#couponPrice').text("0");  
+    			   $('#resultPrice').text(parseInt(PRICE).toLocaleString());
+   		}
     	 
     	})
     	 

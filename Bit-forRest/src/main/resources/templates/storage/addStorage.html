@@ -1,889 +1,265 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-  
-	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	 <link rel="stylesheet" href="/css/addRentalReview.css">
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<!-- 아임포트 -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/addStorage.css">
+    
+    <!-- 아임포트 -->
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	<!-- 제이쿼리 -->
+	<script src="/js/jquery_min.js"></script>
+	<!-- 다음주소API-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 </head>
-<style>
-td{
-	padding-bottom:10px !important;
-}
-.table{
-	margin-bottom: 80px !important;
-}
-.page-header{
-margin: 40px 0 0px !important;
-border-bottom:3px solid #ddd !important;
-}
-
-	.tableBody td {
-		width:33%;
- 		vertical-align: middle !important;
-	}
-	
-	.tableBody td > div {
-		display:flex;
-	}
-	
-	.tableBody td img{
-		text-align:left;
-		width:100px;
-	}
-	
-	.tableBody td span{
-		display:flex;
-		align-items:center;
-		padding:10px;
-	}
-	
-	.borderTopNone{
-		border-top:none !important;
-	}
-	.borderRight{
-		border-right:1px solid #ddd;
-	}
-	.textCenter{
-		text-align:center;
-	}
-	.borderBottom{
-		border-bottom:1px solid #ddd;
-	}
-	.boxScroll {
-    width: 96%;
-    height: 130px;
-    overflow: auto;
-    BACKGROUND: #ffffff;
-    COLOR: #585858;
-    font: 9pt 돋움;
-    border: 1px #dddddd solid;
-    overflow-x: hidden;
-    text-align: left;
-    margin-left: 15px;
-}
-.container.list{
-	padding-right:150px;
-}
-
- textarea {
-    width: 400px;
-    height:200px;
-    resize: none;
-  }
-</style>
 <body>
 
-<!-- 로딩시 뜨는 아이콘 -->
-	<!-- <div id="preloader">
-		<div id="status">
-			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
-		</div>
-	</div>
- -->
+   <div th:replace="/main/toolbar.html"></div>
 
-<!-- 툴바 include -->
-<div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div> 
-<!-- 
-<div th:replace="/main/toolbarForAdmin.html"></div>
-<div th:replace="/main/leftbarForAdmin.html"></div> -->
-
-<!--  화면구성 div Start /////////////////////////////////////-->
-<div class="container list">
-
-<div style="margin-top:20px; color:red;padding-bottom:10px;">
-			사진등록
-		</div>	
-				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
-	   
-		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
-		
-	 <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
-
-	 <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
-	 
-	 <label for="uploadFile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
-  <!-- 	<div class="col-sm-4">
-		   <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"> 
-		   </div>  -->
-		 <!--  table Start /////////////////////////////////////-->
-      <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
+    <div class="container">
+        <header> 장비보관 </header>
+        <div class="progress-bar">
+            <div class="step">
+                <p>기본정보</p>
+                <div class="bullet">
+                    <span>1</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>상세정보</p>
+                <div class="bullet">
+                    <span>2</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>대여</p>
+                <div class="bullet">
+                    <span>3</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>주문자</p>
+                <div class="bullet">
+                    <span>4</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>주소</p>
+                <div class="bullet">
+                    <span>5</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+            <div class="step">
+                <p>결제</p>
+                <div class="bullet">
+                    <span>6</span>
+                </div>
+                <div class="check fas fa-check"></div>
+            </div>
+        </div>
+        <div class="form-outer">
+            <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
+            
+            <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
+                <div class="page slidepage">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        <div class="label">제품 사진 등록</div>
+                         <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"> 
+                     
                     </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
+                    <div class="field">
+                        <div class="label">제품 이름</div>
+                        <input type="text" name="prodName" value="텐트텐트"  >
                     </div>
-                    <input type="file" name="uploadFile" multiple="multiple" style="display:none">
-                  </div>
-</div> 
-		<!--  table End /////////////////////////////////////-->
-		
-		<!-- 물품정보등록 -->
-		
-			<div style="margin-top:20px; color:red;padding-bottom:10px;">
-			보관정보
-		</div>
-		
-		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-	물품정보
-	</td>
-	<td style="padding:10px">
+                    <div class="field">
+                        <div class="label">카테고리</div>
+                        <select class="category" name= "category">
+                            <option value="텐트">텐트</option>
+                            <option value="침대">침대</option>
+                            <option value="의자">의자</option>
+                            <option value="그릴">그릴</option>
+                            <option value="버너">버너</option>
+                            <option value="조명">조명</option>
+                            <option value="테이블">테이블</option>
+                            <option value="식기">식기</option>
+                            <option value="난로">난로</option>
+                            <option value="기타용품">기타용품</option>
+                        </select>
+                    </div>
+                    <div class="field nextBtn">
+                        <button type="button">Next</button>
+                    </div>
+                </div>
 
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody>
-	<tr>
-		<td>물품이름</td>
-		<td><input type="text" name="prodName" value="1234"  ></td>
-	</tr>
-
-	<tr>
-		<td>카테고리</td>
-		<td>
-			 <select class="category" name= "category">
+                <div class="page">
+                    <div class="title">Detail Info:</div>
+                    <div class="field">
+                        <div class="label">크기</div>
+                        <input type="text"  name="width"  id="resv_width" > x
+						<input type="text"  name="length"   id="resv_length"> x
+						<input type="text"   name="height"   id="resv_height"> 
+                    </div>
+                    <div class="field txtarea">
+                        <div class="label">상세정보</div>
+                        <textarea name="prodDetail" id="prodDetail" class="textarea" height="200px"></textarea>
+                    </div>
+                    <div class="field">
+                        <div class="label">보관기간</div>
+                        <select class="period" name= "period" id="resv_period"  >
    
-        	 <option value="텐트">텐트</option>
-	         <option value="침대">침대</option>
-	         <option value="의자">의자</option>
-	         <option value="그릴">그릴</option>
-	         <option value="버너">버너</option>
-	         <option value="조명">조명</option>
-	         <option value="테이블">테이블</option>
-	         <option value="식기">식기</option>
-	         <option value="난로">난로</option>
-	         <option value="기타용품">기타용품</option>
+        				 <option  value=30>1개월</option>
+	         			 <option  value=60>2개월</option>
+	        			 <option   value=90>3개월</option>
+	        			 <option  value=120>4개월</option>
+	        			 <option   value=150>5개월</option>
+	        			 <option  value=180>6개월</option>
+	        			 
+            		 </select>
+                    </div>
+                    <div class="field">
+                        <div class="label">제품수량</div>
+                       <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"   style="width:50px;"> 개
+                    </div>
+                    <div class="field">
+                        <div class="label">대여가능</div>
+                        <input type="checkbox"  name="isRental" value=1 id="input_check"> 보관한물품을 대여가능하게 합니다.
+                    </div>
+                    <div class="field btns">
+                        <button type="button" class="prev-1 prev">Previous</button>
+                        <button type="button" class="next-1 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">대여관련정보:</div>
+                    <div class="field">
+                        <div class="label">물품대여가격</div>
+                        <input type="text" name="rentalPrice" value=0 > 원
+                    </div>
+                    <div class="field">
+                        <div class="label">보증금</div>
+                        <input type="text" name="deposit"  value=0 > 원
+                    </div>
+                    <div class="field">
+                        <div class="label">계좌번호</div>
+                         <select class="accountBank" name= "accountBank"  style="width:130px;">
+                            <option value="국민">국민</option>
+	         				<option value="기업">기업</option>
+	         				<option value="외환">외환</option>
+	         				<option value="NH농협">NH농협</option>
+	         				<option value="우리">우리</option>
+                        </select>
+                        <input type="text" name="accountNumber" value="" >
+					    <input type="hidden"  class="account" name="account" value="" >
+                    </div>
+                    <div class="field btns">
+                        <button type="button" class="prev-2 prev">Previous</button>
+                        <button type="button" class="next-2 next">Next</button>
+                    </div>
+                </div>
+
+
+                <div class="page">
+                    <div class="title">주문자정보</div>
+                    <div class="field">
+                        <div class="label">주문하시는분</div>
+                        <input type="text" name="receiverName" value="1234"  placeholder="주문하시는분의 이름을 적어주세요">
+                    </div>
+                    <div class="field">
+                        <div class="label">핸드폰번호</div>
+                        <input type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
+						<input type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
+						<input type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+						<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
+                    </div>
+                    <div class="field btns">
+                        <button type="button" class="prev-3 prev">Previous</button>
+                        <button type="button" class="next-3 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">픽업주소:</div>
+                    <div class="field">
+                        <div class="label">픽업주소 확인</div>
+                         <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
+                    </div>
+                    <div class="field">
+                       <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
+				 	   <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
+			    	   <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
+	     			  <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
+	     			  <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
+					  <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
+                    </div>
+                    <div class="title">반송주소</div>
+                    <div class="field">
+                        <div class="label">반송주소 확인</div>
+                       <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다. 
+                    </div>
+                    <div class="field">
+                        <input type="hidden"  class="divyAddress" name="divyAddress" value="">
+		 			    <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+		 				<input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
+	    			    <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
+	     				<input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
+					    <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
+                    </div>
+                    <div class="field btns">
+                        <button type="button" class="prev-4 prev">Previous</button>
+                        <button type="button" class="next-4 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">결제금액:</div>
+                    <div class="field">
+                        <div class="label">쿠폰적용</div>
+                        <select class="coupon" name= "coupon">
+   						<option>-- 선택 --</option>
+	       	 			<option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}">
+	       	 			</option>
   
           </select>
-		
-		</td>
-	</tr>
-	
-		<tr>
-		<td>크기</td>
-		<td>
-		<input type="text"  name="width"  size="3" maxlength="3" id="resv_width" > x
-		<input type="text"  name="length" size="4" maxlength="4"  id="resv_length"> x
-		<input type="text"   name="height" size="4" maxlength="4"  id="resv_height"> 
-		
-		</td>
-	</tr>
-	
-	<tr>
-		<td>물품설명</td>
-		<td><textarea name="prodDetail" id="prodDetail" class="textarea"></textarea></td>
-	</tr>
-	
-	<tr>
-		<td>보관기간</td>
-		<td>
-			 <select class="period" name= "period" id="resv_period" >
-   
-        	 <option  value=30>1개월</option>
-	         <option  value=60>2개월</option>
-	         <option   value=90>3개월</option>
-	         <option  value=120>4개월</option>
-	         <option   value=150>5개월</option>
-	         <option  value=180>6개월</option>
-	       
-  
-          </select>
-		
-		</td>
-	</tr>
-	
-	<tr>
-		<td>물품수량</td>
-		<td>
-		<input type="text"    name="prodQuantity"  size="3"  id="resv_quantity" > 개
-		
-		</td>
-	</tr>
-	
-	</tbody></table>
-
-	</td>
-</tr>
-</tbody></table>
-		<!-- 물품정보등록 끝 -->
-		
-		<!-- 대여관련정보 -->
-		<div style="margin-top:20px; color:red;padding-bottom:10px;">
-			대여관련정보
-		</div>
-		
-		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-	대여정보
-	</td>
-	<td style="padding:10px">
-
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody>
-	<tr>
-		<td>대여가능</td>
-		<td class="noline">
-		<!-- 체크가 되어있을때 1 아닐때 0을 전달 -->
-		<input type="checkbox"  name="isRental" value=1 id="input_check"> 보관한물품을 대여가능하게 합니다.
-		</td>
-	</tr>
-	
-	<tr>
-		<td>물품대여가격</td>
-		<td><input type="text" name="rentalPrice" value=0 > 원</td>
-	</tr>
-	
-	<tr>
-		<td>보증금</td>
-		<td><input type="text" name="deposit"  value=0 > 원</td>
-	</tr>
-
-	<tr>
-		<td>계좌번호</td>
-		<td>
-			 <select class="accountBank" name= "accountBank">
-   
-        	 <option value="국민">국민</option>
-	         <option value="기업">기업</option>
-	         <option value="외환">외환</option>
-	         <option value="NH농협">NH농협</option>
-	         <option value="우리">우리</option>
-	  
-          </select>
-		 
-		  <input type="text" name="accountNumber" value="" >
-		  <input type="hidden"  class="account" name="account" value="" >
-		</td>
-	</tr>
-	
-
-	
-	</tbody></table>
-
-	</td>
-</tr>
-</tbody></table>
-		<!-- 대여관련정보 끝 -->
-		
-		<div style="margin-top:20px; color:red;padding-bottom:10px;">
-			이용약관
-		</div>
-		<div style="padding-top:10; background:#F1F1F1;  text-align:center;">
-<div align="left" style="height:26;padding:20px 0 0 10px;">
-<b>● 비회원 주문에 대한 개인정보 수집에 대한 동의</b> (자세한 내용은 “<a href="/shop/service/private.php?&amp;">개인정보처리방침</a>”을 확인하시기 바랍니다)
-</div>
-<div id="privateBoxScroll" class="boxScroll">
-■ 수집하는 개인정보 항목<br>
-<br>
-포레스트는 회원제 서비스 이용에 따른 본인 확인 절차를 위해 아래와 같은 개인정보를 수집하고 있습니다.<br>
-○ 수집항목: 성명, 비밀번호, 이메일, 휴대폰번호, 주소, 전화번호<br>
-<br>
-■ 개인정보의 수집 및 이용목적<br>
-<br>
-포레스트는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br>
-○ 서비스 제공 및 계약의 이행, 구매 및 대금결제, 물품배송 또는 청구지 발송, 불만처리 등 민원처리, 회원관리 등을 위한 목적<br>
-<br>
-■ 개인정보의 보유 및 이용기간<br>
-<br>
-포레스트는 개인정보 수집 및 이용목적이 달성된 후에는 예외없이 해당 정보를 지체없이 파기합니다.
-</div>
-<div align="center" class="noline" style="height:30;margin-top:10px;padding-bottom:30px;">
-<input type="radio" name="private" value="y" onclick="javascript:document.frmOrder.private.value='y';"> 동의합니다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="private" value="n" onclick="javascript:document.frmOrder.private.value='';"> 동의하지 않습니다
-</div>
-</div>
-     
-      
-    <div style="margin-top:20px; color:red;padding-bottom:10px;">
-			주문서작성
-		</div>
-      <table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-	01 주문자정보
-	</td>
-	<td style="padding:10px">
-
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody><tr>
-		<td>주문하시는분</td>
-		<td><input type="text" name="receiverName" value="1234" style="font-weight:bold"  msgr="주문하시는분의 이름을 적어주세요"></td>
-	</tr>
-	
-	<tr>
-		<td>핸드폰번호</td>
-		<td>
-		<input type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
-		<input type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
-		<input type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
-		<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
-		</td>
-	</tr>
-	</tbody></table>
-
-	</td>
-</tr>
-</tbody></table>
-<div style="font-size:0;height:5px"></div>
-<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-	02 배송정보
-	</td>
-	<td style="padding:10px">
-
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody><tr>
-		<td>픽업주소 확인</td>
-		<td class="noline">
-		<input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
-		</td>
-	</tr>
-	<tr>
-		<td>픽업주소</td>
-		<td>
-		<div class="form-group">
-	 <div class="col-sm-5">
-		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
-		 <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
-		 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
-	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
-		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
-		   </div>
-</div>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>반송주소 확인</td>
-		<td class="noline">
-		<input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
-		</td>
-	</tr>
-	<tr>
-		<td>반송주소</td>
-		<td>
-	 <div class="form-group">
-	 <div class="col-sm-5">
-		  <input type="hidden"  class="divyAddress" name="divyAddress" value="">
-		 <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
-		 <input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
-	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
-	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
-		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
-		   </div>
-</div>  
-	</tr>
-	
-	
-	
-
-
-	</tbody></table>
-
-	</td>
-</tr>
-</tbody></table>
-<div style="font-size:0;height:5px"></div>
-<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-		03 결제금액
-	</td>
-	<td style="padding:10px">
-
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody>
-	
-		<tr>
-		<td>쿠폰적용</td>
-		<td>
-			 <select class="coupon" name= "coupon">
-   			<option>-- 선택 --</option>
-	       	 <option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}">
-	       	 </option>
-  
-          </select>
-		
-		</td>
-	</tr>
-	
-	<tr>
-		<td>합계금액</td>
-		<td><input type="text"   id="resv_originPrice" class="originPrice" name="originPrice" style="border:none;width:100px;text-align:right;"  readonly/> 원</td>
-	</tr>
-	<tr>
-		<td>할인금액</td>
-		<td>
-		<input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" style="border:none;width:100px;text-align:right;" readonly/> 원
-		</td>
-	</tr>
-
-
-	<tr>
-		<td>총 결제금액</td>
-		<td> <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;" readonly/> 원</td>
-	</tr>
-	</tbody></table>
-	</td>
-</tr>
-</tbody>
-
-</table>
-<div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button class="payment"> 결제하기</button>
-	<button>취소하기</button>
-	
-	<input type="hidden" name=tranNo th:value="${reserveTranNo}">
-	
-	
-	<button  type="button" class="addrTest">주소테스트</button>
-	<button  type="button" class="phoneTest">번호테스트</button>
-	<button  type="button" class="accountTest">계좌테스트</button>
-	<button  type="button" class="priceTest">계산테스트</button>
-	<button  type="button" class="imPortTest">아임포트테스트</button>
-	
-</div>
-	</form>
-</div>
-<!--  화면구성 div End /////////////////////////////////////-->
-
-<!-- footer -->
-     <div th:replace="/main/footer.html"></div>
- 
+                    </div>
+                    <div class="field">
+                        <div class="label">합계금액</div>
+                        <div id="paper_delivery_msg1" style="display: block;"><input type="text"   id="resv_originPrice" class="originPrice" name="originPrice"  style="border:none;width:100px;text-align:right;"  readonly/> 원</div>
+                        <div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
+                        <div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <div class="label">할인금액</div>
+                        <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" style="border:none;width:100px;text-align:right;" readonly/> 원
+                        </select>
+                    </div>
+                     <div class="field">
+                        <div class="label">최종 결제금액</div>
+                         <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;" readonly/>원
+                        </select>
+                    </div>
+                    <div class="field btns">
+                        <button type="button" class="prev-5 prev">Previous</button>
+                        <button type="button" class="submit">Submit</button>
+                        
+                        <!-- 결제시 필요한 우리측 주문번호 -->
+                        <input type="hidden" name=tranNo th:value="${reserveTranNo}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/addStorage.js"></script>
 </body>
-<script src="/js/jquery_min.js"></script>
-	<script src="/js/addImgForStorageOld.js"></script>
-	  
-<script src="/js/jquery_min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-	
-	 function pickup_execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var addr = ''; // 주소 변수
-	                var extraAddr = ''; // 참고항목 변수
-
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-
-	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있고, 공동주택일 경우 추가한다.
-	                    if(data.buildingName !== '' && data.apartment === 'Y'){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	                    if(extraAddr !== ''){
-	                        extraAddr = ' (' + extraAddr + ')';
-	                    }
-	                    // 조합된 참고항목을 해당 필드에 넣는다.
-	                    document.getElementById("pickup_extraAddress").value = extraAddr;
-	                
-	                } else {
-	                    document.getElementById("pickup_extraAddress").value = '';
-	                }
-
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('pickup_postcode').value = data.zonecode;
-	                document.getElementById("pickup_address").value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("pickup_detailAddress").focus();
-	            }
-	        }).open();
-	    }
-
-	 function divy_execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var addr = ''; // 주소 변수
-	                var extraAddr = ''; // 참고항목 변수
-
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-
-	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있고, 공동주택일 경우 추가한다.
-	                    if(data.buildingName !== '' && data.apartment === 'Y'){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	                    if(extraAddr !== ''){
-	                        extraAddr = ' (' + extraAddr + ')';
-	                    }
-	                    // 조합된 참고항목을 해당 필드에 넣는다.
-	                    document.getElementById("divy_extraAddress").value = extraAddr;
-	                
-	                } else {
-	                    document.getElementById("divy_extraAddress").value = '';
-	                }
-
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('divy_postcode').value = data.zonecode;
-	                document.getElementById("divy_address").value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("divy_detailAddress").focus();
-	            }
-	        }).open();
-	    }
-	 
-
-	 
-	 //csv를 넣어 주소를 하나로 합치는 함수
-	 
-	 function combineAddr(){
-		 
-		 //디버깅
-		 //alert($("input[name='postcode']").val())
-		 
-		 var pickupAddrValue = "";
-		 
-		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupBaseAddress']").val() + "/" 
-			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
-		 
-		 $('.pickupAddress').val(pickupAddrValue);
-		
-		//alert(pickupAddrValue);
-		 
-		 var divyAddrValue = "";
-		 
-		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
-			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
-		 
-		 $('.divyAddress').val(divyAddrValue);
-		
-		// alert(divyAddrValue);
-		 
-	 }
-	 
-	 //csv를 넣어 전화번호를 합치는 함수
-	 function combinePhone(){
-		 
-		 //디버깅
-		 
-		 var receiverPhone = "";
-		 
-		 var receiverPhone = $("input[name='receiverPhone1']").val() + "/"  + $("input[name='receiverPhone2']").val() + "/" 
-			+  $("input[name='receiverPhone3']").val();
-		 
-		 $('.receiverPhone').val(receiverPhone);
-			
-		
-		
-		// alert(receiverPhone); 
-	 }
-	 
-	 //csv를넣어 계좌를 합침
-	 function combineAccount(){
-		 
-		 //디버깅
-		 
-		 var account = "";
-		 
-		 var account = $(".accountBank option:selected").val() + "/"  + $("input[name='accountNumber']").val()
-		 
-		$('.account').val(account);
-		// alert(account); 
-	 }
-	 
-	
-///*	
-$(function(){
-		 $(".addrTest").on("click", function(){
-			 combineAddr();
-		 })
-	 })
-	 
-	 	 $(function(){
-		 $(".phoneTest").on("click", function(){
-			 combinePhone();
-		 })
-	 })
-	 
-	  $(function(){
-		 $(".accountTest").on("click", function(){
-			 combineAccount();
-		 })
-	 }) 
-	 
-	 $(function(){
-		 $(".priceTest").on("click", function(){
-			 totalPrice();
-		 })
-	 }) 
-	 
-	 $(function(){
-		 $(".imPortTest").on("click", function(){
-			 combineAddr();
-			 combinePhone();
-			 combineAccount();
-			 totalPrice();
-			 
-			 request_pay();
-		 })
-	 }) 
-	 
-	 //*/
-	 
-	 
-	//금액계산
-	 function totalPrice(){
-
-		
-		
-		console.log($("input[name='width']").val());
-		console.log($("input[name='length']").val());
-		console.log($("input[name='height']").val());
-		console.log($("input[name='prodQuantity']").val());
-		console.log($(".period option:selected").val());
-		
-		
-		var originPrice = $("input[name='width']").val() * $("input[name='length']").val() *  $("input[name='height']").val() *
-									$("input[name='prodQuantity']").val() *  $(".period option:selected").val()
-		
-		var discountPrice = $(".couponValue").val();
-		var discountPrice = 0;
-		
-		//alert("discount: "+discountPrice);
-		alert($("input[name='tranNo']").val());
-		//금액할인과 %할인에따른 조건
-		
-		/*if(discountPrice<1){
-			discountPrice = orginPrice * discountPrice;
-		}*/
-		
-		var resultPrice = originPrice - discountPrice;
-		
-		 $('.originPrice').val(originPrice);
-		 $('.discountPrice').val(discountPrice);
-		 $('.resultPrice').val(resultPrice);
-		
-
-		//alert(originPrice);
-		//alert(discountPrice);
- 		//alert("가격"+resultPrice);
-		  
-		 };
-	 
-	 
-	 
-	//체크했을때 1 안했을때 0을 보냄
-	$('#input_check').on('change', function(){
-   	this.value = this.checked ? 1 : 0;
-  // alert(this.value);
-	}).change();
-	
-	
-	//결제
-	$(function(){
-		 $(".payment").on("click", function(){
-			 combineAddr();
-			 combinePhone()
-			 combineAccount()
-			 totalPrice()
-			 
-		
-			
-		 })
-	 })
-	
-	
-	///////아임포트 
-	
-	function request_pay(){
-		
-		IMP.init("imp88340030");
-			
-		 IMP.request_pay({
-		    	pg : "html5_inicis", 
-		        pay_method : 'card',
-		        merchant_uid : $("input[name='tranNo']").val(),//주문번호
-		        name : $("input[name='prodName']").val(),
-		        amount :  $("input[name='resultPrice']").val(),
-		        buyer_name : $("input[name='receiverName']").val(),
-		        buyer_tel : $("input[name='receiverPhone']").val(),
-		        buyer_addr :$("input[name='pickupAddress']").val()
-		    }, function(rsp) {
-		        if ( rsp.success ) {
-		        	
-		        	console.log("rsp.imp_uid"+rsp.imp_uid);
-		        	$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
-	
-		        } else {
-		        	alert("실패.. 코드: "+rsp.error_code+" / 메시지: "+rsp.error_msg);
-		            
-		        }
-		    });
-		
-		
-	}
-	
-	
-	// 가로 세로 높이 기간 수량에 따른 가격변화를 실시간으로 표시
-	$(document).ready(function() {
- 
-$("#resv_width").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-});
- 
-$("#resv_length").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-});
- 
-$("#resv_height").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());	
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04);
-});
- 
-$("#resv_period").on("propertychange change paste input", function() {
-	
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-   
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-});
- 
-$("#resv_quantity").on("propertychange change paste input", function() {
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    console.log(resv_width *  resv_length * resv_height * resv_quantity * 0.1);
-    $("#resv_originPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-    $("#resv_resultPrice").val(resv_width *  resv_length * resv_height * resv_period * resv_quantity * 0.04);
-});
- 
-});
-	
-	function fnReplace(val) {
-	    var ret = 0;
-	    if(typeof val != "undefined" && val != null && val != ""){
-	        ret = Number(val.replace(/,/gi,''));
-	    }
-	    return ret;        
-	}
-	
-	
-	//쿠폰선택시 총결제금액만 변경
- $(function(){
-    	
-  
-    	$(".coupon").on("click",function(){
-    		
-    		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
-    			       		    			   
-    	    	    var originPrice =   $("#resv_originPrice").val();
-    	    	    console.log(originPrice);
-    	    		
-    	    	    if($(".coupon option:selected").val()<1){
-    	    	    	$('#discountPrice').val(originPrice * $(".coupon option:selected").val().replace(".0",""));
-    	    	    	
-    	    	    } else{
-    	    	    	$('#discountPrice').val($(".coupon option:selected").val().replace(".0",""));
-	    	    	    var resultPrice = originPrice - $(".coupon option:selected").val().replace(".0","");
-	    	    	    console.log(resultPrice);
-    	    	    	
-    	    	    }
-    	    	    
-    	    	    //계산값 텍스트 대체
-    	    	    $('#resv_resultPrice').val(resultPrice);
-    		}else{
-    			$('#discountPrice').val("");
-    			 $('#resv_resultPrice').val($("#resv_originPrice").val());
-    		}
-    	 
-    	})
-    	 
-    })
-    
-	
-	
-	
-	
-	
-	
-	</script>
-	
-	<!--  <script src="/js/custom.js"></script> -->
-<!-- <script src="/js/custom.js"></script> -->
 </html>
