@@ -262,32 +262,14 @@
     <div class = "product-imgs">
       <div class = "img-display">
         <div class = "img-showcase">
-          <img th:src= "@{/images/content/fff.png}">
-          <img th:src= "@{/images/content/ccc.jpg}">
-          <img th:src= "@{/images/content/fff.png}">
-          
-          <img th:src= "@{/images/content/fff.png}">
+           <img th:each = "img : ${imglist}" th:src= "@{/images/uploadFiles/} + ${img.fileName}" >
         </div>
       </div>
       <div class = "img-select">
-        <div class = "img-item">
-          <a href = "#" data-id = "1">
-            <img th:src= "@{/images/content/fff.png}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "2">
-            <img th:src= "@{/images/content/ccc.jpg}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "3">
-            <img th:src= "@{/images/content/fff.png}">
-          </a>
-        </div>
-        <div class = "img-item">
-          <a href = "#" data-id = "4">
-            <img th:src= "@{/images/content/fff.png}">
+        	<div class = "img-item"  th:each = "img,n : ${imglist}">
+          <a href = "#" data-id = "1" >
+             <input type="hidden" class="imgid" th:value="${n.index+1}">
+            <img  th:src= "@{/images/uploadFiles/} + ${img.fileName}">
           </a>
         </div>
       </div>
@@ -408,7 +390,7 @@ flex-none, flex-initial, flex-auto, flex-1
                    <div style="display:flex;">
                        <div>
                               <div class="profileFlex">
-                              	<img class="profileImg" src="/images/header/profileImg.jpg"></img>
+                              	<img class="profileImg" th:src= "@{/images/uploadFiles/} + ${rentalreview.user.userImg}"></img>
                               	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"></span>
                               </div>
                                 <div>                                 
