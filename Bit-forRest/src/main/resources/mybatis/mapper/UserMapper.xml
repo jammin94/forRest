@@ -81,7 +81,7 @@
 	 <update	id="updatePassword"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
-	   		password		= #{password}
+	   		password = #{password}
 	   	</set>
 	   	WHERE userId = #{userId}
 	 </update>

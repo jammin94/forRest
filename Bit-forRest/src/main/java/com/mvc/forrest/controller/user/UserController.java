@@ -301,14 +301,36 @@ public class UserController {
 	}
 	
 	@GetMapping("updateUser")
-	public String getMyPage( @RequestParam("userId") String userId , Model model ) throws Exception {
+	public String updateUser( @RequestParam("userId") String userId , Model model ) throws Exception {
 		
-		System.out.println("/user/getMyPage : GET");
+		System.out.println("/user/updateUser : GET");
 		
 		User user = userService.getUser(userId);
 
 		model.addAttribute("user", user);
 		
+		return "user/updateUser";
+	}
+	
+	@PostMapping("updateUser")			//유저, 관리자
+	public String updateUser( @ModelAttribute("user") User user,
+							@RequestParam("userImgFile")MultipartFile file ) throws Exception {
+
+		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+		
+		System.out.println("/user/updateUser : POST");
+		
+		if (!file.getOriginalFilename().isEmpty()) {
+            String filename = file.getOriginalFilename();
+            filename =  FileNameUtils.fileNameConvert(filename);
+            file.transferTo(new File(temDir,filename));
+            user.setUserImg(filename);
+        }
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		userService.addUser(user);
+				
 		return "user/updateUser";
 	}
 	

@@ -71,7 +71,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		System.out.println("### 신규회원 쿠폰발급 ###");
         }catch(Exception e){
         	e.printStackTrace();
-        	System.out.println("This user is already get the NEW COUPON");
+        	System.out.println("Don't worry, This user is already get the NEW COUPON");
         }
 		
 		////////////////////////////////////////////////////////////////
