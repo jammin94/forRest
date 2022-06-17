@@ -197,7 +197,7 @@ public class OldController {
 		
 		
 		model.addAttribute("old", old);
-		return "redirect:old/listOld";
+		return "redirect:/old/listOld";
 
 	}
 
@@ -236,7 +236,7 @@ public class OldController {
 
 		model.addAttribute("올드", old);
 
-		return "redirect:old/listOld";
+		return "redirect:/old/listOld";
 	}
 
 /////////////////////회원, 어드민 가능//////////////////////////////	
