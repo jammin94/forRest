@@ -35,6 +35,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		System.out.println(user);
 		this.user=user;
 		///////////////////////////////////////////////////////////////
+		/*
         try {
         	System.out.println(":: Connect to Chatting Service");
 		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
@@ -45,7 +46,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		System.out.println(":: Chatting Service responseCode : " + responseCode);
         }catch(Exception e){
         	e.printStackTrace();
-        }
+        }*/
 		
 		////////////////////////////////////////////////////////////////
 	}

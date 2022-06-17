@@ -408,7 +408,7 @@ margin-bottom: 210px !important;
 
      <h2 class="boardTitle">중고마켓	</h2>
      
-    
+    <form name="detailForm"  method="post"> 
     <!-- 검색바 시작 -->
     <div class="wrap">
    <div class="search">
@@ -425,17 +425,6 @@ margin-bottom: 210px !important;
   <!-- 검색바 끝 -->
   
   
-  <!-- 정렬조건 바  시작-->
-  <section class="container">
-<div class="dropdown dropdown-dark">
-    <select name="orderCondition" class="dropdown-select"  th:field=${search.orderCondition} th:value=${search.orderCondition} >
-      <option th:value="prodNoDESC">최신순</option>
-      <option th:value="rentalPriceASC">낮은가격순</option>
-      <option th:value="rentalPriceDESC">높은가격순</option>
-      <option th:value="rentalCountingDESC">인기순</option>
-    </select>
-  </div>
-  </section>
 
   <!-- 정렬조건 바  끝-->
   
@@ -514,24 +503,36 @@ margin-bottom: 210px !important;
 </body>
 
 <script type="text/javascript">
-// 	function fncGetList() {
-// 		self.location = "/old/getOld?oldNo=" + $(this).children("input").val();
-// 		// 	$("form").attr("method" , "GET").attr("action" , "/old/getOld").submit();
 
-// 	}
+$(function(){
+	$(".searchButton").on("click", function(){
+		
+		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+		
+	})
+});
 
+
+
+
+$(function(){
+	$("li").on("click", function(){
+		
+		var categoryValue = $(this).find('a').text();
+		//alert(categoryValue);
+		
+		if(categoryValue=="전체"){
+			categoryValue="";
+		}
+		
+		$('.searchCategory').attr('value',categoryValue);
+    	//alert(($('.searchCategory').val()));
+		
+		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+		
+	})
+});
 	
-
-// 	$(function() {
-
-// 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-// 		$(".try_rc_mob_img_cont_bottom").on(
-// 				"click",
-// 				function() {
-
-// 					self.location = "/old/getOld?oldNo=" + $(this).children("input").val();
-// 				});
-// 	});
 	
 	$(function() {
 
@@ -641,14 +642,6 @@ margin-bottom: 210px !important;
 		
 		});
 
-// 	$(function() {
-
-// 		//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-// 		$("#write").on("click", function() {
-
-// 			self.location = "/old/addOld";
-// 		});
-// 	});
 
 </script>
 	

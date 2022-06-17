@@ -13,10 +13,9 @@ public interface ImgDAO {
 	
 	public void addImg(Img img) throws Exception;
 	
-	public List<String>getListImg(Map<String,Object> map)  throws Exception;
+	public List<Img>getOLdImgList(String contentsNo)  throws Exception;
 	
-	public void updateImg(Map<String,String> map)  throws Exception;
+	public List<Img>getProductImgList(String contentsNo)  throws Exception;
 	
-	public void deleteImg(Map<String,String> map) throws Exception;
 	
 }

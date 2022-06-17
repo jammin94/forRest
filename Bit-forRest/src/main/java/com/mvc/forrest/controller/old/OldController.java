@@ -81,7 +81,19 @@ public class OldController {
 	public String listOld(@ModelAttribute("search") Search search, Model model) throws Exception {
 
 		System.out.println("리스트");
-
+		
+		if(search.getSearchCategory()=="") {
+			search.setSearchCategory(null);
+		}
+		
+		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
+		
+		System.out.println("search2: "+ search);
+		
+		
+		
 		List<Old> list = oldService.getOldList(search);
 		
 		model.addAttribute("list", list);
@@ -174,11 +186,13 @@ public class OldController {
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	String mainImg = 	fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	
+	
 
 		oldService.addOld(old);
 		
-	
+		old.setOldImg(mainImg);
 		
 		
 		

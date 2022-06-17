@@ -92,7 +92,7 @@ public class ProductController {
 		
 		productService.updateProduct(product);
 	
-		return "forward:/product/getProduct?prodNo="+product.getProdNo();
+		return "forward:/product/getProduct";
 	}
 	
 	//어드민 가능
@@ -108,7 +108,6 @@ public class ProductController {
 		} else if (product.getProdCondition().equals("출고승인신청중")){
 			product.setProdCondition("출고완료");
 		//보관관련
-			
 		} 
 		
 		System.out.println("after:"+product.getProdCondition());
@@ -120,8 +119,8 @@ public class ProductController {
 	
 	//어드민 가능
 		// 관리자가 물품의 상태변경 ( 대여 )
-		@RequestMapping("updateProductCondition2")
-		public String updateProductCondition2(@RequestParam("prodNo") String prodNo) throws Exception {
+		@RequestMapping("updateRentalProductCondition")
+		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
 			Product product = productService.getProduct(prodNo);		
 
 			//대여관련
@@ -169,15 +168,9 @@ public class ProductController {
 				product.setProdCondition("보관중");
 			} else if (productCondition[i].equals("출고승인신청중")){
 				product.setProdCondition("출고완료");
-			//보관관련
-				
-			} else if(productCondition[i].equals("물품대여승인신청중")) {
-				product.setProdCondition("배송중");
-			} else if(productCondition[i].equals("배송중")) {
-				product.setProdCondition("대여중");
 			}
-			//대여관련
-			
+			//보관관련
+	
 			productService.updateProductCondition(product);
 		}
 		
@@ -188,8 +181,8 @@ public class ProductController {
 	
 		//어드민만 가능
 		//관리자가 물품상태를 일괄변경 ( 대여 )
-		@RequestMapping("updateProductAllCondition2")
-		public String updateProductAllCondition2(@RequestParam("prodNo") String[] prodNo) throws Exception {
+		@RequestMapping("updateRentalProductAllCondition")
+		public String updateRentalProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
 			
 			//디버깅
 			for(String no: prodNo) {
@@ -254,6 +247,8 @@ public class ProductController {
 		
 		//디버깅
 		System.out.println("getProduct Start");
+		
+		System.out.println(prodNo);
 		
 		Product product = productService.getProduct(prodNo);
 		

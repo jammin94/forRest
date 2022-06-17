@@ -72,18 +72,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- SQL : SELECT LIST -->
 	<select id="getOldList" parameterType="Search" resultMap="oldSelectMap">
 		SELECT * FROM old
-		<where>
+<!-- 		<where> -->
 
 			<if test="searchKeyword != null and searchCategory = null">
-				oldTitle LIKE CONCAT('%',#{searchKeyword}#,'%')
+				and oldTitle LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
 
-			<if test="searchKeyword =null and searchCategory !=null">
-				category LIKE CONCAT('%',#{searchCategory}#,'%')
+			<if test="searchKeyword = null and searchCategory !=null">
+				and category LIKE #{searchCategory}
 			</if>
 
-		</where>
-		order by oldDate DESC
+<!-- 		</where> -->
+<!-- 		order by oldDate DESC -->
 
 	</select>
 

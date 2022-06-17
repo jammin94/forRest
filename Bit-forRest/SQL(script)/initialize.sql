@@ -292,7 +292,8 @@ INSERT INTO old
 VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
 
 INSERT INTO old
-VALUES ('j','user02@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
+VALUES ('j','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'조명',FALSE,'jjj.jpg','서초동');
+
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
@@ -408,8 +409,8 @@ INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `owner
 	(4, NULL, 'a', 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32');
 
 INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`) VALUES
-	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', 0),
-	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', 0),
+	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', NULL),
+	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', NULL),
 	(3, 1, 'user01@naver.com', '아니요', '2022-05-30 18:23:17', 1),
 	(4, 2, 'user03@naver.com', '안녕하세요', '2022-05-30 18:28:47', 1),
 	(5, 2, 'user03@naver.com', '잘 지내세요?', '2022-05-30 18:28:47', 1),
@@ -467,7 +468,7 @@ INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDe
 VALUES(NULL, 'admin', 'user03@naver.com', 'c', '살짝 불친절', 3);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 'd', '물건값 깎아줌', 4);
+VALUES(NULL, 'admin', 'user04@naver.com', 'd', '물건값 깎아줌', 4);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
 VALUES(NULL, 'admin', 'user01@naver.com', 'e', '굿매너', 5);
@@ -485,6 +486,6 @@ INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDe
 VALUES(NULL, 'admin', 'user01@naver.com', 'i', '굿매너', 5);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user02@naver.com', 'j', '개매너', 1);
+VALUES(NULL, 'admin', 'admin', 'j', '개매너', 1);
 
 
