@@ -165,10 +165,10 @@
 				<div class="purchase-info">
 				<div class="loginUser">
 					<span sec:authorize="isAuthenticated()">
-					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}">
+					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
 					<button type="button" class="btn">
 					채팅하기
-						<i class="fa-solid fa-comments"></i>
+					<i class="fa-solid fa-comments"></i>
 					</button>
 					</a>
 					</div>
