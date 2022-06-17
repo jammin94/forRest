@@ -136,20 +136,26 @@ public class StorageController {
 
         
 		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
-          String prodNo = FileNameUtils.getRandomString();
+         String prodNo = FileNameUtils.getRandomString();
         
         //product에 필요한값 셋팅후 등록
 		product.setUserId(userId);
 		product.setProdNo(prodNo);
-		productService.addProduct(product);
 		
 		//////////이미지업로드
-		fileUtils.uploadFiles(uploadFile, prodNo, "product");
+		String prodImg = 	fileUtils.uploadFiles(uploadFile, prodNo, "product");
+		
+		//대표사진업로드
+		product.setProdImg(prodImg);
+		
+		productService.addProduct(product);
+		
 		
 		//storage에 필요한값 셋팅후 등록
 		storage.setUserId(userId);
 		storage.setProdNo(prodNo);
 		storage.setPaymentNo(paymentNo);
+		storage.setProdImg(prodImg);
 		//storage.setPaymentNo(paymentWay);
 		storageService.addStorage(storage);
 		
@@ -183,7 +189,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		//System.out.println("디버그 "+mapStorage.get("list"));
+		System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);

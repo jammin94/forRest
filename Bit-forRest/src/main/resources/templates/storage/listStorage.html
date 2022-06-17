@@ -142,7 +142,7 @@ border-bottom:3px solid #ddd !important;
 				 	</a>
 				    	<div class="productInfo">
 				    		<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
-					    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&s=1440x1440&t=inside">
+					    	<img class="productImg" th:src="@{/images/uploadFiles/} + ${storage.prodImg}">
 					    	</a>
 					    	
 					    	<div style="width:220px;padding:10px;">

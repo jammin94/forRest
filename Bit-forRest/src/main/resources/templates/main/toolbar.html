@@ -238,7 +238,8 @@ article {
            <span sec:authorize="isAuthenticated()">
            		<li style="cursor:pointer;"> 
            		<!-- <a class="chatBtn" th:href="@{'http://192.168.0.42:3001/oldChat/list/'+${#authentication.principal.user.userId}}" target="_blank"> -->
-           	  <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId"></span>
+           	  <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
+           	  
            		<a class="chatBtn">
        			 	<i class="fa-solid fa-comment " style="transform:scale(1.5);"></i>
        			 </a>
@@ -329,7 +330,7 @@ article {
     		  
     		  console.log(userId);
     		  
-    	 	  window.open('http://192.168.0.42:3001/oldChat/list/'+'user01@naver.com'
+    	 	  window.open('http://192.168.0.42:3001/oldChat/list/'+userId
     	     		 ,'popup test',
     	     		      'width=500');
     	  })

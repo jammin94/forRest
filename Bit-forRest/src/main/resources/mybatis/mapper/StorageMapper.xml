@@ -34,6 +34,7 @@
 		<association property="storageProd" javaType="product">
 			<id property="prodNo" column="prodNo"  jdbcType="VARCHAR"/>
 			<result property="prodCondition" 			column="prodCondition" 			jdbcType="VARCHAR" />
+			<result property="prodImg" 			column="prodImg" 			jdbcType="VARCHAR" />
 			<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 			<result property="width" 				column="width" 				jdbcType="INTEGER"  />
 			<result property="length" 				column="length" 				jdbcType="INTEGER"  />

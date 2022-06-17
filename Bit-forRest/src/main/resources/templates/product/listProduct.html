@@ -396,7 +396,7 @@ margin-bottom: 210px !important;
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img width="300" height="205" src="https://cambak.co.kr/wp-content/uploads/2021/08/KakaoTalk_20210331_172733437_24.jpg">
+									<img width="300" height="205" th:src="@{/images/uploadFiles/} + ${product.prodImg}" >
 												<!--	<h5>Sale</h5>  -->
 											<input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
 											<span th:unless="${product.wishlistNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>

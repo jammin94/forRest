@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.api.client.http.HttpRequest;
+import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
@@ -46,6 +48,9 @@ public class ProductController {
 	
 	@Autowired
 	public RentalReviewService rentalReviewService;
+	
+	@Autowired
+	public FileUtils fileUtils;
 	
 	public ProductController() {
 		System.out.println(this.getClass());
@@ -262,12 +267,15 @@ public class ProductController {
 		
 		//물품상세보기에서 리뷰리스트를 받아옴
 		Map<String, Object> map = rentalReviewService.getRentalReviewList(prodNo);
+		//System.out.println("map안에 list출력:"+map.get("list"));
 		
-		System.out.println("map안에 list출력:"+map.get("list"));
+		 List<Img> imglist = fileUtils.getProductImgList(prodNo);
+		 System.out.println(imglist);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("sessionUser", sessionUser);
 		model.addAttribute("list", map.get("list"));
+		model.addAttribute("imglist", imglist);
 		
 		return "product/getProduct";
 	}
