@@ -64,7 +64,7 @@
 			<div class="product-imgs">
 				<div class="img-display">
 					<div class="img-showcase">
-						<img th:src="@{/images/content/fff.png}"> <img
+						<img th:src="@{/images/uploadFiles/} + ${old.oldImg}"> <img
 							th:src="@{/images/content/ccc.jpg}"> <img
 							th:src="@{/images/content/fff.png}"> <img
 							th:src="@{/images/content/fff.png}">
@@ -86,7 +86,7 @@
 
 				<div class="img-select">
 					<div class="img-item">
-						<a href="#" data-id="1"> <img th:src="@{/images/content/fff.png}">
+						<a href="#" data-id="1"> <img th:src="@{/images/uploadFiles/} + ${old.oldImg}">
 						</a>
 					</div>
 					<div class="img-item">
@@ -166,7 +166,7 @@
 				<div class="loginUser">
 					<span sec:authorize="isAuthenticated()">
 					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
-					<button type="button" class="btn">
+					<button type="button" class="btn" th:if="${#authentication.principal.user.userId} !=${old.userId}">
 					채팅하기
 					<i class="fa-solid fa-comments"></i>
 					</button>

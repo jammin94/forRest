@@ -462,7 +462,7 @@ margin-bottom: 210px !important;
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 												<!--	<h5>Sale</h5>  -->
 												
 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
