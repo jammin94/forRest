@@ -27,7 +27,7 @@ public class FCMService implements MessageService {
             .putData("title", "푸시메세지 테스트")
             .putData("content", "푸시메세지의 내용을 마음대로 설정 할 수 있습니다.")
             .setToken(token)
-//            .setToken("dSfI0tNe55XANzz3n3KRmS:APA91bEkfzVOmc-wKA0Mq3pu8sUk3fe-zMQKPmt6_irssWw2crQTHlRQ5iN59Y4WlUvbz1Zs11Uk2TIiHCxMIKKjItKKIuPXjJ3I9FomaE8Jc6qFq9vaeqzEx1EAohGYeJzLUCFCpDff")
+//            .setToken("cXrBD44dQGjAApdc_V7mDt:APA91bF7V9kgcLSaA_8CLCILbmfq5fOTB73EWA1mUW4viSzZp78BbQ9DoPgIuu20qZ7ZxEJa2NdlnbNGpReNX6QSRh45Pv_ttzWHTiZ5gETvFkNqsIM10Mjt4WA45MhebJn0dezyjgrl")
             .build();
         
 //        System.out.println(message);
