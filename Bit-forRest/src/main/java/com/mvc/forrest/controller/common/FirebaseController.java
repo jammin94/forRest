@@ -35,7 +35,7 @@ public class FirebaseController {
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
 		fcmService.sendMessage(userId);
-		
+		System.out.println("메세지보냄");
 		 return "common/firebase";
 	}	
 	

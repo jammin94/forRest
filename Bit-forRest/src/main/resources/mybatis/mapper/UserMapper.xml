@@ -97,6 +97,15 @@
 	   	</set>
 	   	WHERE userId = #{userId}
 	 </update>
+	 
+	 	<!-- SQL : UPDATE --> 
+ 	<update	id="updateUserImg"	parameterType="User" >
+	   	UPDATE user
+	   	<set>
+	   		userImg	= #{userImg}
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
 		 
 	 <!-- SQL : UPDATE -->
 	 <update	id="leaveUser"	parameterType="User" >
