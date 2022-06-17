@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -15,7 +14,7 @@
 	<!-- 다음주소API-->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
-	<script src="/js/addImgForStorageOld.js"></script>
+	
 	
 </head>
 <body>
@@ -71,7 +70,6 @@
         <div class="form-outer">
             <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
             
-            <input type="hidden" id="prodImg" name="prodImg" value="1.jpg"/>
                 <div class="page slidepage">
                     <div class="title">Basic Info:</div>
                   <div class="field">
@@ -249,11 +247,12 @@
                     <div class="field">
                         <div class="label">쿠폰적용</div>
                         <select class="coupon" name= "coupon">
-   						<option>-- 선택 --</option>
+   						<option value=0>-- 선택 --</option>
+   						
    						<!-- 여기서 쿠폰넘버를 어케 심ㅇ줄까.....???? -->
-	       	 			<option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}">
+	       	 			<option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}" th:data-coNo="${ownCoupon.ownCouponNo}" >
 	       	 			</option>
-  
+  						
           </select>
                     </div>
                     <div class="field">
@@ -279,11 +278,15 @@
                         
                         <!-- 결제시 필요한 우리측 주문번호 -->
                         <input type="hidden" name=tranNo th:value="${reserveTranNo}">
+                        <input type="hidden" class="subCouponNo" name=ownCouponNo>
+                       
+                        
                     </div>
                 </div>
             </form>
         </div>
     </div>
     <script src="/js/addStorage.js"></script>
+    
 </body>
 </html>
