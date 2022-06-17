@@ -186,11 +186,13 @@ public class OldController {
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	String mainImg = 	fileUtils.uploadFiles(uploadFile, oldNo, "old");
+	
+	
 
 		oldService.addOld(old);
 		
-	
+		old.setOldImg(mainImg);
 		
 		
 		
