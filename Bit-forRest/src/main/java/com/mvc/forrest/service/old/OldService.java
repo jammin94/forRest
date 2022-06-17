@@ -50,7 +50,7 @@ public class OldService {
 	
 	public List<Old> getOldList(Search search) throws Exception{
 		System.out.println("getOldList 성공");
-
+		System.out.println("search in service"+ search);
 		
 		return oldDAO.getOldList(search);
 	}

@@ -90,11 +90,13 @@ public class OldController {
 			search.setSearchKeyword(null);
 		}
 		
-		System.out.println("search2: "+ search);
+		System.out.println("search: "+ search);
 		
 		
 		
 		List<Old> list = oldService.getOldList(search);
+		
+		System.out.println("아아아아아"+list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);

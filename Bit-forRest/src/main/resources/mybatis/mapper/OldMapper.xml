@@ -7,28 +7,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mvc.forrest.dao.old.OldDAO">
 	<!--namespace: 이 mapper.xml과 매핑될 mapper.java(인터페이스)를 의미함 -->
 
-
-   <resultMap id="oldSelectMap" type="old">
-      <!-- result property="필드" column="테이블" -->
-      <result property="oldNo" column="oldNo" jdbcType="VARCHAR" />
-      <result property="userId" column="userId" jdbcType="VARCHAR" />
-      <result property="oldPrice" column="oldPrice" jdbcType="INTEGER" />
-      <result property="oldTitle" column="oldTitle" jdbcType="VARCHAR" />
-      <result property="oldDetail" column="oldDetail" jdbcType="INTEGER" />
-      <result property="oldDate" column="oldDate" jdbcType="TIMESTAMP" />
-      <result property="oldView" column="oldView" jdbcType="INTEGER" />
-      <result property="category" column="category" jdbcType="VARCHAR" />
-      <result property="oldState" column="oldState" jdbcType="TINYINT" />
-      <result property="oldImg" column="oldImg" jdbcType="VARCHAR" />
-      <result property="oldAddr" column="oldAddr" jdbcType="VARCHAR" />
-      <result property="oldLikeNo" column="oldLikeNo" jdbcType="INTEGER" />
-   </resultMap>
+	<resultMap id="oldSelectMap" type="old">
+		<!-- result property="필드" column="테이블" -->
+		<result property="oldNo" column="oldNo" jdbcType="VARCHAR" />
+		<result property="userId" column="userId" jdbcType="VARCHAR" />
+		<result property="oldPrice" column="oldPrice"
+			jdbcType="INTEGER" />
+		<result property="oldTitle" column="oldTitle"
+			jdbcType="VARCHAR" />
+		<result property="oldDetail" column="oldDetail"
+			jdbcType="INTEGER" />
+		<result property="oldDate" column="oldDate"
+			jdbcType="TIMESTAMP" />
+		<result property="oldView" column="oldView" jdbcType="INTEGER" />
+		<result property="category" column="category"
+			jdbcType="VARCHAR" />
+		<result property="oldState" column="oldState"
+			jdbcType="TINYINT" />
+		<result property="oldImg" column="oldImg" jdbcType="VARCHAR" />
+		<result property="oldAddr" column="oldAddr" jdbcType="VARCHAR" />
+		<result property="oldLikeNo" column="oldLikeNo"
+			jdbcType="INTEGER" />
+	</resultMap>
 
 	<!-- SQL : INSERT -->
 	<insert id="addOld" parameterType="old">
 		INSERT
-		INTO OLD(oldNo,userId, oldPrice, oldTitle, oldDetail, oldDate,oldView,
-		category, oldState, oldImg, oldAddr)
+		INTO OLD(oldNo,userId,
+		oldPrice, oldTitle, oldDetail, oldDate,oldView,
+		category, oldState,
+		oldImg, oldAddr)
 		values
 		(#{oldNo},#{userId},#{oldPrice},#{oldTitle},#{oldDetail},CURRENT_TIMESTAMP,#{oldView},#{category},#{oldState},#{oldImg},#{oldAddr})
 	</insert>
@@ -37,14 +45,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteOld" parameterType="String">
 		DELETE
 		FROM OLD
-		WHERE oldNo = #{oldNo}
+		WHERE oldNo =
+		#{oldNo}
 	</delete>
 
 	<!-- SQL : SELECT ONE -->
-	<select id="getOld" parameterType="String" resultMap="oldSelectMap">
+	<select id="getOld" parameterType="String"
+		resultMap="oldSelectMap">
 		SELECT old.*, oldReview.userRate
 		FROM old
-		LEFT OUTER JOIN oldReview
+		LEFT OUTER JOIN
+		oldReview
 		ON old.oldNo= oldReview.oldNo
 		WHERE old.oldNo=#{oldNo}
 	</select>
@@ -55,68 +66,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<set>
 			oldPrice = #{oldPrice},
 			oldTitle = #{oldTitle},
-			oldDetail = #{oldDetail},
+			oldDetail =
+			#{oldDetail},
 			category = #{category},
 			oldState = #{oldState},
-			oldImg =#{oldImg},
+			oldImg
+			=#{oldImg},
 			oldAddr =#{oldAddr},
 			oldDate =CURRENT_TIMESTAMP
 		</set>
 		WHERE oldNo = #{oldNo}
 	</update>
 
-
-
-
-
 	<!-- SQL : SELECT LIST -->
-	<select id="getOldList" parameterType="Search" resultMap="oldSelectMap">
+	<select id="getOldList" parameterType="Search"
+		resultMap="oldSelectMap">
 		SELECT * FROM old
-<!-- 		<where> -->
-
-			<if test="searchKeyword != null and searchCategory = null">
-				and oldTitle LIKE CONCAT('%',#{searchKeyword},'%')
+		<where>
+			<if test="searchKeyword != null and searchCategory == null">
+				oldTitle LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
-
-			<if test="searchKeyword = null and searchCategory !=null">
-				and category LIKE #{searchCategory}
+			<if test="searchKeyword == null and searchCategory !=null">
+				category LIKE #{searchCategory}
 			</if>
-
-<!-- 		</where> -->
-<!-- 		order by oldDate DESC -->
-
+		</where>
+		order by oldDate DESC
 	</select>
 
-   <!-- SQL : SELECT LIST -->
-   <select id="getOldListHasUser" parameterType="map" resultMap="oldSelectMap">
-      SELECT * 
-      FROM old LEFT OUTER JOIN (SELECT * FROM oldlike WHERE userId=#{userId}) A ON old.oldNo = A.oldNo
-      <where>
-         <if test="search.searchKeyword != null and search.searchCategory = null">
-            oldTitle LIKE CONCAT('%',#{search.searchKeyword}#,'%')
-         </if>
-
-         <if test="search.searchKeyword =null and searchsearchCategory !=null">
-            category LIKE CONCAT('%',#{search.searchCategory}#,'%')
-         </if>
-      </where>
-      order by oldDate DESC
-
-   </select>
-
-	<!-- <select id="getTotalCount" parameterType="Search" resultType="int"> 
-		SELECT * FROM old </select> -->
+	<!-- SQL : SELECT LIST -->
+	<select id="getOldListHasUser" parameterType="map"
+		resultMap="oldSelectMap">
+		SELECT *
+		FROM old LEFT OUTER JOIN (SELECT * FROM oldlike WHERE
+		userId=#{userId}) A
+		ON old.oldNo = A.oldNo
+		<where>
+			<if test="search.searchKeyword != null and search.searchCategory = null">
+				oldTitle LIKE CONCAT('%',#{search.searchKeyword}#,'%')
+			</if>
+			<if test="search.searchKeyword =null and searchsearchCategory !=null">
+				category LIKE CONCAT('%',#{search.searchCategory}#,'%')
+			</if>
+		</where>
+		order by oldDate DESC
+	</select>
 
 	<select id="getOldListForIndex" resultMap="oldSelectMap">
-		SELECT inner_table.* , inner_table.ROWNO
+		SELECT inner_table.* ,
+		inner_table.ROWNO
 		FROM(
 		SELECT *, ROW_NUMBER() OVER() AS ROWNO
 		FROM old
 		order by oldDate DESC ) inner_table
 		WHERE inner_table.ROWNO &lt;= 4
 	</select>
-
-
-
-
 </mapper>
