@@ -68,7 +68,7 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-//	private final Authentication authentication;
+	private Authentication authentication;
     private final AuthenticationManager authenticationManager;
 	
 	@Value("5")
@@ -316,26 +316,6 @@ public class UserController {
 		
 		User user = userService.getUser(userId);
 		
-		//////////////////////////////////////////////////////////////////////////////////
-//		System.out.println("   리로드 시작");
-//		Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-//		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("admin");
-//		List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
-//		
-//		updatedAuthorities.add(authority);
-//		updatedAuthorities.addAll(oldAuthorities);
-//		
-//		SecurityContextHolder.getContext().setAuthentication(
-//		new UsernamePasswordAuthenticationToken(
-//		SecurityContextHolder.getContext().getAuthentication().getPrincipal(), 
-//		SecurityContextHolder.getContext().getAuthentication().getCredentials(), 
-//		updatedAuthorities));
-//		
-//		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		
-		
-		
 		model.addAttribute("user", user);
 		
 		return "user/updateUser";
@@ -343,7 +323,7 @@ public class UserController {
 	
 	@PostMapping("updateUser")			//유저, 관리자
 	public String updateUser( @ModelAttribute("user") User user,
-							@RequestParam("userImgFile")MultipartFile file ) throws Exception {
+							@RequestParam("userImgFile")MultipartFile file) throws Exception {
 		System.out.println("/user/updateUser : POST");
 
 		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
@@ -356,22 +336,23 @@ public class UserController {
 
         }
 		userService.updateUser(user);
-		/////////////////////////////////////////////////////////////////////////////////
-//	
-//		user = userService.getUser(user.getUserId());
-//		System.out.println("          #");
-//	    Authentication authentication = new 
-//	    LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-//	    
-//	    SecurityContextHolder.getContext().setAuthentication(new authenti
-//		
-//		System.out.println("          ##");
-//		System.out.println("          ###");
-//		
-//		
-//		
-//		System.out.println("   리로드 끝");
-		//////////////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////
+	
+		user = userService.getUser(user.getUserId());
+		
+		SecurityContextHolder.clearContext();
+		
+		LoginUser loginUser = new LoginUser(user);
+		System.out.println("  #updateUserDetails : "+loginUser);
+		
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+				loginUser, null, loginUser.getAuthorities());
+		System.out.println("  #newAuthentication : "+newAuthentication);
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		
+		System.out.println("   리로드 끝");
+		////////////////////////////////////////////////////////////////////////////////
 		
 		
 		return "redirect:/user/updateUser?userId="+user.getUserId();
