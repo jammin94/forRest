@@ -101,10 +101,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		userId=#{userId}) A
 		ON old.oldNo = A.oldNo
 		<where>
-			<if test="search.searchKeyword != null and search.searchCategory = null">
+			<if test="search.searchKeyword != null and search.searchCategory == null">
 				oldTitle LIKE CONCAT('%',#{search.searchKeyword}#,'%')
 			</if>
-			<if test="search.searchKeyword =null and searchsearchCategory !=null">
+			<if test="search.searchKeyword ==null and searchsearchCategory !=null">
 				category LIKE CONCAT('%',#{search.searchCategory}#,'%')
 			</if>
 		</where>
@@ -120,4 +120,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by oldDate DESC ) inner_table
 		WHERE inner_table.ROWNO &lt;= 4
 	</select>
+	
+	<select id="getOldListCategory" parameterType="old" resultMap="oldSelectMap">
+	SELECT inner_table.* ,
+		inner_table.ROWNO
+		FROM(
+		SELECT *, ROW_NUMBER() OVER() AS ROWNO
+		FROM old
+		WHERE category= #{category}
+		order by oldDate DESC ) inner_table
+		WHERE inner_table.ROWNO &lt;= 4
+		and oldNo != #{oldNo}
+	</select>
+	
+	
 </mapper>

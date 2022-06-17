@@ -61,6 +61,10 @@ public class OldService {
 	
 	}
 	
+	public List<Old> getOldListCategory(Old old) throws Exception{
+		return oldDAO.getOldListCategory(old);
+	}
+	
 		
 	}
 	
