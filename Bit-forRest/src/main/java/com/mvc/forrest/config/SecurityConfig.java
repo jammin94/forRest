@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.passwordParameter("password")
 			.loginPage("/user/login") //GET
 			.loginProcessingUrl("/user/login") //POST
-			.defaultSuccessUrl("/afterLogin")
+			.defaultSuccessUrl("/")
 			.and()
 			.logout()// 로그인과 로그아웃은 csrf 사용시 사용 안할 때는 로그아웃은 get방식도 가능
 			.invalidateHttpSession(true)
