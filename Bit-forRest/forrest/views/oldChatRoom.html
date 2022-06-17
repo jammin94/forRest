@@ -631,6 +631,11 @@ socket.on('updateRoom',function(data){
         '</li>';
         
       $("ul").prepend(html);
+      
+      $("li.contact").dblclick(function() {
+    	  //location.href='/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val();
+    	  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
+    	});
 });
 
 //채팅방 나가기 실시간 적용
@@ -654,6 +659,10 @@ $(".expand-button").click(function() {
 //채팅방 더블클릭시 해당 채팅방 입장
 $("li.contact").dblclick(function() {
   //location.href='/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val();
+  const unreadcount=$(this).find("span.unreadcount").html();
+  console.log(unreadcount);
+  
+  
   window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
 });
 
@@ -681,8 +690,6 @@ $(document).ready(function(){
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','popup test',
 		'width=500');
 	}
-	
-	
 });
 
 
