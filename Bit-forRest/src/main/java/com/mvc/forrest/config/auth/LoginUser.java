@@ -4,13 +4,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.User;
 
 import lombok.Data;
@@ -28,6 +33,8 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	private User user;
 	private Map<String, Object> attributes;
 	
+	@Autowired
+	private CouponService couponService;
 
 	
 	
@@ -35,18 +42,37 @@ public class LoginUser  implements UserDetails , OAuth2User{
 		System.out.println(user);
 		this.user=user;
 		///////////////////////////////////////////////////////////////
-		/*
+		
         try {
         	System.out.println(":: Connect to Chatting Service");
 		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(500);
 		int responseCode = conn.getResponseCode();
 		System.out.println(":: Chatting Service responseCode : " + responseCode);
         }catch(Exception e){
+        	System.out.println("Node server is Dead ..");
+        }
+        
+        try {
+        OwnCoupon oc = new OwnCoupon();
+		Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
+		Calendar cal= Calendar.getInstance();
+		cal.add(Calendar.DATE,30);
+		Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+		Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
+		oc.setOwnUser(user);
+		oc.setOwnCoupon(coupon);
+		oc.setOwnCouponCreDate(ts1);
+		oc.setOwnCouponDelDate(ts2);
+		couponService.addOwnCoupon(oc);
+		System.out.println("### 신규회원 쿠폰발급 ###");
+        }catch(Exception e){
         	e.printStackTrace();
-        }*/
+        	System.out.println("This user is already get the NEW COUPON");
+        }
 		
 		////////////////////////////////////////////////////////////////
 	}

@@ -35,19 +35,23 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
 		SELECT
-		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount', profit, couponCount
+		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount', D.profit, couponCount 
 		FROM user
-		LEFT OUTER JOIN 	  	
-			(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
+		LEFT OUTER JOIN         
+		(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
 		ON user.userId = B.reportedUser
 		LEFT OUTER join
-			(SELECT COUNT(*) COUNT, reviewedUserId FROM oldreview Group by reviewedUserId) C 
+		(SELECT COUNT(*) COUNT, reviewedUserId FROM oldreview Group by reviewedUserId) C 
 		ON user.userId = C.reviewedUserId
-		LEFT OUTER JOIN 	  	
-			(SELECT SUM(resultPrice)AS 'profit',userId FROM transaction GROUP BY userId) D
-		ON user.userId = D.userId
-		LEFT OUTER JOIN 	  	
-			(SELECT COUNT(*) AS 'couponCount', userId FROM owncoupon GROUP BY userId) E
+		LEFT OUTER JOIN
+		(SELECT transaction.tranNo, product.prodName , transaction.userId, transaction.resultPrice, SUM(transaction.resultPrice)*0.3 profit, A.userId abc
+		FROM transaction LEFT OUTER JOIN (SELECT * FROM transaction WHERE tranCode=0) A ON transaction.prodNo = A.prodNo
+		LEFT OUTER JOIN product ON product.prodNo = transaction.prodNo
+		where transaction.tranCode='1'
+		GROUP BY A.userID) D
+		ON user.userId = D.abc
+		LEFT OUTER JOIN         
+		(SELECT COUNT(*) AS 'couponCount', userId FROM owncoupon GROUP BY userId) E
 		ON user.userId = E.userId
 		WHERE user.userId = #{value}
 	 </select>

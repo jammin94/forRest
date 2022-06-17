@@ -15,6 +15,7 @@
   --light-bg: #f4f4f4;
   --border: #eee;
 }
+
 .userRate{
 	color: white;
 	align-items: center;
@@ -364,8 +365,7 @@
           <div class="card__profile">
             <img class="userImg"
               th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
-              alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'"
-              >
+              alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'">
           </div>
           <div class="card__name">
             <h2 sec:authentication="principal.user.nickname"></h2>
@@ -412,7 +412,7 @@
           <div class="card__heading">
             <div class="heading">My Page</div>
             <div class="date">
-              <a class="smInfo" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></a>
+              <span class="smInfo" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></span>
             </div>
           </div>
           <div class="insights">

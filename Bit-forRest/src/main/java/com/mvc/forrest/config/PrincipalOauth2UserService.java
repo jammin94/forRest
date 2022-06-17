@@ -147,19 +147,20 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         }//end of kakaoLogin
         
 		///////////////////////////////////////////////////////////////
-/*
+        try {
         	System.out.println("  채팅시도 시작");
 		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+snsUser.getUserId();
 		URL url = new URL(reqURL);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(500);
 		int responseCode = conn.getResponseCode();
 		System.out.println("채팅 responseCode : " + responseCode);
         }catch(Exception e){
-        	e.printStackTrace();
+        	System.out.println("Node server is Dead ..");
         }
     	System.out.println("  채팅시도 끝");
-	*/	
+		
 		////////////////////////////////////////////////////////////////
         
 		httpSession.setAttribute("login_info", oAuth2UserInfo);
