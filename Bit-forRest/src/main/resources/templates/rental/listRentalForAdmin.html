@@ -256,7 +256,7 @@
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 	    	
-		   $('form').attr('method', 'POST').attr('action', '/product/updateProductAllCondition2').submit();
+		   $('form').attr('method', 'POST').attr('action', '/product/updateRentalProductAllCondition').submit();
 	 		
 		}); 
 	  
@@ -265,7 +265,7 @@
 		   
 	    	var prodNum = $(this).parent().find('.prodNum').val();
 			console.log(prodNum);
-		 	self.location = "/product/updateProductCondition2?prodNo="+prodNum;
+		 	self.location = "/product/updateRentalProductCondition?prodNo="+prodNum;
 		}); 
 	  
 	  
