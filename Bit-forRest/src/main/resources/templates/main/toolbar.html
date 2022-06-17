@@ -184,6 +184,8 @@ article {
   padding: 10px;
 }
 
+.chatBtn:after{display:none;}
+
 </style>
 <body>
 <section class="navigation">
@@ -214,7 +216,7 @@ article {
         </li>
         
          <!-- 고객센터 -->
-        <li>
+        <li style="cursor:pointer;">
           <a>고객센터</a>
           <ul class="nav-dropdown">
             <li>
@@ -228,15 +230,24 @@ article {
         
         <!-- 로그인 안 했으면 "로그인" -->
          <span sec:authorize="isAnonymous()">
-           <li>
+           <li style="cursor:pointer;">
                    <a th:href="@{/user/login}">로그인</a>
            </li>
          </span>
-        
-        
+         
+           <span sec:authorize="isAuthenticated()">
+           		<li style="cursor:pointer;"> 
+           		<!-- <a class="chatBtn" th:href="@{'http://192.168.0.42:3001/oldChat/list/'+${#authentication.principal.user.userId}}" target="_blank"> -->
+           	  <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId"></span>
+           		<a class="chatBtn">
+       			 	<i class="fa-solid fa-comment " style="transform:scale(1.5);"></i>
+       			 </a>
+       		  </li>
+         </span>
+         
          	<!-- 로그인했으면 마이페이지 보기 -->
          <span sec:authorize="isAuthenticated()">
-          <li> 
+          <li style="cursor:pointer;"> 
           <a>   
       	    <i class="fa-solid fa-circle-user" style="transform:scale(1.5);"></i> 
           </a>
@@ -310,6 +321,24 @@ article {
         }); // end DOM ready
       })(jQuery); // end jQuery
    
+      
+      $(function(){
+    	  
+    	  $('.chatBtn').on('click',function(){
+    		  var userId = $('.hiddenUserId').text();
+    		  
+    		  console.log(userId);
+    		  
+    	 	  window.open('http://192.168.0.42:3001/oldChat/list/'+'user01@naver.com'
+    	     		 ,'popup test',
+    	     		      'width=500');
+    	  })
+    	//  window.open('http://192.168.0.42:3001/oldChat/'
+    	//	      +'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','popup test',
+    	//	      'width=500');
+    	  
+      
+      })
 </script>
 <!-- <script>
  $(function() {
