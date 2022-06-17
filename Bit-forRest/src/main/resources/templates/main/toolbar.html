@@ -15,6 +15,14 @@
    <link rel="stylesheet" href="/css/toolbar.css"> 
 <script src="https://kit.fontawesome.com/cbaaada23a.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
+
+    	<!-- Firebase message 수신을 위한 JS -->
+	  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-messaging.js"></script>
+      <script src="/js/notification.js" defer></script>
 </head>
 <style>
 @charset "UTF-8";
@@ -196,6 +204,10 @@ article {
     <nav>
       <div class="nav-mobile"><a id="nav-toggle" ><span></span></a></div>
       <ul class="nav-list">
+      
+      	<li sec:authorize="isAuthenticated()">
+      		<a th:href="@{/firebase/messageTest}">메세지테스트</a>
+      	</li>
         <li sec:authorize="isAnonymous()">
             <a th:href="@{/old/listOld}">중고마켓</a>
         </li>
