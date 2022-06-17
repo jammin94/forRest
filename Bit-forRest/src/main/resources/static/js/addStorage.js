@@ -100,9 +100,12 @@ prevBtnSixth.addEventListener("click", function(){
 
  $(function(){
 		$(".submit").on("click", function(){
+			//console.log("제발"+$('.couponValue:selected').attr('name'));
+			submitCouponNumber();
 			combineAddr();
 			combinePhone();
 			combineAccount();
+		
 		
 			 
 			request_pay();
@@ -265,11 +268,26 @@ prevBtnSixth.addEventListener("click", function(){
 		// alert(account); 
 	 }
 	 
+	//쿠폰넘버를 넘겨줌
+	
+	 function submitCouponNumber(){
+		//undefined일경우 couponeNo를 0으로넘김
+		if($(".couponValue:selected").attr("data-coNo")==undefined){
+			  $(".subCouponNo").val(0);
+		} else{
+		    $(".subCouponNo").val($(".couponValue:selected").attr("data-coNo"));
+		}
+		
+	}
+	 
 //체크했을때 1 안했을때 0을 보냄
 	$('#input_check').on('change', function(){
    	this.value = this.checked ? 1 : 0;
   // alert(this.value);
 	}).change();
+	
+
+
 	
 	
 function request_pay(){

@@ -1,5 +1,6 @@
 package com.mvc.forrest.controller.product;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.api.client.http.HttpRequest;
+import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Img;
@@ -66,8 +69,26 @@ public class ProductController {
 	
 	//어드민만 접근가능
 	@PostMapping("updateRecentImg")
-	public String updateRecentImg() throws Exception {
-	
+	public String updateRecentImg(@RequestParam("uploadFile") MultipartFile file, @RequestParam("prodNo") String prodNo) throws Exception {
+			
+		String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
+		String convertFileName = FileNameUtils.fileNameConvert(file.getOriginalFilename());
+		
+		Product product = new Product();
+		product.setProdNo(prodNo);
+		
+		if(!file.getOriginalFilename().isEmpty()) {
+			
+			file.transferTo(new File(temDir, convertFileName));
+			System.out.println("파일명 :: "+convertFileName);
+			
+			product.setRecentImg(convertFileName);			
+		}else {
+			System.out.println("파일업로드 실패...?");
+		}
+		
+		productService.updateProduct(product);
+		
 		return null;
 	}
 	

@@ -302,17 +302,77 @@ select{
 
 
 	<script>
-	 /*  $(document).ready(function() {
-			"use strict";
-			
-
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
-
-	  }) */
+	// 기간연장에 따라 실시간 가격변경
+	$(document).ready(function() {
+ 
+$("#resv_period").on("propertychange change paste input", function() {
+ 
+    var resv_width= fnReplace($("#resv_width").val());
+    var resv_length = fnReplace($("#resv_length").val());
+    var resv_height = fnReplace($("#resv_height").val());
+    var resv_period = fnReplace($("#resv_period").val());
+    var resv_quantity = fnReplace($("#resv_quantity").val());
+    
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+});
+ 
+$("#resv_length").on("propertychange change paste input", function() {
+ 
+    var resv_width= fnReplace($("#resv_width").val());
+    var resv_length = fnReplace($("#resv_length").val());
+    var resv_height = fnReplace($("#resv_height").val());
+    var resv_period = fnReplace($("#resv_period").val());
+    var resv_quantity = fnReplace($("#resv_quantity").val());
+    
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+});
+ 
+$("#resv_height").on("propertychange change paste input", function() {
+ 
+    var resv_width= fnReplace($("#resv_width").val());
+    var resv_length = fnReplace($("#resv_length").val());
+    var resv_height = fnReplace($("#resv_height").val());	
+    var resv_period = fnReplace($("#resv_period").val());
+    var resv_quantity = fnReplace($("#resv_quantity").val());
+    
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+});
+ 
+$("#resv_period").on("propertychange change paste input", function() {
+	
+    var resv_width= fnReplace($("#resv_width").val());
+    var resv_length = fnReplace($("#resv_length").val());
+    var resv_height = fnReplace($("#resv_height").val());
+    var resv_period = fnReplace($("#resv_period").val());
+    var resv_quantity = fnReplace($("#resv_quantity").val());
+   
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+});
+ 
+$("#resv_quantity").on("propertychange change paste input", function() {
+    var resv_width= fnReplace($("#resv_width").val());
+    var resv_length = fnReplace($("#resv_length").val());
+    var resv_height = fnReplace($("#resv_height").val());
+    var resv_period = fnReplace($("#resv_period").val());
+    var resv_quantity = fnReplace($("#resv_quantity").val());
+    console.log(resv_width *  resv_length * resv_height * resv_quantity * 0.1);
+    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
+});
+ 
+});
+	
+	function fnReplace(val) {
+	    var ret = 0;
+	    if(typeof val != "undefined" && val != null && val != ""){
+	        ret = Number(val.replace(/,/gi,''));
+	    }
+	    return ret;        
+	}
 	</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->

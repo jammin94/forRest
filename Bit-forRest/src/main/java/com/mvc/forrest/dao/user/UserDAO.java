@@ -24,6 +24,8 @@ public interface UserDAO {
 	
 	public void updateUser(User user) throws Exception ;
 	
+	public void updateUserImg(User user) throws Exception ;
+	
 	public void updatePassword(User user) throws Exception ;
 	
 	public void leaveUser(User user) throws Exception ;
