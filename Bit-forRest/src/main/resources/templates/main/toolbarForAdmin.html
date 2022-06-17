@@ -66,16 +66,18 @@
 														<div class="dropLayer">
 													            <div class="userInfo">
 													                <span class="label">대표운영자님</span>
-													                <p class="name"><strong class="mall">hyeong512</strong></p>
+													                <p class="name"><strong class="mall">
+													                 <span class="handle" sec:authentication="principal.user.userId"></span>
+													                </strong></p>
 													            </div>
 												            <div class="divide">
 												                <ul class="link">
 												      			             <!-- 내 쇼핑몰 정보 -->
 												                        <li><a>내 쇼핑몰 정보</a></li>
 												                                <!-- 마이페이지 -->
-												                        <li>     <a th:href="@{/storage/listStorage}">마이페이지</a>마이페이지</a></li>
+												                        <li>     <a th:href="@{/storage/listStorage}">마이페이지</a></li>
 												                            <!-- 운영자 관리 -->
-												                        <li><a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a></li>
+												                        <li></li>
 												         	     </ul>
 												            </div>
 																	            <!-- 로그아웃 -->
