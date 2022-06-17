@@ -68,7 +68,7 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	private final Authentication authentication;
+//	private final Authentication authentication;
     private final AuthenticationManager authenticationManager;
 	
 	@Value("5")
