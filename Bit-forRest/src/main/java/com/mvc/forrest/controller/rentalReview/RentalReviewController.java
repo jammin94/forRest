@@ -69,6 +69,7 @@ public class RentalReviewController {
 		
 		
 		//리뷰등록하기 기능구현
+		//회원, 어드민가능 
 		@PostMapping("addRentalReview")
 		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model,@RequestParam("fileName") MultipartFile file) throws Exception {
 			System.out.println(rentalReview.getReviewImg());
@@ -103,12 +104,13 @@ public class RentalReviewController {
 		}
 		
 		//리뷰 리스트 출력
+		//비회원,회원, 어드민가능 
 		@GetMapping("listReview")
 		public String listReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
 			 return null;
 		}
-		
+
 		@PostMapping("listReview")
 		public String listReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
@@ -116,12 +118,15 @@ public class RentalReviewController {
 		}
 		
 		//리뷰 수정 ( 업데이트 )
+		//회원, 어드민가능 
 		@GetMapping("updateReview")
 		public String updateReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
 			 return null;
 		}
 		
+		//리뷰 수정 ( 업데이트 )
+		//회원, 어드민가능 
 		@PostMapping("updateReview")
 		public String updateReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
@@ -130,12 +135,15 @@ public class RentalReviewController {
 		
 		
 		// 리뷰 삭제 
+		//회원, 어드민가능 
 		@GetMapping("deleteReview")
 		public String deleteReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
 			 return null;
 		}
 		
+		// 리뷰 삭제 
+		//회원, 어드민가능 
 		@PostMapping("deleteReview")
 		public String deleteReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
 		
