@@ -67,6 +67,7 @@ public class RentalController {
 	
 	
 	//------------대여물품add 화면구현------------//
+	//회원, 어드민 가능
 	@GetMapping("addRental")
 	public String addRentalView(@ModelAttribute("search") Search search,@RequestParam("prodNo") String prodNo, Model model) throws Exception{
 		
@@ -91,6 +92,7 @@ public class RentalController {
 	
 	
 	//------------대여물품add 기능구현------------//
+	//회원, 어드민 가능
 	@PostMapping("addRental")
 	public String addRental(@ModelAttribute("rental") Rental rental, @ModelAttribute("product") Product product,Model model ) throws Exception {
 		
@@ -132,7 +134,7 @@ public class RentalController {
 	
 	
 	//------------결제완료 상세 화면------------//
-//	public String getRental(@RequestParam("tranNo") int tranNo) throws Exception {
+	//회원, 어드민 가능
 	@GetMapping("getRental")
 	public String getRental(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		System.out.println("getRental Start");
@@ -146,6 +148,7 @@ public class RentalController {
 
 	
 	//------------대여물품리스트 화면------------//
+	//비회원,회원, 어드민 가능
 	@GetMapping("listRental")
 	public String listProductView(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception{
 		
@@ -184,6 +187,7 @@ public class RentalController {
 	}
 	
 	//------------대여물품리스트 관리자 화면------------//
+	//어드민 가능
 	@RequestMapping("listRentalForAdmin")
 	public String listRentalForAdmin(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
@@ -226,6 +230,7 @@ public class RentalController {
 	}
 	
 	//------------대여 수익 확인------------//
+	//회원, 어드민가능 
 	@GetMapping("listRentalProfit")
 	public String listRentalProfitView( @ModelAttribute("search") Search search , Model model,HttpSession session) throws Exception{
 		
@@ -258,7 +263,8 @@ public class RentalController {
 		return "rental/listRentalProfit";
 	}
 	
-	
+	//------------대여 수익 확인------------//
+	//회원, 어드민가능 
 	@PostMapping("listRentalProfit")
 	public String listRentalProfit( ) throws Exception{
 		
