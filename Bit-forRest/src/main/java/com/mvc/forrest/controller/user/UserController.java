@@ -2,7 +2,9 @@ package com.mvc.forrest.controller.user;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +46,9 @@ import com.mvc.forrest.service.oldreview.OldReviewService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
@@ -59,13 +68,13 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	private final Authentication authentication;
+    private final AuthenticationManager authenticationManager;
+	
 	@Value("5")
 	int pageUnit;
 	@Value("10")
 	int pageSize;
-	
-	public UserController(){
-	}
 	
 	
 	@GetMapping("login")			//유저, 관리자
@@ -306,7 +315,27 @@ public class UserController {
 		System.out.println("/user/updateUser : GET");
 		
 		User user = userService.getUser(userId);
+		
+		//////////////////////////////////////////////////////////////////////////////////
+//		System.out.println("   리로드 시작");
+//		Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("admin");
+//		List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
+//		
+//		updatedAuthorities.add(authority);
+//		updatedAuthorities.addAll(oldAuthorities);
+//		
+//		SecurityContextHolder.getContext().setAuthentication(
+//		new UsernamePasswordAuthenticationToken(
+//		SecurityContextHolder.getContext().getAuthentication().getPrincipal(), 
+//		SecurityContextHolder.getContext().getAuthentication().getCredentials(), 
+//		updatedAuthorities));
+//		
+//		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+		
+		
+		
 		model.addAttribute("user", user);
 		
 		return "user/updateUser";
@@ -315,23 +344,37 @@ public class UserController {
 	@PostMapping("updateUser")			//유저, 관리자
 	public String updateUser( @ModelAttribute("user") User user,
 							@RequestParam("userImgFile")MultipartFile file ) throws Exception {
+		System.out.println("/user/updateUser : POST");
 
 		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
-		
-		System.out.println("/user/updateUser : POST");
 		
 		if (!file.getOriginalFilename().isEmpty()) {
             String filename = file.getOriginalFilename();
             filename =  FileNameUtils.fileNameConvert(filename);
             file.transferTo(new File(temDir,filename));
             user.setUserImg(filename);
+
         }
+		userService.updateUser(user);
+		/////////////////////////////////////////////////////////////////////////////////
+//	
+//		user = userService.getUser(user.getUserId());
+//		System.out.println("          #");
+//	    Authentication authentication = new 
+//	    LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+//	    
+//	    SecurityContextHolder.getContext().setAuthentication(new authenti
+//		
+//		System.out.println("          ##");
+//		System.out.println("          ###");
+//		
+//		
+//		
+//		System.out.println("   리로드 끝");
+		//////////////////////////////////////////////////////////////////////////////////
 		
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
-		userService.addUser(user);
-				
-		return "user/updateUser";
+		return "redirect:/user/updateUser?userId="+user.getUserId();
 	}
 	
 	@GetMapping("deleteUser")		//유저, 관리자
