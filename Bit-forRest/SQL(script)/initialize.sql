@@ -294,6 +294,10 @@ VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURR
 INSERT INTO old
 VALUES ('j','user02@naver.com',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',FALSE,'jjj.jpg','서초동');
 
+INSERT INTO old
+VALUES ('k','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'기타용품',TRUE,'jjj.jpg','서초동');
+
+
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, deposit, category, divyAddress, prodImg) VALUES ('b', 100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트2', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', 30000, '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg');
@@ -467,7 +471,7 @@ INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDe
 VALUES(NULL, 'admin', 'user03@naver.com', 'c', '살짝 불친절', 3);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 'd', '물건값 깎아줌', 4);
+VALUES(NULL, 'admin', 'user04@naver.com', 'd', '물건값 깎아줌', 4);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
 VALUES(NULL, 'admin', 'user01@naver.com', 'e', '굿매너', 5);
