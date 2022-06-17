@@ -15,6 +15,7 @@
   --light-bg: #f4f4f4;
   --border: #eee;
 }
+
 .userRate{
 	color: white;
 	align-items: center;
@@ -364,8 +365,7 @@
           <div class="card__profile">
             <img class="userImg"
               th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
-              alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'"
-              >
+              alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'">
           </div>
           <div class="card__name">
             <h2 sec:authentication="principal.user.nickname"></h2>
@@ -380,6 +380,7 @@
           </div>
           <div class="card__button">
             <button>
+            	<span><a th:href="@{/user/updateUser(userId= ${#authentication.principal.user.userId})}">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -401,9 +402,10 @@
               </svg>
               <span>
                <span sec:authorize="isAuthenticated()">
-               <a th:href="@{/user/updateUser(userId= ${#authentication.principal.user.userId})}">Edit</a>
+               	<a th:href="@{/user/updateUser(userId= ${#authentication.principal.user.userId})}">Edit</a>
                 </span>
               </span>
+              </a></span>
             </button>
           </div>
         </div>
@@ -412,7 +414,7 @@
           <div class="card__heading">
             <div class="heading">My Page</div>
             <div class="date">
-              <a class="smInfo" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></a>
+              <span class="smInfo" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></span>
             </div>
           </div>
           <div class="insights">

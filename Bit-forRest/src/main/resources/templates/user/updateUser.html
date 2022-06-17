@@ -237,7 +237,13 @@ display: flex;
 	border:1px solid #e5e5e5;
 	padding:5px;
 }
+input{
+	width : 350px;
+}
 
+/* #userImgFile{
+	display: none;
+} */
 
   </style>
   
@@ -257,9 +263,11 @@ display: flex;
 		<!-- 좌: 이미지, 사진변경 -->
 		<div class="col-md-1"><!-- 여백 --></div>
 		<div class="col-md-5 left" style="text-align: center;" >
-			<span><img th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
-              			alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
-              			width="250" height="300" style="border-radius: 70%;" >
+			<span>
+				<img id="preView" th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
+              	alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
+       			width="250" height="300" style="border-radius: 70%;" >
+     			<input id="userImgFile" type="file" name="userImgFile" readonly="readonly" th:value="${user.userImg}">
              </span>
 		<div style="padding:20px 0 0 0;">
 			<button type="button"  class="n-btn w100 btn-sm btn-default cert-hidden" id="change-profile-image-btn">사진 변경</button>
@@ -287,26 +295,6 @@ display: flex;
 	                <col style="width:50%">
 	            </colgroup>
 	            <tbody>
-		            <tr>
-		            </tr>
-		            
-		            <tr class="my-info-img" style="display: none" id="change-profile-image-area">
-		                <td>
-		                    <div>
-		                        <div class="img" id="profile-backGround-image" style="background-image: url(https://image.msscdn.net/mfile_s01/_simbols/_basic/h.png)"></div>
-		                    </div>
-		                    <p class="txt">회원님을 알릴 수 있는 사진을 등록해 주세요.<br>등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다.</p>
-		                    <div class="btn-group">
-		                        <label for="profile-image" class="n-btn btn-sm btn-default">사진 선택</label>
-		                        <input type="file" id="profile-image" class="n-hidden">
-		                        <button type="button" class="n-btn btn-sm btn-default" id="change-default-image-btn">기본이미지로 변경</button>
-		                    </div>
-		                </td>
-		                <td class="va-b">
-		                    <button type="button" class="n-btn btn-sm btn-lighter" id="change-profile-image-cancel-btn">취소</button>
-		                    <button type="button" class="n-btn btn-sm btn-accent" id="change-profile-image-finish-btn">완료</button>
-		                </td>
-		            </tr>
 		            <tr>
 		                <th scope="row">아이디</th>
 		                <td colspan="2"><strong>
@@ -356,5 +344,26 @@ display: flex;
 <div th:replace="/main/footer.html"></div>
 
 </body>
+
+<script type="text/javascript">
+	$(function(){
+		$("#change-profile-image-btn").on("click",function(){
+			$("#userImgFile").trigger("click");
+		});
+		$("#userImgFile").on("change", function(){
+			preView(this);
+		});
+	});
+	
+	function preView(input){
+		   if (input.files && input.files[0]){
+		      var reader = new FileReader();
+		      reader.onload = function (e){
+		         $('#preView').attr('src', e.target.result); 
+		      }
+		      reader.readAsDataURL(input.files[0]);
+		   }
+		}	//업로드파일 미리보기 끝
+</script>
 
 </html>

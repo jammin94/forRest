@@ -45,8 +45,7 @@ public class ReportController {
 	@Autowired
 	public OldService oldService;
 	
-	@Autowired
-	public FCMService fcmService;	
+
 	
 	@GetMapping("addReport")
 	public String addReport(@RequestParam("oldNo") int oldNo,Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
@@ -56,15 +55,7 @@ public class ReportController {
 		 return "common/firebase";
 	}
 	
-	@GetMapping("messageTest")
-	public String messageTest(Model model, HttpSession session ) throws Exception {
-		User loginUser =(User)session.getAttribute("user");
-		System.out.println(loginUser);
-		String id= loginUser.getUserId();
-		fcmService.sendMessage(id);
-		
-		 return "common/firebase";
-	}	
+
 	
 	@PostMapping("addReport")
 	public String addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user, Model model ) throws Exception {
