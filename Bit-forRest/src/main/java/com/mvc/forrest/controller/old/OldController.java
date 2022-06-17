@@ -23,6 +23,7 @@ import com.google.api.client.http.HttpRequest;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
@@ -64,9 +65,17 @@ public class OldController {
 			throws Exception {
 
 		System.out.println(this.getClass() + "겟리스트로그인");
-
-		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+				LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = loginUser.getUser().getUserId();
+		
+		if(search.getSearchCategory()=="") {
+			search.setSearchCategory(null);
+		}
+		
+		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
 		
 		List<Old> list = oldService.getOldListHasUser(search, userId);
 		
@@ -90,11 +99,13 @@ public class OldController {
 			search.setSearchKeyword(null);
 		}
 		
-		System.out.println("search2: "+ search);
+		System.out.println("search: "+ search);
 		
 		
 		
 		List<Old> list = oldService.getOldList(search);
+		
+		System.out.println("아아아아아"+list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
@@ -113,13 +124,17 @@ public class OldController {
 
 		return "/old/listOldMine";
 	}
-/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
+
+	
+	/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
+	
 	@RequestMapping("getOld")
-	public String getOld(@ModelAttribute("search") Search search, @RequestParam("oldNo") String oldNo, Model model)
+	public String getOld(@RequestParam("oldNo") String oldNo,@ModelAttribute("search") Search search, Model model)
 			throws Exception {
 
 		System.out.println("겟올드");
-
+		
+		//유저 평점 가져오기
 		Old old = oldService.getOld(oldNo);
 		String userId = old.getUserId();
 
@@ -129,19 +144,24 @@ public class OldController {
 		double oldReview = oldReviewService.getUserRate(userId);
 		user.setUserRate(oldReview);
 		
-		
+		//이미지
+		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
+		System.out.println("올드이미지"+oldImgList);
 		
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
+		model.addAttribute("oldImgList", oldImgList);
 
 		
 		// getOld 밑에 list 뜨는 것
 		
-		List<Old> list = oldService.getOldList(search);
+//		List<Old> list = oldService.getOldList(search);
+		List<Old> list= oldService.getOldListCategory(old);
+		
 		
 		model.addAttribute("list", list);
-		model.addAttribute("search", search);
-
+	
+		System.out.println(old);
 		return "old/getOld";
 	}
 
@@ -265,5 +285,7 @@ public class OldController {
 
 		return "old/getOld";
 	}
-
+	
+	
+	
 }

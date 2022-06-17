@@ -399,8 +399,8 @@ margin-bottom: 210px !important;
 									<img width="300" height="205" th:src="@{/images/uploadFiles/} + ${product.prodImg}" >
 												<!--	<h5>Sale</h5>  -->
 											<input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
-											<span th:unless="${product.wishlistNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-											<span th:if="${product.wishlistNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+											<span th:unless="${product.wishlistNo}==0"><a class="heart filled" href="#"><i style="color:#000;" class="fa-solid fa-cart-shopping"></i></a></span>
+											<span th:if="${product.wishlistNo}==0"><a class="heart" href="#"><i style="color:#000; opacity:0.5;" class="fa-solid fa-cart-shopping"></i></a></span>
 										</div>
 										<div class="try_rc_mob_img_cont">
 											<h2>[[${product.prodName}]]</h2>

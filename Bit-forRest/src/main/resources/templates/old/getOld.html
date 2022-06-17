@@ -63,13 +63,14 @@
 
 			<div class="product-imgs">
 				<div class="img-display">
+				
+<!-- 	////			큰 사진 ///-->
 					<div class="img-showcase">
-						<img th:src="@{/images/uploadFiles/} + ${old.oldImg}"> <img
-							th:src="@{/images/content/ccc.jpg}"> <img
-							th:src="@{/images/content/fff.png}"> <img
-							th:src="@{/images/content/fff.png}">
+						<img th:each = "img : ${oldImgList}" th:src= "@{/images/uploadFiles/} + ${img.fileName}" >
 					</div>
 
+<!-- ////버튼///// -->
+		
 					<span sec:authorize="isAuthenticated()">
 					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
 							<button type="button" class="btn custom">
@@ -83,28 +84,16 @@
 					</span>
 				</div>
 
-
+<!--/// 밑에 조그만 사진들 ///-->
 				<div class="img-select">
-					<div class="img-item">
-						<a href="#" data-id="1"> <img th:src="@{/images/uploadFiles/} + ${old.oldImg}">
+					<div class="img-item" th:each = "img,n : ${oldImgList}">
+						<a href="#" data-id="1">
+						<input type="hidden" class="imgid" th:value="${n.index+1}">
+						 <img th:src="@{/images/uploadFiles/} + ${img.fileName}">
 						</a>
 					</div>
-					<div class="img-item">
-						<a href="#" data-id="2"> <img
-							th:src="@{/images/content/ccc.jpg}">
-						</a>
+					
 					</div>
-					<div class="img-item">
-						<a href="#" data-id="3"> <img
-							th:src="@{/images/content/fff.png}">
-						</a>
-					</div>
-					<div class="img-item">
-						<a href="#" data-id="4"> <img
-							th:src="@{/images/content/fff.png}">
-						</a>
-					</div>
-				</div>
 
 
 			</div>
@@ -165,6 +154,7 @@
 				<div class="purchase-info">
 				<div class="loginUser">
 					<span sec:authorize="isAuthenticated()">
+					 <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
 					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
 					<button type="button" class="btn" th:if="${#authentication.principal.user.userId} !=${old.userId}">
 					채팅하기
@@ -172,6 +162,7 @@
 					</button>
 					</a>
 					</div>
+					</span>
 					
 					<div class="logoutUser">
 					<span sec:authorize="isAnonymous()">
@@ -184,6 +175,7 @@
 						 
 						</i>
 					</button>
+					</span>
 					</div>
 			
 				</div>
@@ -239,11 +231,10 @@
 					<div class="old" th:each="old : ${list}">
 						<div class="owl-item active" style="width: 270px;">
 
-							<div class="item">
+							<div class="item" >
 								<div class="try_rc_mob_box_wrapper">
 									<div class="try_rc_mob_img">
-										<img class="imgTemp" width="220" height="205"
-											th:src="@{/images/content/fff.png}">
+										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 										<!--	<h5>Sale</h5>  -->
 										<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									</div>
@@ -280,7 +271,7 @@
 	<!-- Footer-->
 	<div th:replace="/main/footer.html"></div>
 
-	<script src="/js/getOld.js"></script>
+	<script src="/js/getProduct.js"></script>
 	<script>
 		
 	</script>
