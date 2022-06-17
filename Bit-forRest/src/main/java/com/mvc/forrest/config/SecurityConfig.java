@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeHttpRequests()  //인가 요청이 오면
 			.antMatchers("/user/manager","/product/getProduct","/storage/listStorage", "/storage/extendStorage","/old/addOldReport","/old/updateOldState","/old/addOld","/old/updateOld","/old/listOldMine","/old/deleteOld", "/storage/getStorage","http://192.168.0.42:3001/oldChat/**").authenticated()
 			.antMatchers("/user/getUser", "/user/deleteUser", "/old/listOldAfterLogin", "/oldLike/addOldLike", "/oldLike/deleteOldLikeOnList","/storage/addStorage", "/produnct/listProductAfterLogin").authenticated()
-			.antMatchers("/storage/listStorageForAdmin","/board/addAnnounce","/board/updateAnnounce","/board/deleteAnnounce").hasRole("admin")
+			.antMatchers("/storage/listStorageForAdmin","/board/addAnnounce","/board/updateAnnounce","/board/deleteAnnounce").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
