@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +48,13 @@
 
 					<!-- <form method="post" action="/upload" enctype="multipart/form-data"> -->
 					<!-- <input type ="file" name="filename" id="filename" </form>사진 -->
+					<div class="field">
+						<div class="label">유저 아이디</div>
+						<input type="text" id="userId" name="userId" th:value="${userId}"
+							readonly><input type="hidden" id="oldState"
+							name="oldState" th:value=1><input type="hidden"
+							id="oldView" name="oldView" th:value=0>
+					</div>
 
 
 					<div class="field">
@@ -99,22 +107,13 @@
 
 
 
-					<div class="field">
-						<div class="label">유저 아이디</div>
-						<input type="text" id="userId" name="userId" th:value="${userId}" readonly>
-					</div>
-
-					<div class="field">
-						<div class="label">스테이트</div>
-						<input type="text" id="oldState" name="oldState" >
-					</div>
 
 
 
-					<div class="field">
-						<div class="label">조회수</div>
-						<input type="text" id="oldView" name="oldView" th:value="${oldView}">
-					</div>
+
+
+
+
 
 
 					<div class="field btns">
