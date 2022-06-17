@@ -486,6 +486,6 @@ INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDe
 VALUES(NULL, 'admin', 'user01@naver.com', 'i', '굿매너', 5);
 
 INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user02@naver.com', 'j', '개매너', 1);
+VALUES(NULL, 'admin', 'admin', 'j', '개매너', 1);
 
 
