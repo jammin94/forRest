@@ -57,6 +57,11 @@ public class UserService {
 		userDao.updateUser(user);
 	}
 	
+	public void updateUserImg(User user) throws Exception {
+		userDao.updateUserImg(user);
+	}
+
+	
 	public void updatePassword(User user) throws Exception {
 		userDao.updatePassword(user);
 	}

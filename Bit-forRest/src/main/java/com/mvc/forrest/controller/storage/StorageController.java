@@ -26,6 +26,7 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
@@ -92,7 +93,7 @@ public class StorageController {
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
 		//디버깅
-		//System.out.println("쿠폰list:" + map.get("list"));
+		System.out.println("쿠폰list:" + map.get("list"));
 		
 		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
 		 String reserveTranNo = FileNameUtils.getRandomString();
@@ -112,16 +113,17 @@ public class StorageController {
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
+												@ModelAttribute("OwnCoupon") OwnCoupon ownCoupon,
 												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
 												@RequestParam("paymentNo") String paymentNo,
 												 Model model) throws Exception {
+		System.out.println(ownCoupon.getOwnCouponNo());
 		
-		//디버깅
-		//System.out.println("product: "+product);
-		//System.out.println("storage: "+storage);
-		
-		//결제완료후 사용한 쿠폰 삭제
-		//couponService.deleteOwnCoupon(paymentNo);
+		//결제완료후 사용한 쿠폰 삭제, 쿠폰이 선택되지않았을때는 삭제메서드 동작X
+		if(ownCoupon.getOwnCouponNo() != 0) {
+			couponService.deleteOwnCoupon(ownCoupon.getOwnCouponNo());
+			
+		}
 		
 		for(MultipartFile mf: uploadFile) {
 			System.out.println("fileName:"+mf.getOriginalFilename());

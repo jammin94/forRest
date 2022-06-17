@@ -16,7 +16,7 @@ public interface OwnCouponDAO {
 	
 	public OwnCoupon getOwnCoupon(int ownCouponNo) throws Exception ;
 	
-	public void deleteOwnCoupon(String ownCouponNo) throws Exception ;
+	public void deleteOwnCoupon(int ownCouponNo) throws Exception ;
 	
 	public List<OwnCoupon> getOwnCouponList(String userId) throws Exception ;
 	
