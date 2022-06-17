@@ -22,6 +22,26 @@
 		display: flex !important;
    		 justify-content: center;
 	}
+	/*
+	.filebox input[type="file"] {   파일 필드 숨기기 
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+*/
+
+.input-file-button{
+  padding: 6px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  width:98px;
+}
+
 </style>
 <body>
 
@@ -145,6 +165,7 @@
 	  		    <th align="center">진행상태</th>		
 	  		    <th align="center"></th>
 	  		    <th align="center">보관현황</th>
+	  		    <th align="center"></th>
 	          </tr>
 	        </thead>
 	        
@@ -174,7 +195,16 @@
 			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기</button>
 			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인</button>
 			</td>	  
-			<td align="center" th:text = "${storage.storageProd.recentImg}"></td>	 
+	
+			
+			<td align="left">	
+			<label class="input-file-button" for="input-file">
+  				file
+		</label>
+				<input type="file" id="input-file"  class="filebox" name="uploadFile" style="display:none"/>
+				<button>업로드</button>
+			</td>
+			
 		
 	    </tr>
 	    
