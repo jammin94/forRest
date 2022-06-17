@@ -5,6 +5,7 @@ package com.mvc.forrest.common.utils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -25,13 +26,12 @@ public class FileUtils {
 	@Autowired
 	private ImgDAO imgDAO;
 	
-    public void uploadFiles(List<MultipartFile> multipartFiles, String id, String flag) throws Exception {
+    public String uploadFiles(List<MultipartFile> multipartFiles, String id, String flag) throws Exception {
         
     	System.out.println("uploadFiles start");
     	
     	// 파일 업로드 경로 생성
-      
-
+    	List<String> list = new ArrayList<String>();
         for (MultipartFile multipartFile : multipartFiles) {
         	
         	System.out.println(multipartFile.getOriginalFilename());
@@ -43,9 +43,8 @@ public class FileUtils {
             img.setContentsFlag(flag);
             img.setContentsNo(id);
             img.setFileName(fileName);
-            
             imgDAO.addImg(img);
-            
+            list.add(fileName);
             try {
                 File file = new File(temDir, fileName);
                 multipartFile.transferTo(file);
@@ -57,7 +56,24 @@ public class FileUtils {
             } catch (IOException e) {
 
             } 
+            
         }//for 문 end
-        
+       System.out.println(list);
+       String mainImg = list.get(0);
+       return mainImg;
     }//uploadFiles end
+    
+    
+	public List<Img> getProductImgList(String prodNo) throws Exception{
+		System.out.println("getProductImgList 실행 됨");
+		System.out.println(prodNo);
+		return imgDAO.getProductImgList(prodNo);
+	}
+	
+	public List<Img> getOLdImgList(String oldNo) throws Exception{
+		System.out.println("getOLdImgList 실행 됨");
+		return imgDAO.getOLdImgList(oldNo);
+	}
+    
+    
 }//class end
