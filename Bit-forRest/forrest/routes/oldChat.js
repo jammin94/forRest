@@ -280,4 +280,37 @@ router.post('/chat/:oldNo', async (req, res, next) => {
   }
 });
 
+
+//아무 채팅도 없는 방에서 접속 끊기면 해당 채팅방 삭제
+router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
+  try {
+	console.log('삭제?');
+	const chatRoomNo = req.params.chatRoomNo
+	
+	let query=Query.isChatRoomEmpty;
+    const isChatRoomEmpty = await db.sequelize.query(query, {
+      replacements: {chatRoomNo : chatRoomNo}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+
+	if(isChatRoomEmpty===0){
+		console.log('아무것도 안 친 방에서 접속이 끊기므로 해당 방을 삭제합니다.');
+		
+		query=Query.deleteChatRoom;
+	    const deleteChatRoom = await db.sequelize.query(query, {
+	      replacements: {chatRoomNo : chatRoomNo}, 
+	      type: QueryTypes.DELETE,
+	      raw: true
+	    });
+    }
+
+  }catch (err) {
+    console.error(err)
+    next(err)
+  }
+});
+
+
+
 module.exports = router;
