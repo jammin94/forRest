@@ -22,7 +22,7 @@
 		<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
 		<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>
 		<result	property="profit"			column="profit"			jdbcType="NUMERIC"/>
-		
+		<result	property="reportedCount"			column="reportedCount"			jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -53,6 +53,9 @@
 		LEFT OUTER JOIN         
 		(SELECT COUNT(*) AS 'couponCount', userId FROM owncoupon GROUP BY userId) E
 		ON user.userId = E.userId
+		LEFT OUTER JOIN
+		(SELECT reportedUser, COUNT(*) reportedCount FROM report Group by reportedUser) F
+		ON user.userId = F.reportedUser
 		WHERE user.userId = #{value}
 	 </select>
 	 

@@ -19,7 +19,7 @@ public class User {
 	private String joinPath;
 	private String userImg;
 	private String pushToken;
-	private String reportedCount;
+	private int reportedCount;
 	private String reviewedCount;
 	private double userRate;
 	private int profit;
@@ -29,8 +29,28 @@ public class User {
 	private Timestamp leaveDate;
 	private Timestamp recentDate;
 	private Timestamp joinDate;
+	private boolean isAccountNonLocked;
 	
-    @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
+	
+	
+    public boolean isAccountNonLocked() {
+    	if(this.reportedCount>=3) {
+    		return false;
+    	}else {
+    		return true;
+    	}
+	}
+
+	public void setAccountNonLocked(boolean isAccountNonLocked) {
+    	if(this.reportedCount>=3) {
+    		this.isAccountNonLocked = false;
+    	}else {
+    		this.isAccountNonLocked = true;
+    	}
+		
+	}
+
+	@Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
     public User(String username, String password, String email, Role role) {
         this.userName = username;
         this.password = password;

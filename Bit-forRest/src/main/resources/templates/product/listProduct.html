@@ -353,7 +353,7 @@ margin-bottom: 210px !important;
   <section class="container">
 <div class="dropdown dropdown-dark">
     <select name="orderCondition" class="dropdown-select"  th:field=${search.orderCondition} th:value=${search.orderCondition} >
-      <option th:value="prodNoDESC">최신순</option>
+      <option th:value="regDateDESC">최신순</option>
       <option th:value="rentalPriceASC">낮은가격순</option>
       <option th:value="rentalPriceDESC">높은가격순</option>
       <option th:value="rentalCountingDESC">인기순</option>
@@ -383,6 +383,8 @@ margin-bottom: 210px !important;
 </div>
 
 </form> 
+
+<input type="hidden" class="loginUser" th:value="${loginUserId}">
    <!--카테고리바  끝->
    
    
@@ -437,7 +439,11 @@ margin-bottom: 210px !important;
 	$(function(){
 		$(".searchButton").on("click", function(){
 			
-			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+			if($(".loginUser").val()==""){
+				 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+		    	} else{
+		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
+		    	}
 			
 		})
 	});
@@ -446,7 +452,14 @@ margin-bottom: 210px !important;
 	$(function(){
 		$(".dropdown-select").on("change", function(){
 			
-			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+		
+			if($(".loginUser").val()==""){
+				 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+		    	} else{
+		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
+		    	}
+		    	
+	
 			
 		})
 	});
@@ -456,6 +469,7 @@ margin-bottom: 210px !important;
 			
 			var categoryValue = $(this).find('a').text();
 			//alert(categoryValue);
+		
 			
 			if(categoryValue=="전체"){
 				categoryValue="";
@@ -464,7 +478,11 @@ margin-bottom: 210px !important;
 			$('.searchCategory').attr('value',categoryValue);
 	    	//alert(($('.searchCategory').val()));
 			
+	    	if($(".loginUser").val()==""){
 			 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+	    	} else{
+	    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
+	    	}
 			
 		})
 		

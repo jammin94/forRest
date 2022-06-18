@@ -37,8 +37,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	@Autowired
 	private CouponService couponService;
 
-	@Autowired
-	private ReportService reportService;
+
 	
 	
 	public LoginUser(User user) {
@@ -59,6 +58,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
         	System.out.println("Node server is Dead ..");
         }
         
+
         try {
         OwnCoupon oc = new OwnCoupon();
 		Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
@@ -131,17 +131,9 @@ public class LoginUser  implements UserDetails , OAuth2User{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		try {
-			System.out.println(getUsername());
-			int reportedNo= reportService.getReportedNo(getUsername());
-			System.out.println(reportedNo);
-			if(reportedNo>=3) {
-				return false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return true;
+		// 계정 잠김 로직 잠김상태면 false
+		return user.isAccountNonLocked();
+//		return true;
 	}
 
 	@Override

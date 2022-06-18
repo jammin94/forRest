@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.user.UserDAO;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.report.ReportService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,9 @@ public class PrincipalDetailsService implements UserDetailsService {
 
 	@Autowired
 	private final UserDAO userDAO;
+	
+	@Autowired
+	private ReportService reportService;
 	
     SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:sss");
     Date time = new Date();
@@ -39,10 +43,9 @@ public class PrincipalDetailsService implements UserDetailsService {
 		
 		//로그인에 관한 로직 작성
 		//return null; //return type 확인 할 것
-		
 			try {
 				User user = userDAO.getUser(userId);
-				System.out.println(user);
+
 				return new LoginUser(user);
 			} catch (Exception e) {
 				return null;

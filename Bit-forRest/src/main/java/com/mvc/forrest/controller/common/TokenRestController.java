@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.firebase.FCMService;
+import com.mvc.forrest.service.report.ReportService;
 
 
 
@@ -27,7 +28,9 @@ public class TokenRestController {
 	
 	@Autowired
 	private FCMService fcmService;
-
+	
+	@Autowired
+	private ReportService reportService;
 	
 	
 	@PostMapping("saveToken")
@@ -43,6 +46,8 @@ public class TokenRestController {
 //			while (iter.hasNext()) {
 //			    GrantedAuthority auth = iter.next();
 //			    System.out.println(auth.getAuthority());
+			int reportedNo= reportService.getReportedNo("user02@naver.com");
+			System.out.println(reportedNo);
 //			}
 			System.out.println(token);
 			loginUser.getUser().setPushToken(token);
