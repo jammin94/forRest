@@ -26,6 +26,7 @@
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
 		<result property="recentImg" 				column="recentImg" 				jdbcType="VARCHAR"  />
 		<result property="wishlistNo" 			column="wishlistNo" 				jdbcType="INTEGER" />
+		<result property="regDate" 			column= "regDate" 				jdbcType="TIMESTAMP" />
 		<association property="userProd" javaType="User">
 			<id property="userId" column="userId"  jdbcType="VARCHAR"/>
 			<result property="userImg" column="userImg"  jdbcType="VARCHAR"/>
@@ -38,9 +39,9 @@
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
 	 	INTO product(prodNo, width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
-	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, category, divyAddress, prodImg, recentImg)
+	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, category, divyAddress, prodImg, recentImg, regDate)
 	 	values (#{prodNo}, #{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
-	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg})
+	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg}, CURRENT_TIMESTAMP())
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
@@ -117,11 +118,11 @@
 			order by rentalPrice DESC
 			</if>
 			
-			<if test='orderCondition == "prodNoASC"'>
-			order by prodNo ASC
+			<if test='orderCondition == "regDateASC"'>
+			order by regDate ASC
 			</if>			
-			<if test='orderCondition == "prodNoDESC"'>
-			order by prodNo DESC
+			<if test='orderCondition == "regDateDESC"'>
+			order by regDate DESC
 			</if>
 			
 			<if test='orderCondition == "rentalCountingASC"'>
@@ -168,11 +169,11 @@
 			order by rentalPrice DESC
 			</if>
 			
-			<if test='search.orderCondition == "prodNoASC"'>
-			order by prodNo ASC
+			<if test='search.orderCondition == "regDateASC"'>
+			order by regDate ASC
 			</if>			
-			<if test='search.orderCondition == "prodNoDESC"'>
-			order by prodNo DESC
+			<if test='search.orderCondition == "regDateDESC"'>
+			order by regDate DESC
 			</if>
 			
 			<if test='orderCondition == "rentalCountingASC"'>
