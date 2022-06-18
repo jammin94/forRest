@@ -244,10 +244,10 @@ INSERT INTO user
 VALUES ('user01@naver.com','user01','user01Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user01Name','user01Addr','user',CURDATE(),'own','user01Img.jpg',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
-VALUES ('user02@naver.com','user02','user02Phone','2222','user02Name','user02Addr','user',CURDATE(),'own','user02Img',CURDATE(),NULL,NULL,NULL);
+VALUES ('user02@naver.com','user02','user02Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user02Name','user02Addr','user',CURDATE(),'own','user02Img',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
-VALUES ('user03@naver.com','user03','user03Phone','3333','user03Name','user03Addr','user',CURDATE(),'own','user03Img',CURDATE(),NULL,NULL,NULL);
+VALUES ('user03@naver.com','user03','user03Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user03Name','user03Addr','user',CURDATE(),'own','user03Img',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
 VALUES ('user04@naver.com','user04','user04Phone','4444','user04Name','user04Addr','user',CURDATE(),'own','user04Img',CURDATE(),NULL,NULL,NULL);
@@ -452,6 +452,10 @@ VALUES ('user02@naver.com',2,'2022-06-01','2022-06-30');
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
 VALUES(NULL, 'admin' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
+INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
+VALUES(NULL, 'user01@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
+INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
+VALUES(NULL, 'user03@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
 VALUES(NULL, 'admin' , 'user03@naver.com', 3, null, '선정성',  '가격 안깎아줌', null, 0);
