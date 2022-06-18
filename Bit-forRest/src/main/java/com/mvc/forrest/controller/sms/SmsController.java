@@ -27,7 +27,7 @@ public class SmsController {
 		smsService.makeMassage(signature, timestamp, phone);
 		System.out.println("sendSMS END");
 		
-		return "user/addUser";
+		return "redirect:/";
 	}
 	
 }

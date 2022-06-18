@@ -24,11 +24,9 @@ public class SmsService{
 		String space = " ";					
 		String newLine = "\n";					
 		String method = "GET";					
-		String url = "https://sens.apigw.ntruss.com/sms/v2/"
-				+ "services/ncp:sms:kr:285705455384:forrest\r\n"
-				+ "/messages";
-		String accessKey = "L5CjqUAH9JbC4lkHKeEx";
-		String secretKey = "vzZDYJ0qxHV69VqVPXekeDVUkp4L1raqizvaKq7H";
+		String url = "/sms/v2/services/ncp:sms:kr:285705455384:forrest/messages";
+		String accessKey = "085PuDipEFvtOTVMVArr";
+		String secretKey = "vUJHxXeEopCIB6s0t3OBDv7IynbShlcCklTjWtq3";
 
 		String message = new StringBuilder()
 			.append(method)
@@ -73,16 +71,15 @@ public class SmsService{
 		String body = bodyJson.toString();
 		
 		URL url = new URL(reqURL);
-		System.out.println("  url : "+url);
 		
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
-		conn.setRequestProperty("Content-Type", "application/json");
-		conn.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
-		conn.setRequestProperty("x-ncp-iam-access-key", "L5CjqUAH9JbC4lkHKeEx");
-		conn.setRequestProperty("x-ncp-apigw-signature-v2", signature);
 		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+		conn.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
+		conn.setRequestProperty("x-ncp-iam-access-key", "085PuDipEFvtOTVMVArr");
+		conn.setRequestProperty("x-ncp-apigw-signature-v2", signature);
 		conn.setDoOutput(true);
 		
 		DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
