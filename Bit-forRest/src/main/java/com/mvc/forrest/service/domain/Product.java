@@ -22,7 +22,6 @@ public class Product {
 	private int rentalCounting;
 	private int rentalPrice;
 	private String account;
-	private int deposit ;
 	private String category;
 	private String divyAddress;
 	private String prodImg;
