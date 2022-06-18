@@ -327,6 +327,10 @@ public class ProductController {
 			search.setSearchKeyword(null);
 		}
 		
+		if(search.getOrderCondition()=="") {
+			search.setSearchKeyword(null);
+		}
+		
 		System.out.println("search2: "+ search);
 		
 		if(search.getCurrentPage()==0) {
@@ -348,14 +352,20 @@ public class ProductController {
 	@RequestMapping("listProductAfterLogin")
 	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
-
-		System.out.println(this.getClass());
+		
+		System.out.println("search: "+ search);
+		
+		//System.out.println(this.getClass());
 		
 		if(search.getSearchCategory()=="") {
 			search.setSearchCategory(null);
 		}
 		
 		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
+		
+		if(search.getOrderCondition()=="") {
 			search.setSearchKeyword(null);
 		}
 		
@@ -367,11 +377,15 @@ public class ProductController {
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = loginUser.getUser().getUserId();
 		
+		
 		List<Product> list = productService.getProductListHasUser(search, userId);
 		
 		System.out.println(list);
+		
+		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
+		
 
 		return "product/listProduct";
 	}
