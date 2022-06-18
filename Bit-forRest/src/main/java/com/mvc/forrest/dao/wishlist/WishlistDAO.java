@@ -23,6 +23,8 @@ public interface WishlistDAO {
 	
 	void deleteWishlist(int wishlistNo) throws Exception;
 	
+	void updateWishList(Wishlist wishlist) throws Exception;
+	
 	List<Wishlist> getWishlist(Map<String,Object> map) throws Exception;
 	
 	int getTotalCount(Search search) throws Exception;	

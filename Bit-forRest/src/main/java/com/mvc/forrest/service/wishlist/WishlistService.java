@@ -35,6 +35,11 @@ public class WishlistService {
 			wishlistDAO.deleteWishlist(wishListNo);
 		}
 		
+		//장바구니 업데이트
+		public void updateWishList(Wishlist wishlist) throws Exception{
+			System.out.println("updateWishList실행 됨");
+			wishlistDAO.updateWishList(wishlist);
+		}
 		
 		
 		//장바구니 리스트
@@ -74,12 +79,10 @@ public class WishlistService {
 		}
 		
 		public int getWishlistTotalSum(String userId) throws Exception{
-			
-			
 			int totalPrice = wishlistDAO.getWishlistTotalSum(userId);
-					
 			return totalPrice;
-			
 		}
+		
+		
 	
 }
