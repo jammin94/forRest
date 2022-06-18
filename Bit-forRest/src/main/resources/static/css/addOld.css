@@ -81,9 +81,10 @@ body
 }
 .form-outer form .page .field.temp textarea{
     width: 100%;
-    height: 200px;
+    height: 400px;
     border: 1px solid lightgray;
     resize: none;
+    margin-bottom: 100rem;
 }
 
 
@@ -97,7 +98,7 @@ form .page .field select
 }
 .form-outer form .page .field button
 {
-    height: calc(100%+5px);
+    height: calc(100%+5px) !important;
     width: 100%;
     margin-top: -20px;
     border: none;
@@ -216,3 +217,118 @@ form .page .btns button .next{
     max-width: 1200px;
     margin: auto;
 }
+
+/* textarea { */
+/* 	width: 100%; */
+/* 	height: 50rem; */
+/* 	resize: none; */
+/* } */
+
+/*/////////////////////////////////////////////////////////// 이미지 image ////////////////////////////////////////// */
+/*/////////////////////////////////////////////////////////// 이미지 image ////////////////////////////////////////// */
+/*/////////////////////////////////////////////////////////// 이미지 image ////////////////////////////////////////// */
+
+.img-preview-big {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.img-preview-big img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.img-preview-operate {
+  height: 60px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+}
+
+.img-preview-small {
+  display: inline-block;
+  margin-right: 5px;
+  height: 50px;
+  width: 50px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-preview-small img {
+  height: calc(100% - 4px);
+  width: calc(100% - 4px);
+  object-fit: cover;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.img-preview-operate button {
+  padding: 0px;
+  margin: 0px;
+  background: transparent;
+  border: none;
+  height: 50px;
+  width: 50px;
+}
+
+.img-preview-operate button img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.img-preview-operate::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+.img-preview-operate::-webkit-scrollbar {
+  height: 6px;
+  background-color: #F5F5F5;
+}
+
+.img-preview-operate::-webkit-scrollbar-thumb {
+  background-color: #2F4356;
+}
+
+.img-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.img-delete img {
+  height: 50px;
+  width: 50px;
+}
+
+.img-small-active {
+  outline: 2px solid;
+}
+
+.img-small-selected {
+  outline: 2px solid;
+}
+
+.img-preview-big{
+	max-width: 250px !important;
+}
+
+
+.img-upload-plugin{
+  max-width: 250px;
+}
+
