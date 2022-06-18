@@ -22,25 +22,8 @@
 		display: flex !important;
    		 justify-content: center;
 	}
-	/*
-	.filebox input[type="file"] {   파일 필드 숨기기 
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip:rect(0,0,0,0);
-  border: 0;
-}
-*/
+	
 
-.input-file-button{
-  padding: 6px 25px;
-  border-radius: 4px;
-  cursor: pointer;
-  width:98px;
-}
 
 </style>
 <body>
@@ -109,7 +92,7 @@
 		   
 		    
 		    <div class="col-md-6 text-right rowBelow">
-			    <form class="form-inline" name="detailForm">
+			    <form class="form-inline" name="detailForm" >
 			    
 	 <input type="hidden" class="prodCondition" name="searchProductCondition" th:value=${search.searchProductCondition}  />
 	 <input type="hidden" id="currentPage" name="currentPage" value="1"/>
@@ -195,19 +178,13 @@
 			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='입고중' ">보관하기</button>
 			<button type="button" class="prodCondition-button"  th:if="${storage.storageProd.prodCondition}=='출고승인신청중' ">출고승인</button>
 			</td>	  
-	
+			
 			
 			<td align="left">	
-			<label class="input-file-button" for="input-file">
-  				file
-		</label>
-				<input type="file" id="input-file"  class="filebox" name="uploadFile" style="display:none"/>
-				<button>업로드</button>
+				<input type="hidden"  class="prodNum" name="prodNo" th:value="${storage.prodNo}" />
+				<button   type="button" class="uploadImg-btn"  >upload</button>
 			</td>
-			
-		
 	    </tr>
-	    
 	        </tbody>
       </table>
 		</form>
@@ -316,6 +293,25 @@
 
 		   self.location = "/product/updateProductCondition?prodNo="+prodNum;
 		}); 
+	   
+
+	   //보관현황 업데이트를 위한 팝업창
+	   $(".uploadImg-btn").on("click",function(){
+		   
+		  	 var prodNum = $(this).parent().find('.prodNum').val();
+			alert("prodNum:"+prodNum);
+			
+	        var url = "/product/updateRecentImg?prodNo="+prodNum;
+	        var name = "popup test";
+	        var option = "width = 400, height = 500, left = 400, location = yes"
+	        window.open(url, name, option);
+		
+			
+		});
+		
+
+	
+	  
 	  
 	  
 	</script>
