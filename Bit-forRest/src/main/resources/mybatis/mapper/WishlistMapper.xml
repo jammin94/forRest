@@ -10,6 +10,7 @@
 	<resultMap id="wishlistSelectMap" type="wishlist">
 		<result property="wishlistNo" 				column="wishlistNo" 				jdbcType="INTEGER"/>
 		<result property="wishedUserId" 			column="wishedUserId" 			jdbcType="VARCHAR" />
+		<result property="toggle" 			column="toggle" 			jdbcType="TINYINT" />
 		<result property="period" 			column="period" 		jdbcType="INTEGER" />
 		<association property="product" 	javaType="Product">
         	<id property="prodNo" 	column="prodNo"/>
@@ -62,7 +63,16 @@
 		WHERE wishedUserId = #{wishedUserId} and prodNo = #{product.prodNo}
 	 </delete>
 	 
-	 
+	 <!-- 장바구니 체크된것만 업데이트 되도록 -->
+	 <update id="updateWishList" parameterType="wishlist">
+	 	   	update wishlist
+	   	<set>
+	   		toggle =#{toggle}, 
+	   		period =#{period}
+	   	</set>
+	   	where wishlistNo = #{wishlistNo}
+	 </update>
+
 	 
 	 <!--DELETE 장바구니 삭제 -->
 	 <delete	id="deleteWishlist"	parameterType="int" >
