@@ -3,6 +3,7 @@ package com.mvc.forrest.service.firebase;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import com.mvc.forrest.dao.firebase.FCMTokenDAO;
 import com.mvc.forrest.service.domain.User;
 
@@ -23,16 +24,16 @@ public class FCMService implements MessageService {
     public void sendMessage(String email) throws InterruptedException, ExecutionException {
 
     	String token = getToken(email);
+    	Notification notification = Notification.builder().setTitle("title").setBody("body").setImage("Image").build();
+    	
         Message message = Message.builder()
             .putData("title", "푸시메세지 테스트")
             .putData("content", "푸시메세지의 내용을 마음대로 설정 할 수 있습니다.")
             .setToken(token)
-//            .setToken("cXrBD44dQGjAApdc_V7mDt:APA91bF7V9kgcLSaA_8CLCILbmfq5fOTB73EWA1mUW4viSzZp78BbQ9DoPgIuu20qZ7ZxEJa2NdlnbNGpReNX6QSRh45Pv_ttzWHTiZ5gETvFkNqsIM10Mjt4WA45MhebJn0dezyjgrl")
+            .setNotification(notification)
             .build();
         
-//        System.out.println(message);
-//        String response = FirebaseMessaging.getInstance().sendAsync(message).get();
-//        System.out.println("Sent message: " + response);        
+        
         send(message);
     }
 	

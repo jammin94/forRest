@@ -1,10 +1,14 @@
 package com.mvc.forrest.controller.common;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +36,14 @@ public class TokenRestController {
 		if(isAuthenticated()) {
 			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId= loginUser.getUser().getUserId();
+//			SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//			System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+//			Collection<? extends GrantedAuthority> authorities =SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//			Iterator<? extends GrantedAuthority> iter = authorities.iterator();
+//			while (iter.hasNext()) {
+//			    GrantedAuthority auth = iter.next();
+//			    System.out.println(auth.getAuthority());
+//			}
 			System.out.println(token);
 			loginUser.getUser().setPushToken(token);
 			fcmService.saveToken(loginUser.getUser());

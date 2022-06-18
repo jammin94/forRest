@@ -17,6 +17,7 @@ import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.report.ReportService;
 
 import lombok.Data;
 
@@ -36,6 +37,8 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	@Autowired
 	private CouponService couponService;
 
+	@Autowired
+	private ReportService reportService;
 	
 	
 	public LoginUser(User user) {
@@ -128,7 +131,16 @@ public class LoginUser  implements UserDetails , OAuth2User{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// 계정 잠김 판단 로직 잠김이면 false 리턴
+		try {
+			System.out.println(getUsername());
+			int reportedNo= reportService.getReportedNo(getUsername());
+			System.out.println(reportedNo);
+			if(reportedNo>=3) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

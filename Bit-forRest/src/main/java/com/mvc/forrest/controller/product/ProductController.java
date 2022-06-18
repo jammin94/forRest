@@ -65,21 +65,32 @@ public class ProductController {
 	@Value("10")
 	int pageSize;
 	
-	
+	@GetMapping("updateRecentImg")
+	public String updateRecentImgGet(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
+			
+		model.addAttribute("prodNo", prodNo);
+		
+		return "product/updateRecentImg";
+	}
+
 	
 	//어드민만 접근가능
 	@PostMapping("updateRecentImg")
-	public String updateRecentImg(@RequestParam("uploadFile") MultipartFile file, @RequestParam("prodNo") String prodNo) throws Exception {
+	public String updateRecentImgPost(@RequestParam("fileName") MultipartFile fileName, @ModelAttribute("product") Product product) throws Exception {
 			
+		System.out.println("product: "+product);
+		System.out.println("uploadFile:"+fileName.getOriginalFilename());
+	
 		String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
-		String convertFileName = FileNameUtils.fileNameConvert(file.getOriginalFilename());
+		String convertFileName = FileNameUtils.fileNameConvert(fileName.getOriginalFilename());
 		
-		Product product = new Product();
-		product.setProdNo(prodNo);
 		
-		if(!file.getOriginalFilename().isEmpty()) {
+		product.setProdNo(product.getProdNo());
+		product.setRecentImg(convertFileName);
+		
+		if(!fileName.getOriginalFilename().isEmpty()) {
 			
-			file.transferTo(new File(temDir, convertFileName));
+			fileName.transferTo(new File(temDir, convertFileName));
 			System.out.println("파일명 :: "+convertFileName);
 			
 			product.setRecentImg(convertFileName);			
@@ -87,7 +98,7 @@ public class ProductController {
 			System.out.println("파일업로드 실패...?");
 		}
 		
-		productService.updateProduct(product);
+		productService.updateRecentImg(product);
 		
 		return null;
 	}
@@ -316,6 +327,10 @@ public class ProductController {
 			search.setSearchKeyword(null);
 		}
 		
+		if(search.getOrderCondition()=="") {
+			search.setSearchKeyword(null);
+		}
+		
 		System.out.println("search2: "+ search);
 		
 		if(search.getCurrentPage()==0) {
@@ -337,14 +352,20 @@ public class ProductController {
 	@RequestMapping("listProductAfterLogin")
 	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
-
-		System.out.println(this.getClass());
+		
+		System.out.println("search: "+ search);
+		
+		//System.out.println(this.getClass());
 		
 		if(search.getSearchCategory()=="") {
 			search.setSearchCategory(null);
 		}
 		
 		if(search.getSearchKeyword()=="") {
+			search.setSearchKeyword(null);
+		}
+		
+		if(search.getOrderCondition()=="") {
 			search.setSearchKeyword(null);
 		}
 		
@@ -356,11 +377,15 @@ public class ProductController {
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = loginUser.getUser().getUserId();
 		
+		
 		List<Product> list = productService.getProductListHasUser(search, userId);
 		
 		System.out.println(list);
+		
+		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
+		
 
 		return "product/listProduct";
 	}

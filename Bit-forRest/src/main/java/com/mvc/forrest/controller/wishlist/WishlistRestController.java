@@ -58,6 +58,23 @@ public class WishlistRestController {
 		return false;
 	}
 	
+	@PostMapping("updateWishlist")
+	public boolean updateWishlist(@RequestParam(value="period") int period,@RequestParam(value="toggle") int toggle,@RequestParam(value="wishlistNo") int wishlistNo) throws Exception {
+		
+		System.out.println("갓잇");
+		
+		Wishlist wishlist = new Wishlist();
+		wishlist.setPeriod(period);
+		wishlist.setToggle(0);
+		wishlist.setWishlistNo(toggle);
+			
+		wishlistService.updateWishList(wishlist);
+		
+		return true;
+	}
+	
+	
+	
 	@GetMapping("addWishlistOnDetail")
 	public boolean addWishlistOnDetail(@RequestParam String prodNo, @RequestParam int period) throws Exception {
 		
