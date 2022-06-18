@@ -530,7 +530,6 @@
   }
 }
 </style></head><body>
-<div th:replace="/main/toolbar.html"></div>
 
 <div id="frame">
 	<div id="sidepanel">
@@ -604,6 +603,7 @@ const socket = io.connect('http://192.168.0.42:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
+
 //누가 채팅치면 업데이트
 socket.on('updateRoom',function(data){
 	const chatRoomNo=data.chatRoomNo;
@@ -665,7 +665,8 @@ $("li.contact").dblclick(function() {
   		$(this).find(".unreadcount").remove();
 	}
   
-  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+  window.open('http://192.168.0.42:3001/oldChat/'+
+		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
 });
 
 /*
@@ -686,8 +687,8 @@ observer.observe(document.getElementById('ul'), { childList: true });
 //만약 중고거래 채팅하기 버튼으로 들어왔을 시에는 바로 새창으로 채팅창도 열어주기
 $(document).ready(function(){
 	if('{{immediate}}'!==''){
-		//console.log('중고물품 상세조회에서 중고거래 채팅하기로 들어옴');
-		//바로 채팅창 띄워주
+
+		//바로 채팅창 띄워주기
 		window.open('http://192.168.0.42:3001/oldChat/'
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','popup test',
 		'width=500');

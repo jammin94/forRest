@@ -32,7 +32,7 @@ firebase.initializeApp(config);
     const notificationTitle = 'Background Message Title';
     const notificationOptions = {
       body: 'forrest에서 새로운 알림이 도착했습니다',
-      icon: '/images/header/bearlogo.png'
+      icon: '/images/content/Logo.png'
     };
   
     self.registration.showNotification(notificationTitle,

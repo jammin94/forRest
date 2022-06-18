@@ -65,21 +65,32 @@ public class ProductController {
 	@Value("10")
 	int pageSize;
 	
-	
+	@GetMapping("updateRecentImg")
+	public String updateRecentImgGet(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
+			
+		model.addAttribute("prodNo", prodNo);
+		
+		return "product/updateRecentImg";
+	}
+
 	
 	//어드민만 접근가능
 	@PostMapping("updateRecentImg")
-	public String updateRecentImg(@RequestParam("uploadFile") MultipartFile file, @RequestParam("prodNo") String prodNo) throws Exception {
+	public String updateRecentImgPost(@RequestParam("fileName") MultipartFile fileName, @ModelAttribute("product") Product product) throws Exception {
 			
+		System.out.println("product: "+product);
+		System.out.println("uploadFile:"+fileName.getOriginalFilename());
+	
 		String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
-		String convertFileName = FileNameUtils.fileNameConvert(file.getOriginalFilename());
+		String convertFileName = FileNameUtils.fileNameConvert(fileName.getOriginalFilename());
 		
-		Product product = new Product();
-		product.setProdNo(prodNo);
 		
-		if(!file.getOriginalFilename().isEmpty()) {
+		product.setProdNo(product.getProdNo());
+		product.setRecentImg(convertFileName);
+		
+		if(!fileName.getOriginalFilename().isEmpty()) {
 			
-			file.transferTo(new File(temDir, convertFileName));
+			fileName.transferTo(new File(temDir, convertFileName));
 			System.out.println("파일명 :: "+convertFileName);
 			
 			product.setRecentImg(convertFileName);			
@@ -87,7 +98,7 @@ public class ProductController {
 			System.out.println("파일업로드 실패...?");
 		}
 		
-		productService.updateProduct(product);
+		productService.updateRecentImg(product);
 		
 		return null;
 	}

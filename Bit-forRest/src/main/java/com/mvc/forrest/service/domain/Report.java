@@ -9,12 +9,12 @@ public class Report {
 	
 	private int reportNo;
 	private String reportUser;
-	private String reportedUser;
-	private String reportOldNo;
-	private int reportChatroomNo;
+	private String reportedUser;//
+	private String reportOldNo;//
+	private int reportChatroomNo;//
 	private String reportCategory;
 	private Date reportDate;
-	private String reportChat;
+	private String reportChat;//
 	private int reportCode;
 	
 }

@@ -21,7 +21,6 @@
 		<result property="rentalCounting" 				column="rentalCounting" 				jdbcType="INTEGER"  />
 		<result property="rentalPrice" 				column="rentalPrice" 				jdbcType="INTEGER"  />
 		<result property="account" 				column="ACCOUNT" 				jdbcType="VARCHAR"  />
-		<result property="deposit" 				column="deposit" 				jdbcType="INTEGER"  />
 		<result property="category" 				column="category" 				jdbcType="VARCHAR"  />
 		<result property="divyAddress" 				column="divyAddress" 				jdbcType="VARCHAR"  />
 		<result property="prodImg" 				column="prodImg" 				jdbcType="VARCHAR"  />
@@ -39,9 +38,9 @@
 	<insert 	id="addProduct"		parameterType="product" >
 		INSERT 
 	 	INTO product(prodNo, width, LENGTH, height, userId, prodQuantity, prodName, prodDetail,
-	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, deposit, category, divyAddress, prodImg, recentImg)
+	 						 isRental, rentalCounting, rentalPrice, ACCOUNT, category, divyAddress, prodImg, recentImg)
 	 	values (#{prodNo}, #{width}, #{length}, #{height}, #{userId}, #{prodQuantity}, #{prodName}, #{prodDetail},
-	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{deposit}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg})
+	 	 			#{isRental},#{rentalCounting},#{rentalPrice}, #{account}, #{category}, #{divyAddress}, #{prodImg}, #{recentImg})
 	 </insert>
 	  
 	 <!-- SQL : SELECT ONE -->
@@ -62,7 +61,6 @@
 	   		divyAddress =#{divyAddress},  
 	   		isRental =#{isRental}, 
 	   		rentalPrice =#{rentalPrice}, 
-	   		deposit =#{deposit},  
 	   		ACCOUNT =#{account} 
 	   	</set>
 	   	where prodNo = #{prodNo}
@@ -73,6 +71,15 @@
 	   	update product
 	   	<set>
 	   		prodCondition = #{prodCondition}
+	   	</set>
+	   	where prodNo = #{prodNo}
+	 </update>
+	 
+	   <!-- SQL : UPDATE -->
+	 <update	id="updateRecentImg"	parameterType="product" >
+	   	update product
+	   	<set>
+	   		recentImg = #{recentImg}
 	   	</set>
 	   	where prodNo = #{prodNo}
 	 </update>
