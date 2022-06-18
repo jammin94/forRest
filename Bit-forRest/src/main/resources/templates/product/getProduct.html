@@ -328,9 +328,8 @@ ul > li{
           <li>카테고리 <span th:text = ${product.category}></span></li>
           <li>크기 <span >[[${product.width}]] x [[${product.length}]] x [[${product.height}]] </span></li>
           <li>렌탈비용(1박2일) <span th:text = "|${product.rentalPrice}원|"></span></li>
-          <li>보증금 <span th:text = "|${product.deposit}원|"></span></li>
           <li>수량 <span th:text = "|${product.prodQuantity}개|"></span></li>
-          <li>대여횟수 <span></span></li>
+          <li>대여횟수 <span  th:text = "|${product.rentalCounting}회|"></span></li>
           <li>대여일 <span>
            <select class="selectBox" name="selection">
                         <option value=2>1박2일</option>
@@ -343,7 +342,7 @@ ul > li{
 			<li th:if = "${product.userId} == ${sessionUser.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
 			<li th:if = "${product.userId} == ${sessionUser.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
        
-         <li>결제금액 <span  th:text = "|${product.rentalCounting}회|"></span></li>
+         <li>결제금액 <span></span></li>
         </ul>
       </div>
       
