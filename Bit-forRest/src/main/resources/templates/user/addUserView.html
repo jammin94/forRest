@@ -175,7 +175,9 @@
 	  <br>>
       <label for="phone">Phone</label>
       <input id="phone" type="text" name="phone" placeholder="전화번호입력">
+      <button id="sendSMS">인증번호 발송</button>
 	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
+	  <button id="checkSMS">인증번호 확인</button>
 
 	  <br><br>
       <label for="userAddr">Address</label>
@@ -270,6 +272,12 @@
 			
 			$("#userImgFile").on("change", function(){
 				preView(this);
+			});
+
+			$("#sendSMS").on("click",function(){
+				alert("sendSMS Click");
+				$("form").attr("method" , "POST").attr("action" , "/sms/sendSMS").submit();
+
 			});
 		});
 		
