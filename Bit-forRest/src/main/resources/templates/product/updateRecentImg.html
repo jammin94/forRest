@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/addRentalReview.css">
+ 
+</head>
+
+<style>
+
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+</style>
+
+
+<body>
+
+<!-- 툴바 include -->
+
+
+   <div class="Rentalcontainer">
+<p>
+  보관현황사진 업데이트
+</p>
+<form id="recentImg-form" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
+  
+ 
+
+<div class="main-wrapper">
+  <div class="img-upload-plugin">
+                    <div class="img-upload-handler">
+                      <div class="img-preview-big img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">                     
+                      </div>
+                         <div class="img-delete">
+                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+                        </div>
+                    </div>
+                    <div class="img-preview-operate" style="display:none;">
+                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
+                      <button type="button" class="img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+                      </button>
+                    </div>
+                    <input type="file" name="fileName" style="display:none">
+                    <input type="hidden" name="prodNo" th:value="${prodNo}">
+                  </div>
+</div>
+
+  <button type="button" class="regBtn">등록하기 </button>
+  </form>
+<div id="review-container">
+</div>
+</div>
+</body>
+	<script src="/js/jquery_min.js"></script>
+	<script src="/js/addRentalReview.js"></script>
+	  <script>
+	  	$(function(){
+	  		$('.regBtn').on('click', function(){
+	  			/*
+	  			var imgSrc = $('.img-upload-handler .img-add-more > img').attr('src');
+	  			
+	 			console.log(imgSrc);
+	  			
+	  			$('.reviewImg').val(imgSrc);	  			
+	  			
+	  			console.log($('.reviewImg').val());
+	  			*/
+	  			
+		$("#recentImg-form").attr("method" , "POST").attr("action" , "/product/updateRecentImg").submit();
+	  			
+	  		})
+	  		  
+	  	})
+	  </script>
+	  
+</html>

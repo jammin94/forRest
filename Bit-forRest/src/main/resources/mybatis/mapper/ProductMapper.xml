@@ -74,6 +74,15 @@
 	   	</set>
 	   	where prodNo = #{prodNo}
 	 </update>
+	 
+	   <!-- SQL : UPDATE -->
+	 <update	id="updateRecentImg"	parameterType="product" >
+	   	update product
+	   	<set>
+	   		recentImg = #{recentImg}
+	   	</set>
+	   	where prodNo = #{prodNo}
+	 </update>
 		 
 	<!-- SQL : SELECT LIST -->
 	<!-- 대여가능여부가 true이면서 물품상태가 보관중인 물품들의 리스트 -->
