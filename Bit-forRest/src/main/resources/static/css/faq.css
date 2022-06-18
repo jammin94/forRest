@@ -3365,15 +3365,18 @@
 	 background-color: var(--color-contrast-lower);
 }
  .cd-header {
-	 --header-height: 180px;
+ 	background:url("/images/content/faq.png") no-repeat center/cover;
+ 	top:70px;
+ 	position: relative;
+	 --header-height: 24px;
 	 height: 180px;
 	 height: var(--header-height);
 	 background-color: #aac157;
-	 background-color: var(--cd-color-2);
+	 background-color: transparent;
 }
  @media (min-width: 80rem) {
 	 .cd-header {
-		 height: 240px;
+		 height: 340px;
 		 height: var(--header-height);
 	}
 }
@@ -3388,7 +3391,7 @@
 }
  @media (min-width: 80rem) {
 	 .cd-header {
-		 --header-height: 240px;
+		 --header-height: 340px;
 	}
 }
  .cd-article-link {
