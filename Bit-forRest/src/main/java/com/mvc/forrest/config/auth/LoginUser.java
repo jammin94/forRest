@@ -17,6 +17,7 @@ import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.report.ReportService;
 
 import lombok.Data;
 
@@ -35,6 +36,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	
 	@Autowired
 	private CouponService couponService;
+
 
 	
 	
@@ -56,6 +58,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
         	System.out.println("Node server is Dead ..");
         }
         
+
         try {
         OwnCoupon oc = new OwnCoupon();
 		Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
@@ -128,8 +131,9 @@ public class LoginUser  implements UserDetails , OAuth2User{
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// 계정 잠김 판단 로직 잠김이면 false 리턴
-		return true;
+		// 계정 잠김 로직 잠김상태면 false
+		return user.isAccountNonLocked();
+//		return true;
 	}
 
 	@Override

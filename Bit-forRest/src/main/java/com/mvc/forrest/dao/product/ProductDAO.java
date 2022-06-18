@@ -22,6 +22,8 @@ public interface ProductDAO {
 		
 		void updateProductCondition(Product product) throws Exception;
 		
+		void updateRecentImg(Product product) throws Exception;
+		
 		List<Product> getProductList(Search search) throws Exception;
 		
 		List<Product> getProductListForIndex() throws Exception;

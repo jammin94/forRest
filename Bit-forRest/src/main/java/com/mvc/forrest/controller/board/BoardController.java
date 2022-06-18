@@ -195,7 +195,36 @@ public class BoardController {
 	@RequestMapping("listFAQ")
 	public String getlistFAQ(@ModelAttribute("search") Search search, Model model) throws Exception {	
 		System.out.println("Controller GET: getlistFAQ ");
+		
+		Board board= new Board();
+		board.setBoardFlag("F");
+		
+		int pageSize=10; //n장씩
+		int pageUnit=5;
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize); 
+		
+		int newStartRowNum=(search.getCurrentPage()-1)*pageSize;
+		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
+		//그래서 직접넣자 걍
+		
+		System.out.println("newStartRowNum : "+newStartRowNum);
+		System.out.println("search : "+search);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		map.put("search", search);
+		map.put("newStartRowNum", newStartRowNum);
+		
+		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(map), pageUnit, pageSize);
+		System.out.println(resultPage);
 
+		model.addAttribute("list", boardService.getListBoard(map));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
 
 
 		return "board/faq";

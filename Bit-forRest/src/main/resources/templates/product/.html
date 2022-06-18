@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/addRentalReview.css">
+ 
+</head>
+
+<style>
+
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+</style>
+
+
+<body>
+
+<!-- 툴바 include -->
+	<div th:replace="/main/toolbar.html"></div> 
+
+   <div class="Rentalcontainer">
+<p>
+  리뷰쓰기
+</p>
+<form id="review-form" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
+  <div id="rating">
+ 
+
+<div class="main-wrapper">
+  <div class="img-upload-plugin">
+                    <div class="img-upload-handler">
+                      <div class="img-preview-big img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">                     
+                      </div>
+                         <div class="img-delete">
+                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+                        </div>
+                    </div>
+                    <div class="img-preview-operate" style="display:none;">
+                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
+                      <button type="button" class="img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+                      </button>
+                    </div>
+                    <input type="file" name="fileName" style="display:none">
+                  </div>
+</div>
+
+  </div>
+  <span id="starsInfo" class="help-block">
+    상품에 대한 별점을 남겨주세요 !
+  </span>
+    <div class="star-rating">
+  <input type="radio" id="5-stars" name="reviewScore" value="5" />
+  <label for="5-stars" class="star">&#9733;</label>
+  <input type="radio" id="4-stars" name="reviewScore" value="4" />
+  <label for="4-stars" class="star">&#9733;</label>
+  <input type="radio" id="3-stars" name="reviewScore" value="3" />
+  <label for="3-stars" class="star">&#9733;</label>
+  <input type="radio" id="2-stars" name="reviewScore" value="2" />
+  <label for="2-stars" class="star color">&#9733;</label>
+  <input type="radio" id="1-star" name="reviewScore" value="1" />
+  <label for="1-star" class="star">&#9733;</label>
+</div>
+  <div class="form-group">
+   <!--  <label class="control-label" for="review">Your Review:</label> -->
+    <textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
+    <span id="reviewInfo" class="help-block pull-right">
+    
+    </span>
+  </div>
+  <button type="button" class="regBtn">등록하기 </button>
+  </form>
+<div id="review-container">
+</div>
+</div>
+</body>
+	<script src="/js/jquery_min.js"></script>
+	<script src="/js/addRentalReview.js"></script>
+	  <sciprt src="/js/rentalTest.js"></sciprt>
+	  <script>
+	  	$(function(){
+	  		$('.regBtn').on('click', function(){
+	  			/*
+	  			var imgSrc = $('.img-upload-handler .img-add-more > img').attr('src');
+	  			
+	 			console.log(imgSrc);
+	  			
+	  			$('.reviewImg').val(imgSrc);	  			
+	  			
+	  			console.log($('.reviewImg').val());
+	  			*/
+	  			
+		$("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
+	  			
+	  		})
+	  		  
+	  	})
+	  </script>
+	  
+</html>

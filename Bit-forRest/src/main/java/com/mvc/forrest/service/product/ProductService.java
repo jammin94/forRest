@@ -39,6 +39,11 @@ public class ProductService {
 		productDAO.updateProductCondition(product);	
 	}
 	
+	//관리자가 물품의 최근 보관사진을 업데이트
+	public void updateRecentImg(Product product) throws Exception{
+		productDAO.updateRecentImg(product);	
+	}
+	
 	//대여가능하면서 현재보관중인 물품들의 리스트
 	public Map<String, Object> getProductList(Search search) throws Exception{
 		List<Product> list= productDAO.getProductList(search);
@@ -55,6 +60,7 @@ public class ProductService {
 	
 	public List<Product> getProductListHasUser(Search search, String userId) throws Exception{
 		System.out.println("getProductListHasUser 성공");
+		System.out.println("search in service: "+search);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("search", search);
