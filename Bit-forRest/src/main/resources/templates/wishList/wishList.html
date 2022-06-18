@@ -17,7 +17,7 @@
     padding-top: 95px !important;
     width: calc(100% - 210px);
     float:none !important;
-
+    max-width: 1200px;
 }
 .leftDiv{
     display: flex;
@@ -60,6 +60,25 @@
 	display:flex;
 	justify-content:center;
 }
+
+.cb1{
+	text-align: center;
+    vertical-align: middle !important;
+    width: 90px;
+}
+
+td{
+	vertical-align:middle !important;
+}
+
+.orderBtn button{
+	border: none;
+    border-radius: 10px;
+}
+
+.orderBtn button:hover{
+	
+}
 </style>
 
 <body>
@@ -90,19 +109,20 @@
 		
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-	
+	<input type="hidden" id="wishTotalPrice" name="wishTotalPrice"/>
 
 	 			
 		 <!--  table Start /////////////////////////////////////-->
        <table class="table table-hover table-striped">
 	       <thead>
 	          <tr class="tableHeader">
-		            <th align="center">상품정보</th>
-		            <th></th>
-		            <th align="center">결제금액</th>
-		            <th></th>
+		            <th><input type="checkbox"  class="allCheckBtn"></th>
+		           <th align="center">상품정보</th>
+		                <th align="center">선택옵션</th>
+		             <th></th>
+		            <th align="center"></th>
 	                <th></th>
-	                <th></th>
+	                <th>결제금액</th>
 	                <th></th>
 	          </tr>
 	        </thead>
@@ -110,7 +130,12 @@
 	        <tbody> 
 	    
 	   
-	    <tr th:each="wishlist :${list}">	    		    
+	    <tr th:each="wishlist,index :${list}">	    
+    
+	   			<td class="cb1">
+	    	  		<input type="checkbox"  class="inputBox">
+	    	  </td>
+	    	  
 		     <td align="left">
 		    	<div class="productInfo">
 		    		<a href="/product/getProduct?prodNo=j">
@@ -126,20 +151,28 @@
 			    	</div>
 				</div>
 		    </td>
-		    <td></td>
-		    <td class="tdCenter wishPrice" th:text = "${wishlist.product.rentalPrice}"></td>
-		    <td></td>
+			 <td style="display:none" class="tdCenter wishPrice" th:text = "|${wishlist.product.rentalPrice}/|"></td>
+			  <td class="tdCenter" >
+					<select class="selectBox" name="selection"  th:data-eq="${index.count}">
+                        <option value="2">1박2일</option>
+                        <option value="3">2박3일</option>
+                        <option value="4">3박4일</option>
+                        <option value="5">4박5일</option>
+                        </select>
+		</td>
 		    <td></td>
 		     <td></td>
+		    <td></td>
+		     <td class="tdCenter rentalPrice" th:text = "|${wishlist.product.rentalPrice}|"></td>
+		    <td></td>
 		     <td></td>
 	    </tr>
 	    
 	    <tr>
-    	     <td align="left">
-		    	총 합계
+    	     <td>
 		    </td>
-		    <td></td>
-		    <td>[[${totalPrice}]]</td>
+		    <td align="center">총 합계</td>
+		    <td style="text-align:center; color:red;" class="totalPrice">0</td>
 		    <td></td>
 		    <td></td>
 		     <td></td>
@@ -151,7 +184,7 @@
       </table>
 		<!--  table End /////////////////////////////////////-->
 		 <span class="orderBtn" style="margin-bottom:30px;">
-			 <button style=" padding:10px;">
+			 <button type="button" style=" padding:10px;" class="addOrderBtn">
 			 주문하기
 			 </button>
 		 </span>
@@ -170,6 +203,140 @@
 <script>
 	$(function(){
 		
+		let sum=0;
+		let arraySum;
+		
+		  $( '.allCheckBtn' ).click( function() {
+			    $( '.inputBox' ).prop( 'checked', this.checked );
+			    
+				console.log($('.inputBox:checked').parent().parent().find('.wishPrice').text());
+				  
+				console.log($('.inputBox:checked').parent().parent().find('.wishPrice').text().split("/"));
+				var  arrayTemp = $('.inputBox:checked').parent().parent().find('.wishPrice').text().split("/");
+				
+				const arrStr =arrayTemp;
+				const nuevo = arrStr.map((i) => Number(i));
+				console.log(nuevo);
+				
+				
+				arraySum = nuevo.reduce(function(a, b){ return a + b; }, 0);
+				
+				console.log("체크총합"+arraySum);
+		
+				$(".totalPrice").text(arraySum);
+				sum=arraySum;
+			  });
+		  
+		  //$('.inputBox').parent().parent().find('.wishPrice').text();
+		  
+		  $('.inputBox').click(function(){
+			  
+			  if('.allCheckBtn:checked'){
+				  console.log("올체크버튼");
+					console.log(sum);
+			
+					  if(this.checked){
+						  
+						  console.log("체크갯수"+ $('input:checkbox:checked').length);
+						  console.log("체크한것의 가격" + $(this).parent().parent().find('.wishPrice').text());
+						  console.log("총합"+sum);
+						  sum+=parseInt($(this).parent().parent().find('.wishPrice').text());
+						  
+					  }else{
+						  sum = sum - parseInt($(this).parent().parent().find('.wishPrice').text());
+					  }
+				  
+			  }else{
+				  
+				  if(this.checked){
+					  
+					  console.log("체크갯수"+ $('input:checkbox:checked').length);
+					  console.log("체크한것의 가격" + $(this).parent().parent().find('.wishPrice').text());
+					  console.log("총합"+sum);
+					  sum+=parseInt($(this).parent().parent().find('.wishPrice').text());
+					  
+				  }else{
+					  sum = sum - parseInt($(this).parent().parent().find('.wishPrice').text());
+				  }
+			  }
+			  
+			  
+		
+			  $(".totalPrice").text(sum);
+			  
+		  })
+	
+		$('.addOrderBtn').click(function(){
+			console.log("클릭펑션");
+			
+			  $.ajax({
+			        url:"goUrl.do",
+			        type:'GET',
+			        data: allData,
+			 
+			 
+			//데이터 전송이 완료되면 출력되는 메시지
+			 
+			        success:function(data){
+			            alert("완료!");
+			            window.opener.location.reload();
+			            self.close();
+			        },
+			 
+			//에러가 발생되면 출력되는 메시지
+			 
+			        error:function(jqXHR, textStatus, errorThrown){
+			            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+			            self.close();
+			        }
+			    });
+			
+		})
+		
+		$(function(){
+
+			
+			//DB에 있는 결제금액 파싱해서 배열담음
+			$('.wishPrice').text().split("/");
+			//배열이 스트링이라 모두 정수변환
+			var  arrayTemp = $('.wishPrice').text().split("/");
+			const arrStr =arrayTemp;
+			const nuevo = arrStr.map((i) => Number(i));
+
+			console.log("갓잇"+nuevo);
+			
+			$('.selectBox').click(function(){
+				//선택한 셀렉트박스의 인덱스
+				var selectBoxIndex =$(this).attr('data-eq')-1
+				console.log($(this).attr('data-eq')-1);
+				//셀렉트박스의 인덱스로 결제금액 배열에 접근
+				console.log(nuevo[$(this).attr('data-eq')-1]);
+				
+				console.log("응?"+$(".wishPrice").text());
+				console.log("응2?"+$(".wishPrice").text().split("/"));
+				const arrStr1 =$(".wishPrice").text().split("/");
+				console.log(arrStr1);
+				const nuevo2 = arrStr1.map((i) => Number(i));
+				console.log(nuevo2[selectBoxIndex]*$(this).val()*0.5);
+				
+				//선택옵션에 따른 계산값
+				var optioinOutPut = nuevo2[selectBoxIndex]*$(this).val()*0.5
+				
+				
+				//선택한 셀렉트박스의 value (1박2일/2박3일 ~ 4박5일)
+				console.log($(this).val());
+				//위의 value*0.5* resultPrice ==> 셀렉트박스로 선택한 값에 따른 값변화
+				console.log("할인금액"+$(this).val()*0.5*nuevo[$(this).attr('data-eq')-1]);
+	
+				// eq를 사용하여 .rentalPrice의 eq로 셀렉트박스(인덱스)로 접근하여 text변경
+				$('.rentalPrice').eq(selectBoxIndex).text(optioinOutPut);
+				
+				console.log("다왔는데"+nuevo);
+				console.log(nuevo.split(","));
+
+			})
+		
+		})
 		
 	})
 </script>

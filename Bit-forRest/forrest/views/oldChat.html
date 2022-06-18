@@ -19,13 +19,15 @@
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 
 
-<style class="cp-pen-styles">body {
+<style class="cp-pen-styles">
+body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   /*background: #ffffff;*/
   /*background-image: url("/images/gif/9df0332215c378644d370e50ec110331.gif");*/
+  background: linear-gradient(to bottom, #E6EAEA, #243342);
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
   letter-spacing: 0.1px;
@@ -33,6 +35,9 @@
   text-rendering: optimizeLegibility;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
+  /*상대방이 부재중입니다. 접속중입니다. 때문에 추가함*/
+  flex-direction: column;
+  
 }
 
 #frame {
@@ -190,9 +195,19 @@
 }
 /*읽은 사람 숫자 설정*/
 #frame .content .messages ul li span{
-  font-size: 0.7em;
+  font-size: 0.8em;
   color:blueviolet;
+  font-weight:bold;
 }
+/*읽은 사람 숫자 설정*/
+#frame .content .messages ul li span.sent{
+  padding: 0 2px 0 0;
+}
+/*읽은 사람 숫자 설정*/
+#frame .content .messages ul li span.replies{
+  padding: 0 0 0 2px;
+}
+
 /*채팅 시각 설정*/
 #frame .content .messages ul li div{
   font-size: 0.7em;
@@ -268,8 +283,15 @@
 #frame .content .message-input .wrap button:focus {
   outline: none;
 }
+
 </style></head><body>
-<div th:replace="/main/toolbar.html"></div>
+
+<input type="hidden" name="isConnected" value=""/>
+
+<div class = "system" style="display:flex; ">
+	<p class="msg">상대방이 부재중입니다.</p>
+</div>
+
 
 <div id="frame">
 	<div class="content">
@@ -300,17 +322,17 @@
             <p>{{chatList.chatMessage}}</p>
             <br/>
           {% if chatList.sendUserId === user %} 
-            <span class="sent">
+            <span class="sent" name="readOrNot">
           {% else %}    
-            <span class="replies">
+            <span class="replies" name="readOrNot">
           {% endif %}
             {{chatList.readOrNot}}</span>
             <br/>
 
           {% if chatList.sendUserId === user %} 
-            <div class="sent">
+            <div class="sent" name="createdAt">
           {% else %}    
-            <div class="replies">
+            <div class="replies" name="createdAt">
           {% endif %}
           {{chatList.createdAt}}</div>
             </li>
@@ -344,10 +366,8 @@ moment.locale('ko'); //한글로 시간 표시
 //비트 컴 192.168.0.42:3001
 const socket = io.connect('http://192.168.0.42:3001/oldChat',{
   path: '/socket.io'
-});//room namespace사용
+});//oldChat namespace사용
 
-//$(".messages").animate({ scrollTop: $(document).height()-$(window).height() });
-//$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
 $("#profile-img").click(function() {
 	$("#status-options").toggleClass("active");
@@ -373,17 +393,15 @@ $(".fa-sign-out").click(async function(){
 	}catch(error){
 		
 	}
-})
+});
 
+socket.on('join',function(data){
+	$('.system p').text(data);
+});
 
-//접속시 시스템 메세지
-socket.on('isConnected',function(data){
-  console.log(data.chat);
-}); 
-
-socket.on('isNotConnected',function(data){
-  console.log(data.chat);
-}); 
+socket.on('exit',function(data){
+	$('.system p').text(data);
+});
 
 
 //채팅 치면 실시간으로 채팅창 업데이트
@@ -431,6 +449,11 @@ socket.on('oldChat',function(data){
   li.appendChild(div);
 
   document.querySelector('ul').appendChild(li);
+  
+  //맨 밑으로 창을!
+$(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "slow");
+ // $('.messages').scrollTop($('.messages')[0].scrollHeight);
+  $('input[type="text"]').focus();
 }); 
 
 //메세지 보내기
@@ -464,7 +487,9 @@ $(document).ready(function(){
   }else{
     $(".oldState").text('판매완료');
   }
-
+  
+  $('.messages').scrollTop($('.messages')[0].scrollHeight);
+  $('input[type="text"]').focus();
   
 });
 

@@ -113,7 +113,7 @@ public class StorageController {
 	@PostMapping("addStorage")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
-												@ModelAttribute("OwnCoupon") OwnCoupon ownCoupon,
+												@ModelAttribute("ownCoupon") OwnCoupon ownCoupon,
 												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
 												@RequestParam("paymentNo") String paymentNo,
 												 Model model) throws Exception {
@@ -290,17 +290,5 @@ public class StorageController {
 		return "storage/getStorage";
 	}
 	
-	//tranNo를 생성하기위한 메서드
-//	public int createTranNoForStorage() throws Exception{
-//	
-//	Integer tranNo =	storageService.getMaxTranNoForStorage() + 1;
-//	
-//	if(tranNo != null) {
-//		return tranNo + 1;
-//	} else {
-//		return 1;
-//	}
-//
-//	}
 
 }

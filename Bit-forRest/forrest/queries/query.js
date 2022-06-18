@@ -121,3 +121,9 @@ module.exports.isNewProductChat = 'select * from chatRoom where inquireUserId=:i
 
 //:userId. :chatRoomNo
 module.exports.getOtherUser = 'SELECT (CASE WHEN inquireUserId = :userId THEN ownerUserId ELSE inquireUserId END) AS userId FROM chatroom WHERE chatroomNo=:chatRoomNo';
+
+//:chatRoomNo
+module.exports.deleteChatRoom= 'DELETE FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo'
+
+//:chatRoomNo
+module.exports.isChatRoomEmpty= 'SELECT count(*) FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo'
