@@ -279,31 +279,7 @@ td{
 			var toggle = $('.toggle').val();
 			
 			console.log("클릭펑션");
-			  $.ajax({
-			        url:"/wishlist/updateWishlist",
-			        type:'POST',
-			        data: {wishlistNo:wishlistNo,toggle:toggle,period:period},
-			 
-			//데이터 전송이 완료되면 출력되는 메시지
-			 
-			        success:function(data){
-			            //alert("완료!");
-			            console.log("ajax테스트");
-			            console.log(wishlistNo);
-			            console.log(period);
-			            console.log(toggle);
-			            
-			            window.opener.location.reload();
-			            self.close();
-			        },
-			 
-			//에러가 발생되면 출력되는 메시지
-			 
-			        error:function(jqXHR, textStatus, errorThrown){
-			            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-			            self.close();
-			        }
-			    });
+			
 			
 		})
 		
