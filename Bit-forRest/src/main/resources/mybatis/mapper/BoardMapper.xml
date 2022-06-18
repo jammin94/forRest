@@ -56,9 +56,11 @@
 					</if>
 				</if>
 			</if>
+			<!-- 
 			<if test='"F".equals(board.boardFlag)'>
 				ORDER BY b.category, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
 			</if>
+			 -->
 	 </select>
 	 
 	 <!-- SQL: UPDATE -->

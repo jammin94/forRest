@@ -311,6 +311,47 @@ a{color:inherit;text-decoration:none}
 					});
 		}
 		
+		$(function(){
+		const url = window.location.href;/*전체 주소*/
+		sch = location.search/*쿼리 스트링*/
+		console.log(sch)
+
+		var params = new URLSearchParams(sch);
+		var errMsg = params.get('errorMsg');
+		console.log(errMsg);
+		if(errMsg == '1') {
+
+		       alert("아이디가 존재하지 않습니다");
+
+		} else if(errMsg  == '2') {
+
+		    	alert("아이디 또는 비밀번호가 잘못 입력되었습니다");
+
+		} else if(errMsg  == '3') {
+
+		    	alert("신고누적으로 계정이 정지상태 입니다");
+		    
+		} /*else if('${ERRORMSG}'  == '4') {
+		    document.addEventListener("DOMContentLoaded", function(event) {
+		       var toastTop = app.toast.create({
+		           text: '이미 로그인 중입니다.',
+		            position: 'top',
+		            closeButton: true
+
+		       });
+		       toastTop.open();
+		 	});
+		} else if('${status}' != 'true') {
+		 	document.addEventListener("DOMContentLoaded", function(event) {
+		    	var toastTop = app.toast.create({
+		        	text: '먼저 로그인 해주세요.',
+		         	position: 'top',
+		         	closeButton: true
+		       });
+		       toastTop.open();
+		    });
+		}*/
+		});
 		/* var naver_id_login = new naver_id_login("RxuYhXapOnqUmHtxXu7S", "http://localhost:8080/snsLogin/naverLogin");
 	  	var state = naver_id_login.getUniqState();
 	  	naver_id_login.setButton("green", 2,40);

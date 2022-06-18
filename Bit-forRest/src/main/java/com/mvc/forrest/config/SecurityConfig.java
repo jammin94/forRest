@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.mvc.forrest.config.auth.LoginFailureHandler;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -19,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration//IoC
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired private PrincipalOauth2UserService principalOauth2UserService;
-
+	@Autowired private LoginFailureHandler loginFailureHandler;
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -43,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginPage("/user/login") //GET
 			.loginProcessingUrl("/user/login") //POST
 			.defaultSuccessUrl("/")
+			.failureHandler(loginFailureHandler)
 			.and()
 			.logout()// 로그인과 로그아웃은 csrf 사용시 사용 안할 때는 로그아웃은 get방식도 가능
 			.invalidateHttpSession(true)
