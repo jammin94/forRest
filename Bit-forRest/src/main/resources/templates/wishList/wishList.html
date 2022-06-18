@@ -131,7 +131,10 @@ td{
 	    
 	   
 	    <tr th:each="wishlist,index :${list}">	    
-    
+	    <input type="hidden" class="wishlistNo"  name="wishlistNo"  th:value="${wishlist.wishlistNo}"/>
+	    <input type="hidden" class="period" name="period"  th:value="${wishlist.period}"/>
+	    <input type="hidden" class="toggle" name="toggle"  th:value="${wishlist.toggle}"/>
+
 	   			<td class="cb1">
 	    	  		<input type="checkbox"  class="inputBox">
 	    	  </td>
@@ -158,12 +161,12 @@ td{
                         <option value="3">2박3일</option>
                         <option value="4">3박4일</option>
                         <option value="5">4박5일</option>
-                        </select>
+                  </select>
 		</td>
 		    <td></td>
 		     <td></td>
 		    <td></td>
-		     <td class="tdCenter rentalPrice" th:text = "|${wishlist.product.rentalPrice}|"></td>
+					 <td class="tdCenter rentalPrice" th:text = "|${wishlist.product.rentalPrice}|"> 
 		    <td></td>
 		     <td></td>
 	    </tr>
@@ -172,9 +175,11 @@ td{
     	     <td>
 		    </td>
 		    <td align="center">총 합계</td>
+		    <td></td>
+		     <td></td>
+		        <td></td>
+		           <td></td>
 		    <td style="text-align:center; color:red;" class="totalPrice">0</td>
-		    <td></td>
-		    <td></td>
 		     <td></td>
 		     <td></td>
 	    </tr>
@@ -185,7 +190,7 @@ td{
 		<!--  table End /////////////////////////////////////-->
 		 <span class="orderBtn" style="margin-bottom:30px;">
 			 <button type="button" style=" padding:10px;" class="addOrderBtn">
-			 주문하기
+				 주문하기
 			 </button>
 		 </span>
 	</form>
@@ -201,27 +206,35 @@ td{
 
 <script src="/js/jquery_min.js"></script>
 <script>
+
+
+
 	$(function(){
 		
+		$('.rentalPrice').onchange = function(){
+			console.log("onchange일어남");
+		}
+	
+		
+
 		let sum=0;
 		let arraySum;
 		
+		
+		///////////////////////////////////////////////////////// 올체크 버튼 ////////////////////////////////////////////////////////////
 		  $( '.allCheckBtn' ).click( function() {
+			
 			    $( '.inputBox' ).prop( 'checked', this.checked );
 			    
-				console.log($('.inputBox:checked').parent().parent().find('.wishPrice').text());
 				  
-				console.log($('.inputBox:checked').parent().parent().find('.wishPrice').text().split("/"));
 				var  arrayTemp = $('.inputBox:checked').parent().parent().find('.wishPrice').text().split("/");
 				
 				const arrStr =arrayTemp;
 				const nuevo = arrStr.map((i) => Number(i));
-				console.log(nuevo);
 				
-				
+				//배열 총합구하기
 				arraySum = nuevo.reduce(function(a, b){ return a + b; }, 0);
 				
-				console.log("체크총합"+arraySum);
 		
 				$(".totalPrice").text(arraySum);
 				sum=arraySum;
@@ -229,56 +242,57 @@ td{
 		  
 		  //$('.inputBox').parent().parent().find('.wishPrice').text();
 		  
+		  
+		 /////////////////////////////////////////////////////////  개별 인풋 버튼 ///////////////////////////////////////////////////////// 
 		  $('.inputBox').click(function(){
 			  
+			  // 올체크처리 된상태의 케이스
 			  if('.allCheckBtn:checked'){
-				  console.log("올체크버튼");
-					console.log(sum);
-			
+				  $(".allCheckBtn:checked").prop("checked", false);
 					  if(this.checked){
-						  
-						  console.log("체크갯수"+ $('input:checkbox:checked').length);
-						  console.log("체크한것의 가격" + $(this).parent().parent().find('.wishPrice').text());
-						  console.log("총합"+sum);
-						  sum+=parseInt($(this).parent().parent().find('.wishPrice').text());
-						  
+						  sum = sum + parseInt($(this).parent().parent().find('.rentalPrice').text());
+						  $('.totalPrice').text(sum);
+						  //sum+=parseInt($(this).parent().parent().find('.wishPrice').text());  
 					  }else{
-						  sum = sum - parseInt($(this).parent().parent().find('.wishPrice').text());
+						sum= parseInt(sum)-parseInt($(this).parent().parent().find('.rentalPrice').text());
+						  $('.totalPrice').text(sum);
 					  }
-				  
-			  }else{
-				  
-				  if(this.checked){
-					  
-					  console.log("체크갯수"+ $('input:checkbox:checked').length);
-					  console.log("체크한것의 가격" + $(this).parent().parent().find('.wishPrice').text());
-					  console.log("총합"+sum);
-					  sum+=parseInt($(this).parent().parent().find('.wishPrice').text());
-					  
-				  }else{
-					  sum = sum - parseInt($(this).parent().parent().find('.wishPrice').text());
-				  }
 			  }
+//			  else{
+//				  if(this.checked){		  
+//					  sum+=parseInt($(this).parent().parent().find('.wishPrice').text());
+//				  }else{
+//					  sum = sum - parseInt($(this).parent().parent().find('.wishPrice').text());
+//				  }
+//			  }
 			  
-			  
-		
-			  $(".totalPrice").text(sum);
-			  
+			 // console.log("inputBox의sum입니다"+sum)
 		  })
 	
-		$('.addOrderBtn').click(function(){
-			console.log("클릭펑션");
+		$('.inputBox').click(function(){
+			console.log($(this).parent().parent().find('.wishlistNo').val())
+		
+		
+		
+			var wishlistNo = $('.wishlistNo').val();
+			var period = $('.period').val();
+			var toggle = $('.toggle').val();
 			
+			console.log("클릭펑션");
 			  $.ajax({
-			        url:"goUrl.do",
-			        type:'GET',
-			        data: allData,
-			 
+			        url:"/wishlist/updateWishlist",
+			        type:'POST',
+			        data: {wishlistNo:wishlistNo,toggle:toggle,period:period},
 			 
 			//데이터 전송이 완료되면 출력되는 메시지
 			 
 			        success:function(data){
-			            alert("완료!");
+			            //alert("완료!");
+			            console.log("ajax테스트");
+			            console.log(wishlistNo);
+			            console.log(period);
+			            console.log(toggle);
+			            
 			            window.opener.location.reload();
 			            self.close();
 			        },
@@ -294,8 +308,6 @@ td{
 		})
 		
 		$(function(){
-
-			
 			//DB에 있는 결제금액 파싱해서 배열담음
 			$('.wishPrice').text().split("/");
 			//배열이 스트링이라 모두 정수변환
@@ -303,39 +315,49 @@ td{
 			const arrStr =arrayTemp;
 			const nuevo = arrStr.map((i) => Number(i));
 
-			console.log("갓잇"+nuevo);
-			
+			///////////////////////////////////////////////////////// 셀렉트 옵션 버튼 ///////////////////////////////////////////////////////// 
 			$('.selectBox').click(function(){
+			
+			  if(	$(this).parent().parent().find('.inputBox').is(":checked")){
+				//		$(".totalPrice").text(parseInt(sum)-parseInt($(this).parent().parent().find('.wishPrice').text()));
+				//		sum=parseInt($('.totalPrice').text());
+			  }
+				
+				
 				//선택한 셀렉트박스의 인덱스
 				var selectBoxIndex =$(this).attr('data-eq')-1
-				console.log($(this).attr('data-eq')-1);
 				//셀렉트박스의 인덱스로 결제금액 배열에 접근
-				console.log(nuevo[$(this).attr('data-eq')-1]);
+				//console.log(nuevo[$(this).attr('data-eq')-1]);
 				
-				console.log("응?"+$(".wishPrice").text());
-				console.log("응2?"+$(".wishPrice").text().split("/"));
-				const arrStr1 =$(".wishPrice").text().split("/");
-				console.log(arrStr1);
-				const nuevo2 = arrStr1.map((i) => Number(i));
-				console.log(nuevo2[selectBoxIndex]*$(this).val()*0.5);
-				
+
 				//선택옵션에 따른 계산값
-				var optioinOutPut = nuevo2[selectBoxIndex]*$(this).val()*0.5
+				var optioinOutPut = nuevo[0]*$(this).text()*0.5
 				
+				//숨겨진 데이터값에도 변화적용
+				$(this).parent().parent().find('.wishPrice').text($(this).val()*0.5*nuevo[$(this).attr('data-eq')-1]+"/");
 				
 				//선택한 셀렉트박스의 value (1박2일/2박3일 ~ 4박5일)
-				console.log($(this).val());
 				//위의 value*0.5* resultPrice ==> 셀렉트박스로 선택한 값에 따른 값변화
-				console.log("할인금액"+$(this).val()*0.5*nuevo[$(this).attr('data-eq')-1]);
+				//console.log("할인금액"+$(this).val()*0.5*nuevo[$(this).attr('data-eq')-1]);
 	
 				// eq를 사용하여 .rentalPrice의 eq로 셀렉트박스(인덱스)로 접근하여 text변경
 				$('.rentalPrice').eq(selectBoxIndex).text(optioinOutPut);
-				
-				console.log("다왔는데"+nuevo);
-				console.log(nuevo.split(","));
-
-			})
+				$(this).parent().parent().find('.rentalPrice').text($(this).val()*0.5*nuevo[$(this).attr('data-eq')-1]);
 		
+				
+				
+				if($(this).parent().parent().find('.inputBox').is(":checked")){
+					
+					//배열 총합구하기
+					
+					var  arrayTemp2 = $('.inputBox:checked').parent().parent().find('.wishPrice').text().split("/");
+					const arrStr2 =arrayTemp2;
+					const nuevo2 = arrStr2.map((i) => Number(i));
+					arraySum = nuevo2.reduce(function(a, b){ return a + b; }, 0);
+					$(".totalPrice").text(arraySum);
+					sum = parseInt($(".totalPrice").text());		
+				}
+			})
 		})
 		
 	})

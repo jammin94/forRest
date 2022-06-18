@@ -60,6 +60,7 @@ public class ProductService {
 	
 	public List<Product> getProductListHasUser(Search search, String userId) throws Exception{
 		System.out.println("getProductListHasUser 성공");
+		System.out.println("search in service: "+search);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("search", search);
