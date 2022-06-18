@@ -22,9 +22,7 @@ public class SmsController {
 		
 		String timestamp = Long.toString(System.currentTimeMillis());
 		System.out.println("컨트롤러 타임스탬프 : "+timestamp);
-		String signature= smsService.makeSignature(timestamp);
-		System.out.println("컨트롤러 시그니처 : "+signature);
-		smsService.makeMassage(signature, timestamp, phone);
+		smsService.makeMassage();
 		System.out.println("sendSMS END");
 		
 		return "user/addUser";
