@@ -20,12 +20,7 @@ public class SmsController {
 	@RequestMapping("sendSMS")
 	public String sendSMS(@RequestParam String phone) throws Exception {
 		
-		String timestamp = Long.toString(System.currentTimeMillis());
-		System.out.println("컨트롤러 타임스탬프 : "+timestamp);
-		String signature= smsService.makeSignature(timestamp);
-		System.out.println("컨트롤러 시그니처 : "+signature);
-		smsService.makeMassage(signature, timestamp, phone);
-		System.out.println("sendSMS END");
+		smsService.makeMassage();
 		
 		return "redirect:/";
 	}
