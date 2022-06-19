@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mvc.forrest.config.auth.LoginUser;
-import com.mvc.forrest.service.domain.Old;
-import com.mvc.forrest.service.domain.OldLike;
+
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Wishlist;
-import com.mvc.forrest.service.oldlike.OldLikeService;
+
 import com.mvc.forrest.service.wishlist.WishlistService;
 
 

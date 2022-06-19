@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.board.BoardDAO;
 import com.mvc.forrest.service.domain.Board;
-import com.mvc.forrest.service.domain.Search;
+
 
 
 @Service

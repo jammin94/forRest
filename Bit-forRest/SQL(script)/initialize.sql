@@ -85,7 +85,7 @@ CREATE TABLE old (
    oldView INTEGER NOT NULL,
    category VARCHAR(10) NOT NULL,
    oldState TINYINT(1)   NOT NULL DEFAULT 1,
-   oldImg VARCHAR(30) NOT NULL,
+   oldImg VARCHAR(60) NOT NULL,
    oldAddr VARCHAR(100) NOT NULL,
    PRIMARY KEY (oldNo),
    FOREIGN KEY (userId) REFERENCES user(userId)

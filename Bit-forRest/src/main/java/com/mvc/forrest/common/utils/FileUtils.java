@@ -4,14 +4,11 @@ package com.mvc.forrest.common.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +19,9 @@ import com.mvc.forrest.service.domain.Img;
 public class FileUtils {
 	
 	public final static String temDir ="C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+	
+	@Value("${file.path}")
+	private String fileRealPath;
 	
 	@Autowired
 	private ImgDAO imgDAO;
@@ -46,7 +46,7 @@ public class FileUtils {
             imgDAO.addImg(img);
             list.add(fileName);
             try {
-                File file = new File(temDir, fileName);
+                File file = new File(fileRealPath+"uploadFiles/", fileName);
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)

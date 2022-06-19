@@ -1,13 +1,11 @@
 package com.mvc.forrest.dao.report;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mvc.forrest.service.domain.Report;
-import com.mvc.forrest.service.domain.Search;
-import com.mvc.forrest.service.domain.Storage;
+
 
 
 @Mapper

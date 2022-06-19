@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mvc.forrest.dao.oldlike.OldLikeDAO;
 import com.mvc.forrest.dao.report.ReportDAO;
-import com.mvc.forrest.service.domain.OldLike;
+
 import com.mvc.forrest.service.domain.Report;
 
 @Service

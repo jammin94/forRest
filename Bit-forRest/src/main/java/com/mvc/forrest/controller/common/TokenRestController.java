@@ -1,14 +1,13 @@
 package com.mvc.forrest.controller.common;
 
-import java.util.Collection;
-import java.util.Iterator;
+
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mvc.forrest.config.auth.LoginUser;
-import com.mvc.forrest.service.domain.User;
+
 import com.mvc.forrest.service.firebase.FCMService;
-import com.mvc.forrest.service.report.ReportService;
+
 
 
 
@@ -29,8 +28,6 @@ public class TokenRestController {
 	@Autowired
 	private FCMService fcmService;
 	
-	@Autowired
-	private ReportService reportService;
 	
 	
 	@PostMapping("saveToken")
@@ -38,17 +35,6 @@ public class TokenRestController {
 		System.out.println("/token/saveToken");
 		if(isAuthenticated()) {
 			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String userId= loginUser.getUser().getUserId();
-//			SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-//			System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-//			Collection<? extends GrantedAuthority> authorities =SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-//			Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-//			while (iter.hasNext()) {
-//			    GrantedAuthority auth = iter.next();
-//			    System.out.println(auth.getAuthority());
-			int reportedNo= reportService.getReportedNo("user02@naver.com");
-			System.out.println(reportedNo);
-//			}
 			System.out.println(token);
 			loginUser.getUser().setPushToken(token);
 			fcmService.saveToken(loginUser.getUser());

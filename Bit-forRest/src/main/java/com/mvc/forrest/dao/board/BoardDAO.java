@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mvc.forrest.service.domain.Board;
-import com.mvc.forrest.service.domain.Search;
 
 @Mapper
 public interface BoardDAO {
