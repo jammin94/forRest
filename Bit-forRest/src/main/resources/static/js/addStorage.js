@@ -300,23 +300,33 @@ function request_pay(){
 		        merchant_uid : $("input[name='tranNo']").val(),//주문번호
 		        name : $("input[name='prodName']").val(),
 		        amount :  $("input[name='resultPrice']").val(),
-		        buyer_name : $("input[name='receiverName']").val(),
-		        buyer_tel : $("input[name='receiverPhone']").val(),
-		        buyer_addr :$("input[name='pickupAddress']").val()
 		    }, function(rsp) {
-		        if ( rsp.success ) {
-		        	
-		        	console.log("rsp.imp_uid"+rsp.imp_uid);
-		        	$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
-	
-		        } else {
-		        	alert("실패.. 코드: "+rsp.error_code+" / 메시지: "+rsp.error_msg);
-		            
-		        }
-		    });
+    	console.log(rsp);
+    	$.ajax({
+
+        	type : "POST",
+        	url : "/payment/json/verifyIamport?imp_uid=" + rsp.imp_uid 
+        	
+        }).done(function(data) {
+        	
+        	console.log(data);
+        	
+        	if(rsp.paid_amount == data.response.amount){
+	        	alert("결제 및 결제검증완료");
+	        		alert("실행되나");
+	        		$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+	        		alert("실행됐다");
+	        	
+        	} else {
+        		alert("결제 실패");
+        	}
+        });
+    });
 		
 		
 	}
+	
+	
 	
 	
 	// 가로 세로 높이 기간 수량에 따른 가격변화를 실시간으로 표시

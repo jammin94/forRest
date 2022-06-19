@@ -293,6 +293,13 @@ body {
 </div>
 
 
+<form name="report" style="display: none;" action="http://localhost:8080/report/addReport" method="GET">
+	<input type="hidden" name="reportedUser" value="{{otherUser.userId}}"/>
+	<input type="hidden" name="reportOldNo" value="{{old.oldNo}}"/>
+	<input type="hidden" name="reportChatroomNo" value="{{chatRoomNo}}"/>
+</form >
+
+
 <div id="frame">
 	<div class="content">
 		<div class="contact-profile">
@@ -302,7 +309,7 @@ body {
       <p class="oldPrice">{{old.oldPrice}}원&nbsp&nbsp</p>
       <p class="oldState">{{old.oldState}}</p>
 			<div class="social-media">
-				<i class="fa fa-exclamation" aria-hidden="true"></i>
+				<i class="fa fa-exclamation" id="report" aria-hidden="true"></i>
         		<i class="fa fa-sign-out" id="confirm" aria-hidden="true"></i>
 			</div>
 		</div>
@@ -364,7 +371,7 @@ moment.locale('ko'); //한글로 시간 표시
 //서버의 아이피를 사용할 것!
 //내 맥북 192.168.0.240:3001
 //비트 컴 192.168.0.42:3001
-const socket = io.connect('http://192.168.0.42:3001/oldChat',{
+const socket = io.connect('http://192.168.0.42:3001:3001/oldChat',{
   path: '/socket.io'
 });//oldChat namespace사용
 
@@ -378,6 +385,11 @@ $(".expand-button").click(function() {
 	$("#contacts").toggleClass("expanded");
 });
 
+
+$(".fa-exclamation").click(function(){
+	console.log('신고');
+	$("form[name='report']").submit();
+});
 
 //나가기 버튼 누를시
 $(".fa-sign-out").click(async function(){

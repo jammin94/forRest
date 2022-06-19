@@ -92,7 +92,19 @@
 	 				ORDER BY wishListNo
 	 </select>
 	 
-	 	 <select  id="getWishlistTotalSum"  parameterType="string" resultType="int">
+	 <!-- SELECT ONE 장바구니 -->
+	 	 <select  id="getWish"  parameterType="int" resultMap="wishlistSelectMap">
+	  SELECT 
+	  		*
+	 	FROM wishlist w, product p
+	  				<where>
+				 		wishlistNo=#{wishlistNo} and w.prodNo = p.prodNo
+	 				</where>	 		
+	 </select>
+	 
+	 
+	 
+	 <select  id="getWishlistTotalSum"  parameterType="string" resultType="int">
 			  SELECT 
 			  		SUM(p.rentalPrice)
 			 	FROM wishlist w, product p

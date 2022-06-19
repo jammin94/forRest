@@ -46,8 +46,8 @@
     }
 
     input {
-      margin: 0% 0;
-         width: 100%;
+    margin: 0% 0;
+    width: 100%;
     font-size: 1.5em;
     padding: 0 5px 1%;
     border-bottom: 2px solid #BDC3C7;
@@ -150,12 +150,12 @@
 		<input type="hidden" id="joinPath" name="joinPath" value="own" >
 
       <br>
-      <label for="userId">Id</label>
+      <label for="userId">>Id</label>
       <input id="userId" type="text" name="userId" placeholder="이메일형식" style="margin-bottom: 0">
 	      <span class="userId_check check"></span>
       
 	  <br>
-      <label for="password">Password</label>
+      <label for="password">>Password</label>
       <input id="password" type="password" name="password"
       		 placeholder="특수문자, 영어, 숫자 1개이상 사용 8~16자">
       <input id="password2" type="password" name="password2"
@@ -163,24 +163,24 @@
       	      <span class="password_check check"></span>
       
 	  <br>
-      <label for="userName">Name</label>
+      <label for="userName">>Name</label>
       <input id="userName" type="text" name="userName" placeholder="이름">
 
 	  <br><br>
-      <label for="nickname">Nickname</label>
+      <label for="nickname">>Nickname</label>
       <input id="nickname" type="text" name="nickname"
      		 placeholder="한글, 영어사용 2~8자">
 	      <span class="nickname_check check"></span>
 
-	  <br>>
-      <label for="phone">Phone</label>
-      <input id="phone" type="text" name="phone" placeholder="전화번호입력">
-      <button type="button" id="sendSMS">인증번호 발송</button>
-	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
-	  <button id="checkSMS">인증번호 확인</button>
+	  <br>
+      <label for="phone">>Phone</label><br>
+      <input id="phone" type="text" name="phone" placeholder="전화번호입력" style="width: 280px;">
+      <button type="button" id="sendSMS" style="width: 100px;">인증번호 발송</button>
+	  <input id="sms" type="text" name="sms" placeholder="인증번호입력" style="width: 280px;">
+	  <button id="checkSMS" type="button">인증번호 확인</button>
 
 	  <br><br>
-      <label for="userAddr">Address</label>
+      <label for="userAddr">>Address</label>
 	  <input type="text" id="sample6_postcode" name= "addr1" placeholder="우편번호"onclick="sample6_execDaumPostcode()" readonly="readonly">
 	  <input type="text" id="sample6_address" name= "addr2" placeholder="주소"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
 	  <input type="text" id="sample6_detailAddress" name= "addr3" placeholder="상세주소">
@@ -197,7 +197,7 @@
       		 placeholder="상세주소입력">   -->    
             
 	  <br>
-      <label for="userImg">Profile Img</label>
+      <label for="userImg">>Profile Img</label>
       <input id="userImgFile" type="file" name="userImgFile" placeholder="(선택) 1장">
       <img id="preView" name="preView" style="width: 80%; height: 80%; margin-top: 20px;"/>
 
@@ -276,10 +276,32 @@
 
 			$("#sendSMS").on("click",function(){
 				alert("sendSMS Click");
-				$("form").attr("method" , "POST").attr("action" , "/sms/sendSMS").submit();
-
+				var phone = $("#phone").val();
+				console.log(phone);
+				console.log();
+				if($("#phone").val().length<10){
+					return;
+				}
+				$.ajax({
+					url : "/sms/json/sendSMS?phone="+phone,
+					method : "GET" ,
+					dataType : "json" ,
+					success : function(data) {
+						$("#checkSMS").click(function(){
+							var sms = $("#sms").val();
+							console.log("data : "+data);
+							console.log("sms : "+sms);
+							if(data==sms){
+								alert("인증에 성공하였습니다.");
+							}else{
+								alert("인증에 실패하였습니다.");
+							}
+						})
+					}
+				});	
 			});
-		});
+			
+		});// end of main function
 		
 		//userId가 이미 가입되어 있는지 확인
 		function fncCheckUserIdDuplication() {
@@ -388,7 +410,7 @@
 					$(".password_check").css("color", "red");
 					$(".password_check").css("font-size", "12px");
 			    }
-		    }    
+		    }
 		}//비밀번호 유효성 검사 끝
 		
 		//업로드파일 미리보기

@@ -110,7 +110,11 @@ td{
 	 <form class="form-inline" name="detailForm">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 	<input type="hidden" id="wishTotalPrice" name="wishTotalPrice"/>
-
+	<input type="hidden" class="wishlistNo"  name="wishlistNo"/>
+	<input type="hidden" class="periodArray"  name="period"/>
+	<input type="hidden" class="prodNo" name="prodNo"/>
+	<input type="hidden" class="rentalPriceArray" name="rentalPrice"/>
+  
 	 			
 		 <!--  table Start /////////////////////////////////////-->
        <table class="table table-hover table-striped">
@@ -131,12 +135,11 @@ td{
 	    
 	   
 	    <tr th:each="wishlist,index :${list}">	    
-	    <input type="hidden" class="wishlistNo"  name="wishlistNo"  th:value="${wishlist.wishlistNo}"/>
-	    <input type="hidden" class="period" name="period"  th:value="${wishlist.period}"/>
+	  
 	    <input type="hidden" class="toggle" name="toggle"  th:value="${wishlist.toggle}"/>
 
 	   			<td class="cb1">
-	    	  		<input type="checkbox"  class="inputBox">
+	    	  		<input type="checkbox"  class="inputBox" th:value="${wishlist.wishlistNo}">	    	  		
 	    	  </td>
 	    	  
 		     <td align="left">
@@ -149,18 +152,23 @@ td{
 			    	 <a href="/product/getProduct?prodNo=j">
 				    		<p style="margin-bottom: 10px; font-weight: bold">[[${wishlist.product.prodName}]]<br></p>
 				    </a>
-				    	<p>	2022-06-17 ~ 2022-10-15<br></p>
-				    		<p>	1개</p>
+				    		<p class="dateText">
+				    			<span></span><br>
+				    		</p>
+				    		~
+				    		<p class="dateText">
+				    			<span></span>
+				    		</p>
 			    	</div>
 				</div>
 		    </td>
 			 <td style="display:none" class="tdCenter wishPrice" th:text = "|${wishlist.product.rentalPrice}/|"></td>
 			  <td class="tdCenter" >
 					<select class="selectBox" name="selection"  th:data-eq="${index.count}">
-                        <option value="2">1박2일</option>
-                        <option value="3">2박3일</option>
-                        <option value="4">3박4일</option>
-                        <option value="5">4박5일</option>
+                        <option value="2" class="period">1박2일</option>
+                        <option value="3" class="period">2박3일</option>
+                        <option value="4" class="period">3박4일</option>
+                        <option value="5" class="period">4박5일</option>
                   </select>
 		</td>
 		    <td></td>
@@ -189,7 +197,7 @@ td{
       </table>
 		<!--  table End /////////////////////////////////////-->
 		 <span class="orderBtn" style="margin-bottom:30px;">
-			 <button type="button" style=" padding:10px;" class="addOrderBtn">
+			 <button style="padding:10px;" class="addOrderBtn">
 				 주문하기
 			 </button>
 		 </span>
@@ -293,6 +301,7 @@ td{
 
 			///////////////////////////////////////////////////////// 셀렉트 옵션 버튼 ///////////////////////////////////////////////////////// 
 			$('.selectBox').click(function(){
+				dateChange();
 			
 			  if(	$(this).parent().parent().find('.inputBox').is(":checked")){
 				//		$(".totalPrice").text(parseInt(sum)-parseInt($(this).parent().parent().find('.wishPrice').text()));
@@ -334,7 +343,93 @@ td{
 					sum = parseInt($(".totalPrice").text());		
 				}
 			})
+			
+			$('.addOrderBtn').click(function(){
+				//배열선언
+				var chkArray = new Array();
+				var periodArray = new Array();
+				var priceArray = new Array();
+				
+				$('.inputBox:checked').each(function(){
+					chkArray.push(this.value);
+					periodArray.push($(this).parent().parent().find('.selectBox').val());
+					priceArray.push($(this).parent().parent().find('.rentalPrice').text());
+					//console.log($(this).parent().parent().find('.selectBox').val());
+				
+				})
+							
+							
+				$('.wishlistNo').val(chkArray);
+				$('.periodArray').val(periodArray);
+				$('.rentalPriceArray').val(priceArray);
+
+				
+				console.log(chkArray);
+				console.log(periodArray);
+				console.log(priceArray);
+				//console.log($('.inputBox').prop("checked"));
+				//console.log($('.inputBox:checked').parent().parent().find('.wishlistNo').val());
+				
+				
+					
+				$('form').attr('method', 'POST').attr('action', '/wishlist/addWishRental');
+			})
+			
+			
+		
+				
+			    
+			  
 		})
+		dateChange();
+		function dateChange(){
+							
+				var plusDay1 = parseInt($('.selectBox').eq(0).val());
+				var plusDay2 = parseInt($('.selectBox').eq(1).val());
+				var plusDay3 = parseInt($('.selectBox').eq(2).val());
+				
+			    var now = new Date();
+			    			    			   
+			    $(".dateText").eq(0).text(dateFormat(now));
+			    $(".dateText").eq(1).text(dateFormatAfter(now,plusDay1));	
+			    $(".dateText").eq(2).text(dateFormat(now));
+			    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
+			    $(".dateText").eq(4).text(dateFormat(now));
+			    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+			}
+		
+		//날짜 표기
+		function dateFormat(date) {
+	        let month = date.getMonth() + 1;
+	        let day = date.getDate();
+	        let hour = date.getHours();
+	        let minute = date.getMinutes();
+	        let second = date.getSeconds();
+	
+	        month = month >= 10 ? month : '0' + month;
+	        day = day >= 10 ? day : '0' + day;
+	        hour = hour >= 10 ? hour : '0' + hour;
+	        minute = minute >= 10 ? minute : '0' + minute;
+	        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+}
+		function dateFormatAfter(date,plusDay) {					
+			
+	        let month = date.getMonth() + 1;
+	        let day = date.getDate()+plusDay;
+	        let hour = date.getHours();
+	        let minute = date.getMinutes();
+	        let second = date.getSeconds();
+
+	        month = month >= 10 ? month : '0' + month;
+	        day = day >= 10 ? day : '0' + day;
+	        hour = hour >= 10 ? hour : '0' + hour;
+	        minute = minute >= 10 ? minute : '0' + minute;
+	        second = second >= 10 ? second : '0' + second;
+
+	        return date.getFullYear() + '-' + month + '-' + day;
+	}
 		
 	})
 </script>

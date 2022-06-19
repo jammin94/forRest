@@ -27,64 +27,60 @@ prevBtnSec.addEventListener("click", function(){
 
 //////////이미지 image/////////
 
-$(function(){
+ $(function(){
+		
+	  var initWidth = $(".img-preview-big")[0].offsetWidth;
+	$(".img-preview-big").css("height", initWidth + "px");
+
+	window.onresize = function(event) {
+	  var initWidth = $(".img-preview-big")[0].offsetWidth;
+	  $(".img-preview-big").css("height", initWidth + "px");
+	};
+
+	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
+	  var mouse_is_inside = ev.type === 'mouseenter';
+	  if ($(".img-preview-small").length > 0) {
+	    if (mouse_is_inside) {
+	      $(".img-delete").css("display", "flex");
+	    } else {
+	      $(".img-delete").css("display", "none");
+	    }
+	  } else {
+	    $(".img-delete").css("display", "none");
+	  }
+	});
 	
-
-var initWidth = $(".img-preview-big")[0].offsetWidth;
-$(".img-preview-big").css("height", initWidth + "px");
-
-window.onresize = function(event) {
-  var initWidth = $(".img-preview-big")[0].offsetWidth;
-  $(".img-preview-big").css("height", initWidth + "px");
-};
-
-
-
-
-$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
-  var mouse_is_inside = ev.type === 'mouseenter';
-  if ($(".img-preview-small").length > 0) {
-    if (mouse_is_inside) {
-      $(".img-delete").css("display", "flex");
-    } else {
-      $(".img-delete").css("display", "none");
-    }
-  } else {
-    $(".img-delete").css("display", "none");
-  }
-});
-
-
 	$(".img-add-more").click(function() {
-		console.log("click test");
-	 	if ($(".img-preview-small").length <10) {
-		console.log('test');
 		 $("input[type='file']").click();
-		  } 
-	})
+	});
 
 
-$("input[type='file']").change(function() {
-  var input = $("input[type='file']")[0];
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $(".img-preview-big img")[0].src = e.target.result;
-      $(".img-preview-small img").each(function() {
-        $(this).removeClass("img-small-selected"); /*selected는 작은 사진 검은색 테두리 관련된 것 새로운 사진이 올라오면 기존에 click되어 있던 테두리가 없어짐*/
-      })
-      var newImg = '<div class="img-preview-small">' +
-          '<img src="' + e.target.result + '" class="img-small-selected"></p><input type="text" name="count" value="'+count+">" +
-          '</div>';  /*새로운 사진에 테두리가 생기고 기존 테두리 없어짐*/
-      $("#fileDiv").append(str);
-      $(".img-holder").append(newImg);/*image holder div에 새 이미지 추가 */
-      var left = $('.img-preview-operate').width();
-      $('.img-preview-operate').scrollLeft(left);/*뭔지 모르겠음; */
-    }
-    reader.readAsDataURL(input.files[0]);/*선택된 파일만 읽겠다?; */
-  }
-
-});
+/* base64로 이미지 저장시 필요함. 근데 우리는 다른데..? */
+	$("input[type='file']").change(function() {
+	  var input = $("input[type='file' ]")[0].files;
+	  console.log(input);
+	   if(input){
+	  	for(var num=0; num<input.length; num++){
+		console.log(input[num]);
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+			//console.log("e.target.result : "+e.target.result);
+	      $(".img-preview-big img")[0].src = e.target.result;
+	      $(".img-preview-small img").each(function() {
+	        $(this).removeClass("img-small-selected");
+	      })
+	      var newImg = '<div class="img-preview-small">' +
+	          '<img src="' + e.target.result + '" class="img-small-selected">' +
+	          '</div>';
+	      $(".img-holder").append(newImg);
+	      var left = $('.img-preview-operate').width();
+	      $('.img-preview-operate').scrollLeft(left);
+	      }
+	      
+	      reader.readAsDataURL(input[num]);
+	     }
+	    }
+	});
 
 // $(".img-preview-small").hover(function() {
 // 	 console.log("Deepak");	
