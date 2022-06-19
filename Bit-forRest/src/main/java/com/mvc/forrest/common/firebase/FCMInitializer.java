@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +24,7 @@ public class FCMInitializer {
 
     @PostConstruct
     public void initialize() throws IOException {
-        ClassPathResource resource = new ClassPathResource("bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json");
+        ClassPathResource resource = new ClassPathResource(googleApplicationCredentials);
 
         try (InputStream is = resource.getInputStream()) {
             FirebaseOptions options = FirebaseOptions.builder()
