@@ -21,6 +21,13 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+Kakao.init('d40eb19cdb656aa7607d531109f4364e');
+Kakao.isInitialized();
+</script>
+
 </head>
 <style>
 	.custom{
@@ -100,7 +107,7 @@
 			<!-- card right -->
 			<div class="product-content">
 
-				<h2 class="product-title" th:text=${old.oldTitle}></h2>
+				<h2 class="product-title" id="oldTitle" th:text=${old.oldTitle}></h2>
 
 				<div class="categoryaddr">
 
@@ -181,7 +188,12 @@
 			<!--Simple dropdown menu based on w3schools.org / css-js-dropdown -->
 
 	
-	
+		<section>
+<button type="button" class="kakao mt-3 py-2 px-3" onclick="js:setShare()">
+<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" />
+
+</button>
+</section>
 	
 	
 				</div>
@@ -210,11 +222,11 @@
 					<span th:text=${old.oldPrice}></span> <span>원</span>
 				</div>
 
-				<div class="product-detail">
+				<div class="product-detail" id="Detail">
 
 
 
-					<p class="detail" th:text=${old.oldDetail}></p>
+					<p class="oldDetail" id="oldDetail" th:text=${old.oldDetail}></p>
 
 				</div>
 
@@ -246,7 +258,7 @@
 										<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
 									</div>
 									<div class="try_rc_mob_img_cont">
-										<h2 class="product-title" th:text=${old.oldTitle}></h2>
+										<h2 class="product-title" id="oldTitle" th:text=${old.oldTitle}></h2>
 
 									</div>
 									<div class="try_rc_mob_img_cont_bottom">
@@ -275,15 +287,52 @@
 
 
 
+<script th:inline="javascript">
+/*<![CDATA[*/
+function setShare(){
+	var title = /*[[${old.oldTitle}]]*/ +')';
+	var description = /*[[${old.oldDetail}]]*/ +')';
+
+// 	const description: /*[[${old.oldDetail}]]*/;
+
+
+
+
+
+Kakao.Link.sendDefault({
+	
+  objectType: 'feed',
+  content: {
+    title: title,
+    description: description,
+ 	
+    imageUrl:
+    	'/images/content/aaa.jpg',
+    link: {
+      webUrl: 'http://localhost:8080/old/getOld?oldNo=' + /*[[${old.oldNo}]]*/ +')',
+
+
+    },
+  },
+  
+ 
+ 
+});
+}
+
+
+/*]]>*/
+</script>
+
+
+
 	<!-- Footer-->
 	<div th:replace="/main/footer.html"></div>
 
 	<script src="/js/getProduct.js"></script>
 	<script src="/js/getOld.js"></script>
+<!-- 	<script src="/js/share.js"></script> -->
 	
-	<script>
-		
-	</script>
 </body>
 
 

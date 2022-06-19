@@ -206,16 +206,12 @@ public class OldController {
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
-	String mainImg = 	fileUtils.uploadFiles(uploadFile, oldNo, "old");
+		String mainImg = 	fileUtils.uploadFiles(uploadFile, oldNo, "old");
 	
-	
+		old.setOldImg(mainImg);
 
 		oldService.addOld(old);
-		
-		old.setOldImg(mainImg);
-		
-		
-		
+			
 		model.addAttribute("old", old);
 		return "redirect:/old/listOld";
 
