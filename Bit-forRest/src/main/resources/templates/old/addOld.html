@@ -49,7 +49,6 @@
 <!-- 			뉴 -->
 
 
-
 					<div class="main-wrapper">
 	  					<div class="img-upload-plugin">
 		                    <div class="img-upload-handler">
@@ -146,7 +145,8 @@
 	<!--     <script src="/js/addRentalReview.js"></script> -->
 
 	<script type="text/javascript">
-	
+		var gfv_count = 1;
+
 	
 		$( ".submit" ).on("click" , function() {	
 			
@@ -184,7 +184,32 @@
 		
 			
 		});
-
+		$(document).ready(function(){
+					
+			$("#addFile").on("click", function(e){ //파일 추가 버튼
+				e.preventDefault();
+				fn_addFile();
+			});
+			
+			$("a[name='delete']").on("click", function(e){ //삭제 버튼
+				e.preventDefault();
+				fn_deleteFile($(this));
+			});
+		});
+		
+		
+		function fn_addFile(){
+			var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+			$("#fileDiv").append(str);
+			$("a[name='delete']").on("click", function(e){ //삭제 버튼
+				e.preventDefault();
+				fn_deleteFile($(this));
+			});
+		}
+		
+		function fn_deleteFile(obj){
+			obj.parent().remove();
+		}
 	</script>
 
 </body>
