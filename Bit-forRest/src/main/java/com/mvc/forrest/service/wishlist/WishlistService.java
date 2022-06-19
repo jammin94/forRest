@@ -7,11 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mvc.forrest.dao.rentalreview.RentalReviewDAO;
 import com.mvc.forrest.dao.wishlist.WishlistDAO;
-import com.mvc.forrest.service.domain.OldLike;
-import com.mvc.forrest.service.domain.Rental;
-import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Wishlist;
 
