@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--  <mapper namespace="BoardMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
+<mapper namespace="com.mvc.forrest.dao.chat.ChatDAO"> 	
+ 	
+	<resultMap id="chatSelectMap" 			type="chat">
+		<result property="chatMessageNo" 	column="chatMessageNo" 		jdbcType="INTEGER"/>
+		<result property="chatRoomNo"	   		column="chatRoomNo" 			jdbcType="INTEGER" />
+		<result property="sendUserId"	   		column="sendUserId"		 		jdbcType="VARCHAR" />
+		<result property="chatMessage"	   		column="chatMessage" 			jdbcType="VARCHAR" />
+		<result property="createdAt" 				column="createdAt" 				jdbcType="TIMESTAMP"/>
+		<result property="readOrNot"	   			column="readOrNot" 				jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- SQL : SELECT LIST -->
+	<select  id="getListChat"  parameterType="integer"	resultMap="chatSelectMap">
+		SELECT * FROM chat 
+		<where>
+		chatRoomNo = #{value}
+		</where>
+	 </select>
+
+	 
+</mapper>
