@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+</head>
+<style>
+td{
+	padding-bottom:10px !important;
+}
+.table{
+	margin-bottom: 80px !important;
+}
+.page-header{
+margin: 40px 0 0px !important;
+border-bottom:3px solid #ddd !important;
+}
+
+	.tableBody td {
+		width:33%;
+ 		vertical-align: middle !important;
+	}
+	
+	.tableBody td > div {
+		display:flex;
+		justify-content:center;
+	}
+	
+	.tableBody td img{
+		text-align:left;
+		width:100px;
+	}
+	
+	.tableBody td span{
+		display:flex;
+		align-items:center;
+		padding:10px;
+	}
+	
+	.borderTopNone{
+		border-top:none !important;
+	}
+	.borderRight{
+		border-right:1px solid #ddd;
+	}
+	.textCenter{
+		text-align:center;
+	}
+	.borderBottom{
+		border-bottom:1px solid #ddd;
+	}
+	.boxScroll {
+    width: 96%;
+    height: 130px;
+    overflow: auto;
+    BACKGROUND: #ffffff;
+    COLOR: #585858;
+    font: 9pt 돋움;
+    border: 1px #dddddd solid;
+    overflow-x: hidden;
+    text-align: left;
+    margin-left: 15px;
+}
+.container.list{
+    display: flex;
+    justify-content: center;
+	padding-right:180px;
+	padding-top: 120px;
+    width: calc(100% - 210px);
+    float: right;
+}
+
+input{
+    border-radius: 10px;
+    border: none;
+    background: #efefef;
+    margin: 6px;
+    padding: 5px;
+    font-size:14px;
+}
+
+#couponPrice.red{
+	color:#ff4d4d;
+}
+
+.divyRequest{
+	width: 80% !important;
+    margin-left: 19px;
+}
+
+.payment{
+	padding:5px;
+	background:#262626;
+	border:none;	
+	border-radius:10px;
+	color:#fff;
+}
+
+.cancel{
+	padding:5px;
+	background:#262626;
+	border:none;	
+	border-radius:10px;
+	color:#fff;
+}
+</style>
+<body>
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+
+
+<!-- 
+<div th:replace="/main/toolbarForAdmin.html"></div>
+<div th:replace="/main/leftbarForAdmin.html"></div> -->
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list">
+
+	<div class="page-header text-info">
+		</div> <br/>
+		
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	
+		    	</p>
+		    
+		    </div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	<!--  <input type="hidden" id="currentPage" name="currentPage" value=""/>-->
+		 <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped">
+      	       <h3 style="margin-bottom:40px;">주문하기</h3>
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center" style="text-align:center;">상품정보</th>
+	            <th align="center" style="text-align:center;">가격</th>
+	         
+	          </tr>
+	        </thead>
+	        
+	        <tbody> 			    
+			     <tr class="tableBody" th:each="wishlist,index :${wishlist}">	 
+				    	  
+					     <td align="center">
+					    	<div class="productInfo">
+					    		<a href="/product/getProduct?prodNo=j">
+						    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&amp;s=1440x1440&amp;t=inside">
+						    	</a>
+						    	
+						    	<div style="width:220px;padding:10px;">
+						    	
+						    		 <a href="/product/getProduct?prodNo=j">
+							    		<p style="margin-bottom: 10px; font-weight: bold">[[${wishlist.product.prodName}]]</p>
+							 	   </a>
+							    
+							    	<p>
+
+										<p class="dateText">
+							    			<span></span><br>
+							    		</p>
+							    		~
+							    		<p class="dateText">
+							    			<span></span>
+							    		</p>
+				
+					    			  <span th:if="${wishlist.period}=='2'">(1박2일)<span style="display:none" class="period">2</span></span>
+									  <span th:if="${wishlist.period}=='3'">(2박3일)<span style="display:none" class="period">3</span></span>
+									  <span th:if="${wishlist.period}=='4'">(3박4일)<span style="display:none" class="period">4</span></span>
+									  <span th:if="${wishlist.period}=='5'">(4박5일)<span style="display:none" class="period">5</span></span>
+							    	</p>
+						    	</div>
+							</div>
+					    </td>
+					    
+						 <td style="display:none;" class="tdCenter wishPrice" th:text = "|${wishlist.product.rentalPrice}/|"></td>						
+								 <td class="tdCenter rentalPrice" style="text-align:center;" th:text = "|${wishlist.product.rentalPrice}|"> 
+							 </td>
+						
+			   		 </tr>
+			  <tr>
+			  	<td align="center">총합</td>
+			  	<td align="center">
+					<span class="totalResultPrice"></span>
+				</td>
+			  </tr>
+	    
+	    
+	        </tbody>
+
+      </table>
+		<!--  table End /////////////////////////////////////-->			
+     
+      
+    <div style="margin-top:20px; color:#a76161; padding-bottom:10px;">
+			주문서작성
+		</div>
+      <table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	01 주문자정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody><tr>
+		<td>주문하시는분</td>
+		<td><input type="text" class="receiverName" name="receiverName" value="" style="font-weight:bold" required="" msgr="주문하시는분의 이름을 적어주세요"></td>
+	</tr>
+	
+	<tr>
+		<td>핸드폰번호</td>
+		<td>
+		<input type="text" class="receiverPhone1" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone2" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
+		<input type="text" class="receiverPhone3"  value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호">
+		<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
+		</td>
+	</tr>
+	
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+<div style="font-size:0;height:5px"></div>
+<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
+<tbody><tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	02 배송정보
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody><tr>
+		<td>배송지 확인</td>
+		<td class="noline">
+		<input type="checkbox" class="inputCheckbox" onclick="inputCheckClick();"> 주문고객 정보와 동일합니다.
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	
+	<tr>
+		<td>픽업주소</td>
+		<td>
+		<div class="form-group">
+	 <div class="col-sm-5">
+		  <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>		
+		  <span style="display:flex;">	
+		  <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
+		  	 <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기" style="background:#9a9a9a; color:#fff;"><br>
+		  </span>
+	     <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소" style="width:310px"><br>
+	     <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목" style="width:310px">
+		 <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소" style="width:310px">
+		   </div>
+</div>
+		</td>
+	</tr>
+	
+				<tr>
+		<td>반송주소</td>
+		<td>
+	 <div class="form-group">
+	 <div class="col-sm-5">
+		  <input type="hidden"  class="divyAddress" name="divyAddress" value="">
+		  <span style="display:flex;">	
+		 	<input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+		 	<input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기" style="background:#9a9a9a; color:#fff;"><br>
+		 </span>
+	     <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소"   style="width:310px"><br>
+	     <input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목"  style="width:310px">
+		 <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소"  style="width:310px">
+		   </div>
+</div>  
+	</tr>
+	
+	
+
+	<tr>
+		<td>남기실 말씀</td>
+		<td><input type="text" name="divyRequest" style="width:100%" class="divyRequest"></td>
+	</tr>
+	
+	<tr id="delivery_check" style="display:none;">
+		<td>&nbsp;</td>
+		<td>
+			<input type="checkbox" name="delivery_add" id="delivery_add" value="y" onclick="deliveryAddCheck('delivery_add', this);"><label for="delivery_add">배송지 목록에 추가</label>
+			<input type="checkbox" name="delivery_default" id="delivery_default" value="y" onclick="deliveryAddCheck('delivery_default', this);"><label for="delivery_default">기본 배송지로 선택</label>
+		</td>
+	</tr>
+	
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr id="paper_delivery_menu">
+		<td></td>
+		<td class="noline">
+	
+		<div style="float:left"> </div>
+		</td>
+	</tr>
+	</tbody></table>
+
+	</td>
+</tr>
+</tbody></table>
+<div style="font-size:0;height:5px"></div>
+
+<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+		03 쿠폰 
+	</td>
+	<td style="padding:10px">
+	 <select class="coupon" name= "coupon">
+	 		<option >-- 선택 --</option>   				
+   			<option >0.4</option>
+	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
+	       	 </option>  	
+          </select>	 
+	</td>
+</tr>
+</tbody>
+
+</table>
+<div style="font-size:0;height:5px"></div>
+
+<table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+		04 결제금액
+	</td>
+	<td style="padding:10px">
+
+	<table>
+	<colgroup><col width="100">
+	</colgroup><tbody>
+	
+	<tr>
+		<td>합계금액</td>
+		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+	</tr>
+	
+	<tr>
+		<td>쿠폰할인금액</td>
+		<td><p id="couponPrice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</p> 원</td>
+	</tr>
+	
+
+
+	<tr>
+		<td>총 결제금액</td>
+		<td><span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">90,870</span> 원</td>
+		<input type="hidden" name="resultPrice" class="resultHiddenPrice"></input>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+</tbody>
+
+</table>
+<div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
+	<button type="button" class="payment">결제하기</button>
+	<button class="cancel">취소하기</button>
+</div>
+	</form>
+</div>
+
+<!-- footer -->
+     <div th:replace="/main/footer.html"></div>
+ 
+</body>
+
+<script src="/js/jquery_min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>  
+
+function pickup_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                // 조합된 참고항목을 해당 필드에 넣는다.
+                document.getElementById("pickup_extraAddress").value = extraAddr;
+            
+            } else {
+                document.getElementById("pickup_extraAddress").value = '';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('pickup_postcode').value = data.zonecode;
+            document.getElementById("pickup_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("pickup_detailAddress").focus();
+        }
+    }).open();
+}
+
+function divy_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                // 조합된 참고항목을 해당 필드에 넣는다.
+                document.getElementById("divy_extraAddress").value = extraAddr;
+            
+            } else {
+                document.getElementById("divy_extraAddress").value = '';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('divy_postcode').value = data.zonecode;
+            document.getElementById("divy_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("divy_detailAddress").focus();
+        }
+    }).open();
+}
+
+ 
+    $(function(){
+    	
+    	const PRICE = $('#paper_goodsprice').text().replace(",","");
+    	
+    	console.log(PRICE);
+    	
+    	$(".coupon").on("click",function(){
+    		
+    		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
+    			       		    			   
+    	    	    var sText = $('#paper_goodsprice').text();
+    	    	    var rText=  sText.replace(",",""); //90870원    	    	
+    	    	    let outPutPrice;
+    	    	    let convertPrice;
+    	    	 	let couponPrice;
+    	            let convertCouponPrice;
+    	    			    	   
+    	    	    
+
+    	    		  if($(".coupon option:selected").val()<1){    	    			      	    			  
+    	    		  		 outPutPrice =PRICE - PRICE.replace(".0","") *$(".coupon option:selected").val().replace(".0","");		
+    	    	    		 convertPrice = outPutPrice.toLocaleString();
+    	    	    		 couponPrice = PRICE*$(".coupon option:selected").val();
+    	    	    		 convertCouponPrice =  couponPrice.toLocaleString();    	  
+    	    	    		 $('#couponPrice').addClass("red");
+      	    	    } else{      	    	    	
+	      	    	  		 outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
+	        	    		 convertPrice = outPutPrice.toLocaleString();
+	        	    		 couponPrice = $(".coupon option:selected").val().replace(".0","") // 5000원
+	        	    		 convertCouponPrice = parseInt(couponPrice).toLocaleString();        	
+	        	    		 $('#couponPrice').addClass("red");
+      	    	    }
+    	    		
+
+    	    	    //계산
+    	    	    var resultPrice = rText -$(".coupon option:selected").val();    
+    	    	    
+    	    	    //계산값
+    	    	    console.log("계산값"+resultPrice);
+    	    	    
+    	    	    
+    	    	    //쿠폰값 텍스트 대체
+    	    	    $('#couponPrice').text("-"+convertCouponPrice);  
+    	    	    
+    	    	    //계산값 텍스트 대체
+    	    	    $('#resultPrice').text(convertPrice);
+    		}else{
+    			 $('#couponPrice').removeClass("red");
+    			   $('#couponPrice').text("0");  
+    			   $('#resultPrice').text(parseInt(PRICE).toLocaleString());
+   		}
+    	 
+    	})
+    	 
+    })
+    
+    
+	 //csv를 넣어 주소를 하나로 합치는 함수
+	 
+	 function combineAddr(){
+		 
+		 //디버깅
+		 //alert($("input[name='postcode']").val())
+		 
+		 var pickupAddrValue = "";
+		 
+		 var pickupAddrValue = $("input[name='pickupPostcode']").val() + "/"  + $("input[name='pickupBaseAddress']").val() + "/" 
+			+  $("input[name='pickupDetailAddress']").val() + "/" +  $("input[name='pickupExtraAddress']").val();
+		 
+		 $('.pickupAddress').val(pickupAddrValue);
+		
+		//alert(pickupAddrValue);
+		 
+		 var divyAddrValue = "";
+		 
+		 var divyAddrValue = $("input[name='divyPostcode']").val() + "/"  + $("input[name='divyBaseAddress']").val() + "/" 
+			+  $("input[name='divyDetailAddress']").val() + "/" +  $("input[name='divyExtraAddress']").val();
+		 
+		 $('.divyAddress').val(divyAddrValue);
+		
+		// alert(divyAddrValue);
+		 
+	 }
+	 
+	 //csv를 넣어 전화번호를 합치는 함수
+	 function combinePhone(){
+		 
+		 //디버깅
+		 
+		 var receiverPhone = "";
+		 
+		 var receiverPhone = $(".receiverPhone1").val() + "/"  + $(".receiverPhone2").val() + "/" 
+			+  $(".receiverPhone3").val();
+		 
+		 $('.receiverPhone').val(receiverPhone);
+			
+		
+		
+		// alert(receiverPhone); 
+	 }
+	 
+		$(function(){
+			 $(".payment").on("click", function(){
+				 
+				 combineAddr(); // 주소합침
+				 combinePhone();//폰 번호 합침
+				 var numConvert = parseInt($('#resultPrice').text().replace(",","")); 
+				 
+				 console.log("정수치환"+numConvert);
+				 
+				 $('.resultHiddenPrice').val(numConvert) //최종결제금액 , 파싱해서 전달
+				 
+				 console.log("receiverName"+$('.receiverName').val()); // receiverName
+				 console.log("최종 결제 금액"+$('.resultHiddenPrice').val()); // 최종 결제 금액
+				 console.log("주문자 휴대폰번호"+$('.receiverPhone').val()); // 주문자 휴대폰번호
+				 console.log("픽업주소"+$('.pickupAddress').val()); // 픽업주소
+				 console.log("반송주소"+$('.divyAddress').val());     //반송주소
+				 console.log("남기실말씀"+$('.divyRequest').val());     //남기실말씀
+
+				 
+				$('form').attr('method', 'POST').attr('action','/rental/addRental').submit();
+			 })
+		 }) 
+		 
+		 $(function(){
+			var arrayTemp =  $('.wishPrice').text().split("/");
+			const arrStr =arrayTemp;
+			const nuevo = arrStr.map((i) => Number(i));
+			arraySum = nuevo.reduce(function(a, b){ return a + b; }, 0);
+			
+			$(".totalResultPrice").text(arraySum);
+			
+			console.log($(".totalResultPrice").text());
+		 })
+	 
+		 $(function(){
+			 
+			 	dateChange();
+			 
+				function dateChange(){
+									
+						var plusDay1 = parseInt($('.period').eq(0).text());
+						var plusDay2 = parseInt($('.period').eq(1).text());
+						var plusDay3 = parseInt($('.period').eq(2).text());
+		
+						
+					    var now = new Date();
+					    			    			   
+					    $(".dateText").eq(0).text(dateFormat(now));
+					    $(".dateText").eq(1).text(dateFormatAfter(now,plusDay1));	
+					    $(".dateText").eq(2).text(dateFormat(now));
+					    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
+					    $(".dateText").eq(4).text(dateFormat(now));
+					    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+					}
+				
+				//날짜 표기
+				function dateFormat(date) {
+			        let month = date.getMonth() + 1;
+			        let day = date.getDate();
+			        let hour = date.getHours();
+			        let minute = date.getMinutes();
+			        let second = date.getSeconds();
+			
+			        month = month >= 10 ? month : '0' + month;
+			        day = day >= 10 ? day : '0' + day;
+			        hour = hour >= 10 ? hour : '0' + hour;
+			        minute = minute >= 10 ? minute : '0' + minute;
+			        second = second >= 10 ? second : '0' + second;
+
+		        return date.getFullYear() + '-' + month + '-' + day;
+		}
+				function dateFormatAfter(date,plusDay) {					
+					
+			        let month = date.getMonth() + 1;
+			        let day = date.getDate()+plusDay;
+			        let hour = date.getHours();
+			        let minute = date.getMinutes();
+			        let second = date.getSeconds();
+
+			        month = month >= 10 ? month : '0' + month;
+			        day = day >= 10 ? day : '0' + day;
+			        hour = hour >= 10 ? hour : '0' + hour;
+			        minute = minute >= 10 ? minute : '0' + minute;
+			        second = second >= 10 ? second : '0' + second;
+
+			        return date.getFullYear() + '-' + month + '-' + day;
+			}
+				
+		 })
+    
+    
+   
+</script>
+
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
+</html>

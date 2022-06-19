@@ -18,6 +18,8 @@ public interface WishlistDAO {
 	
 	void updateWishList(Wishlist wishlist) throws Exception;
 	
+	Wishlist getWish(int wishlistNo) throws Exception;
+	
 	List<Wishlist> getWishlist(Map<String,Object> map) throws Exception;
 	
 	int getTotalCount(Search search) throws Exception;	

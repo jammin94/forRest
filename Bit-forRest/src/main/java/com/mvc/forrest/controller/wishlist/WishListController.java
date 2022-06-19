@@ -1,5 +1,9 @@
+
 package com.mvc.forrest.controller.wishlist;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import java.util.Map;
 
@@ -13,13 +17,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
-
+import com.mvc.forrest.service.domain.Wishlist;
 import com.mvc.forrest.service.user.UserService;
 import com.mvc.forrest.service.wishlist.WishlistService;
 
@@ -35,6 +42,8 @@ public class WishListController {
 	@Autowired
 	public UserService userService;
 	
+	@Autowired
+	public CouponService couponService;
 	
 
 //	@Autowired
@@ -102,5 +111,38 @@ public class WishListController {
 			
 			return "wishList/wishList";
 		}
+		
+		
+		//-------------장바구니에서의 add 구현 --------------------//
+		@PostMapping("addWishRental")
+		public String addWishRentalView(@RequestParam("wishlistNo") int[] wishlistNo, @RequestParam("period") int[] period, @RequestParam("rentalPrice") int[] rentalPrice, Model model) throws Exception{
+			
+			System.out.println("period"+period);			
+			
+			//암호화된 유저아이디를 받아옴
+			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId= loginUser.getUser().getUserId();
+			System.out.println("userId: "+userId);
+			System.out.println("어데서터지ㅗㄴ1");
+			//회원의 보유쿠폰리스트를 받아옴
+			Map<String,Object> map =couponService.getOwnCouponList(userId);
+			//장바구니 배열로받아서 넘기기
+			List<Wishlist> listA = new ArrayList<Wishlist>();
+			Wishlist wishlist = new Wishlist();
+			System.out.println("어데서터지ㅗㄴ2");
+			for(int i=0; i<wishlistNo.length;i++) {
+				wishlist=wishlistService.getWish(wishlistNo[i]); //wishlist 객체반환	
+				wishlist.setPeriod(period[i]);
+				wishlist.getProduct().setRentalPrice(rentalPrice[i]);
+				listA.add(wishlist);
+			}
+			
+			System.out.println("어데서터지ㅗㄴ3");
+			model.addAttribute("wishlist",listA);
+			model.addAttribute("list",map.get("list"));
+			
+			return "rental/addWishRental";
+		}
+		
 		
 }
