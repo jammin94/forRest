@@ -22,7 +22,12 @@ public class WishlistService {
 			System.out.println("addWishlist 실행 됨");
 			wishlistDAO.addWishlist(wishList);
 		}
-		
+				
+		//장바구니 select one
+		public Wishlist getWish(int wishlistNo) throws Exception{
+			System.out.println("getWish 실행 됨");
+			return wishlistDAO.getWish(wishlistNo);			
+		}
 		
 		
 		//장바구니 삭제
