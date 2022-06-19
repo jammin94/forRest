@@ -41,11 +41,13 @@ public class ReportController {
 
 	
 	@GetMapping("addReport")
-	public String addReport(@RequestParam("oldNo") int oldNo,Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
-		User loginUser =(User)session.getAttribute("user");
-		System.out.println(loginUser);
-		String id= loginUser.getUserId();
-		 return "common/firebase";
+	public String addReport(//@RequestParam("oldNo") String oldNo,
+			Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
+		//User loginUser =(User)session.getAttribute("user");
+		//System.out.println(loginUser);
+		//String id= loginUser.getUserId();
+		System.out.println(report);
+		 return null;
 	}
 	
 
