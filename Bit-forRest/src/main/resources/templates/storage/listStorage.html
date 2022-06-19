@@ -98,7 +98,7 @@ border-bottom:3px solid #ddd !important;
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
-	<form>
+	<form class='form'>
 	<div class="page-header text-info">
 		       <h3>보관내역조회</h3>
 			<div class="storageOrder">
@@ -191,7 +191,7 @@ border-bottom:3px solid #ddd !important;
 					</div>
 					
 						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' or ${storage.storageProd.prodCondition }== '출고승인신청중' ">
-					 	<div><button type="button">취소</button></div>
+					 	<div><button type="button" th:onclick="|location.href='@{/storage/extendStorage(tranNo=${storage.tranNo})}'|">취소</button></div>
 					</div>
 					
 					<!-- 대여신청, 배송, 대여중일때 엔드유저에겐 대여중으로 디스플레이 -->
