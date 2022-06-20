@@ -115,8 +115,8 @@ select:focus { outline: none; }
 					<span sec:authorize="isAuthenticated()">
 					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
 							
-							<button type="button" class="btn custom" onclick="alert('삭제하시겠습니까?')" >
-								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
+							<button type="button" class="btn custom" onclick="js:deleteold()" >삭제
+<!-- 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a> -->
 							</button>
 							
 							<button type="button" class="btn custom" >
@@ -124,8 +124,7 @@ select:focus { outline: none; }
 							</button>
 							
 							<button type="button"  id="updateOldDate" class="btn custom"    onclick="js:datediff()"   >끌올
-       							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a>
-							
+<!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a> -->
 							</button>
 							
 							
@@ -379,15 +378,28 @@ function datediff(){
 			location.href='/old/updateOldDate?oldNo=' + /*[[${old.oldNo}]]*/ +')';
 		}
 		else{
-			
 			alert("끌어올리기 취소");
-		}
+			} 
 		}
 			
 	} else {
 		alert("등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.");
 		return;
 	}
+}
+
+function deleteold(){
+	
+	var confirmdelete = confirm("게시물을 삭제하시겠습니까?");
+	
+		if(confirmdelete){
+						alert("삭제 완료");
+						location.href='/old/deleteOld?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+		}
+		else{
+			alert("삭제 취소");
+			return;
+		}
 }
 
 /*]]>*/
