@@ -32,6 +32,7 @@ public class Rental {
 	private Product purchaseProd;
 	private User buyer;
 	private String divyRequest;
+	private int reviewDone;
 	
 	public Rental(){
 	}

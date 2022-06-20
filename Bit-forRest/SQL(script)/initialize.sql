@@ -68,6 +68,7 @@ CREATE TABLE transaction
    originPrice INTEGER NOT NULL,
    discountPrice INTEGER,
    resultPrice INTEGER,
+   reviewDone TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (tranNo)
 );
 
@@ -204,11 +205,16 @@ CREATE TABLE `imgs` (
   PRIMARY KEY (`imgNo`)
 );
 
+
 CREATE TABLE oldlike(
-	oldLikeNo			INTEGER 	NOT NULL	AUTO_INCREMENT,
-	oldNo 			VARCHAR(40)		NOT NULL 	REFERENCES     old(oldNo),
-	userId			VARCHAR(30)	NOT NULL 	REFERENCES     user(userId),
-	PRIMARY KEY(oldLikeNo)
+	oldLikeNo	 INTEGER	 NOT NULL	 AUTO_INCREMENT,
+	oldNo 		 VARCHAR(40) NOT NULL ,
+	userId		 VARCHAR(30)	NOT NULL ,
+	PRIMARY KEY(oldLikeNo),
+	KEY oldNo (oldNo),
+	KEY userId (userId),
+	CONSTRAINT `oldlike_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
+	CONSTRAINT `oldlike_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 );
 
 CREATE TABLE oldReview(

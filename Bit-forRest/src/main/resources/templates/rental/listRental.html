@@ -10,9 +10,10 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	
+	 <link rel="stylesheet" href="/css/addRentalReview.css">
 </head>
 <style>
+
 .page-header {
     margin: 40px 0 0px !important;
     border-bottom: 3px solid #ddd !important;
@@ -111,7 +112,73 @@
     	text-decoration:underline;
     }
     
-</style>
+    .reviewBtn{
+    	border:none;
+    	padding: 8px;
+	    border-radius: 10px;
+	    background: #e7e7e7;
+	    color: #000;
+	    font-size: 14px;
+	    font-weight: bold;
+    }
+    
+    
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+
+#review-form{
+    position: absolute;
+    top: -9999px;
+    left:-9999px;
+  
+}
+
+#review-form.on{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 510px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+}
+
+.reviewBackground{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    opacity: 0.3;
+}
+
+ 
+  .reviewBackground.on{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #000;
+    top: 0;
+    left: 0;
+    
+ }
+ 
+ .close{
+     position: fixed;
+    right: 30px;
+ }
+  </style>
 <body>
 
 <!-- 로딩시 뜨는 아이콘 -->
@@ -191,7 +258,16 @@
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 				<td class="tdCenter" th:text = "${rental.purchaseProd.prodCondition}"></td>
 				<td th:if="${rental.purchaseProd.prodCondition} == '대여중' "><button>취소접수</button></td>
-				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' "></td>
+				
+				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' ">
+					<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
+					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
+					<td>
+							<button th:if="${rental.reviewDone} == '0' " type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
+								<span style="display:none;">[[${rental.reviewDone}]]</span>
+								<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
+							<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
+				</td>
 	    </tr>
 	        </tbody>
 
@@ -221,14 +297,181 @@
      <div th:replace="/main/footer.html"></div>
  
  
+ 
+ 
+ <!-- 리뷰박스 -->
+ <div class="reviewBackground"></div>
+  <div class="Rentalcontainer">
+<form id="review-form"  action="/rentalReview/addRentalReview"  method="post"  enctype="multipart/form-data">
+
+	<input type="hidden" name="tranNo" class="innerTranNo"></input>
+	<input type="hidden" name="reviewDone" class="reviewDone"></input>
+
+<span class="close">닫기</span>
+<input type="hidden" class="starValueText"  name="reviewScore"></input>
+  <div id="rating">
+ 
+
+<div class="main-wrapper">
+  <div class="img-upload-plugin">
+                    <div class="img-upload-handler">
+                      <div class="img-preview-big img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">                     
+                      </div>
+                         <div class="img-delete">
+                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+                        </div>
+                    </div>
+                    <div class="img-preview-operate" style="display:none;">
+                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
+                      <button type="button" class="img-add-more">
+                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+                      </button>
+                    </div>
+                    <input type="file" name="fileName" class="fileName" style="display:none">
+                  </div>
+</div>
+
+  </div>
+  <span id="starsInfo" class="help-block">
+    상품에 대한 별점을 남겨주세요 !
+  </span>
+    <div class="star-rating">
+  <input type="radio" id="5-stars" class="starValue" value="5" />
+  <label for="5-stars" class="star">&#9733;</label>
+  <input type="radio" id="4-stars" class="starValue"  value="4" />
+  <label for="4-stars" class="star">&#9733;</label>
+  <input type="radio" id="3-stars" class="starValue" value="3" />
+  <label for="3-stars" class="star">&#9733;</label>
+  <input type="radio" id="2-stars" class="starValue" value="2" />
+  <label for="2-stars" class="star color">&#9733;</label>
+  <input type="radio" id="1-star" class="starValue" value="1" />
+  <label for="1-star" class="star">&#9733;</label>
+</div>
+  <div class="form-group">
+   <!--  <label class="control-label" for="review">Your Review:</label> -->
+    <textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
+    <span id="reviewInfo" class="help-block pull-right">
+    
+    </span>
+  </div>
+  <button class="regBtn" >등록하기 </button>
+  </form>
+<div id="review-container">
+</div>
+</div>
+
 </body>
 <script src="/js/jquery_min.js"></script>
+<script src="/js/addRentalReview.js"></script>
 <script>
 $(function(){
 	$('.getRentalLink').on("click",function(){
 			$(location).attr('href','/rental/getRental');
 	})
 })
+$(function(){
+
+	//"리뷰쓰기" 버튼
+$(".reviewBtn").on("click",function(){
+
+	var rentalTranNo = $(this).parent().find('.hiddenTranNo').text()
+	$('.innerTranNo').val(rentalTranNo);
+	
+	console.log("dgdd"+rentalTranNo);
+	
+	  $('#review-form').addClass("on");
+	  $('.reviewBackground').addClass("on");
+	  
+	  
+	});
+	
+	//"리뷰수정"버튼
+	$(".reviewEditBtn").on("click",function(){
+	
+		$.ajax({
+            type : "POST",  
+            url : "/wishlist/deleteWishlistOnList",       
+            dataType : "json",   
+            data : prodNo,
+            error : function(){
+               alert("통신 에러");
+            },
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+            success : function(heartCheck) {
+                
+                    if(heartCheck){
+                    alert("찜삭제완료")	;
+                    console.log("찜삭제 완료");
+			        $(this).removeClass('filled');
+			        location.reload();
+
+                    }
+                    else if (heartCheck){
+                    	alert("이미 삭제한 물품 입니다");                 
+                    	location.reload();
+                	}
+                    
+                    
+            	}
+        	})
+		
+		
+	})
+	
+	
+	
+	//"리뷰등록하기"버튼
+	$('.regBtn').on("click",function(){
+		
+		  $('#review-form').removeClass("on");
+		  $('.reviewBackground').removeClass("on");
+		  
+		  $(".reviewDone").val(1);
+		  
+		  $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
+	})
+	
+	//리뷰닫기
+	$('.close').on("click",function(){
+		  $('#review-form').removeClass("on");
+		  $('.reviewBackground').removeClass("on");
+	})
+
+	
+	//팝업으로 띄우는 함수
+	function popup(){
+	//	  document.domain = "http://localhost:8080/rental/listRental?"; //document.domain 값이 팝업과 부모창 동일해야 합니다.
+
+        var url = "/rentalReview/addRentalReview";
+        var name = "popup test";
+        var option = "width = 550, height = 800, top =0, left = 0, location = yes"
+        window.open(url, name, option);
+    }
+})
+
 </script>
+<script>
+
+
+$(function(){
+	/*
+	$('.star').on("click",function(){
+		console.log('dasfdsafadsfs');
+		$('.star').removeClass("on");
+		$(this).addClass("on");
+		console.log($(this).prev().val());
+		
+		$('.starValueText').val($(this).prev().val());
+	})
+	
+	*/
+})
+
+ 		
+	  </script>
 
 </html>

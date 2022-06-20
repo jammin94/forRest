@@ -65,6 +65,10 @@ public class OldService {
 		return oldDAO.getOldListCategory(old);
 	}
 	
-		
+	public void updateOldDate(String oldNo) throws Exception{
+		System.out.println("updateOldDate 성공");
+		oldDAO.updateOldDate(oldNo);
+	}
+	
 	}
 	

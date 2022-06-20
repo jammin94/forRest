@@ -98,7 +98,7 @@ border-bottom:3px solid #ddd !important;
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
-	<form class='form'>
+	<form class='form-storage'>
 	<div class="page-header text-info">
 		       <h3>보관내역조회</h3>
 			<div class="storageOrder">
@@ -144,7 +144,7 @@ border-bottom:3px solid #ddd !important;
 			    <tr class="tableBody" th:each ="storage : ${list}">
 				    <td align="left">
 				    <a th:href ="@{/storage/getStorage(tranNo = ${storage.tranNo})}" >
-				 	<span   th:text="|주문번호: ${storage.paymentNo}|"></span>
+				 	<span  class="payNo"  th:text="|주문번호: ${storage.paymentNo}|" ></span>
 				 	</a>
 				    	<div class="productInfo">
 				    		<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
@@ -191,7 +191,7 @@ border-bottom:3px solid #ddd !important;
 					</div>
 					
 						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' or ${storage.storageProd.prodCondition }== '출고승인신청중' ">
-					 	<div><button type="button" th:onclick="|location.href='@{/storage/extendStorage(tranNo=${storage.tranNo})}'|">취소</button></div>
+					 	<div><button class="cancle-btn" type="button" th:value="${storage.paymentNo}" th:data-prodNo="${storage.prodNo}">취소</button></div>
 					</div>
 					
 					<!-- 대여신청, 배송, 대여중일때 엔드유저에겐 대여중으로 디스플레이 -->
@@ -226,10 +226,53 @@ border-bottom:3px solid #ddd !important;
 	$(function(){
 		$(".prodConditionBox").on("change", function(){
 			
-			 $('form').attr('method', 'POST').attr('action', '/storage/listStorage').submit();
+			 $('.form-storage').attr('method', 'POST').attr('action', '/storage/listStorage').submit();
+			
+		})
+		
+		$(".cancle-btn").on("click", function(){
+			
+			 var paymentNo = $(this).parent().find('.cancle-btn').val();;
+			 var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
+			 
+			  $.ajax({
+		      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
+		      "type": "POST",
+		      "contentType": "application/json",
+		   
+		    }).done(function(data) {
+	        	
+		    	//검증을 어케해야할까요...?
+		    	console.log(data);
+	        	alert(data);
+	        	alert("되나,,,?");
+	        	
+	        	self.location = "/product/cancleProduct?prodNo="+prodNo;
+	        });
+			 
 			
 		})
 	});
+	
+	
+	
+	
+	
+	 function cancelPay() {
+		
+		 
+		 var paymentNo = $(".payNo").html();
+		 alert("paymentNo: " + paymentNo);
+		 
+		
+		 
+		/*  $.ajax({
+		      "url": "/payment/json/cancleIamport", 
+		      "type": "POST",
+		      "contentType": "application/json",
+		   
+		    }); */
+		  }
 	</script>
 
 </html>
