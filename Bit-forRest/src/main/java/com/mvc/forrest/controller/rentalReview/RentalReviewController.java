@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
 
 
@@ -39,6 +41,10 @@ public class RentalReviewController {
 
 		@Autowired
 		public RentalReviewService rentalReviewService;
+		
+		@Autowired
+		public RentalService rentalService;
+		
 		
 		//리뷰등록하기 view 화면 (네비게이션용)
 		@GetMapping("addRentalReview")
@@ -71,7 +77,13 @@ public class RentalReviewController {
 		//리뷰등록하기 기능구현
 		//회원, 어드민가능 
 		@PostMapping("addRentalReview")
-		public String addRentalReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model,@RequestParam("fileName") MultipartFile file) throws Exception {
+		public String addRentalReview(
+				@ModelAttribute("rentalReview") RentalReview rentalReview, 
+				Model model,
+				@RequestParam("fileName") MultipartFile file,
+				@RequestParam("tranNo") String tranNo,
+				@RequestParam("reviewDone") int reviewDone
+				) throws Exception {
 			System.out.println(rentalReview.getReviewImg());
 			
 			String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
@@ -98,6 +110,14 @@ public class RentalReviewController {
 			
 			rentalReviewService.addRentalReview(rentalReview);
 			
+			//리뷰 업데이트된 상태도 rental transaction에 업데이트 해준다.
+			Rental rental = new Rental();
+			rental.setReviewDone(reviewDone);
+			rental.setTranNo(tranNo);
+			rentalService.updateReviewDone(rental);
+			
+			System.out.println("reviewDone"+reviewDone);
+			System.out.println("tranNo"+tranNo);
 			System.out.println("렌탈리뷰 추가하기 테스트 중");
 			
 			return "redirect:/rental/listRental";
