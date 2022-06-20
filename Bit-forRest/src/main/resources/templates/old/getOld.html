@@ -55,6 +55,40 @@ Kakao.isInitialized();
 	.purchase-info a{
 	color:#fff !important;
 	}
+	
+
+.styled-select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  
+  overflow: hidden;
+  position: relative;
+}
+.styled-select, .styled-select select { width: 240px;}
+select:focus { outline: none; }
+.styled-select select {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+  
+  /*hide default down arrow in webkit */
+  -webkit-appearance: none; 
+}
+
+@-moz-document url-prefix(){
+  .styled-select select { width: 110%; }
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  font-size: 24px;
+}
+
+
 </style>
 
 
@@ -80,15 +114,20 @@ Kakao.isInitialized();
 		
 					<span sec:authorize="isAuthenticated()">
 					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
-							<button type="button" class="btn custom">
+							
+							<button type="button" class="btn custom" onclick="alert('삭제하시겠습니까?')" >
 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
 							</button>
-							<button type="button" class="btn custom">
+							
+							<button type="button" class="btn custom" >
 								<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 							</button>
-							<button type="button" class="btn custom">
-							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}">끌어올리기</a>
+							
+							<button type="button"  id="updateOldDate" class="btn custom"       >끌올
+<!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}">끌</a> -->
 							</button>
+							
+							<button type="button" onclick="alert('Hello World!')" >클릭해 보세요!</button>
 					</div>
 					</span>
 				</div>
@@ -187,8 +226,7 @@ Kakao.isInitialized();
 					</span>
 					</div>
 			
-			<!--Simple dropdown menu based on w3schools.org / css-js-dropdown -->
-
+		
 	
 		<section>
 <button type="button" class="kakao mt-3 py-2 px-3" onclick="js:setShare()">
@@ -218,6 +256,18 @@ Kakao.isInitialized();
 
 					</div>
 				</div>
+				
+
+<!-- oldState 중고거래 상태 판매중 거래완료 -->
+<div class="styled-select">
+   <select>
+     <option>판매중</option>
+     <option>거래완료</option>
+   </select>
+ 
+  <span class="fa fa-sort-desc"></span>
+</div>
+				
 
 				<div class="product-price">
 					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
@@ -311,8 +361,36 @@ Kakao.Link.sendDefault({
  
 });
 }
-/*]]>*/
 
+
+
+
+// onclick= if ((CURRENT_TIMESTAMP-${oldDate})&lt;=3일..){"alert('끌어올리시겠습니까?')" }
+	$( "#updateOldDate" ).on("click" , function() {	
+	
+		var oldDate = /*[[${old.oldDate}]]*/ +')';	
+// 		var yearold = oldDate.getFullYear();
+
+		var date = new Date();		
+		var dateSec = date.getTime();
+		var year = date.getFullYear();
+		var month = ('0' + (date.getMonth() + 1)).slice(-2);
+		var datedate = date.getDate();
+        
+		var datesum = (year + '-' + month + '-' + datedate);
+	
+// 	alert(yearold);
+	alert(datesum);
+	alert(oldDate);    //2022-06-20T14:05:21.000+09:00
+	alert(date); //Mon Jun 20 2022 14:40:09 GMT+0900 (한국 표준시)
+	alert(year); //2022
+	alert(month); //06
+	alert(datedate); //20
+	
+	
+	});
+
+/*]]>*/
 </script>
 
 
