@@ -33,10 +33,39 @@
 			
 				<div class="page slidepage">
 					
-					<input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"/>
 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
+					
+					<!-- 도전.. -->
+					<div id="fileDiv">
+						<p>
+							<input type="file" id="file_0" name="uploadFile" onchange="change()">
+							
+						</p>
+					</div>
 
-					    
+
+					<div class="main-wrapper">
+	  					<div class="img-upload-plugin">
+		                    <div class="img-upload-handler">
+			                    <div class="img-preview-big">
+			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
+				                    <div class="img-delete">
+				                    	<img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+				                    </div>
+			                    </div>
+		                    </div>
+		                    <div class="img-preview-operate">
+			                    <div class="img-holder" style="display: inline-block; padding: 2px;">
+			                    	<!-- 이미지 추가 되는 부분 -->
+			                    </div>
+			                    <button type="button" class="img-add-more">
+			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+			                    </button>
+		                    </div>
+		                    <input type="file" name="uploadFile"  style="display:none" multiple="multiple">
+	                  	</div>
+					</div>
+					    <!-- 도전.. -->
 						
 					    
 		
