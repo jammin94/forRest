@@ -141,4 +141,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE oldNo = #{oldNo}
 	</update>
 	
+	
+	<update id="updateOldState" parameterType="String">
+	update old
+	<set>
+	oldState = #{oldState}
+	</set>
+	WHERE oldNo =#{oldNo}	
+	</update>
+	
 </mapper>

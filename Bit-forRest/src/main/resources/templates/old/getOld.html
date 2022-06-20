@@ -259,13 +259,15 @@ select:focus { outline: none; }
 				
 
 <!-- oldState 중고거래 상태 판매중 거래완료 -->
-<div class="styled-select">
-   <select>
-     <option>판매중</option>
-     <option>거래완료</option>
-   </select>
- 
-  <span class="fa fa-sort-desc"></span>
+<div class="sold"  onclick="js:sold()">
+  
+  <button type="button" class="btn" id="onSale">
+							판매중
+						</button>
+ <button type="button" class="btn" id="sold">
+							거래완료
+						</button>
+  
 </div>
 				
 
@@ -352,8 +354,7 @@ Kakao.Link.sendDefault({
     title: title,
     description: description,
  	
-    imageUrl:
-    	'/images/content/aaa.jpg',
+    imageUrl:'http://localhost:8080/images/uploadFiles/98510180-9d55-439c-a94a-93625b1c252a.jpg',
     link: {
       webUrl: 'http://localhost:8080/old/getOld?oldNo=' + /*[[${old.oldNo}]]*/ +')',
     },
@@ -401,6 +402,14 @@ function deleteold(){
 			return;
 		}
 }
+
+
+function sold(){
+	
+}
+var preState = /*[[${old.oldState}]]*/ +')';
+//  alert(preState);
+
 
 /*]]>*/
 </script>
