@@ -75,5 +75,10 @@ public class OldService {
 		oldDAO.updateOldState(oldNo);
 	}
 	
+	public void updateViewCnt(String oldNo) throws Exception{
+		System.out.println("updateViewCnt 성공");
+		oldDAO.updateViewCnt(oldNo);
+	}
+	
 	}
 	

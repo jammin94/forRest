@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,9 +132,35 @@ public class OldController {
 	/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
 	
 	@RequestMapping("getOld")
-	public String getOld(@RequestParam("oldNo") String oldNo,@ModelAttribute("search") Search search, Model model)
+	public String getOld(@RequestParam("oldNo") String oldNo,@ModelAttribute("search") Search search, Model model, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
+		
+		    //조회수 쿠키를 통해 약식 구현 => 현업에서는 사실 조회수 자체를 별 신경 안쓰는 분위기라고 함
+		    Cookie oldCookie = null;
+		    Cookie[] cookies = request.getCookies();
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if (cookie.getName().equals("oldView")) {
+		                oldCookie = cookie;
+		            }
+		        }
+		    }
+	
+		    if (oldCookie != null) {
+		        if (!oldCookie.getValue().contains("[" + oldNo + "]")) {
+		            oldService.updateViewCnt(oldNo);
+		            oldCookie.setValue(oldCookie.getValue() + "_[" + oldNo + "]");
+		            oldCookie.setPath("/");
+		            oldCookie.setMaxAge(60 * 60 * 24);
+		            response.addCookie(oldCookie);
+		        }
+		    } else {
+		    	oldService.updateViewCnt(oldNo);
+		        Cookie newCookie = new Cookie("postView","[" + oldNo + "]");
+		        newCookie.setPath("/");
+		        newCookie.setMaxAge(60 * 60 * 24);
+		        response.addCookie(newCookie);
+		    }
 		System.out.println("겟올드");
 		
 		//유저 평점 가져오기

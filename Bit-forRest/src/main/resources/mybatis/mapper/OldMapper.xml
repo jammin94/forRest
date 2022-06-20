@@ -11,23 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- result property="필드" column="테이블" -->
 		<result property="oldNo" column="oldNo" jdbcType="VARCHAR" />
 		<result property="userId" column="userId" jdbcType="VARCHAR" />
-		<result property="oldPrice" column="oldPrice"
-			jdbcType="INTEGER" />
-		<result property="oldTitle" column="oldTitle"
-			jdbcType="VARCHAR" />
-		<result property="oldDetail" column="oldDetail"
-			jdbcType="INTEGER" />
-		<result property="oldDate" column="oldDate"
-			jdbcType="TIMESTAMP" />
+		<result property="oldPrice" column="oldPrice" jdbcType="INTEGER" />
+		<result property="oldTitle" column="oldTitle" jdbcType="VARCHAR" />
+		<result property="oldDetail" column="oldDetail" jdbcType="INTEGER" />
+		<result property="oldDate" column="oldDate" jdbcType="TIMESTAMP" />
 		<result property="oldView" column="oldView" jdbcType="INTEGER" />
-		<result property="category" column="category"
-			jdbcType="VARCHAR" />
-		<result property="oldState" column="oldState"
-			jdbcType="TINYINT" />
+		<result property="category" column="category" jdbcType="VARCHAR" />
+		<result property="oldState" column="oldState" jdbcType="TINYINT" />
 		<result property="oldImg" column="oldImg" jdbcType="VARCHAR" />
 		<result property="oldAddr" column="oldAddr" jdbcType="VARCHAR" />
-		<result property="oldLikeNo" column="oldLikeNo"
-			jdbcType="INTEGER" />
+		<result property="oldLikeNo" column="oldLikeNo" jdbcType="INTEGER" />
 	</resultMap>
 
 	<!-- SQL : INSERT -->
@@ -79,8 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- SQL : SELECT LIST -->
-	<select id="getOldList" parameterType="Search"
-		resultMap="oldSelectMap">
+	<select id="getOldList" parameterType="Search" resultMap="oldSelectMap">
 		SELECT * FROM old
 		<where>
 			<if test="searchKeyword != null and searchCategory == null">
@@ -94,8 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- SQL : SELECT LIST -->
-	<select id="getOldListHasUser" parameterType="map"
-		resultMap="oldSelectMap">
+	<select id="getOldListHasUser" parameterType="map" resultMap="oldSelectMap">
 		SELECT *
 		FROM old LEFT OUTER JOIN (SELECT * FROM oldlike WHERE
 		userId=#{userId}) A
@@ -149,5 +140,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</set>
 	WHERE oldNo =#{oldNo}	
 	</update>
+	
+	 <update id="updateViewCnt" parameterType= "String">
+     	update old
+		<set>
+		oldView = oldView+1
+		</set>
+        WHERE oldNo = #{oldNo}
+ 	</update>
 	
 </mapper>

@@ -30,5 +30,7 @@ public interface OldDAO {
 	
 	public void updateOldDate(String oldNo) throws Exception ;	
 	
-	public void updateOldState(String oldNo) throws Exception ;	
+	public void updateOldState(String oldNo) throws Exception ;
+	
+	public void updateViewCnt(String oldNo) throws Exception ;
 }
