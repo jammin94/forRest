@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 <link rel="stylesheet" href="/css/addOld.css">
-
 </head>
 <body>
 
@@ -34,44 +33,12 @@
 			
 				<div class="page slidepage">
 					
-
+					<input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"/>
 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
-					<div class="form-group">
-					
-						 <div class="field">
-                        <div class="label">제품 사진 등록</div>
-                         <input type="file" class="form-control" id="uploadFile" name="uploadFile"  multiple="multiple" placeholder="img"
-                       /> 
-                     
-                    </div>
-					</div>
-					
-<!-- 	코드펜		 -->
 
-
-<!-- 					<div class="main-wrapper"> -->
-<!-- 	  					<div class="img-upload-plugin"> -->
-<!-- 		                    <div class="img-upload-handler"> -->
-<!-- 			                    <div class="img-preview-big"> -->
-<!-- 				                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png"> -->
-<!-- 				                    <div class="img-delete"> -->
-<!-- 				                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png"> -->
-<!-- 				                    </div> -->
-<!-- 			                    </div> -->
-<!-- 		                    </div> -->
-<!-- 		                    <div class="img-preview-operate"> -->
-<!-- 			                    <div class="img-holder" style="display: inline-block; padding: 2px;"></div> -->
-<!-- 			                    <button type="button" class="img-add-more"> -->
-<!-- 			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png"> -->
-<!-- 			                    </button> -->
-<!-- 		                    </div> -->
-<!-- 		                    <input type="file" name="uploadFile"  style="display:none" multiple="multiple"> -->
-<!-- 	                  	</div> -->
-<!-- 					</div> -->
-
-<!-- 코드펜-->
-				
-		
+					    
+						
+					    
 		
 		
 					<div class="field">
@@ -138,13 +105,12 @@
 			</form>
 		</div>
 	</div>
-
+	
 	<script src="/js/jquery_min.js"></script>
-	<script src="/js/addOld.js"></script>
+ 	<script src="/js/addOld.js"></script>
 	<!--     <script src="/js/addRentalReview.js"></script> -->
 
 	<script type="text/javascript">
-		var gfv_count = 1;
 
 	
 		$( ".submit" ).on("click" , function() {	
@@ -177,40 +143,16 @@
 						}
 																
 
-						$("form").attr("method" , "POST").attr("action" , "/old/addOld").submit();			
-							
-// 					  }
-		
-			
-		});
-		$(document).ready(function(){
-					
-			$("#addFile").on("click", function(e){ //파일 추가 버튼
-				e.preventDefault();
-				fn_addFile();
-			});
-			
-			$("a[name='delete']").on("click", function(e){ //삭제 버튼
-				e.preventDefault();
-				fn_deleteFile($(this));
-			});
-		});
-		
-		
-		function fn_addFile(){
-			var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
-			$("#fileDiv").append(str);
-			$("a[name='delete']").on("click", function(e){ //삭제 버튼
-				e.preventDefault();
-				fn_deleteFile($(this));
-			});
-		}
-		
-		function fn_deleteFile(obj){
-			obj.parent().remove();
-		}
-	</script>
 
+
+						$("form").attr("method" , "POST").attr("action" , "/old/addOld").submit();			
+
+				  
+		
+			
+		});
+	</script>
+	
 </body>
 
 </html>
