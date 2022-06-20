@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
@@ -193,7 +192,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		System.out.println("디버그 "+mapStorage.get("list"));
+		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -264,35 +263,7 @@ public class StorageController {
 		return "storage/extendStorage";
 	}
 	
-	//보관물품의 기간을 연장
-	//회원, 어드민 가능
-	@PostMapping("extendStorage")
-	@ResponseBody
-	public String extendStoragePost(@RequestBody Storage storage,
-													@RequestBody OwnCoupon ownCoupon,
-													@RequestParam("paymentNo") String paymentNo,
-													Model model) throws Exception {
-		
-		//디버깅
-		System.out.println("extendStorage Post Start");
-		System.out.println("storage: "+storage);
-		System.out.println("ownCoupon"+ownCoupon);
-		
-		//결제완료후 사용한 쿠폰 삭제, 쿠폰이 선택되지않았을때는 삭제메서드 동작X
-		if(ownCoupon.getOwnCouponNo() != 0) {
-			couponService.deleteOwnCoupon(ownCoupon.getOwnCouponNo());
-					
-			}
-		
-		//기존에 보관한 물품에 변경되는 정보를 업데이트
-		storage.setPaymentNo(paymentNo);
-		storageService.updateStorage(storage);
-		
-		model.addAttribute("storage", storageService.getStorage(storage.getTranNo()));
-		
-		return "storage/getStorage";
-	}
-	
+
 	//회원, 어드민 가능
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {

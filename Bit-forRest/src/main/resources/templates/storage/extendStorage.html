@@ -110,9 +110,7 @@ select{
 
 
 
-<!-- 
-<div th:replace="/main/toolbarForAdmin.html"></div>
-<div th:replace="/main/leftbarForAdmin.html"></div> -->
+
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -203,7 +201,7 @@ select{
 
 </div>
 	<!-- 기존 tranNo -->
-	 <input type="hidden"  name="tranNo"  th:value="${storage.tranNo}"> 
+	 <input type="hidden"  name="tranNo"  th:value="${storage.tranNo}" class="tranNoOrg"> 
 	</form>
 	
 	<!-- 기간연장시 계산을 위해 필요한값들 -->
@@ -214,6 +212,7 @@ select{
 	
 	<!-- 결제전 필요한 tranNo -->
 	 <input type="hidden"   name="reserveTranNo" th:value="${reserveTranNo}" > 
+
 	
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
@@ -239,7 +238,7 @@ select{
 		});
 		
 		$(".extend-btn").on("click", function(){
-				 
+	
 			request_pay();
 		 })
 		
@@ -330,11 +329,35 @@ select{
 	        	console.log(data);
 	        	
 	        	if(rsp.paid_amount == data.response.amount){
-		        	alert("결제 및 결제검증완료");
-		        	
-		        		$('form').attr('method', 'POST').attr('action', '/storage/extendStorage?paymentNo='+rsp.imp_uid).submit();
-		        		
-		        	
+	        		
+	        		$.ajax({
+	                    type : "POST",  
+	                    url : "/storage/json/extendStorage?paymentNo="+ rsp.imp_uid,
+	                    dataType : "json", 
+	                    data: JSON.stringify({
+	                    	period: $("#resv_period").val(),
+	                    	tranNo :  $(".tranNoOrg").val(),
+	                    	originPrice: $("#resv_originPrice").val(),
+	                    	discountPrice: $("#resv_discountPrice").val(),
+	                    	resultPrice: $("#resv_resultPrice").val()
+	                    }),
+	        			headers : {
+	        				"Accept" : "application/json",
+	        				"Content-Type" : "application/json"
+	        			},
+	                    success : function(data) {
+	                    	
+	                    	if(data){
+	                    		   alert("성공~");
+	    	                       window.close();
+	                    	} else{
+	                    		alert("실패 ㅠ");
+	                    	}
+	             
+	                    	}
+	                	})
+	        		
+	    
 		        	
 	        	} else {
 	        		alert("결제 실패");
@@ -344,6 +367,16 @@ select{
 			
 			
 		}
+	
+	/* function submitCouponNumber(){
+			//undefined일경우 couponeNo를 0으로넘김
+			if($(".couponValue:selected").attr("data-coNo")==undefined){
+				  $(".subCouponNo").val(0);
+			} else{
+			    $(".subCouponNo").val($(".couponValue:selected").attr("data-coNo"));
+			}
+			
+		}*/
 	    
 	</script>
 	
