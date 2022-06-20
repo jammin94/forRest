@@ -26,7 +26,7 @@
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
 		
-		 <association property="purchaseProd" javaType="product">
+		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>
 			<result property="width"	   			column="width" 				jdbcType="INTEGER" />
 			<result property="length" 			column="LENGTH " 			jdbcType="INTEGER" />
@@ -77,7 +77,7 @@
 	 					#{tranNo},
 	 					#{prodName},
 	 					#{prodImg},
-	 					#{userId},
+	 					#{buyer.userId},
 	 			    	#{receiverName},
  			     	  #{receiverPhone}, 
 	 				  #{divyAddress},

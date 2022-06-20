@@ -102,16 +102,19 @@ public class RentalController {
 		System.out.println("addRental Post Start");
 		//0. i'm port에서 나온 값 + 화면상 입력값들 ModelAttribute("rental")에 담겨있음.
 		
-		
+		System.out.println("냠");
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
 
+		
+		System.out.println("useriduid"+userId);
         //랜덤으로 생성한 tranNo
         String tranNo = FileNameUtils.getRandomString();
         
         System.out.println("tranNo"+tranNo);
-        
+        System.out.println("냠2");
+        rental.getBuyer().setUserId(userId);
         rental.setPaymentNo("100"); //임시 결제 번호
         rental.setProdName(product.getProdName()); 
         rental.setProdImg("2.jpg"); //임시 프로덕트 이미지
@@ -119,7 +122,7 @@ public class RentalController {
         
         rental.setTranNo(tranNo);
 		rental.setPeriod(3);
-        
+		System.out.println("냠3");
 		//1. i'm port에서 나온 값 + 화면상 입력값들 transaction 테이블에 insert
 		rentalService.addRental(rental);		
 		
@@ -127,9 +130,9 @@ public class RentalController {
 		model.addAttribute("rental",rental);
 //		model.addAttribute("product",product);
 //		model.addAttribute("user",user);
-		
+		System.out.println("냠4");
 		//3. getRental.jsp 에서 model들 다 뽑아쓰면됨
-		 return null;
+		return "rental/getRental";
 	}
 	
 	
