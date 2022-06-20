@@ -9,9 +9,9 @@
  	
 	<resultMap id="oldReviewSelectMap" type="oldReview">
 		<result property="oldReviewNo" 				column="oldReviewNo" 				jdbcType="INTEGER"/>
-		<result property="reviewUserId"	   			column="reviewUserId" 				jdbcType="VARCHAR" />
-		<result property="reviewedUserId"	   			column="reviewedUserId" 				jdbcType="VARCHAR" />
-		<result property="oldNo"	   			column="oldNo" 				jdbcType="VARCHAR" />
+		<result property="reviewUser.userId"	   			column="reviewUserId" 				jdbcType="VARCHAR" />
+		<result property="reviewedUser.userId"	   			column="reviewedUserId" 				jdbcType="VARCHAR" />
+		<result property="old.oldNo"	   			column="oldNo" 				jdbcType="VARCHAR" />
 		<result property="reviewDetail"	   			column="reviewDetail" 				jdbcType="VARCHAR" />
 		<result property="userRate"	   			column="userRate" 				jdbcType="DOUBLE" />
 		<result property="reviewDate"	   			column="reviewDate" 				jdbcType="DATE" />
@@ -23,7 +23,7 @@
 	<insert 	id="addOldReview"		parameterType="OldReview" >
 		INSERT 
 	 	INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate, reviewDate)
-	 	values (null , #{reviewUserId}, #{reviewedUserId}, #{reviewedUserId}, #{oldNo}, #{reviewDetail}, #{userRate}, null)
+	 	values (null , #{reviewUser.userId}, #{reviewedUser.userId}, #{old.oldNo}, #{reviewDetail}, #{userRate}, null)
 	 </insert>
 	  
 	 <!-- SQL : SELECT LIST -->
