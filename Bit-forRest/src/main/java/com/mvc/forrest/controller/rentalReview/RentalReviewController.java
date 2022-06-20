@@ -93,14 +93,14 @@ public class RentalReviewController {
 			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId= loginUser.getUser().getUserId();
 			
-			rentalReview.setProdNo("a"); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
+			rentalReview.setProdNo("b"); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
 			rentalReview.setUserId(userId); // 참고: 무결성제약조건 userId는 기존값 존재해야함
 			
 			rentalReviewService.addRentalReview(rentalReview);
 			
 			System.out.println("렌탈리뷰 추가하기 테스트 중");
 			
-			 return null;
+			return "redirect:/rental/listRental";
 		}
 		
 		//리뷰 리스트 출력

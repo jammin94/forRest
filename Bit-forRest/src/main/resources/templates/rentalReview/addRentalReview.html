@@ -33,7 +33,9 @@
 <p>
   리뷰쓰기
 </p>
-<form id="review-form" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
+<form id="review-form"  name="popupForm" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
+
+<input type="hidden" class="starValueText"  name="reviewScore"></input>
   <div id="rating">
  
 
@@ -53,7 +55,7 @@
                         <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
                       </button>
                     </div>
-                    <input type="file" name="fileName" style="display:none">
+                    <input type="file" name="fileName" class="fileName" style="display:none">
                   </div>
 </div>
 
@@ -62,15 +64,15 @@
     상품에 대한 별점을 남겨주세요 !
   </span>
     <div class="star-rating">
-  <input type="radio" id="5-stars" name="reviewScore" value="5" />
+  <input type="radio" id="5-stars" class="starValue" value="5" />
   <label for="5-stars" class="star">&#9733;</label>
-  <input type="radio" id="4-stars" name="reviewScore" value="4" />
+  <input type="radio" id="4-stars" class="starValue"  value="4" />
   <label for="4-stars" class="star">&#9733;</label>
-  <input type="radio" id="3-stars" name="reviewScore" value="3" />
+  <input type="radio" id="3-stars" class="starValue" value="3" />
   <label for="3-stars" class="star">&#9733;</label>
-  <input type="radio" id="2-stars" name="reviewScore" value="2" />
+  <input type="radio" id="2-stars" class="starValue" value="2" />
   <label for="2-stars" class="star color">&#9733;</label>
-  <input type="radio" id="1-star" name="reviewScore" value="1" />
+  <input type="radio" id="1-star" class="starValue" value="1" />
   <label for="1-star" class="star">&#9733;</label>
 </div>
   <div class="form-group">
@@ -80,7 +82,7 @@
     
     </span>
   </div>
-  <button type="button" class="regBtn">등록하기 </button>
+  <button type="button" class="regBtn" onclick="selfCloseSubmit();">등록하기 </button>
   </form>
 <div id="review-container">
 </div>
@@ -90,23 +92,52 @@
 	<script src="/js/addRentalReview.js"></script>
 	  <sciprt src="/js/rentalTest.js"></sciprt>
 	  <script>
-	  	$(function(){
+	  
+	  function selfCloseSubmit(){
+		    var f= document.forms.popupForm;
+		      document.domain = "http://localhost:8080/rental/listRental?"; //document.domain 값이 팝업과 부모창 동일해야 합니다.
+		      opener.name = "parentPage"; //유니크한 이름이어야 합니다.
+		      f.target = opener.name;
+		      f.submit();
+		      self.close();
+	  }
+
+$(function(){
+	
+	$('.star').on("click",function(){
+		console.log('dasfdsafadsfs');
+		$('.star').removeClass("on");
+		$(this).addClass("on");
+		console.log($(this).prev().val());
+		
+		$('.starValueText').val($(this).prev().val());
+	})
+	
+	
+})
+
+	 	$(function(){
+
 	  		$('.regBtn').on('click', function(){
-	  			/*
-	  			var imgSrc = $('.img-upload-handler .img-add-more > img').attr('src');
 	  			
-	 			console.log(imgSrc);
 	  			
-	  			$('.reviewImg').val(imgSrc);	  			
+	  		
+	  			alert('타임아웃전');
+	 			window.close();
+	  		
+	  			setTimeout(function() {
+	  			alert('타임아웃후');
+	  			$("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
+	  			}, 2000);
 	  			
-	  			console.log($('.reviewImg').val());
-	  			*/
 	  			
-		$("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
-	  			
+	  		   
+		 
 	  		})
+
 	  		  
-	  	})
+ 	})
+ 		
 	  </script>
 	  
 </html>
