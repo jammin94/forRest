@@ -88,6 +88,15 @@ public class RentalService {
 			return totalPrice;
 			
 		}
-	
+		
+		
+		//업데이트 리뷰 done
+		
+		public void updateReviewDone(Rental rental) throws Exception{
+
+			rentalDAO.updateReviewDone(rental);
+
+		}
+		
 
 }

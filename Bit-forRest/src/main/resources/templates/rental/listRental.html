@@ -258,7 +258,16 @@
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 				<td class="tdCenter" th:text = "${rental.purchaseProd.prodCondition}"></td>
 				<td th:if="${rental.purchaseProd.prodCondition} == '대여중' "><button>취소접수</button></td>
-				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' "><button type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button></td>
+				
+				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' ">
+					<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
+					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
+					<td>
+							<button th:if="${rental.reviewDone} == '0' " type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
+								<span style="display:none;">[[${rental.reviewDone}]]</span>
+								<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
+							<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
+				</td>
 	    </tr>
 	        </tbody>
 
@@ -294,6 +303,10 @@
  <div class="reviewBackground"></div>
   <div class="Rentalcontainer">
 <form id="review-form"  action="/rentalReview/addRentalReview"  method="post"  enctype="multipart/form-data">
+
+	<input type="hidden" name="tranNo" class="innerTranNo"></input>
+	<input type="hidden" name="reviewDone" class="reviewDone"></input>
+
 <span class="close">닫기</span>
 <input type="hidden" class="starValueText"  name="reviewScore"></input>
   <div id="rating">
@@ -359,16 +372,65 @@ $(function(){
 })
 $(function(){
 
-	
+	//"리뷰쓰기" 버튼
 $(".reviewBtn").on("click",function(){
 
+	var rentalTranNo = $(this).parent().find('.hiddenTranNo').text()
+	$('.innerTranNo').val(rentalTranNo);
+	
+	console.log("dgdd"+rentalTranNo);
+	
 	  $('#review-form').addClass("on");
 	  $('.reviewBackground').addClass("on");
+	  
+	  
 	});
 	
+	//"리뷰수정"버튼
+	$(".reviewEditBtn").on("click",function(){
+	
+		$.ajax({
+            type : "POST",  
+            url : "/wishlist/deleteWishlistOnList",       
+            dataType : "json",   
+            data : prodNo,
+            error : function(){
+               alert("통신 에러");
+            },
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+            success : function(heartCheck) {
+                
+                    if(heartCheck){
+                    alert("찜삭제완료")	;
+                    console.log("찜삭제 완료");
+			        $(this).removeClass('filled');
+			        location.reload();
+
+                    }
+                    else if (heartCheck){
+                    	alert("이미 삭제한 물품 입니다");                 
+                    	location.reload();
+                	}
+                    
+                    
+            	}
+        	})
+		
+		
+	})
+	
+	
+	
+	//"리뷰등록하기"버튼
 	$('.regBtn').on("click",function(){
+		
 		  $('#review-form').removeClass("on");
 		  $('.reviewBackground').removeClass("on");
+		  
+		  $(".reviewDone").val(1);
 		  
 		  $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
 	})
@@ -396,7 +458,7 @@ $(".reviewBtn").on("click",function(){
 
 
 $(function(){
-	
+	/*
 	$('.star').on("click",function(){
 		console.log('dasfdsafadsfs');
 		$('.star').removeClass("on");
@@ -406,7 +468,7 @@ $(function(){
 		$('.starValueText').val($(this).prev().val());
 	})
 	
-	
+	*/
 })
 
  		
