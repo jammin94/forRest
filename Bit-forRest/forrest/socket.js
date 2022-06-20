@@ -37,8 +37,19 @@ module.exports = (server, app, sessionMiddleware) => {
     //socket.request.headers.referer하면 현재 요청된 url나옴
     //여기에서 queryString으로 chatRoomNo parsing해서 잡아다 쓰자!
     
-    socket.join(roomId); // chat 네임스페이스 접속
-    console.log("roomId : "+roomId);
+    socket.join(roomId,()=>{
+		const currentRoom = socket.adapter.rooms[roomId];
+		console.log('현재 접속자 수: '+currentRoom.length);
+		if(currentRoom.length==2){
+			chat.to(roomId).emit('fulljoin', '상대방이 접속중입니다', 'true');
+		}
+	}); // chat 네임스페이스 접속
+    
+    
+    //const currentRoom = socket.adapter.rooms[roomId];
+	//	console.log('현재 접속자 수: '+currentRoom.length);
+	//	if(currentRoom.length==2){
+	//		chat.to(roomId).emit('fulljoin', '상대방이 접속중입니다', true);
 
     //socket.to(방 아이디)로 특정 방에 데이터 보낼 수 잇다. 시스템 메세지 전용.
     //emit(이벤트 이름, 데이터) : 클라이언트에게 '이벤트 이름'으로 '데이터'를 보낸다
@@ -48,24 +59,20 @@ module.exports = (server, app, sessionMiddleware) => {
 	//socket.request.connection);
 	socket.adapter);
 	
-	const currentRoom = socket.adapter.rooms[roomId];
-	console.log('현재 접속자 수: '+currentRoom.length);
-	if(currentRoom.length==2){
-		socket.to(roomId).emit('join', '상대방이 접속중입니다');
-	}
+	
     socket.on('disconnect', () => {
       console.log('chat 네임스페이스 접속 해제');
       socket.leave(roomId); //chat 네임스페이스 접속해제
       
-      socket.to(roomId).emit('exit', '상대방이 부재중입니다');
+      socket.to(roomId).emit('exit', '상대방이 부재중입니다', 'false');
 
       //접속 해제 시 현재 방의 사람수를 구해서 참여자 수가 0명이면 방을 제거하는 http 요청 보낸다.
       //socket.adapter.rooms[roomId];에 참여중인 소켓정보가 담겨있다.
       //const currentRoom = socket.adapter.rooms[roomId];
     });
     
-    socket.on('chat', (data) => {
-      socket.to(data.room).emit(data);
-    });
+   // socket.on('chat', (data) => {
+    //  socket.to(data.room).emit(data);
+    //});
   });
 };

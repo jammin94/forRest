@@ -185,21 +185,25 @@ border-bottom:3px solid #ddd !important;
 					<!--  <div class="btnColumn" th:if="${#strings.equals(storage.storageProd.prodCondition, '보관중')}" >-->
 					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관중'" >
 					 	<div><button type="button">꺼내쓰기</button></div>
-					 	<div><button  type="button" th:onclick="|location.href='@{/storage/extendStorage(tranNo=${storage.tranNo})}'|">기간연장</button></div>
-					 	<div><button type="button">출고신청</button></div>
+					 	<div><button  type="button" class="extend-btn" th:value="${storage.tranNo}">기간연장</button></div>
+					 	<div><button type="button" class="cancleStorage-btn" th:value="${storage.prodNo}">출고신청</button></div>
 
 					</div>
 					
-						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' or ${storage.storageProd.prodCondition }== '출고승인신청중' ">
+						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' ">
 					 	<div><button class="cancle-btn" type="button" th:value="${storage.paymentNo}" th:data-prodNo="${storage.prodNo}">취소</button></div>
+					</div>
+					
+					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '출고승인신청중' ">
+					 	<div><button class="canclePutout" type="button" th:value="${storage.prodNo}">출고취소</button></div>
 					</div>
 					
 					<!-- 대여신청, 배송, 대여중일때 엔드유저에겐 대여중으로 디스플레이 -->
 					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
-					 	<div><button type="button" th:onclick="|location.href='@{/storage/extendStorage(tranNo=${storage.tranNo})}'|">기간연장</button></div>
+					 	<div><button  type="button" class="extend-btn" th:value="${storage.tranNo}">기간연장</button></div>
 					</div>
 					
-						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관취소' or ${storage.storageProd.prodCondition }== '출고완료' ">
+						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '취소완료' or ${storage.storageProd.prodCondition }== '출고완료' ">
 					 	<div><button type="button">재신청</button></div>
 					</div>
 		
@@ -222,17 +226,18 @@ border-bottom:3px solid #ddd !important;
 
 <script>
 
-//체크시 현재보관중인 물품만 보여주기
 	$(function(){
+		//체크시 현재보관중인 물품만 보여주기
 		$(".prodConditionBox").on("change", function(){
 			
 			 $('.form-storage').attr('method', 'POST').attr('action', '/storage/listStorage').submit();
 			
 		})
 		
+		//결제취소 
 		$(".cancle-btn").on("click", function(){
 			
-			 var paymentNo = $(this).parent().find('.cancle-btn').val();;
+			 var paymentNo = $(this).parent().find('.cancle-btn').val();
 			 var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
 			 
 			  $.ajax({
@@ -252,27 +257,47 @@ border-bottom:3px solid #ddd !important;
 			 
 			
 		})
+		
+		//기간연장 팝업창 띄우기
+		$(".extend-btn").on("click", function(){
+			
+			var tranNo =  $(this).parent().find('.extend-btn').val();
+			
+			 var url = "/storage/extendStorage?tranNo="+tranNo;
+		     var name = "popup test";
+		     var option = "width = 800, height = 600, left = 400, location = yes"
+		     window.open(url, name, option);
+			
+			
+		})
+		
+		//출고신청후 물품상태 변경
+			$(".cancleStorage-btn").on("click", function(){
+			
+			var prodNum =  $(this).parent().find('.cancleStorage-btn').val();
+			
+			
+			self.location = "/product/cancleProduct?prodNo="+prodNum;
+			
+			
+		})
+		
+		$(".canclePutout").on("click", function(){
+			
+			var prodNum =  $(this).parent().find('.canclePutout').val();
+			
+			
+			self.location = "/product/cancleProduct?prodNo="+prodNum;
+			
+			
+		})
+	
+		
 	});
 	
+
 	
-	
-	
-	
-	 function cancelPay() {
-		
-		 
-		 var paymentNo = $(".payNo").html();
-		 alert("paymentNo: " + paymentNo);
-		 
-		
-		 
-		/*  $.ajax({
-		      "url": "/payment/json/cancleIamport", 
-		      "type": "POST",
-		      "contentType": "application/json",
-		   
-		    }); */
-		  }
+
 	</script>
 
 </html>
