@@ -18,6 +18,8 @@ public interface RentalDAO {
 	
 	void addRental(Rental rental) throws Exception;
 	
+	void updateReviewDone(Rental rental) throws Exception;
+	
 	Rental getRental(String tranNo) throws Exception;
 	
 	List<Rental> getRentalList(Map<String,Object> map) throws Exception;
@@ -31,6 +33,7 @@ public interface RentalDAO {
 	int getTotalCount(Search search) throws Exception;	
 	
 	int getTotalRentalProfit(String userId) throws Exception;	
-	
+
+
 }
 

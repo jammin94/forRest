@@ -15,7 +15,7 @@
   }
   #review-form input[type="text"],
   #review-form textarea {
-         width: 35%;
+    width: 75%;
     padding: 10px;
     margin: 0 auto;
     border: none;

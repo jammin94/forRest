@@ -56,6 +56,16 @@
 		   	FROM rentalReview
 	   	WHERE reviewNo = #{reviewNo}
 	 </delete>
+	 
+	 	 <!-- SELECT ONE -->
+	 <select id="getRentalReview" parameterType="rental">
+	 	 	SELECT *
+	  		FROM rentalReview
+	  	<where>
+	  		userId = #{userId} and  prodNo = #{prodNo}
+	  	</where>
+	 </select>
+	 
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalReviewList"  parameterType="String"	resultMap="rentalReviewSelectMap">
@@ -66,6 +76,7 @@
 	  	</where>
 	 </select>
 	 
+
 	
 	<!-- SELECT ROW Count -->	 
 	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
