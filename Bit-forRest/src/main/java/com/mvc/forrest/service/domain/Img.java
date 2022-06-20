@@ -1,7 +1,5 @@
 package com.mvc.forrest.service.domain;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
