@@ -28,13 +28,13 @@
 	  
 	 <!-- SQL : SELECT LIST -->
 	 <select 	id="getOldReviewList"	parameterType="String"	resultMap="oldReviewSelectMap">
-	 	SELECT inner_table.* , @ROWNUM:=@ROWNUM+1 AS rowNum
-	  					FROM(
-								SELECT *
-								FROM oldReview 
-								where reviewedUserId =  #{userId}
-								order by reviewDate DESC )  inner_table
-		WHERE (SELECT @ROWNUM:=1) &lt;= 2				
+      SELECT inner_table.* 
+      FROM(
+        SELECT * ,ROW_NUMBER() OVER() AS ROWNO
+        FROM oldReview 
+        where reviewedUserId =  #{userId}
+        order by reviewDate DESC )  inner_table
+      WHERE ROWNO &lt;= 2		
 	 </select>
 	 
 	 

@@ -1,6 +1,7 @@
 package com.mvc.forrest.controller.user;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -285,16 +288,25 @@ public class UserController {
 		System.out.println("/user/getUser : POST / GET");
 		
 		User dbUser = userService.getUser(userId);
-		LoginUser sessionUser= 
-				(LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<OldReview>oldReviewList = oldReviewService.getOldReviewList(userId);
 
-		Map<String , Object> map=couponService.getOwnCouponList(userId);
-		model.addAttribute("map", map.get("list"));
-		model.addAttribute("user", sessionUser);
+		for(int i=0; i<oldReviewList.size();i++) {
+			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
+			oldReviewList.get(i).setReviewUser(userService.getUser(oldReviewList.get(i).getReviewUser().getUserId()));
+			
+			
+			System.out.println("                "+oldReviewList);
+			System.out.println("                "+oldReviewList.get(i));
+			System.out.println("                "+oldReviewList.get(i).getOld());
+			System.out.println("                "+oldReviewList.get(i).getReviewUser());
+		}
 		
-
+		model.addAttribute("oldReviewList", oldReviewList);
 		model.addAttribute("user", dbUser);
-
+		
+		System.out.println("oldReviewList : "+ oldReviewList);
+		System.out.println("dbUser : "+dbUser);
+		
 		return "user/getUser";
 	}
 	
