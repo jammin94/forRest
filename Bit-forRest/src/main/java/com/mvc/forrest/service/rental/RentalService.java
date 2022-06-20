@@ -22,7 +22,7 @@ public class RentalService {
 	
 	// 물품대여추가
 	public void addRental(Rental rental) throws Exception{
-		System.out.println("getRental 실행 됨");
+		System.out.println("addRental 실행 됨");
 		rentalDAO.addRental(rental);
 	}
 	

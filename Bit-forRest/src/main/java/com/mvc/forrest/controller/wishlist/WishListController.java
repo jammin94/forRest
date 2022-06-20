@@ -123,13 +123,11 @@ public class WishListController {
 			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId= loginUser.getUser().getUserId();
 			System.out.println("userId: "+userId);
-			System.out.println("어데서터지ㅗㄴ1");
 			//회원의 보유쿠폰리스트를 받아옴
 			Map<String,Object> map =couponService.getOwnCouponList(userId);
 			//장바구니 배열로받아서 넘기기
 			List<Wishlist> listA = new ArrayList<Wishlist>();
 			Wishlist wishlist = new Wishlist();
-			System.out.println("어데서터지ㅗㄴ2");
 			for(int i=0; i<wishlistNo.length;i++) {
 				wishlist=wishlistService.getWish(wishlistNo[i]); //wishlist 객체반환	
 				wishlist.setPeriod(period[i]);
@@ -137,7 +135,6 @@ public class WishListController {
 				listA.add(wishlist);
 			}
 			
-			System.out.println("어데서터지ㅗㄴ3");
 			model.addAttribute("wishlist",listA);
 			model.addAttribute("list",map.get("list"));
 			
