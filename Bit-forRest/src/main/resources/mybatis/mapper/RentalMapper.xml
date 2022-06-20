@@ -25,8 +25,9 @@
 		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
+		<result property="reviewDone" 				column="reviewDone" 				jdbcType="TINYINT"  />
 		
-		 <association property="purchaseProd" javaType="product">
+		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>
 			<result property="width"	   			column="width" 				jdbcType="INTEGER" />
 			<result property="length" 			column="LENGTH " 			jdbcType="INTEGER" />
@@ -77,7 +78,7 @@
 	 					#{tranNo},
 	 					#{prodName},
 	 					#{prodImg},
-	 					#{userId},
+	 					#{buyer.userId},
 	 			    	#{receiverName},
  			     	  #{receiverPhone}, 
 	 				  #{divyAddress},
@@ -104,7 +105,7 @@
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode
+		SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
@@ -238,5 +239,13 @@
 	  	WHERE userId = #{userId}
 			 </select>
 		
+		<!-- 리뷰상태업데이트 -->
+		<update	id="updateReviewDone"	parameterType="rental" >
+	   	update transaction
+	   	<set>
+	   		reviewDone=#{reviewDone},
+	   	</set>
+	   	where tranNo = #{tranNo}
+	 </update>
 		
 </mapper>
