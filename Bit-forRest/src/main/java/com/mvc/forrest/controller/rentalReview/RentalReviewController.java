@@ -105,7 +105,7 @@ public class RentalReviewController {
 			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			String userId= loginUser.getUser().getUserId();
 			
-			rentalReview.setProdNo("b"); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
+			rentalReview.setProdNo(rentalReview.getProdNo()); // 참고: 무결성제약조건 prodNo는 기존값 존재해야함
 			rentalReview.setUserId(userId); // 참고: 무결성제약조건 userId는 기존값 존재해야함
 			
 			rentalReviewService.addRentalReview(rentalReview);

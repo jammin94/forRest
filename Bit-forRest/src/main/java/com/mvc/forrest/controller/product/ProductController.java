@@ -261,18 +261,21 @@ public class ProductController {
 	@RequestMapping("cancleProduct")
 	public String cancleProduct (@RequestParam("prodNo") String prodNo) throws Exception {
 		
+		System.out.println("prodNo:"+prodNo);
 		Product product = productService.getProduct(prodNo);
+		System.out.println("물품상태"+productService.getProduct(prodNo));
 		
 		if(product.getProdCondition().equals("물품보관승인신청중")) {
 			product.setProdCondition("취소완료");
-		}
-		
-		if(product.getProdCondition().equals("보관중")) {
+			
+		} else if(product.getProdCondition().equals("보관중")) {
 			product.setProdCondition("출고승인신청중");
+			
+		} else if(product.getProdCondition().equals("출고승인신청중")) {
+			product.setProdCondition("보관중");
 		}
 		
 		productService.updateProductCondition(product);
-		
 		
 		return "redirect:/storage/listStorage";
 	}

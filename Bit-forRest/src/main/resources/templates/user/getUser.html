@@ -6,13 +6,26 @@
 	<!--  ///////////////////////// bootstrap  ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<link href="/css/listOld.css" rel="stylesheet" />
 	
 </head>
   
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
-  
+ 
+.star-rating,.star-rating span { 
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+	background:url(/images/header/starMiniNull.png)no-repeat;
+} 
+
+#smStar{
+	font-size:0; 
+	line-height:0; 
+	vertical-align:top; 
+	/* width: 100%;  이 값이 평점과 연관되어있음*/
+}
+ 
 .right{
 	font-size: 25px;
 	line-height: 250%;
@@ -39,20 +52,21 @@
 	</div>
 	<div class="aboutUser">
 		<div class="col-md-6 left" style="text-align: center;" >
-				<span>
-					<img th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
-					 onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
-					 width="250" height="300" style="border-radius: 70%;" >
-				 </span>
-				<br>
-				<div style="align-items: center;">
-					<span>
-						<img src="https://udnxt.com/wp-content/uplo
-						ads/2019/06/53712500-7de3c980-3e8a-11e9-8358-2
-						3cd94011aeb.png" width="200" height="100">
-					</span>
-					<span style="font-size: 30px; margin-top: 50px;">[[${user.userRate}]]</span>
+			<span>
+				<img th:src= "@{/images/uploadFiles/}+${user.userImg}"
+				 onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
+				 width="300" height="300" style="border-radius: 70%;" >
+			 </span>
+			<div style="text-align: center; display: flex; align-items: center; justify-content: center;">
+           		<div>
+	           		<span class="star-rating">
+	            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+	            	</span>
+            	</div>
+            	<div>
+					<span id="userRate" style="font-size: 30px;">[[${user.userRate}]]</span>
 				</div>
+			</div>
 		</div>
 		
 		<div class="col-md-6 right" style="text-align: left;">
@@ -81,49 +95,55 @@
 	<!-- userContainer END  -->
 	
 	<!-- reviewContainer  -->	
-<div>
-	<ul class="reviewContainer">
-			<span>
-				<span>상품리뷰</span><br/>
-			</span>
-			<span class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
-	<!-- 리뷰하나 -->
-		<li th:each = "rentalreview : ${list}">  
-			<div style="display:flex;">
-				<div>
-					<div class="profileFlex">
-						<img class="profileImg" src="/images/header/profileImg.jpg"></img>
-						<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"></span>
-					</div>
-				<div>                                 
-					<div>
-						<strong th:text="${rentalreview.user.nickname}"></strong>
-						<span  th:text="${rentalreview.regDate}"></span>
-					</div>
-				</div>
-				<div class="listCursor">
-					<div class="reviewImg">
-						<img th:src="@{/images/uploadFiles/} + ${rentalreview.reviewImg}" id="baseImage" > 
-					</div>
-				<span class="reviewContent"  th:text="${rentalreview.reviewDetail}"></span>
-				<span class="reviewContent"  th:text="${rentalreview.reviewDetail}"></span>
-				</div>
-				</div>
-				<div>
+	<div class="oldReviewList" style="margin: 10px 0px 40px 280px;">
+		<ul class="reviewContainer">
+			<p class="reviewMainText">
 				<span>
-					<div class="thumbImg">
-						<img th:src="@{/images/uploadFiles/} + ${rentalreview.reviewImg}" id="baseImage" >
-					</div>                                
+					<span style="font-size: 30px;">거래후기</span><br/>
 				</span>
-				</div>                 
+				<span style="font-size: 20px;" class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
+			</p>
+			<!-- 리뷰하나 -->
+		</ul>
+	</div>
+
+	<div class="oldReviewList" >
+		<div th:each = "oldReview : ${oldReviewList}" style="display: flex; 
+					margin: 15px 0px 15px 250px;">
+			<div style="display: block; width: 150px;">
+				<a>
+					<img th:src= "@{/images/uploadFiles/}+${oldReview.reviewUser.userImg}"
+						 onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
+						 width="130" height="130" style="border-radius: 70%;" >				
+				</a>
+				<div style="border-bottom: 2px solid #797070; margin: 20px 0px 0px 0px; width: 770px;"></div>
 			</div>
-		</li>
-	</ul>
+			<div style="width: 100%;" >
+				<div style="display: flex;">
+					<div>
+		           		<strong th:text="${oldReview.reviewUser.nickname}"></strong>
+					</div>
+					<div>
+		                <span  th:text="${oldReview.reviewDate}" style="margin-left: 400px; "></span>
+					</div>
+				</div>
+				<div style="display: flex; align-items: center;">
+					<span class="star-rating">
+	            		<span id="reviewStar"><img src="/images/header/starMini.png" height="60px;"></span>
+	            	</span>
+		    	 	<span  id="reviewRate" style="padding:0 10px;" th:text="${oldReview.userRate}"></span>
+				</div>
+				<div>
+		    	 	<span style="padding:0 10px;" th:text="${oldReview.old.oldTitle}"></span>
+				</div>
+				<div>
+		        	<span class="reviewContent"  th:text="${oldReview.reviewDetail}"></span>
+				</div>
+			</div>
+		</div>
+	</div>
 
-</div>
-<!-- reviewContainer END -->
-
-</div>
+</div><!-- reviewContainer END -->
 
 <div th:replace="/main/footer.html"></div>
 </body>
@@ -132,7 +152,26 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
-	  	
+
+	///////////////////평점 소수점/////////////////
+	var userRate = $('#userRate').text();
+	var reviewRate = $("reviewRate").text();
+	userRate = userRate.substr(0,3);
+	reviewRate = reviewRate.substr(0,3);
+	$('#userRate').text(userRate);
+	$('#reviewRate').text(reviewRate);
+
+	if(userRate==0.0){
+		$('#userRate').text("4.0");	
+	}
+	if(reviewRate==0.0){
+		$('#reviewRate').text("4.0");	
+	}
+	
+	$("#smStar").width((userRate*20)+"%");
+	$("#reviewStar").width((userRate*20)+"%");
+
+
 	</script>
 	
 </html>

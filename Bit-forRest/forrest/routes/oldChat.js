@@ -166,9 +166,9 @@ router.get('/:oldNo', async (req, res, next) => {
       raw: true
     });
     
-    for(let chatList of chatLists){
-		chatList.createdAt = moment(chatList.createdAt).format('LT');
-	}
+    //for(let chatList of chatLists){
+	//	chatList.createdAt = moment(chatList.createdAt).format('LT');
+	//}
 
     //getOld
     query=Query.getOld;
@@ -196,6 +196,9 @@ router.get('/:oldNo', async (req, res, next) => {
     
     //response에 담아서 'oldChatRoom.html'로 보내기
     res.render('oldChat',{chatLists, old, user, chatRoomNo, otherUser});
+    
+    const io = req.app.get('io');
+    io.of('/oldChat').to(chatRoomNo).emit('updateReadOrNot', user);
 
   }catch (err) {
     console.error(err)
@@ -216,17 +219,35 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     let query=Query.insertChat;
     const roomNo = req.query.chatRoomNo;
     const chatMessage = req.body.chat
-    //console.log("req.body.chat : "+chatMessage);
-    const insertChat = await db.sequelize.query(query, {
-      replacements: 
-      { chatRoomNo : roomNo,
-        sendUserId : req.session.user, //sessionId 
-        chatMessage : chatMessage,
-        }, 
-      type: QueryTypes.INSERT,
-      raw: true
-    });
-    //console.log("insertChat : "+insertChat); // sequelize insert는 primekey, foreignkey만 return해준다.
+    const isConnected = req.body.isConnected;
+    
+    let insertChat;
+    
+    if(isConnected=='true'){
+	    insertChat = await db.sequelize.query(query, {
+	      replacements: 
+	      { chatRoomNo : roomNo,
+	        sendUserId : req.session.user, //sessionId 
+	        chatMessage : chatMessage,
+	        readOrNot: null,
+	        }, 
+	      type: QueryTypes.INSERT,
+	      raw: true
+	    });
+    }else{
+		insertChat = await db.sequelize.query(query, {
+	      replacements: 
+	      { chatRoomNo : roomNo,
+	        sendUserId : req.session.user, //sessionId 
+	        chatMessage : chatMessage,
+	        readOrNot: 1
+	        }, 
+	      type: QueryTypes.INSERT,
+	      raw: true
+	    });
+	}
+    
+    // sequelize insert는 primekey, foreignkey만 return해준다.
     
     //칠때마다 채팅방 나가기를 취소하고 채팅방이 보이게 한다.
     query=Query.updateChatRoomToSee

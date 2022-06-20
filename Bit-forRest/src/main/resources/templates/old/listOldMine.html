@@ -470,17 +470,15 @@ body {
       
       <div class="old-list">
 
-        <!-- BEGIN old -->
-        
-        
-       
-        <div class="old" th:each = "old : ${list}" style="margin-right:20px;" th:if="${old.oldState} == 1 and ${#authentication.principal.user.userId}==${old.userId}">
+       <!-- BEGIN old -->
+
+<div class="old" th:each = "old : ${list}" style="margin-right:20px;" th:if="${old.oldState} == 1 and ${#authentication.principal.user.userId}==${old.userId}">
           <div class="owl-item active" style="width: 270px;" >
         
-        	<div class="item" >
+        	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 												<!--	<h5>Sale</h5>  -->
 												
 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
@@ -500,6 +498,7 @@ body {
 								</div>
 			 </div>
         </div>
+        
         
         
         <!-- END old -->
@@ -516,13 +515,14 @@ body {
         <!-- BEGIN old -->
         
         
+               <!-- BEGIN old -->
         <div class="old" th:each = "old : ${list}" style="margin-right:20px;" th:if="${old.oldState} == 0 and ${#authentication.principal.user.userId}==${old.userId}">
           <div class="owl-item active" style="width: 270px;" >
         
-        	<div class="item" th:if="${old.oldState == 0}">
+        	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img width="300" height="205"  th:src= "@{/images/content/fff.png}">
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 												<!--	<h5>Sale</h5>  -->
 												
 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
@@ -542,6 +542,7 @@ body {
 								</div>
 			 </div>
         </div>
+        
         
   </div>
 </div>

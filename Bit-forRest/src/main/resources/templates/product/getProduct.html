@@ -425,7 +425,13 @@ flex-none, flex-initial, flex-auto, flex-1
                        <div>
                               <div class="profileFlex">
                               	<img class="profileImg" th:src= "@{/images/uploadFiles/} + ${rentalreview.user.userImg}"></img>
-                              	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"></span>
+                              <!--  	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"> -->
+                              	</span>
+                              	   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview1.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview2.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview3.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview4.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview5.png">
                               </div>
                                 <div>                                 
                                     <div>

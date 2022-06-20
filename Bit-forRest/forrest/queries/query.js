@@ -2,7 +2,8 @@
 module.exports.listOldChatRoom=
 'SELECT rr.chatRoomNo chatRoomNo, u.userId inquireUserId, u.nickname inquireNickname, u.userAddr inquireAddr, u.userImg inquireImg, o.oldTitle oldTitle, o.oldNo oldNo, o.oldState oldState, o.oldImg oldImg, msg.recentMsg recentMsg, unread.unreadcount unreadcount, msg.recentTime recentTime '
 +'FROM chatroom rr '
-+'JOIN user u ON (rr.inquireUserId=u.userId) '
+//+'JOIN user u ON (rr.inquireUserId=u.userId) '
++'JOIN user u ON ((CASE WHEN rr.inquireUserId = :userId THEN rr.ownerUserId ELSE rr.inquireUserId END)=u.userId) '
 +'JOIN old o ON (rr.oldNo = o.oldNo) '
 +'LEFT OUTER JOIN '
 +'(SELECT c.chatRoomNo msgroom ,c.chatMessageNo, c.chatMessage recentMsg, c.createdAt recentTime '
@@ -99,7 +100,7 @@ module.exports.getChat = 'select * from chat where chatMessageNo=:chatMessageNo'
 
 //:chatRoomNo, :userId(session), :chatMessage
 //POST
-module.exports.insertChat = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot) values (:chatRoomNo, :sendUserId, :chatMessage, CURRENT_TIMESTAMP, 1)';
+module.exports.insertChat = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot) values (:chatRoomNo, :sendUserId, :chatMessage, CURRENT_TIMESTAMP, :readOrNot)';
 
 //:chatRoomNo, :userId(session)
 module.exports.updateReadOrNot='update chat set readOrNot=NULL where chatRoomNo=:chatRoomNo and sendUserId<>:userId and createdAt < CURRENT_TIMESTAMP';

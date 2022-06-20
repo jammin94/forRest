@@ -15,6 +15,20 @@
   --light-bg: #f4f4f4;
   --border: #eee;
 }
+ 
+.star-rating,.star-rating span { 
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+	background:url(/images/header/starMiniNull.png)no-repeat;
+} 
+
+#smStar{
+	font-size:0; 
+	line-height:0; 
+	vertical-align:top; 
+	/* width: 100%;  이 값이 평점과 연관되어있음*/
+}
 
 .userRate{
 	color: white;
@@ -35,6 +49,8 @@
     width:100%;
     margin-top:-20px;
     background-color: #6e6e7a;
+    display: flex;
+    justify-content: space-around;
 }
 
 .card__header {
@@ -247,9 +263,6 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
     font-weight: bold;
     margin-top: 15px;
   }
@@ -271,6 +284,7 @@
   }
 
   .card__insights{
+	
       margin-left:20px;
       	color:#fff;
   }
@@ -370,11 +384,13 @@
           <div class="card__name">
             <h2 sec:authentication="principal.user.nickname"></h2>
             <div class="card__handle">
-              <span class="handle" sec:authentication="principal.user.userName"></span>
-              <span class="circle"></span>
+              <span class="handle" style="font-size: 20px" sec:authentication="principal.user.userName"></span>
               <span class="category">
-            	<img src="/images/header/starReview.png" width="20%" height="20%">
-            	<a class="userRate"sec:authentication="principal.user.userRate"></a>
+              	<!-- 별점 -->
+              	<span class="star-rating">
+            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+            	</span>	
+            	<span id="userRate" class="userRate"sec:authentication="principal.user.userRate"></span>
 				</span>
             </div>
           </div>
@@ -423,7 +439,8 @@
                 	수익금액
               </div>
               <div class="number">
-            <span sec:authentication="principal.user.profit"></span>
+            <span id="profit" sec:authentication="principal.user.profit"></span>
+            <span>원</span>
                 <div class="info">
                   <a class="smInfo"  th:href="@{/rental/listRentalProfit}">More Info </a>
                   <svg
@@ -450,6 +467,7 @@
               </div>
               <div class="number">
              <span sec:authentication="principal.user.couponCount"></span>
+             <span>개</span>
                 <div class="info">
                   <a class="smInfo" id="couponPop">More Info</a>
                   <svg
@@ -479,12 +497,20 @@
 	<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>	 -->
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
-	
+	///////////////////수익금액 소수점/////////////////
+	var profit = $('#profit').text();
+	profit = profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$('#profit').text(profit);
+	///////////////////////평점 소수점/////////////////
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	//////////////////////쿠폰팝업//////////////////////
 	$("#couponPop").on("click",function(){
-		
 		popup();
-		
 	});
+	//////////////////////별출력////////////////////////
+	$("#smStar").width((userRate*20)+"%");
 	
 	function popup(){
         var url = "/coupon/ownCouponList";
@@ -492,7 +518,7 @@
         var option = "width = 650, height = 500, top = 100, left = 400, location = yes"
         window.open(url, name, option);
     }
-	  	
+	
 	</script>
 
 </html>

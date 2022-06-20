@@ -22,7 +22,7 @@
 		<result	property="leaveApplyDate"	column="leaveApplyDate"	jdbcType="TIMESTAMP"/>
 		<result	property="leaveDate"		column="leaveDate"		jdbcType="TIMESTAMP"/>
 		<result	property="profit"			column="profit"			jdbcType="NUMERIC"/>
-		<result	property="reportedCount"			column="reportedCount"			jdbcType="NUMERIC"/>
+		<result	property="reportedCount"	column="reportedCount"	jdbcType="NUMERIC"/>
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -35,7 +35,7 @@
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="String"	resultMap="userSelectMap">
 		SELECT
-		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount', D.profit, couponCount 
+		user.* , COALESCE(B.COUNT,0) AS 'reportedCount', COALESCE(C.COUNT,0) AS 'reviewedCount', D.profit, couponCount ,(G.sum+400)/(G.count+100) AS 'userRate'
 		FROM user
 		LEFT OUTER JOIN         
 		(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
@@ -56,6 +56,11 @@
 		LEFT OUTER JOIN
 		(SELECT reportedUser, COUNT(*) reportedCount FROM report Group by reportedUser) F
 		ON user.userId = F.reportedUser
+		LEFT OUTER JOIN
+		(		SELECT COUNT(userRate)count, SUM(userRate)sum , reviewedUserId
+				FROM oldreview
+				GROUP BY reviewedUserId) G
+		ON user.userId = G.reviewedUserId
 		WHERE user.userId = #{value}
 	 </select>
 	 

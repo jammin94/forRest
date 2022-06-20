@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.forrest.service.domain.OwnCoupon;
-import com.mvc.forrest.service.domain.Search;
 
 @Repository
 @Mapper
