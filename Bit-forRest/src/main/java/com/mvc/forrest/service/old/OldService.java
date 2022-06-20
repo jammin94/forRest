@@ -70,5 +70,10 @@ public class OldService {
 		oldDAO.updateOldDate(oldNo);
 	}
 	
+	public void updateOldState(String oldNo) throws Exception{
+		System.out.println("updateOldState 성공");
+		oldDAO.updateOldState(oldNo);
+	}
+	
 	}
 	

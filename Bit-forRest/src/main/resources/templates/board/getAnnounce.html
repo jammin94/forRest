@@ -94,7 +94,7 @@
 	<a th:href="@{/board/listAnnounce}" >확인</a>
 </button>
 
-<span sec:authorize="isAuthenticated()">
+ <span sec:authorize="hasRole('ROLE_ADMIN')">
     <button type="text" class="btn btn-default" id="update">
     	<a th:href="@{/board/updateAnnounce(boardNo=${board.boardNo})}" >수정</a>
     </button>

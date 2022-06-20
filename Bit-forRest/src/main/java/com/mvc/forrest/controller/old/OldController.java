@@ -287,11 +287,18 @@ public class OldController {
 /////////////////////회원, 어드민 가능//////////////////////////////	
 @RequestMapping("updateOldDate")
 public String updateOldDate(@ModelAttribute("oldNo") String oldNo) throws Exception {
-System.out.println("스테이트 업데이트");
+System.out.println("데이트 업데이트");
 
 oldService.updateOldDate(oldNo);
 return "redirect:/old/listOld";
 }
 	
+@RequestMapping("updateOldState")
+public String updateOldState(@ModelAttribute("oldNo") String oldNo) throws Exception {
+System.out.println("스테이트 업데이트");
+
+oldService.updateOldState(oldNo);
+return "redirect:/old/listOld";
+}
 	
 }

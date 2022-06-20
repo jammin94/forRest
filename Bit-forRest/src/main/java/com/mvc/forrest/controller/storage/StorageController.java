@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -191,7 +192,7 @@ public class StorageController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-		System.out.println("디버그 "+mapStorage.get("list"));
+		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -244,40 +245,25 @@ public class StorageController {
 	@GetMapping("extendStorage")
 	public String extendStorageGet(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
-		System.out.println("extendStorage Get Start");
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+		System.out.println("userId: "+userId);
 		
-		System.out.println("tranNo:"+tranNo);
+		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
+		 String reserveTranNo = FileNameUtils.getRandomString();
+				
+		//회원의 보유쿠폰리스트를 받아옴
+		Map<String,Object> map =couponService.getOwnCouponList(userId);
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("reserveTranNo", reserveTranNo);
 		
 		return "storage/extendStorage";
 	}
 	
-	//보관물품의 기간을 연장
-	//회원, 어드민 가능
-//	@PostMapping("extendStorage")
-//	public String extendStoragePost(@ModelAttribute("storage") Storage storage,
-//													@RequestParam("imp_uid") String imp_uid, //아임포트에서 리턴해주는 번호
-//													@RequestParam("merchant_uid") int merchant_uid, // 우리시스템의 tranNo
-//													Model model) throws Exception {
-//		
-//		//기존에 보관한 물품에 변경되는 정보를 업데이트
-//		storage.setPaymentNo(imp_uid);
-//		storageService.updateStorage(storage);
-//		
-//		//업데이트된 보관물품정보를 테이블에 새로 추가
-//		Storage storageExtended = storageService.getStorage(storage.getTranNo());
-//		storageExtended.setTranNo(merchant_uid);
-//		
-//		storageService.addStorage(storageExtended);
-//		
-//		//기존에 보관한물품기록을 삭제
-//		storageService.deleteStorage(storage.getTranNo());
-//		
-//		
-//		return "storage/getStorage";
-//	}
-	
+
 	//회원, 어드민 가능
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {

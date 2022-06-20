@@ -76,7 +76,6 @@
 	 	period = period + #{period},
 	 	paymentNo = #{paymentNo},
 	 	paymentDate = current_timestamp(),
-	 	paymentWay = #{paymentWay}, 
 	 	originPrice = originPrice + #{originPrice},
 	 	discountPrice = discountPrice + #{discountPrice},
 	 	resultPrice = resultPrice + #{resultPrice}

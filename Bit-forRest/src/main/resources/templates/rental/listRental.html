@@ -178,6 +178,50 @@
      position: fixed;
     right: 30px;
  }
+ 
+ 
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+ 
+.star-rating input {
+  display: none;
+}
+ 
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+ 
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color: #fff58c;
+}
   </style>
 <body>
 
@@ -263,6 +307,7 @@
 					<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
 					<td>
+							<span style="display:none" class="hiddenProdNo">[[${rental.purchaseProd.prodNo}]]</span>
 							<button th:if="${rental.reviewDone} == '0' " type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
 								<span style="display:none;">[[${rental.reviewDone}]]</span>
 								<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
@@ -306,9 +351,13 @@
 
 	<input type="hidden" name="tranNo" class="innerTranNo"></input>
 	<input type="hidden" name="reviewDone" class="reviewDone"></input>
+	<input type="hidden" name="prodNo" class="prodNo"></input>
 
 <span class="close">닫기</span>
+<!-- 
 <input type="hidden" class="starValueText"  name="reviewScore"></input>
+ -->
+
   <div id="rating">
  
 
@@ -336,18 +385,20 @@
   <span id="starsInfo" class="help-block">
     상품에 대한 별점을 남겨주세요 !
   </span>
-    <div class="star-rating">
-  <input type="radio" id="5-stars" class="starValue" value="5" />
-  <label for="5-stars" class="star">&#9733;</label>
-  <input type="radio" id="4-stars" class="starValue"  value="4" />
-  <label for="4-stars" class="star">&#9733;</label>
-  <input type="radio" id="3-stars" class="starValue" value="3" />
-  <label for="3-stars" class="star">&#9733;</label>
-  <input type="radio" id="2-stars" class="starValue" value="2" />
-  <label for="2-stars" class="star color">&#9733;</label>
-  <input type="radio" id="1-star" class="starValue" value="1" />
-  <label for="1-star" class="star">&#9733;</label>
-</div>
+  
+        <div class="star-rating space-x-4 mx-auto">
+				<input type="radio" id="5-stars" name="reviewScore" value="5"  v-model="ratings"/>
+				<label for="5-stars" class="star pr-4">★</label>
+				<input type="radio" id="4-stars" name="reviewScore" value="4"  v-model="ratings"/>
+				<label for="4-stars" class="star">★</label>
+				<input type="radio" id="3-stars" name="reviewScore" value="3"  v-model="ratings"/>
+				<label for="3-stars" class="star" selected>★</label>
+				<input type="radio" id="2-stars" name="reviewScore" value="2"  v-model="ratings" selected/>
+				<label for="2-stars" class="star">★</label>
+				<input type="radio" id="1-star" name="reviewScore" value="1"  v-model="ratings" />
+				<label for="1-star" class="star">★</label>
+		</div>
+		
   <div class="form-group">
    <!--  <label class="control-label" for="review">Your Review:</label> -->
     <textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
@@ -374,6 +425,8 @@ $(function(){
 
 	//"리뷰쓰기" 버튼
 $(".reviewBtn").on("click",function(){
+	
+	$('.prodNo').val($(this).parent().find('.hiddenProdNo').text());
 
 	var rentalTranNo = $(this).parent().find('.hiddenTranNo').text()
 	$('.innerTranNo').val(rentalTranNo);
@@ -389,9 +442,16 @@ $(".reviewBtn").on("click",function(){
 	//"리뷰수정"버튼
 	$(".reviewEditBtn").on("click",function(){
 	
+		console.log("리뷰수정!!!");
+		  $('#review-form').addClass("on");
+		  $('.reviewBackground').addClass("on");
+
+		var prodNo = $(this).parent().find('.hiddenProdNo').text();
+		console.log(prodNo);
+
 		$.ajax({
             type : "POST",  
-            url : "/wishlist/deleteWishlistOnList",       
+            url : "/restRentalReview/getRentalReview",       
             dataType : "json",   
             data : prodNo,
             error : function(){
@@ -401,25 +461,19 @@ $(".reviewBtn").on("click",function(){
 				"Accept" : "application/json",
 				"Content-Type" : "application/json"
 			},
-            success : function(heartCheck) {
+            success : function(rentalReview) {
                 
-                    if(heartCheck){
-                    alert("찜삭제완료")	;
-                    console.log("찜삭제 완료");
-			        $(this).removeClass('filled');
-			        location.reload();
-
-                    }
-                    else if (heartCheck){
-                    	alert("이미 삭제한 물품 입니다");                 
-                    	location.reload();
-                	}
-                    
+							console.log(rentalReview.userId);			
+							console.log(rentalReview.reviewImg);
+							console.log(rentalReview.reviewDetail);			
+							
+							$('.img-add-more').find('img').attr('src','/images/uploadFiles/'+rentalReview.reviewImg);
+							$('.form-group').find('textarea').val(rentalReview.reviewDetail);
                     
             	}
         	})
 		
-		
+
 	})
 	
 	
@@ -458,7 +512,7 @@ $(".reviewBtn").on("click",function(){
 
 
 $(function(){
-	/*
+/*
 	$('.star').on("click",function(){
 		console.log('dasfdsafadsfs');
 		$('.star').removeClass("on");

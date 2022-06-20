@@ -55,6 +55,40 @@ Kakao.isInitialized();
 	.purchase-info a{
 	color:#fff !important;
 	}
+	
+
+.styled-select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  
+  overflow: hidden;
+  position: relative;
+}
+.styled-select, .styled-select select { width: 240px;}
+select:focus { outline: none; }
+.styled-select select {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+  
+  /*hide default down arrow in webkit */
+  -webkit-appearance: none; 
+}
+
+@-moz-document url-prefix(){
+  .styled-select select { width: 110%; }
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  font-size: 24px;
+}
+
+
 </style>
 
 
@@ -80,15 +114,20 @@ Kakao.isInitialized();
 		
 					<span sec:authorize="isAuthenticated()">
 					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
-							<button type="button" class="btn custom">
-								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a>
+							
+							<button type="button" class="btn custom" onclick="js:deleteold()" >삭제
+<!-- 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a> -->
 							</button>
-							<button type="button" class="btn custom">
+							
+							<button type="button" class="btn custom" >
 								<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 							</button>
-							<button type="button" class="btn custom">
-							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}">끌어올리기</a>
+							
+							<button type="button"  id="updateOldDate" class="btn custom"    onclick="js:datediff()"   >끌올
+<!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a> -->
 							</button>
+							
+							
 					</div>
 					</span>
 				</div>
@@ -120,7 +159,7 @@ Kakao.isInitialized();
 					<div class="oldView" th:text=${old.oldView}></div>
 				</div>
 
-				<div class="oldDate" th:text=${old.oldDate}></div>
+				<div class="oldDate"  id="oldDate" th:text=${old.oldDate}></div>
 			
 				<div class="user">
 
@@ -187,8 +226,7 @@ Kakao.isInitialized();
 					</span>
 					</div>
 			
-			<!--Simple dropdown menu based on w3schools.org / css-js-dropdown -->
-
+		
 	
 		<section>
 <button type="button" class="kakao mt-3 py-2 px-3" onclick="js:setShare()">
@@ -218,6 +256,20 @@ Kakao.isInitialized();
 
 					</div>
 				</div>
+				
+
+<!-- oldState 중고거래 상태 판매중 거래완료 -->
+<div class="sold"  onclick="js:sold()">
+  
+  <button type="button" class="btn" id="onSale">
+							판매중
+						</button>
+ <button type="button" class="btn" id="sold">
+							거래완료
+						</button>
+  
+</div>
+				
 
 				<div class="product-price">
 					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
@@ -302,8 +354,7 @@ Kakao.Link.sendDefault({
     title: title,
     description: description,
  	
-    imageUrl:
-    	'/images/content/aaa.jpg',
+    imageUrl:'http://localhost:8080/images/uploadFiles/98510180-9d55-439c-a94a-93625b1c252a.jpg',
     link: {
       webUrl: 'http://localhost:8080/old/getOld?oldNo=' + /*[[${old.oldNo}]]*/ +')',
     },
@@ -311,8 +362,56 @@ Kakao.Link.sendDefault({
  
 });
 }
-/*]]>*/
 
+function datediff(){
+	
+	var olddate = moment(  /*[[${old.oldDate}]]*/ );
+	var today = moment();
+	var diff = olddate.diff(today, "days");
+	var confirmolddate = confirm("게시물을 끌어올리시겠습니까?");
+	
+	if (diff <=3){
+		
+		{  
+			if(confirmolddate){
+			
+			alert("끌어올리기 완료");
+			location.href='/old/updateOldDate?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+		}
+		else{
+			alert("끌어올리기 취소");
+			} 
+		}
+			
+	} else {
+		alert("등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.");
+		return;
+	}
+}
+
+function deleteold(){
+	
+	var confirmdelete = confirm("게시물을 삭제하시겠습니까?");
+	
+		if(confirmdelete){
+						alert("삭제 완료");
+						location.href='/old/deleteOld?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+		}
+		else{
+			alert("삭제 취소");
+			return;
+		}
+}
+
+
+function sold(){
+	
+}
+var preState = /*[[${old.oldState}]]*/ +')';
+//  alert(preState);
+
+
+/*]]>*/
 </script>
 
 
@@ -322,6 +421,7 @@ Kakao.Link.sendDefault({
 
 	<script src="/js/getProduct.js"></script>
 	<script src="/js/getOld.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <!-- 	<script src="/js/share.js"></script> -->
 	
 </body>
