@@ -133,5 +133,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and oldNo != #{oldNo}
 	</select>
 	
+	<update id="updateOldDate" parameterType= "String">
+		update old
+		<set>
+			oldDate = CURRENT_TIMESTAMP
+		</set>
+		WHERE oldNo = #{oldNo}
+	</update>
 	
 </mapper>
