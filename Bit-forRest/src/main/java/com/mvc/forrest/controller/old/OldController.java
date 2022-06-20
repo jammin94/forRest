@@ -284,6 +284,14 @@ public class OldController {
 		return "old/getOld";
 	}
 	
+/////////////////////회원, 어드민 가능//////////////////////////////	
+@RequestMapping("updateOldDate")
+public String updateOldDate(@ModelAttribute("oldNo") String oldNo) throws Exception {
+System.out.println("스테이트 업데이트");
+
+oldService.updateOldDate(oldNo);
+return "redirect:/old/listOld";
+}
 	
 	
 }

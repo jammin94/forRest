@@ -1,6 +1,7 @@
 package com.mvc.forrest.controller.payment;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -34,18 +35,24 @@ public class PaymentController {
 	//보관 메인화면 단순 네비게이션
 	//비회원도 접근가능
 	@RequestMapping("json/verifyIamport")
-	public IamportResponse<Payment> paymentByImpUid(Model model, Locale locale, HttpSession session, @RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
+	public IamportResponse<Payment> paymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
 		System.out.println("갓잇");
 		return api.paymentByImpUid(imp_uid);
 		
 		
 }
 	
-//	public IamportResponse<Payment> cancelPaymentByImpUid(CancelData cancelData) throws IamportResponseException, IOException {
-//		
-//
-//		return api.cancelPaymentByImpUid(cancelData);
-//	}
+	@RequestMapping("json/cancleIamport")
+	public IamportResponse<Payment> cancelPaymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException {
+		
+		System.out.println("cancleIamport Start");
+		System.out.println("imp_uid:"+ imp_uid);
+		
+		
+		CancelData cancelData = new CancelData(imp_uid, true);
+
+		return api.cancelPaymentByImpUid(cancelData);
+	}
 	
 	
 	

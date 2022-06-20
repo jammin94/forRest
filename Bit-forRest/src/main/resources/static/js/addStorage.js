@@ -313,9 +313,7 @@ function request_pay(){
         	
         	if(rsp.paid_amount == data.response.amount){
 	        	alert("결제 및 결제검증완료");
-	        		alert("실행되나");
 	        		$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
-	        		alert("실행됐다");
 	        	
         	} else {
         		alert("결제 실패");

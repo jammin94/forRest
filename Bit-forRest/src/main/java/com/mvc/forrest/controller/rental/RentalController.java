@@ -152,7 +152,7 @@ public class RentalController {
 	
 	//------------대여물품리스트 화면------------//
 	//비회원,회원, 어드민 가능
-	@GetMapping("listRental")
+	@RequestMapping("listRental")
 	public String listProductView(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception{
 		
 		if (search.getCurrentPage() == 0) {

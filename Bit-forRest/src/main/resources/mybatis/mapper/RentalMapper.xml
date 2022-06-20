@@ -25,6 +25,7 @@
 		<result property="discountPrice" 				column="discountPrice" 				jdbcType="INTEGER"  />
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
+		<result property="reviewDone" 				column="reviewDone" 				jdbcType="TINYINT"  />
 		
 		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>

@@ -27,4 +27,6 @@ public interface OldDAO {
 	public List<Old> getOldListForIndex( ) throws Exception;
 	
 	public List<Old> getOldListCategory(Old old) throws Exception;
+	
+	public void updateOldDate(String oldNo) throws Exception ;	
 }
