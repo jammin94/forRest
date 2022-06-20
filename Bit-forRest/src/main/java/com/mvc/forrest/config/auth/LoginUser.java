@@ -17,7 +17,6 @@ import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.User;
-import com.mvc.forrest.service.report.ReportService;
 
 import lombok.Data;
 

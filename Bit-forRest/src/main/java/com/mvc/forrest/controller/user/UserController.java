@@ -1,11 +1,6 @@
 package com.mvc.forrest.controller.user;
 
 import java.io.File;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -35,9 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
-import com.mvc.forrest.service.domain.Coupon;
-import com.mvc.forrest.service.domain.OldReview;
-import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
