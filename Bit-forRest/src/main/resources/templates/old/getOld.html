@@ -123,11 +123,12 @@ select:focus { outline: none; }
 								<a th:href="@{/old/updateOld(oldNo=${old.oldNo})}">수정</a>
 							</button>
 							
-							<button type="button"  id="updateOldDate" class="btn custom"       >끌올
-<!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}">끌</a> -->
+							<button type="button"  id="updateOldDate" class="btn custom"    onclick="js:datediff()"   >끌올
+       							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a>
+							
 							</button>
 							
-							<button type="button" onclick="alert('Hello World!')" >클릭해 보세요!</button>
+							
 					</div>
 					</span>
 				</div>
@@ -159,7 +160,7 @@ select:focus { outline: none; }
 					<div class="oldView" th:text=${old.oldView}></div>
 				</div>
 
-				<div class="oldDate" th:text=${old.oldDate}></div>
+				<div class="oldDate"  id="oldDate" th:text=${old.oldDate}></div>
 			
 				<div class="user">
 
@@ -362,33 +363,71 @@ Kakao.Link.sendDefault({
 });
 }
 
-
-
-
-// onclick= if ((CURRENT_TIMESTAMP-${oldDate})&lt;=3일..){"alert('끌어올리시겠습니까?')" }
-	$( "#updateOldDate" ).on("click" , function() {	
+function datediff(){
 	
-		var oldDate = /*[[${old.oldDate}]]*/ +')';	
-// 		var yearold = oldDate.getFullYear();
+	var olddate = moment(  /*[[${old.oldDate}]]*/ );
+	var today = moment();
+	var diff = olddate.diff(today, "days");
+	var confirmolddate = confirm("게시물을 끌어올리시겠습니까?");
+	
+	if (diff <=3){
+		
+		{  
+			if(confirmolddate){
+			
+			alert("끌어올리기 완료");
+			location.href='/old/updateOldDate?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+		}
+		else{
+			
+			alert("끌어올리기 취소");
+		}
+		}
+		
 
-		var date = new Date();		
-		var dateSec = date.getTime();
-		var year = date.getFullYear();
-		var month = ('0' + (date.getMonth() + 1)).slice(-2);
-		var datedate = date.getDate();
+		
+	} else {
+		alert("등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.");
+		return;
+	}
+	
+	
+	
+}
+
+
+// // onclick= if ((CURRENT_TIMESTAMP-${oldDate})&lt;=3일..){"alert('끌어올리시겠습니까?')" }
+// 	$( "#updateOldDate" ).on("click" , function() {	
+	
+// 		var oldDate = /*[[${old.oldDate}]]*/ +')';	
+//  		var oldDateSlice = oldDate.slice(0,10);  //2022-06-20
+// // 		var theoldDate = new Date($('#oldDate').val());
+//  		var 
+ 		
+ 		
+ 		
+ 		
+//  		var date = new Date();		
+// // 		var dateSec = date.getTime();
+// 		var year = date.getFullYear();
+// 		var month = ('0' + (date.getMonth() + 1)).slice(-2);
+// 		var datedate = date.getDate();
         
-		var datesum = (year + '-' + month + '-' + datedate);
+// 		var datesum = (year + '-' + month + '-' + datedate);
+	 	
+// // 		var diffTime = (datesum.getDate() - )
+// // 	alert(yearold);
+// // 		alert(theoldDate); //invalid date
+// 	alert(oldDateSlice); //2022-06-20
+// 	alert(datesum); //2022-06-20
+// // 	alert(oldDate);    //2022-06-20T14:05:21.000+09:00
+// // 	alert(date); //Mon Jun 20 2022 14:40:09 GMT+0900 (한국 표준시)
+// // 	alert(year); //2022
+// // 	alert(month); //06
+// // 	alert(datedate); //20
 	
-// 	alert(yearold);
-	alert(datesum);
-	alert(oldDate);    //2022-06-20T14:05:21.000+09:00
-	alert(date); //Mon Jun 20 2022 14:40:09 GMT+0900 (한국 표준시)
-	alert(year); //2022
-	alert(month); //06
-	alert(datedate); //20
 	
-	
-	});
+// 	});
 
 /*]]>*/
 </script>
@@ -400,6 +439,7 @@ Kakao.Link.sendDefault({
 
 	<script src="/js/getProduct.js"></script>
 	<script src="/js/getOld.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 <!-- 	<script src="/js/share.js"></script> -->
 	
 </body>
