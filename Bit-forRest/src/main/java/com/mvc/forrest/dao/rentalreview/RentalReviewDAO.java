@@ -21,6 +21,8 @@ public interface RentalReviewDAO {
 	
 	void deleteRentalReview(int reviewNo) throws Exception;
 	
+	RentalReview getRentalReview(RentalReview rentalReview) throws Exception;
+	
 	int getTotalCount(Search search) throws Exception;	
 	
 	void updateRentalReview(RentalReview rentalReview) throws Exception;

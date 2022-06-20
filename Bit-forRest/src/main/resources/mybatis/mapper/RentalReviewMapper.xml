@@ -58,17 +58,17 @@
 	 </delete>
 	 
 	 	 <!-- SELECT ONE -->
-	 <select id="getRentalReview" parameterType="rental">
+	 <select id="getRentalReview"  parameterType="rentalReview"  resultMap="rentalReviewSelectMap">
 	 	 	SELECT *
 	  		FROM rentalReview
 	  	<where>
-	  		userId = #{userId} and  prodNo = #{prodNo}
+	  		userId = #{userId}  and  prodNo = #{prodNo}
 	  	</where>
 	 </select>
 	 
 		 
 	<!-- SELECT LIST -->
-	<select  id="getRentalReviewList"  parameterType="String"	resultMap="rentalReviewSelectMap">
+	<select  id="getRentalReviewList"  parameterType="rentalReview" 	resultMap="rentalReviewSelectMap">
 	  	SELECT r.*,u.*
 	  	FROM rentalReview r , user u
 	  	<where>

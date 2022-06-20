@@ -54,4 +54,12 @@ public class RentalReviewService {
 		System.out.println("updateRentalReview 실행 됨");
 		rentalReviewDAO.updateRentalReview(rentalReview);
 	}
+	
+	//렌탈리뷰 GET해오기
+	public RentalReview getRentalReview(RentalReview rentalReview) throws Exception{
+		System.out.println("getRentalReview 실행 됨");
+		return rentalReviewDAO.getRentalReview(rentalReview);
+	}
+	
+	
 }
