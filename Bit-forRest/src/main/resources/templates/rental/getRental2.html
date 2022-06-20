@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+</head>
+<style>
+.table{
+	margin-bottom: 80px !important;
+}
+.page-header{
+margin: 40px 0 0px !important;
+border-bottom:3px solid #ddd !important;
+}
+
+	.tableBody td {
+		width:33%;
+ 		vertical-align: middle !important;
+	}
+	
+	.tableBody td > div {
+		display:flex;
+	}
+	
+	.tableBody td img{
+		text-align:left;
+		width:100px;
+	}
+	
+	.tableBody td span{
+		display:flex;
+		align-items:center;
+		padding:10px;
+	}
+	
+	.borderTopNone{
+		border-top:none !important;
+	}
+	.borderRight{
+		border-right:1px solid #ddd;
+	}
+	.textCenter{
+		text-align:center;
+	}
+	.borderBottom{
+		border-bottom:1px solid #ddd;
+	}
+</style>
+<body>
+
+<!-- 로딩시 뜨는 아이콘 -->
+	<!-- <div id="preloader">
+		<div id="status">
+			<img src="/images/content/spinnerfbfbfb.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+ -->
+
+<!-- 툴바 include -->
+<div th:replace="/main/toolbar.html"></div>
+<!-- 
+<div th:replace="/main/toolbarForAdmin.html"></div>
+<div th:replace="/main/leftbarForAdmin.html"></div> -->
+
+<!--  화면구성 div Start /////////////////////////////////////-->
+<div class="container list" style="padding-right:150px;">
+	<div class="page-header text-info">
+		       <h3>대여물품정보</h3>
+		</div>
+		
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	
+		    	</p>
+		    
+		    </div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		 <!--  table Start /////////////////////////////////////-->
+      <table class="table table-hover table-striped">
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center">상품정보</th>
+	            <th align="center" >결제금액</th>   
+	            <th align="center">진행상태</th>
+	          </tr>
+	        </thead>
+	        
+	        <tbody> 
+			    <tr class="tableBody">
+				    <td align="left">
+				    	<div class="productInfo">
+					    	<img _ngcontent-ysc-c102="" alt="" src="//img.29cm.co.kr/next-product/2022/05/23/2b8de2e8a22b42578820af6f1c1e5092_20220523235755.jpg?width=300">
+					    	<span>
+						    		[[${rental.prodName}]]<br/>
+						    		[[${rental.startDate}]] ~ [[${rental.endDate}]]<br/>
+						    		수량 [[${rental.purchaseProd.prodQuantity}]]개
+					    	</span>
+						</div>
+				    </td>
+					<td align="center" >[[${rental.resultPrice}]] 원</td>
+					<td align="center" th:text="${rental.purchaseProd.prodCondition}"></td>
+			    </tr>
+	        </tbody>
+
+      </table>
+		<!--  table End /////////////////////////////////////-->
+		
+		
+
+      
+      
+				<div class="page-header text-info">
+		       <h3>결제정보</h3>
+		</div>
+		
+				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
+	    <div class="row">
+	    
+		    <div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    	<!--전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지   -->	
+		    	
+		    	</p>
+		    
+		    </div>
+	    	
+		</div>
+		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
+		
+	 <form class="form-inline" name="detailForm">
+	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		 <!--  table Start /////////////////////////////////////-->
+      <table class="table">
+	       <thead>
+	          <tr class="tableHeader">
+	            <th align="center">주문금액 [[${rental.originPrice}]]원 - </th>
+	            <th align="center" >할인금액 [[${rental.discountPrice}]]원 = </th>   
+	            <th align="center">결제금액 [[${rental.resultPrice}]]원</th>
+	          </tr>
+	        </thead>
+	        
+	        <tbody> 
+			    <tr class="tableBody">
+				    <td align="center" class="borderBottom">
+						    	상품금액 [[${rental.originPrice}]]원
+				    </td>
+					<td align="center" class="borderBottom"> 쿠폰할인 [[${rental.discountPrice}]]원</td>
+					<td align="center" class="borderBottom"> [[${rental.paymentWay}]] [[${rental.resultPrice}]]원</td>
+			    </tr>
+	        </tbody>
+
+      </table>
+      
+   <div class="page-header text-info">
+		       <h3>배송지정보</h3>
+		</div>
+		
+		<table class="table payment">
+	      <tbody>
+		       <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 주문자</th>
+		            <td class="borderTopNone borderBottom" th:text="${rental.receiverName}">
+		            </td>
+		             <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+		        
+		     <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 전화번호</th>
+		            <td class="borderTopNone borderBottom" th:text="${rental.receiverPhone}">
+		            </td>
+		             <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+		      
+		         <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 픽업주소</th>
+		            <td class="borderTopNone borderBottom" th:text="${rental.pickupAddress}">
+		            </td>
+		         <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+		        
+		          <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 반송주소</th>
+		            <td class="borderTopNone borderBottom" th:text="${rental.divyAddress}">
+		            </td>
+		         <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+		        
+		         <tr style="background-color:#fff; border-top:none;">
+		            <th scope="row" class="borderTopNone borderRight textCenter borderBottom"> 배송요청사항</th>
+		            <td class="borderTopNone borderBottom">
+		               부재시 문 앞에 놓아주세요
+		            </td>
+		             <td class="borderBottom"/>
+		         <td class="borderBottom"/>
+		        </tr>
+    </tbody>
+
+      </table>
+	</form>
+</div>
+<!--  화면구성 div End /////////////////////////////////////-->
+
+<!-- footer -->
+     <div th:replace="/main/footer.html"></div>
+ 
+</body>
+
+<script src="/js/jquery_min.js"></script>
+	<script>
+	 /*  $(document).ready(function() {
+			"use strict";
+			
+
+		    // Preloader 
+		    jQuery(window).on('load', function() {
+		        jQuery("#status").fadeOut();
+		        jQuery("#preloader").delay(350).fadeOut("slow");
+		    });
+
+	  }) */
+	</script>
+	
+	<!--  <script src="/js/custom.js"></script> -->
+<!-- <script src="/js/custom.js"></script> -->
+</html>

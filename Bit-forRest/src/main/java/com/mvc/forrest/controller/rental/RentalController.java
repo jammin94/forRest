@@ -94,7 +94,10 @@ public class RentalController {
 	//------------대여물품add 기능구현------------//
 	//회원, 어드민 가능
 	@PostMapping("addRental")
-	public String addRental(@ModelAttribute("rental") Rental rental, @ModelAttribute("product") Product product,Model model ) throws Exception {
+	public String addRental(@ModelAttribute("rental") Rental rental,
+							@ModelAttribute("product") Product product,
+							@RequestParam("paymentNo") String paymentNo,
+							Model model ) throws Exception {
 		
 	//	Product product = null;
 	//	product = productService.getProduct(rental.getProdNo());	
@@ -114,8 +117,8 @@ public class RentalController {
         
         System.out.println("tranNo"+tranNo);
         System.out.println("냠2");
-        rental.getBuyer().setUserId(userId);
-        rental.setPaymentNo("100"); //임시 결제 번호
+        rental.setUserId(userId);
+        rental.setPaymentNo(paymentNo); //임시 결제 번호
         rental.setProdName(product.getProdName()); 
         rental.setProdImg("2.jpg"); //임시 프로덕트 이미지
         rental.setOriginPrice(10000); // 임시 오리진 프라이스

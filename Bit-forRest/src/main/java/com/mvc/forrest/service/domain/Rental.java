@@ -13,6 +13,7 @@ public class Rental {
 	
 	private String tranNo;
 	private String prodNo;
+	private String userId;
 	private String divyAddress;
 	private String pickupAddress;
 	private Date startDate;
