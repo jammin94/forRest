@@ -200,7 +200,9 @@ public class OldController {
 	public String addOld(@ModelAttribute("old") Old old, @RequestParam("uploadFile") List<MultipartFile> uploadFile, Model model) throws Exception {
 
 		System.out.println(this.getClass() + " ADD올드 POST");
-
+		
+		System.out.println(model.getAttribute("files"));
+		System.err.println(model);
 		String oldNo = FileNameUtils.getRandomString();
 		// add하기 전에 oldNo가 set 되어야 함.
 		old.setOldNo(oldNo);
