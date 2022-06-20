@@ -412,6 +412,9 @@ flex-none, flex-initial, flex-auto, flex-1
 				<p class="reviewMainText">
 					<span>
 						<span>상품리뷰</span><br/>
+						<span>
+						<button class="reviewBtn">리뷰쓰기</button>						
+						</span>
 					</span>
 															
 					<span class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
@@ -507,6 +510,10 @@ $(function(){
     	$("#period").val(select);
     	var period1 = $("#period").val();
 		console.log(period1);
+    })
+    
+    $('.reviewBtn').on("click",function(){
+    	console.log("리뷰버튼클릭");
     })
 })
 
