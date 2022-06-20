@@ -9,6 +9,9 @@
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	
+	<!-- 아임포트 -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	
 </head>
 <style>
 td{
@@ -67,14 +70,7 @@ border-bottom:3px solid #ddd !important;
     margin-left: 15px;
 }
 
-.container.list{
-	  display: flex;
-    justify-content: center;
-	padding-right:180px;
-	padding-top: 120px;
-    width: calc(100% - 210px);
-    float: right;
-}
+
 
  input{
     border-radius: 10px;
@@ -85,7 +81,7 @@ border-bottom:3px solid #ddd !important;
     font-size:14px;
 }
 
-.pay-btn{
+.extend-btn{
 	padding:5px;
 	background:#262626;
 	border:none;	
@@ -93,16 +89,12 @@ border-bottom:3px solid #ddd !important;
 	color:#fff;
 }
 
-.priv-btn{
-	padding:5px;
-	background:#262626;
-	border:none;	
-	border-radius:10px;
-	color:#fff;
-}
+
 
 select{
 		border: none;
+		BACKGROUND: #efefef;
+		border-radius:10px;
 }
 </style>
 <body>
@@ -115,8 +107,8 @@ select{
 	</div>
  -->
 
-<!-- 툴바 include -->
-<div th:replace="/main/toolbar.html"></div>
+
+
 
 <!-- 
 <div th:replace="/main/toolbarForAdmin.html"></div>
@@ -130,108 +122,8 @@ select{
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 	 <form class="form-inline" name="detailForm">
-	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-		 <!--  table Start /////////////////////////////////////-->
-     <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
-                    </div>
-                    <input type="file" name="img-upload-input" style="display:none">
-                  </div>
-</div>
-		<!--  table End /////////////////////////////////////-->
-		
-		<!-- 물품정보등록 -->
-		
-			<div style="margin-top:20px; color:#a76161; padding-bottom:10px;">
-			기간연장
-		</div>
-		
-		<table width="100%" style="border:1px solid #DEDEDE" cellpadding="0" cellspacing="0">
-<tbody><tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
-	보관정보
-	</td>
-	<td style="padding:10px">
 
-	<table>
-	<colgroup><col width="100">
-	</colgroup><tbody>
-	<tr>
-		<td>물품이름</td>
-		<td th:text=${storage.prodName}></td>
-	</tr>
-
-	<tr>
-		<td>카테고리</td>
-		<td th:text="${storage.storageProd.category}"></td>
-	</tr>
 	
-		<tr>
-		<td>크기</td>
-		<td>
-		<span th:text="${storage.storageProd.width}"></span>x
-		<span th:text="${storage.storageProd.length}"></span>x
-		<span th:text="${storage.storageProd.height}"></span>
-		
-		</td>
-	</tr>
-
-    	<tr>
-		<td>보관기간</td>
-		<td>
-			<span th:text=${storage.startDate}></span>~
-			<span th:text=${storage.endDate}></span>
-		
-		</td>
-	</tr>
-	
-	<tr>
-		<td>연장기간</td>
-		<td>
-			 <select class="category" name= "category">
-   
-        	 <option value="텐트">1개월</option>
-	         <option value="침대">2개월</option>
-	         <option value="의자">3개월</option>
-	         <option value="그릴">4개월</option>
-	         <option value="버너">5개월</option>
-	         <option value="조명">6개월</option>
-	       
-  
-          </select>
-		  <input type="text" name="nameReceiver" value="2022-03-07~2022-09-07" required="" readonly>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>물품수량</td>
-		<td><span th:text="${storage.storageProd.prodQuantity}"></span>
-		개</td>
-		
-	</tr>
-	
-	</tbody></table>
-
-	</td>
-</tr>
-</tbody></table>
-		<!-- 물품정보등록 끝 -->
-		
-
-
       
    <div style="margin-top:20px; color:#a76161; padding-bottom:10px;">
 			결제정보
@@ -247,14 +139,36 @@ select{
 	<table>
 	<colgroup><col width="100">
 	</colgroup><tbody>
+	<tr>
+		<td>연장기간</td>
+		<td>
+	   <select class="period" name= "period" id="resv_period"  >
+   
+        		<option  value=0>선택</option>
+        		<option  value=30>1개월</option>
+	         	<option  value=60>2개월</option>
+	        	<option   value=90>3개월</option>
+	        	<option  value=120>4개월</option>
+	        	<option   value=150>5개월</option>
+	        	<option  value=180>6개월</option>
+	        			 
+       </select>
+		 
+		</td>
+	</tr>
+	
+	
 	
 		<tr>
 		<td>쿠폰적용</td>
 		<td>
-			 <select class="category" name= "category">
+			 <select class="coupon" name= "coupon">
    
-        	 <option value="텐트">10% 할인쿠폰</option>
-	         <option value="침대">5000원 할인쿠폰</option>
+        	 <option value=0>-- 선택 --</option>
+   						
+   			 <!-- 여기서 쿠폰넘버를 어케 심ㅇ줄까.....???? -->
+	         <option class="couponValue" th:each="ownCoupon : ${list}" th:text="${ownCoupon.ownCoupon.couponName}" th:value="${ownCoupon.ownCoupon.discount}" th:data-coNo="${ownCoupon.ownCouponNo}" >
+	       	 </option>
 	       
   
           </select>
@@ -264,21 +178,19 @@ select{
 	
 	<tr>
 		<td>합계금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+		<td><input type="text"   id="resv_originPrice" class="originPrice" name="originPrice"  style="border:none;width:100px;text-align:right;"  readonly/> 원</td>
 	</tr>
 	<tr>
 		<td>할인금액</td>
 		<td>
-		<div id="paper_delivery_msg1" style="display: block;"><div id="paper_delivery" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</div>원</div>
-		<div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
-		<div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
+		 <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" value=0 style="border:none;width:100px;text-align:right;" readonly/> 원
 		</td>
 	</tr>
 
 
 	<tr>
-		<td>총 결제금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">90,870</p> 원</td>
+		<td>최종 결제금액</td>
+		<td><input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;" readonly/>원</td>
 	</tr>
 	</tbody></table>
 	</td>
@@ -287,84 +199,53 @@ select{
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button class="pay-btn">저장하기</button>
-	<button class="priv-btn">이전</button>
+	<button type="button" class="extend-btn">기간연장</button>
+
 </div>
+	<!-- 기존 tranNo -->
+	 <input type="hidden"  name="tranNo"  th:value="${storage.tranNo}"> 
 	</form>
+	
+	<!-- 기간연장시 계산을 위해 필요한값들 -->
+	 <input type="hidden"  name="width"  th:value="${storage.storageProd.width} " id="resv_width" > 
+	 <input type="hidden"  name="length" th:value="${storage.storageProd.length}" id="resv_length"> 
+	 <input type="hidden"   name="height" th:value="${storage.storageProd.height}"  id="resv_height"> 
+	 <input type="hidden"   name="prodQuantity" th:value="${storage.storageProd.prodQuantity}"  id="resv_quantity"> 
+	
+	<!-- 결제전 필요한 tranNo -->
+	 <input type="hidden"   name="reserveTranNo" th:value="${reserveTranNo}" > 
+	
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
-<!-- footer -->
-     <div th:replace="/main/footer.html"></div>
  
 </body>
 <script src="/js/jquery_min.js"></script>
 
 
 	<script>
-	// 기간연장에 따라 실시간 가격변경
 	$(document).ready(function() {
+		
+		// 기간연장에 따라 실시간 가격변경
+		 var calculatePrice = Math.round($("#resv_width").val() * $("#resv_length").val() * $("#resv_height").val() * $("#resv_quantity").val() * 0.04);
+		
+		$("#resv_period").on("propertychange change paste input", function() {
+			
+		   
+		    var resv_period = fnReplace($("#resv_period").val());
+		   
+		    $("#resv_originPrice").val(resv_period * calculatePrice);
+		    $("#resv_resultPrice").val(resv_period * calculatePrice);
+		});
+		
+		$(".extend-btn").on("click", function(){
+				 
+			request_pay();
+		 })
+		
+		
  
-$("#resv_period").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-});
- 
-$("#resv_length").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-});
- 
-$("#resv_height").on("propertychange change paste input", function() {
- 
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());	
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    
-    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-});
- 
-$("#resv_period").on("propertychange change paste input", function() {
-	
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-   
-    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-});
- 
-$("#resv_quantity").on("propertychange change paste input", function() {
-    var resv_width= fnReplace($("#resv_width").val());
-    var resv_length = fnReplace($("#resv_length").val());
-    var resv_height = fnReplace($("#resv_height").val());
-    var resv_period = fnReplace($("#resv_period").val());
-    var resv_quantity = fnReplace($("#resv_quantity").val());
-    console.log(resv_width *  resv_length * resv_height * resv_quantity * 0.1);
-    $("#resv_originPrice").val( Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-    $("#resv_resultPrice").val(Math.round(resv_width *  resv_length * resv_height  * resv_period * resv_quantity * 0.04));
-});
- 
-});
+	})
 	
 	function fnReplace(val) {
 	    var ret = 0;
@@ -373,6 +254,97 @@ $("#resv_quantity").on("propertychange change paste input", function() {
 	    }
 	    return ret;        
 	}
+	
+	
+	//쿠폰선택시 총결제금액만 변경
+	 $(function(){
+	    	
+	  
+	    	$(".coupon").on("click",function(){
+	    		
+	    		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
+	    			       		    			   
+	    	    	    var originPrice =    $("#resv_originPrice").val();
+	    	    	    console.log(originPrice);
+	    	    		
+	    	    	   
+	    	    	    //금액할인 퍼센트할인에 따라 할인금액을 계산
+	    	    	    if($(".coupon option:selected").val()<1){
+	    	    	    	
+	    	    	    	 var discountPrice = Math.round(originPrice * $(".coupon option:selected").val());
+							console.log("discountPrice:"+ discountPrice);
+	    	    	    	
+	    	    	    } else{
+	    	    	    	
+	    	    	    	var discountPrice =  $(".coupon option:selected").val().replace(".0","")
+	    	    	    	console.log("discountPrice:"+discountPrice);
+	    	    	    	
+	    	    	    }
+	    	    	    
+	    	    	    	$('#discountPrice').val(discountPrice);
+	    	    	    	
+		    	    	    var resultPrice = originPrice - discountPrice;
+		    	    	    console.log(resultPrice);
+		    	    	    
+	    	    	    //계산값 텍스트 대체 , 할인금액 >=계산금액일때 계산불가
+	    	    	    if(resultPrice<=0){
+								 $('#resv_resultPrice').val("양심어디....? ㅡ.ㅡ;");
+						} else{
+							
+	    	    	    	$('#resv_resultPrice').val(resultPrice);
+							
+						}
+							
+	    		} else {
+	    			
+	    			 $('#discountPrice').val(0);
+	    			 $('#resv_resultPrice').val($("#resv_originPrice").val());
+	    		}
+	    	 
+	    	})
+	    	 
+	    })
+	
+	//아임포트 결제
+	    function request_pay(){
+			
+			IMP.init("imp88340030");
+			
+			var reserveTraNo = $("input[name='reserveTranNo']").val();
+				
+			 IMP.request_pay({
+			    	pg : "html5_inicis", 
+			        pay_method : 'card',
+			        merchant_uid : reserveTraNo,//주문번호
+			        name :"연장한 물품",
+			        amount :  $("input[name='resultPrice']").val(),
+			    }, function(rsp) {
+	    	console.log(rsp);
+	    	$.ajax({
+
+	        	type : "POST",
+	        	url : "/payment/json/verifyIamport?imp_uid=" + rsp.imp_uid 
+	        	
+	        }).done(function(data) {
+	        	
+	        	console.log(data);
+	        	
+	        	if(rsp.paid_amount == data.response.amount){
+		        	alert("결제 및 결제검증완료");
+		        	
+		        		$('form').attr('method', 'POST').attr('action', '/storage/extendStorage?paymentNo='+rsp.imp_uid).submit();
+		        		
+		        	
+		        	
+	        	} else {
+	        		alert("결제 실패");
+	        	}
+	        });
+	    });
+			
+			
+		}
+	    
 	</script>
 	
 	<!--  <script src="/js/custom.js"></script> -->
