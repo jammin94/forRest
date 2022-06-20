@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.service.chat.ChatService;
 import com.mvc.forrest.service.domain.Old;
 
 import com.mvc.forrest.service.domain.Report;
@@ -38,15 +39,17 @@ public class ReportController {
 	@Autowired
 	public OldService oldService;
 	
+	@Autowired
+	public ChatService chatService;
+	
 
 	
 	@GetMapping("addReport")
-	public String addReport(//@RequestParam("oldNo") String oldNo,
+	public String addReport(
 			Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
-		//User loginUser =(User)session.getAttribute("user");
-		//System.out.println(loginUser);
-		//String id= loginUser.getUserId();
-		System.out.println(report);
+
+		System.out.println(report); // 신고된 유저, 신고 중고거래 게시물, 채팅방 번호 얻을 수 있어욤
+		System.out.println(chatService.getListChat(report.getReportChatroomNo())); // 모든 채팅내역 보실 수 있어욤
 		 return null;
 	}
 	
@@ -54,7 +57,7 @@ public class ReportController {
 	
 	@PostMapping("addReport")
 	public String addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user, Model model ) throws Exception {
-		 
+		 System.out.println("POST : addReport");
 		 reportService.addReport(report);
 		
 		 return "report/addReport";

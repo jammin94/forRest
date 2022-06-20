@@ -599,7 +599,7 @@
 
 //내 맥북 192.168.0.240:3001
 //비트 컴 192.168.0.42:3001
-const socket = io.connect('http://192.168.0.42:3001:3001/oldChatRoom',{
+const socket = io.connect('http://192.168.0.42:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
@@ -637,7 +637,7 @@ socket.on('updateRoom',function(data){
     	  if($(this).find(".unreadcount")!==undefined){
     	  	$(this).find(".unreadcount").remove();
     	  }
-    	  window.open('http://192.168.0.42:3001:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+    	  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
     	});
 });
 
@@ -665,7 +665,7 @@ $("li.contact").dblclick(function() {
   		$(this).find(".unreadcount").remove();
 	}
   
-  window.open('http://192.168.0.42:3001:3001/oldChat/'+
+  window.open('http://192.168.0.42:3001/oldChat/'+
 		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
 });
 
@@ -689,7 +689,7 @@ $(document).ready(function(){
 	if('{{immediate}}'!==''){
 
 		//바로 채팅창 띄워주기
-		window.open('http://192.168.0.42:3001:3001/oldChat/'
+		window.open('http://192.168.0.42:3001/oldChat/'
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','popup test',
 		'width=500');
 	}
