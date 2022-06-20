@@ -42,7 +42,7 @@ public class OldReviewController {
 	@PostMapping("listOldReview")
 	public String listOldReview(@ModelAttribute("oldReview") OldReview oldReview, Model model) throws Exception {
 		
-		oldReviewService.getOldReviewList(oldReview.getReviewedUserId());
+		oldReviewService.getOldReviewList(oldReview.getReviewUser().getUserId());
 		
 		return null;
 	}	

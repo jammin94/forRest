@@ -68,6 +68,7 @@ CREATE TABLE transaction
    originPrice INTEGER NOT NULL,
    discountPrice INTEGER,
    resultPrice INTEGER,
+   reviewDone TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (tranNo)
 );
 
@@ -85,7 +86,7 @@ CREATE TABLE old (
    oldView INTEGER NOT NULL,
    category VARCHAR(10) NOT NULL,
    oldState TINYINT(1)   NOT NULL DEFAULT 1,
-   oldImg VARCHAR(30) NOT NULL,
+   oldImg VARCHAR(60) NOT NULL,
    oldAddr VARCHAR(100) NOT NULL,
    PRIMARY KEY (oldNo),
    FOREIGN KEY (userId) REFERENCES user(userId)
@@ -204,11 +205,16 @@ CREATE TABLE `imgs` (
   PRIMARY KEY (`imgNo`)
 );
 
+
 CREATE TABLE oldlike(
-	oldLikeNo			INTEGER 	NOT NULL	AUTO_INCREMENT,
-	oldNo 			VARCHAR(40)		NOT NULL 	REFERENCES     old(oldNo),
-	userId			VARCHAR(30)	NOT NULL 	REFERENCES     user(userId),
-	PRIMARY KEY(oldLikeNo)
+	oldLikeNo	 INTEGER	 NOT NULL	 AUTO_INCREMENT,
+	oldNo 		 VARCHAR(40) NOT NULL ,
+	userId		 VARCHAR(30)	NOT NULL ,
+	PRIMARY KEY(oldLikeNo),
+	KEY oldNo (oldNo),
+	KEY userId (userId),
+	CONSTRAINT `oldlike_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
+	CONSTRAINT `oldlike_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 );
 
 CREATE TABLE oldReview(
@@ -266,6 +272,9 @@ VALUES ('user20@naver.com','user20','user20Phone','2020','user20Name','user20Add
 
 INSERT INTO user
 VALUES ('captain9697@naver.com','구스범수','010/4114/9697','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','박범수','13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)','user', CURDATE(),'own','goosebeomImg.jpg',CURDATE(),NULL,NULL,NULL);
+
+INSERT INTO user
+VALUES ('sanstory12rt@naver.com','형산','010/8783/6065','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','형산','13271/경기오산시~~','user', CURDATE(),'own','iu.jpg',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO old
 VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
@@ -453,9 +462,9 @@ VALUES ('user02@naver.com',2,'2022-06-01','2022-06-30');
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
 VALUES(NULL, 'admin' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'user01@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0)
+VALUES(NULL, 'user01@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'user03@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0)
+VALUES(NULL, 'user03@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
 
 INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
 VALUES(NULL, 'admin' , 'user03@naver.com', 3, null, '선정성',  '가격 안깎아줌', null, 0);
