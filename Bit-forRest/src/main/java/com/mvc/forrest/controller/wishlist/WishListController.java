@@ -139,7 +139,7 @@ public class WishListController {
 			 String reserveTranNo = FileNameUtils.getRandomString();
 		
 			
-			
+			System.out.println(listA);
 			
 			
 			model.addAttribute("wishlist",listA);
