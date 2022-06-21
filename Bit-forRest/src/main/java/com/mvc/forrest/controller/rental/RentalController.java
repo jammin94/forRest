@@ -126,6 +126,9 @@ public class RentalController {
         
         System.out.println("tranNo"+tranNo);
         System.out.println("텟2");
+        rental.setPickupAddress(rental.getPickupAddress());
+        rental.setDivyAddress(rental.getDivyAddress());
+        rental.setReceiverPhone(rental.getReceiverPhone());
         rental.setUserId(userId);
         rental.setPaymentNo(paymentNo); //임시 결제 번호
         rental.setProdName(product.getProdName()); 
