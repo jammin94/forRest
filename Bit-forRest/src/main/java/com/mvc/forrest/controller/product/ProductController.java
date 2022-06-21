@@ -62,7 +62,7 @@ public class ProductController {
 	@Value("5")
 	int pageUnit;
 	
-	@Value("10")
+	@Value("8")
 	int pageSize;
 	
 	@GetMapping("updateRecentImg")
@@ -345,7 +345,7 @@ public class ProductController {
 		System.out.println("listName:"+listName);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+		System.out.println(map.get("list"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -387,8 +387,10 @@ public class ProductController {
 		List<Product> listName = productService.getProductNames();
 		
 		System.out.println("listName:"+listName);
+		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
+		System.out.println(resultPage);
 		
-		
+		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);

@@ -112,24 +112,24 @@
 	  	
 	  	<if test="orderCondition != null">
 	  		<if test='orderCondition == "rentalPriceASC"'>
-			order by rentalPrice ASC
+			order by rentalPrice ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			<if test='orderCondition == "rentalPriceDESC"'>
-			order by rentalPrice DESC
+			order by rentalPrice DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			
 			<if test='orderCondition == "regDateASC"'>
-			order by regDate ASC
+			order by regDate ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>			
 			<if test='orderCondition == "regDateDESC"'>
-			order by regDate DESC
+			order by regDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			
 			<if test='orderCondition == "rentalCountingASC"'>
-			order by rentalCounting ASC
+			order by rentalCounting ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>			
 			<if test='orderCondition == "rentalCountingDESC"'>
-			order by rentalCounting DESC
+			order by rentalCounting DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 	  	
 	  	</if>
@@ -174,24 +174,24 @@
 	  	
 	  	<if test="search.orderCondition != null">
 	  		<if test='search.orderCondition == "rentalPriceASC"'>
-			order by rentalPrice ASC
+			order by rentalPrice ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			<if test='search.orderCondition == "rentalPriceDESC"'>
-			order by rentalPrice DESC
+			order by rentalPrice DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			
 			<if test='search.orderCondition == "regDateASC"'>
-			order by regDate ASC
+			order by regDate ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>			
 			<if test='search.orderCondition == "regDateDESC"'>
-			order by regDate DESC
+			order by regDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			
 			<if test='orderCondition == "rentalCountingASC"'>
-			order by rentalCounting ASC
+			order by rentalCounting ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>			
 			<if test='orderCondition == "rentalCountingDESC"'>
-			order by rentalCounting DESC
+			order by rentalCounting DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 	  	
 	  	</if>

@@ -429,7 +429,50 @@ margin-bottom: 210px !important;
 
       </div>
       <!-- END Product List -->
-
+		
+				<!-- navi start -->
+		<div >
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetProductList('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetProdctList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a th:onclick="|javascript:fncGetProductList('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		
     </div>
   </div>
 </div>

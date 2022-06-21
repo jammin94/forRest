@@ -79,6 +79,11 @@ public class ProductService {
 		
 		return list;
 	}
+
+	public int getTotalCount(Search search) throws Exception {
+		
+		return productDAO.getTotalCount(search);
+	}
 	
 	
 		

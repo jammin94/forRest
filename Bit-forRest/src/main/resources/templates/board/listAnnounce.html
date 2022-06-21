@@ -201,7 +201,7 @@
 	    </tr>
 	        </tbody>
 	     
-	      <span sec:authorize="hasRole('ROLE_ADMIN')">
+	      <span sec:authorize="hasRole('ROLE_admin')">
 		    <button type="submit" class="btn btn-default" id="pin">상단 고정 적용/미적용</button>
 			<button type="submit" class="btn btn-default" id="delete">삭제</button>
 			<br/>
@@ -254,7 +254,7 @@
 		</div>
 		
 		
-		 <span sec:authorize="hasRole('ROLE_ADMIN')">
+		 <span sec:authorize="hasRole('ROLE_admin')">
 			<button type="text" class="btn btn-default" id="addAnnounce">
 				<a th:href="@{/board/addAnnounce}" >
 					공지사항 등록
