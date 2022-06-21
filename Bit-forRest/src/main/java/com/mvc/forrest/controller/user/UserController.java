@@ -289,21 +289,18 @@ public class UserController {
 		
 		User dbUser = userService.getUser(userId);
 		List<OldReview>oldReviewList = oldReviewService.getOldReviewList(userId);
-
+		List<Old> oldList = oldService.getOldList(search);
+		
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
 			oldReviewList.get(i).setReviewUser(userService.getUser(oldReviewList.get(i).getReviewUser().getUserId()));
-			
-			
-			System.out.println("                "+oldReviewList);
-			System.out.println("                "+oldReviewList.get(i));
-			System.out.println("                "+oldReviewList.get(i).getOld());
-			System.out.println("                "+oldReviewList.get(i).getReviewUser());
 		}
 		
+		model.addAttribute("oldList",oldList);
 		model.addAttribute("oldReviewList", oldReviewList);
 		model.addAttribute("user", dbUser);
 		
+		System.out.println("oldList : "+ oldList);
 		System.out.println("oldReviewList : "+ oldReviewList);
 		System.out.println("dbUser : "+dbUser);
 		
