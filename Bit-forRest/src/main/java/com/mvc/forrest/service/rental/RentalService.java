@@ -73,7 +73,7 @@ public class RentalService {
 			
 			List<Rental> list = rentalDAO.getRentalListProfit(map);
 			int totalCount = rentalDAO.getTotalCount(search);
-			
+			System.out.println(totalCount);
 			map.put("list", list);
 			map.put("totalCount", totalCount);
 			
@@ -84,7 +84,7 @@ public class RentalService {
 			
 			
 			int totalPrice = rentalDAO.getRentalProfitTotal(userId);
-					
+			
 			return totalPrice;
 			
 		}
