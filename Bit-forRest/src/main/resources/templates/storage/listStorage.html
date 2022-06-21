@@ -11,8 +11,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	
-	<!-- 스위트얼럿 -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 	
 </head>
 <style>
@@ -164,7 +163,7 @@ border-bottom:3px solid #ddd !important;
 						</div>
 				    </td>
 					<td align="center" th:text="|${storage.resultPrice}원|" ></td>
-					<td align="center"><img class="productImg" th:src="@{/images/uploadFiles/} + ${storage.storageProd.recentImg}" onerror="this.style.display='none' ">
+					<td align="center"><img class="recentImg" th:src="@{/images/uploadFiles/} + ${storage.storageProd.recentImg}" onerror="this.style.display='none' " >
 				
 
 					</td>
@@ -297,6 +296,22 @@ border-bottom:3px solid #ddd !important;
 			
 			self.location = "/product/cancleProduct?prodNo="+prodNum;
 			
+			
+		})
+		
+		//스위트얼럿 보관이미지 확대
+		$(".recentImg").on("click", function(){
+			
+			//스위트얼럿 yes or no 추가예정
+			var recentImg = $(this).parent().find('.recentImg').attr("src");
+			
+			Swal.fire({
+  				imageUrl: "http://localhost:8080"+recentImg,
+ 				imageWidth: 400,
+ 				imageHeight: 400,
+ 				imageAlt: 'Custom image',
+})
+
 			
 		})
 	
