@@ -154,7 +154,7 @@ border-bottom:3px solid #ddd !important;
 					    	</a>
 					    	
 					    	<div style="width:220px;padding:10px;">
-					    	 <a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
+					    	 <a th:if="${storage.storageProd.prodCondition} != '출고완료' " th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
 						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${storage.prodName}]]<br/></p>
 						    </a>
 						    	<p>	[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/></p>
@@ -172,13 +172,16 @@ border-bottom:3px solid #ddd !important;
 					
 					<p  style="margin-bottom: 10px;"  th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
 					대여중 ([[${storage.rentalStartDate}]] ~ [[${storage.rentalEndDate}]] )
+					
 					</p>
 					<p  style="margin-bottom: 10px;" th:unless="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'">
 					[[${storage.storageProd.prodCondition}]]
 					</p>
 					 
 					 
-					 <p style="color: red;" th:if = "${storage.storageProd.isRental} ">(대여가능)</p>
+					<!--   <p style="color: red;" th:if = "${storage.storageProd.isRental} ">(대여가능)</p>-->
+					 <p  style="color: black;" th:if = "${storage.storageProd.isRental} and  ${storage.storageProd.prodCondition }== '보관중' "><i class="fa-solid fa-toggle-off fa-2x"></i></p>
+					 <p  style="color: black;" th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'"><i class="fa-solid fa-toggle-on fa-2x"></i></p>
 				
 				
 					</td>
@@ -237,25 +240,39 @@ border-bottom:3px solid #ddd !important;
 		//결제취소 
 		$(".cancle-btn").on("click", function(){
 			
-			//스위트얼럿 yes or no 추가예정
+			var paymentNo = $(this).parent().find('.cancle-btn').val();
+			var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
+			 
 			
-			 var paymentNo = $(this).parent().find('.cancle-btn').val();
-			 var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
-			 
-			  $.ajax({
-		      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
-		      "type": "POST",
-		      "contentType": "application/json",
-		   
-		    }).done(function(data) {
-	        	
-		    	//검증을 어케해야할까요...?
-		    	console.log(data);
-		    	//스위트얼럿 추가예정
-	        	
-	        	self.location = "/product/cancleProduct?prodNo="+prodNo;
-	        });
-			 
+			Swal.fire({
+				   title: '결제를 취소하시겠습니까?',
+				   icon: 'warning',
+				   
+				   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+				   confirmButtonColor: '#262626', // confrim 버튼 색깔 지정
+				   cancelButtonColor: '#262626', // cancel 버튼 색깔 지정
+				   confirmButtonText: '예', // confirm 버튼 텍스트 지정
+				   cancelButtonText: '아니오', // cancel 버튼 텍스트 지정
+				 
+				   
+				}).then(result => {
+				   // 만약 Promise리턴을 받으면,
+				   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+				   		
+					   $.ajax({
+						      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
+						      "type": "POST",
+						      "contentType": "application/json",
+						   
+						    }).done(function(data) {
+					    
+					        	self.location = "/product/cancleProduct?prodNo="+prodNo;
+					        });
+							 
+				      Swal.fire('결제가 취소되었습니다.', 'success');
+				   }
+				});
+		
 			
 		})
 		
@@ -266,7 +283,7 @@ border-bottom:3px solid #ddd !important;
 			
 			 var url = "/storage/extendStorage?tranNo="+tranNo;
 		     var name = "popup test";
-		     var option = "width = 800, height = 600, left = 400, location = yes"
+		     var option = "width = 850, height = 600, left = 400, location = yes"
 		     window.open(url, name, option);
 			
 			
@@ -275,22 +292,37 @@ border-bottom:3px solid #ddd !important;
 		//출고신청후 물품상태 변경
 			$(".cancleStorage-btn").on("click", function(){
 			
-			 //스위트얼럿 yes or no 추가예정
-			alert("aa");
+				var prodNum =  $(this).parent().find('.cancleStorage-btn').val();
+				
+				Swal.fire({
+					   title: '보관을 종료하시겠습니까?',
+					   text: '남은 기간에 대한 금액은 돌려받을 수 없습니다.',
+					   icon: 'warning',
+					   
+					   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+					   confirmButtonColor: '#262626', // confrim 버튼 색깔 지정
+					   cancelButtonColor: '#262626', // cancel 버튼 색깔 지정
+					   confirmButtonText: '예', // confirm 버튼 텍스트 지정
+					   cancelButtonText: '아니오', // cancel 버튼 텍스트 지정
+					 
+					   
+					}).then(result => {
+					   // 만약 Promise리턴을 받으면,
+					   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+					   		
+						  self.location = "/product/cancleProduct?prodNo="+prodNum;
 			
-			var prodNum =  $(this).parent().find('.cancleStorage-btn').val();
-			
-			
-			self.location = "/product/cancleProduct?prodNo="+prodNum;
-			
-			
+					   }
+					   
+					});	
+	
 		})
 		
+		
+		//출고신청 취소
 		$(".canclePutout").on("click", function(){
 			
-			//스위트얼럿 yes or no 추가예정
-			alert("aa");
-			
+		
 			var prodNum =  $(this).parent().find('.canclePutout').val();
 			
 			
@@ -302,7 +334,6 @@ border-bottom:3px solid #ddd !important;
 		//스위트얼럿 보관이미지 확대
 		$(".recentImg").on("click", function(){
 			
-			//스위트얼럿 yes or no 추가예정
 			var recentImg = $(this).parent().find('.recentImg').attr("src");
 			
 			Swal.fire({

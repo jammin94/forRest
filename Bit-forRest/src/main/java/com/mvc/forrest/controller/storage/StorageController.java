@@ -78,6 +78,7 @@ public class StorageController {
 	@GetMapping("storageMain")
 	public String storageMain() throws Exception  {
 		
+		
 		return "storage/storageMain";
 	}
 	
@@ -85,6 +86,13 @@ public class StorageController {
 	//회원, 어드민 가능
 	@GetMapping("addStorage")
 	public String addStorageGet(Model model) throws Exception {
+		
+		
+		
+		//보관등록후 뒤로가기시 보관메인화면으로 이동(안됨 ㅠ 뒤로가기해도 isAddedCode살아있음.)
+//		if(isAddedCode == null ) {
+//			return "storage/storageMain";
+//		}
 		
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -118,20 +126,13 @@ public class StorageController {
 												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
 												@RequestParam("paymentNo") String paymentNo,
 												 Model model) throws Exception {
-		System.out.println(ownCoupon.getOwnCouponNo());
+		
 		
 		//결제완료후 사용한 쿠폰 삭제, 쿠폰이 선택되지않았을때는 삭제메서드 동작X
 		if(ownCoupon.getOwnCouponNo() != 0) {
 			couponService.deleteOwnCoupon(ownCoupon.getOwnCouponNo());
 			
 		}
-		
-		for(MultipartFile mf: uploadFile) {
-			System.out.println("fileName:"+mf.getOriginalFilename());
-		}
-		//System.out.println("uploadFile2: " + uploadFile.get(0).getOriginalFilename());
-	//	System.out.println("paymentNo"+paymentNo);
-		//System.out.println("paymentWay"+paymentWay);
 		
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
