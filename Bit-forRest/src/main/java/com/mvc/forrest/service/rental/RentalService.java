@@ -84,7 +84,9 @@ public class RentalService {
 			
 			
 			int totalPrice = rentalDAO.getRentalProfitTotal(userId);
-			
+			if(totalPrice==0) {
+				
+			}
 			return totalPrice;
 			
 		}
