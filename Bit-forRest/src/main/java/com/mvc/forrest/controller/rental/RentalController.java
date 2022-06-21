@@ -132,12 +132,22 @@ public class RentalController {
         rental.setUserId(userId);
         rental.setPaymentNo(paymentNo); //임시 결제 번호
         rental.setProdName(product.getProdName()); 
-        rental.setProdImg("2.jpg"); //임시 프로덕트 이미지
+        rental.setProdImg(rental.getProdImg()); //임시 프로덕트 이미지
         rental.setOriginPrice(10000); // 임시 오리진 프라이스
         rental.setProdNo(rental.getProdNo());
-        
+        rental.setDiscountPrice(rental.getDiscountPrice());
         rental.setTranNo(tranNo);
-		rental.setPeriod(3);
+  		rental.setPeriod(3);
+  		rental.setTranCode(1);
+  		
+  		
+  		product.setProdNo(rental.getProdNo());
+  		product.setProdCondition("물품대여승인신청중");
+  		
+        productService.updateProductCondition(product);
+        
+        rental.setPurchaseProd(product);
+  
 		System.out.println("텟3");
 		//1. i'm port에서 나온 값 + 화면상 입력값들 transaction 테이블에 insert
 		rentalService.addRental(rental);		
@@ -149,6 +159,81 @@ public class RentalController {
 //		model.addAttribute("user",user);
 		System.out.println("텟4");
 		//3. getRental.jsp 에서 model들 다 뽑아쓰면됨
+		return "rental/getRental";
+	}
+	
+	@PostMapping("addWishRental")
+	public String addWishRental(@ModelAttribute("rental") Rental rental,
+							@ModelAttribute("product") Product product,
+							@RequestParam("paymentNo") String paymentNo,
+							@RequestParam("wishlistNo") int[] wishlistNo,
+							@RequestParam("prodNo") String[] prodNo,
+							Model model ) throws Exception {
+		
+		
+		
+	
+
+		System.out.println("addRental Post Start");
+		//0. i'm port에서 나온 값 + 화면상 입력값들 ModelAttribute("rental")에 담겨있음.
+		
+		System.out.println("텟");
+		//암호화된 유저아이디를 받아옴
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId= loginUser.getUser().getUserId();
+
+		
+		System.out.println("useriduid"+userId);
+        //랜덤으로 생성한 tranNo
+        String tranNo = FileNameUtils.getRandomString();
+        
+        System.out.println("tranNo"+tranNo);
+        System.out.println("텟2");
+
+     
+        rental.setUserId(userId);
+        
+        rental.setPaymentNo(paymentNo); //임시 결제 번호
+        rental.setProdName(product.getProdName()); 
+        rental.setProdImg(rental.getProdImg()); //임시 프로덕트 이미지
+        rental.setOriginPrice(10000); // 임시 오리진 프라이스
+        rental.setProdNo(rental.getProdNo());
+        rental.setTranNo(tranNo);
+  		rental.setPeriod(3);
+  		rental.setTranCode(1);
+  		
+  		// 폼입력값 꺼
+        rental.setPickupAddress(rental.getPickupAddress());
+        rental.setDivyAddress(rental.getDivyAddress());
+        rental.setReceiverPhone(rental.getReceiverPhone());
+        rental.setDiscountPrice(rental.getDiscountPrice());
+        
+        
+  		
+  		product.setProdNo(rental.getProdNo());
+  		product.setProdCondition("물품대여승인신청중");
+  		
+        productService.updateProductCondition(product);
+        
+        rental.setPurchaseProd(product);
+  
+		System.out.println("텟3");
+		//1. i'm port에서 나온 값 + 화면상 입력값들 transaction 테이블에 insert
+		rentalService.addRental(rental);		
+		
+		System.out.println(rental);
+		//2. getRental에서 쓰기위해 model을 통해 전달
+		model.addAttribute("rental",rental);
+//		model.addAttribute("product",product);
+//		model.addAttribute("user",user);
+		System.out.println("텟4");
+		//3. getRental.jsp 에서 model들 다 뽑아쓰면됨
+		
+		
+	
+		
+		
+		
 		return "rental/getRental";
 	}
 	
