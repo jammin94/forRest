@@ -10,25 +10,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 //@Configuration
-//public class WebConfig implements WebMvcConfigurer {
-//
-//	@Value("${file.path}")
-//	private String fileRealPath;
-//
-//	@Override
-//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		
-//		WebMvcConfigurer.super.addResourceHandlers(registry);
-//
-//     List<String> imageFolders = Arrays.asList("content", "gif","header","uploadFiles");
-//	    for(String imageFolder : imageFolders) {
-//	      registry.addResourceHandler("/images/" +imageFolder +"/**")
-//	        .addResourceLocations("file:///" + fileRealPath + imageFolder +"/")
-//	        .setCachePeriod(3600)
-//	        .resourceChain(true)
-//	        .addResolver(new PathResourceResolver());
-//	    }
-//	  }
-//
-//}	
+public class WebConfig implements WebMvcConfigurer {
+
+	@Value("${file.path}")
+	private String fileRealPath;
+
+   @Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		
+		WebMvcConfigurer.super.addResourceHandlers(registry);
+
+     List<String> imageFolders = Arrays.asList("content", "gif","header","uploadFiles");
+	    for(String imageFolder : imageFolders) {
+	      registry.addResourceHandler("/images/" +imageFolder +"/**")
+	        .addResourceLocations("file:///" + fileRealPath + imageFolder +"/")
+	        .setCachePeriod(3600)
+	        .resourceChain(true)
+	        .addResolver(new PathResourceResolver());
+	    }
+	  }
+
+}	
 	
