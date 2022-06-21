@@ -67,5 +67,12 @@ public class StorageService {
 			
 		}
 		
+		//보관기간이 만료된 물품의 리스트
+		public List<Storage> getExpiredStorageList() throws Exception{
+			
+			return storageDAO.getExpiredStorageList();
+			
+		}
+		
 	
 }

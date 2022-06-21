@@ -27,5 +27,7 @@ public interface StorageDAO {
 	
 	List<Storage> getStorageListForAdmin(Search search) throws Exception;
 	
+	List<Storage> getExpiredStorageList() throws Exception;
+	
 	int getTotalCount(Search search) throws Exception;	
 }
