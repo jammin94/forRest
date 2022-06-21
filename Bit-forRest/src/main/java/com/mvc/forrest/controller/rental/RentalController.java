@@ -69,23 +69,32 @@ public class RentalController {
 	//------------대여물품add 화면구현------------//
 	//회원, 어드민 가능
 	@GetMapping("addRental")
-	public String addRentalView(@ModelAttribute("search") Search search,@RequestParam("prodNo") String prodNo, Model model) throws Exception{
+	public String addRentalView(@RequestParam("prodNo") String prodNo,
+											  @RequestParam("period") int period,
+											  Model model) throws Exception{
 		
 		//prodNo를 받아서 productService.getProduct 로 product객체를 받고, html에서 product.~~로 페이지내에서 사용
+		System.out.println("prodNo: "+prodNo);
+		System.out.println("period: "+period);
 		Product product = productService.getProduct(prodNo);		
 		
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		System.out.println("userId: "+userId);
+		System.out.println("userId: "+userId);  
 		
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
+		
+		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
+	   String reserveTranNo = FileNameUtils.getRandomString();
 		
 		System.out.println("쿠폰쿠폰"+map.get("list"));
 		
 		model.addAttribute("product",product);
 		model.addAttribute("list",map.get("list"));
+		model.addAttribute("reserveTranNo", reserveTranNo);
+		model.addAttribute("period",period);
 		
 		return "rental/addRental";
 	}

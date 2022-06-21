@@ -327,11 +327,12 @@ ul > li{
         <ul>
           <li>카테고리 <span th:text = ${product.category}></span></li>
           <li>크기 <span >[[${product.width}]] x [[${product.length}]] x [[${product.height}]] </span></li>
-          <li>렌탈비용(1박2일) <span th:text = "|${product.rentalPrice}원|"></span></li>
+          <li class="rentalFee"  th:value="${product.rentalPrice}">렌탈비용(1박2일) <span th:text = "|${product.rentalPrice}원|"></span></li>
           <li>수량 <span th:text = "|${product.prodQuantity}개|"></span></li>
           <li>대여횟수 <span  th:text = "|${product.rentalCounting}회|"></span></li>
           <li>대여일 <span>
            <select class="selectBox" name="selection">
+           				 <option  value=2>-- 선택 --</option>
                         <option value=2>1박2일</option>
                         <option value=3>2박3일</option>
                         <option value=4>3박4일</option>
@@ -342,20 +343,22 @@ ul > li{
 			<li th:if = "${product.userId} == ${sessionUser.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
 			<li th:if = "${product.userId} == ${sessionUser.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
        
-         <li>결제금액 <span></span></li>
+         <li>결제금액 <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px;text-align:right;" readonly/>원 </li>
         </ul>
       </div>
       
         <div class = "purchase-info" th:if="${product.userId} == ${sessionUser.userId}">
         
-        <button type = "button" class = "btn">꺼내쓰기</button>
+        <button type = "button" class = "btn" id = "rentalMyPro">꺼내쓰기</button>
         <button type = "button" class = "btn" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|">수정</button>
-     
+         
+         <input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
+        <input type="hidden" id="period" name="period" value="1"/>
       </div>
 
       <div class="purchase-info" th:unless="${product.userId} == ${sessionUser.userId}">
         
-        <button type = "button" class = "btn" >구매하기</button>
+        <button type = "button" class = "btn"  id="rental-btn">구매하기</button>
         <button type = "button" class = "btn" name="wishlist">
 
           장바구니 <i class = "fas fa-shopping-cart"></i>
@@ -478,7 +481,8 @@ $(function(){
     	var prodNo = $(this).parent().find('#prodNo').val();
     	console.log(prodNo);
     	var period = $("#period").val();
-    	console.log(period);
+    	alert("장바구니기간:"+period);
+    	
     	
 		$.ajax({
             type : "GET",  
@@ -510,75 +514,46 @@ $(function(){
     })
     
     $(".selectBox").on("click",function(){
-    		
+    	
+    	
+    	var rentalPrice =    $(".rentalFee").val();	
     	var select = $(".selectBox option:selected").val();
-    	console.log(select);
+    	console.log("선택값:"+select);
+    	 console.log("rentalPrice:"+rentalPrice);
+    	 
     	$("#period").val(select);
     	var period1 = $("#period").val();
-		console.log(period1);
+		console.log("기간:"+period1);
+		
+		var PayPrice = Math.round(rentalPrice * select * 0.5);
+
+  	  $('#PayPrice').val(PayPrice);
     })
     
     $('.reviewBtn').on("click",function(){
     	console.log("리뷰버튼클릭");
     })
+    
+    
+    //렌탈뷰 페이지로 이동
+     $('#rental-btn').on("click",function(){
+    	 
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+    })
+    
+    $('#rentalMyPro').on("click",function(){
+    	
+    	alert($("#prodNo").val());
+    	alert( $("#period").val());
+    	 
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+    })
+    
+    
+   
+    
+    
 })
-
-//대여일에 따른 결제금액 계산
-   /* $(function(){
-    	
-    	const PRICE = $('#paper_goodsprice').text().replace(",","");
-    	
-    	console.log(PRICE);
-    	
-    	$(".coupon").on("click",function(){
-    		
-    		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
-    			       		    			   
-    	    	    var sText = $('#paper_goodsprice').text();
-    	    	    var rText=  sText.replace(",",""); //90870원    	    	
-    	    	    let outPutPrice;
-    	    	    let convertPrice;
-    	    	 	let couponPrice;
-    	            let convertCouponPrice;
-    	    			    	   
-    	    	    
-
-    	    		  if($(".coupon option:selected").val()<1){    	    			      	    			  
-    	    		  		 outPutPrice =PRICE - PRICE.replace(".0","") *$(".coupon option:selected").val().replace(".0","");		
-    	    	    		 convertPrice = outPutPrice.toLocaleString();
-    	    	    		 couponPrice = PRICE*$(".coupon option:selected").val();
-    	    	    		 convertCouponPrice =  couponPrice.toLocaleString();    	  
-    	    	    		 $('#couponPrice').addClass("red");
-      	    	    } else{      	    	    	
-	      	    	  		 outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
-	        	    		 convertPrice = outPutPrice.toLocaleString();
-	        	    		 couponPrice = $(".coupon option:selected").val().replace(".0","") // 5000원
-	        	    		 convertCouponPrice = parseInt(couponPrice).toLocaleString();        	
-	        	    		 $('#couponPrice').addClass("red");
-      	    	    }
-    	    		
-
-    	    	    //계산
-    	    	    var resultPrice = rText -$(".coupon option:selected").val();    
-    	    	    
-    	    	    //계산값
-    	    	    console.log("계산값"+resultPrice);
-    	    	    
-    	    	    
-    	    	    //쿠폰값 텍스트 대체
-    	    	    $('#couponPrice').text("-"+convertCouponPrice);  
-    	    	    
-    	    	    //계산값 텍스트 대체
-    	    	    $('#resultPrice').text(convertPrice);
-    		}else{
-    			 $('#couponPrice').removeClass("red");
-    			   $('#couponPrice').text("0");  
-    			   $('#resultPrice').text(parseInt(PRICE).toLocaleString());
-   		}
-    	 
-    	})
-    	 
-    })*/
 
 
 </script>
