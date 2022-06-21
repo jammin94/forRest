@@ -85,6 +85,7 @@ public class RentalReviewController {
 				@RequestParam("reviewDone") int reviewDone
 				) throws Exception {
 			System.out.println(rentalReview.getReviewImg());
+			System.out.println("p넘버"+rentalReview.getProdNo());
 			
 			String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
 			String fileName = "";

@@ -8,7 +8,7 @@
 	
 	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	 <link rel="stylesheet" href="/css/addUserView.css">
 
 	<!--  ///////////////////////// java Script ////////////////////////// -->
@@ -320,16 +320,25 @@ a{color:inherit;text-decoration:none}
 		var errMsg = params.get('errorMsg');
 		console.log(errMsg);
 		if(errMsg == '1') {
-
-		       alert("아이디가 존재하지 않습니다");
+				Swal.fire({
+					title: '회원 정보가 존재하지 않습니다',       
+					text:  '회원 가입 후 이용해 주세요',  
+					icon:  'warning',                   
+					});
 
 		} else if(errMsg  == '2') {
-
-		    	alert("아이디 또는 비밀번호가 잘못 입력되었습니다");
-
+				Swal.fire({
+					title: '아이디와 비밀번호가 맞지 않습니다',       
+					text:  '아이디와 비밀번호를 확인해 주세요',  
+					icon:  'warning',                   
+					});
 		} else if(errMsg  == '3') {
-
-		    	alert("신고누적으로 계정이 정지상태 입니다");
+				
+				Swal.fire({
+					title: '계정이 정지상태 입니다.',       
+					text:  '비매너 행위로 인해 계정이 정지 되었습니다',  
+					icon:  'error',                   
+					});
 		    
 		} /*else if('${ERRORMSG}'  == '4') {
 		    document.addEventListener("DOMContentLoaded", function(event) {
