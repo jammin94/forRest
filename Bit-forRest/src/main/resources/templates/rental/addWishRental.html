@@ -397,18 +397,21 @@ $(function(){
 	
 	$('#check_module').click(function(){
 		request_pay();
+		
 	})
 
 	function request_pay(){
+			var paymentResult = parseInt($('#resultPrice').text());
+		
 			console.log("?");
 			IMP.init("imp88340030");
 				
 			 IMP.request_pay({
 			    	pg : "html5_inicis", 
 			        pay_method : 'card',
-			        merchant_uid :'abc',//주문번호
+			        merchant_uid :'abcd',//주문번호
 			        name : '테스트상품',
-			        amount : '1000',
+			        amount :paymentResult,
 			    }, function(rsp) {
 	    	console.log(rsp);
 	    	$.ajax({
