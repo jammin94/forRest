@@ -481,7 +481,7 @@ $(function(){
     	var prodNo = $(this).parent().find('#prodNo').val();
     	console.log(prodNo);
     	var period = $("#period").val();
-    	alert("장바구니기간:"+period);
+    
     	
     	
 		$.ajax({
@@ -542,9 +542,6 @@ $(function(){
     })
     
     $('#rentalMyPro').on("click",function(){
-    	
-    	alert($("#prodNo").val());
-    	alert( $("#period").val());
     	 
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
     })

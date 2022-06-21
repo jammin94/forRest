@@ -4,12 +4,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,13 +22,14 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Img;
-import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
+import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -45,6 +42,9 @@ public class ProductController {
 	
 	@Autowired
 	public ProductService productService;
+	
+	@Autowired
+	public StorageService storageService;
 	
 	@Autowired
 	public UserService userService;
@@ -392,5 +392,30 @@ public class ProductController {
 
 		return "product/listProduct";
 	}
+	
+	//지정된 시간에 보관기간이 만료된 물품의 상태를 자동으로 변경(오후 네시반)
+	@Scheduled(cron = "0 35 17 * * ?")
+	public void updateProductConditionAuto() throws Exception {
+		
+		System.out.println("자동실행 테스트");
+		
+		List<Storage> list = storageService.getExpiredStorageList();
+		
+		
+		for(Storage storage : list) {
+			
+			Product product = storage.getStorageProd();
+			System.out.println("product:"+product);
+			product.setProdCondition("출고완료");
+			
+			productService.updateProductCondition(product);
+			System.out.println("업데이트완료");
+			
+		}
+		
+		System.out.println("list:"+ list);
+	}
+
+	
 
 }
