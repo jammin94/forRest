@@ -1,6 +1,6 @@
 .star {
-    width: 32px;
-    height: 32px;
+width: 32px;
+    height: 37px;
     transition: .6s all;
   }
   #rating {
@@ -60,10 +60,9 @@
   /**/
   /* component */
 
-.star-rating {
+/* .star-rating {
   border:solid 1px #ccc;
   display:flex;
-  flex-direction: row-reverse;
   font-size:1.5em;
   justify-content:space-around;
   padding:0 .2em;
@@ -72,7 +71,7 @@
     margin: 0 auto;
     border: none;
 }
-
+ */
 .star-rating input {
   display:none;
 }

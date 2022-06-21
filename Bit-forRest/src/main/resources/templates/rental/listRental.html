@@ -193,15 +193,19 @@
 }
 
 .star-rating {
-  display: flex;
-  flex-direction: row-reverse;
   font-size: 2.25rem;
   line-height: 2.5rem;
   justify-content: space-around;
   padding: 0 0.2em;
   text-align: center;
   width: 5em;
+      width: 300px;
+      display: flex !important;
+    flex-direction: row-reverse;
+    margin:0 auto;
+        height: 42px !important;
 }
+
  
 .star-rating input {
   display: none;
@@ -221,6 +225,14 @@
 .star-rating label:hover,
 .star-rating label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
+}
+
+.regEditBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
 }
   </style>
 <body>
@@ -306,12 +318,13 @@
 					<!-- <td class="tdCenter" th:text = "${rental.resultPrice}"></td> -->
 					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
 					<button th:if="${rental.reviewDone} == '0' " type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
-					<td th:if="${rental.reviewDone} == '1' ">
-							<span style="display:none" class="hiddenProdNo">[[${rental.purchaseProd.prodNo}]]</span>							
-								<span style="display:none;">[[${rental.reviewDone}]]</span>
-								<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
-							<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
-				</td>
+					<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
+					<span style="display:none;" class="hiddenProdNo" >[[${rental.purchaseProd.prodNo}]]</span>				
+					<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
+					<!-- <td th:if="${rental.reviewDone} == '1' ">						    		
+							<span style="display:none;">[[${rental.reviewDone}]]</span>
+							
+				</td> -->
 	    </tr>
 	        </tbody>
 
@@ -426,6 +439,8 @@ $(function(){
 $(".reviewBtn").on("click",function(){
 	
 	$('.prodNo').val($(this).parent().find('.hiddenProdNo').text());
+	
+	console.log("p넘벗"	+$(this).parent().find('.hiddenProdNo').text() );
 
 	var rentalTranNo = $(this).parent().find('.hiddenTranNo').text()
 	$('.innerTranNo').val(rentalTranNo);
@@ -448,6 +463,8 @@ $(".reviewBtn").on("click",function(){
 		var prodNo = $(this).parent().find('.hiddenProdNo').text();
 		console.log(prodNo);
 
+		var replaceHTML = " <button type='button' class='regEditBtn' >수정하기 </button>"
+		
 		$.ajax({
             type : "POST",  
             url : "/restRentalReview/getRentalReview",       
@@ -468,7 +485,10 @@ $(".reviewBtn").on("click",function(){
 							
 							$('.img-add-more').find('img').attr('src','/images/uploadFiles/'+rentalReview.reviewImg);
 							$('.form-group').find('textarea').val(rentalReview.reviewDetail);
-                    
+                    		$('.regBtn').text("수정하기");
+                    		
+                    		$('.regBtn').replaceWith(replaceHTML);
+							
             	}
         	})
 		
@@ -485,8 +505,16 @@ $(".reviewBtn").on("click",function(){
 		  
 		  $(".reviewDone").val(1);
 		  
+		  console.log("리뷰돈"+$(".reviewDone").val());
+		  
 		  $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
 	})
+	
+	//"리뷰수정하기"
+	$(".regEditBtn")	.on("click",function(){
+		console.log("수정하기업데이트클릭");
+	})
+
 	
 	//리뷰닫기
 	$('.close').on("click",function(){

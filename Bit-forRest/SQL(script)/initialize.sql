@@ -137,7 +137,7 @@ CREATE TABLE rentalReview
    prodNo VARCHAR(40) NOT NULL,
    userId VARCHAR(30) NOT NULL,
    regDate DATE NOT NULL,
-   PRIMARY KEY (reviewNo)
+   PRIMARY KEY (`reviewNo`)
 );
 
 ALTER TABLE rentalReview ADD FOREIGN KEY(userId) REFERENCES user(userId);
