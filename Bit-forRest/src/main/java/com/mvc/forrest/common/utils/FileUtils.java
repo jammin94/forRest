@@ -46,8 +46,8 @@ public class FileUtils {
             imgDAO.addImg(img);
             list.add(fileName);
             try {
-//            	File file = new File(temDir , fileName);//학원 에서 쓸 때
-                File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
+            	File file = new File(temDir , fileName);//학원 에서 쓸 때
+//                File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)
