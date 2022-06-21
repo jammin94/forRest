@@ -83,12 +83,15 @@
 	   	where tranNo = #{tranNo}
 	 </update>
 	 
-	 <!-- SQL : DELETE -->
-	 <!-- 기간연장시 기존의 저장된 물품정보를 삭제 -->
-	 
-	 <delete id="deleteStorage" parameterType="String">
-	 DELETE FROM transaction where tranNo = #{tranNo}
-	 </delete>
+	<!-- SQL : SELECT LIST -->
+	<!-- 보관기간이 만료된 물품의 리스트 -->
+	<select  id="getExpiredStorageList"  resultMap="storageSelectMap">
+	  	SELECT p.prodNo, p.prodCondition
+	  	FROM product p, transaction t
+	 	<where>
+	 		p.prodNo = t.prodNo AND DATE(NOW()) > t.endDate AND t.tranCode = 0 AND p.prodCondition != "출고완료"
+	 	</where>
+	 </select>
 		 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getStorageList"  parameterType="map"	resultMap="storageSelectMap">
@@ -101,7 +104,7 @@
 	 		 and p.prodCondition = #{search.searchProductCondition}
 	 		</if>
 	 	</where>
-	 	ORDER BY t.tranNo DESC
+	 	ORDER BY t.paymentDate DESC
 	 </select>
 	 
 	 <!-- SQL : SELECT LIST -->

@@ -29,15 +29,15 @@ prevBtnSec.addEventListener("click", function(){
 $(function(){
 	
 
-var initWidth = $(".img-preview-big")[0].offsetWidth;
-$(".img-preview-big").css("height", initWidth + "px");
+	var initWidth = $(".img-preview-big")[0].offsetWidth;
+	$(".img-preview-big").css("height", initWidth + "px");
 
-window.onresize = function(event) {
-  var initWidth = $(".img-preview-big")[0].offsetWidth;
-  $(".img-preview-big").css("height", initWidth + "px");
-};
+	window.onresize = function(event) {
+	  var initWidth = $(".img-preview-big")[0].offsetWidth;
+	  $(".img-preview-big").css("height", initWidth + "px");
+	};
 
-});
+	});
 
 	$(".img-upload-handler").on('mouseenter mouseleave', '.img-preview-big', function(ev) {
 	  var mouse_is_inside = ev.type === 'mouseenter';
@@ -62,8 +62,9 @@ window.onresize = function(event) {
 		 console.log($("input[id='file_"+(count)+"']"));
 		  } 
 	})
+	
 	function fn_deleteFile(obj){
-		obj.parent.remove();
+		obj.remove();
 	}
 
 	function change() {
@@ -79,7 +80,7 @@ window.onresize = function(event) {
 	      var newImg = '<div class="img-preview-small">' +
 	          '<img src="' + e.target.result + '" class="img-small-selected">' +'<input type="hidden" name="count" value="'+(count)+'">'+
 	          '</div>';  /*새로운 사진에 테두리가 생기고 기존 테두리 없어짐*/
-	      var str2 = "<p><input type='file'  id='file_"+(count+1)+"'  name='uploadFile' onchange='change()'></p>";
+	      var str2 = "<p><input type='file'  id='file_"+(count+1)+"'  name='uploadFile' style='display:none' onchange='change()'></p>";
 	      count++;
 	      $("#fileDiv").append(str2);
 	      $(".img-holder").append(newImg);/*image holder div에 새 이미지 추가 */
@@ -88,13 +89,7 @@ window.onresize = function(event) {
 	    }
 	    reader.readAsDataURL(input.files[0]);/*선택된 파일만 읽겠다?; */
 	  }
-	
-
-// $(".img-preview-small").hover(function() {
-// 	 console.log("Deepak");	
-// }, function() {
-// 	 console.log("Chandwani");	
-// })
+	}
 	
 	$(document).on('mouseenter mouseleave', '.img-preview-small img', function(ev) {
 	  var mouse_is_inside = ev.type === 'mouseenter';
@@ -135,4 +130,3 @@ window.onresize = function(event) {
 
 
 
-}

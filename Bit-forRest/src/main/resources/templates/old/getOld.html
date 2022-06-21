@@ -22,7 +22,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+	
 <script>
 Kakao.init('d40eb19cdb656aa7607d531109f4364e');
 Kakao.isInitialized();
@@ -30,6 +32,12 @@ Kakao.isInitialized();
 
 </head>
 <style>
+
+/* .img-showcase{ */
+   
+/*     filter: blur(0px) !important; */
+    
+/* } */
 	.custom{
 		    background: #000;
     padding: 3px;
@@ -88,7 +96,17 @@ select:focus { outline: none; }
   font-size: 24px;
 }
 
+/* #soldbutton */
+/* { */
+/* background: black; */
+/* color: white; */
+/* /* height:60rem; */ */
+/* /* width: 30rem; */ */
 
+/* font-size: 15px; */
+/* opacity: 50%; */
+/* text-align: center; */
+/* } */
 </style>
 
 
@@ -106,7 +124,11 @@ select:focus { outline: none; }
 				<div class="img-display">
 				
 <!-- 	////			큰 사진 ///-->
-					<div class="img-showcase">
+					
+					<div class = "img-showcase abc" th:if="${old.oldState==1}" >
+					<img th:each = "img : ${oldImgList}" th:src= "@{/images/uploadFiles/} + ${img.fileName}" >
+					</div>
+					<div class="img-showcase def" id="img-showcase" th:if="${old.oldState==0}"  style="filter: blur(3px)" >
 						<img th:each = "img : ${oldImgList}" th:src= "@{/images/uploadFiles/} + ${img.fileName}" >
 					</div>
 
@@ -126,11 +148,19 @@ select:focus { outline: none; }
 							<button type="button"  id="updateOldDate" class="btn custom"    onclick="js:datediff()"   >끌올
 <!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a> -->
 							</button>
+<!--                            <button disabled id="soldbutton" th:if= "${old.oldState}==0" >거래완료 -->
+<!-- 						     </button> -->
 							
-							
-					</div>
+					
+					
+					</div>						
+					
 					</span>
-				</div>
+					
+					
+					
+			
+			</div>
 
 <!--/// 밑에 조그만 사진들 ///-->
 				<div class="img-select">
@@ -147,7 +177,8 @@ select:focus { outline: none; }
 			</div>
 			<!-- card right -->
 			<div class="product-content">
-
+				
+				
 				<h2 class="product-title" id="oldTitle" th:text=${old.oldTitle}></h2>
 
 				<div class="categoryaddr">
@@ -224,52 +255,45 @@ select:focus { outline: none; }
 						</i>
 					</button>
 					</span>
-					</div>
-			
-		
-	
-		<section>
-<button type="button" class="kakao mt-3 py-2 px-3" onclick="js:setShare()">
-<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" />
-
-</button>
-</section>
-	
-	
+					</div>	
 				</div>
 
 
 				<div class="kakaolike">
 
-					<div class="social-links">
-						<a href="#"> 공유하기 <!-- 			<img alt="" src="/images/content/kakao.png"></i> -->
-
+					<div class="social-links" onclick="js:setShare()">
+					
+						<a href="#">		<img alt="" src="/images/content/kakao.png"></i>
 						</a>
 
 					</div>
 
-					<div class="oldLike">
+<!-- 					<div class="oldLike"> -->
 
-						<button type="button" class="btn">
-							찜하기<i class="fa-solid fa-heart"></i>
-						</button>
+<!-- 						<button type="button" class="btn"> -->
+<!-- 							찜하기<i class="fa-solid fa-heart"></i> -->
+<!-- 						</button> -->
 
-					</div>
+<!-- 					</div> -->
 				</div>
 				
+<!-- oldState 중고거래 상태 -->
 
-<!-- oldState 중고거래 상태 판매중 거래완료 -->
-<div class="sold"  onclick="js:sold()">
+<span sec:authorize="isAuthenticated()">
+<div class="soldornot"  th:if="${#authentication.principal.user.userId}==${old.userId}">
   
-  <button type="button" class="btn" id="onSale">
+
+  <button type="button" class="btn" id="onSale" onclick="js:onSale()">
 							판매중
 						</button>
- <button type="button" class="btn" id="sold">
+ <button type="button" class="btn" id="sold" onclick="js:sold()">
 							거래완료
 						</button>
   
 </div>
-				
+</span>		
+
+
 
 				<div class="product-price">
 					<!--         <p class = "last-price">Old Price: <span>$257.00</span></p> -->
@@ -284,7 +308,11 @@ select:focus { outline: none; }
 
 				</div>
 
-
+<div class="heart">
+					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+					</div>	
 	
 
 
@@ -298,10 +326,10 @@ select:focus { outline: none; }
 			<div class="col-md-12">
 			
 				<h2>같은 카테고리의 물품들</h2>
-				<div class="old-list">
+      <div class="old-list">
 
-					<!-- BEGIN old -->
-					<div class="old" th:each="old : ${list}">
+        <!-- BEGIN old -->
+        <div class="old" th:each="old : ${list}">
 						<div class="owl-item active" style="width: 270px;">
 
 							<div class="item" >
@@ -309,8 +337,43 @@ select:focus { outline: none; }
 									<div class="try_rc_mob_img">
 										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 										<!--	<h5>Sale</h5>  -->
-										<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
+										
 									</div>
+									<div class="try_rc_mob_img_cont">
+										<h2 class="product-title" id="oldTitle" th:text=${old.oldTitle}></h2>
+
+									</div>
+									<div class="try_rc_mob_img_cont_bottom">
+										<p>
+											<span class="new-price" th:text="|${old.oldPrice}원|"></span>
+										</p>
+										<div class="try_mob_btn_wrapper">
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+        
+        <!-- END old -->
+        
+
+      </div>
+				<!-- END old List -->
+	<h2>같은 판매자의 물품들</h2>
+				<div class="old-list">
+
+					<!-- BEGIN old -->
+					<div class="old" th:each="old : ${listUser}">
+						<div class="owl-item active" style="width: 270px;">
+
+							<div class="item" >
+								<div class="try_rc_mob_box_wrapper">
+									<div class="try_rc_mob_img">
+										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
+										<!--	<h5>Sale</h5>  -->
+																			</div>
 									<div class="try_rc_mob_img_cont">
 										<h2 class="product-title" id="oldTitle" th:text=${old.oldTitle}></h2>
 
@@ -333,8 +396,6 @@ select:focus { outline: none; }
 
 
 				</div>
-				<!-- END old List -->
-
 			</div>
 		</div>
 	</div>
@@ -403,15 +464,129 @@ function deleteold(){
 		}
 }
 
-
-function sold(){
+function onSale(){
+	alert('판매중');
+	
+	location.href='/old/updateOldOnSale?oldNo=' + /*[[${old.oldNo}]]*/ +')';
 	
 }
-var preState = /*[[${old.oldState}]]*/ +')';
-//  alert(preState);
+
+
+function sold(){
+// 	var oldState = /*[[${old.oldState}]]*/ +')';
+	
+// 	 getOld.css('filter','blur(3px)')
+// 		turn=!turn;
+
+// $(".img-showcase").css({
+
+// 	"filter": "blur(3px)"
+	
+// });
+
+// var want = document.getElementsByClassName("img-showcase");
+// want.style.filter = "blur(3px)";
+	
+// document.getElementsByClassName("img-showcase")[0].style.filter="blur(3px)";
+
+
+	alert('거래완료');
+	location.href='/old/updateOldSold?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+
+}
+
+
+
+
+
+
+		$( ".heart" ).on("click" , function() {	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/addOldLike",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜하기 완료");
+				        $(this).addClass('filled');
+				        location.reload();
+                    	
+	                    	
+	    					
+	                    }
+	                    else if (heartCheck){
+	                     alert("이미 찜한 물품 입니다");
+	                     
+				         
+	                  
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+		
+		$( ".heart.filled" ).on("click" , function() {	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/deleteOldLikeOnList",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜삭제 완료");
+				        $(this).removeClass('filled');
+				        location.reload();
+	
+	                    }
+	                    else if (heartCheck){
+	                    	alert("이미 삭제한 물품 입니다");                 
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+
+		
+		
+
 
 
 /*]]>*/
+
+
+
+
 </script>
 
 

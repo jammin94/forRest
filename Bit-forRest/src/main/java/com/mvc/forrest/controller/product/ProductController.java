@@ -4,12 +4,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,13 +22,14 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Img;
-import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
+import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
 
 
@@ -45,6 +42,9 @@ public class ProductController {
 	
 	@Autowired
 	public ProductService productService;
+	
+	@Autowired
+	public StorageService storageService;
 	
 	@Autowired
 	public UserService userService;
@@ -319,7 +319,6 @@ public class ProductController {
 	@RequestMapping("listProduct")
 	public String listProduct(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		System.out.println("search: "+ search);
 		
 		//카테고리중 전체를 클릭했을때 서치카테고리의 value를 null로 만듬
 		if(search.getSearchCategory()=="") {
@@ -334,7 +333,6 @@ public class ProductController {
 			search.setSearchKeyword(null);
 		}
 		
-		System.out.println("search2: "+ search);
 		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -342,12 +340,16 @@ public class ProductController {
 		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = productService.getProductList(search);
+		List<Product> listName = productService.getProductNames();
+		
+		System.out.println("listName:"+listName);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		model.addAttribute("prodNames", listName);
 		
 		return "product/listProduct";
 	}
@@ -356,7 +358,7 @@ public class ProductController {
 	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
 		
-		System.out.println("search: "+ search);
+
 		
 		//System.out.println(this.getClass());
 		
@@ -382,15 +384,42 @@ public class ProductController {
 		
 		
 		List<Product> list = productService.getProductListHasUser(search, userId);
+		List<Product> listName = productService.getProductNames();
 		
-		System.out.println(list);
+		System.out.println("listName:"+listName);
+		
 		
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
-		
+		model.addAttribute("prodNames", listName);
 
 		return "product/listProduct";
 	}
+	
+	//지정된 시간에 보관기간이 만료된 물품의 상태를 자동으로 변경(09 30)
+	@Scheduled(cron = "0 42 20 * * ?")
+	public void updateProductConditionAuto() throws Exception {
+		
+		System.out.println("자동실행 테스트");
+		
+		List<Storage> list = storageService.getExpiredStorageList();
+		
+		
+		for(Storage storage : list) {
+			
+			Product product = storage.getStorageProd();
+			System.out.println("product:"+product);
+			product.setProdCondition("출고완료");
+			
+			productService.updateProductCondition(product);
+			System.out.println("업데이트완료");
+			
+		}
+		
+		System.out.println("list:"+ list);
+	}
+
+	
 
 }

@@ -9,13 +9,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
-@Configuration
+//@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
 	@Value("${file.path}")
 	private String fileRealPath;
 
-	@Override
+   @Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		WebMvcConfigurer.super.addResourceHandlers(registry);
