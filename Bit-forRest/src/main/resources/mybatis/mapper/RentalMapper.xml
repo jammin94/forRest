@@ -73,7 +73,7 @@
 	<insert 	id="addRental"		parameterType="Rental" >
 		INSERT 
 	 	INTO transaction(
-	 			paymentNo,prodNo,tranNo,prodName,prodImg,userId,receiverName,receiverPhone,divyAddress,pickupAddress,divyRequest,originPrice,resultPrice,startDate, endDate,period,paymentDate) 
+	 			paymentNo,prodNo,tranNo,prodName,prodImg,userId,receiverName,receiverPhone,divyAddress,pickupAddress,divyRequest,originPrice,resultPrice,startDate, endDate,period,paymentDate,discountPrice,tranCode) 
 	 	VALUES (
 	 				#{paymentNo},
 	 					#{prodNo},
@@ -91,7 +91,9 @@
 	 				     date_add(curdate(), interval 1 day), 
 	 				     date_add(curdate(), interval 1+#{period} day),
 	 				     #{period},
-	 				   curdate()
+	 				   curdate(),
+	 				   #{discountPrice},
+	 				   #{tranCode}
 	 				     )
 	 </insert>
 	 

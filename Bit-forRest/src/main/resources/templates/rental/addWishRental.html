@@ -139,11 +139,16 @@ input{
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 	 <form class="form-inline" name="detailForm">
-	 <input type="hidden" class="prodNameSubmit" name="prodName" ></input>
-	 <input type="hidden" class="tranNoSubmit"  name="tranNo" ></input>
-	 <input type="hidden" class="periodSubmit" name="period"></input>
-	  <input type="hidden" class="originPriceSubmit" name="originPrice" ></input>
-	  <input type="hidden" class="prodNoSubmit" name="prodNo"></input>
+		 <input type="hidden" class="prodNameSubmit" name="prodName" ></input>
+		 <input type="hidden" class="tranNoSubmit"  name="tranNo" ></input>
+		 <input type="hidden" class="periodSubmit" name="period"></input>
+		  <input type="hidden" class="originPriceSubmit" name="originPrice" ></input>
+		  
+		  <!-- 배열로 여러 던질것들 -->
+		  <input type="hidden" class="prodNoSubmit" name="prodNo"></input>
+		  <input type="hidden" class="wishlistNoSubmit" name="wishlistNo"></input>
+		  
+		  
 	 
 	<!--  <input type="hidden" id="currentPage" name="currentPage" value=""/>-->
 	<span style="display:none" class="reserveTranNo">[[${reserveTranNo}]]</span>
@@ -173,23 +178,27 @@ input{
 						    		 <a href="/product/getProduct?prodNo=j">
 							    		<p style="margin-bottom: 10px; font-weight: bold" class="getProdName">[[${wishlist.product.prodName}]] </p>
 							    		<p style="display:none" class="hiddenProdNo">[[${wishlist.product.prodNo}]]</p>
+							    		<p style="display:none" class="hiddenWishlistNo">[[${wishlist.wishlistNo}]]</p>
 							 	   </a>
 							    
-							    	<p>
+							    
+							    	<div style="display:flex; justify-content:center;">
 
 										<p class="dateText">
-							    			<span></span><br>
-							    		</p>
+							    			</p>
+							    	
 							    		~
 							    		<p class="dateText">
-							    			<span></span>
-							    		</p>
-				
-					    			  <span th:if="${wishlist.period}=='2'">(1박2일)<span style="display:none" class="period">2</span></span>
+										</p>
+							  			
+							  		</div>
+			
+			<div style="display:none;">
+					    		 	  <span th:if="${wishlist.period}=='2'">(1박2일)<span style="display:none" class="period">2</span></span>
 									  <span th:if="${wishlist.period}=='3'">(2박3일)<span style="display:none" class="period">3</span></span>
 									  <span th:if="${wishlist.period}=='4'">(3박4일)<span style="display:none" class="period">4</span></span>
-									  <span th:if="${wishlist.period}=='5'">(4박5일)<span style="display:none" class="period">5</span></span>
-							    	</p>
+									  <span th:if="${wishlist.period}=='5'">(4박5일)<span style="display:none" class="period">5</span></span> 
+					</div>		  
 						    	</div>
 							</div>
 					    </td>
@@ -403,17 +412,34 @@ input{
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function(){
+
+	
+
+	
+	//배열로 던질 것들
+	console.log("-----------------------");
+	console.log($('.hiddenProdNo').text()); // 프로드 넘버
+	console.log($('.hiddenWishlistNo').text()); //위시 넘버
+})
+
+$(function(){
 	
 	$('#check_module').click(function(){
 	
 		$('.resultHiddenPrice').val( parseInt($('#resultPrice').text())); //최종결제금액 name 셋팅
-		$('.prodNameSubmit').val($('.getProdName').text());
-		$('.tranNoSubmit').val($('.reserveTranNo').text());
-		$('.periodSubmit').val($('.getPeriod').text());
-		$('.originPriceSubmit').val($('#paper_goodsprice').text());
+		$('.prodNameSubmit').val($('.getProdName').text()); //상품넘버 인풋에 셋팅
+		$('.tranNoSubmit').val($('.reserveTranNo').text());  // tranNo 인풋에 셋팅
+		$('.periodSubmit').val($('.getPeriod').text()); // period 인풋에 셋팅
+		$('.originPriceSubmit').val($('#paper_goodsprice').text()); // originPrice 인풋에 셋팅
+		
+		
+		//배열로 던질 것들
+		$('.wishlistNoSubmit').val($('.hiddenWishlistNo').text());
 		$('.prodNoSubmit').val($('.hiddenProdNo').text());
 		
-		request_pay();
+		$('form').attr('method', 'POST').attr('action', '/rental/addWishRental?paymentNo='+"123").submit()
+		
+	//	request_pay();
 		
 	})
 
@@ -442,7 +468,7 @@ $(function(){
 	        	
 	        	if(rsp.paid_amount == data.response.amount){
 		        	alert("결제 및 결제검증완료");
-		        		$('form').attr('method', 'POST').attr('action', '/rental/addRental?paymentNo='+rsp.imp_uid).submit()
+		        		$('form').attr('method', 'POST').attr('action', '/rental/addWishRental?paymentNo='+rsp.imp_uid).submit()
 		        	
 	        	} else {
 	        		alert("결제 실패");
