@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/addReport.css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+    
+    $(function(){
+    	$("select").change(function(){
+    		if($("select option:selected").val()=="다른문제"){
+           		$("textarea").css('display', 'inline');
+           	}else{
+           		$("textarea").css('display', 'none');
+           		$("textarea").val(null);
+           	}	
+    	});
+    	
+    	$("button").click(function(){
+    		if($("select option:selected").val()=="다른문제"){
+    			$("select option:selected").val($("textarea").val());
+    		}
+    	});
+    	
+    });
+       	   	
+    </script>
 </head>
 <body>
 
@@ -12,14 +34,27 @@
     <div class="container">
         <header> 신고하기</header>
         <div class="form-outer">
-            <form action="#">
+            <form action="/report/addReport" method="POST">
+            	<input type="hidden" name="reportUser" th:value="${report.reportUser}"/>
+            	<input type="hidden" name="reportOldNo" th:value="${report.reportOldNo}"/>
+            	<input type="hidden" name="reportChatroomNo" th:value="${report.reportChatroomNo}"/>
+            	<input type="hidden" name="reportedUser" th:value="${report.reportedUser}"/>
                 <div class="page slidepage">
                     <div class="title">불편을 드려 죄송합니다</div>
                     <div class="title">불편하셨던 점을 적어주시면 최대한 빠르게 반영하겠습니다</div>
 
                     <div class="field">
                         <div class="label">신고내용</div>
-                        <textarea name="oldDetail" id="oldDetail" class="oldDetail" height="200px"></textarea>
+                        <select name="reportCategory" id="reportCategory">
+                        	<option value="전문">전문 판매업자 같아요</option>
+                        	<option value="비매너">비매너 사용자에요</option>
+                        	<option value="욕설">욕설을 해요</option>
+                        	<option value="성희롱">성희롱을 해요</option>
+                        	<option value="사기">사기당했어요</option>
+                        	<option value="연애">연애 목적으로 대화를 시도해요</option>
+                        	<option value="다른문제">다른 문제가 있어요</option>
+                        </select>
+                        <textarea name="다른문제" id="다른문제" class="다른문제" height="200px" style="display:none; "></textarea>
                     </div>
                     <div class="field nextBtn">
                         <button class="submit">Submit</button>

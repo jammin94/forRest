@@ -666,23 +666,8 @@ $("li.contact").dblclick(function() {
 	}
   
   window.open('http://192.168.0.42:3001/oldChat/'+
-		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),"_blank","width=500, titlebar=no, location=no, status=no, toolbar=no");
 });
-
-/*
-const observer = new MutationObserver(function(mutations) {
-	mutations.forEach(function(mutation) {
-		console.log(mutation);
-		$("li.contact").dblclick(function() {
-		  //location.href='/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val();
-		  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val());
-		});
-	});
-});
-observer.observe(document.getElementById('ul'), { childList: true });
-*/
-
-
 
 //만약 중고거래 채팅하기 버튼으로 들어왔을 시에는 바로 새창으로 채팅창도 열어주기
 $(document).ready(function(){
@@ -690,7 +675,7 @@ $(document).ready(function(){
 
 		//바로 채팅창 띄워주기
 		window.open('http://192.168.0.42:3001/oldChat/'
-		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','popup test',
+		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','_blank',
 		'width=500');
 	}
 });

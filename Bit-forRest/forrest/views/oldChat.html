@@ -250,7 +250,7 @@ body {
 #frame .content .message-input .wrap input:focus {
   outline: none;
 }
-#frame .content .message-input .wrap .attachment {
+#frame .content .message-input .wrap .fa-plus {
   position: absolute;
   right: 60px;
   z-index: 4;
@@ -261,12 +261,12 @@ body {
   cursor: pointer;
 }
 @media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap .attachment {
+  #frame .content .message-input .wrap .fa-plus {
     margin-top: 17px;
     right: 65px;
   }
 }
-#frame .content .message-input .wrap .attachment:hover {
+#frame .content .message-input .wrap .fa-plus:hover {
   opacity: 1;
 }
 #frame .content .message-input .wrap button {
@@ -290,6 +290,39 @@ body {
   outline: none;
 }
 
+/* The container <div> - needed to position the dropup content */
+      .fa-plus {
+        position: relative;
+        display: inline-block;
+      }
+ 
+      /* Dropup content (Hidden by Default) */
+      .dropup-content {
+        display: none;
+        position: absolute;
+        bottom: 10px;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      /* Links inside the dropup */
+      .dropup-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+
+      /* Change color of dropup links on hover */
+      .dropup-content a:hover {background-color: #ddd}
+
+      /* Show the dropup menu on hover */
+      .fa-plus:hover .dropup-content {
+        display: block;
+      }
+
 </style></head><body>
 
 <input text="hidden" name="isConnected" id="isConnected" value="false" style="display:none; "/>
@@ -300,6 +333,7 @@ body {
 
 
 <form name="report" style="display: none;" action="http://localhost:8080/report/addReport" method="GET">
+	<input type="hidden" name="reportUser" value="{{user}}"/>
 	<input type="hidden" name="reportedUser" value="{{otherUser.userId}}"/>
 	<input type="hidden" name="reportOldNo" value="{{old.oldNo}}"/>
 	<input type="hidden" name="reportChatroomNo" value="{{chatRoomNo}}"/>
@@ -357,7 +391,13 @@ body {
         <form id="chat-form" method="post" enctype="multipart/form-data"></form>
 			  <input type="text" id="chat" name="chat" placeholder="채팅을 입력하세요" />
         <input type="file" id="image" name="image" style="display:none">
-			  <i class="fa fa-paperclip attachment" aria-hidden="true" for="image"></i>
+			 <!--  <i class="fa fa-paperclip attachment" aria-hidden="true" for="image"></i> -->
+			  <i class="fa fa-plus" aria-hidden="true">
+			  	<div class="dropup-content">
+		            <a><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+		            <a><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+		        </div>
+			  </i>
         <input type="hidden" id="chatRoomNo" name="chatRoomNo" value="{{chatRoomNo}}"/>
 			  <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
      	 </form>
@@ -401,8 +441,7 @@ $(".fa-sign-out").click(async function(){
 		if(confirm('정말로 나가시겠습니까?')){
 			//라우터 나가기 처리
 			window.close();
-			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');
-			
+			return await axios.get('/oldChat/exit?chatRoomNo={{chatRoomNo}}');		
 		}else{
 			return false;
 		}
@@ -429,6 +468,18 @@ socket.on('fulljoin',function(data1, data2){
 socket.on('exit',function(data1, data2){
 	$('.system p').text(data1);
 	$('#isConnected').val(data2);
+});
+
+//지도
+socket.on('map',function(place, chatRoomNo, send_UserId){
+	console.log('oldChat에서 지도')
+	var is_Connected = $("#isConnected").val().trim();
+	axios.post('/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}',{
+      chat: JSON.stringify(Array.from( place.entries())), //string화
+      isConnected: is_Connected,
+      place: place,
+      sendUserId: '{{user}}',
+    });
 });
 
 
@@ -591,13 +642,16 @@ $(window).load(function(){
 
 });
 
-//클립모양 클릭시 파일업로드
-$("i.fa-paperclip").on('click',function(){
+//사진모양 클릭시 사진업로드
+$("a:first").on('click',function(){
   $("input[type='file']").click();
 })
 
+//지도모양 클릭시 지도업로드
+$("a:last").on('click',function(){
+	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user}}}','_blank','width=500');
+})
 
-//# sourceURL=pen.js
 </script>
 <!--</body>-->
 

@@ -8,6 +8,35 @@ moment.locale('ko'); //한글로 시간 표시
 
 const router = express.Router();
 
+router.post('/addMap', async (req, res, next) => {
+  try {
+	const place = req.body.data;
+	const chatRoomNo = req.body.chatRoomNo;
+	//const sendUserId = req.body.sendUserId;
+	
+	req.app.get('io').of('/oldChat').to(chatRoomNo).emit('map',{place, chatRoomNo});
+	
+	console.log(place);
+	console.log(chatRoomNo);
+	//console.log(sendUserId);
+
+	}catch (err) {
+    console.error(err)
+    next(err)
+ 	}
+});
+
+router.get('/addMap', async (req, res, next) => {
+  try {
+	res.render('searchMap',{chatRoomNo: req.query.chatRoomNo, sendUserId:req.query.userId});
+	}catch (err) {
+    console.error(err)
+    next(err)
+ 	}
+});
+
+
+
 //중고거래 채팅방 나가기
 router.get('/exit', async (req, res, next) => {
   try {
@@ -207,19 +236,28 @@ router.get('/:oldNo', async (req, res, next) => {
 });
 
 
-
-
-
-
 //채팅창 채팅치기
 // '/oldChat/:oldNo/chat?chatRoomNo=something'
 router.post('/chat/:oldNo', async (req, res, next) => {
   try {
-    //insertChat
+    
     let query=Query.insertChat;
     const roomNo = req.query.chatRoomNo;
-    const chatMessage = req.body.chat
+    const place = req.body.place //map
+	const chatMessage = req.body.chat
     const isConnected = req.body.isConnected;
+    
+    console.log(req.body.sendUserId);
+    let sessionUser;
+    
+    if(place ==undefined){
+		sessionUser= req.session.user;
+	}else{
+		sessionUser=req.body.sendUserId //map
+	}
+    
+    
+    console.log(place);
     
     let insertChat;
     
@@ -227,7 +265,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
 	    insertChat = await db.sequelize.query(query, {
 	      replacements: 
 	      { chatRoomNo : roomNo,
-	        sendUserId : req.session.user, //sessionId 
+	        sendUserId : sessionUser, //sessionId 
 	        chatMessage : chatMessage,
 	        readOrNot: null,
 	        }, 
@@ -238,7 +276,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
 		insertChat = await db.sequelize.query(query, {
 	      replacements: 
 	      { chatRoomNo : roomNo,
-	        sendUserId : req.session.user, //sessionId 
+	        sendUserId : sessionUser, //sessionId 
 	        chatMessage : chatMessage,
 	        readOrNot: 1
 	        }, 
@@ -253,7 +291,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     query=Query.updateChatRoomToSee
     const updateChatRoomToSee = await db.sequelize.query(query, {
       replacements: 
-      { chatRoomNo : req.query.chatRoomNo}, 
+      { chatRoomNo : roomNo}, 
       type: QueryTypes.UPDATE,
       raw: true
     });
@@ -276,21 +314,21 @@ router.post('/chat/:oldNo', async (req, res, next) => {
      //실시간으로 채팅방 나가기 취소하고, 해당 채팅방을 맨 위로.
     query=Query.listOldChatRoom;
     const mineLists = await db.sequelize.query(query, {
-      replacements: {userId : req.session.user}, 
+      replacements: {userId : sessionUser}, 
       type: QueryTypes.SELECT,
       raw: true
     });
     
     //보낸 사람 채팅방에 실시간 업데이트
     mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
-    io.of('/oldChatRoom').to(req.session.user).emit('updateRoom', mineLists[0]);
+    io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
     
     
     //다른 상대방 유저 알아내서
     query=Query.getOtherUser;
     const getOtherUser = await db.sequelize.query(query, {
       replacements: {
-		userId : req.session.user,
+		userId : sessionUser,
 		chatRoomNo: roomNo}, 
       type: QueryTypes.SELECT,
       raw: true
