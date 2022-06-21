@@ -186,7 +186,7 @@ select{
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><input type="text" id="name" name="prodName"  th:value = "${product.prodName}" readonly></td>
+		<td><sapn th:text = "${product.prodName}"></sapn></td>
 	</tr>
 
 	<tr>
@@ -264,10 +264,6 @@ select{
 		<td><input type="text" id="rentalPrice"       name="rentalPrice" th:value = "${product.rentalPrice}"> 원</td>
 	</tr>
 	
-	<tr>
-		<td>보증금</td>
-		<td><input type="text" id="deposit"       name="deposit" th:value = "${product.deposit}"> 원</td>
-	</tr>
 
 	<tr>
 		<td>계좌번호</td>

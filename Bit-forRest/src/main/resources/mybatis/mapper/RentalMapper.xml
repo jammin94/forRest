@@ -27,6 +27,7 @@
 		<result property="resultPrice" 				column="resultPrice" 				jdbcType="INTEGER"  />
 		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
 		<result property="reviewDone" 				column="reviewDone" 				jdbcType="TINYINT"  />
+		<result property="complete" 				column="complete" 				jdbcType="TINYINT"  />
 		
 		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>		    
@@ -72,7 +73,7 @@
 	<insert 	id="addRental"		parameterType="Rental" >
 		INSERT 
 	 	INTO transaction(
-	 			paymentNo,prodNo,tranNo,prodName,prodImg,userId,receiverName,receiverPhone,divyAddress,pickupAddress,divyRequest,originPrice,resultPrice,startDate, endDate,period) 
+	 			paymentNo,prodNo,tranNo,prodName,prodImg,userId,receiverName,receiverPhone,divyAddress,pickupAddress,divyRequest,originPrice,resultPrice,startDate, endDate,period,paymentDate,discountPrice,tranCode) 
 	 	VALUES (
 	 				#{paymentNo},
 	 					#{prodNo},
@@ -89,7 +90,10 @@
 	 				     #{resultPrice},
 	 				     date_add(curdate(), interval 1 day), 
 	 				     date_add(curdate(), interval 1+#{period} day),
-	 				     #{period}
+	 				     #{period},
+	 				   curdate(),
+	 				   #{discountPrice},
+	 				   #{tranCode}
 	 				     )
 	 </insert>
 	 
@@ -106,7 +110,7 @@
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
@@ -225,20 +229,14 @@
 	 </select>
 	 
 	 <select id="getRentalProfitTotal" parameterType="string"  resultType="int">
-	 		SELECT SUM(transaction.resultPrice)
+	 		SELECT IFNULL(SUM(transaction.resultPrice),0)
 		 	FROM transaction LEFT OUTER JOIN (SELECT * FROM transaction WHERE tranCode=0) A ON transaction.prodNo = A.prodNo
 		 	LEFT OUTER JOIN product ON product.prodNo = transaction.prodNo
 	 	<where>
-	 		transaction.tranCode='0' and A.userId= #{userId}
+	 		transaction.tranCode='1' and A.userId= #{userId}
 	 	</where>
 	 </select>
 	 
-	 <!--SELECT total rental profit-->
-	  <select  id="getTotalRentalProfit"  parameterType="string"	 resultType="int">
-	  	SELECT IFNULL(SUM(resultPrice),0)
-	  	FROM transaction
-	  	WHERE userId = #{userId}
-			 </select>
 		
 		<!-- 리뷰상태업데이트 -->
 		<update	id="updateReviewDone"	parameterType="rental" >

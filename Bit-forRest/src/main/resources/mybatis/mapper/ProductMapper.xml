@@ -136,6 +136,17 @@
 	 
 	 </select>
 	 
+	 	<!-- SQL : SELECT LIST -->
+	<!-- 오토컴플릿을 위한 물품이름 리스트 -->
+	<select  id="getProductNames" 	resultMap="productSelectMap">
+	  	SELECT prodName FROM product
+	  	
+	  	<where>
+	    		isRental = 1 and prodCondition = '보관중'
+	    </where>
+	 
+	 </select>
+	 
 	 
 	<select id="getProductListHasUser" parameterType="map" resultMap="productSelectMap">
       SELECT * 

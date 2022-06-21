@@ -34,6 +34,7 @@ public class Rental {
 	private User buyer;
 	private String divyRequest;
 	private int reviewDone;
+	private int complete;
 	
 	public Rental(){
 	}

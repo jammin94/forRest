@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
@@ -134,9 +135,16 @@ public class WishListController {
 				wishlist.getProduct().setRentalPrice(rentalPrice[i]);
 				listA.add(wishlist);
 			}
+			//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
+			 String reserveTranNo = FileNameUtils.getRandomString();
+		
+			
+			System.out.println(listA);
+			
 			
 			model.addAttribute("wishlist",listA);
 			model.addAttribute("list",map.get("list"));
+			model.addAttribute("reserveTranNo", reserveTranNo);
 			
 			return "rental/addWishRental";
 		}

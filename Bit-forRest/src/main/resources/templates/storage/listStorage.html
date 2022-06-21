@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	
+	
+	
 </head>
 <style>
 
@@ -161,7 +163,7 @@ border-bottom:3px solid #ddd !important;
 						</div>
 				    </td>
 					<td align="center" th:text="|${storage.resultPrice}원|" ></td>
-					<td align="center"><img class="productImg" th:src="@{/images/uploadFiles/} + ${storage.storageProd.recentImg}" onerror="this.style.display='none' ">
+					<td align="center"><img class="recentImg" th:src="@{/images/uploadFiles/} + ${storage.storageProd.recentImg}" onerror="this.style.display='none' " >
 				
 
 					</td>
@@ -184,7 +186,7 @@ border-bottom:3px solid #ddd !important;
 					
 					<!--  <div class="btnColumn" th:if="${#strings.equals(storage.storageProd.prodCondition, '보관중')}" >-->
 					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관중'" >
-					 	<div><button type="button">꺼내쓰기</button></div>
+					 	<div><button type="button" th:onclick = "|location.href='@{/product/getProduct(prodNo= ${storage.prodNo})}'|">꺼내쓰기</button></div>
 					 	<div><button  type="button" class="extend-btn" th:value="${storage.tranNo}">기간연장</button></div>
 					 	<div><button type="button" class="cancleStorage-btn" th:value="${storage.prodNo}">출고신청</button></div>
 
@@ -203,9 +205,7 @@ border-bottom:3px solid #ddd !important;
 					 	<div><button  type="button" class="extend-btn" th:value="${storage.tranNo}">기간연장</button></div>
 					</div>
 					
-						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '취소완료' or ${storage.storageProd.prodCondition }== '출고완료' ">
-					 	<div><button type="button">재신청</button></div>
-					</div>
+					
 		
 					
 					</td>
@@ -237,6 +237,8 @@ border-bottom:3px solid #ddd !important;
 		//결제취소 
 		$(".cancle-btn").on("click", function(){
 			
+			//스위트얼럿 yes or no 추가예정
+			
 			 var paymentNo = $(this).parent().find('.cancle-btn').val();
 			 var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
 			 
@@ -249,8 +251,7 @@ border-bottom:3px solid #ddd !important;
 	        	
 		    	//검증을 어케해야할까요...?
 		    	console.log(data);
-	        	alert(data);
-	        	alert("되나,,,?");
+		    	//스위트얼럿 추가예정
 	        	
 	        	self.location = "/product/cancleProduct?prodNo="+prodNo;
 	        });
@@ -274,6 +275,9 @@ border-bottom:3px solid #ddd !important;
 		//출고신청후 물품상태 변경
 			$(".cancleStorage-btn").on("click", function(){
 			
+			 //스위트얼럿 yes or no 추가예정
+			alert("aa");
+			
 			var prodNum =  $(this).parent().find('.cancleStorage-btn').val();
 			
 			
@@ -284,11 +288,30 @@ border-bottom:3px solid #ddd !important;
 		
 		$(".canclePutout").on("click", function(){
 			
+			//스위트얼럿 yes or no 추가예정
+			alert("aa");
+			
 			var prodNum =  $(this).parent().find('.canclePutout').val();
 			
 			
 			self.location = "/product/cancleProduct?prodNo="+prodNum;
 			
+			
+		})
+		
+		//스위트얼럿 보관이미지 확대
+		$(".recentImg").on("click", function(){
+			
+			//스위트얼럿 yes or no 추가예정
+			var recentImg = $(this).parent().find('.recentImg').attr("src");
+			
+			Swal.fire({
+  				imageUrl: "http://localhost:8080"+recentImg,
+ 				imageWidth: 400,
+ 				imageHeight: 400,
+ 				imageAlt: 'Custom image',
+})
+
 			
 		})
 	
