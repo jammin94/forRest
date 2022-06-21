@@ -65,14 +65,23 @@ public class OldService {
 		return oldDAO.getOldListCategory(old);
 	}
 	
+	public List<Old> getOldListOthers(Old old) throws Exception{
+		return oldDAO.getOldListOthers(old);
+	}
+	
 	public void updateOldDate(String oldNo) throws Exception{
 		System.out.println("updateOldDate 성공");
 		oldDAO.updateOldDate(oldNo);
 	}
 	
-	public void updateOldState(String oldNo) throws Exception{
+	public void updateOldSold(String oldNo) throws Exception{
 		System.out.println("updateOldState 성공");
-		oldDAO.updateOldState(oldNo);
+		oldDAO.updateOldSold(oldNo);
+	}
+	
+	public void updateOldOnSale(String oldNo) throws Exception{
+		System.out.println("updateOldState 성공");
+		oldDAO.updateOldOnSale(oldNo);
 	}
 	
 	public void updateViewCnt(String oldNo) throws Exception{

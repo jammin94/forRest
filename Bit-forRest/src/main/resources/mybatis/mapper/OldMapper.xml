@@ -42,17 +42,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{oldNo}
 	</delete>
 
-	<!-- SQL : SELECT ONE -->
+<!-- 	SQL : SELECT ONE -->
 	<select id="getOld" parameterType="String"
 		resultMap="oldSelectMap">
-		SELECT old.*, oldReview.userRate
+		SELECT *
 		FROM old
 		LEFT OUTER JOIN
 		oldReview
 		ON old.oldNo= oldReview.oldNo
 		WHERE old.oldNo=#{oldNo}
 	</select>
-
+				
 	<!-- SQL : UPDATE -->
 	<update id="updateOld" parameterType="old">
 		update old
@@ -124,6 +124,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and oldNo != #{oldNo}
 	</select>
 	
+	<select id="getOldListOthers" parameterType="old" resultMap="oldSelectMap">
+	SELECT inner_table.* ,
+		inner_table.ROWNO
+		FROM(
+		SELECT *, ROW_NUMBER() OVER() AS ROWNO
+		FROM old
+		WHERE userId= #{userId}
+		order by oldDate DESC ) inner_table
+		WHERE inner_table.ROWNO &lt;= 4
+	</select>
+	
+	
 	<update id="updateOldDate" parameterType= "String">
 		update old
 		<set>
@@ -133,14 +145,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<update id="updateOldState" parameterType="String">
-	update old
-	<set>
-	oldState = #{oldState}
-	</set>
-	WHERE oldNo =#{oldNo}	
-	</update>
-	
 	 <update id="updateViewCnt" parameterType= "String">
      	update old
 		<set>
@@ -148,5 +152,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
         WHERE oldNo = #{oldNo}
  	</update>
+ 	
+ 	
+ 	<update id="updateOldSold" parameterType="String">
+	update old
+	<set>
+	oldState = 0
+	</set>
+	WHERE oldNo =#{oldNo}	
+	</update>
+	
+	<update id="updateOldOnSale" parameterType="String">
+	update old
+	<set>
+	oldState = 1
+	</set>
+	WHERE oldNo =#{oldNo}	
+	</update>
 	
 </mapper>

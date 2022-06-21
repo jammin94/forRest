@@ -28,6 +28,7 @@ import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Old;
+import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -108,7 +109,7 @@ public class OldController {
 		
 		List<Old> list = oldService.getOldList(search);
 		
-		System.out.println("아아아아아"+list);
+		System.out.println("list"+list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
@@ -127,6 +128,8 @@ public class OldController {
 
 		return "/old/listOldMine";
 	}
+	
+	
 
 	
 	/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
@@ -165,6 +168,7 @@ public class OldController {
 		
 		//유저 평점 가져오기
 		Old old = oldService.getOld(oldNo);
+		System.out.println(old);
 		String userId = old.getUserId();
 
 		User user = userService.getUser(userId);
@@ -172,10 +176,13 @@ public class OldController {
 
 		double oldReview = oldReviewService.getUserRate(userId);
 		user.setUserRate(oldReview);
-		
+					
 		//이미지
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
 		System.out.println("올드이미지"+oldImgList);
+		
+		
+		
 		
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
@@ -183,13 +190,22 @@ public class OldController {
 
 		
 		// getOld 밑에 list 뜨는 것
-		
-//		List<Old> list = oldService.getOldList(search);
 		List<Old> list= oldService.getOldListCategory(old);
+		List<Old> listUser = oldService.getOldListOthers(old);
 		
 		
 		model.addAttribute("list", list);
-	
+		model.addAttribute("listUser", listUser);
+		
+		
+		//oldLike하트
+//		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		String loginuserId = loginUser.getUser().getUserId();
+//				
+//		List<OldLike>oldLikeList = oldLikeService.getOldLikeList(loginuserId);
+//				
+//		model.addAttribute("oldLikeList", oldLikeList);
+		
 		System.out.println(old);
 		return "old/getOld";
 	}
@@ -321,12 +337,21 @@ System.out.println("데이트 업데이트");
 oldService.updateOldDate(oldNo);
 return "redirect:/old/listOld";
 }
-	
-@RequestMapping("updateOldState")
-public String updateOldState(@ModelAttribute("oldNo") String oldNo) throws Exception {
+
+@RequestMapping("updateOldOnSale")
+public String updateOldOnSale(@ModelAttribute("oldNo") String oldNo) throws Exception {
+System.out.println("데이트 업데이트");
+
+oldService.updateOldOnSale(oldNo);
+return "redirect:/old/listOld";
+}
+
+
+@RequestMapping("updateOldSold")
+public String updateOldSold(@ModelAttribute("oldNo") String oldNo) throws Exception {
 System.out.println("스테이트 업데이트");
 
-oldService.updateOldState(oldNo);
+oldService.updateOldSold(oldNo);
 return "redirect:/old/listOld";
 }
 	

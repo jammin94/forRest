@@ -4,29 +4,22 @@ package com.mvc.forrest.controller.report;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.chat.ChatService;
 import com.mvc.forrest.service.domain.Old;
-
 import com.mvc.forrest.service.domain.Report;
-import com.mvc.forrest.service.domain.User;
-
 import com.mvc.forrest.service.old.OldService;
-
 import com.mvc.forrest.service.report.ReportService;
-
-
-
 
 
 @Controller
@@ -42,25 +35,24 @@ public class ReportController {
 	@Autowired
 	public ChatService chatService;
 	
-
-	
 	@GetMapping("addReport")
 	public String addReport(
-			Model model, HttpSession session, @ModelAttribute("report") Report report ) throws Exception {
-
-		System.out.println(report); // 신고된 유저, 신고 중고거래 게시물, 채팅방 번호 얻을 수 있어욤
-		System.out.println(chatService.getListChat(report.getReportChatroomNo())); // 모든 채팅내역 보실 수 있어욤
+			Model model, @ModelAttribute("report") Report report ) throws Exception {
+		
+		//model.addAttribute(report);
+		//System.out.println(report); // 신고된 유저, 신고 중고거래 게시물, 채팅방 번호 얻을 수 있어욤
+		//System.out.println(chatService.getListChat(report.getReportChatroomNo())); // 모든 채팅내역 보실 수 있어욤
 		 return null;
 	}
-	
 
-	
 	@PostMapping("addReport")
-	public String addReport(@ModelAttribute("report") Report report, @ModelAttribute("user") User user, Model model ) throws Exception {
+	public String addReport(@ModelAttribute("report") Report report, Model model) throws Exception {
 		 System.out.println("POST : addReport");
+		 System.out.println(report);
+
 		 reportService.addReport(report);
 		
-		 return "report/addReport";
+		 return "report/getReport";
 	}
 	
 	@GetMapping("getReport")

@@ -11,8 +11,13 @@
    <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   
+	
+	
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script> 
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" defer></script>
+
         
 </head>
 <style>
@@ -318,8 +323,8 @@ margin-bottom: 210px !important;
 
 <body>
 
-  <div th:replace="/main/toolbar.html"></div>
-  <!--  <div th:replace="/product/categoryLeftbar.html"></div>-->
+ <div th:replace="/main/toolbar.html"></div>
+
  
 
 <div class="container tempList">
@@ -337,7 +342,7 @@ margin-bottom: 210px !important;
     <div class="wrap">
    <div class="search">
    
-       <input type="text" class="searchKeyword" name="searchKeyword" 
+       <input type="text" class="searchKeyword" name="searchKeyword"  id="prodnameBar"
        th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
 
        
@@ -433,10 +438,12 @@ margin-bottom: 210px !important;
 	<div th:replace="/main/footer.html"></div>
 </body>
 
-	<script>
+	<script th:inline="javascript">
 	
-	//검색클릭
+	
 	$(function(){
+		
+		//검색클릭
 		$(".searchButton").on("click", function(){
 			
 			if($(".loginUser").val()==""){
@@ -444,28 +451,31 @@ margin-bottom: 210px !important;
 		    	} else{
 		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
 		    	}
-			
 		})
-	});
-	
-	//셀렉트박스(정렬조건) 클릭
-	$(function(){
-		$(".dropdown-select").on("change", function(){
-			
 		
-			if($(".loginUser").val()==""){
-				 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
-		    	} else{
-		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
-		    	}
-		    	
-	
-			
+		//자동검색어 완성
+		var list = [];
+		/*[# th:each="names : ${prodNames}"]*/
+			list.push( /*[[${names.prodName}]]*/);
+		/*[/]*/
+		
+		console.log("list:"+list);
+		
+		$( "#prodnameBar" ).autocomplete({
+	   		      source: list
+	   		});
+		
+			//셀렉트박스(정렬조건) 클릭
+			$(".dropdown-select").on("change", function(){
+				if($(".loginUser").val()==""){
+				 	$('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+		    		} else{
+		    			 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
+		    		}
 		})
-	});
-	
-	$(function(){
-		$("li").on("click", function(){
+		
+		//카테고리 정렬
+	$("li").on("click", function(){
 			
 			var categoryValue = $(this).find('a').text();
 			//alert(categoryValue);
@@ -486,7 +496,7 @@ margin-bottom: 210px !important;
 			
 		})
 		
-		
+		//찜관련
 		$( ".heart" ).on("click" , function() {	        
 			var prodNo = $(this).parent().parent().parent().find("#prodNo").val();
 			console.log(prodNo);
@@ -565,7 +575,10 @@ margin-bottom: 210px !important;
 			}); 
 		
 		
-		});
+	});
+	
+
+	
 	
 
 
