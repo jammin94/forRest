@@ -86,14 +86,7 @@ public class StorageController {
 	//회원, 어드민 가능
 	@GetMapping("addStorage")
 	public String addStorageGet(Model model) throws Exception {
-		
-		
-		
-		//보관등록후 뒤로가기시 보관메인화면으로 이동(안됨 ㅠ 뒤로가기해도 isAddedCode살아있음.)
-//		if(isAddedCode == null ) {
-//			return "storage/storageMain";
-//		}
-		
+
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
@@ -110,9 +103,7 @@ public class StorageController {
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("reserveTranNo", reserveTranNo);
-		
-		
-		
+	
 		return "storage/addStorage";
 	}
 	
