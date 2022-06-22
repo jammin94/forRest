@@ -152,13 +152,13 @@ td{
 			    	 <a href="/product/getProduct?prodNo=j">
 				    		<p style="margin-bottom: 10px; font-weight: bold">[[${wishlist.product.prodName}]]<br></p>
 				    </a>
+				    <div style="display:flex;">
 				    		<p class="dateText">
-				    			<span></span><br>
 				    		</p>
-				    		~
+				    		&nbsp ~ &nbsp
 				    		<p class="dateText">
-				    			<span></span>
 				    		</p>
+				    		</div>
 			    	</div>
 				</div>
 		    </td>
@@ -470,6 +470,11 @@ td{
 				var plusDay1 = parseInt($('.selectBox').eq(0).val());
 				var plusDay2 = parseInt($('.selectBox').eq(1).val());
 				var plusDay3 = parseInt($('.selectBox').eq(2).val());
+				var plusDay4 = parseInt($('.selectBox').eq(3).val());
+				var plusDay5 = parseInt($('.selectBox').eq(4).val());
+				var plusDay6 = parseInt($('.selectBox').eq(5).val());
+				var plusDay7 = parseInt($('.selectBox').eq(6).val());
+				var plusDay8 = parseInt($('.selectBox').eq(7).val());
 				
 			    var now = new Date();
 			    			    			   
@@ -479,6 +484,16 @@ td{
 			    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
 			    $(".dateText").eq(4).text(dateFormat(now));
 			    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+			    $(".dateText").eq(6).text(dateFormat(now));
+			    $(".dateText").eq(7).text(dateFormatAfter(now,plusDay4));	
+			    $(".dateText").eq(8).text(dateFormat(now));
+			    $(".dateText").eq(9).text(dateFormatAfter(now,plusDay5));	
+			    $(".dateText").eq(10).text(dateFormat(now));
+			    $(".dateText").eq(11).text(dateFormatAfter(now,plusDay6));	
+			    $(".dateText").eq(12).text(dateFormat(now));
+			    $(".dateText").eq(13).text(dateFormatAfter(now,plusDay7));	
+			    $(".dateText").eq(14).text(dateFormat(now));
+			    $(".dateText").eq(15).text(dateFormatAfter(now,plusDay8));	
 			}
 		
 		//날짜 표기
