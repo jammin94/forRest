@@ -78,7 +78,7 @@
 	 <delete	id="deleteWishlist"	parameterType="int" >
 	   	DELETE
 	   	FROM wishlist
-	   	WHERE wishNo = #{wishNo}
+	   	WHERE wishlistNo = #{wishlistNo}
 	 </delete>
 	 
 	 <!-- SELECT LIST 장바구니 리스트 -->
@@ -106,7 +106,7 @@
 	 
 	 <select  id="getWishlistTotalSum"  parameterType="string" resultType="int">
 			  SELECT 
-			  		SUM(p.rentalPrice)
+			  		IFNULL(SUM(p.rentalPrice),0)
 			 	FROM wishlist w, product p
 			  				<where>
 						 		wishedUserId = #{userId} and w.prodNo = p.prodNo

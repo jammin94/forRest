@@ -336,11 +336,12 @@
 					<!-- <td class="tdCenter" th:text = "${rental.resultPrice}"></td> -->
 					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
 					<button th:if="${rental.reviewDone} == '0'  and  ${rental.complete}=='1' "  type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
-					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' " class="cancelBtn">취소접수</button>
+					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' " class="cancelBtn"  th:value="${rental.paymentNo}" th:data-prodNo="${rental.prodNo}" type="button" >취소접수</button>
 					<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
 					<span style="display:none;" class="hiddenProdNo" >[[${rental.purchaseProd.prodNo}]]</span>				
 					<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
 				</td>
+					<td th:if="${rental.purchaseProd.prodCondition} == '대여중' ">		</td>
 					<!-- <td th:if="${rental.reviewDone} == '1' ">						    		
 							<span style="display:none;">[[${rental.reviewDone}]]</span>
 							
@@ -365,6 +366,9 @@
 					class="sr-only">Next</span>
 			</a></li>
 		</ul>
+		
+		<!-- 테스트용 -->
+
 	
 </div>
 </div>
@@ -440,6 +444,9 @@
   </div>
   <button class="regBtn" >등록하기 </button>
   </form>
+  
+  
+  
 <div id="review-container">
 </div>
 </div>
@@ -521,26 +528,42 @@ $(".reviewBtn").on("click",function(){
 	
 	//"결제취소"버튼
 	//결제취소 
-		$(".cancleBtn").on("click", function(){
+		$(".cancelBtn").on("click", function(){
 			
-			 var paymentNo = $(this).parent().find('.cancle-btn').val();
-			 var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
+			 var paymentNo = $(this).parent().find('.cancelBtn').val();
+			 var prodNo =  $(this).parent().find('.cancelBtn').attr("data-prodNo");
+			 var tranNo = $(this).parent().find('.hiddenTranNo').text();
+			
 			 
-			  $.ajax({
-		      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
-		      "type": "POST",
-		      "contentType": "application/json",
-		   
-		    }).done(function(data) {
-	        	
-		    	//검증을 어케해야할까요...?
-		    	console.log(data);
-	        	alert(data);
-	        	alert("되나,,,?");
-	        	
-	        	self.location = "/product/cancleProduct?prodNo="+prodNo;
-	        });
-			 
+				Swal.fire({
+					   title: '결제를 취소하시겠습니까?',
+					   icon: 'warning',
+					   
+					   showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+					   confirmButtonColor: '#262626', // confrim 버튼 색깔 지정
+					   cancelButtonColor: '#262626', // cancel 버튼 색깔 지정
+					   confirmButtonText: '예', // confirm 버튼 텍스트 지정
+					   cancelButtonText: '아니오', // cancel 버튼 텍스트 지정
+					 
+					   
+					}).then(result => {
+					   // 만약 Promise리턴을 받으면,
+					   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
+					   		
+						   $.ajax({
+							      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
+							      "type": "POST",
+							      "contentType": "application/json",
+							   
+							    }).done(function(data) {
+						    		
+						        	self.location = "/product/cancleRentalProduct?prodNo="+prodNo+"&tranNo="+tranNo;
+						        });
+								 
+					      Swal.fire('결제가 취소되었습니다.', 'success');
+					   }
+					});
+			
 		})
 	
 	//"리뷰등록하기"버튼

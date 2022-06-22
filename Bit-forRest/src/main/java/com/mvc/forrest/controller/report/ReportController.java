@@ -51,19 +51,21 @@ public class ReportController {
 		 System.out.println(report);
 
 		 reportService.addReport(report);
+		 System.out.println(report.getReportNo());
 		
-		 return "report/getReport";
+		 return "redirect:/";
 	}
 	
 	@GetMapping("getReport")
 	public String getReport(@RequestParam("reportNo") int reportNo, Model model ) throws Exception {
-		System.out.println("getReport 실행됨");
 		Report report = reportService.getReport(reportNo);
-		
-		System.out.println(reportService.getReport(reportNo));
+		System.out.println(report);
 		
 		Old old= oldService.getOld(report.getReportOldNo());
 		model.addAttribute("old", old);
+		model.addAttribute("chatList", chatService.getListChat(report.getReportChatroomNo()));
+		model.addAttribute("reportUser", report.getReportUser());
+
 		return "report/getReport";
 	}	
 	

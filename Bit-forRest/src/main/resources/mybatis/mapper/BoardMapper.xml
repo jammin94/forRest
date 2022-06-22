@@ -15,13 +15,14 @@
 		<result property="boardPin" 				column="boardPin" 				jdbcType="INTEGER"/>
 		<result property="boardFlag"	   			column="boardFlag" 				jdbcType="VARCHAR" />
 		<result property="category"	   			column="category" 				jdbcType="VARCHAR" />
+		<result property="couponURL"	   			column="couponURL" 				jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addBoard"		parameterType="board" >
 		INSERT 
-	 	INTO board(boardTitle, boardDetail, boardDate, boardFlag, category) 
-	 	values (#{boardTitle}, #{boardDetail}, CURRENT_TIMESTAMP, #{boardFlag}, category)
+	 	INTO board(boardTitle, boardDetail, boardDate, boardFlag, couponURL) 
+	 	values (#{boardTitle}, #{boardDetail}, CURRENT_TIMESTAMP, #{boardFlag}, #{couponURL})
 	 </insert>
 
 	<!-- SQL : SELECT LIST -->
@@ -56,18 +57,13 @@
 					</if>
 				</if>
 			</if>
-			<!-- 
-			<if test='"F".equals(board.boardFlag)'>
-				ORDER BY b.category, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
-			</if>
-			 -->
 	 </select>
 	 
 	 <!-- SQL: UPDATE -->
 	 <update 	id="updateBoard"		parameterType="board" >
 		UPDATE board 
 		<set>
-			boardTitle = #{boardTitle}, boardDetail = #{boardDetail}, category = #{category} 
+			boardTitle = #{boardTitle}, boardDetail = #{boardDetail}, category = #{category}, couponURL=#{couponURL} 
 		</set>
 		<where>
 			boardNo = #{boardNo}

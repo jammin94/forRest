@@ -139,15 +139,16 @@ input{
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 	 <form class="form-inline" name="detailForm">
-		 <input type="hidden" class="prodNameSubmit" name="prodName" ></input>
-		 <input type="hidden" class="tranNoSubmit"  name="tranNo" ></input>
-		 <input type="hidden" class="periodSubmit" name="period"></input>
-		  <input type="hidden" class="originPriceSubmit" name="originPrice" ></input>
+	 
+	 	    <input type="hidden" class="discountPriceSubmit" name="discountPrice"  value="0"></input>
+	    	<input type="hidden" class="originPriceSubmit" name="originPrice" ></input>
+		    <input type="hidden" class="tranNoSubmit"  name="tranNo" ></input>
+		
 		  
 		  <!-- 배열로 여러 던질것들 -->
-		  <input type="hidden" class="prodNoSubmit" name="prodNo"></input>
-		  <input type="hidden" class="wishlistNoSubmit" name="wishlistNo"></input>
-		  
+	
+		
+
 		  
 	 
 	<!--  <input type="hidden" id="currentPage" name="currentPage" value=""/>-->
@@ -166,6 +167,7 @@ input{
 	        <tbody> 			    
 			     <tr class="tableBody" th:each="wishlist,index :${wishlist}">	 
 			        	<span class="getPeriod" style="display:none">[[${wishlist.period}]]</span>
+			        	<input type="hidden" class="periodSubmit" name="period" th:value="${wishlist.period}"></input>
 				    	  
 					     <td align="center">
 					    	<div class="productInfo">
@@ -179,6 +181,9 @@ input{
 							    		<p style="margin-bottom: 10px; font-weight: bold" class="getProdName">[[${wishlist.product.prodName}]] </p>
 							    		<p style="display:none" class="hiddenProdNo">[[${wishlist.product.prodNo}]]</p>
 							    		<p style="display:none" class="hiddenWishlistNo">[[${wishlist.wishlistNo}]]</p>
+							    		
+							    			  <input type="hidden" class="prodNoSubmit" name="prodNo" th:value="${wishlist.product.prodNo}"></input>
+							    			    <input type="hidden" class="wishlistNoSubmit" name="wishlistNo" th:value="${wishlist.wishlistNo}"></input>
 							 	   </a>
 							    
 							    
@@ -349,7 +354,7 @@ input{
 	<td style="padding:10px">
 	 <select class="coupon" name= "coupon">
 	 		<option >-- 선택 --</option>   				
-   			<option >9900</option>
+   			<option >22900</option>
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
@@ -425,21 +430,42 @@ $(function(){
 $(function(){
 	
 	$('#check_module').click(function(){
-	
+		
 		$('.resultHiddenPrice').val( parseInt($('#resultPrice').text())); //최종결제금액 name 셋팅
-		$('.prodNameSubmit').val($('.getProdName').text()); //상품넘버 인풋에 셋팅
 		$('.tranNoSubmit').val($('.reserveTranNo').text());  // tranNo 인풋에 셋팅
-		$('.periodSubmit').val($('.getPeriod').text()); // period 인풋에 셋팅
-		$('.originPriceSubmit').val($('#paper_goodsprice').text()); // originPrice 인풋에 셋팅
+		$('.originPriceSubmit').val($('.totalResultPrice').text())
 		
+		//주소 및 폰번 합침
+		 combinePhone();
+		 combineAddr();
 		
+
 		//배열로 던질 것들
-		$('.wishlistNoSubmit').val($('.hiddenWishlistNo').text());
+/* 		$('.wishlistNoSubmit').val($('.hiddenWishlistNo').text());
 		$('.prodNoSubmit').val($('.hiddenProdNo').text());
+		$('.periodSubmit').val($('.getPeriod').text()); */
 		
-		$('form').attr('method', 'POST').attr('action', '/rental/addWishRental?paymentNo='+"123").submit()
+		//콘솔확인
+		//receiverName, receiverPhone, divyAddress, pickupAddress,divyRequest,,resultPrice, originPrice, discountPrice
 		
-	//	request_pay();
+		console.log("---------폼값 콘솔-----------")
+		console.log("구매자이름"+$('.receiverName').val());
+		console.log("구매자폰번"+$('.receiverPhone').val());
+		console.log("구매자반송주소"+$('.divyAddress').val());
+		console.log("구매자픽업주소"+$('.pickupAddress').val());
+		console.log("구매자요구사항"+$('.divyRequest').val());
+		console.log("최종가격"+$('.resultHiddenPrice').val());
+		console.log("오리진가격"+$('.originPriceSubmit').val());
+		console.log("할인가격"+$('.discountPriceSubmit').val());
+		console.log("---------배열 콘솔-----------")
+		console.log("위시넘버"+$(".wishlistNoSubmit").val());
+		console.log("프로드넘버"+$(".prodNoSubmit").val());
+		console.log("피리어드"+$('.periodSubmit').val());
+		
+
+		//$('form').attr('method', 'POST').attr('action', '/rental/addWishRental?paymentNo='+"123").submit()
+		
+		request_pay();
 		
 	})
 
@@ -589,6 +615,8 @@ function divy_execDaumPostcode() {
     	
     	$(".coupon").on("click",function(){
     		
+    		
+    		
     		if($(".coupon option:selected").val()!=="-- 선택 --"){    			
     			       		    			   
     	    	    var sText = $('#paper_goodsprice').text();
@@ -601,7 +629,7 @@ function divy_execDaumPostcode() {
     	    			    	   
     	    	    
 
-    	    		  if($(".coupon option:selected").val()<1){    	 
+    	    		  if($(".coupon option:selected").val()<1){    	  // 할인일때
     	    			  console.log("here")
     	    		  		 outPutPrice =PRICE * $(".coupon option:selected").val();		
     	    			  console.log($(".coupon option:selected").val());
@@ -613,7 +641,7 @@ function divy_execDaumPostcode() {
     	    	    		 $('#couponPrice').text("-"+rText *$(".coupon option:selected").val());
     	    	    		 resultPrice =$('#paper_goodsprice').text()-( rText *$(".coupon option:selected").val());
     	    	    		 
-      	    	    } else{      	    	    	
+      	    	    } else{      	    	    	// 금액 뺄셈일때
 	      	    	  		// outPutPrice =PRICE.replace(".0","") -$(".coupon option:selected").val().replace(".0","");		
 	      	    	  		 outPutPrice =PRICE -$(".coupon option:selected").val().replace(".0","");
 	        	    		 convertPrice = outPutPrice.toLocaleString();
@@ -633,10 +661,13 @@ function divy_execDaumPostcode() {
     	    	    
     	    	    
     	    	    //쿠폰값 텍스트 대체
-    	    	   
     	    	    
     	    	    //계산값 텍스트 대체
     	    	    $('#resultPrice').text(resultPrice);
+    	    	    
+    	    	    //제출용 discountPrice에 쿠폰을 대체
+    	    	    $('.discountPriceSubmit').val(($('#couponPrice').text().replace("-","")).replace(",",""));
+    	    	    
     		}else{
     			 $('#couponPrice').removeClass("red");
     			   $('#couponPrice').text("0");  
@@ -738,6 +769,11 @@ function divy_execDaumPostcode() {
 						var plusDay1 = parseInt($('.period').eq(0).text());
 						var plusDay2 = parseInt($('.period').eq(1).text());
 						var plusDay3 = parseInt($('.period').eq(2).text());
+						var plusDay4 = parseInt($('.period').eq(3).text());
+						var plusDay5 = parseInt($('.period').eq(4).text());
+						var plusDay6 = parseInt($('.period').eq(5).text());
+						var plusDay7 = parseInt($('.period').eq(6).text());
+						var plusDay8 = parseInt($('.period').eq(7).text());
 		
 						
 					    var now = new Date();
@@ -748,6 +784,16 @@ function divy_execDaumPostcode() {
 					    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
 					    $(".dateText").eq(4).text(dateFormat(now));
 					    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+					    $(".dateText").eq(6).text(dateFormat(now));
+					    $(".dateText").eq(7).text(dateFormatAfter(now,plusDay4));	
+					    $(".dateText").eq(8).text(dateFormat(now));
+					    $(".dateText").eq(9).text(dateFormatAfter(now,plusDay5));	
+					    $(".dateText").eq(10).text(dateFormat(now));
+					    $(".dateText").eq(11).text(dateFormatAfter(now,plusDay6));	
+					    $(".dateText").eq(12).text(dateFormat(now));
+					    $(".dateText").eq(13).text(dateFormatAfter(now,plusDay7));	
+					    $(".dateText").eq(14).text(dateFormat(now));
+					    $(".dateText").eq(15).text(dateFormatAfter(now,plusDay8));	
 					}
 				
 				//날짜 표기
