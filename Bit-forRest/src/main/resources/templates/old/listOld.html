@@ -448,6 +448,8 @@ margin-bottom: 210px !important;
 </div>
 
 </form> 
+<input type="hidden" class="loginUser" th:value="${loginUserId}">
+
    <!--카테고리바  끝->
    
     
@@ -507,10 +509,14 @@ margin-bottom: 210px !important;
 $(function(){
 	$(".searchButton").on("click", function(){
 		
+		if($(".loginUser").val()==""){
 		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
-		
+	} else{
+		$('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+	}
 	})
-});
+	});
+
 
 
 
@@ -526,10 +532,16 @@ $(function(){
 		}
 		
 		$('.searchCategory').attr('value',categoryValue);
-    	//alert(($('.searchCategory').val()));
+    	
 		
+    	if($(".loginUser").val()==""){
+    		console.log("user없")
 		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
-		
+		 
+    	} else{
+    		console.log("user있")
+    		 $('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+    	}
 	})
 });
 	
