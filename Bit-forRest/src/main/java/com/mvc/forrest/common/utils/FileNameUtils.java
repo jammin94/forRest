@@ -24,7 +24,7 @@ public class FileNameUtils {
     }
     
     
-    private static String getExtension(String fileName) {
+    static String getExtension(String fileName) {
         int pos = fileName.lastIndexOf(".");
 
         return fileName.substring(pos + 1);

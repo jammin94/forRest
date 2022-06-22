@@ -2,11 +2,14 @@ package com.mvc.forrest.common.utils;
 
 
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,18 @@ public class FileUtils {
 	private ImgDAO imgDAO;
 	
     public String uploadFiles(List<MultipartFile> multipartFiles, String id, String flag) throws Exception {
+    	
+    	
+    	Image image;
+        int imageWidth;
+        int imageHeight;
+        double ratio;
+        int w;
+        int h;
+        
+        int newWidth = 600;                                  // 변경 할 넓이
+        int newHeight = 600;                                 // 변경 할 높이
+        String mainPosition = "X";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
         
     	System.out.println("uploadFiles start");
     	
@@ -46,8 +61,8 @@ public class FileUtils {
             imgDAO.addImg(img);
             list.add(fileName);
             try {
-            	File file = new File(temDir , fileName);//학원 에서 쓸 때
-//                File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
+//            	File file = new File(temDir , fileName);//학원 에서 쓸 때
+                File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)
@@ -57,6 +72,54 @@ public class FileUtils {
             } catch (IOException e) {
 
             } 
+            
+            try{
+                // 원본 이미지 가져오기
+                image = ImageIO.read( new File(fileRealPath+"uploadFiles/", fileName));
+     
+                // 원본 이미지 사이즈 가져오기
+                imageWidth = image.getWidth(null);
+                imageHeight = image.getHeight(null);
+     
+                if(mainPosition.equals("W")){    // 넓이기준
+     
+                    ratio = (double)newWidth/(double)imageWidth;
+                    w = (int)(imageWidth * ratio);
+                    h = (int)(imageHeight * ratio);
+     
+                }else if(mainPosition.equals("H")){ // 높이기준
+     
+                    ratio = (double)newHeight/(double)imageHeight;
+                    w = (int)(imageWidth * ratio);
+                    h = (int)(imageHeight * ratio);
+     
+                }else{ //설정값 (비율무시)
+     
+                    w = newWidth;
+                    h = newHeight;
+                }
+     
+                // 이미지 리사이즈
+                // Image.SCALE_DEFAULT : 기본 이미지 스케일링 알고리즘 사용
+                // Image.SCALE_FAST    : 이미지 부드러움보다 속도 우선
+                // Image.SCALE_REPLICATE : ReplicateScaleFilter 클래스로 구체화 된 이미지 크기 조절 알고리즘
+                // Image.SCALE_SMOOTH  : 속도보다 이미지 부드러움을 우선
+                // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
+                Image resizeImage = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+     
+                // 새 이미지  저장하기
+                BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                Graphics g = newImage.getGraphics();
+                g.drawImage(resizeImage, 0, 0, null);
+                g.dispose();
+                ImageIO.write(newImage, FileNameUtils.getExtension(origFilename), new File(fileRealPath+"uploadFiles/", fileName));
+     
+            }catch (Exception e){
+     
+                e.printStackTrace();
+     
+            }
+            
             
         }//for 문 end
        System.out.println(list);
