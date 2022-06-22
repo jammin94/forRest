@@ -125,7 +125,7 @@ margin-bottom: 210px !important;
 				<span style="font-weight: bold;">활동지역</span>
 			</div>
 			<div>
-				<span style="margin-left: 10px;" th:text="${user.userAddr}">
+				<span class="parsingAddr" style="margin-left: 10px;" th:text="${user.userAddr}">
 				</span>
 			</div>
 			<div>
@@ -247,9 +247,11 @@ margin-bottom: 210px !important;
 	}
 	$('#smStar').width(($('#userRate').text()*20)+"%");
 
-	
-
-
+	///////////////////주소////////////////////
+	 var divyAddress = $(".parsingAddr").text();
+	 var divyAddressAddr = divyAddress.split("/");
+	 var divyAddress4 = divyAddressAddr[3].substr(2,3);
+	 $(".parsingAddr").text(divyAddress4)
 
 	</script>
 	

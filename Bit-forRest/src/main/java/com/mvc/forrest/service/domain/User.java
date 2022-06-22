@@ -31,10 +31,31 @@ public class User {
 	private Timestamp recentDate;
 	private Timestamp joinDate;
 	private boolean isAccountNonLocked;
+	private boolean isDisabled;
 	
 	
 	
-    public boolean isAccountNonLocked() {
+    public boolean isDisabled() {
+    	try {
+	    	if(this.role.equals("leave")) {
+	    		return false;
+	    	}else {
+	    		return true;
+	    	}
+    	}catch(Exception e) {
+    		return true;
+    	}
+    }
+
+	public void setDisabled(boolean isDisabled) {
+		if(this.role.equals("leave")) {
+			this.isDisabled = false;
+		}else {
+			this.isDisabled = true;
+		}
+	}
+
+	public boolean isAccountNonLocked() {
     	if(this.reportedCount>=3) {
     		return false;
     	}else {

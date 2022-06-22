@@ -1,18 +1,18 @@
 package com.mvc.forrest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
@@ -184,6 +184,28 @@ public class UserServiceTest {
 		
 		System.out.println("결과 : "+user);
 		
+	}
+	
+	@Test
+	public void leaveUserTest() throws Exception{
+		System.out.println();
+		
+		Search search = new Search();
+		User user = new User();
+		Map<String , Object> map=userService.getUserList(search);
+		System.out.println("map : "+map);
+		System.out.println("mapList : "+map.get("list"));
+
+		List<User> list = (List<User>) map.get("list");
+		System.out.println("list : "+list);
+		System.out.println("leaveDate : "+list.get(0).getLeaveDate().toString().substring(0,10)); 
+
+		SimpleDateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar calendar = Calendar.getInstance();
+
+        LocalDate todaysDate = LocalDate.now();
+        System.out.println("today : "+todaysDate.toString());
+		System.out.println();
 	}
 
 }
