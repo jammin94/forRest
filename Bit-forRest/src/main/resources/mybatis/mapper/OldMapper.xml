@@ -54,13 +54,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE old.oldNo=#{oldNo}
 	</select>
 	
-	<select id="getOldLogIn" parameterType="map"
-		resultMap="oldSelectMap">
-	SELECT old.* , A.oldLikeNo
-	FROM old
-	LEFT OUTER JOIN (SELECT * FROM oldlike WHERE userId=#{userId}) A ON old.oldNo = A.oldNo
-	where old.oldNo = #{oldNo}
-	</select>
+	
+	 <select id="getOldLogIn" parameterType="map"
+      resultMap="oldSelectMap">
+   SELECT old.* , A.oldLikeNo
+   FROM old
+   LEFT OUTER JOIN (SELECT * FROM oldlike WHERE userId=#{loginuserId}) A ON old.oldNo = A.oldNo
+   where old.oldNo = #{oldNo}
+   </select>
+	
 				
 	<!-- SQL : UPDATE -->
 	<update id="updateOld" parameterType="old">

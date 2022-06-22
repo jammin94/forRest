@@ -282,6 +282,11 @@ VALUES ('sanstory12rt@naver.com','과자조아','010/8783/6065','$2a$10$jX/xb.ar
 INSERT INTO user
 VALUES ('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$3lnMim/bwALsgFZfPyVvrek2yhYr8dT9riXND/gsHycClzaWt7TDK', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-22 09:45:34', NULL, NULL, NULL);
 
+INSERT INTO user
+VALUES ('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$7KryLXSZc1CuQLNJF6TZve7UZmRQieY4iqh3dLAkC9Ae4cHVSax0q', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-23 00:09:53', NULL, NULL, NULL);
+
+INSERT INTO user
+VALUES ('qwerty5266@naver.com', '띵띵', '01093995266', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','김명선','14999/경기 시흥시','user', '2022-06-23 01:19:41','own','chacha.JPG','2022-06-23 01:19:41', NULL, NULL, NULL);
 
 INSERT INTO old
 VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
@@ -313,6 +318,20 @@ VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURR
 INSERT INTO old
 VALUES ('j','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'조명',FALSE,'jjj.jpg','서초동');
 
+INSERT INTO old
+VALUES ('300c7440-57b9-4549-869d-b67b11ae027f', 'user01@naver.com', 7000, '테이블', '한번 써서 깨끗해요~', '2022-06-23 00:43:11', 0, '테이블', 1, '5a9056e3-2833-4e8d-b4ee-fa1355fee05d.jpg', '삼성동');
+
+INSERT INTO old
+VALUES ('505ad46a-ee24-451d-93ac-366758db530a', 'user01@naver.com', 30000, '아이스박스 팔아요', '기능 좋아요.', '2022-06-23 00:48:11', 0, '기타용품', 1, '98f8dcd0-f485-426a-90ff-fe2a9e2a3fe2.jpg', '청담동');
+
+INSERT INTO old	
+VALUES ('859f0a29-900f-4915-931d-db84264b6473', 'user01@naver.com', 5000, '감성 조명', '분위기가 달라져요. 저렴하게 가져가세요.', '2022-06-23 00:36:26', 2, '텐트', 1, 'af53b5a2-4812-43c7-9daf-b4a2b50f07a6.jpg', '역삼동');
+
+INSERT INTO old	
+VALUES ('f2633ab8-2980-4512-88d1-4ed7f7f27ed3', 'user01@naver.com', 6000, '랜턴 2개', '하나씩은 팔지 않습니다.', '2022-06-23 00:39:11', 1, '텐트', 1, '98daa892-9499-45b0-80db-df587e49a415.JPG', '연희동');
+	
+INSERT INTO old	
+VALUES ('fbfce808-e01d-45aa-a9f9-f5a28301de3f', 'user01@naver.com', 8000, '고급 의자', '급처합니다.', '2022-06-23 00:42:00', 0, '의자', 1, '1ecabfc4-bda9-4607-b0c7-9f0de28a2978.JPG', '이촌동');
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg', CURRENT_TIMESTAMP());
 
@@ -620,5 +639,3 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 
 INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 (16, '11', 'bf5ec4d3-5f81-49dc-a454-8ebc0010404d.jfif', 'announce');
-
-
