@@ -324,12 +324,12 @@
 				    </td>
 			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
-				<td th:if="${rental.complete}!='1'"  class="tdCenter" >
+				<td th:if="${rental.complete}!='1' and ${rental.cancelComplete}!='1' "   class="tdCenter" >
 					[[${rental.purchaseProd.prodCondition}]]
 				</td>
 			
 				<td th:if="${rental.complete}=='1'"  class="tdCenter" >대여완료</td>
-				
+				<td th:if="${rental.cancelComplete}=='1'"  class="tdCenter" >취소완료</td>
 			
 				
 				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' ">
