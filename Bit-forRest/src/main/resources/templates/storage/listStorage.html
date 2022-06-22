@@ -114,6 +114,8 @@ border-bottom:3px solid #ddd !important;
 			보관중인물품만 보기
 			</div>
 		</div>
+		<!-- 페이징처리 -->
+		<input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 </form>  
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	    <div class="row">
@@ -133,7 +135,7 @@ border-bottom:3px solid #ddd !important;
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
 
-	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
+
 		 <!--  table Start /////////////////////////////////////-->
 		 
  		 <table class="table table-hover table-striped">
@@ -220,11 +222,58 @@ border-bottom:3px solid #ddd !important;
 					</td>
 			    </tr>
 	        </tbody>
+	        
+	        
 
       </table>
 	        
 	  
 		<!--  table End /////////////////////////////////////-->
+		
+						<!-- navi start -->
+		<div >
+		
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetStorageList('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetStorageList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a th:onclick="|javascript:fncGetStorageList('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		<!-- navi end -->
 
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
@@ -236,6 +285,16 @@ border-bottom:3px solid #ddd !important;
 <script>
 
 	$(function(){
+		
+		//페이지처리
+		function fncGetStorageList(currentPage) {
+			$("#currentPage").val(currentPage)
+		
+		    $('form').attr('method', 'POST').attr('action', '/storage/listStorage').submit();
+		    	
+		}
+		
+		
 		//체크시 현재보관중인 물품만 보여주기
 		$(".prodConditionBox").on("change", function(){
 			
