@@ -293,7 +293,7 @@ public class UserController {
 		
 		User dbUser = userService.getUser(userId);
 		List<OldReview>oldReviewList = oldReviewService.getOldReviewList(userId);
-		List<Old> oldList = oldService.getOldList(search);
+		List<Old> oldList = oldService.getOldListForUser(dbUser.getUserId());
 		
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
