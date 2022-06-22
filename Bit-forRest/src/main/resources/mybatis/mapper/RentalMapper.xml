@@ -116,12 +116,12 @@
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
-	 		<if test="searchProductCondition != null">
+	 		<if test="search.searchProductCondition != null">
 	 		<!-- 현재보관중인 물품만 보기위한 조건-->
-	 		 and p.prodCondition = #{searchProductCondition}
+	 		 and p.prodCondition = #{search.searchProductCondition}
 	 		</if>
 	 	</where>
-	 	ORDER BY t.tranNo DESC
+	 	ORDER BY t.paymentDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->
@@ -180,10 +180,23 @@
 	 	</if>
 	 </select>
 
+	 <!--SELECT Total Count -->
+	 <select  id="getTotalCountUser"  parameterType="map"	resultType="int">
+	    SELECT COUNT(*)
+	 	FROM product p, transaction t
+	 	<where>
+	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
+	 		<if test="search.searchProductCondition != null">
+	 		<!-- 현재보관중인 물품만 보기위한 조건-->
+	 		 and p.prodCondition = #{search.searchProductCondition}
+	 		</if>
+	 	</where>
+	 </select>
+	 
 	 
 	 
 	<!--SELECT Total Count -->	 
-	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
+	 <select  id="getTotalCountAdmin"  parameterType="Search" resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM product p, transaction t
 	  	<where>
