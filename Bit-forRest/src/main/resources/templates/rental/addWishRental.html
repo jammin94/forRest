@@ -172,7 +172,7 @@ input{
 					     <td align="center">
 					    	<div class="productInfo">
 					    		<a href="/product/getProduct?prodNo=j">
-						    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&amp;s=1440x1440&amp;t=inside">
+					    		<img  class="productImg"  th:src="@{/images/uploadFiles/} + ${wishlist.product.prodImg}" >
 						    	</a>
 						    	
 						    	<div style="width:220px;padding:10px;">
@@ -354,7 +354,7 @@ input{
 	<td style="padding:10px">
 	 <select class="coupon" name= "coupon">
 	 		<option >-- 선택 --</option>   				
-   			<option >22900</option>
+   			<option >7900</option>
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
