@@ -15,7 +15,8 @@ public interface OldDAO {
 	public void addOld(Old old) throws Exception ;
 	
 	public Old getOld(String oldNo) throws Exception ;
-//	public Old getOld(Map<String,Object> map) throws Exception ;
+	
+	public Old getOldLogIn(Map<String,Object> map) throws Exception ;
 	
 	public void updateOld(Old old) throws Exception ;
 	

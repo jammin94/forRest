@@ -42,18 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{oldNo}
 	</delete>
 
-<!-- 	SQL : SELECT ONE -->
-<!-- 	<select id="getOld" parameterType="map" -->
-<!-- 		resultMap="oldSelectMap"> -->
-<!-- 	SELECT * -->
-<!-- 	FROM old -->
-<!-- 	LEFT OUTER JOIN oldlike ON old.oldNo = oldlike.oldNo -->
-<!-- 	LEFT OUTER JOIN oldreview ON old.oldNo = oldreview.oldNo -->
-<!-- 	where old.oldNo = #{oldNo} -->
-<!-- 	and oldlike.userId= #{loginuserId} -->
 
-<!-- 	</select> -->
-	
 	
 	<select id="getOld" parameterType="String"
 		resultMap="oldSelectMap">
@@ -63,6 +52,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		oldReview
 		ON old.oldNo= oldReview.oldNo
 		WHERE old.oldNo=#{oldNo}
+	</select>
+	
+	<select id="getOldLogIn" parameterType="map"
+		resultMap="oldSelectMap">
+	SELECT *
+	FROM old
+	LEFT OUTER JOIN (SELECT * FROM oldlike WHERE userId=#{userId}) A ON old.oldNo = A.oldNo
+	LEFT OUTER JOIN oldreview ON old.oldNo = oldreview.oldNo
+	where old.oldNo = #{oldNo}
 	</select>
 				
 	<!-- SQL : UPDATE -->

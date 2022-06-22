@@ -488,8 +488,17 @@ margin-bottom: 210px !important;
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
 											<div class="try_mob_btn_wrapper">	
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1  or ${#authentication.principal.user.userId}==${old.userId}  ">자세히 보기</a>
+											
+											<span sec:authorize="isAuthenticated()">	
+											<a th:href="@{/old/getOldLogIn(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1  or ${#authentication.principal.user.userId}==${old.userId}   ">자세히 보기</a>
 											<a th:if="${old.oldState}==0 and ${#authentication.principal.user.userId}!=${old.userId} " style="background:#7e7e7e;">거래완료</a>
+											</span>
+											
+											<span sec:authorize="isAnonymous()">
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1 " >자세히 보기</a>
+											<a th:if="${old.oldState}==0" style=" background:#7e7e7e;">거래완료</a>
+											</span>
+											
 											</div>
 										</div>
 									</div>

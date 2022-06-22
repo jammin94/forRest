@@ -167,18 +167,7 @@ public class OldController {
 		    }
 		System.out.println("겟올드");
 		
-		
-		//oldLike하트
-//		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		String loginuserId = loginUser.getUser().getUserId();
-//				
-//		List<OldLike>oldLikeList = oldLikeService.getOldLikeList(loginuserId);
-//	oldLikeService.get
-//		model.addAttribute("oldLikeList", oldLikeList);
-//		model.addAttribute("loginuserId", loginuserId);
-		
-//		
-//		
+
 //		//유저 평점 가져오기
 		Old old = oldService.getOld(oldNo);
 		System.out.println(oldNo+"올넘");
@@ -197,6 +186,82 @@ public class OldController {
 		
 		
 		
+		model.addAttribute("old", old);
+		model.addAttribute("oldReview", user);
+		model.addAttribute("oldImgList", oldImgList);
+
+		
+		// getOld 밑에 list 뜨는 것
+		List<Old> list= oldService.getOldListCategory(old);
+		List<Old> listUser = oldService.getOldListOthers(old);
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("listUser", listUser);
+		
+		
+	
+		System.out.println(old);
+		return "old/getOld";
+	}
+	
+	////////회원만/////////////
+	@RequestMapping("getOldLogIn")
+	public String getOldLogIn(@RequestParam("oldNo") String oldNo,@ModelAttribute("search") Search search, Model model, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		    //조회수 쿠키를 통해 약식 구현 => 현업에서는 사실 조회수 자체를 별 신경 안쓰는 분위기라고 함
+		    Cookie oldCookie = null;
+		    Cookie[] cookies = request.getCookies();
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if (cookie.getName().equals("oldView")) {
+		                oldCookie = cookie;
+		            }
+		        }
+		    }
+	
+		    if (oldCookie != null) {
+		        if (!oldCookie.getValue().contains("[" + oldNo + "]")) {
+		            oldService.updateViewCnt(oldNo);
+		            oldCookie.setValue(oldCookie.getValue() + "_[" + oldNo + "]");
+		            oldCookie.setPath("/");
+		            oldCookie.setMaxAge(60 * 60 * 24);
+		            response.addCookie(oldCookie);
+		        }
+		    } else {
+		    	oldService.updateViewCnt(oldNo);
+		        Cookie newCookie = new Cookie("postView","[" + oldNo + "]");
+		        newCookie.setPath("/");
+		        newCookie.setMaxAge(60 * 60 * 24);
+		        response.addCookie(newCookie);
+		    }
+		System.out.println("겟올드");
+		
+		
+		//oldLike하트
+		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String loginuserId = loginUser.getUser().getUserId();
+
+
+//		//유저 평점 가져오기
+		Old old = oldService.getOld(oldNo);
+		System.out.println(oldNo+"올넘");
+		String userId = old.getUserId();
+
+		User user = userService.getUser(userId);
+		System.out.println("불러온 유저" + user);
+
+		double oldReview = oldReviewService.getUserRate(userId);
+		user.setUserRate(oldReview);
+					
+		//이미지
+		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
+		System.out.println("올드이미지"+oldImgList);
+		
+		System.out.println("old아아아아아아:"+old);
+		
+		model.addAttribute("loginUserId", userId);
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 		model.addAttribute("oldImgList", oldImgList);

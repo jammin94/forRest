@@ -28,15 +28,15 @@ public class OldService {
 		
 	}
 	
-//	public Old getOld(String loginuserId, String oldNo) throws Exception{
-//		System.out.println(loginuserId);
-//		System.out.println(oldNo);
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		map.put("loginuserId",loginuserId);
-//		map.put("oldNo",oldNo);
-//		return oldDAO.getOld(map);
-//		
-//	}
+	public Old getOldLogIn(String loginuserId, String oldNo) throws Exception{
+		System.out.println(loginuserId);
+		System.out.println(oldNo);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("loginuserId",loginuserId);
+		map.put("oldNo",oldNo);
+		return oldDAO.getOldLogIn(map);
+		
+	}
 	
 	
 	

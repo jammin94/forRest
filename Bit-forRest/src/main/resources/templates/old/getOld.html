@@ -16,14 +16,14 @@
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/css/getOld.css" rel="stylesheet" />
+<!-- <link href="/css/listOld.css" rel="stylesheet" /> -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > -->
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" > -->
+
 	
 <script>
 Kakao.init('d40eb19cdb656aa7607d531109f4364e');
@@ -96,17 +96,12 @@ select:focus { outline: none; }
   font-size: 24px;
 }
 
-/* #soldbutton */
-/* { */
-/* background: black; */
-/* color: white; */
-/* /* height:60rem; */ */
-/* /* width: 30rem; */ */
-
-/* font-size: 15px; */
-/* opacity: 50%; */
-/* text-align: center; */
-/* } */
+.heart{
+	color:red;
+}
+.heart.filled{
+	color:grey;
+}
 </style>
 
 
@@ -124,7 +119,7 @@ select:focus { outline: none; }
 				<div class="img-display">
 				
 <!-- 	////			큰 사진 ///-->
-					
+				
 					<div class = "img-showcase abc" th:if="${old.oldState==1}" >
 					<img th:each = "img : ${oldImgList}" th:src= "@{/images/uploadFiles/} + ${img.fileName}" >
 					</div>
@@ -138,7 +133,6 @@ select:focus { outline: none; }
 					<div class="buttons" th:if="${#authentication.principal.user.userId}==${old.userId}">
 							
 							<button type="button" class="btn custom" onclick="js:deleteold()" >삭제
-<!-- 								<a th:href="@{/old/deleteOld(oldNo=${old.oldNo})}">삭제</a> -->
 							</button>
 							
 							<button type="button" class="btn custom" >
@@ -146,11 +140,8 @@ select:focus { outline: none; }
 							</button>
 							
 							<button type="button"  id="updateOldDate" class="btn custom"    onclick="js:datediff()"   >끌올
-<!--        							<a th:href="@{/old/updateOldDate(oldNo=${old.oldNo})}"></a> -->
 							</button>
-<!--                            <button disabled id="soldbutton" th:if= "${old.oldState}==0" >거래완료 -->
-<!-- 						     </button> -->
-							
+
 					
 					
 					</div>						
@@ -307,8 +298,10 @@ select:focus { outline: none; }
 					<p class="oldDetail" id="oldDetail" th:text=${old.oldDetail}></p>
 
 				</div>
-
-<div class="heart">
+					
+					
+          <!-- 	하트 왜 likeNo 0으로 올까 -->
+					<div class="like">
 					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
 					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
 					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
@@ -473,21 +466,6 @@ function onSale(){
 
 
 function sold(){
-// 	var oldState = /*[[${old.oldState}]]*/ +')';
-	
-// 	 getOld.css('filter','blur(3px)')
-// 		turn=!turn;
-
-// $(".img-showcase").css({
-
-// 	"filter": "blur(3px)"
-	
-// });
-
-// var want = document.getElementsByClassName("img-showcase");
-// want.style.filter = "blur(3px)";
-	
-// document.getElementsByClassName("img-showcase")[0].style.filter="blur(3px)";
 
 
 	alert('거래완료');
@@ -501,6 +479,7 @@ function sold(){
 
 
 		$( ".heart" ).on("click" , function() {	        
+			
 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
 			console.log(oldNo);
 			
