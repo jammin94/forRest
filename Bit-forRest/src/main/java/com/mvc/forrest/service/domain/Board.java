@@ -14,6 +14,7 @@ public class Board {
 		private int boardPin;
 		private String boardFlag;
 		private String category;
+		private String couponURL;
 		//private String boardImg; 
 		//this should be considered... didn't understand how to relate with imgTable
 }

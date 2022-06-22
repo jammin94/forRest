@@ -7,23 +7,23 @@
 <!--  <mapper namespace="ProductMapper"> 가 @Mapper 와 함께 밑의 한줄로 대체 됨-->
 <mapper namespace="com.mvc.forrest.dao.report.ReportDAO"> 	
  	
-	<resultMap id="reportSelectMap" type="report">
-		<result property="reportNo" 				column="reportNo" 				jdbcType="INTEGER"/>
+	<resultMap id="reportSelectMap"	 type="report">
+		<result property="reportNo" 					column="reportNo" 				jdbcType="INTEGER"/>
 		<result property="reportUser" 				column="reportUser" 				jdbcType="VARCHAR"/>
-		<result property="reportedUser" 				column="reportedUser" 				jdbcType="VARCHAR"/>
-		<result property="reportOldNo" 				column="reportOldNo" 				jdbcType="VARCHAR"/>
-		<result property="reportChatroomNo" 				column="reportChatroomNo" 				jdbcType="INTEGER"/>
-		<result property="reportCategory" 				column="reportCategory" 				jdbcType="VARCHAR"/>
+		<result property="reportedUser" 			column="reportedUser" 			jdbcType="VARCHAR"/>
+		<result property="reportOldNo" 				column="reportOldNo" 			jdbcType="VARCHAR"/>
+		<result property="reportChatroomNo"		column="reportChatroomNo" 	jdbcType="INTEGER"/>
+		<result property="reportCategory" 			column="reportCategory" 		jdbcType="VARCHAR"/>
 		<result property="reportDate"	   			column="reportDate" 				jdbcType="DATE" />
-		<result property="reportChat" 			column="reportChat" 			jdbcType="VARCHAR" />
-		<result property="reportCode" 			column="reportCode" 		jdbcType="INTEGER" />
+		<result property="reportDetail" 				column="reportDetail" 			jdbcType="VARCHAR" />
+		<result property="reportCode" 				column="reportCode" 			jdbcType="INTEGER" />
 	</resultMap>
 	
 	<!--INSERT-->
-	<insert 	id="addReport"		parameterType="report" >
+	<insert 	id="addReport"		parameterType="report" useGeneratedKeys="true" keyProperty="reportNo" keyColumn="reportNo">
 		INSERT 
-	 	INTO report(reportNo, reportUser, reportedUser,reportOldNo,reportChatroomNo,reportCategory,reportDate,reportChat,reportCode) 
-	 	values (#{reportNo}, #{reportUser}, #{reportedUser}, #{reportOldNo}, #{reportChatroomNo}, #{reportCategory}, CURRENT_TIMESTAMP, #{reportChat}, #{reportCode})
+	 	INTO report(reportUser, reportedUser,reportOldNo,reportChatroomNo,reportCategory,reportDate,reportDetail) 
+	 	values (#{reportUser}, #{reportedUser}, #{reportOldNo}, #{reportChatroomNo}, #{reportCategory}, CURRENT_TIMESTAMP, #{reportDetail})
 	 </insert>
 	 
 	 <!-- SELECT ONE -->
@@ -47,7 +47,7 @@
 		 	<set>
 		 		reportCode = #{reportCode}
 		 	</set>
-	 	WHERE oldNo = #{reportNo}
+	 	WHERE reportNo = #{reportNo}
 	 </update>
 	 
 	<select  id="getReportedNo"  parameterType="string"	resultType="int">

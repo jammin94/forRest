@@ -485,7 +485,6 @@ socket.on('map',function(place, chatRoomNo, send_UserId){
 
 //채팅 치면 실시간으로 채팅창 업데이트
 socket.on('oldChat',function(data){
-	
   const rightBeforeCreatedAt=moment($('li:last').
 		  find('input[name="createdAt"]').val()).format("YYYY-MM-DD");
   const now = moment(data.chat[0].createdAt).format("YYYY-MM-DD");
