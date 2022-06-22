@@ -15,7 +15,7 @@ public class ReportService {
 	@Autowired
 	private ReportDAO reportDAO;
 	
-	//찜하기 추가
+	
 	public void addReport(Report report) throws Exception{
 		System.out.println("addReport 실행 됨");
 		reportDAO.addReport(report);

@@ -194,7 +194,8 @@ CREATE TABLE `board` (
   `boardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `boardPin` int DEFAULT 0, 
   `boardFlag` varchar(2) NOT NULL, 
-  `category` varchar(10), 
+  `category` varchar(10),
+  `couponURL` varchar(1000),
   PRIMARY KEY (`boardNo`)
 );
 
