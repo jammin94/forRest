@@ -70,6 +70,7 @@ CREATE TABLE transaction
    resultPrice INTEGER,
    reviewDone TINYINT(1) NOT NULL DEFAULT 0,
    complete TINYINT(1) NOT NULL DEFAULT 0,
+  cancelComplete TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (tranNo)
 );
 

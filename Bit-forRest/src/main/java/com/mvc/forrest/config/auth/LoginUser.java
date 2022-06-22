@@ -138,7 +138,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	@Override
 	public boolean isEnabled() {
 		// 계정 활성화 검사 휴면 유저면 false
-		return true;
+		return user.isDisabled();
 	}
 
     /**

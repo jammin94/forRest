@@ -1,6 +1,7 @@
 package com.mvc.forrest.controller.user;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,7 +33,9 @@ import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Page;
+import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldreview.OldReviewService;
@@ -289,7 +293,7 @@ public class UserController {
 		
 		User dbUser = userService.getUser(userId);
 		List<OldReview>oldReviewList = oldReviewService.getOldReviewList(userId);
-		List<Old> oldList = oldService.getOldList(search);
+		List<Old> oldList = oldService.getOldListForUser(dbUser.getUserId());
 		
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
@@ -369,15 +373,41 @@ public class UserController {
 		
 		System.out.println("/user/deleteUser : POST");
 
-		User user = (User)session.getAttribute("user");
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
 		
-		System.out.println(user);
-		if(user.getPassword().equals(password)) {
-//			userService.leaverUser(user);
-			System.out.println("if문안으로 진입");
+		if(passwordEncoder.matches(password, user.getPassword())) {
+			userService.applyLeave(user);
 		}
 		
 
 		return "redirect:/";
 	}
+	
+	@Scheduled(cron = "0 0 0 * * ?")
+	public void leaveUserAuto() throws Exception {
+		
+		System.out.println("### leaveUserAuto START ###");
+		
+		Search search = new Search();
+		
+		Map<String , Object> map=userService.getUserList(search);
+		List<User> list = (List<User>) map.get("list");
+		
+		LocalDate todaysDate = LocalDate.now();
+
+		for(int i = 0; i<list.size(); i++) {
+			User user = list.get(i);
+			try {
+				if(user.getLeaveDate().toString().substring(0,10).equals(todaysDate.toString())) {
+					userService.leaverUser(user);;
+					System.out.println(user.getUserId()+" is convert to leave");
+				}	
+			}catch(Exception e){
+			}
+		}
+		System.out.println("### leaveUserAuto END ###");
+
+	}
+		
 }

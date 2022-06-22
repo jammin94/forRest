@@ -30,6 +30,8 @@ public interface UserDAO {
 	
 	public void leaveUser(User user) throws Exception ;
 	
+	public void applyLeave(User user) throws Exception ;
+	
 	public void restrictUser(User user) throws Exception ;
 	
 	public void updateRecentDate(User user) throws Exception;
