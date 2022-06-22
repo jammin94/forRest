@@ -3,10 +3,35 @@ const {QueryTypes} = require('sequelize');
 const Query = require('../queries/query'); 
 const db = require('../models/index');
 const moment = require('moment');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 moment.locale('ko'); //한글로 시간 표시  
 
 const router = express.Router();
+
+//multer 설정
+try{
+	fs.readdirSync('uploads')
+}catch(err){
+	console.error('uploads 폴더가 없어서 생성합니다.');
+	fs.mkdirSync('uploads');
+}
+
+const upload = multer({
+	storage: multer.diskStorage({
+		destination(req, file, done){
+			done(null, 'uploads/');
+		},
+		filename(req,file,done){
+			const ext = path.extname(file.originalname);
+			done(null, path.basename(file.originalname, ext)+Date,now()+ext);
+		},
+	}),
+	limits:{fileSize: 5*1024*1024},
+});
+
 
 router.post('/addMap', async (req, res, next) => {
   try {
@@ -156,11 +181,21 @@ router.get('/list/:userId', async (req, res, next) => {
     //~~분전 ~~시간 전
     for(let list of lists){
 		list.recentTime = moment(list.recentTime).fromNow();
+		
 	}
+	
+	query=Query.getUser
+	const users = await db.sequelize.query(query, {
+      replacements: {userId : sessionId}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+    
+    const user = users[0];
 
 	//response에 담아서 'oldChatRoom.html'로 보내기
     console.log(lists);
-    res.render('oldChatRoom',{lists});
+    res.render('oldChatRoom',{lists, user});
 
   }catch (err) {
     console.error(err)
@@ -381,7 +416,6 @@ router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
     next(err)
   }
 });
-
 
 
 module.exports = router;

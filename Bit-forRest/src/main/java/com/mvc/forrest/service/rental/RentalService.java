@@ -100,5 +100,11 @@ public class RentalService {
 
 		}
 		
+		public void updateCancelDone(Rental rental) throws Exception{
+
+			rentalDAO.updateCancelDone(rental);
+
+		}
+		
 
 }

@@ -6,27 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/addReport.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script>
-    
-    $(function(){
-    	$("select").change(function(){
-    		if($("select option:selected").val()=="다른문제"){
-           		$("textarea").css('display', 'inline');
-           	}else{
-           		$("textarea").css('display', 'none');
-           		$("textarea").val(null);
-           	}	
-    	});
-    	
-    	$("button").click(function(){
-    		if($("select option:selected").val()=="다른문제"){
-    			$("select option:selected").val($("textarea").val());
-    		}
-    	});
-    	
-    });
-       	   	
-    </script>
+
 </head>
 <body>
 
@@ -54,7 +34,7 @@
                         	<option value="연애">연애 목적으로 대화를 시도해요</option>
                         	<option value="다른문제">다른 문제가 있어요</option>
                         </select>
-                        <textarea name="다른문제" id="다른문제" class="다른문제" height="200px" style="display:none; "></textarea>
+                        <textarea name="reportDetail" id="reportDetail" class="reportDetail" height="200px"></textarea>
                     </div>
                     <div class="field nextBtn">
                         <button class="submit">Submit</button>

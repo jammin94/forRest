@@ -1,6 +1,8 @@
 package com.mvc.forrest.controller.rental;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +32,12 @@ import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.domain.Wishlist;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
 import com.mvc.forrest.service.user.UserService;
+import com.mvc.forrest.service.wishlist.WishlistService;
 
 
 
@@ -51,6 +55,9 @@ public class RentalController {
 	
 	@Autowired
 	public ProductService productService;
+	
+	@Autowired
+	public WishlistService wishlistService;
 	
 	@Autowired
 	public CouponService couponService;
@@ -164,77 +171,80 @@ public class RentalController {
 	
 	@PostMapping("addWishRental")
 	public String addWishRental(@ModelAttribute("rental") Rental rental,
-							@ModelAttribute("product") Product product,
 							@RequestParam("paymentNo") String paymentNo,
 							@RequestParam("wishlistNo") int[] wishlistNo,
 							@RequestParam("prodNo") String[] prodNo,
+							@RequestParam("period") int[] period,
 							Model model ) throws Exception {
-		
-		
-		
-	
 
-		System.out.println("addRental Post Start");
-		//0. i'm port에서 나온 값 + 화면상 입력값들 ModelAttribute("rental")에 담겨있음.
+		System.out.println("addWishRental Post Start");
+		System.out.println(rental);
 		
-		System.out.println("텟");
-		//암호화된 유저아이디를 받아옴
+		//유저아이디셋팅
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-
-		
-		System.out.println("useriduid"+userId);
-        //랜덤으로 생성한 tranNo
-        String tranNo = FileNameUtils.getRandomString();
-        
-        System.out.println("tranNo"+tranNo);
-        System.out.println("텟2");
-
-     
         rental.setUserId(userId);
         
-        rental.setPaymentNo(paymentNo); //임시 결제 번호
-        rental.setProdName(product.getProdName()); 
-        rental.setProdImg(rental.getProdImg()); //임시 프로덕트 이미지
-        rental.setOriginPrice(10000); // 임시 오리진 프라이스
-        rental.setProdNo(rental.getProdNo());
-        rental.setTranNo(tranNo);
-  		rental.setPeriod(3);
-  		rental.setTranCode(1);
-  		
-  		// 폼입력값 꺼
-        rental.setPickupAddress(rental.getPickupAddress());
-        rental.setDivyAddress(rental.getDivyAddress());
-        rental.setReceiverPhone(rental.getReceiverPhone());
-        rental.setDiscountPrice(rental.getDiscountPrice());
+
+        //tranCode 대여된걸로 변경
+        rental.setTranCode(1);
+        //결제번호 박음
+        rental.setPaymentNo(paymentNo); 
         
-        
+        String reserveTranNo = null;
   		
-  		product.setProdNo(rental.getProdNo());
-  		product.setProdCondition("물품대여승인신청중");
-  		
-        productService.updateProductCondition(product);
         
-        rental.setPurchaseProd(product);
-  
-		System.out.println("텟3");
-		//1. i'm port에서 나온 값 + 화면상 입력값들 transaction 테이블에 insert
-		rentalService.addRental(rental);		
+        //-------------------------------------------
+        // 폼입력값 꺼는 modelAttribute를 통해 rental객체에 다 박힘
+        //-------------------------------------------
+       
+        	Product product = new Product();
+        // 배열로 들어온 prodNo, wishlistNo, period 는 반복문을 활용
+		    List<Rental> listA = new ArrayList<Rental>();
+	    	for(int i=0; i<prodNo.length;i++) {
+
+	    		
+	    	//물품대여승인신청중으로 상태변경
+			product = productService.getProduct(prodNo[i]);	
+			System.out.println(product);
+	  		product.setProdCondition("물품대여승인신청중");
+	  		productService.updateProductCondition(product); 
+	  		System.out.println("한바퀴돔1");
+	  		//rental에 product 정보담음 + 기간설정 + prodNo
+	  		
+	  		reserveTranNo=FileNameUtils.getRandomString();
+	  		
+	  		rental.setTranNo(reserveTranNo);
+			rental.setPurchaseProd(product);
+			rental.setProdName(product.getProdName());
+			rental.setProdImg(product.getProdImg());
+			rental.setPeriod(period[i]);
+			rental.setProdNo(prodNo[i]);
+			System.out.println("한바퀴돔2");
+			//렌탈에 add
+			// => "rental" 은 폼양식박힌 + 반복문돌려진 product + 반복문 돌려진 period
+			// =>  이 "rental"을 listA 에 담음
+			rentalService.addRental(rental);
+			System.out.println("한바퀴돔3");
+			listA.add(rental); 
+			System.out.println("한바퀴돔4");
+			//장바구니 목록 삭제
+			wishlistService.deleteWishlist(wishlistNo[i]);
+			
+			System.out.println("한바퀴돔5");
+
+		}
 		
-		System.out.println(rental);
-		//2. getRental에서 쓰기위해 model을 통해 전달
-		model.addAttribute("rental",rental);
-//		model.addAttribute("product",product);
-//		model.addAttribute("user",user);
-		System.out.println("텟4");
-		//3. getRental.jsp 에서 model들 다 뽑아쓰면됨
-		
-		
+	    System.out.println(" success ! ");
 	
+	    //list에서 사용할 rental
+		model.addAttribute("rentalList",listA);
+		//하단정보에 사용할 rental
+		model.addAttribute("rental",rental);
+
+		System.out.println(" success !! ");
 		
-		
-		
-		return "rental/getRental";
+		return "rental/getWishRental";
 	}
 	
 	

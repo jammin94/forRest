@@ -14,7 +14,7 @@ public class Report {
 	private int reportChatroomNo;//
 	private String reportCategory;
 	private Date reportDate;
-	private String reportChat;//
+	private String reportDetail;
 	private int reportCode;
 	
 }

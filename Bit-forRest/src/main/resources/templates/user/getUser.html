@@ -229,22 +229,26 @@ margin-bottom: 210px !important;
 	<script type="text/javascript">
 
 	///////////////////평점 소수점/////////////////
-	var userRate = $('#userRate').text();
 	var reviewRate = $("reviewRate").text();
-	userRate = userRate.substr(0,3);
 	reviewRate = reviewRate.substr(0,3);
-	$('#userRate').text(userRate);
 	$('#reviewRate').text(reviewRate);
-
-	if(userRate==0.0){
-		$('#userRate').text("4.0");	
-	}
 	if(reviewRate==0.0){
 		$('#reviewRate').text("4.0");	
+		$("#reviewStar").width(($('#reviewRate').text()*20)+"%");
 	}
-	
-	$("#smStar").width((userRate*20)+"%");
 	$("#reviewStar").width((userRate*20)+"%");
+	
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
+
+	
+
 
 
 	</script>
