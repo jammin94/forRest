@@ -94,6 +94,16 @@ border-bottom:3px solid #ddd !important;
    margin:4px 0;
    }
    
+   .temp{
+	display:flex;
+	margin-left: -150px;
+}
+
+.temp>div{
+	padding-left:1px;
+}
+   
+
 
 </style>
 <body>
@@ -115,8 +125,11 @@ border-bottom:3px solid #ddd !important;
 			</div>
 		</div>
 		<!-- 페이징처리 -->
-		<input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 </form>  
+		 
+		 <form class="page-form" name="detailForm" action="/storage/listStorage" method="post">
+		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		</form>
 				 <!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	    <div class="row">
 	    
@@ -162,7 +175,7 @@ border-bottom:3px solid #ddd !important;
 					    	</a>
 					    	
 					    	<div style="width:220px;padding:10px;">
-					    	 <a th:if="${storage.storageProd.prodCondition} != '출고완료' " th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
+					    	 <a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
 						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${storage.prodName}]]<br/></p>
 						    </a>
 						    	<p>	[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/></p>
@@ -233,7 +246,7 @@ border-bottom:3px solid #ddd !important;
 						<!-- navi start -->
 		<div >
 		
-		<nav aria-label="Page navigation" align="center" style="width:100%"
+		<nav class="page-bar" aria-label="Page navigation" align="center" style="width:100%"
 		th:with="
 			currentPage=${resultPage.currentPage},
 			pageUnit=${resultPage.pageUnit},
@@ -284,15 +297,25 @@ border-bottom:3px solid #ddd !important;
 
 <script>
 
+//페이지처리
+function fncGetStorageList(currentPage) {
+ console.log("goosebeom");
+	/* $("#currentPage").val(currentPage)
+    $('form').attr('method', 'POST').attr('action', '/storage/listStorage').submit(); */
+	
+	document.getElementById("currentPage").value = currentPage;
+   	document.detailForm.submit();	
+    	
+}
+
 	$(function(){
 		
 		//페이지처리
-		function fncGetStorageList(currentPage) {
+		/* function fncGetStorageList(currentPage) {
 			$("#currentPage").val(currentPage)
-		
 		    $('form').attr('method', 'POST').attr('action', '/storage/listStorage').submit();
 		    	
-		}
+		}  */
 		
 		
 		//체크시 현재보관중인 물품만 보여주기

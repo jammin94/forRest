@@ -61,8 +61,6 @@ public class StorageController {
 	@Value("5")
 	int pageUnit;
 	
-	@Value("10")
-	int pageSize;
 		
 	
 	//보관 메인화면 단순 네비게이션
@@ -159,9 +157,11 @@ public class StorageController {
 			search.setCurrentPage(1);
 		}
 		
-		//System.out.println("search:" + search);
+		int pageSize = 5;
 		
 		search.setPageSize(pageSize);
+		
+		System.out.println("search:" + search);
 		
 		//암호화된 userId를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -175,7 +175,7 @@ public class StorageController {
 		Map<String, Object> mapStorage = storageService.getStorageList(map);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
-		
+		System.out.println("resultPage:"+resultPage);
 		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
@@ -210,6 +210,8 @@ public class StorageController {
 		
 		//디버깅
 		System.out.println("serarch in StorageController:" + search);
+		
+		int pageSize = 10;
 		
 		search.setPageSize(pageSize);
 		
