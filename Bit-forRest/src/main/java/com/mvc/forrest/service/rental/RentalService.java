@@ -36,7 +36,7 @@ public class RentalService {
 		public Map<String, Object> getRentalList(Map<String,Object> map) throws Exception{
 			
 			List<Rental> list = rentalDAO.getRentalList(map);
-			int totalCount = rentalDAO.getTotalCount((Search) map.get("search"));
+			int totalCount = rentalDAO.getTotalCountUser(map);
 			map.put("list", list);
 			map.put("totalCount", totalCount);
 			
@@ -47,7 +47,7 @@ public class RentalService {
 	public Map<String, Object> getRentalListForAdmin(Search search) throws Exception{
 		
 		List<Rental> list = rentalDAO.getRentalListForAdmin(search);
-		int totalCount = rentalDAO.getTotalCount(search);
+		int totalCount = rentalDAO.getTotalCountAdmin(search);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
@@ -72,7 +72,7 @@ public class RentalService {
 			map.put("userId", userId);
 			
 			List<Rental> list = rentalDAO.getRentalListProfit(map);
-			int totalCount = rentalDAO.getTotalCount(search);
+			int totalCount = rentalDAO.getTotalCountAdmin(search);
 			System.out.println(totalCount);
 			map.put("list", list);
 			map.put("totalCount", totalCount);

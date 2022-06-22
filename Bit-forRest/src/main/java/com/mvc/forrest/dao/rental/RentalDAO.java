@@ -32,7 +32,9 @@ public interface RentalDAO {
 	
 	int getRentalProfitTotal(String userId) throws Exception;
 	
-	int getTotalCount(Search search) throws Exception;	
+	int getTotalCountAdmin(Search search) throws Exception;	
+	
+	int getTotalCountUser(Map<String,Object> map) throws Exception;	
 	
 	int getTotalRentalProfit(String userId) throws Exception;	
 
