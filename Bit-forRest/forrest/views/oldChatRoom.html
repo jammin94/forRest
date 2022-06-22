@@ -535,8 +535,8 @@
 	<div id="sidepanel">
 		<div id="profile">
 			<div class="wrap">
-				<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
-				<p>Mike Ross</p>
+			<img id="profile-img" src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" class="online" alt="" />
+				<p>{{user.nickname}}</p>
 				<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
 				<div id="expanded">
           <!--
@@ -556,20 +556,19 @@
 			<input type="text" placeholder="Search contacts..." />
 		</div>
     -->
-
+	<img src="/imgs/default-user-image.png" class="userImg">
     <div id="contacts">
 			<ul>
         {% for list in lists %}
         <li class="contact active" value="{{list.chatRoomNo}}">
           <div class="wrap">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="userImg">
+            <!--  <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='/imgs/default-user-image.png';" class="userImg">-->
+              <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='/imgs/user01Img.jpg';" class="userImg">
               <input type="hidden" name="inquireUserId" value="{{list.inquireUserId}}"/>
             </img>
-            <!-- <img src="{{list.inquireImg}} alt="" class="userImg">-->
-            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" class="oldImg">
+            <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.oldImg}}" alt="" class="oldImg">
               <input type="hidden" name="oldNo" value="{{list.oldNo}}"/>
             </img>
-            <!-- <img src="{{list.oldImg}} alt="" class="oldImg">-->
             <div class="meta">
               <div class="name">{{list.inquireNickname}}
                 <span class="inquireAddr">{{list.inquireAddr}}</span>

@@ -111,7 +111,7 @@ public class UserController {
 //		
 //		//해당 id와 pwd가 일치할 경우
 //		if( user.getPassword().equals(dbUser.getPassword())){
-//			
+//			throw new sernameNotFoundException;
 //			//세션에 user 저장
 //			session.setAttribute("user", dbUser);
 ////			model.addAttribute("user", dbUser);	

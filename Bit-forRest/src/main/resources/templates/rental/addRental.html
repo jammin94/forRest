@@ -397,7 +397,8 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 	function request_pay(){
 			var tranNo = $('.reserveTranNo').text();
 			var paymentResultPrice = parseInt($('#resultPrice').text());
-		
+			var prodName = $("input[name='prodName']").val();
+			alert("prodName:"+prodName)
 			console.log("?");
 			IMP.init("imp88340030");
 				
@@ -405,7 +406,7 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			    	pg : "html5_inicis", 
 			        pay_method : 'card',
 			        merchant_uid :tranNo,//주문번호
-			        name : '테스트상품',
+			        name : prodName,
 			        amount :paymentResultPrice,
 			    }, function(rsp) {
 	    	console.log(rsp);

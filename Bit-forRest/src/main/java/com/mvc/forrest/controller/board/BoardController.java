@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.service.board.BoardService;
 import com.mvc.forrest.service.domain.Board;
 import com.mvc.forrest.service.domain.Page;
@@ -30,6 +30,9 @@ public class BoardController {
 	
 	@Autowired
 	public BoardService boardService;
+	
+	@Autowired
+	public FileUtils fileUtils;
 	
 	//getAnnounce navi
 	//비회원, 회원, 관리자
@@ -140,17 +143,11 @@ public class BoardController {
 		}
 		search.setPageSize(pageSize); 
 		
-		int newStartRowNum=(search.getCurrentPage()-1)*pageSize;
-		//search에서의 startRowNum이 내 버전이랑 조금 차이가 있다... 
-		//그래서 직접넣자 걍
-		
-		System.out.println("newStartRowNum : "+newStartRowNum);
 		System.out.println("search : "+search);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board", board);
 		map.put("search", search);
-		map.put("newStartRowNum", newStartRowNum);
 		
 		Page resultPage = new Page(search.getCurrentPage(), boardService.getTotalCount(map), pageUnit, pageSize);
 		System.out.println(resultPage);
