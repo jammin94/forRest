@@ -275,7 +275,11 @@ INSERT INTO user
 VALUES ('captain9697@naver.com','구스범수','010/4114/9697','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','박범수','13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)','user', CURDATE(),'own','goosebeomImg.jpg',CURDATE(),NULL,NULL,NULL);
 
 INSERT INTO user
-VALUES ('sanstory12rt@naver.com','형산','010/8783/6065','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','형산','13271/경기오산시~~','user', CURDATE(),'own','iu.jpg',CURDATE(),NULL,NULL,NULL);
+VALUES ('sanstory12rt@naver.com','과자조아','010/8783/6065','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','형산','13271/경기오산시~~','user', CURDATE(),'own','iu.jpg',CURDATE(),NULL,NULL,NULL);
+
+INSERT INTO user
+VALUES ('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$3lnMim/bwALsgFZfPyVvrek2yhYr8dT9riXND/gsHycClzaWt7TDK', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-22 09:45:34', NULL, NULL, NULL);
+
 
 INSERT INTO old
 VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');

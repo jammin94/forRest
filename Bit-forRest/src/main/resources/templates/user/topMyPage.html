@@ -505,13 +505,18 @@
 	var userRate = $('#userRate').text();
 	userRate = userRate.substr(0,3);
 	$('#userRate').text(userRate);
+	
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
+
 	//////////////////////쿠폰팝업//////////////////////
 	$("#couponPop").on("click",function(){
 		popup();
 	});
-	//////////////////////별출력////////////////////////
-	$("#smStar").width((userRate*20)+"%");
-	
+
 	function popup(){
         var url = "/coupon/ownCouponList";
         var name = "popup test";
