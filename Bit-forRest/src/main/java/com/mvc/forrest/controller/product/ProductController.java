@@ -280,6 +280,23 @@ public class ProductController {
 		return "redirect:/storage/listStorage";
 	}
 	
+	//유저가 물품대여 승인신청을 취소
+		@RequestMapping("cancleRentalProduct")
+		public String cancleRentalProduct (@RequestParam("prodNo") String prodNo) throws Exception {
+			
+			System.out.println("prodNo:"+prodNo);
+			Product product = productService.getProduct(prodNo);
+			System.out.println("물품상태"+productService.getProduct(prodNo));
+			
+			if(product.getProdCondition().equals("물품대여승인신청중")) {
+				product.setProdCondition("보관중");
+			}	
+				
+			productService.updateProductCondition(product);
+			
+			return "redirect:/rental/listRental";
+		}
+	
 	
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
@@ -400,7 +417,7 @@ public class ProductController {
 	}
 	
 	//지정된 시간에 보관기간이 만료된 물품의 상태를 자동으로 변경(09 30)
-	@Scheduled(cron = "0 42 20 * * ?")
+	@Scheduled(cron = "0 30 09 * * ?")
 	public void updateProductConditionAuto() throws Exception {
 		
 		System.out.println("자동실행 테스트");
