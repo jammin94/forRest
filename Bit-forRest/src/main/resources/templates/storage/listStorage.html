@@ -72,6 +72,12 @@ border-bottom:3px solid #ddd !important;
        padding-top: 255px !important;
     }
     
+    .payNo{
+    	color:green;
+    	cursor:pointer;
+    	text-decoration:underline;
+    }
+    
     
    button{
 	padding:5px;
@@ -180,8 +186,8 @@ border-bottom:3px solid #ddd !important;
 					 
 					 
 					<!--   <p style="color: red;" th:if = "${storage.storageProd.isRental} ">(대여가능)</p>-->
-					 <p  style="color: black;" th:if = "${storage.storageProd.isRental} and  ${storage.storageProd.prodCondition }== '보관중' "><i class="fa-solid fa-toggle-off fa-2x"></i></p>
-					 <p  style="color: black;" th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'"><i class="fa-solid fa-toggle-on fa-2x"></i></p>
+					 <p  style="color: black;" th:if = "${storage.storageProd.isRental} and  ${storage.storageProd.prodCondition }== '보관중' "><i class="fa-solid fa-box-archive fa-2x"></i></p>
+					 <p  style="color: black;" th:if="${storage.storageProd.prodCondition }== '물품대여승인신청중' or ${storage.storageProd.prodCondition }== '배송중' or ${storage.storageProd.prodCondition }== '대여중'"></p>
 				
 				
 					</td>
@@ -341,6 +347,9 @@ border-bottom:3px solid #ddd !important;
  				imageWidth: 400,
  				imageHeight: 400,
  				imageAlt: 'Custom image',
+ 				
+ 				confirmButtonColor: '#262626',
+ 				confirmButtonText: '확인'
 })
 
 			

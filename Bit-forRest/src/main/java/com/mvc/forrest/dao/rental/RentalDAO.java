@@ -20,6 +20,8 @@ public interface RentalDAO {
 	
 	void updateReviewDone(Rental rental) throws Exception;
 	
+	void updateCancelDone(Rental rental) throws Exception;
+	
 	Rental getRental(String tranNo) throws Exception;
 	
 	List<Rental> getRentalList(Map<String,Object> map) throws Exception;
