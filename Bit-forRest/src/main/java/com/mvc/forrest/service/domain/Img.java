@@ -9,7 +9,5 @@ public class Img {
 		private String contentsNo;
 		private String fileName;
 		private String contentsFlag;
-		//private String boardImg; 
-		//this should be considered... didn't understand how to relate with imgTable
-		//user 나 img 나 똑같음
+		
 }

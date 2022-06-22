@@ -192,19 +192,51 @@
 
  <button  class="updateProdAllCon-btn">일괄업데이트</button>
 
-	<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
-		</ul>
+					<!-- navi start -->
+		<div >
+		
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetStorageList('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetStorageList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a th:onclick="|javascript:fncGetStorageList('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		<!-- navi end -->
+
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 

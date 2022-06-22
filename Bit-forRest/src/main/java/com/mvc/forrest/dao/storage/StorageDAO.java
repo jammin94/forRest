@@ -29,5 +29,5 @@ public interface StorageDAO {
 	
 	List<Storage> getExpiredStorageList() throws Exception;
 	
-	int getTotalCount(Search search) throws Exception;	
+	int getTotalCount(Map<String,Object> map) throws Exception;	
 }

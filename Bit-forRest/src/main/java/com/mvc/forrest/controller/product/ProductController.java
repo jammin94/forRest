@@ -379,9 +379,9 @@ public class ProductController {
 	}
 	
 	@RequestMapping("listProductAfterLogin")
-	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
+	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
-
+		
 		
 		if(search.getSearchCategory()=="") {
 			search.setSearchCategory(null);
@@ -412,7 +412,8 @@ public class ProductController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
 		
-		System.out.println("resultPage:"+resultPage);
+		System.out.println("list:"+list);
+		//System.out.println("resultPage:"+resultPage);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
