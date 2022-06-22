@@ -18,6 +18,14 @@
 	
 </head>
 <style>
+
+body{
+}
+	.container{
+		box-shadow: 2px 2px 10px #ababab;
+		z-index:1;
+	}
+
 	.main-wrapper{
 		padding-top:10px;
 	}
@@ -62,10 +70,35 @@
 	.field.btns button{
 		    margin: 0 10px;
 	}
+	
+	.field.phone input{
+		width:140px !important;
+	}
+	
+	input{
+		font-size:16px !important;
+	}
+	
+	textarea{
+		font-size:16px !important;
+	}
+	
+	.addForest{
+	    position: absolute;
+   		top: 15%;
+   		transform: scale(1.3);	
+   		display:none;
+	}
+	
+	
+	
 </style>
 <body>
 
    <div th:replace="/main/toolbar.html"></div>
+
+  <img class="addForest" src="/images/uploadFiles/addForest3.png">
+
 
     <div class="container">
         <header> 장비보관 </header>
@@ -127,7 +160,7 @@
 					</div>
 
 
-					<div class="main-wrapper">
+					<div class="main-wrapper" style="display:flex; justify-content:center;margin-top:10px;">
 	  					<div class="img-upload-plugin">
 		                    <div class="img-upload-handler">
 			                    <div class="img-preview-big">
@@ -203,7 +236,7 @@
                     </div>
                     <div class="field"  style="display:flex; align-items:center;">
                         <div class="label">제품수량</div>
-                       <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"   style="width:450px;"> 개
+                       <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"   style="width:440px;margin:0 10px 0 0px;"> 개
                     </div>
                     <div class="field">
                         <div class="label">대여가능</div>
@@ -217,9 +250,9 @@
 
                 <div class="page">
                     <div class="title">대여관련정보:</div>
-                    <div class="field">
+                    <div class="field" style="display:flex; align-items:center;">                  
                         <div class="label">물품대여가격</div>
-                        <input type="text" name="rentalPrice" value=0 > 원
+                        <input type="text" name="rentalPrice" value=0 style="margin:0 8px 0 0;" ><span style="margin-right: 20px;">원</span> 
                     </div>
                     <div class="field">
                         <div class="label">계좌번호</div>
@@ -230,7 +263,7 @@
 	         				<option value="NH농협">NH농협</option>
 	         				<option value="우리">우리</option>
                         </select>
-                        <input type="text" name="accountNumber" value="" >
+                        <input type="text" name="accountNumber" value="" style="margin-left:10px;margin-right:13px;width:390px;">
 					    <input type="hidden"  class="account" name="account" value="" >
                     </div>
                     <div class="field btns">
@@ -246,12 +279,14 @@
                         <div class="label">주문하시는분</div>
                         <input type="text" name="receiverName" value="1234"  placeholder="주문하시는분의 이름을 적어주세요">
                     </div>
-                    <div class="field">
+                    <div class="field phone">
                         <div class="label">핸드폰번호</div>
-                        <input type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"> -
-						<input type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"> -
-						<input type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+                        <div style="display:flex; align-items:center;">
+                        <input style="padding-left:0;text-align:center;margin: 0 10px 0 3px;" type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"><span>-</span>
+						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"><span>-</span> 
+						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
 						<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
+						</div>
                     </div>
                     <div class="field btns">
                         <button type="button" class="prev-3 prev">Previous</button>
@@ -260,33 +295,45 @@
                 </div>
 
                 <div class="page">
-                    <div class="title">픽업주소:</div>
-                    <div class="field">
+                <div style="margin-bottom:170px;">
+                   <div class="title">픽업주소:</div>
+                   <!--   <div class="field">
                         <div class="label">픽업주소 확인</div>
-                         <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다.
-                    </div>
-                    <div class="field">
+                         <input style="outline:none;" type="checkbox" onclick="ctrl_field(this.checked)"> <span style="width: 190px;">주문고객 정보와<br/> 동일합니다.<span>
+                    </div> -->
+                    <div class="field" style="display:flex; flex-direction:column; margin-top:20px;">
+                    <div style="display:flex;">
                        <input type="hidden"  class="pickupAddress" name="pickupAddress" value=''>
-				 	   <input type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
-			    	   <input type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기"><br>
-	     			  <input type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
-	     			  <input type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
-					  <input type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
+				 	   <input style="height:40px;margin:0 10px; height:40px; margin:0 0 5px 0px; width:110px;" type="text" id="pickup_postcode" name="pickupPostcode" placeholder="우편번호">
+			    	   <input style="height:40px;margin:0 10px; height:40px; margin:0 10px; width:110px; padding-left:0;" type="button" onclick="pickup_execDaumPostcode()" value="우편번호 찾기">
+			    	   </div>
+			    	   <div>
+	     			  <input style="height:40px;margin:5px 0;" type="text" id="pickup_address"  name="pickupBaseAddress" placeholder="주소"><br>
+	     			  <input style="height:40px;margin:5px 0;" type="text" id="pickup_extraAddress"  name="pickupExtraAddress" placeholder="참고항목">
+					  <input style="height:40px;margin:5px 0;" type="text" id="pickup_detailAddress"  name="pickupDetailAddress" placeholder="상세주소">
+					  </div>
                     </div>
+                    </div>
+                    <div>
                     <div class="title">반송주소</div>
-                    <div class="field">
+                   <!--  <div class="field">
                         <div class="label">반송주소 확인</div>
-                       <input type="checkbox" onclick="ctrl_field(this.checked)"> 주문고객 정보와 동일합니다. 
+                       <input type="checkbox" onclick="ctrl_field(this.checked)">  <span style="width: 190px;">주문고객 정보와<br/> 동일합니다.<span>
+                    </div> -->
+                    <div class="field" style="display:flex; flex-direction:column;margin-top:25px;">
+                   		 <div style="display:flex;">
+	                        <input type="hidden"  class="divyAddress" name="divyAddress" value="">
+			 			    <input style="height:40px;margin:0 10px; height:40px; margin:0 0 5px 0px; width:110px;" type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
+			 				<input style="height:40px;margin:0 10px; height:40px; margin:0 10px; width:110px;padding-left:0" type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
+		 				</div>
+		 				<div>
+		    			    <input style="height:40px;margin:5px 0;" type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
+		     				<input style="height:40px;margin:5px 0;" type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
+						    <input style="height:40px;margin:5px 0;" type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
+					    </div>
                     </div>
-                    <div class="field">
-                        <input type="hidden"  class="divyAddress" name="divyAddress" value="">
-		 			    <input type="text" id="divy_postcode" name="divyPostcode" placeholder="우편번호">
-		 				<input type="button" onclick="divy_execDaumPostcode()" value="우편번호 찾기"><br>
-	    			    <input type="text" id="divy_address"  name="divyBaseAddress" placeholder="주소" ><br>
-	     				<input type="text" id="divy_extraAddress"  name="divyExtraAddress" placeholder="참고항목">
-					    <input type="text" id="divy_detailAddress"  name="divyDetailAddress" placeholder="상세주소">
                     </div>
-                    <div class="field btns">
+                    <div class="field btns" style="margin-top:210px;">
                         <button type="button" class="prev-4 prev">Previous</button>
                         <button type="button" class="next-4 next">Next</button>
                     </div>
@@ -307,19 +354,19 @@
                     </div>
                     <div class="field">
                         <div class="label">합계금액</div>
-                        <div id="paper_delivery_msg1" style="display: block;"><input type="text"   id="resv_originPrice" class="originPrice" name="originPrice"  style="border:none;width:100px;text-align:right;"  readonly/> 원</div>
+                        <div id="paper_delivery_msg1" style="display: block;"><input type="text"   id="resv_originPrice" class="originPrice" name="originPrice"  style="border:none;width:100px;text-align:right;outline:none;"  readonly/> 원</div>
                         <div id="paper_delivery_msg2" style="display:none;width:160;text-align:right"></div>
                         <div id="paper_delivery_msg_extra" class="small red" style="display:none;"></div>
                         </select>
                     </div>
-                    <div class="field">
+                    <div class="field" style="display:flex;align-items:center;">
                         <div class="label">할인금액</div>
-                        <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" value=0 style="border:none;width:100px;text-align:right;" readonly/> 원
+                        <input type="text"  id="discountPrice" class="discountPrice" name="discountPrice" value=0 style="border:none;width:100px;text-align:right;outline:none;" readonly/> 원
                         </select>
                     </div>
-                     <div class="field">
+                     <div class="field" style="display:flex;align-items:center;">
                         <div class="label">최종 결제금액</div>
-                         <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;" readonly/>원
+                         <input type="text"  id="resv_resultPrice" class="resultPrice"   name="resultPrice"   style="border:none;width:100px;text-align:right;outline:none;" readonly/>원
                         </select>
                     </div>
                     <div class="field btns">
@@ -336,6 +383,9 @@
             </form>
         </div>
     </div>
+    
+    
+  
     <script src="/js/addStorage.js"></script>
     
 </body>
