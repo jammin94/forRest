@@ -12,6 +12,52 @@
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
  
+ .tabs {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size : 1.4em;
+  clear: both;
+  height: 30px;
+  list-style: outside none none;
+  padding: -1px;
+ 
+  
+}
+.tabs li {
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  margin-right: 0px;
+  background-color: #fff;
+  border: solid 1px #999;
+   border-radius : 7%;
+}
+.tabs li.active {
+  position: relative;
+  background-color: #333333;
+
+/*   z-index: ; */
+}
+.tabs li a {
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+.tabs .active a {
+  color: #fff !important ;
+}
+.tab {
+  background-color: #fff;
+  margin-bottom: 20px;
+  width: auto;
+}
+.tab-content {
+  padding: 0px;
+  display: none;
+}
+#tab-1 {
+  display: block;
+}
+ 
  .old-list{
 margin-bottom: 210px !important;
   padding: 0;
@@ -187,38 +233,78 @@ margin-bottom: 210px !important;
 		</div>
 	</div><!-- end of reviewLIst  -->
 
-	<!-- oldList -->
-	 <div class="old-list" style="margin-left: 195px; width: 1000px;">
-
-        <!-- BEGIN old -->
-        <div class="old" th:each = "old : ${oldList}" style="margin-right:20px;">
-          <div class="owl-item active" style="width: 270px;" >
-        	<div class="item">
-			  <div class="try_rc_mob_box_wrapper">
-				<div class="try_rc_mob_img">
-					<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
-							<!--	<h5>Sale</h5>  -->
-					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
-				</div>
-				<div class="try_rc_mob_img_cont">
-					<h2>[[${old.oldTitle}]]</h2>
-				</div>
-				<div class="try_rc_mob_img_cont_bottom">
-					<p>
-						<span class="new-price" th:text ="|${old.oldPrice}원|"></span>
-					</p>	
-					<div class="try_mob_btn_wrapper">	
-						<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+<!-- 중고거래 리스트 -->
+<div id="tabs-container" style="margin-left: 195px; width: 1000px;">
+	<div style="margin: 80px 0px 30px 30px;">
+		<span>
+			<span style="font-size: 30px;">거래후기</span><br/>
+		</span>
+		<span style="font-size: 20px;" class="reviewSideText">최근 상품을 구매하신 분들이 작성하신 리뷰입니다.</span>	
+	</div>
+  <ul class="tabs" style="margin: 30px 0 0px 30px;">
+    <li class="active" style="width: 105px; display: flex; align-items: center; justify-content: center;"><a href="#tab-1">판매중</a></li>
+    <li><a href="#tab-2" style="width: 105px; ">거래완료</a></li>
+  </ul> 
+  <div class="tab">
+    <div id="tab-1" class="tab-content">
+    	<div class="old-list">
+			<div class="old" th:each = "old : ${oldList}" style="margin-right:20px;" th:if="${old.oldState} == 1">
+    			<div class="owl-item active" style="width: 270px;" >
+        			<div class="item">
+						<div class="try_rc_mob_box_wrapper">
+							<div class="try_rc_mob_img">
+								<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
+							</div>
+							<div class="try_rc_mob_img_cont">
+								<h2>[[${old.oldTitle}]]</h2>
+							</div>
+							<div class="try_rc_mob_img_cont_bottom">
+								<p><span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+							<div class="try_mob_btn_wrapper">
+								<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+							</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			  </div>
-			</div>
-		  </div>
-        </div>
-	
-</div><!-- Container list END -->
+      		</div>
+ 		</div>
+    </div>
+    
+    <div id="tab-2" class="tab-content">
+    	<div class="old-list">
+	        <div class="old" th:each = "old : ${oldList}" style="margin-right:20px;" th:if="${old.oldState} == 0">
+          		<div class="owl-item active" style="width: 270px;" >
+        			<div class="item">
+						<div class="try_rc_mob_box_wrapper">
+							<div class="try_rc_mob_img">
+								<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
+								<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+								<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+								<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+							</div>
+							<div class="try_rc_mob_img_cont">
+								<h2>[[${old.oldTitle}]]</h2>
+							</div>
+							<div class="try_rc_mob_img_cont_bottom">
+								<p><span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+								<div class="try_mob_btn_wrapper">
+									<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+        	</div>
+		</div>
+	</div>
+  </div>
+</div>
+<!-- 중고거래 리스트 끝 -->
+
+
+
+<!-- ////////////////////////////////////////////////////////////////// -->
 
 <div th:replace="/main/footer.html"></div>
 </body>
@@ -228,6 +314,7 @@ margin-bottom: 210px !important;
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
 
+	
 	///////////////////평점 소수점/////////////////
 	var reviewRate = $("reviewRate").text();
 	reviewRate = reviewRate.substr(0,3);
@@ -254,5 +341,6 @@ margin-bottom: 210px !important;
 	 $(".parsingAddr").text(divyAddress4)
 
 	</script>
+	<script src="/js/listOld.js"></script>
 	
 </html>

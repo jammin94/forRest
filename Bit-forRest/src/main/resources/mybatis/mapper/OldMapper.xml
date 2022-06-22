@@ -151,13 +151,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getOldListForUser" parameterType="String" resultMap="oldSelectMap">
-	SELECT inner_table.* ,	inner_table.ROWNO
+	SELECT inner_table.* 
 	FROM(
-		SELECT *, ROW_NUMBER() OVER() AS ROWNO
+		SELECT *, ROW_NUMBER() OVER(order by oldDate DESC) AS ROWNO
 		FROM old
 		WHERE userId= #{value}
 		order by oldDate DESC ) inner_table
-	WHERE inner_table.ROWNO &lt;= 4
 	</select>
 	
 	

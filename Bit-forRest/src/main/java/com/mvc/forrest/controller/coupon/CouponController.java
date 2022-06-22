@@ -1,5 +1,7 @@
 package com.mvc.forrest.controller.coupon;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +21,10 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
 
 @Controller
@@ -118,12 +123,32 @@ public class CouponController {
 		return "redirect:/coupon/manageCoupon";
 	}
 		
-	@PostMapping("addOwnCoupon")
-	public String addOwnCoupon(@ModelAttribute Coupon coupon) throws Exception{
+	@GetMapping("addOwnCoupon")
+	public String addOwnCoupon(@RequestParam String couponNo) throws Exception{
 		
-		System.out.println("coupon/addOwnCoupon : POST");
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
+		Coupon coupon = couponService.getCoupon(couponNo);
+		OwnCoupon oc = new OwnCoupon();
 		
-		return null;
+		Calendar cal = Calendar.getInstance();
+		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+		Timestamp t2 = new Timestamp(System.currentTimeMillis());
+		
+		cal.setTime(t1);
+		cal.add(Calendar.DATE, 30);
+		t2.setTime(cal.getTime().getTime());
+		
+		oc.setOwnUser(user);
+		oc.setOwnCoupon(coupon);
+		oc.setOwnCouponCreDate(t1);
+		oc.setOwnCouponDelDate(t2);
+		
+		couponService.addOwnCoupon(oc);
+		
+		System.out.println("coupon/addOwnCoupon : GET");
+		
+        return "redirect:/";
 	}
 	
 }
