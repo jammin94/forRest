@@ -188,7 +188,7 @@ div img{
     padding: 0.5rem 0.8rem;
     outline: 0;
     margin-right: 0.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
     margin-top: 1rem;
     width: 210px;
 }
@@ -233,6 +233,7 @@ div img{
 	 width: 30px;
 	 height: 25px;
 	 color: #ff0000;
+	 
 }
 .oldLike{
 	color: #000000;
@@ -240,27 +241,53 @@ div img{
 .social-links{
     display: flex;
     align-items: center;
+    
 }
 .social-links a{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 55px;
-    height:45px;
+    width: 207px;
+    height:40px;
     color: #000000;
-/*     border: 1px solid #808080; */
-    margin: 0 0.2rem;
-    border-radius: 7%;
+   
+   
+    border-radius: 100%;
+    margin-top: 10px;
+     border: 1.5px solid transparent;
+    border-radius: 10px;
     text-decoration: none;
     font-size: 0.8rem;
     transition: all 0.5s ease;
     background: rgb(255, 222,0,1);
 }
-.social-links a:hover{
-    background: rgb(255, 222,0,1);
-    border-color: transparent;
-    color: #000000;
+
+.social-links i{
+	margin-left: 0.2rem;
+	
 }
+.social-links a:hover{
+     opacity: 0.4;
+    color:#000000;
+}
+.soldornot{
+	margin-top:10px;
+	
+	
+}
+
+#onSale{
+	width:102px;
+	border-radius: 10px;
+	
+}
+
+
+#sold{
+	width:102px;
+	border-radius: 10px;
+}
+
 
 @media screen and (min-width: 992px){
     .card{

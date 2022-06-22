@@ -102,6 +102,10 @@ select:focus { outline: none; }
 .heart.filled{
 	color:red;
 }
+
+.like{
+font-size:55px;
+}
 </style>
 
 
@@ -254,7 +258,9 @@ select:focus { outline: none; }
 
 					<div class="social-links" onclick="js:setShare()">
 					
-						<a href="#">		<img alt="" src="/images/content/kakao.png"></i>
+						<a href="#">카카오 공유	 
+<!-- 						<img alt="" src="/images/content/kakao.png"></i> -->
+						<i class="fa-solid fa-comment"></i>
 						</a>
 
 					</div>
@@ -274,12 +280,19 @@ select:focus { outline: none; }
 <div class="soldornot"  th:if="${#authentication.principal.user.userId}==${old.userId}">
   
 
-  <button type="button" class="btn" id="onSale" onclick="js:onSale()">
+  <button th:if="${old.oldState}==1" type="button" class="btn" id="onSale" onclick="js:onSale()" style="background: #8000ff;color: white" >
 							판매중
 						</button>
- <button type="button" class="btn" id="sold" onclick="js:sold()">
+ <button th:if="${old.oldState}==1" type="button" class="btn" id="sold" onclick="js:sold()">
 							거래완료
 						</button>
+	<button th:if="${old.oldState}==0" type="button" class="btn" id="onSale" onclick="js:onSale()">
+							판매중
+						</button>					
+	<button th:if="${old.oldState}==0" type="button" class="btn" id="sold" onclick="js:sold()" style="background: #8000ff;color: white" >
+							거래완료
+						</button>
+ 					
   
 </div>
 </span>		
