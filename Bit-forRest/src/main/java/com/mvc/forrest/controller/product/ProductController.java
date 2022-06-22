@@ -350,7 +350,6 @@ public class ProductController {
 			search.setSearchKeyword(null);
 		}
 		
-		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
@@ -358,8 +357,6 @@ public class ProductController {
 		
 		Map<String, Object> map = productService.getProductList(search);
 		List<Product> listName = productService.getProductNames();
-		
-		System.out.println("listName:"+listName);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(map.get("list"));
@@ -374,10 +371,7 @@ public class ProductController {
 	@RequestMapping("listProductAfterLogin")
 	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
-		
 
-		
-		//System.out.println(this.getClass());
 		
 		if(search.getSearchCategory()=="") {
 			search.setSearchCategory(null);
@@ -394,6 +388,9 @@ public class ProductController {
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
 		}
+		
+		System.out.println("서치서치:"+search);
+		
 		search.setPageSize(pageSize);
 
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -403,10 +400,9 @@ public class ProductController {
 		List<Product> list = productService.getProductListHasUser(search, userId);
 		List<Product> listName = productService.getProductNames();
 		
-		System.out.println("listName:"+listName);
 		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
-		System.out.println(resultPage);
 		
+		System.out.println("resultPage:"+resultPage);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
