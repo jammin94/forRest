@@ -134,12 +134,13 @@ public class WishListController {
 				wishlist.setPeriod(period[i]);
 				wishlist.getProduct().setRentalPrice(rentalPrice[i]);
 				listA.add(wishlist);
+				
 			}
 			//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
 			 String reserveTranNo = FileNameUtils.getRandomString();
 		
 			
-			System.out.println(listA);
+			System.out.println("lisA비트캠프"+listA);
 			
 			
 			model.addAttribute("wishlist",listA);
