@@ -245,7 +245,7 @@ public class OldController {
 
 
 //		//유저 평점 가져오기
-		Old old = oldService.getOld(oldNo);
+		Old old = oldService.getOldLogIn(loginuserId, oldNo);
 		System.out.println(oldNo+"올넘");
 		String userId = old.getUserId();
 
