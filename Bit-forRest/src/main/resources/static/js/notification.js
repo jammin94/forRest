@@ -32,9 +32,9 @@ const firebaseModule = (function () {
                             await fetch('/token/saveToken', { method: 'post', body: token })
                             messaging.onMessage(payload => {
 								console.log('Message received. ', payload);
-                                const title = payload.data.title;
+                                const title = payload.notification.title;
                                 const options = {
-                                    body : payload.data.content
+                                    body : payload.notification.content
                                 }
                                 navigator.serviceWorker.ready.then(registration => {
                                     registration.showNotification(title, options);

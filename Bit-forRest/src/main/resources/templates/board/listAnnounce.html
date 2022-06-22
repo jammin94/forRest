@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   
@@ -165,11 +165,11 @@
 	            <th align="center">No</th>
 	            <th align="center" >제목</th>   
 	            <th align="center">게시날짜</th>
-	            <sec:authorize access="hasRole('admin')">
+	            <div sec:authorize access="hasRole('admin')">
 	            <th align="left">
 	            	<input type="checkbox" name="totalSelector" id="totalSelector"></input>
 	            </th>	
-	           </sec:authorize>
+	           </div>
 	          </tr>
 	        </thead>
 	        
@@ -254,13 +254,13 @@
 		</div>
 		
 		
-		 <sec:authorize access="hasRole('admin')">
+		 <th:block sec:authorize="hasAuthority('admin')">
 			<button type="text" class="btn btn-default" id="addAnnounce">
 				<a th:href="@{/board/addAnnounce}" >
 					공지사항 등록
 				</a>
 			</button>
-		</sec:authorize>
+		</th:block>
 	</form>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->

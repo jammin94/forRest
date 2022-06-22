@@ -282,6 +282,9 @@ VALUES ('sanstory12rt@naver.com','과자조아','010/8783/6065','$2a$10$jX/xb.ar
 INSERT INTO user
 VALUES ('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$3lnMim/bwALsgFZfPyVvrek2yhYr8dT9riXND/gsHycClzaWt7TDK', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-22 09:45:34', NULL, NULL, NULL);
 
+INSERT INTO user
+VALUES ('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$7KryLXSZc1CuQLNJF6TZve7UZmRQieY4iqh3dLAkC9Ae4cHVSax0q', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-23 00:09:53', NULL, NULL, NULL);
+
 
 INSERT INTO old
 VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
