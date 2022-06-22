@@ -48,11 +48,10 @@ sequelize.sync({ force: false })
   
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use('/gif', express.static(path.join(__dirname, 'uploads')));
+app.use('/image', express.static(path.join(__dirname, 'uploads'))); // '/image'
 
 app.use(express.json()); //parsing application을 위하여!
 app.use(express.urlencoded({ extended: false })); // req.body parsing을 위하여!
-//app.use(express.urlencoded({ extended: false }));
 
 //app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cookieParser('forrest'));

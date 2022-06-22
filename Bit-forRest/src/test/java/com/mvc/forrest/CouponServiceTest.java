@@ -34,27 +34,38 @@ public class CouponServiceTest {
 	@Autowired
 	private OwnCouponDAO ownCouponDao;
 	
-//	@Test
+	@Test
 	public void testAddCoupon() throws Exception{
-		Coupon c = new Coupon();
+//		Coupon c = new Coupon();
+//		Calendar cal = Calendar.getInstance();
+//		Timestamp ts = new Timestamp(System.currentTimeMillis());
+//		Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+//		
+//		cal.setTime(ts);
+//		cal.add(Calendar.DATE,30);
+//		ts2.setTime(cal.getTime().getTime());
+//
+//		System.out.println("###ts : "+ts);
+//		System.out.println("###ts2 : "+ts2);
+//		
+//		c.setCouponCreDate(ts);
+//		c.setCouponDelDate(ts2);
+//		c.setCouponName("[TEST]테스트용 쿠폰");
+//		c.setDiscount(0.9);
+//		
+//		couponService.addCoupon(c);
+		
+		OwnCoupon oc = new OwnCoupon();
 		Calendar cal = Calendar.getInstance();
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+		Timestamp t2 = new Timestamp(System.currentTimeMillis());
 		
-		cal.setTime(ts);
-		cal.add(Calendar.DATE,30);
-		ts2.setTime(cal.getTime().getTime());
-
-		System.out.println("###ts : "+ts);
-		System.out.println("###ts2 : "+ts2);
+		cal.setTime(t1);
+		cal.add(Calendar.DATE, 30);
+		t2.setTime(cal.getTime().getTime());
 		
-		c.setCouponCreDate(ts);
-		c.setCouponDelDate(ts2);
-		c.setCouponName("[TEST]테스트용 쿠폰");
-		c.setDiscount(0.9);
-		
-		couponService.addCoupon(c);
-		
+		System.out.println(t1);
+		System.out.println(t2);
 	}
 
 //	@Test
@@ -77,7 +88,7 @@ public class CouponServiceTest {
 		System.out.println("\n"+map.get("list")+"\n");
 	}
 	
-	@Test
+//	@Test
 	public void testGetOwnCouponList() throws Exception{
 
 		Map<String,Object> map = new HashMap<String, Object>();

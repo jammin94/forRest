@@ -1,7 +1,9 @@
 package com.mvc.forrest.controller.board;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.service.board.BoardService;
 import com.mvc.forrest.service.domain.Board;
+import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 
@@ -39,7 +43,12 @@ public class BoardController {
 	@GetMapping("getAnnounce")	
 	public String getAnnounce(@RequestParam("boardNo") int boardNo, Model model) throws Exception {	
 		System.out.println("Controller GET: getAnnounce ");
+		
 		model.addAttribute("board", boardService.getBoard(boardNo));
+		System.out.println(Integer.toString(boardNo));
+		List<Img> list = fileUtils.getAnnounceImgList(Integer.toString(boardNo));
+		System.out.println(list);
+		model.addAttribute("imageList", list);
 		
 		return "/board/getAnnounce";
 	}
@@ -55,11 +64,15 @@ public class BoardController {
 	//addAnnounce 실행
 	//관리자
 	@PostMapping("addAnnounce")
-	public String addAnnounce(@ModelAttribute("board") Board board) throws Exception {	
+	public String addAnnounce(@ModelAttribute("board") Board board, @RequestParam List<MultipartFile> uploadFiles) throws Exception {	
 		System.out.println("Controller POST: addAnnounce ");
 		System.out.println(board);
 		board.setBoardFlag("A"); //Announce setting
 		boardService.addBoard(board);
+		
+		if(uploadFiles!=null) {
+			String prodImg = 	fileUtils.uploadFiles(uploadFiles, Integer.toString(board.getBoardNo()), "announce");
+		}
 		return "redirect:/board/listAnnounce";
 	}
 	

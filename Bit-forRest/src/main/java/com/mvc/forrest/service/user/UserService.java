@@ -74,6 +74,10 @@ public class UserService {
 		userDao.leaveUser(user);
 	}
 	
+	public void applyLeave(User user) throws Exception{
+		userDao.applyLeave(user);
+	}
+	
 	public void restrictUser(User user) throws Exception {
 		userDao.restrictUser(user);
 	}

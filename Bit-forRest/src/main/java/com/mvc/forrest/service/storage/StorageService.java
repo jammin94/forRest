@@ -46,7 +46,7 @@ public class StorageService {
 		public Map<String, Object> getStorageList(Map<String,Object> map) throws Exception{
 			
 			List<Storage> list = storageDAO.getStorageList(map);
-			int totalCount = storageDAO.getTotalCount((Search) map.get("search"));
+			int totalCount = storageDAO.getTotalCount(map);
 			map.put("list", list);
 			map.put("totalCount", totalCount);
 			
@@ -56,8 +56,14 @@ public class StorageService {
 		//관리자를 위한 보관리스트 출력
 		public Map<String, Object> getStorageListForAdmin(Search search) throws Exception{
 			
+			String userId = "admin";
+			
+			Map<String, Object> mapForCount = new HashMap<>();
+			mapForCount.put("search", search);
+			mapForCount.put("userId", userId);
+		
 			List<Storage> list = storageDAO.getStorageListForAdmin(search);
-			int totalCount = storageDAO.getTotalCount(search);
+			int totalCount = storageDAO.getTotalCount(mapForCount);
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("list", list);

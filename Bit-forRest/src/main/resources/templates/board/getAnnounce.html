@@ -81,8 +81,10 @@
 	    		 ${#dates.format(board.boardDate,'yyyy-MM-dd')}"
 	    		></div>
 			</h8>
-	      <img src="..." alt="..."  style="display: flex;justify-content: center;">
-	      <p style="text-align:center"><a href="#" class="btn btn-default" role="button" >쿠폰받기</a></p>
+		  <th:block th:each="image :${imageList}">
+		  	<img th:src= "@{/images/uploadFiles/} + ${image.fileName}" alt="공지사항 사진"  style="display: flex; justify-content: center;"/>
+		  </th:block>
+	      <p style="text-align:center"><a href="/coupon/addOwnCoupon?couponNo=4" class="btn btn-default" role="button" >쿠폰받기</a></p>
 	      <div class="caption">
 	        <h3>[[${board.boardDetail}]]</h3>
 	      </div>
@@ -94,7 +96,7 @@
 	<a th:href="@{/board/listAnnounce}" >확인</a>
 </button>
 
- <span sec:authorize="hasRole('ROLE_ADMIN')">
+ <sec:authorize access="hasRole('admin')">
     <button type="text" class="btn btn-default" id="update">
     	<a th:href="@{/board/updateAnnounce(boardNo=${board.boardNo})}" >수정</a>
     </button>
@@ -107,7 +109,7 @@
 	<br/>
 	<h4 th:if="${board.boardPin}==1">현재 이 공지사항은 고정되어 있습니다.</h4>
 	<h4 th:if="${board.boardPin}==0">현재 이 공지사항은 고정되어 있지 않습니다.</h4>
-</span>
+</sec:authorize>
 
 	
 </div>

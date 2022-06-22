@@ -46,7 +46,11 @@ public class ProductService {
 	
 	//대여가능하면서 현재보관중인 물품들의 리스트
 	public Map<String, Object> getProductList(Search search) throws Exception{
+		
+		System.out.println("search 싸비스"+search);
 		List<Product> list= productDAO.getProductList(search);
+		
+		
 		
 		int totalCount = productDAO.getTotalCount(search);
 		

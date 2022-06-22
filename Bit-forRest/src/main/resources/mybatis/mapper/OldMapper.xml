@@ -150,6 +150,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE inner_table.ROWNO &lt;= 4
 	</select>
 	
+	<select id="getOldListForUser" parameterType="String" resultMap="oldSelectMap">
+	SELECT inner_table.* 
+	FROM(
+		SELECT *, ROW_NUMBER() OVER(order by oldDate DESC) AS ROWNO
+		FROM old
+		WHERE userId= #{value}
+		order by oldDate DESC ) inner_table
+	</select>
+	
 	
 	<update id="updateOldDate" parameterType= "String">
 		update old
