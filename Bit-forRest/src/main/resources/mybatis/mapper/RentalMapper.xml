@@ -29,6 +29,7 @@
 		<result property="divyRequest" 				column="divyRequest" 				jdbcType="VARCHAR"  />
 		<result property="reviewDone" 				column="reviewDone" 				jdbcType="TINYINT"  />
 		<result property="complete" 				column="complete" 				jdbcType="TINYINT"  />
+		<result property="cancelComplete" 				column="cancelComplete" 				jdbcType="TINYINT"  />
 		
 		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>		    
@@ -244,6 +245,15 @@
 	   	update transaction
 	   	<set>
 	   		reviewDone=#{reviewDone},
+	   	</set>
+	   	where tranNo = #{tranNo}
+	 </update>
+	 
+	 		<!-- 취소상태업데이트 -->
+		<update	id="updateCancelDone"	parameterType="rental" >
+	   	update transaction
+	   	<set>
+	   		cancelComplete=#{cancelComplete},
 	   	</set>
 	   	where tranNo = #{tranNo}
 	 </update>

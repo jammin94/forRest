@@ -336,11 +336,12 @@
 					<!-- <td class="tdCenter" th:text = "${rental.resultPrice}"></td> -->
 					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
 					<button th:if="${rental.reviewDone} == '0'  and  ${rental.complete}=='1' "  type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
-					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' " class="cancleBtn"  th:value="${rental.paymentNo}" th:data-prodNo="${rental.prodNo}" type="button" >취소접수</button>
+					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' " class="cancelBtn"  th:value="${rental.paymentNo}" th:data-prodNo="${rental.prodNo}" type="button" >취소접수</button>
 					<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
 					<span style="display:none;" class="hiddenProdNo" >[[${rental.purchaseProd.prodNo}]]</span>				
 					<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
 				</td>
+					<td th:if="${rental.purchaseProd.prodCondition} == '대여중' ">		</td>
 					<!-- <td th:if="${rental.reviewDone} == '1' ">						    		
 							<span style="display:none;">[[${rental.reviewDone}]]</span>
 							
@@ -527,10 +528,11 @@ $(".reviewBtn").on("click",function(){
 	
 	//"결제취소"버튼
 	//결제취소 
-		$(".cancleBtn").on("click", function(){
+		$(".cancelBtn").on("click", function(){
 			
-			 var paymentNo = $(this).parent().find('.cancleBtn').val();
-			 var prodNo =  $(this).parent().find('.cancleBtn').attr("data-prodNo");
+			 var paymentNo = $(this).parent().find('.cancelBtn').val();
+			 var prodNo =  $(this).parent().find('.cancelBtn').attr("data-prodNo");
+			 var tranNo = $(this).parent().find('.hiddenTranNo').text();
 			
 			 
 				Swal.fire({
@@ -555,7 +557,7 @@ $(".reviewBtn").on("click",function(){
 							   
 							    }).done(function(data) {
 						    		
-						        	self.location = "/product/cancleRentalProduct?prodNo="+prodNo;
+						        	self.location = "/product/cancleRentalProduct?prodNo="+prodNo+"&tranNo="+tranNo;
 						        });
 								 
 					      Swal.fire('결제가 취소되었습니다.', 'success');
