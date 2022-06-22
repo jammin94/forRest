@@ -47,7 +47,7 @@
 	   		reviewDetail=#{reviewDetail},
 	   		reviewScore=#{reviewScore}
 	   	</set>
-	   	where reviewNo = #{reviewNo}
+	   	where userId = #{userId} and prodNo=#{prodNo}
 	 </update>
 	 
 	 <!-- DELETE -->

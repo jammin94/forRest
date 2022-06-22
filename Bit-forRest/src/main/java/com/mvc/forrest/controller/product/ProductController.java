@@ -24,10 +24,12 @@ import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
+import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
+import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
 import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
@@ -45,6 +47,9 @@ public class ProductController {
 	
 	@Autowired
 	public StorageService storageService;
+	
+	@Autowired
+	public RentalService rentalService;
 	
 	@Autowired
 	public UserService userService;
@@ -282,7 +287,7 @@ public class ProductController {
 	
 	//유저가 물품대여 승인신청을 취소
 		@RequestMapping("cancleRentalProduct")
-		public String cancleRentalProduct (@RequestParam("prodNo") String prodNo) throws Exception {
+		public String cancleRentalProduct (@RequestParam("prodNo") String prodNo,@RequestParam("tranNo") String tranNo) throws Exception {
 			
 			System.out.println("prodNo:"+prodNo);
 			Product product = productService.getProduct(prodNo);
@@ -291,7 +296,12 @@ public class ProductController {
 			if(product.getProdCondition().equals("물품대여승인신청중")) {
 				product.setProdCondition("보관중");
 			}	
-				
+			
+			Rental rental = new Rental();
+			rental.setTranNo(tranNo);
+			rental.setCancelComplete(1);
+			
+			rentalService.updateCancelDone(rental);
 			productService.updateProductCondition(product);
 			
 			return "redirect:/rental/listRental";
@@ -369,9 +379,9 @@ public class ProductController {
 	}
 	
 	@RequestMapping("listProductAfterLogin")
-	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
+	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model)
 			throws Exception {
-
+		
 		
 		if(search.getSearchCategory()=="") {
 			search.setSearchCategory(null);
@@ -402,7 +412,8 @@ public class ProductController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
 		
-		System.out.println("resultPage:"+resultPage);
+		System.out.println("list:"+list);
+		//System.out.println("resultPage:"+resultPage);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);

@@ -75,6 +75,11 @@ public class FileUtils {
 		System.out.println("getOLdImgList 실행 됨");
 		return imgDAO.getOLdImgList(oldNo);
 	}
+	
+	public List<Img> getAnnounceImgList(String boardNo) throws Exception{
+		System.out.println("getAnnounceImgList 실행 됨");
+		return imgDAO.getAnnounceImgList(boardNo);
+	}
     
     
 }//class end

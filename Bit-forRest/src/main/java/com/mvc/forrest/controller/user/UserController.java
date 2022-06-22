@@ -1,6 +1,11 @@
 package com.mvc.forrest.controller.user;
 
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,8 +34,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -76,6 +84,65 @@ public class UserController {
 
 		return "user/login";
 	}
+	
+	
+	@RequestMapping("afterLogin")
+	public String afterLogin() throws Exception{
+		
+		System.out.println("/user/afterLogin");
+		
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
+		
+		try {
+        	System.out.println(":: Connect to Chatting Service");
+		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(500);
+		int responseCode = conn.getResponseCode();
+		System.out.println(":: Chatting Service responseCode : " + responseCode);
+        	System.out.println("Node server is Dead ..");
+	}catch(Exception e){
+		System.out.println("채팅연결 실패");
+	}
+	
+	try {
+        if(user.getJoinDate().equals(user.getRecentDate())) {
+	        OwnCoupon oc = new OwnCoupon();
+			Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
+			Calendar cal= Calendar.getInstance();
+			cal.add(Calendar.DATE,30);
+			Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+			Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
+			oc.setOwnUser(user);
+			oc.setOwnCoupon(coupon);
+			oc.setOwnCouponCreDate(ts1);
+			oc.setOwnCouponDelDate(ts2);
+			couponService.addOwnCoupon(oc);
+			
+			System.out.println("신규유저 쿠폰발급");
+        }
+	}catch(Exception e) {
+//		e.printStackTrace();
+		System.out.println("신규유저 쿠폰발급 실패");
+	}
+	
+    try {
+    	System.out.println(user);
+		System.out.println(user.getUserId());
+		userService.updateRecentDate(user);
+		
+	} catch (Exception e) {
+//		e.printStackTrace();
+		System.out.println("접속날짜 갱신 실패");
+	}	
+
+		
+        return "redirect:/";
+	}
+	
 //	
 //	@PostMapping("login")			//유저, 관리자
 //	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
@@ -289,7 +356,7 @@ public class UserController {
 		
 		User dbUser = userService.getUser(userId);
 		List<OldReview>oldReviewList = oldReviewService.getOldReviewList(userId);
-		List<Old> oldList = oldService.getOldList(search);
+		List<Old> oldList = oldService.getOldListForUser(dbUser.getUserId());
 		
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
@@ -369,15 +436,41 @@ public class UserController {
 		
 		System.out.println("/user/deleteUser : POST");
 
-		User user = (User)session.getAttribute("user");
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
 		
-		System.out.println(user);
-		if(user.getPassword().equals(password)) {
-//			userService.leaverUser(user);
-			System.out.println("if문안으로 진입");
+		if(passwordEncoder.matches(password, user.getPassword())) {
+			userService.applyLeave(user);
 		}
 		
 
 		return "redirect:/";
 	}
+	
+	@Scheduled(cron = "0 0 0 * * ?")
+	public void leaveUserAuto() throws Exception {
+		
+		System.out.println("### leaveUserAuto START ###");
+		
+		Search search = new Search();
+		
+		Map<String , Object> map=userService.getUserList(search);
+		List<User> list = (List<User>) map.get("list");
+		
+		LocalDate todaysDate = LocalDate.now();
+
+		for(int i = 0; i<list.size(); i++) {
+			User user = list.get(i);
+			try {
+				if(user.getLeaveDate().toString().substring(0,10).equals(todaysDate.toString())) {
+					userService.leaverUser(user);;
+					System.out.println(user.getUserId()+" is convert to leave");
+				}	
+			}catch(Exception e){
+			}
+		}
+		System.out.println("### leaveUserAuto END ###");
+
+	}
+		
 }

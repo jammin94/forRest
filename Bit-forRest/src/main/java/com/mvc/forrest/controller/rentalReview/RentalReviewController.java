@@ -148,10 +148,38 @@ public class RentalReviewController {
 		
 		//리뷰 수정 ( 업데이트 )
 		//회원, 어드민가능 
-		@PostMapping("updateReview")
-		public String updateReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
-		
-			 return null;
+		@PostMapping("updateRentalReview")
+		public String updateReview(@ModelAttribute("rentalReview") RentalReview rentalReview,@RequestParam("prodNo") String prodNo , @RequestParam("fileName") MultipartFile file, Model model) throws Exception {
+			
+			
+			System.out.println("업데이트 리뷰 실행 !");
+			//암호화된 유저아이디를 받아옴
+			LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String userId= loginUser.getUser().getUserId();
+			
+			
+			String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
+			String fileName = "";
+			String fileConvert = FileNameUtils.fileNameConvert(file.getOriginalFilename());
+			
+			if(!file.getOriginalFilename().isEmpty()) {
+				
+				file.transferTo(new File(temDir, fileConvert));
+				System.out.println("파일명 :: "+fileConvert);
+				
+				fileName =fileConvert;			
+				rentalReview.setReviewImg(fileName);				
+			}else {
+				System.out.println("파일업로드 실패...?");
+			}
+			
+			
+			rentalReview.setUserId(userId);
+			rentalReview.setProdNo(prodNo);
+			rentalReviewService.updateRentalReview(rentalReview);
+			
+			System.out.println(rentalReview);
+			return "redirect:/rental/listRental";
 		}
 		
 		

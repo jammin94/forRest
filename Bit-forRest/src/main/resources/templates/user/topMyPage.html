@@ -77,11 +77,8 @@
   }
   
   .card__handle {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
             align-items: center;
     margin-top: 3px;
   }
@@ -385,7 +382,7 @@
             <h2 sec:authentication="principal.user.nickname"></h2>
             <div class="card__handle">
               <span class="handle" style="font-size: 20px" sec:authentication="principal.user.userName"></span>
-              <span class="category">
+              <span class="category" style="display: flex; align-items: center;">
               	<!-- 별점 -->
               	<span class="star-rating">
             		<span id="smStar"><img src="/images/header/starMini.png"></span>
@@ -395,7 +392,7 @@
             </div>
           </div>
           <div class="card__button">
-            <button>
+            <button style="margin: 35px 10px 0px 30px;">
             	<span><a th:href="@{/user/updateUser(userId= ${#authentication.principal.user.userId})}">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

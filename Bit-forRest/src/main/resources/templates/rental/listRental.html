@@ -324,12 +324,12 @@
 				    </td>
 			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
-				<td th:if="${rental.complete}!='1'"  class="tdCenter" >
+				<td th:if="${rental.complete}!='1' and ${rental.cancelComplete}!='1' "   class="tdCenter" >
 					[[${rental.purchaseProd.prodCondition}]]
 				</td>
 			
 				<td th:if="${rental.complete}=='1'"  class="tdCenter" >대여완료</td>
-				
+				<td th:if="${rental.cancelComplete}=='1'"  class="tdCenter" >취소완료</td>
 			
 				
 				<td th:if="${rental.purchaseProd.prodCondition} != '대여중' ">
@@ -383,11 +383,12 @@
  <!-- 리뷰박스 -->
  <div class="reviewBackground"></div>
   <div class="Rentalcontainer">
-<form id="review-form"  action="/rentalReview/addRentalReview"  method="post"  enctype="multipart/form-data">
+<form id="review-form"  enctype="multipart/form-data">
 
+	
 	<input type="hidden" name="tranNo" class="innerTranNo"></input>
 	<input type="hidden" name="reviewDone" class="reviewDone"></input>
-	<input type="hidden" name="prodNo" class="prodNo"></input>
+	<!-- <input type="hidden" name="prodNo" class="prodNo"></input> -->
 
 <span class="close">닫기</span>
 <!-- 
@@ -512,6 +513,7 @@ $(".reviewBtn").on("click",function(){
             success : function(rentalReview) {
                 
 							console.log(rentalReview.userId);			
+							console.log(rentalReview.reviewScore);	
 							console.log(rentalReview.reviewImg);
 							console.log(rentalReview.reviewDetail);			
 							
@@ -519,12 +521,24 @@ $(".reviewBtn").on("click",function(){
 							$('.form-group').find('textarea').val(rentalReview.reviewDetail);
                     		
                     		$('.regBtn').replaceWith(replaceHTML);
-							
+                    		
+                    		//리뷰수정하기에서 "수정하기" 버튼
+                    		$('.regEditBtn').on("click", function(){
+                    			
+                    			console.log("요거클릭되나요 ?");
+                    			
+                    			 $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/updateRentalReview?prodNo="+prodNo).submit();
+                    			 
+                    		})
+                    		
             	}
         	})
-		
-
 	})
+	
+	
+
+	
+	
 	
 	//"결제취소"버튼
 	//결제취소 
@@ -581,10 +595,7 @@ $(".reviewBtn").on("click",function(){
 		  $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/addRentalReview").submit();
 	})
 	
-	//"리뷰수정하기"
-	$(".regEditBtn")	.on("click",function(){
-		console.log("수정하기업데이트클릭");
-	})
+	
 
 
 	
@@ -606,6 +617,7 @@ $(".reviewBtn").on("click",function(){
     }
 	
 })
+
 
 </script>
 <script>

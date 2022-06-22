@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +31,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             errorMsg = "2"; // 아이디 또는 비밀번호가 잘못 입력됨
         }else if(exception instanceof LockedException){
             errorMsg = "3"; // 신고누적으로 계정이 정지상태임
+        }else if(exception instanceof DisabledException) {
+        	errorMsg = "7"; // 회원탈퇴로 계정이 비활성화상태
         }
 
         if(!StringUtils.isEmpty(errorMsg)){

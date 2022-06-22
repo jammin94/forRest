@@ -60,13 +60,7 @@
 		SELECT * FROM transaction t, product p 
 		where t.tranNo =  #{tranNo} and t.prodNo = p.prodNo
 	 </select>
-	 
-	  <!-- SQL : SELECT ONE -->
-	 <select 	id="getMaxTranNoForStorage" resultMap="storageSelectMap">
-		SELECT MAX tranNo FROM transaction
-	 </select>
-	 
-	 
+	  
 	 <!-- SQL : UPDATE -->
 	 <!-- 보관물품 기간연장 -->
 	 <update	id="updateStorage"	parameterType="Storage" >
@@ -104,7 +98,7 @@
 	 		 and p.prodCondition = #{search.searchProductCondition}
 	 		</if>
 	 	</where>
-	 	ORDER BY t.paymentDate DESC
+	 	ORDER BY t.paymentDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 	 </select>
 	 
 	 <!-- SQL : SELECT LIST -->
@@ -113,13 +107,7 @@
 	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
-	 		 p.prodNo = t.prodNo AND  
-	 		(p.prodCondition ='물품보관승인신청중' OR 
-	 		 p.prodCondition = '입고중' OR
-	 		 p.prodCondition = '보관중' OR 
-	 		 p.prodCondition = '출고승인신청중' OR 
-	 		 p.prodCondition = '출고완료')
-	 		 
+	 		 p.prodNo = t.prodNo AND  tranCode = 0 and prodCondition != '취소완료'
 	 		<!-- ProductCondition만 선택한경우-->
 	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
 	 		 and p.prodCondition = #{searchProductCondition}
@@ -168,39 +156,37 @@
 
 	
 	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="Search"	 resultType="int">
+	 <select  id="getTotalCount"  parameterType="map"	 resultType="int">
 	  	SELECT COUNT(*)
 	  	FROM product p, transaction t
 	  	<where>
-	 		 p.prodNo = t.prodNo AND  
-	 		(p.prodCondition ='물품보관승인신청중' OR 
-	 		 p.prodCondition = '입고중' OR
-	 		 p.prodCondition = '보관중' OR 
-	 		 p.prodCondition = '출고승인신청중' OR 
-	 		 p.prodCondition = '출고완료')
+	 		 p.prodNo = t.prodNo AND  tranCode = 0 and prodCondition != '취소완료'
 	 		
-	 		
-	 		<if test="searchKeyword == null and searchCondition == null and searchProductCondition != null" >
-	 		 and p.prodCondition = #{searchProductCondition}
+	 		<if test="userId != 'admin' ">
+	 		and t.userId = #{userId}
 	 		</if>
 	 		
-	 	<if test="searchCondition != null">
-	 		
-	 		<if test="searchKeyword != null and searchCondition == 1  and searchProductCondition != null" >
-	 		 and p.prodCondition = #{searchProductCondition} and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 		<if test="search.searchKeyword == null and search.searchCondition == null and search.searchProductCondition != null" >
+	 		 and p.prodCondition = #{search.searchProductCondition}
 	 		</if>
 	 		
-	 		<if test="searchKeyword != null and searchCondition == 2  and searchProductCondition != null" >
-	 		 and p.prodCondition = #{searchProductCondition} and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 	<if test="search.searchCondition != null">
+	 		
+	 		<if test="search.searchKeyword != null and search.searchCondition == 1  and search.searchProductCondition != null" >
+	 		 and p.prodCondition = #{search.searchProductCondition} and t.prodName LIKE CONCAT('%',#{search.searchKeyword},'%')
+	 		</if>
+	 		
+	 		<if test="search.searchKeyword != null and search.searchCondition == 2  and search.searchProductCondition != null" >
+	 		 and p.prodCondition = #{search.searchProductCondition} and t.userId LIKE CONCAT('%',#{search.searchKeyword},'%')
 	 		</if>
 	 		
 	 		
-	 			<if test="searchKeyword != null and searchCondition == 1 and searchProductCondition == null" >
-	 		 and t.prodName LIKE CONCAT('%',#{searchKeyword},'%')
+	 			<if test="search.searchKeyword != null and search.searchCondition == 1 and search.searchProductCondition == null" >
+	 		 and t.prodName LIKE CONCAT('%',#{search.searchKeyword},'%')
 	 		</if>
 	 		
-	 		<if test="searchKeyword != null and searchCondition == 2 and searchProductCondition == null" >
-	 		 and t.userId LIKE CONCAT('%',#{searchKeyword},'%')
+	 		<if test="search.searchKeyword != null and search.searchCondition == 2 and search.searchProductCondition == null" >
+	 		 and t.userId LIKE CONCAT('%',#{search.searchKeyword},'%')
 	 		</if>
 	 	</if>
 	 		

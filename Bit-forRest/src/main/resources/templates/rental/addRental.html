@@ -648,6 +648,15 @@ function divy_execDaumPostcode() {
     	    	    //쿠폰값 텍스트 대체
     	    	    $('#couponPrice').text("-"+convertCouponPrice);  
     	    	    
+    	    	    if(parseInt($(this).val().replace(".0",""))>$('#paper_goodsprice').text()){
+ 	    	    	   $('#resultPrice').text("0");
+ 	    	    	   console.log('ggg');
+ 	    	    }else{
+ 	    	    	console.log($(this).val());
+ 	    	    	console.log($('#paper_goodsprice').text());
+ 	    	    	console.log('qqqs');
+ 	    	    	   $('#resultPrice').text(resultPrice);
+ 	    	    }
     	    	    //계산값 텍스트 대체
     	    	    
     	    		$('.discountPriceSubmit').val(convertCouponPrice.replace(",",""));
