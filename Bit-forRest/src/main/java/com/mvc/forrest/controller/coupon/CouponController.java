@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,6 +128,8 @@ public class CouponController {
 	@GetMapping("addOwnCoupon")
 	public String addOwnCoupon(@RequestParam String couponNo) throws Exception{
 		
+		System.out.println("coupon/addOwnCoupon : GET");
+		
 		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = userService.getUser(sessionUser.getUser().getUserId());
 		Coupon coupon = couponService.getCoupon(couponNo);
@@ -145,8 +149,23 @@ public class CouponController {
 		oc.setOwnCouponDelDate(t2);
 		
 		couponService.addOwnCoupon(oc);
+		///////////////////////////////////////////////////////////////////////////////
 		
-		System.out.println("coupon/addOwnCoupon : GET");
+		user = userService.getUser(user.getUserId());
+		
+		SecurityContextHolder.clearContext();
+		
+		LoginUser loginUser = new LoginUser(user);
+		System.out.println("  #updateUserDetails : "+loginUser);
+		
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+				loginUser, null, loginUser.getAuthorities());
+		System.out.println("  #newAuthentication : "+newAuthentication);
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		
+		System.out.println("   리로드 끝");
+		////////////////////////////////////////////////////////////////////////////////
 		
         return "redirect:/";
 	}

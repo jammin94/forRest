@@ -163,7 +163,7 @@
 	 <update id="updateRecentDate" parameterType="User">
 	 	UPDATE user
 	 	<set>
-	 		recentDate	=	CURRENT_TIMESTAMP()
+	 		recentDate = CURRENT_TIMESTAMP()
 	 	</set>
 	 	WHERE userId = #{userId}
 	 </update>

@@ -1,7 +1,11 @@
 package com.mvc.forrest.controller.user;
 
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -30,12 +34,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
+import com.mvc.forrest.service.domain.Coupon;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldReview;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
-import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
-import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldreview.OldReviewService;
@@ -80,6 +84,65 @@ public class UserController {
 
 		return "user/login";
 	}
+	
+	
+	@RequestMapping("afterLogin")
+	public String afterLogin() throws Exception{
+		
+		System.out.println("/user/afterLogin");
+		
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
+		
+		try {
+        	System.out.println(":: Connect to Chatting Service");
+		String reqURL = "http://192.168.0.42:3001/sessionLoginLogout/login/"+user.getUserId();
+		URL url = new URL(reqURL);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setConnectTimeout(500);
+		int responseCode = conn.getResponseCode();
+		System.out.println(":: Chatting Service responseCode : " + responseCode);
+        	System.out.println("Node server is Dead ..");
+	}catch(Exception e){
+		System.out.println("채팅연결 실패");
+	}
+	
+	try {
+        if(user.getJoinDate().equals(user.getRecentDate())) {
+	        OwnCoupon oc = new OwnCoupon();
+			Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
+			Calendar cal= Calendar.getInstance();
+			cal.add(Calendar.DATE,30);
+			Timestamp ts1 = new Timestamp(System.currentTimeMillis());
+			Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
+			oc.setOwnUser(user);
+			oc.setOwnCoupon(coupon);
+			oc.setOwnCouponCreDate(ts1);
+			oc.setOwnCouponDelDate(ts2);
+			couponService.addOwnCoupon(oc);
+			
+			System.out.println("신규유저 쿠폰발급");
+        }
+	}catch(Exception e) {
+//		e.printStackTrace();
+		System.out.println("신규유저 쿠폰발급 실패");
+	}
+	
+    try {
+    	System.out.println(user);
+		System.out.println(user.getUserId());
+		userService.updateRecentDate(user);
+		
+	} catch (Exception e) {
+//		e.printStackTrace();
+		System.out.println("접속날짜 갱신 실패");
+	}	
+
+		
+        return "redirect:/";
+	}
+	
 //	
 //	@PostMapping("login")			//유저, 관리자
 //	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
