@@ -43,6 +43,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 <!-- 	SQL : SELECT ONE -->
+<!-- 	<select id="getOld" parameterType="map" -->
+<!-- 		resultMap="oldSelectMap"> -->
+<!-- 	SELECT * -->
+<!-- 	FROM old -->
+<!-- 	LEFT OUTER JOIN oldlike ON old.oldNo = oldlike.oldNo -->
+<!-- 	LEFT OUTER JOIN oldreview ON old.oldNo = oldreview.oldNo -->
+<!-- 	where old.oldNo = #{oldNo} -->
+<!-- 	and oldlike.userId= #{loginuserId} -->
+
+<!-- 	</select> -->
+	
+	
 	<select id="getOld" parameterType="String"
 		resultMap="oldSelectMap">
 		SELECT *
@@ -92,14 +104,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		userId=#{userId}) A
 		ON old.oldNo = A.oldNo
 		<where>
+		<if test="search.searchKeyword != null and search.searchCategory != null">
+					old.oldTitle LIKE CONCAT('%',#{search.searchKeyword},'%') and category LIKE #{search.searchCategory}
+	     	</if>
 			<if test="search.searchKeyword != null and search.searchCategory == null">
-				oldTitle LIKE CONCAT('%',#{search.searchKeyword}#,'%')
+				old.oldTitle LIKE CONCAT('%',#{search.searchKeyword},'%')
 			</if>
-			<if test="search.searchKeyword ==null and searchsearchCategory !=null">
-				category LIKE CONCAT('%',#{search.searchCategory}#,'%')
+			<if test="search.searchKeyword ==null and search.searchCategory !=null">
+				old.category LIKE CONCAT('%',#{search.searchCategory},'%')
 			</if>
 		</where>
-		order by oldDate DESC
+		order by old.oldDate DESC
 	</select>
 
 	<select id="getOldListForIndex" resultMap="oldSelectMap">

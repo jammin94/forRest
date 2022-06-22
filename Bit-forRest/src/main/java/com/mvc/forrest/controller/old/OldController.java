@@ -69,8 +69,8 @@ public class OldController {
 			throws Exception {
 
 		System.out.println(this.getClass() + "겟리스트로그인");
-		
-				LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(search);
+		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId = loginUser.getUser().getUserId();
 		
 		if(search.getSearchCategory()=="") {
@@ -82,7 +82,8 @@ public class OldController {
 		}
 		
 		List<Old> list = oldService.getOldListHasUser(search, userId);
-		
+
+		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
 
@@ -166,9 +167,21 @@ public class OldController {
 		    }
 		System.out.println("겟올드");
 		
-		//유저 평점 가져오기
+		
+		//oldLike하트
+//		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		String loginuserId = loginUser.getUser().getUserId();
+//				
+//		List<OldLike>oldLikeList = oldLikeService.getOldLikeList(loginuserId);
+//	oldLikeService.get
+//		model.addAttribute("oldLikeList", oldLikeList);
+//		model.addAttribute("loginuserId", loginuserId);
+		
+//		
+//		
+//		//유저 평점 가져오기
 		Old old = oldService.getOld(oldNo);
-		System.out.println(old);
+		System.out.println(oldNo+"올넘");
 		String userId = old.getUserId();
 
 		User user = userService.getUser(userId);
@@ -198,14 +211,7 @@ public class OldController {
 		model.addAttribute("listUser", listUser);
 		
 		
-		//oldLike하트
-//		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		String loginuserId = loginUser.getUser().getUserId();
-//				
-//		List<OldLike>oldLikeList = oldLikeService.getOldLikeList(loginuserId);
-//				
-//		model.addAttribute("oldLikeList", oldLikeList);
-		
+	
 		System.out.println(old);
 		return "old/getOld";
 	}
