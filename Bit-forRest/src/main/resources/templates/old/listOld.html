@@ -390,6 +390,16 @@ margin-bottom: 210px !important;
 	background:#f6f6f6
 }
 
+.tempCover{
+    width: 270px;
+    height: 465px;
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+     opacity: 0.4;
+    border-radius: 8px;
+}
 
 
 </style>
@@ -464,9 +474,9 @@ margin-bottom: 210px !important;
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==1">
 												<!--	<h5>Sale</h5>  -->
-												
+										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==0" >		
 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
 											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
 											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
@@ -477,12 +487,15 @@ margin-bottom: 210px !important;
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
 											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
-											<div class="try_mob_btn_wrapper">	<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+											<div class="try_mob_btn_wrapper">	
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1">자세히 보기</a>
+											<a th:if="${old.oldState}==0" style="background:#7e7e7e;">거래완료</a>
 											</div>
 										</div>
 									</div>
 								</div>
 			 </div>
+			 <div th:if="${old.oldState}==0" class="tempCover"></div>
         </div>
         
         
