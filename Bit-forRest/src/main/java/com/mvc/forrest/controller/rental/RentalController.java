@@ -201,6 +201,8 @@ public class RentalController {
         	Product product = new Product();
         // 배열로 들어온 prodNo, wishlistNo, period 는 반복문을 활용
 		    List<Rental> listA = new ArrayList<Rental>();
+		    
+		    
 	    	for(int i=0; i<prodNo.length;i++) {
 
 	    		
@@ -225,15 +227,14 @@ public class RentalController {
 			// => "rental" 은 폼양식박힌 + 반복문돌려진 product + 반복문 돌려진 period
 			// =>  이 "rental"을 listA 에 담음
 			rentalService.addRental(rental);
+			System.out.println("돔3위"+rental);
 			System.out.println("한바퀴돔3");
-			listA.add(rental); 
+			listA.add(i,rental); 
 			System.out.println("한바퀴돔4");
 			//장바구니 목록 삭제
 			wishlistService.deleteWishlist(wishlistNo[i]);
-			
-			System.out.println("한바퀴돔5");
-
-		}
+			System.out.println("장바구니밑"+listA);
+	    	}
 		
 	    System.out.println(" success ! ");
 	
@@ -241,7 +242,8 @@ public class RentalController {
 		model.addAttribute("rentalList",listA);
 		//하단정보에 사용할 rental
 		model.addAttribute("rental",rental);
-
+		
+		System.out.println("listAAA"+listA);
 		System.out.println(" success !! ");
 		
 		return "rental/getWishRental";

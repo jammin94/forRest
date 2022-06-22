@@ -17,5 +17,7 @@ public interface ImgDAO {
 	
 	public List<Img>getProductImgList(String contentsNo)  throws Exception;
 	
+	public List<Img>getAnnounceImgList(String contentsNo)  throws Exception;
+	
 	
 }

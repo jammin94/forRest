@@ -28,6 +28,19 @@ public class OldService {
 		
 	}
 	
+//	public Old getOld(String loginuserId, String oldNo) throws Exception{
+//		System.out.println(loginuserId);
+//		System.out.println(oldNo);
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("loginuserId",loginuserId);
+//		map.put("oldNo",oldNo);
+//		return oldDAO.getOld(map);
+//		
+//	}
+	
+	
+	
+	
 	public void updateOld(Old old) throws Exception{
 		System.out.println("updateOld 성공");
 		oldDAO.updateOld(old);
@@ -67,6 +80,10 @@ public class OldService {
 	
 	public List<Old> getOldListOthers(Old old) throws Exception{
 		return oldDAO.getOldListOthers(old);
+	}
+	
+	public List<Old> getOldListForUser(String userId) throws Exception{
+		return oldDAO.getOldListForUser(userId);
 	}
 	
 	public void updateOldDate(String oldNo) throws Exception{

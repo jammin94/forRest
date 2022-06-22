@@ -556,14 +556,13 @@
 			<input type="text" placeholder="Search contacts..." />
 		</div>
     -->
-	<img src="/imgs/default-user-image.png" class="userImg">
     <div id="contacts">
 			<ul>
         {% for list in lists %}
         <li class="contact active" value="{{list.chatRoomNo}}">
           <div class="wrap">
             <!--  <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='/imgs/default-user-image.png';" class="userImg">-->
-              <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='/imgs/user01Img.jpg';" class="userImg">
+              <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg">
               <input type="hidden" name="inquireUserId" value="{{list.inquireUserId}}"/>
             </img>
             <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.oldImg}}" alt="" class="oldImg">

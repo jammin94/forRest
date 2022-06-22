@@ -15,6 +15,7 @@ public interface OldDAO {
 	public void addOld(Old old) throws Exception ;
 	
 	public Old getOld(String oldNo) throws Exception ;
+//	public Old getOld(Map<String,Object> map) throws Exception ;
 	
 	public void updateOld(Old old) throws Exception ;
 	
@@ -29,6 +30,8 @@ public interface OldDAO {
 	public List<Old> getOldListCategory(Old old) throws Exception;
 	
 	public List<Old> getOldListOthers(Old old) throws Exception;
+	
+	public List<Old> getOldListForUser(String userId) throws Exception;
 	
 	public void updateOldDate(String oldNo) throws Exception ;	
 	

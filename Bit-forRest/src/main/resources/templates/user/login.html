@@ -340,7 +340,18 @@ a{color:inherit;text-decoration:none}
 					icon:  'error',                   
 					});
 		    
-		} /*else if('${ERRORMSG}'  == '4') {
+		} else if(errMsg == '7'){
+			
+			Swal.fire({
+				title: '탈퇴 계정',       
+				text:  '회원탈퇴처리 되어 사용할 수 없는 계정입니다.',  
+				icon:  'error',                   
+				});
+			
+		}
+		
+		
+		/*else if('${ERRORMSG}'  == '4') {
 		    document.addEventListener("DOMContentLoaded", function(event) {
 		       var toastTop = app.toast.create({
 		           text: '이미 로그인 중입니다.',

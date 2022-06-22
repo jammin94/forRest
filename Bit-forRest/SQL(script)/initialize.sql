@@ -70,6 +70,7 @@ CREATE TABLE transaction
    resultPrice INTEGER,
    reviewDone TINYINT(1) NOT NULL DEFAULT 0,
    complete TINYINT(1) NOT NULL DEFAULT 0,
+  cancelComplete TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (tranNo)
 );
 
@@ -189,8 +190,8 @@ CREATE TABLE `chatImg` (
 
 CREATE TABLE `board` (
   `boardNo` int NOT NULL AUTO_INCREMENT,
-  `boardTitle` varchar(50) NOT NULL DEFAULT '',
-  `boardDetail` varchar(400) NOT NULL DEFAULT '',
+  `boardTitle` varchar(500) NOT NULL DEFAULT '',
+  `boardDetail` varchar(5000) NOT NULL DEFAULT '',
   `boardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `boardPin` int DEFAULT 0, 
   `boardFlag` varchar(2) NOT NULL, 
@@ -490,15 +491,19 @@ INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, 
 	(6, 3, 'user04@naver.com', ' HI', '2022-05-30 18:32:54', 1),
 	(7, 4, 'user02@naver.com', 'dkssudgktpdy', '2022-05-30 18:36:47', 1);
 
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('공지사항1', '어쩌고저쩌고1', '2022-06-02 11:37:35', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('공지사항2', '어쩌고저쩌고2', '2022-06-02 11:37:36', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('공지사항3', '어쩌고저쩌고3', '2022-06-02 11:37:37', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag) VALUES('공지사항4', '어쩌고저쩌고4', '2022-06-02 11:37:38', 'A');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('장비 보관은 어떻게 하나요?', '보관하기 힘든 캠핑 장비들을 보관신청 해주시면 저희가 직접 픽업부터 창고에 보관까지 서비스 합니다. 제품이 창고에 도착하면 창고 촬영한 사진이 업로드 됩니다. 장비 보관 신청은 장비보관 탭에서 시작하기를 눌러 신청해주세요.', '2022-06-02 11:37:35', 'F', '이용방법');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('장비 대여는 어떻게 하나요?', '렌탈 마켓에서 현재 Forrest 에서 대여 중인 상품을 확인 하실 수 있습니다. 제품은 직접 배송해 드리고 대여가 완료 되면 요청하신 장소로 픽업가는 서비스까지 제공하고 있습니다. 최대 4박5일까지 대여 가능합니다.', '2022-06-02 11:37:36', 'F', '이용방법');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('중고 거래는 어떻게 이뤄지나요?', '중고 마켓에서 마음에 드는 상품이 있다면 상세보기 페이지에서 판매자와 대화를 할 수 있습니다. 판매자와 거래장소를 정하고 직접 거래 하실 수 있습니다.', '2022-06-02 11:37:37', 'F', '결제관련');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('대여 수익은 어떻게 발생하나요?', '내가 보관한 물건을 대여 가능하도록 설정해주세요. 누군가 내가 보관한 물건을 빌려서 쓰면 설정해주신 대여료의 일부를 환급해 드립니다. 대여수익은 내 정보 보기에서 확인이 가능합니다.', '2022-06-02 11:37:38', 'F', '계정');
-INSERT INTO board( boardTitle, boardDetail, boardDate, boardFlag, category) VALUES('환불 관련 정책', '장비 보관 혹은 장비 대여시 픽업 서비스가 시작되기 전까지 환불이 가능합니다. 마이페이지 내 보관 / 대여 물품 페이지에서 환불을 신청 할 수 있습니다.', '2022-06-02 11:37:38', 'F', '계정');
+
+INSERT INTO `board` (`boardNo`, `boardTitle`, `boardDetail`, `boardDate`, `boardPin`, `boardFlag`, `category`, `couponURL`) VALUES
+	(1, '공지사항1', '어쩌고저쩌고1', '2022-06-02 11:37:35', 0, 'A', NULL, NULL),
+	(2, '공지사항2', '어쩌고저쩌고2', '2022-06-02 11:37:36', 0, 'A', NULL, NULL),
+	(3, '공지사항3', '어쩌고저쩌고3', '2022-06-02 11:37:37', 0, 'A', NULL, NULL),
+	(4, '공지사항4', '어쩌고저쩌고4', '2022-06-02 11:37:38', 0, 'A', NULL, NULL),
+	(5, '장비 보관은 어떻게 하나요?', '보관하기 힘든 캠핑 장비들을 보관신청 해주시면 저희가 직접 픽업부터 창고에 보관까지 서비스 합니다. 제품이 창고에 도착하면 창고 촬영한 사진이 업로드 됩니다. 장비 보관 신청은 장비보관 탭에서 시작하기를 눌러 신청해주세요.', '2022-06-02 11:37:35', 0, 'F', '이용방법', NULL),
+	(6, '장비 대여는 어떻게 하나요?', '렌탈 마켓에서 현재 Forrest 에서 대여 중인 상품을 확인 하실 수 있습니다. 제품은 직접 배송해 드리고 대여가 완료 되면 요청하신 장소로 픽업가는 서비스까지 제공하고 있습니다. 최대 4박5일까지 대여 가능합니다.', '2022-06-02 11:37:36', 0, 'F', '이용방법', NULL),
+	(7, '중고 거래는 어떻게 이뤄지나요?', '중고 마켓에서 마음에 드는 상품이 있다면 상세보기 페이지에서 판매자와 대화를 할 수 있습니다. 판매자와 거래장소를 정하고 직접 거래 하실 수 있습니다.', '2022-06-02 11:37:37', 0, 'F', '결제관련', NULL),
+	(8, '대여 수익은 어떻게 발생하나요?', '내가 보관한 물건을 대여 가능하도록 설정해주세요. 누군가 내가 보관한 물건을 빌려서 쓰면 설정해주신 대여료의 일부를 환급해 드립니다. 대여수익은 내 정보 보기에서 확인이 가능합니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
+	(9, '환불 관련 정책', '장비 보관 혹은 장비 대여시 픽업 서비스가 시작되기 전까지 환불이 가능합니다. 마이페이지 내 보관 / 대여 물품 페이지에서 환불을 신청 할 수 있습니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
+	(10, '패밀리 캠핑! 가정의 달 맞이 이벤트~ 다양한 혜택받고 행복한 추억 만드세요~!(5/30까지)', '', '2022-06-22 18:01:20', 0, 'A', NULL, 'ㅁㄴㅇㄴㅁㅇ'),
+	(11, '무조건 드리는 신규회원쿠폰! 5월 신규회원 혜택이 팡팡!', '', '2022-06-22 18:17:45', 0, 'A', NULL, 'ㅁㄴㄹㄴㅁㅇㄹㅇㄴㅁㄹ');
 
 INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
 VALUES('1', '[가정의달 5천원쿠폰]', '2022-06-01','2022-12-31', 5000);
@@ -609,5 +614,11 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 
 INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 (14, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '041724c6-1272-4e41-bc23-daec6c2d68ca.jpg', 'product');
+
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
+(15, '10', '1b4872a8-df20-4631-ad73-696c6331a323.jpg', 'announce');
+
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
+(16, '11', 'bf5ec4d3-5f81-49dc-a454-8ebc0010404d.jfif', 'announce');
 
 

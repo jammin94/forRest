@@ -125,6 +125,16 @@
 	 </update>
 	 
 	 <!-- SQL : UPDATE -->
+	 <update	id="applyLeave"	parameterType="User" >
+	   	UPDATE user
+	   	<set>
+	   		leaveApplyDate	= CURRENT_TIMESTAMP(),
+	   		leaveDate = DATE_ADD(CURRENT_TIMESTAMP(),INTERVAL +30 day)
+	   	</set>
+	   	WHERE userId = #{userId}
+	 </update>
+	 
+	 <!-- SQL : UPDATE -->
 	 <update	id="restrictUser"	parameterType="User" >
 	   	UPDATE user
 	   	<set>
@@ -142,27 +152,6 @@
 		(SELECT COUNT(*) COUNT, reportedUser FROM report Group by reportedUser) B 
 		ON user.userId = B.reportedUser;																	
 	</select>
-	
-	<!-- 단위테스트용 쿼리 
-	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
-		SELECT
-		@rownum:=@rownum+1 as '번호', user.*
-		FROM user, (SELECT @rownum:=0)a;																		
-	 </select>
-	 -->
-<!-- 	본쿼리
-	<select  id="getUserList"  parameterType="Search"	resultMap="userSelectMap">				
-		SELECT @ROWNUM:=@ROWNUM+1 AS '번호' , inner.*
-		FROM ( SELECT u.* 
-				FROM user u 
-				<where>
-				<if test="searchKeyword != null">
-					userId LIKE CONCAT('%',#{searchKeyword},'%')
-				</if>
-				</where>) inner, (SELECT @ROWNUM:=0)blah
-		WHERE 1=1)																			
-	 </select> 
--->
 	
 	<!-- SQL : SELECT ROW Count -->
 	 <select  id="getTotalCount"   resultType="int">

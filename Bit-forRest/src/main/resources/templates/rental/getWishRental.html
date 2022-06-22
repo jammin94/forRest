@@ -99,19 +99,19 @@ border-bottom:3px solid #ddd !important;
 	        </thead>
 	        
 	        <tbody> 
-			   <tr class="tableBody" th:each="rental,index :${rentalList}">	 
+			   <tr class="tableBody" th:each="rentalList,index :${rentalList}">	 
 			        	<span class="getPeriod" style="display:none">[[${rental.period}]]</span>
 				    	  
 					     <td align="center">
 					    	<div class="productInfo">
 					    		<a href="/product/getProduct?prodNo=j">
-						    	<img class="productImg" src="https://dnvefa72aowie.cloudfront.net/origin/article/202206/5a320b8d30a41b35ac1add466f098858d5db53f2d973272bca013be9c82c17da.webp?q=95&amp;s=1440x1440&amp;t=inside">
+						    		<img  class="productImg"  th:src="@{/images/uploadFiles/} + ${rentalList.purchaseProd.prodImg}" >
 						    	</a>
 						    	
 						    	<div style="width:220px;padding:10px;">
 						    	
 						    		 <a href="/product/getProduct?prodNo=j">
-							    		<p style="margin-bottom: 10px; font-weight: bold" class="getProdName">[[${rental.purchaseProd.prodName}]] </p>
+							    		<p style="margin-bottom: 10px; font-weight: bold" class="getProdName">[[${rentalList.purchaseProd.prodName}]] </p>
 							    		
 							 	   </a>
 							    
@@ -134,7 +134,7 @@ border-bottom:3px solid #ddd !important;
 						    	</div>
 							</div>
 					    </td>
-								 <td class="tdCenter rentalPrice" style="text-align:center;" th:text = "${rental.purchaseProd.rentalPrice}"> 
+								 <td class="tdCenter rentalPrice" style="text-align:center;" th:text = "${rentalList.purchaseProd.rentalPrice}"> 
 			   		 </tr>
 	        </tbody>
 

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -97,14 +98,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		Collection<GrantedAuthority> collector = new ArrayList<>();
-		collector.add(new GrantedAuthority() {
-			//람다식 공부 해 볼거면 말해줘
-			@Override
-			public String getAuthority() {
-				// TODO Auto-generated method stub
-				return user.getRole();
-			}
-		});
+		collector.add(new SimpleGrantedAuthority(user.getRole()));
 		return collector;
 	}
 
@@ -144,7 +138,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	@Override
 	public boolean isEnabled() {
 		// 계정 활성화 검사 휴면 유저면 false
-		return true;
+		return user.isDisabled();
 	}
 
     /**
