@@ -45,14 +45,14 @@
 		</where>
 			<if test='"A".equals(board.boardFlag)'>
 				<if test="search.orderCondition==null">
-					ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
+					ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 				</if>
 				<if test="search.orderCondition!=null">
 					<if test="search.orderCondition=='ASC'.toString()">
-						ORDER BY b.boardPin DESC, b.boardDate ASC LIMIT #{newStartRowNum}, #{search.pageSize}
+						ORDER BY b.boardPin DESC, b.boardDate ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 					</if>
 					<if test="search.orderCondition=='DESC'.toString()">
-						ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{newStartRowNum}, #{search.pageSize}
+						ORDER BY b.boardPin DESC, b.boardDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 					</if>
 				</if>
 			</if>

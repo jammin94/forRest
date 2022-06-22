@@ -23,7 +23,7 @@
 	<insert 	id="addReport"		parameterType="report" >
 		INSERT 
 	 	INTO report(reportNo, reportUser, reportedUser,reportOldNo,reportChatroomNo,reportCategory,reportDate,reportChat,reportCode) 
-	 	values (#{reportNo}, #{reportUser}, #{reportedUser}, #{reportOldNo}, #{reportChatroomNo}, #{reportCategory}, #{reportDate}, #{reportChat}, #{reportCode})
+	 	values (#{reportNo}, #{reportUser}, #{reportedUser}, #{reportOldNo}, #{reportChatroomNo}, #{reportCategory}, CURRENT_TIMESTAMP, #{reportChat}, #{reportCode})
 	 </insert>
 	 
 	 <!-- SELECT ONE -->

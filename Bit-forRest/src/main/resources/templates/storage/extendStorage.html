@@ -121,7 +121,7 @@ select{
 	   
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-	 <form class="form-inline" name="detailForm">
+	 
 
 	
       
@@ -204,7 +204,8 @@ select{
 </div>
 	<!-- 기존 tranNo -->
 	 <input type="hidden"  name="tranNo"  th:value="${storage.tranNo}" class="tranNoOrg"> 
-	</form>
+	 <!-- 쿠폰넘버 -->
+	<input type="hidden" class="subCouponNo" name=ownCouponNo>
 	
 	<!-- 기간연장시 계산을 위해 필요한값들 -->
 	 <input type="hidden"  name="width"  th:value="${storage.storageProd.width} " id="resv_width" > 
@@ -213,7 +214,8 @@ select{
 	 <input type="hidden"   name="prodQuantity" th:value="${storage.storageProd.prodQuantity}"  id="resv_quantity"> 
 	
 	<!-- 결제전 필요한 tranNo -->
-	 <input type="hidden"   name="reserveTranNo" th:value="${reserveTranNo}" > 
+	 <input type="hidden"   name="reserveTranNo" th:value="${reserveTranNo}" >
+	 <input type="hidden"   name="prodName" th:value="${storage.prodName}" >
 
 	
 </div>
@@ -240,6 +242,7 @@ select{
 		});
 		
 		$(".extend-btn").on("click", function(){
+			submitCouponNumber();
 	
 			request_pay();
 		 })
@@ -317,7 +320,7 @@ select{
 			    	pg : "html5_inicis", 
 			        pay_method : 'card',
 			        merchant_uid : reserveTraNo,//주문번호
-			        name :"연장한 물품",
+			        name : $("input[name='prodName']").val(),
 			        amount :  $("input[name='resultPrice']").val(),
 			    }, function(rsp) {
 	    	console.log(rsp);
@@ -334,7 +337,7 @@ select{
 	        		
 	        		$.ajax({
 	                    type : "POST",  
-	                    url : "/storage/json/extendStorage?paymentNo="+ rsp.imp_uid,
+	                    url : "/storage/json/extendStorage?paymentNo="+ rsp.imp_uid+"&ownCouponNo="+$(".subCouponNo").val(),
 	                    dataType : "json", 
 	                    data: JSON.stringify({
 	                    	period: $("#resv_period").val(),
@@ -350,7 +353,9 @@ select{
 	                    success : function(data) {
 	                    	
 	                    	if(data){
-	                    		   alert("성공~");
+	                    		   
+	                    		   alert("결제가 완료되었습니다");
+	                    		
 	                    		   opener.parent.location.reload();
 	    	                       window.close();
 	                    	} else{
@@ -371,15 +376,16 @@ select{
 			
 		}
 	
-	/* function submitCouponNumber(){
+	 function submitCouponNumber(){
 			//undefined일경우 couponeNo를 0으로넘김
 			if($(".couponValue:selected").attr("data-coNo")==undefined){
 				  $(".subCouponNo").val(0);
 			} else{
 			    $(".subCouponNo").val($(".couponValue:selected").attr("data-coNo"));
+			    alert($(".subCouponNo").val());
 			}
 			
-		}*/
+		}
 	    
 	</script>
 	

@@ -98,7 +98,7 @@
 	  	SELECT t.tranNo, t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity, p.isRental,  a.startDate rsd, a.endDate red 
 	 	FROM product p, transaction t left outer join (SELECT prodNo, startDate, endDate FROM transaction WHERE tranCode = 1 AND endDate > DATE(NOW())) a on t.prodNo = a.prodNo
 	 	<where>
-	 		p.prodNo = t.prodNo and t.userId = #{userId} and tranCode = 0
+	 		p.prodNo = t.prodNo and t.userId = #{userId} and tranCode = 0 and prodCondition != '취소완료'
 	 		<if test="search.searchProductCondition != null">
 	 		<!-- 현재보관중인 물품만 보기위한 조건-->
 	 		 and p.prodCondition = #{search.searchProductCondition}

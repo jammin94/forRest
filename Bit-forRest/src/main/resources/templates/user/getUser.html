@@ -12,6 +12,50 @@
   <!--  ///////////////////////// 	CSS	 ////////////////////////// -->
   <style>
  
+ .old-list{
+margin-bottom: 210px !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;  
+}
+
+.old-list .old{  
+    border-radius: 10px;
+  
+  margin: 7px; /* Space between olds related with nth-childs below */
+  
+  position: relative;
+  border: 2px solid #eee;
+  background: white;
+  
+
+  min-height: 465px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 4 item list */
+.old-list .old:nth-child(4n+1){
+  margin-left: 0;
+}
+.old-list .old:nth-child(4n+4){
+  margin-right: 0;
+}
+
+.old-list .old:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.old-list .old .old-image{
+  position: relative;
+}
+ 
 .star-rating,.star-rating span { 
 	display:inline-block; 
 	height:100%; 
@@ -50,7 +94,7 @@
 	 <div class="profileTitle">
 		<span>[[${user.nickname}]]님의 프로필</span>
 	</div>
-	<div class="aboutUser">
+	<div class="aboutUser" style="display: flex;" >
 		<div class="col-md-6 left" style="text-align: center;" >
 			<span>
 				<img th:src= "@{/images/uploadFiles/}+${user.userImg}"
@@ -95,13 +139,13 @@
 	<!-- userContainer END  -->
 	
 	<!-- reviewContainer  -->	
-	<div class="oldReviewList" style="margin: 10px 0px 40px 280px;">
+	<div class="oldReviewList" style="margin: 10px 0px 40px 280px; display: flex;">
 		<ul class="reviewContainer">
 			<p class="reviewMainText">
 				<span>
 					<span style="font-size: 30px;">거래후기</span><br/>
 				</span>
-				<span style="font-size: 20px;" class="reviewSideText">상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
+				<span style="font-size: 20px;" class="reviewSideText">최근 상품을 구매하신 분들이 작성하신 리뷰입니다.</span>
 			</p>
 			<!-- 리뷰하나 -->
 		</ul>
@@ -141,9 +185,40 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div><!-- end of reviewLIst  -->
 
-</div><!-- reviewContainer END -->
+	<!-- oldList -->
+	 <div class="old-list" style="margin-left: 195px; width: 1000px;">
+
+        <!-- BEGIN old -->
+        <div class="old" th:each = "old : ${oldList}" style="margin-right:20px;">
+          <div class="owl-item active" style="width: 270px;" >
+        	<div class="item">
+			  <div class="try_rc_mob_box_wrapper">
+				<div class="try_rc_mob_img">
+					<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
+							<!--	<h5>Sale</h5>  -->
+					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+				</div>
+				<div class="try_rc_mob_img_cont">
+					<h2>[[${old.oldTitle}]]</h2>
+				</div>
+				<div class="try_rc_mob_img_cont_bottom">
+					<p>
+						<span class="new-price" th:text ="|${old.oldPrice}원|"></span>
+					</p>	
+					<div class="try_mob_btn_wrapper">	
+						<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}">자세히 보기</a>
+					</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+        </div>
+	
+</div><!-- Container list END -->
 
 <div th:replace="/main/footer.html"></div>
 </body>
@@ -154,22 +229,26 @@
 	<script type="text/javascript">
 
 	///////////////////평점 소수점/////////////////
-	var userRate = $('#userRate').text();
 	var reviewRate = $("reviewRate").text();
-	userRate = userRate.substr(0,3);
 	reviewRate = reviewRate.substr(0,3);
-	$('#userRate').text(userRate);
 	$('#reviewRate').text(reviewRate);
-
-	if(userRate==0.0){
-		$('#userRate').text("4.0");	
-	}
 	if(reviewRate==0.0){
 		$('#reviewRate').text("4.0");	
+		$("#reviewStar").width(($('#reviewRate').text()*20)+"%");
 	}
-	
-	$("#smStar").width((userRate*20)+"%");
 	$("#reviewStar").width((userRate*20)+"%");
+	
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
+
+	
+
 
 
 	</script>

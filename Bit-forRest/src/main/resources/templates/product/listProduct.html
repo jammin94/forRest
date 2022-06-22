@@ -11,8 +11,13 @@
    <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   
+	
+	
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" defer></script> 
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" defer></script>
+
         
 </head>
 <style>
@@ -318,8 +323,8 @@ margin-bottom: 210px !important;
 
 <body>
 
-  <div th:replace="/main/toolbar.html"></div>
-  <!--  <div th:replace="/product/categoryLeftbar.html"></div>-->
+ <div th:replace="/main/toolbar.html"></div>
+
  
 
 <div class="container tempList">
@@ -337,7 +342,7 @@ margin-bottom: 210px !important;
     <div class="wrap">
    <div class="search">
    
-       <input type="text" class="searchKeyword" name="searchKeyword" 
+       <input type="text" class="searchKeyword" name="searchKeyword"  id="prodnameBar"
        th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
 
        
@@ -364,7 +369,6 @@ margin-bottom: 210px !important;
   <!-- 정렬조건 바  끝-->
   
   <!--카테고리바  시작-->
-  <!-- 카테고리내에서 검색조건을 유지 어케함 -->
  <input type="hidden" class="searchCategory" name="searchCategory" value="">
 <div id="primary_nav_wrap">
 <ul>
@@ -424,7 +428,50 @@ margin-bottom: 210px !important;
 
       </div>
       <!-- END Product List -->
-
+		
+				<!-- navi start -->
+		<div >
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetProductList('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetProdctList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a th:onclick="|javascript:fncGetProductList('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		
     </div>
   </div>
 </div>
@@ -433,10 +480,12 @@ margin-bottom: 210px !important;
 	<div th:replace="/main/footer.html"></div>
 </body>
 
-	<script>
+	<script th:inline="javascript">
 	
-	//검색클릭
+	
 	$(function(){
+		
+		//검색클릭
 		$(".searchButton").on("click", function(){
 			
 			if($(".loginUser").val()==""){
@@ -444,28 +493,31 @@ margin-bottom: 210px !important;
 		    	} else{
 		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
 		    	}
-			
 		})
-	});
-	
-	//셀렉트박스(정렬조건) 클릭
-	$(function(){
-		$(".dropdown-select").on("change", function(){
-			
 		
-			if($(".loginUser").val()==""){
-				 $('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
-		    	} else{
-		    		 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
-		    	}
-		    	
-	
-			
+		//자동검색어 완성
+		var list = [];
+		/*[# th:each="names : ${prodNames}"]*/
+			list.push( /*[[${names.prodName}]]*/);
+		/*[/]*/
+		
+		console.log("list:"+list);
+		
+		$( "#prodnameBar" ).autocomplete({
+	   		      source: list
+	   		});
+		
+			//셀렉트박스(정렬조건) 클릭
+			$(".dropdown-select").on("change", function(){
+				if($(".loginUser").val()==""){
+				 	$('form').attr('method', 'POST').attr('action', '/product/listProduct').submit();
+		    		} else{
+		    			 $('form').attr('method', 'POST').attr('action', '/product/listProductAfterLogin').submit();
+		    		}
 		})
-	});
-	
-	$(function(){
-		$("li").on("click", function(){
+		
+		//카테고리 정렬
+	$("li").on("click", function(){
 			
 			var categoryValue = $(this).find('a').text();
 			//alert(categoryValue);
@@ -486,7 +538,7 @@ margin-bottom: 210px !important;
 			
 		})
 		
-		
+		//찜관련
 		$( ".heart" ).on("click" , function() {	        
 			var prodNo = $(this).parent().parent().parent().find("#prodNo").val();
 			console.log(prodNo);
@@ -565,7 +617,10 @@ margin-bottom: 210px !important;
 			}); 
 		
 		
-		});
+	});
+	
+
+	
 	
 
 

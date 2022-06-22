@@ -58,6 +58,11 @@ public class ProductService {
 		return map;
 	}
 	
+	public List<Product> getProductNames() throws Exception{
+		
+		return productDAO.getProductNames();
+	}
+	
 	public List<Product> getProductListHasUser(Search search, String userId) throws Exception{
 		System.out.println("getProductListHasUser 성공");
 		System.out.println("search in service: "+search);
@@ -73,6 +78,11 @@ public class ProductService {
 		List<Product> list= productDAO.getProductListForIndex();
 		
 		return list;
+	}
+
+	public int getTotalCount(Search search) throws Exception {
+		
+		return productDAO.getTotalCount(search);
 	}
 	
 	

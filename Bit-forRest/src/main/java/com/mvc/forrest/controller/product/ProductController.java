@@ -62,7 +62,7 @@ public class ProductController {
 	@Value("5")
 	int pageUnit;
 	
-	@Value("10")
+	@Value("8")
 	int pageSize;
 	
 	@GetMapping("updateRecentImg")
@@ -280,6 +280,23 @@ public class ProductController {
 		return "redirect:/storage/listStorage";
 	}
 	
+	//유저가 물품대여 승인신청을 취소
+		@RequestMapping("cancleRentalProduct")
+		public String cancleRentalProduct (@RequestParam("prodNo") String prodNo) throws Exception {
+			
+			System.out.println("prodNo:"+prodNo);
+			Product product = productService.getProduct(prodNo);
+			System.out.println("물품상태"+productService.getProduct(prodNo));
+			
+			if(product.getProdCondition().equals("물품대여승인신청중")) {
+				product.setProdCondition("보관중");
+			}	
+				
+			productService.updateProductCondition(product);
+			
+			return "redirect:/rental/listRental";
+		}
+	
 	
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
@@ -319,7 +336,6 @@ public class ProductController {
 	@RequestMapping("listProduct")
 	public String listProduct(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
-		System.out.println("search: "+ search);
 		
 		//카테고리중 전체를 클릭했을때 서치카테고리의 value를 null로 만듬
 		if(search.getSearchCategory()=="") {
@@ -334,7 +350,6 @@ public class ProductController {
 			search.setSearchKeyword(null);
 		}
 		
-		System.out.println("search2: "+ search);
 		
 		if(search.getCurrentPage()==0) {
 			search.setCurrentPage(1);
@@ -342,12 +357,16 @@ public class ProductController {
 		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = productService.getProductList(search);
+		List<Product> listName = productService.getProductNames();
+		
+		System.out.println("listName:"+listName);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+		System.out.println(map.get("list"));
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		model.addAttribute("prodNames", listName);
 		
 		return "product/listProduct";
 	}
@@ -356,7 +375,7 @@ public class ProductController {
 	public String listProductAfterLogin(@ModelAttribute("search") Search search, Model model, HttpRequest httpRequest)
 			throws Exception {
 		
-		System.out.println("search: "+ search);
+
 		
 		//System.out.println(this.getClass());
 		
@@ -382,19 +401,23 @@ public class ProductController {
 		
 		
 		List<Product> list = productService.getProductListHasUser(search, userId);
+		List<Product> listName = productService.getProductNames();
 		
-		System.out.println(list);
+		System.out.println("listName:"+listName);
+		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
+		System.out.println(resultPage);
 		
+		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
-		
+		model.addAttribute("prodNames", listName);
 
 		return "product/listProduct";
 	}
 	
-	//지정된 시간에 보관기간이 만료된 물품의 상태를 자동으로 변경(오후 네시반)
-	@Scheduled(cron = "0 35 17 * * ?")
+	//지정된 시간에 보관기간이 만료된 물품의 상태를 자동으로 변경(09 30)
+	@Scheduled(cron = "0 30 09 * * ?")
 	public void updateProductConditionAuto() throws Exception {
 		
 		System.out.println("자동실행 테스트");

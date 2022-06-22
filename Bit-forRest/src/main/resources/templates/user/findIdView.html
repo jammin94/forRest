@@ -20,6 +20,33 @@
 		$(function(){
 			$("#findId").on("click", fncFindId);
 			
+			$("#sendSMS").on("click",function(){
+				alert("sendSMS Click");
+				var phone = $("#phone").val();
+				console.log(phone);
+				console.log();
+				if($("#phone").val().length<10){
+					return;
+				}
+				$.ajax({
+					url : "/sms/json/sendSMS?phone="+phone,
+					method : "GET" ,
+					dataType : "json" ,
+					success : function(data) {
+						$("#checkSMS").click(function(){
+							var sms = $("#sms").val();
+							console.log("data : "+data);
+							console.log("sms : "+sms);
+							if(data==sms){
+								alert("인증에 성공하였습니다.");
+							}else{
+								alert("인증에 실패하였습니다.");
+							}
+						})
+					}
+				});	
+			});
+			
 		});
 		
 		function fncFindId() {
@@ -118,6 +145,29 @@
       transition: background 1s ease-out;
  
     }
+    
+        #sendSMS {
+      background: #eea54b;
+      height : 30px;
+      border-radius: 25px;
+      border:none;
+      color: white;
+      transition: background 1s ease-out;
+      background-color: #eea54b;
+	  color: white;
+	  width: 100px;
+    }    
+    #checkSMS {
+      background: #eea54b;
+      height : 30px;
+      border-radius: 25px;
+      border:none;
+      color: white;
+      transition: background 1s ease-out;
+      background-color: #eea54b;
+	  color: white;
+	  width: 100px;
+    }
 
     #button:hover {
       background-position: -400px;
@@ -163,13 +213,15 @@
 		<!-- hidden data -->
 
 	  <br><br>
-      <label for="userName">Name</label>
+      <label for="userName">>Name</label>
       <input id="userName" type="text" name="userName" placeholder="이름">
 
 	  <br><br>
-      <label for="phone">Phone</label>
-      <input id="phone" type="text" name="phone" placeholder="전화번호입력">
-	  <input id="sms" type="text" name="sms" placeholder="인증번호입력">
+      <label for="phone">>Phone</label><br>
+      <input id="phone" type="text" name="phone" placeholder="전화번호입력" style="width: 280px;">
+      <button type="button" id="sendSMS" style="width: 100px;">인증번호 발송</button>
+	  <input id="sms" type="text" name="sms" placeholder="인증번호입력" style="width: 280px;">
+	  <button id="checkSMS" type="button">인증번호 확인</button>
       
 
 	  <br><br>

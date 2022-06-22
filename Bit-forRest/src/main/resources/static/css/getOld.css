@@ -30,9 +30,12 @@ div img{
     width: 100%;
     height: 100%;
     transition: all 0.5s ease;
+    filter: blur(0px);
+    
 }
 .img-showcase img{
     min-width: 100%;
+    
 }
 .img-select{
     display: flex;
@@ -228,6 +231,7 @@ div img{
 }
 .oldLike i{
 	 width: 30px;
+	 height: 25px;
 	 color: #ff0000;
 }
 .oldLike{
@@ -241,18 +245,19 @@ div img{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 105px;
-    height: 34px;
+    width: 55px;
+    height:45px;
     color: #000000;
-    border: 1px solid #808080;
+/*     border: 1px solid #808080; */
     margin: 0 0.2rem;
     border-radius: 7%;
     text-decoration: none;
     font-size: 0.8rem;
     transition: all 0.5s ease;
+    background: rgb(255, 222,0,1);
 }
 .social-links a:hover{
-    background: rgb(254, 228, 48);
+    background: rgb(255, 222,0,1);
     border-color: transparent;
     color: #000000;
 }

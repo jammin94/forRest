@@ -28,9 +28,13 @@ public interface OldDAO {
 	
 	public List<Old> getOldListCategory(Old old) throws Exception;
 	
+	public List<Old> getOldListOthers(Old old) throws Exception;
+	
 	public void updateOldDate(String oldNo) throws Exception ;	
 	
-	public void updateOldState(String oldNo) throws Exception ;
+	public void updateOldOnSale(String oldNo) throws Exception ;
+	
+	public void updateOldSold(String oldNo) throws Exception ;
 	
 	public void updateViewCnt(String oldNo) throws Exception ;
 }

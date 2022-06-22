@@ -26,6 +26,8 @@ public interface ProductDAO {
 		
 		List<Product> getProductList(Search search) throws Exception;
 		
+		List<Product> getProductNames() throws Exception;
+		
 		List<Product> getProductListForIndex() throws Exception;
 		
 		int getTotalCount(Search search) throws Exception;

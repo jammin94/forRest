@@ -481,9 +481,9 @@ body {
 									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}" >
 												<!--	<h5>Sale</h5>  -->
 												
-											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+<!-- 											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/> -->
+<!-- 											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span> -->
+<!-- 											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span> -->
 										</div>
 										<div class="try_rc_mob_img_cont">
 											<h2>[[${old.oldTitle}]]</h2>
@@ -597,82 +597,82 @@ body {
 			
 		
 	
-		$( ".heart" ).on("click" , function() {	        
-			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
-			console.log(oldNo);
+// 		$( ".heart" ).on("click" , function() {	        
+// 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+// 			console.log(oldNo);
 			
-			$.ajax({
-	            type : "POST",  
-	            url : "/oldLike/addOldLike",       
-	            dataType : "json",   
-	            data : oldNo,
-	            error : function(){
-	               alert("통신 에러");
-	            },
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-	            success : function(heartCheck) {
+// 			$.ajax({
+// 	            type : "POST",  
+// 	            url : "/oldLike/addOldLike",       
+// 	            dataType : "json",   
+// 	            data : oldNo,
+// 	            error : function(){
+// 	               alert("통신 에러");
+// 	            },
+// 				headers : {
+// 					"Accept" : "application/json",
+// 					"Content-Type" : "application/json"
+// 				},
+// 	            success : function(heartCheck) {
 	                
-	                    if(heartCheck){
+// 	                    if(heartCheck){
 	                    	
-	                    console.log("찜하기 완료");
-				        $(this).addClass('filled');
-				        location.reload();
+// 	                    console.log("찜하기 완료");
+// 				        $(this).addClass('filled');
+// 				        location.reload();
                     	
 	                    	
 	    					
-	                    }
-	                    else if (heartCheck){
-	                     alert("이미 찜한 물품 입니다");
+// 	                    }
+// 	                    else if (heartCheck){
+// 	                     alert("이미 찜한 물품 입니다");
 	                     
 				         
 	                  
-	                    	location.reload();
-	                	}
+// 	                    	location.reload();
+// 	                	}
 	                    
 	                    
-	            	}
-	        	})
+// 	            	}
+// 	        	})
 			
-			}); 
+// 			}); 
 		
-		$( ".heart.filled" ).on("click" , function() {	        
-			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
-			console.log(oldNo);
+// 		$( ".heart.filled" ).on("click" , function() {	        
+// 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+// 			console.log(oldNo);
 			
-			$.ajax({
-	            type : "POST",  
-	            url : "/oldLike/deleteOldLikeOnList",       
-	            dataType : "json",   
-	            data : oldNo,
-	            error : function(){
-	               alert("통신 에러");
-	            },
-				headers : {
-					"Accept" : "application/json",
-					"Content-Type" : "application/json"
-				},
-	            success : function(heartCheck) {
+// 			$.ajax({
+// 	            type : "POST",  
+// 	            url : "/oldLike/deleteOldLikeOnList",       
+// 	            dataType : "json",   
+// 	            data : oldNo,
+// 	            error : function(){
+// 	               alert("통신 에러");
+// 	            },
+// 				headers : {
+// 					"Accept" : "application/json",
+// 					"Content-Type" : "application/json"
+// 				},
+// 	            success : function(heartCheck) {
 	                
-	                    if(heartCheck){
+// 	                    if(heartCheck){
 	                    	
-	                    console.log("찜삭제 완료");
-				        $(this).removeClass('filled');
-				        location.reload();
+// 	                    console.log("찜삭제 완료");
+// 				        $(this).removeClass('filled');
+// 				        location.reload();
 	
-	                    }
-	                    else if (heartCheck){
-	                    	alert("이미 삭제한 물품 입니다");                 
-	                    	location.reload();
-	                	}
+// 	                    }
+// 	                    else if (heartCheck){
+// 	                    	alert("이미 삭제한 물품 입니다");                 
+// 	                    	location.reload();
+// 	                	}
 	                    
 	                    
-	            	}
-	        	})
+// 	            	}
+// 	        	})
 			
-			}); 
+// 			}); 
 		
 		
 		});
