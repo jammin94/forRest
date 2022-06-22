@@ -15,11 +15,11 @@
 		<result property="boardPin" 				column="boardPin" 				jdbcType="INTEGER"/>
 		<result property="boardFlag"	   			column="boardFlag" 				jdbcType="VARCHAR" />
 		<result property="category"	   			column="category" 				jdbcType="VARCHAR" />
-		<result property="couponURL"	   			column="couponURL" 				jdbcType="VARCHAR" />
+		<result property="couponURL"	   		column="couponURL" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="addBoard"		parameterType="board" >
+	<insert 	id="addBoard"		parameterType="board" useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardNo">
 		INSERT 
 	 	INTO board(boardTitle, boardDetail, boardDate, boardFlag, couponURL) 
 	 	values (#{boardTitle}, #{boardDetail}, CURRENT_TIMESTAMP, #{boardFlag}, #{couponURL})

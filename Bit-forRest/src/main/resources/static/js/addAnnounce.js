@@ -53,7 +53,7 @@ $(function(){
 	      var newImg = '<div class="img-preview-small">' +
 	          '<img src="' + e.target.result + '" class="img-small-selected">' +'<input type="hidden" name="count" value="'+(count)+'">'+
 	          '</div>';  /*새로운 사진에 테두리가 생기고 기존 테두리 없어짐*/
-	      var str2 = "<p><input type='file'  id='file_"+(count+1)+"'  name='uploadFile' style='display:none' onchange='change()'></p>";
+	      var str2 = "<p><input type='file'  id='file_"+(count+1)+"'  name='uploadFiles' style='display:none' onchange='change()'></p>";
 	      count++;
 	      $("#fileDiv").append(str2);
 	      $(".img-holder").append(newImg);/*image holder div에 새 이미지 추가 */

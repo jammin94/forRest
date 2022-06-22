@@ -45,7 +45,10 @@ public class BoardController {
 		System.out.println("Controller GET: getAnnounce ");
 		
 		model.addAttribute("board", boardService.getBoard(boardNo));
-		model.addAttribute("imageList", fileUtils.getAnnounceImgList(Integer.toString(boardNo)));
+		System.out.println(Integer.toString(boardNo));
+		List<Img> list = fileUtils.getAnnounceImgList(Integer.toString(boardNo));
+		System.out.println(list);
+		model.addAttribute("imageList", list);
 		
 		return "/board/getAnnounce";
 	}
@@ -67,8 +70,9 @@ public class BoardController {
 		board.setBoardFlag("A"); //Announce setting
 		boardService.addBoard(board);
 		
-		String prodImg = 	fileUtils.uploadFiles(uploadFiles, Integer.toString(board.getBoardNo()), "announce");
-		
+		if(uploadFiles!=null) {
+			String prodImg = 	fileUtils.uploadFiles(uploadFiles, Integer.toString(board.getBoardNo()), "announce");
+		}
 		return "redirect:/board/listAnnounce";
 	}
 	

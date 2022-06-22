@@ -13,34 +13,6 @@
 	<link rel="stylesheet" href="/css/addAnnounce.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	
-	
-	
-	<!-- Bootstrap Dropdown Hover CSS -->
-<!--    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet"> -->
-    <!-- Bootstrap Dropdown Hover JS -->
-  <!--  <script src="/javascript/bootstrap-dropdownhover.min.js"></script> -->
-   <script>
-   			//공지사항 등록
-   			$("#add").click(function(){
-				var boardTitle=$("input[name='boardTitle']").val();
-				var boardDetail=$("input[name='boardDetail']").val();
-
-				if(boardTitle!=null && boardDetail!=null){
-					alert("공지사항 등록 완료");
-					$("form").attr("method" , "POST").attr("action" , "/board/addAnnounce").submit();	
-				}else{
-					alert("공지사항 제목과 내용을 반드시 적어주세요");
-				}
-			});
-
-   </script>
-   
-     
-  
-  <!-- jQuery UI toolTip 사용 JS-->
-<!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-
 </head>
 
 <body>
@@ -63,25 +35,25 @@
 		 <h3>공지사항 등록</h3>
 	</div>
 		
-	 <form class="form-inline" name="detailForm">
+	 <form class="form-inline" name="detailForm" enctype="multipart/form-data">
 	 
 	 	<div class="input-group">
-		  <span class="input-group-addon" id="boardTitle" name="boardTitle">제목</span>
-		  <input type="text" class="form-control" placeholder="공지사항 제목을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px">
+		  <span class="input-group-addon" id="boardTitle">제목</span>
+		  <input type="text" class="form-control" name="boardTitle" placeholder="공지사항 제목을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px">
 		</div>
 		
 		<br/>
 		
 		<div class="input-group">
-		  <span class="input-group-addon" id="boardDetail" name="boardDetail">내용</span>
-		  <input type="text" class="form-control" placeholder="공지사항 글 내용을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
+		  <span class="input-group-addon" id="boardDetail">내용</span>
+		  <input type="text" class="form-control" name="boardDetail" placeholder="공지사항 글 내용을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
 		</div>
 		
 		<br/>
 		
 		<div class="input-group">
-		  <span class="input-group-addon" id="couponURL" name="couponURL">쿠폰 URL</span>
-		  <input type="text" class="form-control" placeholder="쿠폰받기 URL을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
+		  <span class="input-group-addon" id="couponURL">쿠폰 URL</span>
+		  <input type="text" class="form-control"  name="couponURL" placeholder="쿠폰받기 URL을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
 		</div>
 		
 		<br/>
@@ -89,8 +61,7 @@
 		<!-- 도전.. -->
 					<div id="fileDiv">
 						<p>
-							<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
-							
+							<input type="file" id="file_0" name="uploadFiles" style="display:none" onchange="change()">				
 						</p>
 					</div>
 
@@ -119,31 +90,41 @@
 					    <!-- 도전.. -->
 		  
 		
-		<button type="text" class="btn btn-default" id="add">등록</button>
-		<button type="text" class="btn btn-default" id="cancel">
+		<button type="button" class="btn btn-default" id="add">등록</button>
+		<button type="button" class="btn btn-default" id="cancel">
 			<a th:href="@{/board/listAnnounce}" >취소</a>
 		</button>
+		</form>
 		</div>
-
-	</form>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
 </body>
 
 <script src="/js/jquery_min.js"></script>
-	<script>
-	  $(document).ready(function() {
-			"use strict";
-			
+<script src="/js/addAnnounce.js"></script>
+<script>
+		   $(document).ready(function() {
+				
+			    // Preloader 
+			    jQuery(window).on('load', function() {
+			        jQuery("#status").fadeOut();
+			        jQuery("#preloader").delay(350).fadeOut("slow");
+			    });
+		 })
+   
+   			//공지사항 등록
+   			$("#add").click(function(){
+				var boardTitle=$("input[name='boardTitle']").val();
+				var boardDetail=$("input[name='boardDetail']").val();
 
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
-	  })
-	  
-	</script>
-<script src="/js/addAnnounce.js"></script>	
+				if(boardTitle!=null && boardDetail!=null){
+					alert("공지사항 등록 완료");
+					$("form").attr("method" , "POST").attr("action" , "/board/addAnnounce").submit();	
+				}else{
+					alert("공지사항 제목과 내용을 반드시 적어주세요");
+				}
+			});
+
+</script>	
 </html>

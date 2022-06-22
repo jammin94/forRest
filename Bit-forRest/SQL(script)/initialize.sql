@@ -189,8 +189,8 @@ CREATE TABLE `chatImg` (
 
 CREATE TABLE `board` (
   `boardNo` int NOT NULL AUTO_INCREMENT,
-  `boardTitle` varchar(50) NOT NULL DEFAULT '',
-  `boardDetail` varchar(400) NOT NULL DEFAULT '',
+  `boardTitle` varchar(500) NOT NULL DEFAULT '',
+  `boardDetail` varchar(5000) NOT NULL DEFAULT '',
   `boardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `boardPin` int DEFAULT 0, 
   `boardFlag` varchar(2) NOT NULL, 
