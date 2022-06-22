@@ -34,6 +34,7 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	
 	private User user;
 	private Map<String, Object> attributes;
+	private Collection<? extends GrantedAuthority> authorities;
 	
 	@Autowired
 	private CouponService couponService;
@@ -110,7 +111,6 @@ public class LoginUser  implements UserDetails , OAuth2User{
 	//권한이 한개 이상일 경우가 있기 때문에 Collection으로 리턴함
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		Collection<GrantedAuthority> collector = new ArrayList<>();
 		collector.add(new SimpleGrantedAuthority(user.getRole()));
 		return collector;
