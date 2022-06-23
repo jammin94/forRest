@@ -204,6 +204,7 @@ public class StorageController {
 	@RequestMapping("listStorageForAdmin")
 	public String listStorageForAdmin(@ModelAttribute("search") Search search, Model model) throws Exception {
 		
+		
 		if (search.getCurrentPage() == 0) {
 			search.setCurrentPage(1);
 		}
@@ -232,7 +233,7 @@ public class StorageController {
 		Map<String, Object> map = storageService.getStorageListForAdmin(search);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize );
 		
-	
+		System.out.println("resultPage:"+resultPage);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
