@@ -121,6 +121,8 @@ public class RentalReviewController {
 			System.out.println("tranNo"+tranNo);
 			System.out.println("렌탈리뷰 추가하기 테스트 중");
 			
+			model.addAttribute("rentalReview", rentalReview);
+			
 			return "redirect:/rental/listRental";
 		}
 		

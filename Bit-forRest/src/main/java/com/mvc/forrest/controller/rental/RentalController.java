@@ -24,6 +24,7 @@ import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Rental;
+import com.mvc.forrest.service.domain.RentalReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
@@ -257,7 +258,7 @@ public class RentalController {
 	//------------대여물품리스트 화면------------//
 	//비회원,회원, 어드민 가능
 	@RequestMapping("listRental")
-	public String listProductView(@ModelAttribute("search") Search search, HttpSession httpSession, Model model) throws Exception{
+	public String listProductView(@ModelAttribute("search") Search search,@ModelAttribute("rentalReview") RentalReview rentalReview, HttpSession httpSession, Model model) throws Exception{
 		
 		System.out.println("1111");
 		
@@ -285,9 +286,12 @@ public class RentalController {
 		
 		//System.out.println("디버그 "+mapStorage.get("list"));
 		
+		//rentalReview.setReviewImg(userId);
+		
 		model.addAttribute("list", mapRental.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		model.addAttribute("rentalReview",rentalReview);
 		
 		System.out.println("resultPage:"+resultPage);
 		
