@@ -28,7 +28,7 @@ public class SmsRestController {
 		Random rd = new Random();
 		int authNum = rd.nextInt(888888)+111111;
 		
-		smsService.makeMassage(authNum, phone);
+//		smsService.makeMassage(authNum, phone);
 		
 		return authNum;
 	}
