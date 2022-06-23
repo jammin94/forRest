@@ -21,7 +21,7 @@
 
 .img-showcase img:nth-of-type(1){
 	    width: 500px !important;
-    height: 700px !important;
+    height: auto !important;
 }
 
 .card-wrapper{
@@ -211,8 +211,6 @@
     display: none;
 }
 
-
-
 .profileImg{
 	width:50px;
 	height:50px;
@@ -265,11 +263,18 @@
 	color:#fff;
 }
 
-ul > li{
-	font-size: 16px;
+.product-detail ul > li{
+	font-size: 20px;
 }
 
 .img-select .img-item a img{
+}
+.firstUl li{
+    margin: 20px 0px !important;
+}
+
+#payPrice{
+
 }
 
 </style>
@@ -327,24 +332,62 @@ ul > li{
       </div>
       
       <div style="margin-bottom: 15px;" th:if="${product.userId} != ${sessionUser.userId}">
-       <button type="button" class="chat-btn" >
-					채팅하기
-					<i class="fa-solid fa-comments"></i>
-					</button>
 					
 		</div>
 
       <div class = "product-detail">
-        <h2>상세정보 </h2>
-        <p class="detail" th:text="${product.prodDetail}" style="font-size: 17px;"></p>
+   
         <p></p>
-        <ul>
-          <li>카테고리 <span th:text = ${product.category}></span></li>
-          <li>크기 <span >[[${product.width}]] x [[${product.length}]] x [[${product.height}]] </span></li>
-          <li class="rentalFee"  th:value="${product.rentalPrice}">렌탈비용(1박2일) <span th:text = "|${product.rentalPrice}원|"></span></li>
-          <li>수량 <span th:text = "|${product.prodQuantity}개|"></span></li>
-          <li>대여횟수 <span  th:text = "|${product.rentalCounting}회|"></span></li>
-          <li>대여일 <span>
+        
+              <div>
+              <input type="hidden" class="rentalFee" th:value="${product.rentalPrice}">
+           <span style="font-size:30px; font-weight:bold; color:#000;" th:text = "|${product.rentalPrice}원|" class="commaPrice"></span>
+           </div>
+        <div style="display:flex;">
+       
+        <ul class="firstUl">
+          <li> 
+         	 <span style="font-weight:bold;">카테고리</span>	  
+          </li>
+          <li>
+      	  	<span style="font-weight:bold;">크기</span>	   
+          </li>
+       
+          <li>
+       		<span style="font-weight:bold;">수량</span>    
+          </li>
+          <li>
+       		<span style="font-weight:bold;">대여횟수</span>  
+           </li>
+          <li>
+         	<span style="font-weight:bold;">대여일</span>	  
+          <span>
+          </span></li>
+      
+			<li th:if = "${product.userId} == ${sessionUser.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
+			<li th:if = "${product.userId} == ${sessionUser.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
+       
+         <li style="margin-top:78px !important; color:#000;">
+         	= 결제금액 
+          </li>
+        </ul>
+        
+        <ul style=" margin-left: 60px;">
+          <li> 
+         	 <span th:text = ${product.category}></span>
+          </li>
+          <li>
+      	    <span >[[${product.width}]] x [[${product.length}]] x [[${product.height}]] </span>
+          </li>
+    
+          <li>
+          <span th:text = "|${product.prodQuantity}개|"></span>
+          </li>
+          <li>
+           <span  th:text = "|${product.rentalCounting}회|"></span>
+           </li>
+          <li>
+          <span>
            <select class="selectBox" name="selection">
            				 <option  value=2>-- 선택 --</option>
                         <option value=2>1박2일</option>
@@ -356,9 +399,12 @@ ul > li{
       
 			<li th:if = "${product.userId} == ${sessionUser.userId}">계좌번호  <span  th:text = ${product.account}></span></li>
 			<li th:if = "${product.userId} == ${sessionUser.userId}"> 반송주소  <span  th:text = ${product.divyAddress}></span></li>
-       
-         <li>결제금액 <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px;text-align:right;" readonly/>원 </li>
+         <li>
+         <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px; margin-top:40px !important; font-size:25px;color:red; " readonly/><span style="color:#000;font-weight:bold;">원</span> </li>
         </ul>
+        </div>
+        
+        
       </div>
       
         <div class = "purchase-info" th:if="${product.userId} == ${sessionUser.userId}">
@@ -382,24 +428,6 @@ ul > li{
       </div>
       
 
-      <div class = "social-links">
-        <p>공유하기 </p>
-        <a href = "#">
-          <i class = "fab fa-facebook-f"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-twitter"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-instagram"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-whatsapp"></i>
-        </a>
-        <a href = "#">
-          <i class = "fab fa-pinterest"></i>
-        </a>
-      </div>
     </div>
   </div>
   
@@ -423,6 +451,56 @@ flex-shrink, flex-shrink-1
 7. flex
 flex-none, flex-initial, flex-auto, flex-1
 -->
+
+<ul class="reviewContainer">
+				<p class="reviewMainText">
+					<span>
+						<span>상품정보</span><br/>
+						<span>
+						</span>
+					</span>
+										     <p class="detail" th:text="${product.prodDetail}" style="font-size: 17px; padding: 30px 0 30px 0;"></p>					
+				</p>
+			<!-- 리뷰하나 -->
+			 <li th:each = "rentalreview : ${list}">  
+                   <div style="display:flex;">
+                       <div>
+                              <div class="profileFlex">
+                              	<img class="profileImg" th:src= "@{/images/uploadFiles/} + ${rentalreview.user.userImg}"></img>
+                              <!--  	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"> -->
+                              	</span>
+                              	   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview1.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview2.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview3.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview4.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview5.png">
+                              </div>
+                                <div>                                 
+                                    <div>
+                                        <strong th:text="${rentalreview.user.nickname}"></strong>
+                                        <span  th:text="${rentalreview.regDate}"></span>
+                                        </div>
+                                  </div>
+                                    <div class="listCursor">
+                               		     <div class="reviewImg">
+                               		     		<!--  테스트용 경로: 이미지경로는 추후 변경 일단 요래하면 됨 -->
+												<img th:src="@{/images/uploadFiles/} + ${rentalreview.reviewImg}" id="baseImage" > 
+										</div>
+                                        <span class="reviewContent"  th:text="${rentalreview.reviewDetail}"></span>
+                                        <span class="reviewContent"  th:text="${rentalreview.reviewDetail}"></span>
+                                    </div>
+                         </div>
+                            <div>
+                                <span>
+                                <div class="thumbImg">
+									<img th:src="@{/images/uploadFiles/} + ${rentalreview.reviewImg}" id="baseImage" >
+								</div>                                
+                                </span>
+                            </div>                 
+                        </div>
+				    </li>
+				    <!-- 리뷰끝 -->
+				</ul>
 
 <!-- Container  -->
 			<ul class="reviewContainer">
@@ -483,6 +561,10 @@ flex-none, flex-initial, flex-auto, flex-1
 	<script src="/js/jquery_min.js"></script>
 <script>
 $(function(){
+	$(".commaPrice").text($(".commaPrice").text().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	
+})
+$(function(){
 
     $('.listCursor').on('click',function(){
 		console.log('listcursor');
@@ -528,6 +610,7 @@ $(function(){
     
     $(".selectBox").on("click",function(){
     	
+    	console.log($(this).val());
     	
     	var rentalPrice =    $(".rentalFee").val();	
     	var select = $(".selectBox option:selected").val();
@@ -538,9 +621,9 @@ $(function(){
     	var period1 = $("#period").val();
 		console.log("기간:"+period1);
 		
-		var PayPrice = Math.round(rentalPrice * select * 0.5);
-
-  	  $('#PayPrice').val(PayPrice);
+		var PayPrice = Math.round(rentalPrice * select * 0.5)+"";
+		console.log(PayPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+  	  $('#PayPrice').val(PayPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     })
     
     $('.reviewBtn').on("click",function(){
