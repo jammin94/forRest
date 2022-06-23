@@ -689,8 +689,8 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
 (40, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'c6394234-0d68-4d7a-858e-7530b3167ab7.jpg', 'old');
 
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','2.jpg','product')
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','1.jpg','product')
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','3.jpg','product')
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','4.jpg','product')
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','5.jpg','product')
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','2.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','1.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','3.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','4.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','5.jpg','product');
