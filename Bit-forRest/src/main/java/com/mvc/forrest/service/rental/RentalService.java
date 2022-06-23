@@ -64,7 +64,7 @@ public class RentalService {
 		return totalCount ;
 	}
 	
-	//물품대여 리스트 ( Admin 용 )
+	//대여수익리스트
 		public Map<String, Object> getRentalListProfit(Search search, String userId) throws Exception{
 			
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -72,7 +72,9 @@ public class RentalService {
 			map.put("userId", userId);
 			
 			List<Rental> list = rentalDAO.getRentalListProfit(map);
-			int totalCount = rentalDAO.getTotalCountAdmin(search);
+			
+			int totalCount = rentalDAO.getTotalCountRentalListProfit(map);
+			System.out.println("2");
 			System.out.println(totalCount);
 			map.put("list", list);
 			map.put("totalCount", totalCount);

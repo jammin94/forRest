@@ -319,19 +319,19 @@ INSERT INTO old
 VALUES ('j','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'조명',FALSE,'jjj.jpg','서초동');
 
 INSERT INTO old
-VALUES ('300c7440-57b9-4549-869d-b67b11ae027f', 'user01@naver.com', 7000, '테이블', '한번 써서 깨끗해요~', '2022-06-23 00:43:11', 0, '테이블', 1, '5a9056e3-2833-4e8d-b4ee-fa1355fee05d.jpg', '삼성동');
+VALUES('48314086-6371-4cbf-8a16-c0495771f046', 'user01@naver.com', 5000, '분위기 있는 랜턴', '싸게 가져가세요~', '2022-06-23 09:56:47', 1, '조명', 1, '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', '삼성동');
 
 INSERT INTO old
-VALUES ('505ad46a-ee24-451d-93ac-366758db530a', 'user01@naver.com', 30000, '아이스박스 팔아요', '기능 좋아요.', '2022-06-23 00:48:11', 0, '기타용품', 1, '98f8dcd0-f485-426a-90ff-fe2a9e2a3fe2.jpg', '청담동');
+VALUES	('5643ddbf-60fd-44b1-add6-8d7548357c7b', 'user01@naver.com', 9000, '고기굽기 좋은 테이블', '사용감이 있어 저렴하게 올립니다. 기스 살짝 있어요.', '2022-06-23 10:02:08', 0, '테이블', 1, '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', '삼성동');
 
-INSERT INTO old	
-VALUES ('859f0a29-900f-4915-931d-db84264b6473', 'user01@naver.com', 5000, '감성 조명', '분위기가 달라져요. 저렴하게 가져가세요.', '2022-06-23 00:36:26', 2, '텐트', 1, 'af53b5a2-4812-43c7-9daf-b4a2b50f07a6.jpg', '역삼동');
+INSERT INTO old
+VALUES('a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'user01@naver.com', 566, '감성 조명', '싸게 가져가세요', '2022-06-23 09:50:06', 1, '조명', 1, '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', '청담동');
 
-INSERT INTO old	
-VALUES ('f2633ab8-2980-4512-88d1-4ed7f7f27ed3', 'user01@naver.com', 6000, '랜턴 2개', '하나씩은 팔지 않습니다.', '2022-06-23 00:39:11', 1, '텐트', 1, '98daa892-9499-45b0-80db-df587e49a415.JPG', '연희동');
-	
-INSERT INTO old	
-VALUES ('fbfce808-e01d-45aa-a9f9-f5a28301de3f', 'user01@naver.com', 8000, '고급 의자', '급처합니다.', '2022-06-23 00:42:00', 0, '의자', 1, '1ecabfc4-bda9-4607-b0c7-9f0de28a2978.JPG', '이촌동');
+INSERT INTO old
+VALUES('ea5668d7-ad6e-4f09-8719-474876e6cad4', 'admin', 60000, '원목 테이블', '튼튼해요 퀄리티 정말 좋아요.', '2022-06-23 09:59:53', 1, '테이블', 1, '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', '역삼동');
+
+INSERT INTO old
+VALUES('fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'user01@naver.com', 90000, '한번 사용한 텐트', '실물 예뻐요~', '2022-06-23 09:55:13', 0, '텐트', 1, 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', '연희동');
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg', CURRENT_TIMESTAMP());
 
@@ -355,7 +355,7 @@ INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prod
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('k', 73, 45, 10, 'user03@naver.com', '대여중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '3.jpg', CURRENT_TIMESTAMP());
 
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('l', 73, 45, 10, 'user04@naver.com', '배송중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
+INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate, isRental,rentalPrice) VALUES ('l', 73, 45, 10, 'sanstory12rt@naver.com', '보관중', '특대형 누빔텐트', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP(),1,10000);
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('m', 73, 45, 10, 'user01@naver.com', '물품대여승인신청중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '2.jpg', CURRENT_TIMESTAMP());
 
@@ -436,27 +436,27 @@ values ('ii', 'user01@naver.com', 'i', '복정동1', '복정동2', '빨리줘', 
 INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
 values ('jj', 'user01@naver.com', 'j', '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형2', '4.jpg', 40000, 0, 40000);
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk', 'user02@naver.com', 'k', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk', 'user02@naver.com', 'k', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,complete ) VALUES ('kkg', 'user01@naver.com', 'l', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' ,1);
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,complete ) VALUES ('kkg', 'user01@naver.com', 'l', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' ,1);
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkgg', 'user01@naver.com', 'm', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkgg', 'user01@naver.com', 'm', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_73457649', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkag', 'user01@naver.com', 'n', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkag', 'user01@naver.com', 'n', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53362363', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkasg', 'user01@naver.com', 'o', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkasg', 'user01@naver.com', 'o', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('2kk4asg', 'user05@naver.com', 'p', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('2kk4asg', 'user05@naver.com', 'p', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_61333424', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk3a6sg', 'user04@naver.com', 'q', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk3a6sg', 'user04@naver.com', 'q', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_75484565', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk4a7sg', 'user03@naver.com', 'r', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk4a7sg', 'user03@naver.com', 'r', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53342342', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('12kkasg', 'user02@naver.com', 's', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('12kkasg', 'user02@naver.com', 's', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123124525', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('k4k3asg', 'user07@naver.com', 't', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('k4k3asg', 'user07@naver.com', 't', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_46463463', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
 
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk54asg', 'user06@naver.com', 'u', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, '20030', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
+INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk54asg', 'user06@naver.com', 'u', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_131313463', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
 
 INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`) VALUES
  ('193f067d-3eda-4a07-a68b-e90824f642cf', 'captain9697@naver.com', 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-10-21', 120, 0, 'imp_930121942719', '2022-06-22 14:19:07', NULL, '010/4114/9697', '박범수', '캠핑의자,캠핑체어,스노우라인,유아의자,어린이캠핑', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 960, 0, 960, 0, 0);
@@ -639,3 +639,57 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 
 INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 (16, '11', 'bf5ec4d3-5f81-49dc-a454-8ebc0010404d.jfif', 'announce');
+
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
+(17, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(18, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'fde2604b-6261-4cdf-9eeb-688b3fc2e86a.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(19, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '9ce2c7cd-0268-42f5-8c28-36586c02fee1.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(20, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'a0da642a-22d4-4f0e-af8c-8734a58b9006.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(21, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(22, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'cd2be5c3-42d9-4de5-846e-f32e1144851e.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(23, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'c69e4784-dba2-423c-8839-b7f4841674bc.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(24, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'a0f7c24a-6236-4c48-b13a-6648966f5ba4.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(25, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(26, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '9106a2b1-e929-45a0-aa98-353ec4b8ff3b.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(27, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'f597e3bd-3997-4970-a91e-25cf2c430350.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(28, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '83c8ce90-fb90-47ec-84be-75d818ab06ba.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(29, '48314086-6371-4cbf-8a16-c0495771f046', '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(30, '48314086-6371-4cbf-8a16-c0495771f046', '6244835a-b366-45dd-84ab-c00a0f2214e1.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(31, '48314086-6371-4cbf-8a16-c0495771f046', '0617a0f7-5b7a-46c8-9838-320de2aa5737.PNG', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(32, '48314086-6371-4cbf-8a16-c0495771f046', 'c4505803-94a9-43dd-a24a-2a24faa3fed2.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(33, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(34, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '53a5147c-44bf-4b35-8580-eba4dfdd3b69.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(35, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '20b0eff3-f7b9-4ccb-b6c9-7001e1a9abbc.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(36, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '63eec621-9f76-4c52-b303-8c74691ba29f.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(37, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(38, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'cd91d1d2-2596-4787-937c-f655124188d8.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(39, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '98ba452a-6d85-436f-8e5a-56ee54528e51.jpg', 'old');
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
+(40, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'c6394234-0d68-4d7a-858e-7530b3167ab7.jpg', 'old');
+
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','1.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','2.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','3.jpg','product');
+INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','4.jpg','product');

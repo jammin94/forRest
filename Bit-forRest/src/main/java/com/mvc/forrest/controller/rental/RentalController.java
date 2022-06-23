@@ -354,25 +354,28 @@ public class RentalController {
 		int pageSize = 10;
 		
 		search.setPageSize(pageSize);
+		System.out.println("search:"+search);
 		
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		System.out.println(userId);
+		//System.out.println(userId);
 		Map<String, Object> mapRental = rentalService.getRentalListProfit(search,userId);
 		
 		int profitTotal = rentalService.getRentalProfitTotal(userId);
 		
-		System.out.println(mapRental);
+		//System.out.println(mapRental);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
 					
 		// Model 과 View 연결
-		System.out.println( mapRental.get("list"));
+		//System.out.println( mapRental.get("list"));
 		
 		model.addAttribute("list", mapRental.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		model.addAttribute("profitTotal",profitTotal);
+		
+		System.out.println("resultPage:"+resultPage);
 		
 		return "rental/listRentalProfit";
 	}
