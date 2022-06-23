@@ -17,6 +17,14 @@ body
 /* background-repeat: no-repeat; */
 
 }
+
+input{
+	font-size:16px;
+}
+
+.bold{
+	font-weight:bold !important;
+}
 .container
 {
     width: 500px;
@@ -24,18 +32,26 @@ body
     border-radius: 5px;
     text-align: center;
     padding: 50px 35px 10px 35px;
-
+    box-shadow: 2px 2px 10px #ababab;
+        margin: 110px 0 80px 0;
 }
 .container header
 {
     font-size: 35px;
     font-weight: 600;
     margin: 0 0 30px 0;
+    color: #000;
 }
 .container .form-outer
 {
     width: 100%;
     overflow: hidden;
+}
+
+.oldDetail{
+	border-radius:8px;
+	padding:10px;
+	font-size:18px;
 }
 .form-outer form
 {
@@ -77,7 +93,7 @@ body
     padding-left: 15px;
 }
 .form-outer form .page .field.temp{
-    margin-bottom: 200px;
+    margin-bottom: 450px;
 }
 .form-outer form .page .field.temp textarea{
     width: 100%;
