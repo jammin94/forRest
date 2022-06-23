@@ -561,7 +561,6 @@
         {% for list in lists %}
         <li class="contact active" value="{{list.chatRoomNo}}">
           <div class="wrap">
-            <!--  <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='/imgs/default-user-image.png';" class="userImg">-->
               <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg">
               <input type="hidden" name="inquireUserId" value="{{list.inquireUserId}}"/>
             </img>
@@ -608,15 +607,14 @@ socket.on('updateRoom',function(data){
 	$("li[value="+chatRoomNo+"]").remove();
 	
 	let html='<li class="contact active" value="'+data.chatRoomNo+'">'+
+	
           '<div class="wrap">'+
-            '<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="userImg">'+
+          '<img src="http://192.168.0.42:8080/images/uploadFiles/'+data.inquireImg+'" onerror="this.onerror=null; this.src=\'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png\';" class="userImg">'+         
               '<input type="hidden" name="inquireUserId" value='+data.inquireUserId+'"/>'+
             '</img>'+
-            '<!-- <img src="'+data.inquireImg+' alt="" class="userImg">-->'+
-            '<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" class="oldImg">'+
+            '<img src="http://192.168.0.42:8080/images/uploadFiles/'+data.oldImg+'" alt="" class="oldImg">'+
               '<input type="hidden" name="oldNo" value="'+data.oldNo+'"/>'+
             '</img>'+
-            '<!-- <img src="{{list.oldImg}} alt="" class="oldImg">-->'+
             '<div class="meta">'+
               '<div class="name">'+data.inquireNickname+
                 ' <span class="inquireAddr">'+data.inquireAddr+' </span>'+

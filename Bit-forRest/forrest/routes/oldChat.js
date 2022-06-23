@@ -252,17 +252,25 @@ router.get('/:oldNo', async (req, res, next) => {
       type: QueryTypes.SELECT,
       raw: true
     });
+    
+    query=Query.getUser;
+    const getUser = await db.sequelize.query(query, {
+      replacements: 
+      {	userId: req.session.user,    	
+      	}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
 
     const old = oldArr[0];
     const chatRoomNo = req.query.chatRoomNo;
-    const user = req.session.user;
+    const user = getUser[0];
     const otherUser = getOtherUser[0];
     
-    //response에 담아서 'oldChatRoom.html'로 보내기
     res.render('oldChat',{chatLists, old, user, chatRoomNo, otherUser});
     
     const io = req.app.get('io');
-    io.of('/oldChat').to(chatRoomNo).emit('updateReadOrNot', user);
+    io.of('/oldChat').to(chatRoomNo).emit('updateReadOrNot', req.session.user);
 
   }catch (err) {
     console.error(err)

@@ -102,6 +102,14 @@ module.exports.getChat = 'select * from chat where chatMessageNo=:chatMessageNo'
 //POST
 module.exports.insertChat = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot) values (:chatRoomNo, :sendUserId, :chatMessage, CURRENT_TIMESTAMP, :readOrNot)';
 
+//:chatRoomNo, :userId(session), :chatMessage, :map(JSON)
+//POST
+module.exports.insertMap = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot, map) values (:chatRoomNo, :sendUserId, :chatMessage, CURRENT_TIMESTAMP, :readOrNot, :map)';
+
+//:chatRoomNo, :userId(session), :fileName
+//POST
+module.exports.insertImage = 'insert into chat (chatRoomNo, sendUserId, chatMessage, createdAt, readOrNot, fileName) values (:chatRoomNo, :sendUserId, "사진을 보냈습니다", CURRENT_TIMESTAMP, :readOrNot, :fileName)';
+
 //:chatRoomNo, :userId(session)
 module.exports.updateReadOrNot='update chat set readOrNot=NULL where chatRoomNo=:chatRoomNo and sendUserId<>:userId and createdAt < CURRENT_TIMESTAMP';
 
