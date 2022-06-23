@@ -5,6 +5,7 @@ const submit = document.querySelector(".submit");
 const progressText =document.querySelectorAll(".step p");
 const progressCheck =document.querySelectorAll(".step .check");
 const bullet =document.querySelectorAll(".step .bullet");
+const bulletCheck = document.querySelector(".bullet .check.fas.fa-check");
 let max=7;
 let current=1;
 let count = 0;
