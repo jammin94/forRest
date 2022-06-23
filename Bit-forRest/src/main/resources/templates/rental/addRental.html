@@ -207,7 +207,7 @@ input{
 	</tr>
 	
 	<tr>
-		<td>핸드폰번호</td>
+		<td>휴대폰번호</td>
 		<td>
 		<input type="text" class="receiverPhone1" value="" size="3" maxlength="3" option="regNum" required="" label="주문자 핸드폰번호"> -
 		<input type="text" class="receiverPhone2" value="" size="4" maxlength="4" option="regNum" required="" label="주문자 핸드폰번호"> -
@@ -232,9 +232,7 @@ input{
 	<table>
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
-		<td>배송지 확인</td>
 		<td class="noline">
-		<input type="checkbox" class="inputCheckbox" onclick="inputCheckClick();"> 주문고객 정보와 동일합니다.
 		</td>
 	</tr>
 	<tr>
@@ -383,6 +381,8 @@ input{
 $(function(){
 	$('#check_module').click(function(){
 		
+	
+		
 console.log("할인금애액"+$('.discountPriceSubmit').val());
 		
 		$('.originPriceSubmit').val($('#paper_goodsprice').text());
@@ -391,6 +391,32 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 		 combinePhone();
 		 combineAddr();
 		 
+		 //////////////////////////////유효성체크//////////////////////////////////////////////////////////
+			var receiverName = $('.receiverName').val();
+			var receiverPhone1 = $('.receiverPhone1').val();
+			var receiverPhone2 = $('.receiverPhone2').val();
+			var receiverPhone3 = $('.receiverPhone3').val();
+			var pickupPostcode = $('#pickup_postcode').val();
+			var pickupAddress = $('.pickupAddress').val();
+			var divyPostCode = $('#divy_postcode').val();
+			var divyAddress = $('.divyAddress').val();
+			var divyRequest = $('.divyRequest').val();
+			var pickupDetailAddress = $('#pickup_detailAddress').val();
+			var divyDetailAddress = $('#divy_detailAddress').val();
+			
+			if(receiverName==""){
+				alert("주문자이름을 입력해주세요");
+				return;
+			}else if(receiverPhone1=="" ||receiverPhone2=="" ||receiverPhone3=="" ){
+				alert("휴대폰번호를 입력해주세요");
+				return;
+			}else if(pickupPostcode=="" || pickupAddress=="" ||  divyPostCode=="" ||divyAddress==""||pickupDetailAddress==""||divyDetailAddress==""){
+				alert("주소를 입력해주세요");
+				return;
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
+			
+			
 		request_pay();
 	})
 
@@ -431,6 +457,8 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			
 		}
 })
+
+
 </script>
 <!-- 
 <script>   

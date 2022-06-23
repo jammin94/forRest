@@ -437,7 +437,30 @@ $(function(){
 		//주소 및 폰번 합침
 		 combinePhone();
 		 combineAddr();
-		
+		 //////////////////////////////유효성체크//////////////////////////////////////////////////////////
+			var receiverName = $('.receiverName').val();
+			var receiverPhone1 = $('.receiverPhone1').val();
+			var receiverPhone2 = $('.receiverPhone2').val();
+			var receiverPhone3 = $('.receiverPhone3').val();
+			var pickupPostcode = $('#pickup_postcode').val();
+			var pickupAddress = $('.pickupAddress').val();
+			var divyPostCode = $('#divy_postcode').val();
+			var divyAddress = $('.divyAddress').val();
+			var divyRequest = $('.divyRequest').val();
+			var pickupDetailAddress = $('#pickup_detailAddress').val();
+			var divyDetailAddress = $('#divy_detailAddress').val();
+			
+			if(receiverName==""){
+				alert("주문자이름을 입력해주세요");
+				return;
+			}else if(receiverPhone1=="" ||receiverPhone2=="" ||receiverPhone3=="" ){
+				alert("휴대폰번호를 입력해주세요");
+				return;
+			}else if(pickupPostcode=="" || pickupAddress=="" ||  divyPostCode=="" ||divyAddress==""||pickupDetailAddress==""||divyDetailAddress==""){
+				alert("주소를 입력해주세요");
+				return;
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
 
 		//배열로 던질 것들
 /* 		$('.wishlistNoSubmit').val($('.hiddenWishlistNo').text());
