@@ -14,7 +14,7 @@ public class ChatRoomService {
 	@Autowired
 	private ChatRoomDAO chatRoomDAO;
 	
-	public List<ChatRoom> getListChatRoom(int oldNo) throws Exception{
+	public List<ChatRoom> getListChatRoom(String oldNo) throws Exception{
 		System.out.println("getListChatRoom 실행 됨");
 		return chatRoomDAO.getListChatRoom(oldNo);
 	}

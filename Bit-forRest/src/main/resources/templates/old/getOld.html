@@ -107,6 +107,93 @@ select:focus { outline: none; }
 .like{
 font-size:55px;
 }
+
+
+/* 리뷰*/
+
+#review-form{
+    position: absolute;
+    top: -9999px;
+    left:-9999px;
+  
+}
+
+#review-form.on{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 510px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+}
+
+.reviewBackground{
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    opacity: 0.3;
+}
+
+ 
+  .reviewBackground.on{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #000;
+    top: 0;
+    left: 0;
+    
+ }
+  .star-rating2 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+      width: 300px;
+      display: flex !important;
+    flex-direction: row-reverse;
+    margin:0 auto;
+        height: 42px !important;
+} 
+.regBtn{
+	    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor:pointer;
+    width:100%;
+}
+
+.regBtn:hover{
+	background:#cecece;
+}
+ 
+.star-rating2 input {
+  display: none;
+}
+ 
+.star-rating2 label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+ 
+.star-rating2 :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-rating2 label:hover,
+.star-rating2 label:hover ~ label {
+  -webkit-text-fill-color: #fff58c;
+}
 </style>
 
 
@@ -400,7 +487,7 @@ font-size:55px;
 
 
 					<!-- END old -->
-
+					
 
 				</div>
 			</div>
@@ -408,6 +495,68 @@ font-size:55px;
 	</div>
 
 
+
+
+
+
+
+	<!-- Footer-->
+	<div th:replace="/main/footer.html"></div>
+
+	<script src="/js/getProduct.js"></script>
+	<script src="/js/getOld.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+<!-- 	<script src="/js/share.js"></script> -->
+
+
+	 <!-- 리뷰박스 -->
+	 <div class="reviewBackground"></div>
+	 <div class="Rentalcontainer">
+		<form id="review-form"  enctype="multipart/form-data">
+		<input type="hidden" name="tranNo" class="innerTranNo"></input>
+		<input type="hidden" name="reviewDone" class="reviewDone"></input>
+		<input type="hidden" name="prodNo" class="prodNo"></input>
+		<span class="close">닫기</span>
+		<!-- <input type="hidden" class="starValueText"  name="reviewScore"></input> -->
+	  
+	  	<span id="starsInfo" class="help-block">
+	    	상품에 대한 별점을 남겨주세요 !
+	  	</span>
+	  			
+	  			<select class="selectBox" name="reviewedUser.userId">
+	  				<span class="chatUserList" th:each = "userList : ${chatList}">
+	           			<option name="reviewedUser.userId" th:value="${userList.inquireUserId}">[[${userList.inquireUserId}]]</option>
+	                </sapn>
+                </select>
+	  			<input type="hidden" id="oldNo" name="old.oldNo" th:value="${old.oldNo}"/>
+	  			
+	  			
+		        <div class="star-rating2 space-x-4 mx-auto">
+						<input type="radio" id="5-stars" name="userRate" value="5"  v-model="ratings"/>
+						<label for="5-stars" class="star pr-4">★</label>
+						<input type="radio" id="4-stars" name="userRate" value="4"  v-model="ratings"/>
+						<label for="4-stars" class="star">★</label>
+						<input type="radio" id="3-stars" name="userRate" value="3"  v-model="ratings"/>
+						<label for="3-stars" class="star" selected>★</label>
+						<input type="radio" id="2-stars" name="userRate" value="2"  v-model="ratings" selected/>
+						<label for="2-stars" class="star">★</label>
+						<input type="radio" id="1-star" name="userRate" value="1"  v-model="ratings" />
+						<label for="1-star" class="star">★</label>
+				</div>
+				
+		<div class="form-group">
+		  <!--  <label class="control-label" for="review">Your Review:</label> -->
+		  	<textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
+			<span id="reviewInfo" class="help-block pull-right"></span>
+		</div>
+		<button type="button" class="regBtn" >등록하기 </button>
+		</form>
+		  
+	  
+	  
+		<div id="review-container"></div>
+	</div>
+</body>
 
 <script th:inline="javascript">
 /*<![CDATA[*/
@@ -422,9 +571,9 @@ Kakao.Link.sendDefault({
     title: title,
     description: description,
  	
-    imageUrl:'http://localhost:8080/images/uploadFiles/98510180-9d55-439c-a94a-93625b1c252a.jpg',
+    imageUrl:'https://for-rest.kro.kr/images/uploadFiles/98510180-9d55-439c-a94a-93625b1c252a.jpg',
     link: {
-      webUrl: 'http://localhost:8080/old/getOld?oldNo=' + /*[[${old.oldNo}]]*/ +')',
+      webUrl: 'https://for-rest.kro.kr/old/getOld?oldNo=' + /*[[${old.oldNo}]]*/ +')',
     },
   },
  
@@ -447,7 +596,7 @@ function datediff(){
 
 
 	}).then((result) => {
-		if (diff <=3){
+		if (diff >=3){
 			{
 		if (result.value){
 			
@@ -521,20 +670,35 @@ function onSale(){
 	
 })
 	}
+$(function(){
+//리뷰닫기
+$('.close').on("click",function(){
+	  $('#review-form').removeClass("on");
+	  $('.reviewBackground').removeClass("on");
+})
 
+$('.regBtn').on("click",function(){
+	
+	  $('#review-form').removeClass("on");
+	  $('.reviewBackground').removeClass("on");
+	  
+	  $(".reviewDone").val(1);
+	  
+	  
+	  
+	  console.log("리뷰돈"+$(".reviewDone").val());
+	  
+	  $("#review-form").attr("method" , "POST").attr("action" , "/oldReview/addOldReview").submit();
+})
+});
 
 function sold(){
 
-
-	Swal.fire({
-		title:'거래완료',
-		icon:' success'
-	}).then((result) => {
-	location.href='/old/updateOldSold?oldNo=' + /*[[${old.oldNo}]]*/ +')';
-
-	})
+	  $('#review-form').addClass("on");
+	  $('.reviewBackground').addClass("on");
 }
 
+//"리뷰등록하기"버튼
 
 
 
@@ -629,19 +793,5 @@ function sold(){
 
 
 </script>
-
-
-
-	<!-- Footer-->
-	<div th:replace="/main/footer.html"></div>
-
-	<script src="/js/getProduct.js"></script>
-	<script src="/js/getOld.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
-<!-- 	<script src="/js/share.js"></script> -->
-	
-</body>
-
-
 
 </html>

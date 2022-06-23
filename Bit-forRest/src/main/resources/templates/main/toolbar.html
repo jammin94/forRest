@@ -31,7 +31,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200&family=Hi+Melody&family=Nanum+Gothic+Coding&family=Whisper&display=swap');
 .navigation {
   height: 70px;
-  background: #262626;
+  background: #000;
  position:fixed;
  z-index:100;
  width:100%;
@@ -77,7 +77,7 @@ nav ul li a:visited {
   display: block;
   padding: 0 20px;
   line-height: 70px;
-  background: #262626;
+  background: #000;
   color: #ffffff;
   text-decoration: none;
 }
@@ -149,6 +149,7 @@ nav ul li ul li a {
     display: block !important;
   }
 }
+
 #nav-toggle {
   position: absolute;
   left: 18px;
@@ -258,7 +259,7 @@ article {
            
            		<li style="cursor:pointer;"> 
            		<!-- <a class="chatBtn" th:href="@{'http://192.168.0.42:3001/oldChat/list/'+${#authentication.principal.user.userId}}" target="_blank"> -->
-           	  <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
+           	  <span class="hiddenUserId2" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
            	  
            	 
            	  
@@ -347,7 +348,7 @@ article {
       $(function(){
     	  
     	  $('.chatBtn').on('click',function(){
-    		  var userId = $('.hiddenUserId').text();
+    		  var userId = $('.hiddenUserId2').text();
     		  
     		  console.log(userId);
     		  

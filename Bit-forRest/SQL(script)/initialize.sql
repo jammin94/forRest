@@ -496,22 +496,80 @@ INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo,
 INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', '3', 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user03@naver.com', '20210525');
 INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '아직 사용전인데 이미 많은 리뷰만 보더라도 기대가 됩니다 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user04@naver.com', '20210525');
 
-
 INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `ownerUserId`, `inquireUserExit`, `ownerUserExit`, `createdAt`) VALUES
 	(1, 'a', NULL, 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:21:00'),
 	(2, 'a', NULL, 'user03@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:21:42'),
 	(3, 'a', NULL, 'user04@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:22:29'),
-	(4, NULL, 'a', 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32');
+	(4, NULL, 'a', 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32'),
+	(5, 'e', NULL, 'admin', 'user01@naver.com', 1, 1, '2022-06-23 06:28:50'),
+	(6, 'f', NULL, 'admin', 'user01@naver.com', 0, 0, '2022-06-23 06:34:33'),
+	(7, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', NULL, 'admin', 'user01@naver.com', 0, 0, '2022-06-23 10:46:14'),
+	(8, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', NULL, 'admin', 'user01@naver.com', 1, 1, '2022-06-23 10:51:12');
 
-INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`) VALUES
-	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', NULL),
-	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', NULL),
-	(3, 1, 'user01@naver.com', '아니요', '2022-05-30 18:23:17', 1),
-	(4, 2, 'user03@naver.com', '안녕하세요', '2022-05-30 18:28:47', 1),
-	(5, 2, 'user03@naver.com', '잘 지내세요?', '2022-05-30 18:28:47', 1),
-	(6, 3, 'user04@naver.com', ' HI', '2022-05-30 18:32:54', 1),
-	(7, 4, 'user02@naver.com', 'dkssudgktpdy', '2022-05-30 18:36:47', 1);
-
+INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`, `fileName`, `map`) VALUES
+	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', NULL, NULL, NULL),
+	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', NULL, NULL, NULL),
+	(3, 1, 'user01@naver.com', '아니요', '2022-05-30 18:23:17', 1, NULL, NULL),
+	(4, 2, 'user03@naver.com', '안녕하세요', '2022-05-30 18:28:47', NULL, NULL, NULL),
+	(5, 2, 'user03@naver.com', '잘 지내세요?', '2022-05-30 18:28:47', NULL, NULL, NULL),
+	(6, 3, 'user04@naver.com', ' HI', '2022-05-30 18:32:54', NULL, NULL, NULL),
+	(7, 4, 'user02@naver.com', 'dkssudgktpdy', '2022-05-30 18:36:47', 1, NULL, NULL),
+	(8, 3, 'user01@naver.com', '124', '2022-06-23 06:18:38', 1, NULL, NULL),
+	(9, 3, 'user01@naver.com', '124', '2022-06-23 06:18:39', 1, NULL, NULL),
+	(10, 5, 'admin', '123', '2022-06-23 06:28:52', NULL, NULL, NULL),
+	(11, 5, 'user01@naver.com', '457', '2022-06-23 06:29:01', NULL, NULL, NULL),
+	(12, 5, 'admin', '123123', '2022-06-23 06:39:41', NULL, NULL, NULL),
+	(13, 5, 'user01@naver.com', '456456', '2022-06-23 06:39:51', NULL, NULL, NULL),
+	(14, 5, 'user01@naver.com', '65765', '2022-06-23 06:40:56', NULL, NULL, NULL),
+	(15, 5, 'admin', '12312', '2022-06-23 06:40:58', NULL, NULL, NULL),
+	(16, 5, 'user01@naver.com', '345', '2022-06-23 06:44:32', NULL, NULL, NULL),
+	(17, 5, 'user01@naver.com', '3456546', '2022-06-23 06:44:34', NULL, NULL, NULL),
+	(18, 5, 'user01@naver.com', '4657567', '2022-06-23 06:45:14', NULL, NULL, NULL),
+	(19, 5, 'admin', '123123', '2022-06-23 06:45:17', NULL, NULL, NULL),
+	(20, 5, 'user01@naver.com', '234', '2022-06-23 06:51:42', NULL, NULL, NULL),
+	(21, 5, 'user01@naver.com', '456', '2022-06-23 06:53:05', NULL, NULL, NULL),
+	(22, 5, 'user01@naver.com', '456', '2022-06-23 06:53:25', NULL, NULL, NULL),
+	(23, 5, 'user01@naver.com', '5674567', '2022-06-23 06:54:42', NULL, NULL, NULL),
+	(24, 5, 'admin', '124', '2022-06-23 06:54:46', NULL, NULL, NULL),
+	(25, 5, 'user01@naver.com', '346', '2022-06-23 06:57:41', NULL, NULL, NULL),
+	(26, 5, 'admin', '124124', '2022-06-23 06:57:50', NULL, NULL, NULL),
+	(27, 5, 'admin', '3trwetw', '2022-06-23 06:57:54', NULL, NULL, NULL),
+	(28, 5, 'user01@naver.com', '57567', '2022-06-23 06:57:57', NULL, NULL, NULL),
+	(29, 5, 'admin', '24124', '2022-06-23 06:58:33', NULL, NULL, NULL),
+	(30, 5, 'user01@naver.com', '4567567', '2022-06-23 06:58:42', NULL, NULL, NULL),
+	(31, 5, 'user01@naver.com', '345654', '2022-06-23 06:58:46', NULL, NULL, NULL),
+	(32, 5, 'user01@naver.com', '456', '2022-06-23 06:58:47', NULL, NULL, NULL),
+	(33, 5, 'user01@naver.com', '456546', '2022-06-23 06:58:49', NULL, NULL, NULL),
+	(34, 5, 'user01@naver.com', '456546', '2022-06-23 06:59:13', NULL, NULL, NULL),
+	(35, 5, 'user01@naver.com', '456546', '2022-06-23 06:59:15', NULL, NULL, NULL),
+	(36, 5, 'admin', '123123', '2022-06-23 06:59:30', NULL, NULL, NULL),
+	(37, 5, 'user01@naver.com', '456', '2022-06-23 07:00:21', NULL, NULL, NULL),
+	(38, 5, 'user01@naver.com', '567657', '2022-06-23 07:00:33', NULL, NULL, NULL),
+	(39, 5, 'user01@naver.com', '45674767', '2022-06-23 07:03:06', NULL, NULL, NULL),
+	(40, 5, 'admin', '123123', '2022-06-23 07:03:36', NULL, NULL, NULL),
+	(41, 5, 'user01@naver.com', '7657567', '2022-06-23 07:03:40', NULL, NULL, NULL),
+	(42, 5, 'admin', '123123', '2022-06-23 07:03:54', NULL, NULL, NULL),
+	(43, 5, 'admin', '123123', '2022-06-23 07:03:55', NULL, NULL, NULL),
+	(44, 5, 'user01@naver.com', '4567657', '2022-06-23 07:04:18', NULL, NULL, NULL),
+	(45, 5, 'user01@naver.com', '7685678', '2022-06-23 07:04:21', NULL, NULL, NULL),
+	(46, 5, 'user01@naver.com', '569769', '2022-06-23 07:04:23', NULL, NULL, NULL),
+	(47, 5, 'user01@naver.com', '47567657', '2022-06-23 07:04:34', NULL, NULL, NULL),
+	(48, 5, 'user01@naver.com', '74567', '2022-06-23 07:04:39', NULL, NULL, NULL),
+	(49, 5, 'user01@naver.com', '654567', '2022-06-23 07:04:44', NULL, NULL, NULL),
+	(50, 5, 'user01@naver.com', '4567', '2022-06-23 07:04:46', NULL, NULL, NULL),
+	(51, 5, 'admin', '124124', '2022-06-23 07:04:55', NULL, NULL, NULL),
+	(52, 5, 'admin', '12412', '2022-06-23 07:04:56', NULL, NULL, NULL),
+	(53, 5, 'user01@naver.com', '지도 : undefined', '2022-06-23 08:52:11', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
+	(54, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 08:54:57', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
+	(55, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 08:58:45', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
+	(56, 5, 'user01@naver.com', '지도 : 비트포비아 던전홍대점', '2022-06-23 08:58:48', NULL, NULL, '{"address_name":"서울 마포구 서교동 396-46","category_group_code":"CE7","category_group_name":"카페","category_name":"음식점 > 카페 > 테마카페","distance":"","id":"1246652450","phone":"02-322-4997","place_name":"비트포비아 던전홍대점","place_url":"http://place.map.kakao.com/1246652450","road_address_name":"서울 마포구 독막로3길 30","x":"126.917362781288","y":"37.5495719511011"}'),
+	(57, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 09:01:52', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
+	(58, 5, 'user01@naver.com', '지도 : 비트포비아 던전홍대점', '2022-06-23 09:01:54', NULL, NULL, '{"address_name":"서울 마포구 서교동 396-46","category_group_code":"CE7","category_group_name":"카페","category_name":"음식점 > 카페 > 테마카페","distance":"","id":"1246652450","phone":"02-322-4997","place_name":"비트포비아 던전홍대점","place_url":"http://place.map.kakao.com/1246652450","road_address_name":"서울 마포구 독막로3길 30","x":"126.917362781288","y":"37.5495719511011"}'),
+	(59, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 09:03:41', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
+	(60, 5, 'user01@naver.com', 'hjkl', '2022-06-23 10:50:00', NULL, NULL, NULL),
+	(61, 5, 'admin', 'kkn', '2022-06-23 10:50:54', NULL, NULL, NULL),
+	(62, 8, 'admin', '123', '2022-06-23 10:53:59', 1, NULL, NULL),
+	(63, 8, 'admin', ',l,l', '2022-06-23 10:54:02', 1, NULL, NULL);
 
 INSERT INTO `board` (`boardNo`, `boardTitle`, `boardDetail`, `boardDate`, `boardPin`, `boardFlag`, `category`, `couponURL`) VALUES
 	(1, '공지사항1', '어쩌고저쩌고1', '2022-06-02 11:37:35', 0, 'A', NULL, NULL),
@@ -537,6 +595,8 @@ VALUES('4', '[개발자특전 80%할인쿠폰]','2022-06-01','2022-12-31', 0.8);
 
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',1,'2022-06-01','2022-06-30');
+INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
+VALUES ('user01@naver.com',4,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',2,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)

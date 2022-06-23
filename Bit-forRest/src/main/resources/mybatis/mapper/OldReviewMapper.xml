@@ -22,8 +22,8 @@
 	<!-- SQL : INSERT -->
 	<insert 	id="addOldReview"		parameterType="OldReview" >
 		INSERT 
-	 	INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate, reviewDate)
-	 	values (null , #{reviewUser.userId}, #{reviewedUser.userId}, #{old.oldNo}, #{reviewDetail}, #{userRate}, null)
+	 	INTO oldReview(reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
+	 	values (#{reviewUser.userId}, #{reviewedUser.userId}, #{old.oldNo}, #{reviewDetail}, #{userRate})
 	 </insert>
 	  
 	 <!-- SQL : SELECT LIST -->
