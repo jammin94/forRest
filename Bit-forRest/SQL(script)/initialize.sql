@@ -172,6 +172,8 @@ CREATE TABLE `chat` (
   `chatMessage` varchar(4000) NOT NULL,
   `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
   `readOrNot` tinyint(1) DEFAULT '1',
+  `fileName` varchar(4000) DEFAULT NULL,
+  `map` JSON,
   PRIMARY KEY (`chatMessageNo`),
   KEY `chatRoomNo` (`chatRoomNo`),
   KEY `sendUserId` (`sendUserId`),
