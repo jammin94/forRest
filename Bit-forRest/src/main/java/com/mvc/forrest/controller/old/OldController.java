@@ -1,8 +1,6 @@
 package com.mvc.forrest.controller.old;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +23,10 @@ import com.google.api.client.http.HttpRequest;
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.chat.ChatRoomService;
+import com.mvc.forrest.service.domain.ChatRoom;
 import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Old;
-import com.mvc.forrest.service.domain.OldLike;
-import com.mvc.forrest.service.domain.OldReview;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
@@ -57,6 +54,9 @@ public class OldController {
 	@Autowired
 	public FileUtils fileUtils;
 
+	@Autowired
+	public ChatRoomService chatRoomService;
+	
 	@Value("5")
 	int pageUnit;
 
@@ -183,9 +183,9 @@ public class OldController {
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
 		System.out.println("올드이미지"+oldImgList);
 		
+
 		
-		
-		
+
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 		model.addAttribute("oldImgList", oldImgList);
@@ -261,11 +261,13 @@ public class OldController {
 		
 		System.out.println("old아아아아아아:"+old);
 		
+		List<ChatRoom> chatList= chatRoomService.getListChatRoom(oldNo);
+		model.addAttribute("chatList", chatList);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 		model.addAttribute("oldImgList", oldImgList);
-
+		System.out.println("채팅리스트"+chatList);
 		
 		// getOld 밑에 list 뜨는 것
 		List<Old> list= oldService.getOldListCategory(old);
