@@ -17,6 +17,7 @@
         	<result property="oldAddr" 	column="oldAddr"/>
         	<result property="oldPrice" 	column="oldPrice"/>
         	<result property="oldState" 	column="oldState"/>
+        	<result property="oldImg" 	column="oldImg"/>
     	</association>
 	</resultMap>
 	
@@ -49,10 +50,10 @@
 	 
 	<!-- SQL : SELECT LIST -->
 	<select  id="getOldLikeList"  parameterType="String"	resultMap="oldLikeSelectMap">
-		SELECT oldLike.*, old.oldTitle, old.oldAddr, old.oldPrice, old.oldState, A.count
+		SELECT oldLike.*, old.oldTitle, old.oldAddr, old.oldPrice, old.oldState, old.oldImg, A.count
 		FROM oldLike LEFT OUTER JOIN old ON oldLike.oldNo = old.oldNo
 		LEFT OUTER JOIN (SELECT oldNo, COUNT(*) count FROM oldLike group by oldNo) A ON oldLike.oldNo = A.oldNo
-		WHERE oldlike.userId = #{userId}
+		WHERE oldlike.userId = #{loginUserId}
 	 </select>
 
 	 

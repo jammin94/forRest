@@ -538,6 +538,8 @@ VALUES('4', '[개발자특전 80%할인쿠폰]','2022-06-01','2022-12-31', 0.8);
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',1,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
+VALUES ('user01@naver.com',4,'2022-06-01','2022-06-30');
+INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',2,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user02@naver.com',2,'2022-06-01','2022-06-30');

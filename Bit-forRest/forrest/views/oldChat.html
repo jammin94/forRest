@@ -7,6 +7,7 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+
 <link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
 <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
 <link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
@@ -144,7 +145,7 @@ body {
 }
 
 /*채팅창에서 내 유저 이미지 */
-#frame .content .messages ul li.sent img {
+#frame .content .messages ul li.sent img.userImg {
   margin: 6px 8px 0 0;
 }
 
@@ -167,7 +168,7 @@ body {
 
 
 /*채팅창에서 대화상대 이미지 */
-#frame .content .messages ul li.replies img {
+#frame .content .messages ul li.replies img.userImg {
   float: left; 
   margin: 6px 0 0 8px;
 }
@@ -178,12 +179,22 @@ body {
   float: left;  
 }
 
+/*남이 보낸 지도 설정 */
+#frame .content .messages ul li.replies div#map {  
+  float: left;  
+}
+
+/*내가 보낸 지도 설정 */
+#frame .content .messages ul li.sent div#map {  
+  float: right;  
+}
+
 #frame .content .messages ul li.replies{
   float: left; /*원래 없었음*/
 }
 
 /*채팅창 에서의 유저이미지 공통 설정*/
-#frame .content .messages ul li img {
+#frame .content .messages ul li img.userImg {
   width: 22px;
   border-radius: 50%;
   float: right; 
@@ -358,12 +369,36 @@ body {
 	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg"/>
 	          {% else %}
 	            <li class="replies">
-	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="otherUserImg"/>
+	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg"/>
 	          {% endif %}
-	            
-	            
-	
+			
+			  {% if chatList.map %}
+			  	<div id="map" style="width:300px;height:300px; position:relative">
+			  	<!-- 실험-->
+				  	<div style="position:absolute">
+					  	{% if chatList.sendUserId === user.userId %} 
+			            <span class="sent" name="readOrNot" id="readOrNot">
+			          {% else %}    
+			            <span class="replies" name="readOrNot" id="readOrNot">
+			          {% endif %}
+			            {{chatList.readOrNot}}</span>
+			            <br/>
+			
+			          {% if chatList.sendUserId === user.userId %} 
+			            <div class="sent" name="createdAt">
+			          {% else %}    
+			            <div class="replies" name="createdAt">
+			          {% endif %}
+			          {{chatList.createdAt}}</div>
+			         </div>
+			  	</div>
+			  	 <!-- -->
+			  {% elif chatList.fileName %}
+			  
+			  {% else %}
 	            <p>{{chatList.chatMessage}}</p>
+	          {% endif %}
+
 	            <br/>
 	          {% if chatList.sendUserId === user.userId %} 
 	            <span class="sent" name="readOrNot" id="readOrNot">
@@ -374,9 +409,9 @@ body {
 	            <br/>
 	
 	          {% if chatList.sendUserId === user.userId %} 
-	            <div class="sent" name="createdAt"">
+	            <div class="sent" name="createdAt">
 	          {% else %}    
-	            <div class="replies" name="createdAt"">
+	            <div class="replies" name="createdAt">
 	          {% endif %}
 	          {{chatList.createdAt}}</div>
 	          <input type="hidden" name="createdAt" value="{{chatList.createdAt}}" style="display:none;"/>
@@ -407,6 +442,7 @@ body {
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4990d004ae4be7c2dd1f8ce139e65e71&libraries=services, clusterer"></script>
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script >
@@ -418,6 +454,29 @@ moment.locale('ko'); //한글로 시간 표시
 const socket = io.connect('http://192.168.0.42:3001/oldChat',{
   path: '/socket.io'
 });//oldChat namespace사용
+
+//function mapCreate(){
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+   mapOption = { 
+       center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+       level: 3 // 지도의 확대 레벨
+   };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+//}
+
+//mapCreate();
 
 
 $("#profile-img").click(function() {
@@ -470,15 +529,17 @@ socket.on('exit',function(data1, data2){
 });
 
 //지도
-socket.on('map',function(place, chatRoomNo, send_UserId){
+socket.on('map',function(data){
 	console.log('oldChat에서 지도')
 	var is_Connected = $("#isConnected").val().trim();
-	axios.post('/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}',{
-      chat: JSON.stringify(Array.from( place.entries())), //string화
+	
+	axios.post('/oldChat/chat/{{old.oldNo}}/map?chatRoomNo={{chatRoomNo}}',{
       isConnected: is_Connected,
-      place: place,
+      map: data.place,
       sendUserId: '{{user.userId}}',
     });
+	
+	console.log(data);
 });
 
 
@@ -503,11 +564,13 @@ socket.on('oldChat',function(data){
     li.classList.add('sent');
     const senderImg = document.createElement('img');
     senderImg.src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}"
+    senderImg.classList.add('userImg');
     li.appendChild(senderImg);
   }else{
     li.classList.add('replies');
     const otherImg = document.createElement('img');
     otherImg.src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}"
+    otherImg.classList.add('userImg');
     li.appendChild(otherImg);
   }
 
@@ -636,8 +699,8 @@ $(window).load(function(){
   });
   
   lists.each(function(index, item){
-	  let value= $(item).find("div").text().trim();
-	  $(item).find("div").text(moment(value).format('LT'));
+	  let value= $(item).find("div[name='createdAt']").text().trim();
+	  $(item).find("div[name='createdAt']").text(moment(value).format('LT'));
   });
 
 });
@@ -649,7 +712,7 @@ $("a:first").on('click',function(){
 
 //지도모양 클릭시 지도업로드
 $("a:last").on('click',function(){
-	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}}','_blank','width=500');
+	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}&oldNo={{old.oldNo}}}','_blank','width=500');
 })
 
 </script>
