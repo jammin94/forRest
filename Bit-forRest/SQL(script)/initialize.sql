@@ -514,12 +514,14 @@ VALUES('1', '[가정의달 5천원쿠폰]', '2022-06-01','2022-12-31', 5000);
 INSERT INTO coupon (couponno, couponname, discount)
 VALUES('2', '[신규회원 1000원할인쿠폰]',1000 );
 INSERT INTO coupon (couponno, couponname, discount)
-VALUES('3', '[복귀회원 15%할인쿠폰]', 0.15);
+VALUES('3', '[복귀회원 15%할인쿠폰]', 0.2);
 INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
 VALUES('4', '[개발자특전 80%할인쿠폰]','2022-06-01','2022-12-31', 0.8);
 
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',1,'2022-06-01','2022-06-30');
+INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
+VALUES ('user01@naver.com',3,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
 VALUES ('user01@naver.com',2,'2022-06-01','2022-06-30');
 INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
