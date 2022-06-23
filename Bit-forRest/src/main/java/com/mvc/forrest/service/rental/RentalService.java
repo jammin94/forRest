@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.rental.RentalDAO;
-import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.Search;
-import com.mvc.forrest.service.domain.Storage;
 
 
 @Service
@@ -41,6 +39,23 @@ public class RentalService {
 			map.put("totalCount", totalCount);
 			
 			return map;
+		}
+		
+		// 결제내역 보기 - 결제번호로 group by
+		public List<Rental> getPaymentList(Search search, String userId) throws Exception{
+			
+			Map<String, Object> map= new HashMap<>();
+			map.put("userId", userId);
+			map.put("search", search);
+			
+			return rentalDAO.getPaymentList(map);
+		}
+		
+		//결제번호로 결제품목 받아오기
+		public List<Rental> getPayment(String paymentNo) throws Exception{
+			
+			
+			return rentalDAO.getPayment(paymentNo);
 		}
 	
 	//물품대여 리스트 ( Admin 용 )

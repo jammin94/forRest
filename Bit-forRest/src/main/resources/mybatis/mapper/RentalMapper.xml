@@ -124,6 +124,27 @@
 	 	ORDER BY t.paymentDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 	 </select>
 	 
+	<!-- SELECT LIST -->
+	<select  id="getPaymentList"  parameterType="map"	resultMap="rentalSelectMap">
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete
+	 	FROM product p, transaction t,  COUNT(*) count
+	 	<where>
+	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
+	 	</where>
+	 	GROUP BY t.paymentNo
+	 	ORDER BY t.paymentDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
+	 </select>
+	 
+	 
+	 <!-- SELECT LIST -->
+	<select  id="getPayment"  parameterType="String"	resultMap="rentalSelectMap">
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete
+	 	FROM product p, transaction t
+	 	<where>
+	 		p.prodNo = t.prodNo and t.paymentNo = #{paymentNo}
+	 	</where>
+	 </select>
+	 
 	 <!-- SELECT LIST ADMIN -->
 	<select  id="getRentalListForAdmin"  parameterType="Search"	resultMap="rentalSelectMap">
 	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition

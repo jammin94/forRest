@@ -1,10 +1,7 @@
 package com.mvc.forrest.service.domain;
 
-import java.io.File;
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import java.util.List;
 
 import lombok.Data;
 
@@ -36,6 +33,7 @@ public class Rental {
 	private int reviewDone;
 	private int complete;
 	private int cancelComplete;
+	private int count;
 	
 	public Rental(){
 	}
