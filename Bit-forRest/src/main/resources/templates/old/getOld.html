@@ -24,6 +24,7 @@
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
+
 	
 <script>
 Kakao.init('d40eb19cdb656aa7607d531109f4364e');
@@ -435,26 +436,66 @@ function datediff(){
 	var olddate = moment(  /*[[${old.oldDate}]]*/ );
 	var today = moment();
 	var diff = olddate.diff(today, "days");
-	var confirmolddate = confirm("게시물을 끌어올리시겠습니까?");
-	
-	if (diff <=3){
+// 	var confirmolddate = confirm("게시물을 끌어올리시겠습니까?");
+	var confirmolddate = Swal.fire({
 		
-		{  
-			if(confirmolddate){
+		title: '게시물을 끌어올리시겠습니까?',
+		icon:'info',
+		showCancelButton: true,
+		confirmButtonText:'예', // 확인 옵션 버튼
+        cancelButtonText:'아니요' // 취소 버튼 텍스트 
+
+
+	}).then((result) => {
+		if (diff <=3){
+			{
+		if (result.value){
 			
-			alert("끌어올리기 완료");
 			location.href='/old/updateOldDate?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+	
 		}
+		
 		else{
-			alert("끌어올리기 취소");
+			Swal.fire({
+				title: '끌어올리기 취소'
+			});
 			} 
 		}
-			
-	} else {
-		alert("등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.");
+	
+} else {
+		Swal.fire({
+			title:'등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.'
+		});
 		return;
 	}
+	})
 }
+	
+	
+	
+// 	if (diff <=3){
+		
+// 		{  
+// 			if(confirmolddate){
+			
+// 			Swal.fire({
+				
+// 				title: '끌어올리기 완료',
+// 				icon:  'info', 
+				
+// 			})
+// 			location.href='/old/updateOldDate?oldNo=' + /*[[${old.oldNo}]]*/ +')';
+// 		}
+// 		else{
+// 			alert("끌어올리기 취소");
+// 			} 
+// 		}
+			
+// 	} else {
+// 		alert("등록일 또는 마지막 끌어올리기 날짜로부터 3일 이상 경과해야 합니다.");
+// 		return;
+// 	}
+// }
 
 function deleteold(){
 	
@@ -471,19 +512,27 @@ function deleteold(){
 }
 
 function onSale(){
-	alert('판매중');
 	
+	Swal.fire({
+		title:'판매중',
+		icon:' success'
+	}).then((result) => {
 	location.href='/old/updateOldOnSale?oldNo=' + /*[[${old.oldNo}]]*/ +')';
 	
-}
+})
+	}
 
 
 function sold(){
 
 
-	alert('거래완료');
+	Swal.fire({
+		title:'거래완료',
+		icon:' success'
+	}).then((result) => {
 	location.href='/old/updateOldSold?oldNo=' + /*[[${old.oldNo}]]*/ +')';
 
+	})
 }
 
 
