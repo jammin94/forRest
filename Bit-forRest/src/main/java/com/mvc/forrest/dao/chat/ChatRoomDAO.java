@@ -9,6 +9,6 @@ import com.mvc.forrest.service.domain.ChatRoom;
 @Mapper
 public interface ChatRoomDAO {
 	
-	public List<ChatRoom> getListChatRoom(int oldNo)  throws Exception;
+	public List<ChatRoom> getListChatRoom(String oldNo)  throws Exception;
 	
 }

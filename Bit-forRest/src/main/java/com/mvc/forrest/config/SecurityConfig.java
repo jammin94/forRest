@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//super 삭제 - 기존 시큐리티가 가지고 있는 기능이 없어짐 (Overriding)
 		http.csrf().disable();//csrf 토큰을 사용하지 않겠다.
 		http.authorizeHttpRequests()  //인가 요청이 오면
-			.antMatchers("/user/manager","/product/getProduct","/storage/listStorage", "/storage/extendStorage","/old/addOldReport","/old/updateOldState","/old/addOld","/old/updateOld","/old/listOldMine","/old/deleteOld", "/storage/getStorage","http://192.168.0.42:3001/oldChat/**", "/oldLike/addOldLike").authenticated()
-			.antMatchers("/user/getUser", "/user/deleteUser", "/old/listOldAfterLogin", "/oldLike/deleteOldLikeOnList" , "/storage/addStorage", "/produnct/listProductAfterLogin").authenticated()
+			.antMatchers("/user/manager","/product/getProduct","/storage/listStorage", "/storage/extendStorage","/old/addOldReport","/old/updateOldState","/old/addOld","/old/updateOld","/old/listOldMine","/old/deleteOld", "/storage/getStorage","http://192.168.0.42:3001/oldChat/**").authenticated()
+			.antMatchers("/user/getUser", "/oldLike/addOldLike", "/user/deleteUser", "/old/listOldAfterLogin", "/oldLike/deleteOldLikeOnList" , "/storage/addStorage", "/produnct/listProductAfterLogin").authenticated()
 			.antMatchers("/storage/listStorageForAdmin","/board/addAnnounce","/board/updateAnnounce","/board/deleteAnnounce").authenticated()
 			.anyRequest().permitAll()
 			.and()

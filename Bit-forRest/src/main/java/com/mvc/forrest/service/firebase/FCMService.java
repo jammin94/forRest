@@ -31,6 +31,8 @@ public class FCMService implements MessageService {
     	
         Message message = Message.builder()
             .setToken(token)
+            .putData("title", title)
+            .putData("body", body)
             .setNotification(notification)
             .build();
         

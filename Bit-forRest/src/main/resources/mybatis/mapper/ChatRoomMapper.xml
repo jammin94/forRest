@@ -19,7 +19,7 @@
 	</resultMap>
 
 	<!-- SQL : SELECT LIST -->
-	<select  id="getListChatRoom"  parameterType="integer"	resultMap="chatRoomSelectMap">
+	<select  id="getListChatRoom"  parameterType="String"	resultMap="chatRoomSelectMap">
 		SELECT * FROM chatRoom
 		<where>
 		oldNo = #{oldNo} ORDER BY createdAt DESC
