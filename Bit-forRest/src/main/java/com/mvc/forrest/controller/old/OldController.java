@@ -30,6 +30,7 @@ import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.OldLike;
 import com.mvc.forrest.service.domain.OldReview;
+import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
@@ -60,7 +61,7 @@ public class OldController {
 	@Value("5")
 	int pageUnit;
 
-	@Value("10")
+	@Value("8")
 	int pageSize;
 
 	///////////////////// 회원만 가능//////////////////////////////
@@ -81,11 +82,22 @@ public class OldController {
 			search.setSearchKeyword(null);
 		}
 		
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		
+		search.setPageSize(pageSize);
+		
 		List<Old> list = oldService.getOldListHasUser(search, userId);
-
+		
+		Page resultPage = new Page(search.getCurrentPage(), oldService.getTotalCount(search), pageUnit, pageSize);
+		
+		System.out.println("list:"+list);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
+		model.addAttribute("resultPage", resultPage);
 
 		return "/old/listOld";
 	}
@@ -104,16 +116,24 @@ public class OldController {
 			search.setSearchKeyword(null);
 		}
 		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
 		System.out.println("search: "+ search);
 		
 		
 		
 		List<Old> list = oldService.getOldList(search);
 		
+		Page resultPage = new Page(search.getCurrentPage(), oldService.getTotalCount(search), pageUnit, pageSize);
+		
 		System.out.println("list"+list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
+		model.addAttribute("resultPage", resultPage);
 
 		return "old/listOld";
 	}

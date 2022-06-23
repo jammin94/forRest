@@ -18,7 +18,9 @@
 		//아이디찾기 버튼 event
 		
 		$(function(){
-			$("#findId").on("click", fncFindId);
+			$("#findId").on("click", function(){
+				checkInfo()
+			});
 			
 			$("#sendSMS").on("click",function(){
 				Swal.fire({
@@ -65,11 +67,35 @@
 			$("form").attr("method" , "POST").attr("action" , "/user/findId").submit();
 		}
 		
+		function checkInfo(){
+			var param = {
+					name : $("#userName").val(),
+					phone : $("#phone").val(),
+					sms : $("#checkSMS").val()
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : "/user/json/checkInfo",
+				data : param,
+				success : function(data){
+					console.log("success");
+					if(data==1){
+						fncFindId()
+					}else{
+						Swal.fire({
+							text:  '일치하는 아이디가 없습니다',  
+							icon:  'error',                   
+							});
+					}
+				}
+			})
+		}
+		
 		
 	</script>
 
   <style>
-    @import url(https://fonts.googleapis.com/css?family=Monsterrat);
 
     html {
       background: #000;
@@ -237,7 +263,7 @@
       
 
 	  <br><br>
-      <input id="findId" type="submit" value="아이디찾기">
+      <button id="findId" type="button">아이디찾기</button>
      </span>
   </form>
 
