@@ -36,7 +36,7 @@ public class OldReviewController {
 		
 		oldReviewService.addOldReview(oldReview);
 		
-		return null;
+		return "/";
 	}
 	
 	@PostMapping("listOldReview")
