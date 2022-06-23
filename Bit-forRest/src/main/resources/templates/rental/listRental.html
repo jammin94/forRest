@@ -107,9 +107,9 @@
     }
     
     .getRentalLink{
-    	color:green;
-    	cursor:pointer;
-    	text-decoration:underline;
+     color: grey; 
+    cursor: pointer;
+    text-decoration: none;
     }
     
     .reviewBtn{
@@ -434,7 +434,7 @@
 	
 	<input type="hidden" name="tranNo" class="innerTranNo"></input>
 	<input type="hidden" name="reviewDone" class="reviewDone"></input>
-	<!-- <input type="hidden" name="prodNo" class="prodNo"></input> -->
+	 <input type="hidden" name="prodNo" class="prodNo"></input>
 
 <span class="close">닫기</span>
 <!-- 
@@ -521,6 +521,9 @@ $(function(){
 	//"리뷰쓰기" 버튼
 $(".reviewBtn").on("click",function(){
 	
+	 
+	
+	
 	var replaceHTML = " <button type='button' class='regBtn' >등록하기 </button>"
 	
 		$('.regEditBtn').replaceWith(replaceHTML);
@@ -542,6 +545,8 @@ $(".reviewBtn").on("click",function(){
 	
 	//"리뷰수정"버튼
 	$(".reviewEditBtn").on("click",function(){
+		
+		$('.prodNo').remove();
 	
 		console.log("리뷰수정!!!");
 		  $('#review-form').addClass("on");
@@ -581,8 +586,11 @@ $(".reviewBtn").on("click",function(){
                     			
                     			console.log("요거클릭되나요 ?");
                     			
-                    			 $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/updateRentalReview?prodNo="+prodNo).submit();
+                    			
                     			 
+                    			 $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/updateRentalReview?prodNo="+prodNo).submit();
+                    		
+                    			
                     		})
                     		
             	}

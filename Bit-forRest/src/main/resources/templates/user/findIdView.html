@@ -10,7 +10,7 @@
 	
 	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!--  ///////////////////////// java Script ////////////////////////// -->
 	<script type="text/javascript">
@@ -21,7 +21,11 @@
 			$("#findId").on("click", fncFindId);
 			
 			$("#sendSMS").on("click",function(){
-				alert("sendSMS Click");
+				Swal.fire({
+					title: 'SMS 발송',       
+					text:  '입력한 번호로 인증번호를 발송합니다',  
+					icon:  'info',                   
+					});
 				var phone = $("#phone").val();
 				console.log(phone);
 				console.log();
@@ -38,9 +42,17 @@
 							console.log("data : "+data);
 							console.log("sms : "+sms);
 							if(data==sms){
-								alert("인증에 성공하였습니다.");
+								Swal.fire({
+									title: '인증성공',       
+									text:  '인증에 성공하였습니다',  
+									icon:  'success',                   
+									});
 							}else{
-								alert("인증에 실패하였습니다.");
+								Swal.fire({
+									title: '인증실패',       
+									text:  '다시 시도해주세요',  
+									icon:  'error',                   
+									});
 							}
 						})
 					}

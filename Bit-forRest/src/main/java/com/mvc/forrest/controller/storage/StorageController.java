@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
+import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
@@ -181,6 +184,17 @@ public class StorageController {
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+
+		/////////////////////////////////////세션 재설정(상민)/////////////////////////////////////////
+		User user = userService.getUser(userId);
+		user = userService.getUser(user.getUserId());
+		SecurityContextHolder.clearContext();
+		LoginUser freshUser = new LoginUser(user);
+		Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
+				freshUser, null, freshUser.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		///////////////////////////////////////////////////////////////////////////////
+
 		
 		return "storage/listStorage";
 	}

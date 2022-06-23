@@ -92,7 +92,7 @@ input{
     margin-left: 19px;
 }
 
-.payment{
+#check_module{
 	padding:5px;
 	background:#262626;
 	border:none;	
@@ -353,8 +353,8 @@ input{
 	</td>
 	<td style="padding:10px">
 	 <select class="coupon" name= "coupon">
-	 		<option >-- 선택 --</option>   				
-   			<option >17900</option>
+	 		<option >-- 선택 --</option>   	
+	 		<option >0.99</option>   				
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
@@ -400,12 +400,12 @@ input{
 
 </table>
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
-	<button type="button" class="payment">결제하기</button>
+	<button type="button" id="check_module">결제하기</button>
 	<button class="cancel">취소하기</button>
 </div>
 	</form>
 </div>
- <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
+<!--  <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button> -->
 <!-- footer -->
      <div th:replace="/main/footer.html"></div>
  
