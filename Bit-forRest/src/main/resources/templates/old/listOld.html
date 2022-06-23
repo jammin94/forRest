@@ -402,6 +402,17 @@ margin-bottom: 210px !important;
 }
 
 
+/*페이지 관련*/
+ .temp{
+	display:flex;
+	
+}
+
+.temp>div{
+	padding-left:1px;
+}
+
+
 </style>
 
 
@@ -427,7 +438,7 @@ margin-bottom: 210px !important;
        th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
 
        
-      <button type="submit" class="searchButton">
+      <button type="button" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
    </div>
@@ -443,19 +454,21 @@ margin-bottom: 210px !important;
  <input type="hidden" class="searchCategory" name="searchCategory" value="">
 <div id="primary_nav_wrap">
 <ul>
-  <li><a>전체</a></li>
-  <li ><a>텐트</a></li>
-  <li><a>침대</a></li>
-  <li><a>의자</a></li>
-  <li><a>그릴</a></li>
-  <li><a>버너</a></li>
-  <li><a>조명</a></li>
-  <li><a>테이블</a></li>
-  <li><a>식기</a></li>
-  <li><a>난로</a></li>
-  <li><a>기타용품</a></li>
+  <li><a class="cate">전체</a></li>
+  <li ><a class="cate">텐트</a></li>
+  <li><a class="cate">침대</a></li>
+  <li><a class="cate">의자</a></li>
+  <li><a class="cate">그릴</a></li>
+  <li><a class="cate">버너</a></li>
+  <li><a class="cate">조명</a></li>
+  <li><a class="cate">테이블</a></li>
+  <li><a class="cate">식기</a></li>
+  <li><a class="cate">난로</a></li>
+  <li><a class="cate">기타용품</a></li>
 </ul>
 </div>
+
+<input type="hidden" id="currentPage" name="currentPage" th:value= "${search.currentPage}"/>
 
 </form> 
 <input type="hidden" class="loginUser" th:value="${loginUserId}">
@@ -510,9 +523,57 @@ margin-bottom: 210px !important;
         
         <!-- END old -->
         
+      
+        
 
       </div>
       <!-- END old List -->
+      
+        			<!-- navi start -->
+		<div >
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetOldList('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetOldList('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a  th:onclick="|javascript:fncGetOldList('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		<!-- navi end -->
+      
+      
    <div class="button"> <a th:href="@{/old/addOld}" class="bn3637 bn36 plusBtn">+</a></div>
     </div>
   
@@ -527,6 +588,20 @@ margin-bottom: 210px !important;
 </body>
 
 <script type="text/javascript">
+
+//페이지처리
+function fncGetOldList(currentPage) {
+	
+	 $("#currentPage").val(currentPage)
+	
+	if($(".loginUser").val()==""){
+		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+    	} else{
+    		 $('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+    	}  
+}
+
+
 
 $(function(){
 	$(".searchButton").on("click", function(){
@@ -546,7 +621,7 @@ $(function(){
 $(function(){
 	$("li").on("click", function(){
 		
-		var categoryValue = $(this).find('a').text();
+		var categoryValue = $(this).find('.cate').text();
 		//alert(categoryValue);
 		
 		if(categoryValue=="전체"){

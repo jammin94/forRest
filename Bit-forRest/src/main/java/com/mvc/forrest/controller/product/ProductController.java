@@ -403,8 +403,6 @@ public class ProductController {
 			search.setCurrentPage(1);
 		}
 		
-		System.out.println("서치서치:"+search);
-		
 		search.setPageSize(pageSize);
 
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -416,8 +414,6 @@ public class ProductController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
 		
-		System.out.println("list:"+list);
-		//System.out.println("resultPage:"+resultPage);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
