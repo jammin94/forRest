@@ -114,8 +114,6 @@
 
 .aboutUser{
 	margin-top:150px;
-	display: flex;
-    justify-content: center;
 }
 
 .tableBottom{
@@ -257,7 +255,7 @@ input{
 <div th:replace="/main/leftbarMyPage.html"></div>
 <div th:replace="/user/topMyPage.html"></div>
 
-<div class="container list" style="padding-right:150px;">
+<div class="container list">
 	 <div class="title" id="titlef" style="margin-left: 30px; font-size: 25px; margin: 1.5em;  " >
 		<span style="margin-left: 200px;">My Page</span>
 	</div>
@@ -265,11 +263,11 @@ input{
 	<div class="aboutUser">
 		<!-- 좌: 이미지, 사진변경 -->
 		<div class="col-md-1"><!-- 여백 --></div>
-		<div class="col-md-5 left" style="text-align: center;" >
+		<div class="col-md-5 left" style="text-align: center; margin-top: 90px;" >
 			<span>
 				<img id="preView" th:src= "@{/images/uploadFiles/}+${#authentication.principal.user.userImg}"
               	alt="" onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
-       			width="250" height="300" style="border-radius: 70%;" >
+       			width="400" height="400" style="border-radius: 70%;" >
      			<input id="userImgFile" type="file" name="userImgFile" readonly="readonly">
      			<input id="userImgName" type="text" name="userImgFile" readonly="readonly" th:value="${user.userImg}">
      			
@@ -284,7 +282,7 @@ input{
 	</div>
 	
 		<!-- 중단 : 주소, 전화번호, 보유쿠폰조회 -->
-	<div class="hundred">
+	<div class="hundred" style="margin-left: 250px; width: 50%;">
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	<tbody><tr><td>
 	
@@ -324,8 +322,8 @@ input{
 		                <th scope="row">주소</th>
 		                <td>
 		                    <strong id="currentEmail">
-		                      <input type="text" th:value="${user.userAddr}" readonly="readonly" style="margin-bottom: 15px;">
-							  <input type="text" id="sample6_postcode" name= "addr1" placeholder="우편번호"onclick="sample6_execDaumPostcode()" readonly="readonly">
+		                      <input type="text" th:value="${user.userAddr}" readonly="readonly" style="margin-bottom: 15px;"><br>
+							  <input type="text" id="sample6_postcode" name= "addr1" placeholder="우편번호"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
 							  <input type="text" id="sample6_address" name= "addr2" placeholder="주소"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
 							  <input type="text" id="sample6_detailAddress" name= "addr3" placeholder="상세주소">
 							  <input type="text" id="sample6_extraAddress" name= "addr4" placeholder="참고항목">
