@@ -27,6 +27,7 @@ import com.mvc.forrest.service.domain.Rental;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
 import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.firebase.FCMService;
 import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.rentalreview.RentalReviewService;
@@ -58,6 +59,9 @@ public class ProductController {
 	
 	@Autowired
 	public FileUtils fileUtils;
+	
+	@Autowired
+	public FCMService fcmService;
 	
 	public ProductController() {
 		System.out.println(this.getClass());
@@ -146,6 +150,7 @@ public class ProductController {
 			product.setProdCondition("입고중");
 		} else if (product.getProdCondition().equals("입고중")){
 			product.setProdCondition("보관중");
+			//fcmService.sendMessage(product.getUserId(), "보관완료", "물품이 안전하게 보관되었습니다");
 		} else if (product.getProdCondition().equals("출고승인신청중")){
 			product.setProdCondition("출고완료");
 		//보관관련

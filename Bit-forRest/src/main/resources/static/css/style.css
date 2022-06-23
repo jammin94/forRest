@@ -1283,7 +1283,8 @@ background: rgb(38 38 38);
 
 
 .try_rc_mob_img img{
-	width:auto;
+	width:205px !important;
+	height:205px !important;
 	display:inline-block !important;
 	border-radius:10px;
 }
