@@ -52,11 +52,13 @@ public class OldService {
 	}
 	
 	public List<Old> getOldListHasUser(Search search, String userId) throws Exception{
-		System.out.println("getOldList 성공");
+		System.out.println("getOldList hasUser 성공");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("search", search);
-		
+		System.out.println("search: "+search);
+		System.out.println("userId: "+ userId);
+		System.out.println("아하아하");
 		return oldDAO.getOldListHasUser(map);
 	}
 	
@@ -104,6 +106,11 @@ public class OldService {
 	public void updateViewCnt(String oldNo) throws Exception{
 		System.out.println("updateViewCnt 성공");
 		oldDAO.updateViewCnt(oldNo);
+	}
+	
+public int getTotalCount(Search search) throws Exception {
+		
+		return oldDAO.getTotalCount(search);
 	}
 	
 	}

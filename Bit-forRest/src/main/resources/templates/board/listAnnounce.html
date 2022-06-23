@@ -165,11 +165,11 @@
 	            <th align="center">No</th>
 	            <th align="center" >제목</th>   
 	            <th align="center">게시날짜</th>
-	            <div sec:authorize access="hasRole('admin')">
+	            <sec:authorize access="hasRole('admin')">
 	            <th align="left">
 	            	<input type="checkbox" name="totalSelector" id="totalSelector"></input>
 	            </th>	
-	           </div>
+	           </sec:authorize>
 	          </tr>
 	        </thead>
 	        

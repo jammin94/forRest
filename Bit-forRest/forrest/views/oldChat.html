@@ -25,8 +25,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  /*background: #ffffff;*/
-  /*background-image: url("/images/gif/9df0332215c378644d370e50ec110331.gif");*/
   background: linear-gradient(to bottom, #E6EAEA, #243342);
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
@@ -333,7 +331,7 @@ body {
 
 
 <form name="report" style="display: none;" action="http://localhost:8080/report/addReport" method="GET">
-	<input type="hidden" name="reportUser" value="{{user}}"/>
+	<input type="hidden" name="reportUser" value="{{user.userId}}"/>
 	<input type="hidden" name="reportedUser" value="{{otherUser.userId}}"/>
 	<input type="hidden" name="reportOldNo" value="{{old.oldNo}}"/>
 	<input type="hidden" name="reportChatroomNo" value="{{chatRoomNo}}"/>
@@ -343,8 +341,7 @@ body {
 <div id="frame">
 	<div class="content">
 		<div class="contact-profile">
-			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-       <!-- <img src="{{old.oldImg}} alt="" class="oldImg">-->
+			<img src="http://192.168.0.42:8080/images/uploadFiles/{{old.oldImg}}" class="oldImg">
 			<p class="oldTitle">{{old.oldTitle}} &nbsp&nbsp</p>
       <p class="oldPrice">{{old.oldPrice}}원&nbsp&nbsp</p>
       <p class="oldState">{{old.oldState}}</p>
@@ -356,17 +353,19 @@ body {
 		<div class="messages">
 			<ul>
         {% for chatList in chatLists %}
-	          {% if chatList.sendUserId === user %} 
+	          {% if chatList.sendUserId === user.userId %} 
 	            <li class="sent">
+	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg"/>
 	          {% else %}
 	            <li class="replies">
+	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="otherUserImg"/>
 	          {% endif %}
-	            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-	            <!--<img src="{{list.ownerImg}}" alt="" /> --><!--세션 해결하면 수정!-->
+	            
+	            
 	
 	            <p>{{chatList.chatMessage}}</p>
 	            <br/>
-	          {% if chatList.sendUserId === user %} 
+	          {% if chatList.sendUserId === user.userId %} 
 	            <span class="sent" name="readOrNot" id="readOrNot">
 	          {% else %}    
 	            <span class="replies" name="readOrNot" id="readOrNot">
@@ -374,7 +373,7 @@ body {
 	            {{chatList.readOrNot}}</span>
 	            <br/>
 	
-	          {% if chatList.sendUserId === user %} 
+	          {% if chatList.sendUserId === user.userId %} 
 	            <div class="sent" name="createdAt"">
 	          {% else %}    
 	            <div class="replies" name="createdAt"">
@@ -478,7 +477,7 @@ socket.on('map',function(place, chatRoomNo, send_UserId){
       chat: JSON.stringify(Array.from( place.entries())), //string화
       isConnected: is_Connected,
       place: place,
-      sendUserId: '{{user}}',
+      sendUserId: '{{user.userId}}',
     });
 });
 
@@ -496,19 +495,21 @@ socket.on('oldChat',function(data){
   }
 	
   const li = document.createElement('li');
-  console.log('user는 현재 '+'{{user}}');
+  console.log('user는 현재 '+'{{user.userId}}');
   console.log('JSON.stringify(data)'+JSON.stringify(data));
   console.log('data.chat[0].chatMessage : '+data.chat[0].chatMessage);
 
-  if(data.chat[0].sendUserId==='{{user}}'){
+  if(data.chat[0].sendUserId==='{{user.userId}}'){
     li.classList.add('sent');
+    const senderImg = document.createElement('img');
+    senderImg.src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}"
+    li.appendChild(senderImg);
   }else{
     li.classList.add('replies');
+    const otherImg = document.createElement('img');
+    otherImg.src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}"
+    li.appendChild(otherImg);
   }
-  const ownerImg = document.createElement('img');
-  ownerImg.src='http://emilcarlsson.se/assets/mikeross.png'
-  //ownerImg.src='data.chat[0].userImg'
-  li.appendChild(ownerImg);
 
   const chatMessage= document.createElement('p');
   chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
@@ -520,7 +521,7 @@ socket.on('oldChat',function(data){
   const readOrNot= document.createElement('span');
   readOrNot.id='readOrNot';
   readOrNot.name='readOrNot';
-  if(data.chat[0].sendUserId==='{{user}}'){
+  if(data.chat[0].sendUserId==='{{user.userId}}'){
 	readOrNot.classList.add('sent')
   }else{
 	readOrNot.classList.add('replies')
@@ -538,7 +539,7 @@ socket.on('oldChat',function(data){
   li.appendChild(document.createElement('br'));
 
   const div = document.createElement('div');
-  if(data.chat[0].sendUserId==='{{user}}'){
+  if(data.chat[0].sendUserId==='{{user.userId}}'){
 	 div.classList.add('sent');
   }else{
 	  div.classList.add('replies');
@@ -648,7 +649,7 @@ $("a:first").on('click',function(){
 
 //지도모양 클릭시 지도업로드
 $("a:last").on('click',function(){
-	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user}}}','_blank','width=500');
+	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}}','_blank','width=500');
 })
 
 </script>

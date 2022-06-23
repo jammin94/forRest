@@ -86,6 +86,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOldList" parameterType="Search" resultMap="oldSelectMap">
 		SELECT * FROM old
 		<where>
+			<if test="searchKeyword != null and searchCategory != null">
+					old.oldTitle LIKE CONCAT('%',#{searchKeyword},'%') and category LIKE #{searchCategory}
+	     	</if>
 			<if test="searchKeyword != null and searchCategory == null">
 				oldTitle LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
@@ -93,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				category LIKE #{searchCategory}
 			</if>
 		</where>
-		order by oldDate DESC
+		order by oldDate DESC LIMIT #{startRowNum}, #{pageSize}
 	</select>
 
 	<!-- SQL : SELECT LIST -->
@@ -104,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON old.oldNo = A.oldNo
 		<where>
 		<if test="search.searchKeyword != null and search.searchCategory != null">
-					old.oldTitle LIKE CONCAT('%',#{search.searchKeyword},'%') and category LIKE #{search.searchCategory}
+				old.oldTitle LIKE CONCAT('%',#{search.searchKeyword},'%') and category LIKE #{search.searchCategory}
 	     	</if>
 			<if test="search.searchKeyword != null and search.searchCategory == null">
 				old.oldTitle LIKE CONCAT('%',#{search.searchKeyword},'%')
@@ -113,8 +116,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				old.category LIKE CONCAT('%',#{search.searchCategory},'%')
 			</if>
 		</where>
-		order by old.oldDate DESC
+		order by old.oldDate DESC  LIMIT #{search.startRowNum}, #{search.pageSize}
 	</select>
+	
+	<select id="getTotalCount" parameterType="search" resultType="int">
+		SELECT  COUNT(*)
+		FROM old
+		<where>
+		<if test="searchKeyword != null and searchCategory != null">
+					old.oldTitle LIKE CONCAT('%',#{searchKeyword},'%') and category LIKE #{searchCategory}
+	     	</if>
+			<if test="searchKeyword != null and searchCategory == null">
+				old.oldTitle LIKE CONCAT('%',#{searchKeyword},'%')
+			</if>
+			<if test="searchKeyword ==null and searchCategory !=null">
+				old.category LIKE CONCAT('%',#{searchCategory},'%')
+			</if>
+		</where>
+	</select>
+	
+	
 
 	<select id="getOldListForIndex" resultMap="oldSelectMap">
 		SELECT inner_table.* ,
