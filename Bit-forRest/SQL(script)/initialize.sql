@@ -318,21 +318,6 @@ VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURR
 INSERT INTO old
 VALUES ('j','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'조명',FALSE,'jjj.jpg','서초동');
 
-INSERT INTO old
-VALUES ('300c7440-57b9-4549-869d-b67b11ae027f', 'user01@naver.com', 7000, '테이블', '한번 써서 깨끗해요~', '2022-06-23 00:43:11', 0, '테이블', 1, '5a9056e3-2833-4e8d-b4ee-fa1355fee05d.jpg', '삼성동');
-
-INSERT INTO old
-VALUES ('505ad46a-ee24-451d-93ac-366758db530a', 'user01@naver.com', 30000, '아이스박스 팔아요', '기능 좋아요.', '2022-06-23 00:48:11', 0, '기타용품', 1, '98f8dcd0-f485-426a-90ff-fe2a9e2a3fe2.jpg', '청담동');
-
-INSERT INTO old	
-VALUES ('859f0a29-900f-4915-931d-db84264b6473', 'user01@naver.com', 5000, '감성 조명', '분위기가 달라져요. 저렴하게 가져가세요.', '2022-06-23 00:36:26', 2, '텐트', 1, 'af53b5a2-4812-43c7-9daf-b4a2b50f07a6.jpg', '역삼동');
-
-INSERT INTO old	
-VALUES ('f2633ab8-2980-4512-88d1-4ed7f7f27ed3', 'user01@naver.com', 6000, '랜턴 2개', '하나씩은 팔지 않습니다.', '2022-06-23 00:39:11', 1, '텐트', 1, '98daa892-9499-45b0-80db-df587e49a415.JPG', '연희동');
-	
-INSERT INTO old	
-VALUES ('fbfce808-e01d-45aa-a9f9-f5a28301de3f', 'user01@naver.com', 8000, '고급 의자', '급처합니다.', '2022-06-23 00:42:00', 0, '의자', 1, '1ecabfc4-bda9-4607-b0c7-9f0de28a2978.JPG', '이촌동');
-
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg', CURRENT_TIMESTAMP());
 
 INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('b', 100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트2', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '2.jpg', CURRENT_TIMESTAMP());
