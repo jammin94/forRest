@@ -165,21 +165,21 @@ CREATE TABLE `chatRoom` (
   CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE 
 );
 
-CREATE TABLE `chat` (
-  `chatMessageNo` int NOT NULL AUTO_INCREMENT,
-  `chatRoomNo` int NOT NULL,
+CREATE TABLE IF NOT EXISTS `chat` (
+  `chatMessageNo` int(11) NOT NULL AUTO_INCREMENT,
+  `chatRoomNo` int(11) NOT NULL,
   `sendUserId` varchar(30) NOT NULL,
   `chatMessage` varchar(4000) NOT NULL,
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
-  `readOrNot` tinyint(1) DEFAULT '1',
+  `createdAt` datetime DEFAULT current_timestamp(),
+  `readOrNot` tinyint(1) DEFAULT 1,
   `fileName` varchar(4000) DEFAULT NULL,
-  `map` JSON,
+  `map` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`map`)),
   PRIMARY KEY (`chatMessageNo`),
   KEY `chatRoomNo` (`chatRoomNo`),
   KEY `sendUserId` (`sendUserId`),
-  CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatRoom` (`chatRoomNo`) ON DELETE CASCADE,
+  CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatroom` (`chatRoomNo`) ON DELETE CASCADE,
   CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-);
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `chatImg` (
   `chatImgNo` int NOT NULL AUTO_INCREMENT,
