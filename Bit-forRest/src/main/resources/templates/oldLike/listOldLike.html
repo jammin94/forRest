@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>중고거래 리스트
+    <title>찜
     </title>
     
 
@@ -427,89 +427,42 @@ margin-bottom: 210px !important;
   
     <div class="col-md-12"  >
 
-     <h2 class="boardTitle">중고마켓	</h2>
-     
-    <form name="detailForm"  method="post"> 
-    <!-- 검색바 시작 -->
-    <div class="wrap">
-   <div class="search">
-   
-       <input type="text" class="searchKeyword" name="searchKeyword" 
-       th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
-
-       
-      <button type="button" class="searchButton">
-        <i class="fa fa-search"></i>
-     </button>
-   </div>
-</div>
-  <!-- 검색바 끝 -->
-  
-  
-
-  <!-- 정렬조건 바  끝-->
-  
-  <!--카테고리바  시작-->
-  <!-- 카테고리내에서 검색조건을 유지 어케함 -->
- <input type="hidden" class="searchCategory" name="searchCategory" value="">
-<div id="primary_nav_wrap">
-<ul>
-  <li><a class="cate">전체</a></li>
-  <li ><a class="cate">텐트</a></li>
-  <li><a class="cate">침대</a></li>
-  <li><a class="cate">의자</a></li>
-  <li><a class="cate">그릴</a></li>
-  <li><a class="cate">버너</a></li>
-  <li><a class="cate">조명</a></li>
-  <li><a class="cate">테이블</a></li>
-  <li><a class="cate">식기</a></li>
-  <li><a class="cate">난로</a></li>
-  <li><a class="cate">기타용품</a></li>
-</ul>
-</div>
-
-<input type="hidden" id="currentPage" name="currentPage" th:value= "${search.currentPage}"/>
-
-</form> 
-<input type="hidden" class="loginUser" th:value="${loginUserId}">
-
-   <!--카테고리바  끝->
-   
+     <h2 class="boardTitle">중고마켓 찜 목록	</h2>
     
      
       <!-- BEGIN old List --> 
       <div class="old-list">
 
         <!-- BEGIN old -->
-        <div class="old" th:each = "old : ${list}" style="margin-right:20px;">
+        <div class="old" th:each = "oldLike : ${list}" style="margin-right:20px;">
           <div class="owl-item active" style="width: 270px;" >
         
         	<div class="item">
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
-									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==1">
-												<!--	<h5>Sale</h5>  -->
-										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==0" >		
-											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${oldLike.old.oldImg}"  th:if="${oldLike.old.oldState}==1">
+												
+										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${oldLike.old.oldImg}"  th:if="${oldLike.old.oldState}==0" >		
+											<input type="hidden" id="oldNo" name="oldNo" th:value="${oldLike.old.oldNo}"/>
+											<span th:unless="${oldLike.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+											<span th:if="${oldLike.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
 										</div>
 										<div class="try_rc_mob_img_cont">
-											<h2>[[${old.oldTitle}]]</h2>
+											<h2>[[${oldLike.old.oldTitle}]]</h2>
 											
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+											<p>  <span class="new-price" th:text ="|${oldLike.old.oldPrice}원|"></span></p>	
 											<div class="try_mob_btn_wrapper">	
 											
 											<span sec:authorize="isAuthenticated()">	
-											<a th:href="@{/old/getOldLogIn(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1  or ${#authentication.principal.user.userId}==${old.userId}   ">자세히 보기</a>
-											<a th:if="${old.oldState}==0 and ${#authentication.principal.user.userId}!=${old.userId} " style="background:#7e7e7e;">거래완료</a>
+											<a th:href="@{/old/getOldLogIn(oldNo= ${oldLike.old.oldNo})}" th:if="${oldLike.old.oldState}==1  or ${#authentication.principal.user.userId}==${oldLike.userId}   ">자세히 보기</a>
+											<a th:if="${oldLike.old.oldState}==0 and ${#authentication.principal.user.userId}!=${oldLike.userId} " style="background:#7e7e7e;">거래완료</a>
 											</span>
 											
 											<span sec:authorize="isAnonymous()">
-											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1 " >자세히 보기</a>
-											<a th:if="${old.oldState}==0" style=" background:#7e7e7e;">거래완료</a>
+											<a th:href="@{/old/getOld(oldNo= ${oldLike.old.oldNo})}" th:if="${oldLike.old.oldState}==1 " >자세히 보기</a>
+											<a th:if="${oldLike.old.oldState}==0" style=" background:#7e7e7e;">거래완료</a>
 											</span>
 											
 											</div>
@@ -517,7 +470,7 @@ margin-bottom: 210px !important;
 									</div>
 								</div>
 			 </div>
-			 <div th:if="${old.oldState}==0" class="tempCover"></div>
+			 <div th:if="${oldLike.old.oldState}==0" class="tempCover"></div>
         </div>
         
         
@@ -527,55 +480,8 @@ margin-bottom: 210px !important;
         
 
       </div>
-      <!-- END old List -->
-      
-        			<!-- navi start -->
-		<div >
-		<nav aria-label="Page navigation" align="center" style="width:100%"
-		th:with="
-			currentPage=${resultPage.currentPage},
-			pageUnit=${resultPage.pageUnit},
-			beginUnitPage=${resultPage.beginUnitPage},
-			endUnitPage=${resultPage.endUnitPage},
-			maxPage=${resultPage.maxPage}
-		">
-		  <ul class="pagination" >
-		    <!-- 좌측 navi -->
-		    <span th:if="${currentPage}<=${pageUnit}">
-				<li class="hidden">
-			</span>
-			<span th:if="${currentPage}>${pageUnit}">
-				<li>
-			</span>
-		      <a aria-label="Previous" th:onclick="|javascript:fncGetOldList('${currentPage-1}')|">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
- <span class="temp">
-  				<!-- 중앙 -->
-	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
-				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetOldList('${num}')|">[[${num}]]</a></li>
-			  </div>
-</span>
-		    <!-- 우측 navi -->
-		    <span th:if="${endUnitPage}>=${maxPage}">
-				<li class="hidden">
-			</span>
-			<span th:unless="${endUnitPage}>=${maxPage}">
-				<li>
-			</span>
-		      <a  th:onclick="|javascript:fncGetOldList('${endUnitPage+1}')|" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
-		</div>
-		<!-- navi end -->
-      
-      
-   <div class="button"> <a th:href="@{/old/addOld}" class="bn3637 bn36 plusBtn">+</a></div>
-    </div>
+   
+    
   
   </div>
  
@@ -590,16 +496,16 @@ margin-bottom: 210px !important;
 <script type="text/javascript">
 
 //페이지처리
-function fncGetOldList(currentPage) {
+// function fncGetOldList(currentPage) {
 	
-	 $("#currentPage").val(currentPage)
+// 	 $("#currentPage").val(currentPage)
 	
-	if($(".loginUser").val()==""){
-		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
-    	} else{
-    		 $('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
-    	}  
-}
+// 	if($(".loginUser").val()==""){
+// 		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+//     	} else{
+//     		 $('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+//     	}  
+// }
 
 
 

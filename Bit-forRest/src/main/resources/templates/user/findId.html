@@ -17,11 +17,14 @@
     @import url(https://fonts.googleapis.com/css?family=Monsterrat);
 
     html {
-      background: #ECF0F1;
+      background: rgb(216, 224, 226);
       font-family: 'Montserrat', sans-serif;
     }
 
-    body {}
+    .button {
+    	color: black;
+    
+    }
 
     a {
       font-size: 1.2em;
@@ -77,8 +80,8 @@
     }
 
     label {
-      color: #BDC3C7;
-      font-size: 0.9em;
+      color: rgb(0, 0, 0);
+      font-size: 1em;
       letter-spacing: 4px;
     }
 
@@ -120,12 +123,16 @@
 				<br><br>
 		
 			<div id=span >
-			<a th:href="@{/user/login}">Login</a>
-			<a th:href="@{/user/findPwd}">Find Password</a>
+			<a class = "button" th:href="@{/user/login}">Login</a>
+			<a class = "button" th:href="@{/user/findPwd}">Find Password</a>
 			</div>
 		 <br><br>
 	</form>
 
 </body>
+
+<script type="text/javascript">
+
+</script>
 
 </html>

@@ -154,7 +154,8 @@
 				}).then(result => {
 					   // 만약 Promise리턴을 받으면,
 					   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
-						   fncDeleteUser()			
+						   console.log("click");
+						   checkPassword()	
 					   }
 			});	
 		});
@@ -177,10 +178,36 @@
 	
 	
 	function fncDeleteUser() {
-		
 		$("form").attr("method" , "POST").attr("action" , "/user/deleteUser").submit();
-		
 	}
+	
+	function checkPassword(){
+		var param={
+				password77 : $("#password").val()
+		}
+		
+			$.ajax({
+				type:"POST",
+				url : "/user/json/checkPWD",
+				data : param,
+				success : function(data){
+					if(data == 0){
+						Swal.fire({
+							title: '회원탈퇴 신청 성공',       
+							icon:  'success',                   
+							});
+						fncDeleteUser()
+					}else{
+						Swal.fire({
+							title: '비밀번호 오류',       
+							text:  '비밀번호를 확인해주세요',  
+							icon:  'error',                   
+							});
+					}
+				}
+				
+			})
+		}
   </script>
 
 </html>

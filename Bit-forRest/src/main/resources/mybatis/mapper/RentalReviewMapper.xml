@@ -43,7 +43,9 @@
 	 <update	id="updateRentalReview"	parameterType="RentalReview" >
 	   	update rentalReview
 	   	<set>
+	   	<if test="reviewImg != null ">
 	   		reviewImg=#{reviewImg},
+	   		</if>
 	   		reviewDetail=#{reviewDetail},
 	   		reviewScore=#{reviewScore}
 	   	</set>

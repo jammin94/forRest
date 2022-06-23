@@ -144,6 +144,10 @@ public class ProductController {
 	// 관리자가 물품의 상태변경 ( 보관 )
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
+		System.out.println("스타트");
+		
+		System.out.println("prodNo:"+prodNo);
+		
 		Product product = productService.getProduct(prodNo);		
 		
 		if(product.getProdCondition().equals("물품보관승인신청중")) {
@@ -189,9 +193,11 @@ public class ProductController {
 	@RequestMapping("updateProductAllCondition")
 	public String updateProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
 		
+		System.out.println("갓잇갓잇");
+		
 		//디버깅
 		for(String no: prodNo) {
-			System.out.println(no);
+			System.out.println("prodNO:"+no);
 		}
 		
 		//prodNo를 통해 productCondition배열에 값을 셋팅
@@ -403,8 +409,6 @@ public class ProductController {
 			search.setCurrentPage(1);
 		}
 		
-		System.out.println("서치서치:"+search);
-		
 		search.setPageSize(pageSize);
 
 		LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -416,8 +420,6 @@ public class ProductController {
 		
 		Page resultPage = new Page(search.getCurrentPage(), productService.getTotalCount(search), pageUnit, pageSize);
 		
-		System.out.println("list:"+list);
-		//System.out.println("resultPage:"+resultPage);
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("loginUserId", userId);
 		model.addAttribute("list", list);
