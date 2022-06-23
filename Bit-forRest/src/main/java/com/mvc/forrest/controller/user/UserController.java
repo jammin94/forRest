@@ -441,6 +441,9 @@ public class UserController {
 		
 		if(passwordEncoder.matches(password, user.getPassword())) {
 			userService.applyLeave(user);
+			System.out.println("탈퇴요청 성공");
+		}else {
+			System.out.println("탈퇴요청 실패");
 		}
 		
 
