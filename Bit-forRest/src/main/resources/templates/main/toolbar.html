@@ -258,7 +258,7 @@ article {
            
            		<li style="cursor:pointer;"> 
            		<!-- <a class="chatBtn" th:href="@{'http://192.168.0.42:3001/oldChat/list/'+${#authentication.principal.user.userId}}" target="_blank"> -->
-           	  <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
+           	  <span class="hiddenUserId2" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
            	  
            	 
            	  
@@ -347,7 +347,7 @@ article {
       $(function(){
     	  
     	  $('.chatBtn').on('click',function(){
-    		  var userId = $('.hiddenUserId').text();
+    		  var userId = $('.hiddenUserId2').text();
     		  
     		  console.log(userId);
     		  

@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4990d004ae4be7c2dd1f8ce139e65e71&libraries=services, clusterer"></script>
     <style>
@@ -45,6 +44,7 @@
 </style>
 </head>
 <body>
+<input type="hidden" name="oldNo" value="oldNo"/>
 <input type="hidden" name="chatRoomNo" value="{{chatRoomNo}}"/>
 <input type="hidden" name="sendUserId" value="{{sendUserId}}"/>
 
@@ -66,8 +66,9 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -174,6 +175,7 @@ function displayPlaces(places) {
             
             kakao.maps.event.addListener(marker, 'click', function() {
             	addMap(eachPlace);
+            	
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -307,10 +309,11 @@ function removeAllChildNods(el) {
     }
 }
  
-async function addMap(data){
+async function addMap(place){
 	const chat_RoomNo= $('input[name="chatRoomNo"]').val();
-	//const send_UserId= $('input[name="sendUserId"]').val();
-	await axios.post("/oldChat/addMap",{data, chatRoomNo: chat_RoomNo});
+	const old_No= $('input[name="oldNo"]').val();
+	
+	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No});
 	window.close();
  }
 </script>

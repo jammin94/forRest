@@ -196,7 +196,20 @@ public class RentalController {
 		    
 	    	for(int i=0; i<prodNo.length;i++) {
 
-	    		
+	    	Rental rentalArray = new Rental();
+	    	rentalArray.setUserId(userId);
+	    	rentalArray.setTranCode(1);
+	    	rentalArray.setPaymentNo(paymentNo);
+	    	rentalArray.setReceiverName(rental.getReceiverName());
+	    	rentalArray.setReceiverPhone(rental.getReceiverPhone());
+	    	rentalArray.setDivyAddress(rental.getDivyAddress());
+	    	rentalArray.setPickupAddress(rental.getPickupAddress());
+	    	rentalArray.setDivyRequest(rental.getDivyRequest());
+	    	rentalArray.setDiscountPrice(rental.getDiscountPrice());
+	    	rentalArray.setOriginPrice(rental.getOriginPrice());
+	    	rentalArray.setResultPrice(rental.getResultPrice());
+	    	
+	    	
 	    	//물품대여승인신청중으로 상태변경
 			product = productService.getProduct(prodNo[i]);	
 			System.out.println(product);
@@ -207,20 +220,20 @@ public class RentalController {
 	  		
 	  		reserveTranNo=FileNameUtils.getRandomString();
 	  		
-	  		rental.setTranNo(reserveTranNo);
-			rental.setPurchaseProd(product);
-			rental.setProdName(product.getProdName());
-			rental.setProdImg(product.getProdImg());
-			rental.setPeriod(period[i]);
-			rental.setProdNo(prodNo[i]);
+	  		rentalArray.setTranNo(reserveTranNo);
+	  		rentalArray.setPurchaseProd(product);
+	  		rentalArray.setProdName(product.getProdName());
+	  		rentalArray.setProdImg(product.getProdImg());
+	  		rentalArray.setPeriod(period[i]);
+	  		rentalArray.setProdNo(prodNo[i]);
 			System.out.println("한바퀴돔2");
 			//렌탈에 add
 			// => "rental" 은 폼양식박힌 + 반복문돌려진 product + 반복문 돌려진 period
 			// =>  이 "rental"을 listA 에 담음
-			rentalService.addRental(rental);
-			System.out.println("돔3위"+rental);
+			rentalService.addRental(rentalArray);
+			System.out.println("돔3위"+rentalArray);
 			System.out.println("한바퀴돔3");
-			listA.add(i,rental); 
+			listA.add(i,rentalArray); 
 			System.out.println("한바퀴돔4");
 			//장바구니 목록 삭제
 			wishlistService.deleteWishlist(wishlistNo[i]);

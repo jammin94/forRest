@@ -129,7 +129,8 @@ module.exports.isNewOldChat = 'select * from chatRoom where inquireUserId=:inqui
 module.exports.isNewProductChat = 'select * from chatRoom where inquireUserId=:inquireUserId and prodNo=:prodNo';
 
 //:userId. :chatRoomNo
-module.exports.getOtherUser = 'SELECT (CASE WHEN inquireUserId = :userId THEN ownerUserId ELSE inquireUserId END) AS userId FROM chatroom WHERE chatroomNo=:chatRoomNo';
+//module.exports.getOtherUser = 'SELECT (CASE WHEN c.inquireUserId = :userId THEN c.ownerUserId ELSE c.inquireUserId END) AS userId FROM chatroom c, user u WHERE c.chatroomNo=:chatRoomNo';
+module.exports.getOtherUser = 'SELECT (CASE WHEN c.inquireUserId = :userId THEN c.ownerUserId ELSE c.inquireUserId END) AS userId, u.userImg userImg FROM chatroom c, user u WHERE c.chatroomNo=:chatRoomNo and u.userId=(CASE WHEN c.inquireUserId = :userId THEN c.ownerUserId ELSE c.inquireUserId END)';
 
 //:chatRoomNo
 module.exports.deleteChatRoom= 'DELETE FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo'
