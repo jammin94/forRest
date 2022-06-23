@@ -101,10 +101,15 @@ prevBtnSixth.addEventListener("click", function(){
  $(function(){
 		$(".submit").on("click", function(){
 			//console.log("제발"+$('.couponValue:selected').attr('name'));
+			if(validationCheck()){
+				return;
+			};
+			
 			submitCouponNumber();
 			combineAddr();
 			combinePhone();
 			combineAccount();
+			
 		
 		
 			 
@@ -555,5 +560,125 @@ $(function(){
 	})
 
 
+/////////////////value 유효성검사//////////////////////
 
+function validationCheck() {
+	
+	//물품관련 정보
+	var prodName = $("input[name='prodName']").val();
+	var width = $("input[name='width']").val();
+	var length = $("input[name='length']").val();
+	var height = $("input[name='height']").val();
+	var prodDetail = $("input[name='prodDetail']").val();
+	var prodQuantity = $("input[name='prodQuantity']").val();
+	
+	//대여관련정보
+	var rentalPrice = $("input[name='rentalPrice']").val();
+	var accountNumber = $("input[name='accountNumber']").val();
+	
+	//구매자관련 정보
+	var receiverName = $("input[name='receiverName']").val();
+	
+	var receiverPhone1 = $("input[name='receiverPhone1']").val();
+	var receiverPhone2 = $("input[name='receiverPhone2']").val();
+	var receiverPhone3 = $("input[name='receiverPhone3']").val();
+	
+	
+	//주소관련정보
+	var pickupPostcode = $("input[name='pickupPostcode']").val();
+	var pickupDetailAddress = $("input[name='pickupDetailAddress']").val();
+	
+	var divyPostcode = $("input[name='divyPostcode']").val();
+	var divyDetailAddress = $("input[name='divyDetailAddress']").val();
+	
+	
+	//가격관련 정보
+	var resultPrice = $("input[name='resultPrice']").val();
+	
+	if(prodName == null || prodName.length > 21){
+				alert("물품명은 1~20자 사이로 입력하세요");
+				return;
+			}
+			
+	if(width == null || width < 1){
+				alert("물품크기를 정확하게 입력하세요");
+				return;
+			}
+			
+	if(length == null || length < 1){
+				alert("물품크기를 정확하게 입력하세요");
+				return;
+			}
+			
+	if(height == null || height < 1){
+				alert("물품크기를 정확하게 입력하세요");
+				return;
+			}
+			
+	if(prodDetail == null || prodDetail.length > 100){
+				alert("상세정보는 1~100자 사이로 입력하세요");
+				return;
+			}
+   if(prodQuantity == null ||prodQuantity < 1){
+				alert("물품수량을 올바르게 입력하세요");
+				return;
+			}		
+
+			
+  /* if(rentalPrice == null || rentalPrice < 1){
+				alert("1~20자 사이로 입력하세요");
+				return;
+			}		
+			
+   if(accountNumber == null || prodName.length > 21){
+				alert("1~20자 사이로 입력하세요");
+				return;
+			}			*/
+	
+   if(receiverName == null || receiverName.length < 1){
+				alert("주문자이름을 입력해주세요");
+				return;
+			}		
+				
+   if(receiverPhone1 == null || receiverPhone1.length < 1){
+				alert("연락처를 입력하세요");
+				return;
+			}	
+			
+   if(receiverPhone2 == null || receiverPhone2.length < 1){
+				alert("연락처를 입력하세요");
+				return;
+			}		
+			
+	if(receiverPhone3 == null || receiverPhone3.length < 1){
+				alert("연락처를 입력하세요");
+				return;
+			}		
+			
+	if(pickupPostcode == null || pickupPostcode.length < 1){
+				alert("주소를 입력해주세요");
+				return;
+			}	
+			
+	if(pickupDetailAddress == null || pickupDetailAddress.length < 1){
+				alert("주소를 입력해주세요");
+				return;
+			}				
+
+	if(divyPostcode == null || divyPostcode.length < 1){
+				alert("주소를 입력해주세요");
+				return;
+			}	
+			
+	if(divyDetailAddress == null || divyDetailAddress.length < 1){
+				alert("주소를 입력해주세요");
+				return;
+			}		
+			
+	if(resultPrice == null || resultPrice < 1){
+				alert("최소결제금액보다 적습니다");
+				return;
+			}
+	
+}
 
