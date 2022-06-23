@@ -1,17 +1,17 @@
 
 
 server:
-  port: 8080
+  port: 443
 #  ssl:
 #        enabled: true
 #        key-store: certificate.pfx
 #        key-store-type: PKCS12
 #        key-store-password: 123456
-#  ssl:
-#        enabled: true
-#        key-store: aaa.p12
-#        key-store-type: PKCS12
-#        key-store-password: 123456  
+  ssl:
+        enabled: true
+        key-store: aaa.p12
+        key-store-type: PKCS12
+        key-store-password: 123456  
   tomcat:
    additional-tld-skip-patterns: "*.jar"
   servlet:
@@ -36,7 +36,7 @@ mybatis:
 
 spring:
   redis:
-    host: 127.0.0.1
+    host: 192.168.0.5
     port: 6379
     
   thymeleaf:
