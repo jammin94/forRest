@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중고거래 리스트
+    </title>
+    
+
+
+   <!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+
+	
+	
+</head>
+<style>
+.bn3637 {
+
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff ;
+  backface-visibility: hidden;
+  border: 0.05rem solid transparent;
+   border-radius:  100%;  
+   line-height:25px !important;
+}
+.bn36 {
+  border-color: #000000;
+  transition: transform 0.2s cubic-bezier(0.235, 0, 0.05, 0.95);
+}
+.bn36:hover {
+  transform: perspective(1px) scale3d(1.044, 1.044, 1) translateZ(0) !important;
+  background: #FF5C00;
+  color: white;
+  border-color:  #FF5C00;
+}
+	
+.col-md-12{
+    margin-top: 60px;
+
+}
+
+.boardTitle{
+  text-align: center;
+  top: -40px;
+  position: relative;
+}
+
+.old-list{
+margin-bottom: 210px !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;  
+}
+
+.old-list .old{  
+    border-radius: 10px;
+  
+  margin: 7px; /* Space between olds related with nth-childs below */
+  
+  position: relative;
+  border: 2px solid #eee;
+  background: white;
+  
+
+  min-height: 465px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 4 item list */
+.old-list .old:nth-child(4n+1){
+  margin-left: 0;
+}
+.old-list .old:nth-child(4n+4){
+  margin-right: 0;
+}
+
+.old-list .old:hover{
+  box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.old-list .old .old-image{
+  position: relative;
+}
+
+/* Ribbon Styles */
+
+
+.ribbon {
+  background: #ff9606;
+  display: inline-block;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: bolder;
+  line-height: normal;
+  padding: 3px 0px 2px;
+  position: relative;
+  border-top-left-radius: 3px;
+  color: #fff;
+  margin-bottom: 5px;
+  width: 55px;
+  text-align: center;
+}
+
+.ribbon:before {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 6px 0 0;
+  border-color: #ff9606 transparent transparent transparent;
+  position: absolute;
+  content: "";
+  right: -6px;
+  top: 0;
+}
+
+.ribbon:after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 9px 0 0 6px;
+  border-color: transparent transparent transparent #ff9606;
+  position: absolute;
+  content: "";
+  right: -6px;
+  bottom: 0;
+}
+
+.old-list .old .old-image img{  
+  width: 100%;
+  display: block;
+}
+
+.old-list .old .old-info{
+  background: rgba(238,238,238,.8);
+  position: absolute;  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 10px;
+}
+
+.old-list .old:hover .old-info{
+  background: rgba(238,238,238,.9);
+}
+
+
+
+.old-list .old .old-info .old-name a{
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-height: 18px;     /* fallback */
+  max-height: 54px;      /* fallback */
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.old-list .old:hover .old-info .old-name a{
+  color: #ff9606;
+  text-overflow: ellipsis;
+}
+
+.old-list .old .old-info .old-price .old-price{
+  margin-right: 10px;
+}
+.old-list .old .old-info .old-price .new-price{
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff9606;
+  text-shadow: 0 1px 3px rgba(255,255,255,1);
+}
+
+.old-list .old .old-info .add-basket a{
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #333333;
+  padding: 6px 12px 7px;
+  margin-bottom: 15px;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.old-list .old:hover .old-info .add-basket a{
+  background: #ff9606;
+  color: white;
+  border: 1px solid #ff9606;
+}
+
+@media screen and (max-width: 1200px){
+  .old-list .old{
+    margin: 5px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .old-list{    
+    justify-content: space-between;
+  }
+  .old-list .old{
+   
+    margin: 0 0 25px 0;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .old-list{
+    justify-content: space-between;
+  }
+  .old-list .old{
+    
+    margin: 0 0 20px 0;
+  }
+}
+
+@media screen and (max-width: 575px){
+  .old-list{
+    justify-content: space-around;
+  }
+  .old-list .old{
+    width: 90%;
+    margin: 0 0 30px 0;
+    min-height: unset;
+  }
+  .old-list .old .old-info{
+    position: unset;
+  }
+}
+
+
+/* 검색바 */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.searchKeyword {
+  width: 30%;
+  border: 3px solid #333333;
+  border-right: none;
+  padding: 5px;
+  height: 42px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #333333;
+   font-size: 18px;
+}
+
+.searchTerm:focus{
+  color: #333333;
+}
+
+.searchButton {
+  width: 40px;
+  height: 42px;
+  border: 1px solid #333333;
+  background: #333333;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 23px;
+}
+
+.wrap{
+ 	margin-bottom: 30px;
+}
+
+
+/*정렬조건바*/
+
+
+
+.dropdown-dark:before {
+  border-bottom-color: #333333;
+}
+
+.dropdown-dark:after {
+  border-top-color: #aaa;
+  
+}
+
+.dropdown-dark .dropdown-select {
+  color: #fff;
+  text-shadow: 0 1px black;
+  background: #333333;  /* Fallback for IE 8 */
+  width: 130px;
+  height: 35px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  
+  
+}
+
+.dropdown-dark .dropdown-select:focus {
+  color:#fff;
+}
+
+.dropdown-dark .dropdown-select > option {
+  background: #333333;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+
+
+/*카테고리 바*/
+#primary_nav_wrap
+{
+	height: 50px;
+}
+
+#primary_nav_wrap ul li
+{
+	position:relative;
+	float:left;
+	margin:20;
+	padding:0
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#primary_nav_wrap ul a
+{
+	display:block;
+	color:#333;
+	text-decoration:none;
+	font-weight:700;
+	font-size:12px;
+	line-height:32px;
+	padding:0 15px;
+	
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+	background:#ddd
+}
+
+#primary_nav_wrap ul li:hover
+{
+	background:#f6f6f6
+}
+
+.tempCover{
+    width: 270px;
+    height: 465px;
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+     opacity: 0.4;
+    border-radius: 8px;
+}
+
+
+</style>
+
+
+<body>
+
+  <div th:replace="/main/toolbar.html"></div>
+		
+
+<div class="container tempList">
+  <div class="row">
+  
+  
+    <div class="col-md-12"  >
+
+     <h2 class="boardTitle">중고마켓	</h2>
+     
+    <form name="detailForm"  method="post"> 
+    <!-- 검색바 시작 -->
+    <div class="wrap">
+   <div class="search">
+   
+       <input type="text" class="searchKeyword" name="searchKeyword" 
+       th:value="${not #strings.isEmpty(search.searchKeyword)} ? ${search.searchKeyword} : '' "   placeholder="찾으시는 상품의 이름을 입력하세요">
+
+       
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+     </button>
+   </div>
+</div>
+  <!-- 검색바 끝 -->
+  
+  
+
+  <!-- 정렬조건 바  끝-->
+  
+  <!--카테고리바  시작-->
+  <!-- 카테고리내에서 검색조건을 유지 어케함 -->
+ <input type="hidden" class="searchCategory" name="searchCategory" value="">
+<div id="primary_nav_wrap">
+<ul>
+  <li><a>전체</a></li>
+  <li ><a>텐트</a></li>
+  <li><a>침대</a></li>
+  <li><a>의자</a></li>
+  <li><a>그릴</a></li>
+  <li><a>버너</a></li>
+  <li><a>조명</a></li>
+  <li><a>테이블</a></li>
+  <li><a>식기</a></li>
+  <li><a>난로</a></li>
+  <li><a>기타용품</a></li>
+</ul>
+</div>
+
+</form> 
+<input type="hidden" class="loginUser" th:value="${loginUserId}">
+
+   <!--카테고리바  끝->
+   
+    
+     
+      <!-- BEGIN old List --> 
+      <div class="old-list">
+
+        <!-- BEGIN old -->
+        <div class="old" th:each = "old : ${list}" style="margin-right:20px;">
+          <div class="owl-item active" style="width: 270px;" >
+        
+        	<div class="item">
+									<div class="try_rc_mob_box_wrapper">
+										<div class="try_rc_mob_img">
+									<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==1">
+												<!--	<h5>Sale</h5>  -->
+										<img  width="300" height="205"  th:src="@{/images/uploadFiles/} + ${old.oldImg}"  th:if="${old.oldState}==0" >		
+											<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+											<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+											<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+										</div>
+										<div class="try_rc_mob_img_cont">
+											<h2>[[${old.oldTitle}]]</h2>
+											
+										</div>
+										<div class="try_rc_mob_img_cont_bottom">
+											<p>  <span class="new-price" th:text ="|${old.oldPrice}원|"></span></p>	
+											<div class="try_mob_btn_wrapper">	
+											
+											<span sec:authorize="isAuthenticated()">	
+											<a th:href="@{/old/getOldLogIn(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1  or ${#authentication.principal.user.userId}==${old.userId}   ">자세히 보기</a>
+											<a th:if="${old.oldState}==0 and ${#authentication.principal.user.userId}!=${old.userId} " style="background:#7e7e7e;">거래완료</a>
+											</span>
+											
+											<span sec:authorize="isAnonymous()">
+											<a th:href="@{/old/getOld(oldNo= ${old.oldNo})}" th:if="${old.oldState}==1 " >자세히 보기</a>
+											<a th:if="${old.oldState}==0" style=" background:#7e7e7e;">거래완료</a>
+											</span>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+			 </div>
+			 <div th:if="${old.oldState}==0" class="tempCover"></div>
+        </div>
+        
+        
+        <!-- END old -->
+        
+
+      </div>
+      <!-- END old List -->
+   <div class="button"> <a th:href="@{/old/addOld}" class="bn3637 bn36 plusBtn">+</a></div>
+    </div>
+  
+  </div>
+ 
+</div>
+		
+	
+	<div th:replace="/main/footer.html"></div>
+
+
+</body>
+
+<script type="text/javascript">
+
+$(function(){
+	$(".searchButton").on("click", function(){
+		
+		if($(".loginUser").val()==""){
+		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+	} else{
+		$('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+	}
+	})
+	});
+
+
+
+
+
+$(function(){
+	$("li").on("click", function(){
+		
+		var categoryValue = $(this).find('a').text();
+		//alert(categoryValue);
+		
+		if(categoryValue=="전체"){
+			categoryValue="";
+		}
+		
+		$('.searchCategory').attr('value',categoryValue);
+    	
+		
+    	if($(".loginUser").val()==""){
+    		console.log("user없")
+		 $('form').attr('method', 'POST').attr('action', '/old/listOld').submit();
+		 
+    	} else{
+    		console.log("user있")
+    		 $('form').attr('method', 'POST').attr('action', '/old/listOldAfterLogin').submit();
+    	}
+	})
+});
+	
+	
+	$(function() {
+
+		var $w = $(window),
+		  footerHei = $('.try_footer_main_section_wrapper').outerHeight(),
+		  $banner = $('.plusBtn');
+		  $leftbar = $('.leftBarNav');
+		 $homeheight = $(document).outerHeight();
+		  
+		  
+		$w.on('scroll', function() {
+
+		  var sT = $w.scrollTop();
+		  var val = $(document).height() - $w.height() - footerHei;
+		
+		  if (sT >= val){
+		      $banner.addClass('on');
+		      $leftbar.addClass('on');
+		
+		      $leftbar.style.opacity = 1 - (window.scrollY / homeheight);
+		
+		  }else{
+		      $banner.removeClass('on')
+		      $leftbar.removeClass('on');
+		  }
+		  });
+			
+		
+	
+		$( ".heart" ).on("click" , function() {	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/addOldLike",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜하기 완료");
+				        $(this).addClass('filled');
+				        location.reload();
+                    	
+	                    	
+	    					
+	                    }
+	                    else if (heartCheck){
+	                     alert("이미 찜한 물품 입니다");
+	                     
+				         
+	                  
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+		
+		$( ".heart.filled" ).on("click" , function() {	        
+			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
+			console.log(oldNo);
+			
+			$.ajax({
+	            type : "POST",  
+	            url : "/oldLike/deleteOldLikeOnList",       
+	            dataType : "json",   
+	            data : oldNo,
+	            error : function(){
+	               alert("통신 에러");
+	            },
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+	            success : function(heartCheck) {
+	                
+	                    if(heartCheck){
+	                    	
+	                    console.log("찜삭제 완료");
+				        $(this).removeClass('filled');
+				        location.reload();
+	
+	                    }
+	                    else if (heartCheck){
+	                    	alert("이미 삭제한 물품 입니다");                 
+	                    	location.reload();
+	                	}
+	                    
+	                    
+	            	}
+	        	})
+			
+			}); 
+		
+		
+		});
+
+
+</script>
+	
+</html>
