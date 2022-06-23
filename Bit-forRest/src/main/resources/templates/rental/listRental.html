@@ -434,7 +434,7 @@
 	
 	<input type="hidden" name="tranNo" class="innerTranNo"></input>
 	<input type="hidden" name="reviewDone" class="reviewDone"></input>
-	 <input type="hidden" name="prodNo" class="prodNo"></input>
+ <input type="hidden" name="prodNo" class="prodNo"></input> 
 
 <span class="close">닫기</span>
 <!-- 
@@ -460,7 +460,7 @@
                         <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
                       </button>
                     </div>
-                    <input type="file" name="fileName" class="fileName" style="display:none">
+                    <input type="file" name="fileName" class="fileName" style="display:none" th:value="${rentalReview.reviewImg}">
                   </div>
 </div>
 
@@ -516,13 +516,13 @@ $(function(){
 	})
 })
 
-$(function(){
 
+$(function(){
 	//"리뷰쓰기" 버튼
 $(".reviewBtn").on("click",function(){
 	
 	 
-	
+	$("#review-form").InnerHTML="<input type='hidden' name='prodNo' class='prodNo'></input>"
 	
 	var replaceHTML = " <button type='button' class='regBtn' >등록하기 </button>"
 	
@@ -556,7 +556,7 @@ $(".reviewBtn").on("click",function(){
 		console.log(prodNo);
 
 		var replaceHTML = " <button type='button' class='regEditBtn' >수정하기 </button>"
-		
+		var fileNameVal = $('.fileName').val();
 		$.ajax({
             type : "POST",  
             url : "/restRentalReview/getRentalReview",       
@@ -585,12 +585,11 @@ $(".reviewBtn").on("click",function(){
                     		$('.regEditBtn').on("click", function(){
                     			
                     			console.log("요거클릭되나요 ?");
-                    			
-                    			
+                    			console.log(fileNameVal);
+                    			//$('.fileName').val(rentalReview.reviewImg);
                     			 
-                    			 $("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/updateRentalReview?prodNo="+prodNo).submit();
-                    		
-                    			
+                    			$("#review-form").attr("method" , "POST").attr("action" , "/rentalReview/updateRentalReview?prodNo="+prodNo).submit();
+     			
                     		})
                     		
             	}

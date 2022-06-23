@@ -138,20 +138,7 @@
 	 		
 	 		
 	 	</where>
-	 	<if test="orderCondition != null">
-	 		<if test='orderCondition == "tranNoASC"'>
-	 		ORDER BY t.tranNo ASC
-	 		</if>
-	 		<if test='orderCondition == "tranNoDESC"'>
-	 		ORDER BY t.tranNo DESC
-	 		</if>
-	 		<if test='orderCondition == "startDateASC"'>
-	 		ORDER BY t.startDate ASC
-	 		</if>
-	 		<if test='orderCondition == "startDateDESC"'>
-	 		ORDER BY t.startDate DESC
-	 		</if>
-	 	</if>
+	 		ORDER BY t.paymentDate DESC LIMIT #{startRowNum}, #{pageSize}
 	 </select>
 
 	

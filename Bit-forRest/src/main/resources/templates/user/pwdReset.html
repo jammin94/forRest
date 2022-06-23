@@ -9,16 +9,28 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<!--  ///////////////////////// SWEET ALERT ////////////////////////// -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="text/javascript">
 	$(function(){
-		$("#pwdReset").on("click", fncPwdReset);
+		
+		var result = false;
+		var checkPWD = false;
+		$("#passwordReset").on("click", function(){
+			if(result && checkPWD ){
+				fncPwdReset()
+			}else{
+				Swal.fire({
+					text:  '비밀번호를 확인해주세요',  
+					icon:  'error',                   
+					});
+			}
+		});
+			
 		
 		$("#password").keyup(function(){
 			checkPassword($('#password').val());
-			console.log("tt");
 		});
 		
 		$("#password2").keyup(function(){
@@ -29,18 +41,20 @@
 				$(".password_check").css("font-size", "12px");
 				$(".password_check").text("비밀번호가 일치하지 않습니다.");
 				$(".password_check").css("color", "red");
+				result = false;
 			}else{
 				$("#password2").css("border", "1px solid green");
 				$(".password_check").css("color", "green");
 				$(".password_check").css("font-size", "12px");
 				$(".password_check").text("비밀번호가 일치합니다.");
+				result = true;
 			}
 		});
 		
 	});
 	
 	function fncPwdReset() {
-		$("form").attr("method" , "POST").attr("action" , "/user/pwdReset").submit();
+			$("form").attr("method" , "POST").attr("action" , "/user/pwdReset").submit();
 	}
 	
 	//비밀번호 유효성 검사
@@ -54,7 +68,7 @@
 	    	$("#password").css("border", "1px solid green");
 	        $(".password_check").text("사용가능합니다.");
 			$(".password_check").css("color", "green");
-			
+			checkPWD = true;
 	    }else{
 	    	$("#password").css("border", "1px solid red");
 	    	$(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
@@ -67,6 +81,7 @@
 				$(".password_check").css("color", "red");
 				$(".password_check").css("font-size", "12px");
 		    }
+			checkPWD = false;
 	    }
 	}
   </script>
@@ -191,7 +206,7 @@ background: #eea54b;
 	      	      <span class="password_check check"></span>
 
 	      <br><br>
-	      <input id="passwordReset" type="submit" value="비밀번호 재설정">
+	      <button id="passwordReset" type="button" >비밀번호 재설정</button>
 	      	      
 	</form>
 
