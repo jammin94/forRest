@@ -21,6 +21,11 @@
 .regBtn:hover{
 	background:#cecece;
 }
+
+.recentImg-form{
+	display: flex;
+	justify-content: center;
+}
 </style>
 
 
@@ -33,7 +38,7 @@
 <p>
   보관현황사진 업데이트
 </p>
-<form id="recentImg-form" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
+<form id="recentImg-form" class="recentImg-form" action="/rentalReview/addRentalReview" method="post" enctype="multipart/form-data">
   
  
 
@@ -58,8 +63,8 @@
                   </div>
 </div>
 
-  <button type="button" class="regBtn">등록하기 </button>
   </form>
+  <button type="button" class="regBtn">등록하기 </button>
 <div id="review-container">
 </div>
 </div>

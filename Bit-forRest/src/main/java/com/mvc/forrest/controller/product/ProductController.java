@@ -144,6 +144,10 @@ public class ProductController {
 	// 관리자가 물품의 상태변경 ( 보관 )
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
+		System.out.println("스타트");
+		
+		System.out.println("prodNo:"+prodNo);
+		
 		Product product = productService.getProduct(prodNo);		
 		
 		if(product.getProdCondition().equals("물품보관승인신청중")) {
@@ -189,9 +193,11 @@ public class ProductController {
 	@RequestMapping("updateProductAllCondition")
 	public String updateProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
 		
+		System.out.println("갓잇갓잇");
+		
 		//디버깅
 		for(String no: prodNo) {
-			System.out.println(no);
+			System.out.println("prodNO:"+no);
 		}
 		
 		//prodNo를 통해 productCondition배열에 값을 셋팅
