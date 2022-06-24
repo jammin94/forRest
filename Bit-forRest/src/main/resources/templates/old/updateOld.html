@@ -47,7 +47,7 @@
 			
 				<div class="page slidepage">
 					
-					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
+<!-- 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" /> -->
 					
 					<!-- 도전.. -->
 					
@@ -59,9 +59,6 @@
 							
 						</p>
 					</div>
-
-
-					
 	  					<div class="img-upload-plugin">
 		                    <div class="img-upload-handler">
 			                    <div class="img-preview-big">
@@ -71,14 +68,14 @@
 				                    </div>
 			                    </div>
 		                    </div>
-		                    <div class="img-preview-operate">
+		                  <div class="img-preview-operate">
 			                    <div class="img-holder" style="display: inline-block; padding: 2px;">
 			                    	<!-- 이미지 추가 되는 부분 -->
 			                    </div>
-			                    <button type="button" class="img-add-more" style="transform: scale(1.3);">
+			                    <button type="button" class="img-add-more">
 			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
 			                    </button>
-		                    </div>
+		                  </div>
 		                    <input type="file" name="img-upload-input" style="display:none">
 	                  	</div>
 					</div>
@@ -169,11 +166,11 @@
 	$(function(){
 		$( ".submit" ).on("click" , function() {	
 			
-// 			 if ($(".img-preview-small").length <3) {
+			 if ($("input[name='uploadFile']").length <3) {
 				
-// 				 alert("이미지는 4장이상해줘")
-// 				 return;
-// 					  } else{
+				 alert("사진은 4장이상 10장 이하로 등록해주세요.")
+				 return;
+					  } else{
 
 							
 							var oldTitle = $("input[name='oldTitle' ]").val();
@@ -200,7 +197,7 @@
 
 
 						$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();			
-
+					  }
 				  
 		
 			
@@ -209,11 +206,13 @@
 		 $(".cbox").change(function(){
 		 if($(this).is(":checked")){
 			 console.log("체크됨");
-			 $(".main-wrapper").addClass("checked")
+			
+			 $(".main-wrapper").addClass("checked");
 			 $(".main-wrapper").show();
+			 
 		 }else{
 			 console.log("체크풀림");
-			 $(".main-wrapper").removeClass("checked")
+			 $(".main-wrapper").removeClass("checked");
 			 $(".main-wrapper").hide();
 		 }
 	 })
