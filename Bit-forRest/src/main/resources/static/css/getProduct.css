@@ -257,10 +257,10 @@ img{
     }
     .product-imgs{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row-reverse;
+      justify-content: flex-end;
         transform:scale(1.5);
-        
+        flex-wrap: wrap;
     }
     .product-content{
         padding-top: 0;
