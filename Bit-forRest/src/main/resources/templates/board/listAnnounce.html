@@ -165,11 +165,11 @@
 	            <th align="center">No</th>
 	            <th align="center" >제목</th>   
 	            <th align="center">게시날짜</th>
-	            <sec:authorize access="hasRole('admin')">
+	            <th:block sec:authorize="hasAuthority('admin')">
 	            <th align="left">
 	            	<input type="checkbox" name="totalSelector" id="totalSelector"></input>
 	            </th>	
-	           </sec:authorize>
+	           </th:block>
 	          </tr>
 	        </thead>
 	        
@@ -188,24 +188,22 @@
 				</a>
 			</td>
 			<td th:text = "${#dates.format(board.boardDate, 'yyyy-MM-dd')}" align="center"></td>
-			 <sec:authorize access="hasRole('admin')">
+			 <th:block sec:authorize="hasAuthority('admin')">
 				<td align="center">
 					<input type="checkbox" name="eachSelector" id="eachSelector" th:value="${board.boardNo}"/>
 				</td>
-			</sec:authorize>
+			</th:block>
 			<td align="center">
 				<input type="hidden" name="boardPin" id="boardPin" th:value="${board.boardPin}"/>
 			</td>
-			
-	    
 	    </tr>
 	        </tbody>
 	     
-	      <sec:authorize access="hasRole('admin')">
+	      <th:block sec:authorize="hasAuthority('admin')">
 		    <button type="submit" class="btn btn-default" id="pin">상단 고정 적용/미적용</button>
 			<button type="submit" class="btn btn-default" id="delete">삭제</button>
 			<br/>
-		</sec:authorize>
+		</th:block>
 		
       </table>
 		<!--  table End /////////////////////////////////////-->

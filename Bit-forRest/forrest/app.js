@@ -12,7 +12,6 @@ const webSocket = require('./socket');
 const { sequelize } = require('./models');
 
 const oldChatRouter = require('./routes/oldChat');
-const rentalChatRouter = require('./routes/rentalChat');
 const sessionLoginLogoutRouter = require('./routes/sessionLoginLogout');
 
 
@@ -61,7 +60,6 @@ app.use(sessionMiddleware);
 //requestMapping
 //app.use('/', indexRouter);
 app.use('/oldChat', oldChatRouter);
-app.use('/rentalChat', rentalChatRouter);
 app.use('/sessionLoginLogout', sessionLoginLogoutRouter);
 
 
