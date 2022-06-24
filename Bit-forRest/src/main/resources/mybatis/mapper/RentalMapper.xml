@@ -126,8 +126,8 @@
 	 
 	<!-- SELECT LIST -->
 	<select  id="getPaymentList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete
-	 	FROM product p, transaction t,  COUNT(*) count
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,  COUNT(*) count
+	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
 	 	</where>
@@ -143,6 +143,7 @@
 	 	<where>
 	 		p.prodNo = t.prodNo and t.paymentNo = #{paymentNo}
 	 	</where>
+	 	GROUP BY t.paymentNo
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->

@@ -266,6 +266,17 @@ public class RentalController {
 		 return "rental/getRental";
 	}
 	
+	//회원, 어드민 가능
+	@GetMapping("getPayment")
+	public String getPayment(@RequestParam("paymentNo") String paymentNo, Model model) throws Exception {
+		System.out.println("getRental Start");
+		System.out.println("tranNo: "+paymentNo);
+		
+		model.addAttribute("payment", rentalService.getPayment(paymentNo));
+		
+		 return "rental/getRental";
+	}
+	
 
 	
 	//------------대여물품리스트 화면------------//
@@ -294,6 +305,7 @@ public class RentalController {
 		map.put("userId", userId);
 		
 		Map<String, Object> mapRental = rentalService.getRentalList(map);
+		rentalService.getPaymentList(search, userId);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
 		
@@ -301,7 +313,7 @@ public class RentalController {
 		
 		//rentalReview.setReviewImg(userId);
 		
-		model.addAttribute("list", mapRental.get("list"));
+		model.addAttribute("list", rentalService.getPaymentList(search, userId));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
 		model.addAttribute("rentalReview",rentalReview);
