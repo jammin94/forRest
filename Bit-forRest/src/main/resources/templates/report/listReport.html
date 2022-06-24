@@ -67,7 +67,7 @@
 			<td align="center" th:text = "${report.reportCode}"></td>
 			<td align="center" >			
 			<input type="hidden"  class="reportNum" name="reportNo" th:value="${report.reportNo}" />				
-			<button type="button" class="report-button" >확인하기</button>
+			<button type="button" class="report-button" th:value="${report.reportNo}">확인하기</button>
 			</td>	  
 		
 	    </tr>
@@ -111,9 +111,17 @@
 		    	console.log($('.prodCondition').val());
 		    	//alert($('.prodCondition').val());
 		    	   		
+		    	
+		    	
 		    
 		    			    
 		    }) 
+		    
+		    $("button").on("click",function(){
+		    	var reportNo = $(this).val();
+		    	console.log(reportNo);
+		    	window.open('/report/getReport?reportNo='+reportNo);
+		    });
 		    
 	  })
 	  

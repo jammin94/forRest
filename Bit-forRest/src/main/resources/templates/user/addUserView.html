@@ -208,6 +208,7 @@
       <label for="phone">>Phone</label><br>
       <input id="phone" type="text" name="phone" placeholder="전화번호입력" style="width: 280px;">
       <button type="button" id="sendSMS" style="width: 100px;">인증번호 발송</button>
+	  	<span class="phone_check check"></span>
 	  <input id="sms" type="text" name="sms" placeholder="인증번호입력" style="width: 280px;">
 	  <button id="checkSMS" type="button">인증번호 확인</button>
 
@@ -254,7 +255,15 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<script type="text/javascript">
 
+	var idValid = false;
+	var pwdValid = false;
+	var nicknameValid = false;
+	var smsValid = false;
+	var phoneValid = false;
+	var checkPhone = false;
+	
 		$(function(){
+			
 			$("#change-profile-image-btn").on("click",function(){
 				$("#userImgFile").trigger("click");
 			});
@@ -275,8 +284,9 @@
 				
 				$("input:hidden[name='userAddr']").val( userAddr );
 				
-				if(fncCheckUserIdDuplication() && checkPassword() && 
-						sendSMS() && fncCheckNicknameDuplication()){
+				 if(idValid && pwdValid && 
+					nicknameValid && smsValid 
+					&& phoneValid && checkPhone){
 				$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 				}else{
 					Swal.fire({
@@ -299,6 +309,10 @@
 				fncCheckNicknameDuplication();
 			});
 			
+			$("#phone").keyup(function(){
+				CheckPhoneDuplication()
+			});
+			
 			$("#password2").keyup(function(){
 				var password =	$("#password").val();
 				var password2 =	$("#password2").val();
@@ -318,49 +332,60 @@
 			$("#userImgFile").on("change", function(){
 				preView(this);
 			});
+			
+			$('#phone').blur(function() {
+				checkPhone1()
+			});
 
-			$("#sendSMS").on("click",function sendSMS(){
-				Swal.fire({
-					title: 'SMS 발송',       
-					text:  '입력한 번호로 인증번호를 발송합니다',  
-					icon:  'info',                   
-					});
-				var phone = $("#phone").val();
-				console.log(phone);
-				console.log();
-				if($("#phone").val().length<10){
-					return;
-				}
-				$.ajax({
-					url : "/sms/json/sendSMS?phone="+phone,
-					method : "GET" ,
-					dataType : "json" ,
-					success : function(data) {
-						$("#checkSMS").click(function(){
-							var sms = $("#sms").val();
-							console.log("data : "+data);
-							console.log("sms : "+sms);
-							if(data==sms){
-								Swal.fire({
-									title: '인증성공',       
-									text:  '인증에 성공하였습니다',  
-									icon:  'success',                   
-									});
-								return true;
-							}else{
-								Swal.fire({
-									title: '인증실패',       
-									text:  '다시 시도해주세요',  
-									icon:  'error',                   
-									});
-								return false;
-							}
-						})
-					}
-				});	
+			$("#sendSMS").on("click",function(){
+				sendSMS()
 			});
 			
 		});// end of main function
+		
+		function sendSMS(){
+			Swal.fire({
+				title: 'SMS 발송',       
+				text:  '입력한 번호로 인증번호를 발송합니다',  
+				icon:  'info',                   
+				});
+			var phone = $("#phone").val();
+			console.log(phone);
+			console.log();
+			if($("#phone").val().length<10){
+				return;
+			}
+			$.ajax({
+				url : "/sms/json/sendSMS?phone="+phone,
+				method : "GET" ,
+				dataType : "json" ,
+				success : function(data) {
+					$("#checkSMS").click(function(){
+						var sms = $("#sms").val();
+						console.log("data : "+data);
+						console.log("sms : "+sms);
+						if(data==sms){
+							Swal.fire({
+								title: '인증성공',       
+								text:  '인증에 성공하였습니다',  
+								icon:  'success',                   
+								});
+							$("#sms").css("border", "1px solid green");
+							smsValid= true;
+						}else{
+							Swal.fire({
+								title: '인증실패',       
+								text:  '다시 시도해주세요',  
+								icon:  'error',                   
+								});
+							smsValid = false;
+						}
+					})
+				}
+			});	
+		
+			
+		}
 		
 		//userId가 이미 가입되어 있는지 확인
 		function fncCheckUserIdDuplication() {
@@ -397,19 +422,67 @@
 						$(".userId_check").text("사용가능한 이메일입니다.");
 						$(".userId_check").css("color", "green");
 						$(".userId_check").css("font-size", "12px");
-							return true;
+							idValid = true;
+
 					} else {
 						$("#userId").css("border", "1px solid red");
 						$(".userId_check").text("사용불가능한 이메일입니다.");
 						$(".userId_check").css("color", "red");
 						$(".userId_check").css("font-size", "12px");
-							return false;
+							idValid = false;
 					}
 					
 					
 				}
 			});
 		}// 유저아이디 중복 끝
+		
+		//전화번호 중복 확인
+		function CheckPhoneDuplication() {
+			var phone = $("#phone").val();
+
+			var param = {phone77 : $("#phone").val()}
+			
+			$.ajax({
+				url : "/user/json/checkPhone",
+				type : "POST" ,
+				data : param ,
+				success : function(JSONData) {
+					
+					console.log(JSONData)
+					if ( JSONData == 0 && $("#phone").val().length>1 ){
+						$("#phone").css("border", "1px solid green");
+						$(".phone_check").text("");
+						$(".phone_check").css("color", "green");
+						$(".phone_check").css("font-size", "12px");
+						phoneValid = true;
+					}else {
+						$("#phone").css("border", "1px solid red");
+						$(".phone_check").text("이미 등록된 전화번호입니다");
+						$(".phone_check").css("color", "red");
+						$(".phone_check").css("font-size", "12px");
+						phoneValid = false;
+					}
+				}
+			});
+		}
+		
+		//전화번호 유효성 검사
+		function checkPhone1(){
+			var phoneNum = $("#phone").val();
+			
+			var regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		      if (regPhone.test(phoneNum) == true) {
+		    	  checkPhone = true;
+		    	  console.log("??????? "+checkPhone);
+		      }else{
+		    	  Swal.fire({
+						title: '전화번호를 입력해주세요',       
+						icon:  'warning',                   
+						});
+		    	  checkPhone = false;
+		      }
+		}
 		
 		//닉네임 중복 확인
 		function fncCheckNicknameDuplication() {
@@ -432,16 +505,16 @@
 						$(".nickname_check").text("사용가능한 닉네임입니다.");
 						$(".nickname_check").css("color", "green");
 						$(".nickname_check").css("font-size", "12px");
-							return true;
+						nicknameValid = true;
 					} else {
 						$("#nickname").css("border", "1px solid red");
 						$(".nickname_check").text("사용불가능한 닉네임입니다.");
 						$(".nickname_check").css("color", "red");
 						$(".nickname_check").css("font-size", "12px");
-							return false;
+						nicknameValid = false;
 						if($("#nickname").val().length>9){
 							$(".nickname_check").text("2~8자로 입력해주세요");
-							return false;
+							nicknameValid =  false;
 						}
 					}
 				}
@@ -461,21 +534,21 @@
 		    	$("#password").css("border", "1px solid green");
 		        $(".password_check").text("사용가능합니다.");
 				$(".password_check").css("color", "green");
-					return true;
+					pwdValid = true;
 					
 		    }else{
 		    	$("#password").css("border", "1px solid red");
 		    	$(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
 				$(".password_check").css("color", "red");
 				$(".password_check").css("font-size", "12px");
-					return false;
+				pwdValid = false;
 				
 				if(checkNumber <0 || checkEnglish <0 || checkSpecial <0 ){
 					$("#password").css("border", "1px solid red");
 			        $(".password_check").text("숫자와 영문자를 혼용하여야 합니다.");
 					$(".password_check").css("color", "red");
 					$(".password_check").css("font-size", "12px");
-						return false;
+					pwdValid = false;
 			    }
 		    }
 		}//비밀번호 유효성 검사 끝
