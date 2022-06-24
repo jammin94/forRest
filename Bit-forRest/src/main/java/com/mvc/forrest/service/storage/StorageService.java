@@ -24,22 +24,12 @@ public class StorageService {
 		
 		//보관물품정보 상세조회
 		public Storage getStorage(String tranNo) throws Exception{
-			System.out.println("서비스 tranNo:"+tranNo);
 			return storageDAO.getStorage(tranNo);
-		}
-		
-		public int getMaxTranNoForStorage() throws Exception{
-			return storageDAO.getMaxTranNoForStorage();
 		}
 		
 		//기간연장시 변경되는정보 업데이트
 		public void updateStorage(Storage storage) throws Exception{
 			storageDAO.updateStorage(storage);
-		}
-		
-		//기간연장시 기존의 보관정보를 삭제
-		public void deleteStorage(String tranNo) throws Exception {
-			storageDAO.deleteStorage(tranNo);
 		}
 		
 		//유저를 위한 보관리스트 출력

@@ -58,22 +58,7 @@ public class WishListController {
 	
 	
 	
-	//-----------장바구니 추가 ------------//
-	//회원, 어드민가능 
-//		@PostMapping("addWishList")
-		public String addWishList( ) throws Exception{
-			
-			return null;
-		}
-	
-	//-----------장바구니 삭제------------//
-		//회원, 어드민가능 
-//		@PostMapping("deleteWishList")
-		public String deleteWishList( ) throws Exception{
-			
-			return null;
-		}
-			
+
 
 	//-----------장바구니 리스트 화면------------//
 		//회원, 어드민가능 

@@ -126,27 +126,11 @@ public class RentalReviewController {
 			return "redirect:/rental/listRental";
 		}
 		
-		//리뷰 리스트 출력
-		//비회원,회원, 어드민가능 
-		@GetMapping("listReview")
-		public String listReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
-		
-			 return null;
-		}
 
-		@PostMapping("listReview")
-		public String listReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+
+
 		
-			 return null;
-		}
 		
-		//리뷰 수정 ( 업데이트 )
-		//회원, 어드민가능 
-		@GetMapping("updateReview")
-		public String updateReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
-		
-			 return null;
-		}
 		
 		//리뷰 수정 ( 업데이트 )
 		//회원, 어드민가능 
@@ -185,20 +169,8 @@ public class RentalReviewController {
 		}
 		
 		
-		// 리뷰 삭제 
-		//회원, 어드민가능 
-		@GetMapping("deleteReview")
-		public String deleteReviewView(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
+
 		
-			 return null;
-		}
-		
-		// 리뷰 삭제 
-		//회원, 어드민가능 
-		@PostMapping("deleteReview")
-		public String deleteReview(@ModelAttribute("rentalReview") RentalReview rentalReview, Model model) throws Exception {
-		
-			 return null;
-		}
+
 		
 }
