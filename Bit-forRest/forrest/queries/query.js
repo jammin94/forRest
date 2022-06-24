@@ -37,50 +37,8 @@ module.exports.listOldChatRoom=
 //:oldNo chat toolbar for old
 module.exports.getOld = 'select oldNo, userId, oldImg, oldState, oldTitle, oldPrice from old where oldNo=:oldNo'
 
-//:userId == session userId
-module.exports.listProductChatRoom=
-'SELECT rr.chatRoomNo chatRoomNo, u.userId ownerUserId, u.nickname ownerNickname, u.userAddr ownerAddr, u.userImg ownerImg, p.prodNo prodNo, p.prodName prodName, p.prodImg prodImg, p.isRental isRental, msg.recentMsg recentMsg, unread.unreadcount unreadcount, msg.recentTime recentTime '
-+'FROM chatroom rr '
-+'JOIN user u ON (rr.ownerUserId=u.userId) '
-+'JOIN product p ON (rr.prodNo = p.prodNo) '
-+'LEFT OUTER JOIN '
-+'(SELECT c.chatRoomNo msgroom ,c.chatMessageNo, c.chatMessage recentMsg, c.createdAt recentTime '
-+'FROM chat c ' 
-+'JOIN chatroom r ON (r.chatRoomNo=c.chatRoomNo) '
-+'JOIN ( '
-+'SELECT MAX(chatMessageNo) AS maxVal '
-+'FROM chat '
-+'GROUP BY chatRoomNo '
-+') cc ON (c.chatMessageNo=cc.maxVal) '
-+'ORDER BY 1) msg ON (msg.msgroom=rr.chatRoomNo) '
-
-+'LEFT OUTER JOIN '
-+'(SELECT r.chatRoomNo countroom, COUNT(c.chatMessageNo) unreadcount '
-+'FROM chatroom r, chat c '
-+'WHERE ((r.ownerUserId=:userId AND r.ownerUserExit=1) OR (r.inquireUserId=:userId AND r.inquireUserExit=1)) '
-+'AND r.prodNo IS NOT NULL '
-+'AND r.chatRoomNo=c.chatRoomNo '
-+'AND c.readOrNot=1 '
-+'AND c.sendUserId <>:userId '
-+'GROUP BY c.chatRoomNo) unread ON (unread.countroom=rr.chatRoomNo) '
-
-+'WHERE '
-+'rr.chatRoomNo in '
-+'(SELECT r.chatRoomNo '
-+'FROM chatroom r '
-+'WHERE ((r.ownerUserId=:userId AND r.ownerUserExit=1) OR (r.inquireUserId=:userId AND r.inquireUserExit=1)) '
-+'AND r.prodNo IS NOT NULL) '
-+'ORDER BY recentTime DESC';
-
-//:prodNo
-//chat toolbar for product
-module.exports.getProduct='select prodNo, userId, prodName, prodImg, isRental, prodQuantity, deposit, rentalPrice from product where prodNo=:prodNo';
-
 //:oldNo, :inquireUserId(sessionUserId), :ownerUserId
 module.exports.insertOldChatRoom='INSERT INTO chatRoom (oldNo, inquireUserId, ownerUserId) VALUES (:oldNo, :inquireUserId, :ownerUserId)';
-
-//:prodNo, :inquireUserId(sessionUserId), :ownerUserId
-module.exports.insertProductChatRoom='INSERT INTO chatRoom (prodNo, inquireUserId, ownerUserId) VALUES (:prodNo, :inquireUserId, :ownerUserId)';
 
 // :chatRoomNo
 //enable to see chatRoom if anyone who belongs to some chat room chated!
@@ -124,9 +82,6 @@ module.exports.getUser = 'select * from user where userId=:userId';
 
 //:oldNo, :userId
 module.exports.isNewOldChat = 'select * from chatRoom where inquireUserId=:inquireUserId and oldNo=:oldNo';
-
-//:prodNo, :userId
-module.exports.isNewProductChat = 'select * from chatRoom where inquireUserId=:inquireUserId and prodNo=:prodNo';
 
 //:userId. :chatRoomNo
 //module.exports.getOtherUser = 'SELECT (CASE WHEN c.inquireUserId = :userId THEN c.ownerUserId ELSE c.inquireUserId END) AS userId FROM chatroom c, user u WHERE c.chatroomNo=:chatRoomNo';

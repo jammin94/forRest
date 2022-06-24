@@ -96,7 +96,7 @@
 	<a th:href="@{/board/listAnnounce}" >확인</a>
 </button>
 
- <sec:authorize access="hasRole('admin')">
+<th:block sec:authorize="hasAuthority('admin')">
     <button type="text" class="btn btn-default" id="update">
     	<a th:href="@{/board/updateAnnounce(boardNo=${board.boardNo})}" >수정</a>
     </button>
@@ -109,7 +109,7 @@
 	<br/>
 	<h4 th:if="${board.boardPin}==1">현재 이 공지사항은 고정되어 있습니다.</h4>
 	<h4 th:if="${board.boardPin}==0">현재 이 공지사항은 고정되어 있지 않습니다.</h4>
-</sec:authorize>
+</th:block>
 
 	
 </div>
