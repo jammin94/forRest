@@ -496,6 +496,68 @@ font-size:55px;
 
 
 
+
+
+
+
+	<!-- Footer-->
+	<div th:replace="/main/footer.html"></div>
+
+	<script src="/js/getProduct.js"></script>
+	<script src="/js/getOld.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+<!-- 	<script src="/js/share.js"></script> -->
+
+
+	 <!-- 리뷰박스 -->
+	 <div class="reviewBackground"></div>
+	 <div class="Rentalcontainer">
+		<form id="review-form"  enctype="multipart/form-data">
+		<input type="hidden" name="tranNo" class="innerTranNo"></input>
+		<input type="hidden" name="reviewDone" class="reviewDone"></input>
+		<input type="hidden" name="prodNo" class="prodNo"></input>
+		<span class="close">닫기</span>
+		<!-- <input type="hidden" class="starValueText"  name="reviewScore"></input> -->
+	  
+	  	<span id="starsInfo" class="help-block">
+	    	상품에 대한 별점을 남겨주세요 !
+	  	</span>
+	  			
+	  			<select class="selectBox" name="reviewedUser.userId">
+	  				<span class="chatUserList" th:each = "userList : ${chatList}">
+	           			<option name="reviewedUser.userId" th:value="${userList.inquireUserId}">[[${userList.inquireUserId}]]</option>
+	                </sapn>
+                </select>
+	  			<input type="hidden" id="oldNo" name="old.oldNo" th:value="${old.oldNo}"/>
+	  			
+	  			
+		        <div class="star-rating2 space-x-4 mx-auto">
+						<input type="radio" id="5-stars" name="userRate" value="5"  v-model="ratings"/>
+						<label for="5-stars" class="star pr-4">★</label>
+						<input type="radio" id="4-stars" name="userRate" value="4"  v-model="ratings"/>
+						<label for="4-stars" class="star">★</label>
+						<input type="radio" id="3-stars" name="userRate" value="3"  v-model="ratings"/>
+						<label for="3-stars" class="star" selected>★</label>
+						<input type="radio" id="2-stars" name="userRate" value="2"  v-model="ratings" selected/>
+						<label for="2-stars" class="star">★</label>
+						<input type="radio" id="1-star" name="userRate" value="1"  v-model="ratings" />
+						<label for="1-star" class="star">★</label>
+				</div>
+				
+		<div class="form-group">
+		  <!--  <label class="control-label" for="review">Your Review:</label> -->
+		  	<textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
+			<span id="reviewInfo" class="help-block pull-right"></span>
+		</div>
+		<button type="button" class="regBtn" >등록하기 </button>
+		</form>
+		  
+	  
+	  
+		<div id="review-container"></div>
+	</div>
+</body>
+
 <script th:inline="javascript">
 /*<![CDATA[*/
 function setShare(){
@@ -534,7 +596,7 @@ function datediff(){
 
 
 	}).then((result) => {
-		if (diff >=3){
+		if (diff <=3){
 			{
 		if (result.value){
 			
@@ -614,15 +676,7 @@ $('.close').on("click",function(){
 	  $('#review-form').removeClass("on");
 	  $('.reviewBackground').removeClass("on");
 })
-});
 
-function sold(){
-
-	  $('#review-form').addClass("on");
-	  $('.reviewBackground').addClass("on");
-}
-
-//"리뷰등록하기"버튼
 $('.regBtn').on("click",function(){
 	
 	  $('#review-form').removeClass("on");
@@ -636,6 +690,16 @@ $('.regBtn').on("click",function(){
 	  
 	  $("#review-form").attr("method" , "POST").attr("action" , "/oldReview/addOldReview").submit();
 })
+});
+
+function sold(){
+
+	  $('#review-form').addClass("on");
+	  $('.reviewBackground').addClass("on");
+}
+
+//"리뷰등록하기"버튼
+
 
 
 
@@ -729,67 +793,5 @@ $('.regBtn').on("click",function(){
 
 
 </script>
-
-
-
-	<!-- Footer-->
-	<div th:replace="/main/footer.html"></div>
-
-	<script src="/js/getProduct.js"></script>
-	<script src="/js/getOld.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
-<!-- 	<script src="/js/share.js"></script> -->
-
-
-	 <!-- 리뷰박스 -->
-	 <div class="reviewBackground"></div>
-	 <div class="Rentalcontainer">
-		<form id="review-form"  enctype="multipart/form-data">
-		<input type="hidden" name="tranNo" class="innerTranNo"></input>
-		<input type="hidden" name="reviewDone" class="reviewDone"></input>
-		<input type="hidden" name="prodNo" class="prodNo"></input>
-		<span class="close">닫기</span>
-		<!-- <input type="hidden" class="starValueText"  name="reviewScore"></input> -->
-	  
-	  	<span id="starsInfo" class="help-block">
-	    	상품에 대한 별점을 남겨주세요 !
-	  	</span>
-	  			
-	  			<select class="selectBox" name="selection">
-	  				<span class="chatUserList" th:each = "userList : ${chatList}">
-	           			<option name="reviewedUser" th:value="${userList.inquireUserId}">[[${userList.inquireUserId}]]</option>
-	                </sapn>
-                </select>
-	  			<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-	  			
-	  			
-		        <div class="star-rating2 space-x-4 mx-auto">
-						<input type="radio" id="5-stars" name="userRate" value="5"  v-model="ratings"/>
-						<label for="5-stars" class="star pr-4">★</label>
-						<input type="radio" id="4-stars" name="userRate" value="4"  v-model="ratings"/>
-						<label for="4-stars" class="star">★</label>
-						<input type="radio" id="3-stars" name="userRate" value="3"  v-model="ratings"/>
-						<label for="3-stars" class="star" selected>★</label>
-						<input type="radio" id="2-stars" name="userRate" value="2"  v-model="ratings" selected/>
-						<label for="2-stars" class="star">★</label>
-						<input type="radio" id="1-star" name="userRate" value="1"  v-model="ratings" />
-						<label for="1-star" class="star">★</label>
-				</div>
-				
-		<div class="form-group">
-		  <!--  <label class="control-label" for="review">Your Review:</label> -->
-		  	<textarea class="form-control" rows="10" placeholder="Your Reivew" name="reviewDetail" id="review"></textarea>
-			<span id="reviewInfo" class="help-block pull-right"></span>
-		</div>
-		<button class="regBtn" >등록하기 </button>
-		</form>
-		  
-	  
-	  
-		<div id="review-container"></div>
-	</div>
-</body>
-		<script src="/js/addRentalReview.js"></script>
-
 
 </html>

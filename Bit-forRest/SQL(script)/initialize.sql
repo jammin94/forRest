@@ -1,170 +1,48 @@
-SET foreign_key_checks=0;
-DROP TABLE board, chat, chatimg, chatroom, coupon, imgs, `old`, oldlike, oldreview, owncoupon, product, rentalreview, report, `transaction`, user, wishlist;
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        10.5.9-MariaDB - mariadb.org binary distribution
+-- 서버 OS:                        Win64
+-- HeidiSQL 버전:                  11.0.0.5919
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
+-- forrest 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `forrest` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `forrest`;
 
-CREATE TABLE user (
-   userId      VARCHAR(30)   NOT NULL,
-   nickname      VARCHAR(100)    NOT NULL UNIQUE,
-   phone VARCHAR(100) NOT NULL UNIQUE, 
-   password VARCHAR(100) NOT NULL,
-   userName VARCHAR(20) NOT NULL,
-   userAddr VARCHAR(100) NOT NULL,
-   role VARCHAR(10) NOT NULL DEFAULT 'user',
-   joinDate DATETIME NOT NULL,
-   joinPath VARCHAR(10) NOT NULL,
-   userImg VARCHAR(100),
-   recentDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   pushToken VARCHAR(100),
-   leaveApplyDate DATETIME,
-   leaveDate DATETIME, 
-   PRIMARY KEY (userId)   
-);
+-- 테이블 forrest.board 구조 내보내기
+CREATE TABLE IF NOT EXISTS `board` (
+  `boardNo` int(11) NOT NULL AUTO_INCREMENT,
+  `boardTitle` varchar(500) NOT NULL DEFAULT '',
+  `boardDetail` varchar(5000) NOT NULL DEFAULT '',
+  `boardDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `boardPin` int(11) DEFAULT 0,
+  `boardFlag` varchar(2) NOT NULL,
+  `category` varchar(10) DEFAULT NULL,
+  `couponURL` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`boardNo`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
-CREATE TABLE product 
-(
-   prodNo VARCHAR(40) NOT NULL,
-   width INTEGER NOT NULL,
-   length INTEGER NOT NULL,
-   height INTEGER NOT NULL,
-   userId VARCHAR(30) NOT NULL,
-   prodCondition VARCHAR(30) NOT NULL DEFAULT '물품보관승인신청중',
-   prodName VARCHAR(40) NOT NULL,
-   prodQuantity INTEGER NOT NULL,
-   prodDetail VARCHAR(600) NOT NULL,
-   isRental TINYINT(1) NOT NULL DEFAULT 0,
-   rentalCounting INTEGER,
-   rentalPrice INTEGER,
-   account VARCHAR(30),
-   category VARCHAR(10) NOT NULL,
-   divyAddress VARCHAR(100) NOT NULL,
-   prodImg VARCHAR(100) NOT NULL,
-   recentImg VARCHAR(100),
-   regDate DATETIME NOT NULL,
-   PRIMARY KEY (prodNo)
-);
+-- 테이블 데이터 forrest.board:~7 rows (대략적) 내보내기
+DELETE FROM `board`;
+/*!40000 ALTER TABLE `board` DISABLE KEYS */;
+INSERT INTO `board` (`boardNo`, `boardTitle`, `boardDetail`, `boardDate`, `boardPin`, `boardFlag`, `category`, `couponURL`) VALUES
+	(5, '장비 보관은 어떻게 하나요?', '보관하기 힘든 캠핑 장비들을 보관신청 해주시면 저희가 직접 픽업부터 창고에 보관까지 서비스 합니다. 제품이 창고에 도착하면 창고 촬영한 사진이 업로드 됩니다. 장비 보관 신청은 장비보관 탭에서 시작하기를 눌러 신청해주세요.', '2022-06-02 11:37:35', 0, 'F', '이용방법', NULL),
+	(6, '장비 대여는 어떻게 하나요?', '렌탈 마켓에서 현재 Forrest 에서 대여 중인 상품을 확인 하실 수 있습니다. 제품은 직접 배송해 드리고 대여가 완료 되면 요청하신 장소로 픽업가는 서비스까지 제공하고 있습니다. 최대 4박5일까지 대여 가능합니다.', '2022-06-02 11:37:36', 0, 'F', '이용방법', NULL),
+	(7, '중고 거래는 어떻게 이뤄지나요?', '중고 마켓에서 마음에 드는 상품이 있다면 상세보기 페이지에서 판매자와 대화를 할 수 있습니다. 판매자와 거래장소를 정하고 직접 거래 하실 수 있습니다.', '2022-06-02 11:37:37', 0, 'F', '결제관련', NULL),
+	(8, '대여 수익은 어떻게 발생하나요?', '내가 보관한 물건을 대여 가능하도록 설정해주세요. 누군가 내가 보관한 물건을 빌려서 쓰면 설정해주신 대여료의 일부를 환급해 드립니다. 대여수익은 내 정보 보기에서 확인이 가능합니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
+	(9, '환불 관련 정책', '장비 보관 혹은 장비 대여시 픽업 서비스가 시작되기 전까지 환불이 가능합니다. 마이페이지 내 보관 / 대여 물품 페이지에서 환불을 신청 할 수 있습니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
+	(10, '패밀리 캠핑! 가정의 달 맞이 이벤트~ 다양한 혜택받고 행복한 추억 만드세요~!(5/30까지)', '', '2022-06-22 18:01:20', 0, 'A', NULL, 'ㅁㄴㅇㄴㅁㅇ'),
+	(11, '무조건 드리는 신규회원쿠폰! 5월 신규회원 혜택이 팡팡!', '', '2022-06-22 18:17:45', 0, 'A', NULL, 'ㅁㄴㄹㄴㅁㅇㄹㅇㄴㅁㄹ');
+/*!40000 ALTER TABLE `board` ENABLE KEYS */;
 
-ALTER TABLE product ADD FOREIGN KEY(userId) REFERENCES user(userId);
-
-CREATE TABLE transaction
-(
-   tranNo VARCHAR(100) NOT NULL,
-   userId VARCHAR(30) NOT NULL,
-   prodNo VARCHAR(40) NOT NULL,
-   divyRequest VARCHAR(100),
-   divyAddress VARCHAR(100) NOT NULL,
-   pickupAddress VARCHAR(100) NOT NULL,
-   startDate DATE NOT NULL,
-   endDate DATE NOT NULL,
-   period INTEGER NOT NULL,
-   tranCode TINYINT(1) NOT NULL DEFAULT 0,
-   paymentNo VARCHAR(30) NOT NULL,
-   paymentDate DATETIME,
-   paymentWay VARCHAR(50),
-   receiverPhone VARCHAR(50),
-   receiverName VARCHAR(50),
-   prodName VARCHAR(40) NOT NULL,
-   prodImg VARCHAR(100) NOT NULL,
-   originPrice INTEGER NOT NULL,
-   discountPrice INTEGER,
-   resultPrice INTEGER,
-   reviewDone TINYINT(1) NOT NULL DEFAULT 0,
-   complete TINYINT(1) NOT NULL DEFAULT 0,
-  cancelComplete TINYINT(1) NOT NULL DEFAULT 0,
-   PRIMARY KEY (tranNo)
-);
-
-ALTER TABLE transaction ADD FOREIGN KEY(userId) REFERENCES user(userId);
-ALTER TABLE transaction ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
-
-
-CREATE TABLE old (
-   oldNo VARCHAR(40) NOT NULL,
-   userId VARCHAR(30) NOT NULL,
-   oldPrice INTEGER NOT NULL,
-   oldTitle VARCHAR(100) NOT NULL,
-   oldDetail VARCHAR(8000) NOT NULL,
-   oldDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   oldView INTEGER NOT NULL,
-   category VARCHAR(10) NOT NULL,
-   oldState TINYINT(1)   NOT NULL DEFAULT 1,
-   oldImg VARCHAR(60) NOT NULL,
-   oldAddr VARCHAR(100) NOT NULL,
-   PRIMARY KEY (oldNo),
-   FOREIGN KEY (userId) REFERENCES user(userId)
-);
-
-
-
-CREATE TABLE coupon(
-   couponNo   VARCHAR(50) NOT NULL ,
-   couponName   VARCHAR(50)   NOT NULL,
-   couponCreDate   DATETIME      ,
-   couponDelDate   DATETIME      ,   
-   discount      DOUBLE   NOT NULL,
-   PRIMARY KEY (couponNo)
-);
-
-
-CREATE TABLE ownCoupon(
-   ownCouponNo         INTEGER      NOT NULL AUTO_INCREMENT,
-   userId            VARCHAR(30)      NOT NULL,
-   couponNo            VARCHAR(50)	NOT NULL,
-   ownCouponCreDate   DATETIME         NOT NULL,
-   ownCouponDelDate   DATETIME         NOT NULL,
-   PRIMARY KEY(ownCouponNo),
-   FOREIGN KEY(userId) REFERENCES user(userId) ON DELETE CASCADE,
-   FOREIGN KEY(couponNo) REFERENCES coupon(couponNo) ON DELETE CASCADE
-);
-
-
-CREATE TABLE wishlist
-(
-   wishlistNo INTEGER NOT NULL AUTO_INCREMENT,
-   prodNo VARCHAR(40) NOT NULL,
-   wishedUserId VARCHAR(30) NOT NULL,
-   period INTEGER,
-   PRIMARY KEY (wishlistNo)
-);
-
-ALTER TABLE wishList ADD FOREIGN KEY(wishedUserId) REFERENCES user(userId);
-ALTER TABLE wishList ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
-
-CREATE TABLE rentalReview
-(
-   reviewNo INTEGER NOT NULL AUTO_INCREMENT,
-   reviewImg VARCHAR(200) NOT NULL,
-   reviewDetail VARCHAR(600) NOT NULL,
-   reviewScore INTEGER NOT NULL,
-   prodNo VARCHAR(40) NOT NULL,
-   userId VARCHAR(30) NOT NULL,
-   regDate DATE NOT NULL,
-   PRIMARY KEY (`reviewNo`)
-);
-
-ALTER TABLE rentalReview ADD FOREIGN KEY(userId) REFERENCES user(userId);
-ALTER TABLE rentalReview ADD FOREIGN KEY(prodNo) REFERENCES product(prodNo);
-
-CREATE TABLE `chatRoom` (
-  `chatRoomNo` int NOT NULL AUTO_INCREMENT,
-  `oldNo` varchar(40) DEFAULT NULL,
-  `prodNo` varchar(40) DEFAULT NULL,
-  `inquireUserId` varchar(30) NOT NULL,
-  `ownerUserId` varchar(30) NOT NULL,
-  `inquireUserExit` tinyint(1) DEFAULT '0',
-  `ownerUserExit` tinyint(1) DEFAULT '0',
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`chatRoomNo`),
-  KEY `oldNo` (`oldNo`),
-  KEY `prodNo` (`prodNo`),
-  KEY `inquireUserId` (`inquireUserId`),
-  KEY `ownerUserId` (`ownerUserId`),
-  CONSTRAINT `chatroom_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
-  CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE,
-  CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
-  CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE 
-);
-
+-- 테이블 forrest.chat 구조 내보내기
 CREATE TABLE IF NOT EXISTS `chat` (
   `chatMessageNo` int(11) NOT NULL AUTO_INCREMENT,
   `chatRoomNo` int(11) NOT NULL,
@@ -179,579 +57,432 @@ CREATE TABLE IF NOT EXISTS `chat` (
   KEY `sendUserId` (`sendUserId`),
   CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatroom` (`chatRoomNo`) ON DELETE CASCADE,
   CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `chatImg` (
-  `chatImgNo` int NOT NULL AUTO_INCREMENT,
-  `chatMessageNo` int NOT NULL,
-  `fileName` varchar(1000) NOT NULL,
-  PRIMARY KEY (`chatImgNo`),
-  KEY `chatMessageNo` (`chatMessageNo`),
-  CONSTRAINT `chatimg_ibfk_1` FOREIGN KEY (`chatMessageNo`) REFERENCES `chat` (`chatMessageNo`)
-);
+-- 테이블 데이터 forrest.chat:~5 rows (대략적) 내보내기
+DELETE FROM `chat`;
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`, `fileName`, `map`) VALUES
+	(62, 8, 'kedee2001@naver.com', '123', '2022-06-23 10:53:59', NULL, NULL, NULL),
+	(63, 8, 'kedee2001@naver.com', ',l,l', '2022-06-23 10:54:02', NULL, NULL, NULL),
+	(64, 9, 'user01@naver.com', 'ㅇ3ㅇ??', '2022-06-24 05:23:11', 1, NULL, NULL),
+	(65, 8, 'user01@naver.com', '에에', '2022-06-24 05:23:34', 1, NULL, NULL),
+	(66, 9, 'user01@naver.com', '흠', '2022-06-24 05:23:59', 1, NULL, NULL);
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 
-CREATE TABLE `board` (
-  `boardNo` int NOT NULL AUTO_INCREMENT,
-  `boardTitle` varchar(500) NOT NULL DEFAULT '',
-  `boardDetail` varchar(5000) NOT NULL DEFAULT '',
-  `boardDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `boardPin` int DEFAULT 0, 
-  `boardFlag` varchar(2) NOT NULL, 
-  `category` varchar(10),
-  `couponURL` varchar(1000),
-  PRIMARY KEY (`boardNo`)
-);
+-- 테이블 forrest.chatroom 구조 내보내기
+CREATE TABLE IF NOT EXISTS `chatroom` (
+  `chatRoomNo` int(11) NOT NULL AUTO_INCREMENT,
+  `oldNo` varchar(40) DEFAULT NULL,
+  `prodNo` varchar(40) DEFAULT NULL,
+  `inquireUserId` varchar(30) NOT NULL,
+  `ownerUserId` varchar(30) NOT NULL,
+  `inquireUserExit` tinyint(1) DEFAULT 0,
+  `ownerUserExit` tinyint(1) DEFAULT 0,
+  `createdAt` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`chatRoomNo`),
+  KEY `oldNo` (`oldNo`),
+  KEY `prodNo` (`prodNo`),
+  KEY `inquireUserId` (`inquireUserId`),
+  KEY `ownerUserId` (`ownerUserId`),
+  CONSTRAINT `chatroom_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `imgs` (
-  `imgNo` int NOT NULL AUTO_INCREMENT,
+-- 테이블 데이터 forrest.chatroom:~3 rows (대략적) 내보내기
+DELETE FROM `chatroom`;
+/*!40000 ALTER TABLE `chatroom` DISABLE KEYS */;
+INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `ownerUserId`, `inquireUserExit`, `ownerUserExit`, `createdAt`) VALUES
+	(7, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', NULL, 'kedee2001@naver.com', 'user01@naver.com', 0, 0, '2022-06-23 10:46:14'),
+	(8, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', NULL, 'kedee2001@naver.com', 'user01@naver.com', 1, 1, '2022-06-23 10:51:12'),
+	(9, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', NULL, 'user01@naver.com', 'admin', 1, 1, '2022-06-24 05:22:57');
+/*!40000 ALTER TABLE `chatroom` ENABLE KEYS */;
+
+-- 테이블 forrest.coupon 구조 내보내기
+CREATE TABLE IF NOT EXISTS `coupon` (
+  `couponNo` varchar(50) NOT NULL,
+  `couponName` varchar(50) NOT NULL,
+  `couponCreDate` datetime DEFAULT NULL,
+  `couponDelDate` datetime DEFAULT NULL,
+  `discount` double NOT NULL,
+  PRIMARY KEY (`couponNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.coupon:~4 rows (대략적) 내보내기
+DELETE FROM `coupon`;
+/*!40000 ALTER TABLE `coupon` DISABLE KEYS */;
+INSERT INTO `coupon` (`couponNo`, `couponName`, `couponCreDate`, `couponDelDate`, `discount`) VALUES
+	('1', '[가정의달 5천원쿠폰]', '2022-06-01 00:00:00', '2022-12-31 00:00:00', 5000),
+	('2', '[신규회원 1000원할인쿠폰]', NULL, NULL, 1000),
+	('3', '[복귀회원 15%할인쿠폰]', NULL, NULL, 0.15),
+	('4', '[개발자특전 80%할인쿠폰]', '2022-06-01 00:00:00', '2022-12-31 00:00:00', 0.8);
+/*!40000 ALTER TABLE `coupon` ENABLE KEYS */;
+
+-- 테이블 forrest.imgs 구조 내보내기
+CREATE TABLE IF NOT EXISTS `imgs` (
+  `imgNo` int(11) NOT NULL AUTO_INCREMENT,
   `contentsNo` varchar(80) DEFAULT NULL,
   `fileName` varchar(100) DEFAULT NULL,
   `contentsFlag` varchar(20) NOT NULL,
   PRIMARY KEY (`imgNo`)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
+-- 테이블 데이터 forrest.imgs:~64 rows (대략적) 내보내기
+DELETE FROM `imgs`;
+/*!40000 ALTER TABLE `imgs` DISABLE KEYS */;
+INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
+	(1, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 'product'),
+	(2, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '0bfbbbb9-02f1-4a32-b4da-1c0a76294c23.jpg', 'product'),
+	(3, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', 'f92bd1df-806c-400f-9369-a45212575896.jpg', 'product'),
+	(4, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '20653905-59e6-4d64-a8d2-aec69a23c7ea.jpg', 'product'),
+	(5, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', 'product'),
+	(6, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '3ee8ab40-c8d8-4212-8c3d-d2cfb3d8344b.jpg', 'product'),
+	(7, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', 'bebcc2e6-191d-4cd7-9324-8d2dcf5c4187.jpg', 'product'),
+	(8, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '415c04e6-17d2-4823-b053-8d78513301d6.jpg', 'product'),
+	(9, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '1d483d25-e732-44fd-bf5b-b7ec6c83a32f.jpg', 'product'),
+	(10, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 'product'),
+	(11, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '406cee59-20f5-40bc-af9d-de944f4454a1.jpg', 'product'),
+	(12, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '9afc243e-db93-4637-955c-49bd1ff267ec.jpg', 'product'),
+	(13, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '863e6029-7b7b-46c4-af99-afe977cb1a53.jpg', 'product'),
+	(14, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '041724c6-1272-4e41-bc23-daec6c2d68ca.jpg', 'product'),
+	(15, '10', '1b4872a8-df20-4631-ad73-696c6331a323.jpg', 'announce'),
+	(16, '11', 'bf5ec4d3-5f81-49dc-a454-8ebc0010404d.jfif', 'announce'),
+	(17, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', 'old'),
+	(18, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'fde2604b-6261-4cdf-9eeb-688b3fc2e86a.jpg', 'old'),
+	(19, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '9ce2c7cd-0268-42f5-8c28-36586c02fee1.jpg', 'old'),
+	(20, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'a0da642a-22d4-4f0e-af8c-8734a58b9006.jpg', 'old'),
+	(21, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', 'old'),
+	(22, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'cd2be5c3-42d9-4de5-846e-f32e1144851e.jpg', 'old'),
+	(23, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'c69e4784-dba2-423c-8839-b7f4841674bc.jpg', 'old'),
+	(24, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'a0f7c24a-6236-4c48-b13a-6648966f5ba4.jpg', 'old'),
+	(25, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', 'old'),
+	(26, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '9106a2b1-e929-45a0-aa98-353ec4b8ff3b.jpg', 'old'),
+	(27, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'f597e3bd-3997-4970-a91e-25cf2c430350.jpg', 'old'),
+	(28, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '83c8ce90-fb90-47ec-84be-75d818ab06ba.jpg', 'old'),
+	(29, '48314086-6371-4cbf-8a16-c0495771f046', '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', 'old'),
+	(30, '48314086-6371-4cbf-8a16-c0495771f046', '6244835a-b366-45dd-84ab-c00a0f2214e1.jpg', 'old'),
+	(31, '48314086-6371-4cbf-8a16-c0495771f046', '0617a0f7-5b7a-46c8-9838-320de2aa5737.PNG', 'old'),
+	(32, '48314086-6371-4cbf-8a16-c0495771f046', 'c4505803-94a9-43dd-a24a-2a24faa3fed2.jpg', 'old'),
+	(33, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', 'old'),
+	(34, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '53a5147c-44bf-4b35-8580-eba4dfdd3b69.jpg', 'old'),
+	(35, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '20b0eff3-f7b9-4ccb-b6c9-7001e1a9abbc.jpg', 'old'),
+	(36, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '63eec621-9f76-4c52-b303-8c74691ba29f.jpg', 'old'),
+	(37, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', 'old'),
+	(38, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'cd91d1d2-2596-4787-937c-f655124188d8.jpg', 'old'),
+	(39, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '98ba452a-6d85-436f-8e5a-56ee54528e51.jpg', 'old'),
+	(40, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'c6394234-0d68-4d7a-858e-7530b3167ab7.jpg', 'old'),
+	(41, 'l', '1.jpg', 'product'),
+	(42, 'l', '2.jpg', 'product'),
+	(43, 'l', '3.jpg', 'product'),
+	(44, 'l', '4.jpg', 'product'),
+	(47, 'df9d73df-8b33-4fd3-99b9-b2e43784ca0a', 'c42c8bc7-1e4b-4b15-a6b3-67bb0fabe77f.gif', 'old'),
+	(48, 'df9d73df-8b33-4fd3-99b9-b2e43784ca0a', '893861ee-9199-4375-90b7-4232e71a2571.jpg', 'old'),
+	(49, 'df9d73df-8b33-4fd3-99b9-b2e43784ca0a', '816e009e-ab46-484d-971a-682ae3e4759c.webp', 'old'),
+	(50, 'df9d73df-8b33-4fd3-99b9-b2e43784ca0a', '661a5d11-9e71-4b32-9ed5-7be9e5d0191f.jpg', 'old'),
+	(51, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'ede4e20d-5403-4df4-a65d-fef902425730.webp', 'old'),
+	(52, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', '27fd13af-e215-4fe5-b59a-829e984c4964.webp', 'old'),
+	(53, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'fc979d10-e787-401a-ba08-971d1936597a.webp', 'old'),
+	(54, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'd16e9cce-8331-4792-9007-6fe7addcadcd.webp', 'old'),
+	(55, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', '2112c4de-b722-4761-9062-a8e0e1a458c7.webp', 'old'),
+	(56, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', 'd76c2f85-1bee-47e8-b5c0-a82b35f1a360.jpg', 'old'),
+	(57, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', '8d389324-a8fa-48d5-bb4b-b5b246f8e784.jpg', 'old'),
+	(58, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', '50029eb2-9fb5-4c4f-9dd2-27131566e992.jpg', 'old'),
+	(59, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'de527e4a-15af-4a4b-9c32-9bab5221061e.webp', 'old'),
+	(60, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'd363dbdb-1e6c-4f7f-9acb-b60421ce1443.webp', 'old'),
+	(61, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', '72db73eb-b1ce-4dd8-a827-c6d54327aacc.jpg', 'old'),
+	(62, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', '75564de8-5cca-4488-ac7e-24070394654e.jpg', 'old'),
+	(63, '9113b67b-70eb-425b-ba35-36b4838b74b6', '32fef995-b239-48a2-9ad1-eb313b30bc98.webp', 'old'),
+	(64, '9113b67b-70eb-425b-ba35-36b4838b74b6', '560c96bb-7455-4fad-b6d9-763ae354f8c1.webp', 'old'),
+	(65, '9113b67b-70eb-425b-ba35-36b4838b74b6', '886ee2dd-d003-4046-a5a0-b563949314aa.webp', 'old'),
+	(66, '9113b67b-70eb-425b-ba35-36b4838b74b6', '8797cf99-90bf-47a4-a9f4-80f332449a46.jpg', 'old');
+/*!40000 ALTER TABLE `imgs` ENABLE KEYS */;
 
-CREATE TABLE oldlike(
-	oldLikeNo	 INTEGER	 NOT NULL	 AUTO_INCREMENT,
-	oldNo 		 VARCHAR(40) NOT NULL ,
-	userId		 VARCHAR(30)	NOT NULL ,
-	PRIMARY KEY(oldLikeNo),
-	KEY oldNo (oldNo),
-	KEY userId (userId),
-	CONSTRAINT `oldlike_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
-	CONSTRAINT `oldlike_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-);
+-- 테이블 forrest.old 구조 내보내기
+CREATE TABLE IF NOT EXISTS `old` (
+  `oldNo` varchar(40) NOT NULL,
+  `userId` varchar(30) NOT NULL,
+  `oldPrice` int(11) NOT NULL,
+  `oldTitle` varchar(100) NOT NULL,
+  `oldDetail` varchar(8000) NOT NULL,
+  `oldDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `oldView` int(11) NOT NULL,
+  `category` varchar(10) NOT NULL,
+  `oldState` tinyint(1) NOT NULL DEFAULT 1,
+  `oldImg` varchar(60) NOT NULL,
+  `oldAddr` varchar(100) NOT NULL,
+  PRIMARY KEY (`oldNo`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `old_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE oldReview(
-	oldReviewNo	INTEGER		NOT NULL	AUTO_INCREMENT,
-	reviewUserId	VARCHAR(30)	NOT NULL	REFERENCES	user(userId),
-	reviewedUserId	VARCHAR(30)	NOT NULL	REFERENCES	user(userId),
-	oldNo		VARCHAR(40)		NOT NULL	REFERENCES	old(oldNo),
-	reviewDetail	VARCHAR(100),
-	userRate		DOUBLE,
-	reviewDate	DATE 		NOT NULL	DEFAULT (CURRENT_DATE),
-	PRIMARY KEY(oldReviewNo)
-);
+-- 테이블 데이터 forrest.old:~10 rows (대략적) 내보내기
+DELETE FROM `old`;
+/*!40000 ALTER TABLE `old` DISABLE KEYS */;
+INSERT INTO `old` (`oldNo`, `userId`, `oldPrice`, `oldTitle`, `oldDetail`, `oldDate`, `oldView`, `category`, `oldState`, `oldImg`, `oldAddr`) VALUES
+	('3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', 'kedee2001@naver.com', 50000, '스텐다드 접이식 바베큐그릴 숯불 캠핑 야외용 BBQ', '한번 쓰고 팝니다. 쿨거래만 받아요..!', '2022-06-24 14:33:11', 1, '그릴', 1, '2112c4de-b722-4761-9062-a8e0e1a458c7.webp', '죽전동'),
+	('48314086-6371-4cbf-8a16-c0495771f046', 'user01@naver.com', 5000, '분위기 있는 랜턴', '싸게 가져가세요~', '2022-06-23 09:56:47', 1, '조명', 1, '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', '삼성동'),
+	('5643ddbf-60fd-44b1-add6-8d7548357c7b', 'user01@naver.com', 9000, '고기굽기 좋은 테이블', '사용감이 있어 저렴하게 올립니다. 기스 살짝 있어요.', '2022-06-23 10:02:08', 3, '테이블', 1, '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', '삼성동'),
+	('9113b67b-70eb-425b-ba35-36b4838b74b6', 'kedee2001@naver.com', 20000, '캠핑식기 세트 22P 캠핑용품 접시세트', '20000원에 팝니다..!', '2022-06-24 14:37:33', 1, '식기', 1, '32fef995-b239-48a2-9ad1-eb313b30bc98.webp', '동천동'),
+	('a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'user01@naver.com', 20000, '감성 조명', '싸게 가져가세요', '2022-06-23 09:50:06', 1, '조명', 1, '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', '청담동'),
+	('df9d73df-8b33-4fd3-99b9-b2e43784ca0a', 'kedee2001@naver.com', 20000, '다니고 캠핑 전구', '30000원에 샀는데 눈물을 머금고 20000원에 올립니다ㅠㅠ\r\n이것만 있으면 밤에 안 어둡고 갬성넘치는 캠핑을 할 수 있습니다 ㅎㅎ\r\n쿨거래 시 네고 해드립니다!', '2022-06-24 14:26:02', 2, '조명', 1, 'c42c8bc7-1e4b-4b15-a6b3-67bb0fabe77f.gif', '상산동'),
+	('ea5668d7-ad6e-4f09-8719-474876e6cad4', 'admin', 60000, '원목 테이블', '튼튼해요 퀄리티 정말 좋아요.', '2022-06-23 09:59:53', 3, '테이블', 1, '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', '역삼동'),
+	('ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'kedee2001@naver.com', 50000, '포레스트우드 구이바다 BBQ그릴 풀세트M', '기름도 별로 안튀었고, 한번 청소했어서 완전 깨끗해요!\r\n더 좋은걸 사서 그냥 팝니다 ㅎㅎㅎ!', '2022-06-24 14:35:13', 1, '버너', 1, 'de527e4a-15af-4a4b-9c32-9bab5221061e.webp', '죽전동'),
+	('f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'kedee2001@naver.com', 30000, '경량체어 감성 로우 커밋체어 등산의자', '경량 체어라서 엄청 가벼워요. 앉아서 불멍때리면 행복이 여기에!\r\n사용감 거의 없어서 거의 새거에요. 얻어가세요!~', '2022-06-24 14:29:09', 1, '의자', 1, 'ede4e20d-5403-4df4-a65d-fef902425730.webp', '상산동'),
+	('fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'user01@naver.com', 90000, '한번 사용한 텐트', '실물 예뻐요~', '2022-06-23 09:55:13', 0, '텐트', 1, 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', '연희동');
+/*!40000 ALTER TABLE `old` ENABLE KEYS */;
 
-CREATE TABLE report(
-	reportNo		INTEGER		NOT NULL	AUTO_INCREMENT,
-	reportUser		VARCHAR(30)	NOT NULL 	REFERENCES	user(userId),
-	reportedUser	VARCHAR(30)	NOT NULL 	REFERENCES	user(userId),
-	reportOldNo	VARCHAR(40)		NOT NULL	REFERENCES	old(oldNo),
-	reportChatroomNo	INTEGER,
-	reportCategory	VARCHAR(20),
-	reportDate	DATETIME	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	reportDetail	VARCHAR(100),
-	reportChat	VARCHAR(4000),
-	reportCode	TINYINT(1),
-	PRIMARY KEY(reportNo)
-);	
+-- 테이블 forrest.oldlike 구조 내보내기
+CREATE TABLE IF NOT EXISTS `oldlike` (
+  `oldLikeNo` int(11) NOT NULL AUTO_INCREMENT,
+  `oldNo` varchar(40) NOT NULL,
+  `userId` varchar(30) NOT NULL,
+  PRIMARY KEY (`oldLikeNo`),
+  KEY `oldNo` (`oldNo`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `oldlike_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
+  CONSTRAINT `oldlike_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+-- 테이블 데이터 forrest.oldlike:~1 rows (대략적) 내보내기
+DELETE FROM `oldlike`;
+/*!40000 ALTER TABLE `oldlike` DISABLE KEYS */;
+INSERT INTO `oldlike` (`oldLikeNo`, `oldNo`, `userId`) VALUES
+	(4, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'kedee2001@naver.com');
+/*!40000 ALTER TABLE `oldlike` ENABLE KEYS */;
 
-INSERT INTO user
-VALUES ('admin','adminNickname','adminphone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','adminName','adminAddr','admin',CURDATE(),'own','adminImg.jpg',CURDATE(),NULL,NULL,NULL);
+-- 테이블 forrest.oldreview 구조 내보내기
+CREATE TABLE IF NOT EXISTS `oldreview` (
+  `oldReviewNo` int(11) NOT NULL AUTO_INCREMENT,
+  `reviewUserId` varchar(30) NOT NULL,
+  `reviewedUserId` varchar(30) NOT NULL,
+  `oldNo` varchar(40) NOT NULL,
+  `reviewDetail` varchar(100) DEFAULT NULL,
+  `userRate` double DEFAULT NULL,
+  `reviewDate` date NOT NULL DEFAULT curdate(),
+  PRIMARY KEY (`oldReviewNo`),
+  KEY `reviewUserId` (`reviewUserId`),
+  KEY `reviewedUserId` (`reviewedUserId`),
+  KEY `oldNo` (`oldNo`),
+  CONSTRAINT `oldreview_ibfk_1` FOREIGN KEY (`reviewUserId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `oldreview_ibfk_2` FOREIGN KEY (`reviewedUserId`) REFERENCES `user` (`userId`),
+  CONSTRAINT `oldreview_ibfk_3` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO user
-VALUES ('user01@naver.com','user01','user01Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user01Name','user01Addr','user',CURDATE(),'own','user01Img.jpg',CURDATE(),NULL,NULL,NULL);
+-- 테이블 데이터 forrest.oldreview:~0 rows (대략적) 내보내기
+DELETE FROM `oldreview`;
+/*!40000 ALTER TABLE `oldreview` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oldreview` ENABLE KEYS */;
 
-INSERT INTO user
-VALUES ('user02@naver.com','user02','user02Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user02Name','user02Addr','user',CURDATE(),'own','user02Img',CURDATE(),NULL,NULL,NULL);
+-- 테이블 forrest.owncoupon 구조 내보내기
+CREATE TABLE IF NOT EXISTS `owncoupon` (
+  `ownCouponNo` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` varchar(30) NOT NULL,
+  `couponNo` varchar(50) NOT NULL,
+  `ownCouponCreDate` datetime NOT NULL,
+  `ownCouponDelDate` datetime NOT NULL,
+  PRIMARY KEY (`ownCouponNo`),
+  KEY `userId` (`userId`),
+  KEY `couponNo` (`couponNo`),
+  CONSTRAINT `owncoupon_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `owncoupon_ibfk_2` FOREIGN KEY (`couponNo`) REFERENCES `coupon` (`couponNo`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-INSERT INTO user
-VALUES ('user03@naver.com','user03','user03Phone','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','user03Name','user03Addr','user',CURDATE(),'own','user03Img',CURDATE(),NULL,NULL,NULL);
+-- 테이블 데이터 forrest.owncoupon:~8 rows (대략적) 내보내기
+DELETE FROM `owncoupon`;
+/*!40000 ALTER TABLE `owncoupon` DISABLE KEYS */;
+INSERT INTO `owncoupon` (`ownCouponNo`, `userId`, `couponNo`, `ownCouponCreDate`, `ownCouponDelDate`) VALUES
+	(1, 'user01@naver.com', '1', '2022-06-01 00:00:00', '2022-06-30 00:00:00'),
+	(2, 'user01@naver.com', '4', '2022-06-01 00:00:00', '2022-06-30 00:00:00'),
+	(3, 'user01@naver.com', '2', '2022-06-01 00:00:00', '2022-06-30 00:00:00'),
+	(4, 'user02@naver.com', '2', '2022-06-01 00:00:00', '2022-06-30 00:00:00'),
+	(5, 'user01@naver.com', '2', '2022-06-24 12:19:21', '2022-07-24 12:19:21'),
+	(6, 'qwerty5266@naver.com', '2', '2022-06-24 13:22:08', '2022-07-24 13:22:08'),
+	(7, 'user03@naver.com', '2', '2022-06-24 13:23:00', '2022-07-24 13:23:00'),
+	(8, 'admin', '2', '2022-06-24 14:14:15', '2022-07-24 14:14:15');
+/*!40000 ALTER TABLE `owncoupon` ENABLE KEYS */;
 
-INSERT INTO user
-VALUES ('user04@naver.com','user04','user04Phone','4444','user04Name','user04Addr','user',CURDATE(),'own','user04Img',CURDATE(),NULL,NULL,NULL);
+-- 테이블 forrest.product 구조 내보내기
+CREATE TABLE IF NOT EXISTS `product` (
+  `prodNo` varchar(40) NOT NULL,
+  `width` int(11) NOT NULL,
+  `length` int(11) NOT NULL,
+  `height` int(11) NOT NULL,
+  `userId` varchar(30) NOT NULL,
+  `prodCondition` varchar(30) NOT NULL DEFAULT '물품보관승인신청중',
+  `prodName` varchar(40) NOT NULL,
+  `prodQuantity` int(11) NOT NULL,
+  `prodDetail` varchar(600) NOT NULL,
+  `isRental` tinyint(1) NOT NULL DEFAULT 0,
+  `rentalCounting` int(11) DEFAULT NULL,
+  `rentalPrice` int(11) DEFAULT NULL,
+  `account` varchar(30) DEFAULT NULL,
+  `category` varchar(10) NOT NULL,
+  `divyAddress` varchar(100) NOT NULL,
+  `prodImg` varchar(100) NOT NULL,
+  `recentImg` varchar(100) DEFAULT NULL,
+  `regDate` datetime NOT NULL,
+  PRIMARY KEY (`prodNo`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO user
-VALUES ('user05@naver.com','user05','user05Phone','5555','user05Name','user05Addr','user',CURDATE(),'own','user05Img',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('user06@naver.com','user06','user06Phone','6666','user06Name','user06Addr','user',CURDATE(),'own','user06Img',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('user10@naver.com','user10','user10Phone','1010','user10Name','user10Addr','leave',CURDATE(),'own','user10Img',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('user20@naver.com','user20','user20Phone','2020','user20Name','user20Addr','restrict',CURDATE(),'own','user20Img',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('captain9697@naver.com','구스범수','010/4114/9697','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','박범수','13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)','user', CURDATE(),'own','goosebeomImg.jpg',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('sanstory12rt@naver.com','과자조아','010/8783/6065','$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','형산','13271/경기오산시~~','user', CURDATE(),'own','iu.jpg',CURDATE(),NULL,NULL,NULL);
-
-INSERT INTO user
-VALUES ('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$3lnMim/bwALsgFZfPyVvrek2yhYr8dT9riXND/gsHycClzaWt7TDK', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-22 09:45:34', NULL, NULL, NULL);
-
-INSERT INTO user
-VALUES ('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$7KryLXSZc1CuQLNJF6TZve7UZmRQieY4iqh3dLAkC9Ae4cHVSax0q', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-23 00:09:53', NULL, NULL, NULL);
-
-INSERT INTO user
-VALUES ('qwerty5266@naver.com', '띵띵', '01093995266', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG','김명선','14999/경기 시흥시','user', '2022-06-23 01:19:41','own','chacha.JPG','2022-06-23 01:19:41', NULL, NULL, NULL);
-
-INSERT INTO old
-VALUES ('a','user01@naver.com',40000,'야전침대','접이식',CURRENT_TIMESTAMP(),0,'침대',TRUE,'aaa.jpg','삼성동');
-
-INSERT INTO old
-VALUES ('b','user02@naver.com',90000,'1인용 텐트','베이지색',CURRENT_TIMESTAMP(),0,'텐트',TRUE,'bbb.jpg','서교동');
-
-INSERT INTO old
-VALUES ('c','user03@naver.com',40000,'접이식 의자','대형',CURRENT_TIMESTAMP(),0,'의자',TRUE,'ccc.jpg','서교동');
-
-INSERT INTO old
-VALUES ('d','user04@naver.com',30000,'바베큐 그릴','2번 사용',CURRENT_TIMESTAMP(),0,'그릴',TRUE,'ddd.jpg','대홍동');
-
-INSERT INTO old
-VALUES ('e','user01@naver.com',5000,'휴대용 버너','가성비',CURRENT_TIMESTAMP(),0,'버너',TRUE,'eee.jpg','염리동');
-
-INSERT INTO old
-VALUES ('f','user01@naver.com',20000,'랜턴조명','LED',CURRENT_TIMESTAMP(),0,'조명',TRUE,'fff.jpg','망원동');
-
-INSERT INTO old
-VALUES ('g','user01@naver.com',70000,'접이식 테이블','거의새것',CURRENT_TIMESTAMP(),0,'테이블',TRUE,'ggg.jpg','망원동');
-
-INSERT INTO old
-VALUES ('h','user01@naver.com',20000,'컵 수저 식기 세트','스탠304',CURRENT_TIMESTAMP(),0,'식기',FALSE,'hhh.jpg','삼성동');
-
-INSERT INTO old
-VALUES ('i','user01@naver.com',120000,'석유난로','작년에 샀어요', CURRENT_TIMESTAMP(),0,'난로',FALSE,'iii.jpg','서초동');
-
-INSERT INTO old
-VALUES ('j','admin',10000,'아이스박스','10L',CURRENT_TIMESTAMP(),0,'조명',FALSE,'jjj.jpg','서초동');
-
-INSERT INTO old
-VALUES('48314086-6371-4cbf-8a16-c0495771f046', 'user01@naver.com', 5000, '분위기 있는 랜턴', '싸게 가져가세요~', '2022-06-23 09:56:47', 1, '조명', 1, '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', '삼성동');
-
-INSERT INTO old
-VALUES	('5643ddbf-60fd-44b1-add6-8d7548357c7b', 'user01@naver.com', 9000, '고기굽기 좋은 테이블', '사용감이 있어 저렴하게 올립니다. 기스 살짝 있어요.', '2022-06-23 10:02:08', 0, '테이블', 1, '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', '삼성동');
-
-INSERT INTO old
-VALUES('a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'user01@naver.com', 566, '감성 조명', '싸게 가져가세요', '2022-06-23 09:50:06', 1, '조명', 1, '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', '청담동');
-
-INSERT INTO old
-VALUES('ea5668d7-ad6e-4f09-8719-474876e6cad4', 'admin', 60000, '원목 테이블', '튼튼해요 퀄리티 정말 좋아요.', '2022-06-23 09:59:53', 1, '테이블', 1, '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', '역삼동');
-
-INSERT INTO old
-VALUES('fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'user01@naver.com', 90000, '한번 사용한 텐트', '실물 예뻐요~', '2022-06-23 09:55:13', 0, '텐트', 1, 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', '연희동');
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('a', 100, 30, 12, 'user01@naver.com', '대여중', '특대형 누빔텐트1', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('b', 100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트2', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '2.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('c', 100, 30, 12, 'user01@naver.com', '보관중', '특대형 누빔텐트3', 1, '특대형 누빔 텐트 판매합니다. 올해초 신품 구매후 3회사용했습니다. 사진상 마지막 캠핑 장소가 저래서 스커트 부분에 흙먼지 있을수 있습니다. 상태 좋습니다.', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '3.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('d', 40, 30, 15, 'user01@naver.com', '보관중', '캠핑 강염버너 버너', 1, '캠핑하는 동안 잘 썼는데 다른 제품을 구매하게 돼서 공유합니다. 사용감 많지만 고장이나 하자 없어서 사용하는데 전혀 문제 없습니다~', 1, 0, 8000, '국민 478102-04-386651', '버너', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '4.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('e', 30, 30, 60, 'user01@naver.com', '보관중', '알파카TS-77A콤팩트캠핑난로', 1, '알파카TS-77S콤팩트 캠핑난로 심지난로 석유난로 등유난로 기름난로 난로 석유통 자바라 난로전용가방 난로 4가지세트판매 2021년8월제조', 1, 0, 10000, '국민 478102-04-386651', '텐트', '13271 성남시 수정구 신흥2동 한신아파트 5동 502호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail,isRental, rentalCounting, rentalPrice, account, category, divyAddress, prodImg, regDate) VALUES ('f', 60, 30, 20, 'user01@naver.com', '보관중', '퀸나 휴대용전기그릴', 1, '테스트로1회사용함 깨끗하게 닦아뒀으니바로사용가능 비싼거 새거 사지마시고 좋은거 저렴하게 이용하세요. ', 1, 0, 5000, '국민 478102-04-386651', '그릴', '18125 경기 오산시 가수1로 13 (가수주공아파트) 102동 1201호 ', '2.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('g', 20, 60, 10, 'user03@naver.com', '보관중', '마추픽추 릴렉스 체어', 1, '네이버 캠핑의자 랭킹 상위의 마추픽추 릴렉스체어입니다. 캠핑이나 낚시 등에 활용 가능할 것 같네요 색상은 버건디입니다. 3회밖에 사용안해서 상태는 제거와 크게 다름 없습니다.', '의자', '01849 서울 노원구 공릉로 111 (애지빌라) A동 103호', '3.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('h', 73, 45, 10, 'user04@naver.com', '입고중', '캠핑테이블 캠핑박스 확장형', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('i', 73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형1', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('j', 73, 45, 10, 'user02@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '2.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('k', 73, 45, 10, 'user03@naver.com', '대여중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '3.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate, isRental,rentalPrice) VALUES ('l', 73, 45, 10, 'sanstory12rt@naver.com', '보관중', '특대형 누빔텐트', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP(),1,10000);
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('m', 73, 45, 10, 'user01@naver.com', '물품대여승인신청중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '2.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('n', 73, 45, 10, 'user02@naver.com', '대여중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '3.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('o', 73, 45, 10, 'user03@naver.com', '배송중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '4.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('p', 73, 45, 10, 'user04@naver.com', '배송중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('q', 73, 45, 10, 'user03@naver.com', '물품대여승인신청중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('r', 73, 45, 10, 'user01@naver.com', '대여중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('s', 73, 45, 10, 'user01@naver.com', '물품대여승인신청중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('t', 73, 45, 10, 'user01@naver.com', '출고완료', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
-INSERT INTO product  (prodNo, width, length, height, userId, prodCondition, prodName, prodQuantity, prodDetail, category, divyAddress, prodImg, regDate) VALUES ('u', 73, 45, 10, 'user01@naver.com', '물품대여승인신청중', '캠핑테이블 캠핑박스 확장형2', 1, '확장형우드테이블+운반상자6호', '테이블', '성남시 중원구 은행2동 주공아파트 120동 1001호', '1.jpg', CURRENT_TIMESTAMP());
-
+-- 테이블 데이터 forrest.product:~3 rows (대략적) 내보내기
+DELETE FROM `product`;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCondition`, `prodName`, `prodQuantity`, `prodDetail`, `isRental`, `rentalCounting`, `rentalPrice`, `account`, `category`, `divyAddress`, `prodImg`, `recentImg`, `regDate`) VALUES
-	('52fb9c79-d83b-436a-b5be-5b27a6b13c33', 10, 10, 2, 'captain9697@naver.com', '보관중', '바베큐,숯불 그릴/캠핑 그릴', 1, '캠핑용 가정용 그릴이고 한번사용후 보관했는데 숯자국은 남네요\r\n중형으로 간단히 구워먹기좋아요 3-4인용이고 가방이 깨끗하지않아요\r\n숯사용후 남은것도 드려요  이사짐정리중입니다', 1, 0, 5000, '국민/47810204386651', '그릴', '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', NULL, '2022-06-22 14:11:24');
-
-INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCondition`, `prodName`, `prodQuantity`, `prodDetail`, `isRental`, `rentalCounting`, `rentalPrice`, `account`, `category`, `divyAddress`, `prodImg`, `recentImg`, `regDate`) VALUES
-('7374c5cb-e68b-4d65-84a9-013f0d1df57c', 10, 10, 2, 'captain9697@naver.com', '보관중', '라탄 전등갓 줄전구 조명', 1, '[손품]이라는 곳에서 구매한 라탄 전등 갓 조명이예요\r\n20구 이고, 건전지형 입니다 (USB형 나오기전 구매)\r\n저는 캠핑때 사용하려고 샀었고, 1회 사용 후 보관만 해둔 상태 입니다\r\n\r\n샀던 곳 상세설명 첨부 참고해주세요\r\n더스트백에 넣어 드립니다\r\n라탄 갓은 전구에 일일히 따로 끼워야 하는데 20개 다 하려면 시간 꽤 걸려요 그래서 끼운채 있고 그대로 드려요!', 1, 0, 3000, '국민/47810204386651', '조명', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', NULL, '2022-06-22 14:15:26');
-
-INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCondition`, `prodName`, `prodQuantity`, `prodDetail`, `isRental`, `rentalCounting`, `rentalPrice`, `account`, `category`, `divyAddress`, `prodImg`, `recentImg`, `regDate`) VALUES
-('b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 10, 10, 2, 'captain9697@naver.com', '보관중', '캠핑의자,캠핑체어,스노우라인,유아의자', 1, '야외에서 쓰던거라 사용감 있어요.\r\n그래도 튼튼하고 사용하기 좋아요\r\n\r\n민트색의자는 주니어의자 라고해서 당근구입하고 봤더니 어린이가 쓰는거라 안쓰고 보관만했어요. 꺼내봤더니 많이 지저분해졌네요.이것도 튼튼해요~\r\n스노우라인꺼 사시는분 필요하시면 드려요~', 1, 0, 3000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', NULL, '2022-06-22 14:19:07');
-
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('aa', 'sanstory12rt@naver.com', 'a', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트1', '1.jpg', 20000, 2000, 18000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('bb', 'sanstory12rt@naver.com', 'b', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트2', '1.jpg', 20000, 2000, 18000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('cc', 'sanstory12rt@naver.com', 'c', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트3', '1.jpg', 20000, 2000, 18000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('dd', 'sanstory12rt@naver.com', 'd', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '캠핑 강염버너 버너', '1.jpg', 20000, 2000, 18000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('ee', 'sanstory12rt@naver.com', 'e', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '알파카TS-77A콤팩트캠핑난로', '1.jpg', 20000, 2000, 18000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('ff', 'sanstory12rt@naver.com', 'f', '강남구1', '강남구2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), '이니시스', '010-8283-5621', '김범수', '퀸나 휴대용전기그릴', '2.jpg', 25000, 1000, 24000,1);
-
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('aa1', 'user01@naver.com', 'a', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트1', '1.jpg', 20000, 2000, 18000,0);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('bb1', 'user01@naver.com', 'b', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트2', '1.jpg', 20000, 2000, 18000,0);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('cc1', 'user01@naver.com', 'c', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '특대형 누빔텐트3', '1.jpg', 20000, 2000, 18000,0);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('dd1', 'user01@naver.com', 'd', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '캠핑 강염버너 버너', '1.jpg', 20000, 2000, 18000,0);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('ee1', 'user01@naver.com', 'e', '신흥동1', '신흥동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+30 day), 30, 'imp-1002', current_timestamp(), '이니시스', '010-4114-9697', '박범수', '알파카TS-77A콤팩트캠핑난로', '1.jpg', 20000, 2000, 18000,0);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,tranCode)
-values ('ff1', 'user01@naver.com', 'f', '강남구1', '강남구2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+60 day), 60, 'imp-1003', current_timestamp(), '이니시스', '010-8283-5621', '김범수', '퀸나 휴대용전기그릴', '2.jpg', 25000, 1000, 24000,0);
-
-
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values ('gg', 'user03@naver.com', 'g', '비트캠프1', '비트캠프2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+90 day), 90, 'imp-1004', current_timestamp(), '이니시스', '010-2091-9728', '이상민', '마추픽추 릴렉스 체어', '3.jpg', 30000, 0, 30000);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values ('hh', 'user04@naver.com', 'h', '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형', '4.jpg', 40000, 0, 40000);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,complete)
-values ('ii', 'user01@naver.com', 'i', '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형1', '4.jpg', 40000, 0, 40000,1);
-
-INSERT INTO transaction(tranNo, userId, prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice)
-values ('jj', 'user01@naver.com', 'j', '복정동1', '복정동2', '빨리줘', date_add(curdate(), interval 1 day), date_add(curdate(), interval 1+120 day), 120, 'imp-1005', current_timestamp(), '이니시스', '010-8294-1923', '김명선', '캠핑테이블 캠핑박스 확장형2', '4.jpg', 40000, 0, 40000);
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk', 'user02@naver.com', 'k', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice,complete ) VALUES ('kkg', 'user01@naver.com', 'l', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' ,1);
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkgg', 'user01@naver.com', 'm', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_73457649', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkag', 'user01@naver.com', 'n', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53362363', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kkasg', 'user01@naver.com', 'o', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123445719', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('2kk4asg', 'user05@naver.com', 'p', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_61333424', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk3a6sg', 'user04@naver.com', 'q', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_75484565', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '3.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk4a7sg', 'user03@naver.com', 'r', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_53342342', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '4.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('12kkasg', 'user02@naver.com', 's', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_123124525', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('k4k3asg', 'user07@naver.com', 't', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_46463463', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '2.jpg', '10000', '1000', '9000' );
-
-INSERT INTO transaction  (tranNo , userId , prodNo, divyRequest, divyAddress, pickupAddress, startDate, endDate, period, tranCode, paymentNo, paymentDate, paymentWay, receiverPhone, receiverName, prodName, prodImg, originPrice, discountPrice, resultPrice ) VALUES ('kk54asg', 'user06@naver.com', 'u', '서울특별시 비트캠프', '부산광역시 해운대구', '빨리줘', '2022-06-15', '2022-06-18', '4', TRUE, 'imp_131313463', '2022-05-30 20:19:15', '계좌이체', '01087836060', '홍길동', '특대형 누빔텐트' , '1.jpg', '10000', '1000', '9000' );
-
-INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`) VALUES
- ('193f067d-3eda-4a07-a68b-e90824f642cf', 'captain9697@naver.com', 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-10-21', 120, 0, 'imp_930121942719', '2022-06-22 14:19:07', NULL, '010/4114/9697', '박범수', '캠핑의자,캠핑체어,스노우라인,유아의자,어린이캠핑', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 960, 0, 960, 0, 0);
-
-INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`) VALUES
-('22679442-ce59-41f8-8191-c5a26ee25ca3', 'captain9697@naver.com', '7374c5cb-e68b-4d65-84a9-013f0d1df57c', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-07-23', 30, 0, 'imp_380900755748', '2022-06-22 14:15:26', NULL, '010/4114/9697', '박범수', '라탄 전등갓 줄전구 조명', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', 240, 0, 240, 0, 0);
-
-INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`) VALUES
-('7338e575-9b26-46fe-920f-9004098a3ef4', 'captain9697@naver.com', '52fb9c79-d83b-436a-b5be-5b27a6b13c33', NULL, '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-08-22', 60, 0, 'imp_254658714863', '2022-06-22 14:11:24', NULL, '010/4114/9697', '박범수', '바베큐,숯불 그릴/캠핑 그릴', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 480, 0, 480, 0, 0);
-
-
-INSERT INTO wishlist (wishlistNo, prodNo, wishedUserId) VALUES (NULL, '1', 'user05@naver.com');
-
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, '1.jpg', '상품상세설명입니다', '3', '1', 'user03@naver.com', '20210525');
-
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'a', 'user01@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '4', 'b', 'user02@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '1', 'c', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', '2', 'd', 'user04@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '5', 'e', 'user05@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '5', 'f', 'user01@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'a', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'b', 'user02@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', '3', 'c', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'd', 'user04@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '아직 사용전인데 이미 많은 리뷰만 보더라도 기대가 됩니다', '3', 'e', 'user05@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'f', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기', '3', 'g', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'a', 'user01@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'b', 'user02@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'c', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'd', 'user04@naver.com', '20210525');
-
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user02@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', '3', 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user03@naver.com', '20210525');
-INSERT INTO rentalReview (reviewNo, reviewImg, reviewDetail,reviewScore, prodNo, userId, regDate ) VALUES (NULL, 'tent.jpg', '아직 사용전인데 이미 많은 리뷰만 보더라도 기대가 됩니다 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', '3', 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user04@naver.com', '20210525');
-
-INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `ownerUserId`, `inquireUserExit`, `ownerUserExit`, `createdAt`) VALUES
-	(1, 'a', NULL, 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:21:00'),
-	(2, 'a', NULL, 'user03@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:21:42'),
-	(3, 'a', NULL, 'user04@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:22:29'),
-	(4, NULL, 'a', 'user02@naver.com', 'user01@naver.com', 1, 1, '2022-05-30 18:31:32'),
-	(5, 'e', NULL, 'admin', 'user01@naver.com', 1, 1, '2022-06-23 06:28:50'),
-	(6, 'f', NULL, 'admin', 'user01@naver.com', 0, 0, '2022-06-23 06:34:33'),
-	(7, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', NULL, 'admin', 'user01@naver.com', 0, 0, '2022-06-23 10:46:14'),
-	(8, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', NULL, 'admin', 'user01@naver.com', 1, 1, '2022-06-23 10:51:12');
-
-INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`, `fileName`, `map`) VALUES
-	(1, 1, 'user02@naver.com', '하이욤', '2022-05-30 18:23:17', NULL, NULL, NULL),
-	(2, 1, 'user02@naver.com', '팔렸나요?', '2022-05-30 18:23:17', NULL, NULL, NULL),
-	(3, 1, 'user01@naver.com', '아니요', '2022-05-30 18:23:17', 1, NULL, NULL),
-	(4, 2, 'user03@naver.com', '안녕하세요', '2022-05-30 18:28:47', NULL, NULL, NULL),
-	(5, 2, 'user03@naver.com', '잘 지내세요?', '2022-05-30 18:28:47', NULL, NULL, NULL),
-	(6, 3, 'user04@naver.com', ' HI', '2022-05-30 18:32:54', NULL, NULL, NULL),
-	(7, 4, 'user02@naver.com', 'dkssudgktpdy', '2022-05-30 18:36:47', 1, NULL, NULL),
-	(8, 3, 'user01@naver.com', '124', '2022-06-23 06:18:38', 1, NULL, NULL),
-	(9, 3, 'user01@naver.com', '124', '2022-06-23 06:18:39', 1, NULL, NULL),
-	(10, 5, 'admin', '123', '2022-06-23 06:28:52', NULL, NULL, NULL),
-	(11, 5, 'user01@naver.com', '457', '2022-06-23 06:29:01', NULL, NULL, NULL),
-	(12, 5, 'admin', '123123', '2022-06-23 06:39:41', NULL, NULL, NULL),
-	(13, 5, 'user01@naver.com', '456456', '2022-06-23 06:39:51', NULL, NULL, NULL),
-	(14, 5, 'user01@naver.com', '65765', '2022-06-23 06:40:56', NULL, NULL, NULL),
-	(15, 5, 'admin', '12312', '2022-06-23 06:40:58', NULL, NULL, NULL),
-	(16, 5, 'user01@naver.com', '345', '2022-06-23 06:44:32', NULL, NULL, NULL),
-	(17, 5, 'user01@naver.com', '3456546', '2022-06-23 06:44:34', NULL, NULL, NULL),
-	(18, 5, 'user01@naver.com', '4657567', '2022-06-23 06:45:14', NULL, NULL, NULL),
-	(19, 5, 'admin', '123123', '2022-06-23 06:45:17', NULL, NULL, NULL),
-	(20, 5, 'user01@naver.com', '234', '2022-06-23 06:51:42', NULL, NULL, NULL),
-	(21, 5, 'user01@naver.com', '456', '2022-06-23 06:53:05', NULL, NULL, NULL),
-	(22, 5, 'user01@naver.com', '456', '2022-06-23 06:53:25', NULL, NULL, NULL),
-	(23, 5, 'user01@naver.com', '5674567', '2022-06-23 06:54:42', NULL, NULL, NULL),
-	(24, 5, 'admin', '124', '2022-06-23 06:54:46', NULL, NULL, NULL),
-	(25, 5, 'user01@naver.com', '346', '2022-06-23 06:57:41', NULL, NULL, NULL),
-	(26, 5, 'admin', '124124', '2022-06-23 06:57:50', NULL, NULL, NULL),
-	(27, 5, 'admin', '3trwetw', '2022-06-23 06:57:54', NULL, NULL, NULL),
-	(28, 5, 'user01@naver.com', '57567', '2022-06-23 06:57:57', NULL, NULL, NULL),
-	(29, 5, 'admin', '24124', '2022-06-23 06:58:33', NULL, NULL, NULL),
-	(30, 5, 'user01@naver.com', '4567567', '2022-06-23 06:58:42', NULL, NULL, NULL),
-	(31, 5, 'user01@naver.com', '345654', '2022-06-23 06:58:46', NULL, NULL, NULL),
-	(32, 5, 'user01@naver.com', '456', '2022-06-23 06:58:47', NULL, NULL, NULL),
-	(33, 5, 'user01@naver.com', '456546', '2022-06-23 06:58:49', NULL, NULL, NULL),
-	(34, 5, 'user01@naver.com', '456546', '2022-06-23 06:59:13', NULL, NULL, NULL),
-	(35, 5, 'user01@naver.com', '456546', '2022-06-23 06:59:15', NULL, NULL, NULL),
-	(36, 5, 'admin', '123123', '2022-06-23 06:59:30', NULL, NULL, NULL),
-	(37, 5, 'user01@naver.com', '456', '2022-06-23 07:00:21', NULL, NULL, NULL),
-	(38, 5, 'user01@naver.com', '567657', '2022-06-23 07:00:33', NULL, NULL, NULL),
-	(39, 5, 'user01@naver.com', '45674767', '2022-06-23 07:03:06', NULL, NULL, NULL),
-	(40, 5, 'admin', '123123', '2022-06-23 07:03:36', NULL, NULL, NULL),
-	(41, 5, 'user01@naver.com', '7657567', '2022-06-23 07:03:40', NULL, NULL, NULL),
-	(42, 5, 'admin', '123123', '2022-06-23 07:03:54', NULL, NULL, NULL),
-	(43, 5, 'admin', '123123', '2022-06-23 07:03:55', NULL, NULL, NULL),
-	(44, 5, 'user01@naver.com', '4567657', '2022-06-23 07:04:18', NULL, NULL, NULL),
-	(45, 5, 'user01@naver.com', '7685678', '2022-06-23 07:04:21', NULL, NULL, NULL),
-	(46, 5, 'user01@naver.com', '569769', '2022-06-23 07:04:23', NULL, NULL, NULL),
-	(47, 5, 'user01@naver.com', '47567657', '2022-06-23 07:04:34', NULL, NULL, NULL),
-	(48, 5, 'user01@naver.com', '74567', '2022-06-23 07:04:39', NULL, NULL, NULL),
-	(49, 5, 'user01@naver.com', '654567', '2022-06-23 07:04:44', NULL, NULL, NULL),
-	(50, 5, 'user01@naver.com', '4567', '2022-06-23 07:04:46', NULL, NULL, NULL),
-	(51, 5, 'admin', '124124', '2022-06-23 07:04:55', NULL, NULL, NULL),
-	(52, 5, 'admin', '12412', '2022-06-23 07:04:56', NULL, NULL, NULL),
-	(53, 5, 'user01@naver.com', '지도 : undefined', '2022-06-23 08:52:11', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
-	(54, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 08:54:57', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
-	(55, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 08:58:45', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
-	(56, 5, 'user01@naver.com', '지도 : 비트포비아 던전홍대점', '2022-06-23 08:58:48', NULL, NULL, '{"address_name":"서울 마포구 서교동 396-46","category_group_code":"CE7","category_group_name":"카페","category_name":"음식점 > 카페 > 테마카페","distance":"","id":"1246652450","phone":"02-322-4997","place_name":"비트포비아 던전홍대점","place_url":"http://place.map.kakao.com/1246652450","road_address_name":"서울 마포구 독막로3길 30","x":"126.917362781288","y":"37.5495719511011"}'),
-	(57, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 09:01:52', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
-	(58, 5, 'user01@naver.com', '지도 : 비트포비아 던전홍대점', '2022-06-23 09:01:54', NULL, NULL, '{"address_name":"서울 마포구 서교동 396-46","category_group_code":"CE7","category_group_name":"카페","category_name":"음식점 > 카페 > 테마카페","distance":"","id":"1246652450","phone":"02-322-4997","place_name":"비트포비아 던전홍대점","place_url":"http://place.map.kakao.com/1246652450","road_address_name":"서울 마포구 독막로3길 30","x":"126.917362781288","y":"37.5495719511011"}'),
-	(59, 5, 'user01@naver.com', '지도 : 비트로드', '2022-06-23 09:03:41', NULL, NULL, '{"address_name":"서울 마포구 서교동 478-12","category_group_code":"","category_group_name":"","category_name":"문화,예술 > 음악","distance":"","id":"848170709","phone":"070-4205-9040","place_name":"비트로드","place_url":"http://place.map.kakao.com/848170709","road_address_name":"서울 마포구 동교로 107","x":"126.913812427216","y":"37.5548204286513"}'),
-	(60, 5, 'user01@naver.com', 'hjkl', '2022-06-23 10:50:00', NULL, NULL, NULL),
-	(61, 5, 'admin', 'kkn', '2022-06-23 10:50:54', NULL, NULL, NULL),
-	(62, 8, 'admin', '123', '2022-06-23 10:53:59', 1, NULL, NULL),
-	(63, 8, 'admin', ',l,l', '2022-06-23 10:54:02', 1, NULL, NULL);
-
-INSERT INTO `board` (`boardNo`, `boardTitle`, `boardDetail`, `boardDate`, `boardPin`, `boardFlag`, `category`, `couponURL`) VALUES
-	(1, '공지사항1', '어쩌고저쩌고1', '2022-06-02 11:37:35', 0, 'A', NULL, NULL),
-	(2, '공지사항2', '어쩌고저쩌고2', '2022-06-02 11:37:36', 0, 'A', NULL, NULL),
-	(3, '공지사항3', '어쩌고저쩌고3', '2022-06-02 11:37:37', 0, 'A', NULL, NULL),
-	(4, '공지사항4', '어쩌고저쩌고4', '2022-06-02 11:37:38', 0, 'A', NULL, NULL),
-	(5, '장비 보관은 어떻게 하나요?', '보관하기 힘든 캠핑 장비들을 보관신청 해주시면 저희가 직접 픽업부터 창고에 보관까지 서비스 합니다. 제품이 창고에 도착하면 창고 촬영한 사진이 업로드 됩니다. 장비 보관 신청은 장비보관 탭에서 시작하기를 눌러 신청해주세요.', '2022-06-02 11:37:35', 0, 'F', '이용방법', NULL),
-	(6, '장비 대여는 어떻게 하나요?', '렌탈 마켓에서 현재 Forrest 에서 대여 중인 상품을 확인 하실 수 있습니다. 제품은 직접 배송해 드리고 대여가 완료 되면 요청하신 장소로 픽업가는 서비스까지 제공하고 있습니다. 최대 4박5일까지 대여 가능합니다.', '2022-06-02 11:37:36', 0, 'F', '이용방법', NULL),
-	(7, '중고 거래는 어떻게 이뤄지나요?', '중고 마켓에서 마음에 드는 상품이 있다면 상세보기 페이지에서 판매자와 대화를 할 수 있습니다. 판매자와 거래장소를 정하고 직접 거래 하실 수 있습니다.', '2022-06-02 11:37:37', 0, 'F', '결제관련', NULL),
-	(8, '대여 수익은 어떻게 발생하나요?', '내가 보관한 물건을 대여 가능하도록 설정해주세요. 누군가 내가 보관한 물건을 빌려서 쓰면 설정해주신 대여료의 일부를 환급해 드립니다. 대여수익은 내 정보 보기에서 확인이 가능합니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
-	(9, '환불 관련 정책', '장비 보관 혹은 장비 대여시 픽업 서비스가 시작되기 전까지 환불이 가능합니다. 마이페이지 내 보관 / 대여 물품 페이지에서 환불을 신청 할 수 있습니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
-	(10, '패밀리 캠핑! 가정의 달 맞이 이벤트~ 다양한 혜택받고 행복한 추억 만드세요~!(5/30까지)', '', '2022-06-22 18:01:20', 0, 'A', NULL, 'ㅁㄴㅇㄴㅁㅇ'),
-	(11, '무조건 드리는 신규회원쿠폰! 5월 신규회원 혜택이 팡팡!', '', '2022-06-22 18:17:45', 0, 'A', NULL, 'ㅁㄴㄹㄴㅁㅇㄹㅇㄴㅁㄹ');
-
-INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
-VALUES('1', '[가정의달 5천원쿠폰]', '2022-06-01','2022-12-31', 5000);
-INSERT INTO coupon (couponno, couponname, discount)
-VALUES('2', '[신규회원 1000원할인쿠폰]',1000 );
-INSERT INTO coupon (couponno, couponname, discount)
-VALUES('3', '[복귀회원 15%할인쿠폰]', 0.15);
-INSERT INTO coupon (couponno, couponname, couponcredate, coupondeldate, discount)
-VALUES('4', '[개발자특전 80%할인쿠폰]','2022-06-01','2022-12-31', 0.8);
-
-INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
-VALUES ('user01@naver.com',1,'2022-06-01','2022-06-30');
-INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
-VALUES ('user01@naver.com',4,'2022-06-01','2022-06-30');
-INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
-VALUES ('user01@naver.com',2,'2022-06-01','2022-06-30');
-INSERT INTO owncoupon(userid, couponno, ownCouponCreDate, ownCoupondelDate)
-VALUES ('user02@naver.com',2,'2022-06-01','2022-06-30');
-
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'user01@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'user03@naver.com' , 'user02@naver.com', 2, null, '선정성', '싸가지가 없음', null, 0);
-
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user03@naver.com', 3, null, '선정성',  '가격 안깎아줌', null, 0);
-
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user04@naver.com', 4, null, '광고성',  '욕함', null, 0);
-
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory,reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user05@naver.com', 5, null, '선정성',  '너무 못생김', null, 0);
-
-INSERT INTO report(reportNo, reportUser, reportedUser, reportOldNo, reportChatroomNo, reportCategory, reportDetail, reportChat, reportCode)
-VALUES(NULL, 'admin' , 'user06@naver.com', 6, null, '선정성',  '그냥', null, 0);
-
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'a', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user02@naver.com', 'b', '개매너', 1);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user03@naver.com', 'c', '살짝 불친절', 3);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user04@naver.com', 'd', '물건값 깎아줌', 4);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'e', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'f', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'g', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'h', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'user01@naver.com', 'i', '굿매너', 5);
-
-INSERT INTO oldReview(oldReviewNo, reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate)
-VALUES(NULL, 'admin', 'admin', 'j', '개매너', 1);
-
-
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(1, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(2, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '0bfbbbb9-02f1-4a32-b4da-1c0a76294c23.jpg', 'product');
-		
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(3, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', 'f92bd1df-806c-400f-9369-a45212575896.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(4, '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '20653905-59e6-4d64-a8d2-aec69a23c7ea.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(5, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(6, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '3ee8ab40-c8d8-4212-8c3d-d2cfb3d8344b.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(7, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', 'bebcc2e6-191d-4cd7-9324-8d2dcf5c4187.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(8, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '415c04e6-17d2-4823-b053-8d78513301d6.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(9, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', '1d483d25-e732-44fd-bf5b-b7ec6c83a32f.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(10, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(11, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '406cee59-20f5-40bc-af9d-de944f4454a1.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(12, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '9afc243e-db93-4637-955c-49bd1ff267ec.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(13, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '863e6029-7b7b-46c4-af99-afe977cb1a53.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(14, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '041724c6-1272-4e41-bc23-daec6c2d68ca.jpg', 'product');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(15, '10', '1b4872a8-df20-4631-ad73-696c6331a323.jpg', 'announce');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(16, '11', 'bf5ec4d3-5f81-49dc-a454-8ebc0010404d.jfif', 'announce');
-
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
-(17, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(18, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'fde2604b-6261-4cdf-9eeb-688b3fc2e86a.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(19, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', '9ce2c7cd-0268-42f5-8c28-36586c02fee1.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(20, '6f7022e3-ec24-4b48-96de-acf11aaaf12b', 'a0da642a-22d4-4f0e-af8c-8734a58b9006.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(21, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(22, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'cd2be5c3-42d9-4de5-846e-f32e1144851e.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(23, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'c69e4784-dba2-423c-8839-b7f4841674bc.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(24, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'a0f7c24a-6236-4c48-b13a-6648966f5ba4.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(25, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(26, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '9106a2b1-e929-45a0-aa98-353ec4b8ff3b.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(27, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'f597e3bd-3997-4970-a91e-25cf2c430350.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(28, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', '83c8ce90-fb90-47ec-84be-75d818ab06ba.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(29, '48314086-6371-4cbf-8a16-c0495771f046', '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(30, '48314086-6371-4cbf-8a16-c0495771f046', '6244835a-b366-45dd-84ab-c00a0f2214e1.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(31, '48314086-6371-4cbf-8a16-c0495771f046', '0617a0f7-5b7a-46c8-9838-320de2aa5737.PNG', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(32, '48314086-6371-4cbf-8a16-c0495771f046', 'c4505803-94a9-43dd-a24a-2a24faa3fed2.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(33, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(34, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '53a5147c-44bf-4b35-8580-eba4dfdd3b69.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(35, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '20b0eff3-f7b9-4ccb-b6c9-7001e1a9abbc.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(36, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', '63eec621-9f76-4c52-b303-8c74691ba29f.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(37, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(38, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'cd91d1d2-2596-4787-937c-f655124188d8.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(39, '5643ddbf-60fd-44b1-add6-8d7548357c7b', '98ba452a-6d85-436f-8e5a-56ee54528e51.jpg', 'old');
-INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES	
-(40, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'c6394234-0d68-4d7a-858e-7530b3167ab7.jpg', 'old');
-
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','1.jpg','product');
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','2.jpg','product');
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','3.jpg','product');
-INSERT INTO imgs (contentsNo,fileName,contentsFlag) VALUES ('l','4.jpg','product');
+	('52fb9c79-d83b-436a-b5be-5b27a6b13c33', 10, 10, 2, 'captain9697@naver.com', '보관중', '바베큐,숯불 그릴/캠핑 그릴', 1, '캠핑용 가정용 그릴이고 한번사용후 보관했는데 숯자국은 남네요\r\n중형으로 간단히 구워먹기좋아요 3-4인용이고 가방이 깨끗하지않아요\r\n숯사용후 남은것도 드려요  이사짐정리중입니다', 1, 0, 5000, '국민/47810204386651', '그릴', '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', NULL, '2022-06-22 14:11:24'),
+	('7374c5cb-e68b-4d65-84a9-013f0d1df57c', 10, 10, 2, 'captain9697@naver.com', '보관중', '라탄 전등갓 줄전구 조명', 1, '[손품]이라는 곳에서 구매한 라탄 전등 갓 조명이예요\r\n20구 이고, 건전지형 입니다 (USB형 나오기전 구매)\r\n저는 캠핑때 사용하려고 샀었고, 1회 사용 후 보관만 해둔 상태 입니다\r\n\r\n샀던 곳 상세설명 첨부 참고해주세요\r\n더스트백에 넣어 드립니다\r\n라탄 갓은 전구에 일일히 따로 끼워야 하는데 20개 다 하려면 시간 꽤 걸려요 그래서 끼운채 있고 그대로 드려요!', 1, 0, 3000, '국민/47810204386651', '조명', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', NULL, '2022-06-22 14:15:26'),
+	('b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 10, 10, 2, 'captain9697@naver.com', '보관중', '캠핑의자,캠핑체어,스노우라인,유아의자', 1, '야외에서 쓰던거라 사용감 있어요.\r\n그래도 튼튼하고 사용하기 좋아요\r\n\r\n민트색의자는 주니어의자 라고해서 당근구입하고 봤더니 어린이가 쓰는거라 안쓰고 보관만했어요. 꺼내봤더니 많이 지저분해졌네요.이것도 튼튼해요~\r\n스노우라인꺼 사시는분 필요하시면 드려요~', 1, 0, 3000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', NULL, '2022-06-22 14:19:07');
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+
+-- 테이블 forrest.rentalreview 구조 내보내기
+CREATE TABLE IF NOT EXISTS `rentalreview` (
+  `reviewNo` int(11) NOT NULL AUTO_INCREMENT,
+  `reviewImg` varchar(200) NOT NULL,
+  `reviewDetail` varchar(600) NOT NULL,
+  `reviewScore` int(11) NOT NULL,
+  `prodNo` varchar(40) NOT NULL,
+  `userId` varchar(30) NOT NULL,
+  `regDate` date NOT NULL,
+  PRIMARY KEY (`reviewNo`),
+  KEY `userId` (`userId`),
+  KEY `prodNo` (`prodNo`),
+  CONSTRAINT `rentalreview_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `rentalreview_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.rentalreview:~2 rows (대략적) 내보내기
+DELETE FROM `rentalreview`;
+/*!40000 ALTER TABLE `rentalreview` DISABLE KEYS */;
+INSERT INTO `rentalreview` (`reviewNo`, `reviewImg`, `reviewDetail`, `reviewScore`, `prodNo`, `userId`, `regDate`) VALUES
+	(1, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', 3, 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user02@naver.com', '2021-05-25'),
+	(2, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 3, 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user03@naver.com', '2021-05-25');
+/*!40000 ALTER TABLE `rentalreview` ENABLE KEYS */;
+
+-- 테이블 forrest.report 구조 내보내기
+CREATE TABLE IF NOT EXISTS `report` (
+  `reportNo` int(11) NOT NULL AUTO_INCREMENT,
+  `reportUser` varchar(30) NOT NULL,
+  `reportedUser` varchar(30) NOT NULL,
+  `reportOldNo` varchar(40) NOT NULL,
+  `reportChatroomNo` int(11) DEFAULT NULL,
+  `reportCategory` varchar(20) DEFAULT NULL,
+  `reportDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `reportDetail` varchar(100) DEFAULT NULL,
+  `reportChat` varchar(4000) DEFAULT NULL,
+  `reportCode` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`reportNo`),
+  KEY `reportUser` (`reportUser`),
+  KEY `reportedUser` (`reportedUser`),
+  KEY `reportOldNo` (`reportOldNo`),
+  CONSTRAINT `report_ibfk_1` FOREIGN KEY (`reportUser`) REFERENCES `user` (`userId`),
+  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`reportedUser`) REFERENCES `user` (`userId`),
+  CONSTRAINT `report_ibfk_3` FOREIGN KEY (`reportOldNo`) REFERENCES `old` (`oldNo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.report:~0 rows (대략적) 내보내기
+DELETE FROM `report`;
+/*!40000 ALTER TABLE `report` DISABLE KEYS */;
+/*!40000 ALTER TABLE `report` ENABLE KEYS */;
+
+-- 테이블 forrest.transaction 구조 내보내기
+CREATE TABLE IF NOT EXISTS `transaction` (
+  `tranNo` varchar(100) NOT NULL,
+  `userId` varchar(30) NOT NULL,
+  `prodNo` varchar(40) NOT NULL,
+  `divyRequest` varchar(100) DEFAULT NULL,
+  `divyAddress` varchar(100) NOT NULL,
+  `pickupAddress` varchar(100) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `period` int(11) NOT NULL,
+  `tranCode` tinyint(1) NOT NULL DEFAULT 0,
+  `paymentNo` varchar(30) NOT NULL,
+  `paymentDate` datetime DEFAULT NULL,
+  `paymentWay` varchar(50) DEFAULT NULL,
+  `receiverPhone` varchar(50) DEFAULT NULL,
+  `receiverName` varchar(50) DEFAULT NULL,
+  `prodName` varchar(40) NOT NULL,
+  `prodImg` varchar(100) NOT NULL,
+  `originPrice` int(11) NOT NULL,
+  `discountPrice` int(11) DEFAULT NULL,
+  `resultPrice` int(11) DEFAULT NULL,
+  `reviewDone` tinyint(1) NOT NULL DEFAULT 0,
+  `complete` tinyint(1) NOT NULL DEFAULT 0,
+  `cancelComplete` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`tranNo`),
+  KEY `userId` (`userId`),
+  KEY `prodNo` (`prodNo`),
+  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.transaction:~3 rows (대략적) 내보내기
+DELETE FROM `transaction`;
+/*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`, `cancelComplete`) VALUES
+	('193f067d-3eda-4a07-a68b-e90824f642cf', 'captain9697@naver.com', 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-10-21', 120, 0, 'imp_930121942719', '2022-06-22 14:19:07', NULL, '010/4114/9697', '박범수', '캠핑의자,캠핑체어,스노우라인,유아의자,어린이캠핑', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 960, 0, 960, 0, 0, 0),
+	('22679442-ce59-41f8-8191-c5a26ee25ca3', 'captain9697@naver.com', '7374c5cb-e68b-4d65-84a9-013f0d1df57c', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-07-23', 30, 0, 'imp_380900755748', '2022-06-22 14:15:26', NULL, '010/4114/9697', '박범수', '라탄 전등갓 줄전구 조명', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', 240, 0, 240, 0, 0, 0),
+	('7338e575-9b26-46fe-920f-9004098a3ef4', 'captain9697@naver.com', '52fb9c79-d83b-436a-b5be-5b27a6b13c33', NULL, '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-08-22', 60, 0, 'imp_254658714863', '2022-06-22 14:11:24', NULL, '010/4114/9697', '박범수', '바베큐,숯불 그릴/캠핑 그릴', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 480, 0, 480, 0, 0, 0);
+/*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
+
+-- 테이블 forrest.user 구조 내보내기
+CREATE TABLE IF NOT EXISTS `user` (
+  `userId` varchar(30) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `userName` varchar(20) NOT NULL,
+  `userAddr` varchar(100) NOT NULL,
+  `role` varchar(10) NOT NULL DEFAULT 'user',
+  `joinDate` datetime NOT NULL,
+  `joinPath` varchar(10) NOT NULL,
+  `userImg` varchar(100) DEFAULT NULL,
+  `recentDate` datetime NOT NULL DEFAULT current_timestamp(),
+  `pushToken` varchar(100) DEFAULT NULL,
+  `leaveApplyDate` datetime DEFAULT NULL,
+  `leaveDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `nickname` (`nickname`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.user:~10 rows (대략적) 내보내기
+DELETE FROM `user`;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`userId`, `nickname`, `phone`, `password`, `userName`, `userAddr`, `role`, `joinDate`, `joinPath`, `userImg`, `recentDate`, `pushToken`, `leaveApplyDate`, `leaveDate`) VALUES
+	('admin', '어드민', '01011111111', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '어드민', 'adminAddr', 'admin', '2022-06-24 00:00:00', 'own', 'adminImg.jpg', '2022-06-24 14:14:15', NULL, NULL, NULL),
+	('captain9697@naver.com', '구스범수', '010/4114/9697', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '박범수', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'user', '2022-06-24 00:00:00', 'own', 'goosebeomImg.jpg', '2022-06-24 00:00:00', NULL, NULL, NULL),
+	('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-23 00:09:53', NULL, NULL, NULL),
+	('kedee2001@naver.com', '쥄쥄', '01093257941', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김재민', '16872/경기 용인시 수지구 대지로 49/ (죽전동, 죽전퍼스트하임)', 'user', '2022-06-24 13:27:18', 'own', '가지.jpg', '2022-06-24 14:22:35', NULL, NULL, NULL),
+	('qwerty5266@naver.com', '띵띵', '01093995266', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김명선', '14999/경기 시흥시 군자동 810/204-1402/ (군자동, 한여울 초등학교)', 'user', '2022-06-23 01:19:41', 'own', 'chacha.JPG', '2022-06-24 13:22:08', NULL, NULL, NULL),
+	('sanstory12rt@naver.com', '과자조아', '010/8783/6065', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '형산', '18112/경기 오산시 세교동 587/303-4201/ (세교동, 오산세교주상1블록)', 'user', '2022-06-24 00:00:00', 'own', 'iu.jpg', '2022-06-24 00:00:00', NULL, NULL, NULL),
+	('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-22 09:45:34', NULL, NULL, NULL),
+	('user01@naver.com', '김유정', '01012345678', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김유정', '13494/경기 성남시 분당구 삼평동 681/26-805/ (삼평동, 에이치스퀘어 엔동)', 'user', '2022-06-24 00:00:00', 'own', 'user01Img.jpg', '2022-06-24 12:19:21', NULL, NULL, NULL),
+	('user02@naver.com', '고영희좋아', '01023456781', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '고영희', '04981/서울 광진구 구의동 164-5/101-150/ (구의동, 구의야구공원)', 'user', '2022-06-24 00:00:00', 'own', '아이유.jpg', '2022-06-24 00:00:00', NULL, NULL, NULL),
+	('user03@naver.com', '나도좋아', '01034567891', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '나좋아', '06134/서울 강남구 강남대로94길 20 삼오빌딩 9층/ (역삼동, 비트캠프 강남센터)', 'user', '2022-06-24 00:00:00', 'own', '고영희.jpg', '2022-06-24 13:24:15', NULL, NULL, NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- 테이블 forrest.wishlist 구조 내보내기
+CREATE TABLE IF NOT EXISTS `wishlist` (
+  `wishlistNo` int(11) NOT NULL AUTO_INCREMENT,
+  `prodNo` varchar(40) NOT NULL,
+  `wishedUserId` varchar(30) NOT NULL,
+  `period` int(11) DEFAULT NULL,
+  PRIMARY KEY (`wishlistNo`),
+  KEY `wishedUserId` (`wishedUserId`),
+  KEY `prodNo` (`prodNo`),
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`wishedUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
+  CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 forrest.wishlist:~0 rows (대략적) 내보내기
+DELETE FROM `wishlist`;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -187,7 +187,7 @@ body{
                     
                     <div class="field">
                         <div class="label">제품 이름</div>
-                        <input type="text" name="prodName" value="텐트텐트"  >
+                        <input type="text" name="prodName" maxlength='20' placeholder="최대 20자">
                     </div>
                     <div class="field">
                         <div class="label">카테고리</div>
@@ -219,7 +219,7 @@ body{
                     </div>
                     <div class="field txtarea">
                         <div class="label">상세정보</div>
-                        <textarea name="prodDetail" id="prodDetail" class="textarea" height="200px" style="padding:10px;height:100px;"></textarea>
+                        <textarea name="prodDetail" id="prodDetail" class="textarea" height="200px" style="padding:10px;height:100px;" maxlength='100' placeholder="물품의 상세정보를 입력하세요 (최대100자)"></textarea>
                     </div>
                     <div class="field">
                         <div class="label">보관기간</div>
@@ -236,7 +236,7 @@ body{
                     </div>
                     <div class="field"  style="display:flex; align-items:center;">
                         <div class="label">제품수량</div>
-                       <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"   style="width:440px;margin:0 10px 0 0px;"> 개
+                       <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"  value="1" style="width:440px;margin:0 10px 0 0px;"> 개
                     </div>
                     <div class="field">
                         <div class="label">대여가능</div>
@@ -277,14 +277,14 @@ body{
                     <div class="title">주문자정보</div>
                     <div class="field">
                         <div class="label">주문하시는분</div>
-                        <input type="text" name="receiverName" value="1234"  placeholder="주문하시는분의 이름을 적어주세요">
+                        <input type="text" name="receiverName"   placeholder="주문하시는분의 이름을 적어주세요" maxlength="">
                     </div>
                     <div class="field phone">
                         <div class="label">핸드폰번호</div>
                         <div style="display:flex; align-items:center;">
-                        <input style="padding-left:0;text-align:center;margin: 0 10px 0 3px;" type="text" name="receiverPhone1" value="010" size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"><span>-</span>
-						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone2" value="4114" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"><span>-</span> 
-						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone3" value="9697" size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
+                        <input style="padding-left:0;text-align:center;margin: 0 10px 0 3px;" type="text" name="receiverPhone1"  size="3" maxlength="3" option="regNum"  label="주문자 핸드폰번호"><span>-</span>
+						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone2"  size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호"><span>-</span> 
+						<input style="padding-left:0;text-align:center;margin:0 10px;" type="text" name="receiverPhone3"  size="4" maxlength="4" option="regNum"  label="주문자 핸드폰번호">
 						<input type="hidden" class="receiverPhone" name="receiverPhone" value="">
 						</div>
                     </div>

@@ -94,6 +94,16 @@ public class UserRestController {
 			}
 		return 0;
 	}
+	
+	@RequestMapping(value="json/checkPhone")
+	public int checkPhone(String phone77) throws Exception {
+		User userByPhone = userService.getUserByPhone(phone77);
+		
+		if(userByPhone!=null) {
+			return 1;
+		}
+		return 0;
+	}
 
 	@RequestMapping(value="json/smsValid")
 	public String smsValid(String sms) throws Exception {

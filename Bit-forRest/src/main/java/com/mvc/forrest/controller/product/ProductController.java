@@ -82,7 +82,7 @@ public class ProductController {
 	}
 
 	
-	//어드민만 접근가능
+
 	@PostMapping("updateRecentImg")
 	public String updateRecentImgPost(@RequestParam("fileName") MultipartFile fileName, @ModelAttribute("product") Product product) throws Exception {
 			
@@ -126,14 +126,13 @@ public class ProductController {
 		return "product/updateProduct";
 	}
 	
-	//이미지여러개 어케함???
-	//회원, 어드민 가능
+
 	@PostMapping("updateProduct")
 	public String updateProductPost(@ModelAttribute("product") Product product) throws Exception {
 		
 		//디버깅
-		System.out.println("updateProductPost start");
-		System.out.println("product: "+product);
+//		System.out.println("updateProductPost start");
+//		System.out.println("product: "+product);
 		
 		productService.updateProduct(product);
 	
@@ -144,9 +143,6 @@ public class ProductController {
 	// 관리자가 물품의 상태변경 ( 보관 )
 	@RequestMapping("updateProductCondition")
 	public String updateProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
-		System.out.println("스타트");
-		
-		System.out.println("prodNo:"+prodNo);
 		
 		Product product = productService.getProduct(prodNo);		
 		
@@ -154,7 +150,7 @@ public class ProductController {
 			product.setProdCondition("입고중");
 		} else if (product.getProdCondition().equals("입고중")){
 			product.setProdCondition("보관중");
-			//fcmService.sendMessage(product.getUserId(), "보관완료", "물품이 안전하게 보관되었습니다");
+			
 		} else if (product.getProdCondition().equals("출고승인신청중")){
 			product.setProdCondition("출고완료");
 		//보관관련
@@ -167,7 +163,7 @@ public class ProductController {
 		return "redirect:/storage/listStorageForAdmin";
 	}
 	
-	//어드민 가능
+
 		// 관리자가 물품의 상태변경 ( 대여 )
 		@RequestMapping("updateRentalProductCondition")
 		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
@@ -188,17 +184,10 @@ public class ProductController {
 			return "redirect:/rental/listRentalForAdmin";
 		}
 	
-	//어드민만 가능
+
 	//관리자가 물품상태를 일괄변경
 	@RequestMapping("updateProductAllCondition")
 	public String updateProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
-		
-		System.out.println("갓잇갓잇");
-		
-		//디버깅
-		for(String no: prodNo) {
-			System.out.println("prodNO:"+no);
-		}
 		
 		//prodNo를 통해 productCondition배열에 값을 셋팅
 		String[] productCondition =  new String[prodNo.length];
@@ -321,12 +310,7 @@ public class ProductController {
 	//회원, 어드민 가능
 	@RequestMapping("getProduct")
 	public String getProduct(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
-		
-		//디버깅
-		System.out.println("getProduct Start");
-		
-		System.out.println(prodNo);
-		
+
 		Product product = productService.getProduct(prodNo);
 		
 		//암호화된 유저아이디를 받아옴
@@ -355,7 +339,11 @@ public class ProductController {
 	//비회원가능
 	@RequestMapping("listProduct")
 	public String listProduct(@ModelAttribute("search") Search search, Model model) throws Exception {
-		
+	
+	//뒤로가기시 에러 방지
+		if(pageSize != 8) {
+			return "main/index";
+		}
 		
 		//카테고리중 전체를 클릭했을때 서치카테고리의 value를 null로 만듬
 		if(search.getSearchCategory()=="") {

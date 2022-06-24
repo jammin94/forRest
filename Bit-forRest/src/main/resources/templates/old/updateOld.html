@@ -1,64 +1,101 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 <link rel="stylesheet" href="/css/addOld.css">
-
 </head>
+<style>
+	.bullet .check.fas.fa-check{
+		display:none;
+		color: #fff;
+  		line-height: 1.5;
+	}
+	.bullet.active .check.fas.fa-check{
+		display:block;
+	}
+	
+</style>
 <body>
 
 
-
+   <div th:replace="/main/toolbar.html"></div>
 
 	<div class="container">
 		<header> 중고 거래 수정 </header>
 		<div class="progress-bar">
 			<div class="step">
-				<p>name</p>
+				<p>사진, 이름, 카테고리, 가격</p>
 				<div class="bullet">
 					<span>1</span>
+					<div class="check fas fa-check"></div>
 				</div>
+				
 			</div>
 			<div class="step">
-				<p>name</p>
+				<p>상세 설명</p>
 				<div class="bullet">
 					<span>2</span>
+						<div class="check fas fa-check"></div>
 				</div>
 			</div>
 		</div>
 		<div class="form-outer">
-			<form method="post" action="/upload" enctype="multipart/form-data">
+			<form id="review-form" action="/old/addOld" method="post" enctype="multipart/form-data">
+			
 				<div class="page slidepage">
-					<div class="title">Basic Info:</div>
-
+					
 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
-					<div class="form-group">
-						<label for="oldImg" class="col-sm-offset-1 col-sm-3 control-label">사진
-							선택</label>
-						<div class="col-sm-4">
-							<input type="file" class="form-control" id="uploadFile"
-								name="uploadFile" multiple="multiple" placeholder="img"
-								accept=image/*>대표
-						</div>
+					
+					<!-- 도전.. -->
+					<div id="fileDiv">
+						<p>
+							<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
+							
+						</p>
 					</div>
 
 
-
-					<!-- <form method="post" action="/upload" enctype"multipart/form-data"> -->
-					<!-- <input type ="file" name="filename" id="filename" </form>사진 -->
-
-
-					<div class="field">
-						<div class="label">제품 이름</div>
-						<input type="text" id="oldTitle" name="oldTitle"
-							th:value="${old.oldTitle}">
+					<div class="main-wrapper" style="display:flex; justify-content:center;">
+	  					<div class="img-upload-plugin">
+		                    <div class="img-upload-handler">
+			                    <div class="img-preview-big">
+			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
+				                    <div class="img-delete">
+				                    	<img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+				                    </div>
+			                    </div>
+		                    </div>
+		                    <div class="img-preview-operate">
+			                    <div class="img-holder" style="display: inline-block; padding: 2px;">
+			                    	<!-- 이미지 추가 되는 부분 -->
+			                    </div>
+			                    <button type="button" class="img-add-more" style="transform: scale(1.3);">
+			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+			                    </button>
+		                    </div>
+		                    <input type="file" name="file"  style="display:none" multiple="multiple">
+	                  	</div>
 					</div>
+					    <!-- 도전.. -->
+						
+					    
+		
+		
 					<div class="field">
-						<div class="label">카테고리</div>
-						<select class="category" id="category" name="category"
-							th:value="${old.category}">
+						<div class="label bold">제품 이름</div>
+						<input type="text" id="oldTitle" name="oldTitle" maxlength="100" placeholder="" th:value="${old.oldTitle}">
+						<input type="hidden" id="userId" name="userId" th:value="${userId}"
+							readonly><input type="hidden" id="oldState"
+							name="oldState" th:value=1><input type="hidden"
+							id="oldView" name="oldView" th:value=0>
+					</div>
+					
+										<div class="field">
+						<div class="label bold">카테고리</div>
+						<select class="category" id="category" name="category" style="border:1px solid lightgray; border-radius:5px;" th:value="${old.category}">
 							<option value="텐트">텐트</option>
 							<option value="침대">침대</option>
 							<option value="의자">의자</option>
@@ -71,6 +108,26 @@
 							<option value="기타용품">기타용품</option>
 						</select>
 					</div>
+
+					<div class="field" style="align-items: center;">
+						<div class="label bold">가격</div>
+						<input type="text" id="oldPrice" name="oldPrice" maxlength="11" placeholder="가격이 낮아질수록 빨리 팔릴 확률이 올라가요~" th:value="${old.oldPrice}">원
+						<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}">
+					</div>
+
+					<div class="field">
+						<div class="label bold">거래 지역</div>
+						
+						<div style=" display:flex; align-items:center;">
+						<input type="text" name="oldAddr" id="oldAddr" placeholder="동 단위까지 입력해주세요"size="5" class="line" value="" readonlycheck="" th:value="${old.oldAddr}" style="width:470px;    margin: 0 10px 0 0;">
+<!-- 									 <span>(</span> -->
+<!-- 							 <input type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line" value="" readonlycheck="" style="width:125px;margin: 0 10px;"> -->
+<!-- 								<span> - </span> -->
+<!-- 							<input type="text" name="oldAddr[]" id="oldAddr1" size="3" class="line" value=""	readonlycheck="" style="width:125px;margin: 0 10px;"> -->
+<!-- 								 <span>)</span> -->
+						</div>
+					</div>
+
 					<div class="field nextBtn">
 						<button type="button">Next</button>
 					</div>
@@ -79,63 +136,72 @@
 				<div class="page">
 					<div class="title">Basic Info:</div>
 					<div class="field temp">
-						<div class="label">제품 설명</div>
+						<div class="label bold">제품 설명</div>
 						<textarea name="oldDetail" id="oldDetail" class="oldDetail"
-							height="200px" >[[${old.oldDetail}]]</textarea>
-					</div>
-
-					<div class="field">
-						<div class="label">가격</div>
-						<input type="text" id="oldPrice" name="oldPrice"
-							th:value="${old.oldPrice}">
-					</div>
-
-					<div class="field">
-						<div class="label">유저 아이디</div>
-						<input type="text" id="userId" name="userId" th:value="${old.userId}">
-					</div>
-
-					<div class="field">
-						<div class="label">스테이트</div>
-						<input type="text" id="oldState" name="oldState" th:value="${old.oldState}">
-						<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}">
+							 maxlength="2000" placeholder="최대 2000자까지 쓸 수 있습니다.">
+							 [[${old.oldDetail}]]
+						</textarea>
 					</div>
 
 
 
-					<div class="field">
-						<div class="label">조회수</div>
-						<input type="text" id="oldView" name="oldView"
-							th:value="${old.oldState}">
-					</div>
-
-					<div class="field">
-						<div class="label">거래 지역</div>
-						<input type="text" name="oldAddr" id="oldAddr" size="5"
-							class="line" value="" readonlycheck=""> ( <input
-							type="text" name="oldAddr[]" id="olaAddr0" size="3" class="line"
-							value="" readonlycheck=""> - <input type="text"
-							name="oldAddr[]" id="oldAddr1" size="3" class="line" value=""
-							readonlycheck=""> )
-					</div>
-					<div class="field btns">
-						<button type="button" class="prev-1 prev">Previous</button>
-						<button class="submit" th:onclick="|location.href='@{/old/updateOld}'|">Submit</button>
+					<div class="field btns" style="width:483px; margin:45px 10px;">
+						<button class="prev-1 prev" type="button" style="margin:0 10px;">Previous</button>
+						<button type="button" class="submit" style="margin:0 10px;">Submit</button>
 					</div>
 				</div>
 
 			</form>
 		</div>
 	</div>
-
+	
 	<script src="/js/jquery_min.js"></script>
-	<script src="/js/updateOld.js"></script>
+ 	<script src="/js/addOld.js"></script>
 	<!--     <script src="/js/addRentalReview.js"></script> -->
 
 	<script type="text/javascript">
-		
-	</script>
 
+	
+		$( ".submit" ).on("click" , function() {	
+			
+// 			 if ($(".img-preview-small").length <3) {
+				
+// 				 alert("이미지는 4장이상해줘")
+// 				 return;
+// 					  } else{
+
+							
+							var oldTitle = $("input[name='oldTitle' ]").val();
+							var oldDetail = $("textarea[ name='oldDetail' ]").val();
+							var oldPrice = $("input[ name='oldPrice' ]").val();
+							var oldAddr = $("input[ name='oldAddr' ]").val();
+							
+														
+						if (oldTitle == null || oldTitle.length < 1) {
+							alert("상품명은 반드시 입력하여야 합니다.");
+							return;
+						}else if (oldDetail == null || oldDetail.length < 1) {
+							alert("상품상세정보는 반드시 입력하여야 합니다.");
+							return;
+						}else if (oldPrice == null || oldPrice.length < 1) {
+							alert("가격은 반드시 입력하셔야 합니다.");
+							return;
+						}else if (oldAddr == null || oldAddr.length < 1) {
+							alert("가격은 반드시 입력하셔야 합니다.");
+							return;
+						}
+																
+
+
+
+						$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();			
+
+				  
+		
+			
+		});
+	</script>
+	
 </body>
 
 </html>

@@ -82,6 +82,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE oldNo = #{oldNo}
 	</update>
 
+
+<!-- SQL : SELECT LIST -->
+	<select id="getOldListMine" parameterType="Search" resultMap="oldSelectMap">
+		SELECT * FROM old
+		order by oldDate DESC
+	</select>
+
+
+
+
 	<!-- SQL : SELECT LIST -->
 	<select id="getOldList" parameterType="Search" resultMap="oldSelectMap">
 		SELECT * FROM old
@@ -98,6 +108,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		order by oldDate DESC LIMIT #{startRowNum}, #{pageSize}
 	</select>
+
+
 
 	<!-- SQL : SELECT LIST -->
 	<select id="getOldListHasUser" parameterType="map" resultMap="oldSelectMap">
