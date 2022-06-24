@@ -36,6 +36,8 @@ public interface OldDAO {
 	
 	public List<Old> getOldListForUser(String userId) throws Exception;
 	
+	public List<Old> getOldListMine(Search search) throws Exception; 
+	
 	public void updateOldDate(String oldNo) throws Exception ;	
 	
 	public void updateOldOnSale(String oldNo) throws Exception ;

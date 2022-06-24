@@ -140,9 +140,9 @@ public class OldController {
 	
 	@RequestMapping("listOldMine")
 	public String listOldMine(@ModelAttribute("search") Search search, Model model) throws Exception {
-		System.out.println("리스트");
+		System.out.println("마인마인");
 
-		List<Old> list = oldService.getOldList(search);
+		List<Old> list = oldService.getOldListMine(search);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("search", search);
