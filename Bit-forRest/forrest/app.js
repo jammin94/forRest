@@ -57,8 +57,6 @@ app.use(cookieParser('forrest'));
 app.use(sessionMiddleware);
 
 
-//requestMapping
-//app.use('/', indexRouter);
 app.use('/oldChat', oldChatRouter);
 app.use('/sessionLoginLogout', sessionLoginLogoutRouter);
 
@@ -82,7 +80,4 @@ const server = app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
 
-/*****************session 실험 */
-
-//webSocket(server, app);
 webSocket(server, app, sessionMiddleware);

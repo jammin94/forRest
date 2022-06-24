@@ -32,6 +32,7 @@ const upload = multer({
 	limits:{fileSize: 5*1024*1024},
 });
 
+//주소 파싱 도구함수 ㅎㅎ!
 function parseAddress(address){
 	const addr=address.split('/')[1];
 	const parsedAddrArr = addr.split(' ');
@@ -101,6 +102,7 @@ router.post('/bridge', async (req, res, next) => {
 	const place = req.body.data;
 	const chatRoomNo = req.body.chatRoomNo;
 	const oldNo = req.body.oldNo
+	console.log('oldChat.js 내에서 bridge');
 	
 	req.app.get('io').of('/oldChat').to(chatRoomNo).emit('map',{place, chatRoomNo, oldNo});
 	
@@ -413,6 +415,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     
     //보낸 사람 채팅방에 실시간 업데이트
     mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
+    mineLists[0].inquireAddr = parseAddress(mineLists[0].inquireAddr);
     io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
     
     //다른 상대방 유저 알아내서
@@ -439,6 +442,7 @@ router.post('/chat/:oldNo', async (req, res, next) => {
     
     //다른 사람 채팅방에 실시간 업데이트
     othersLists[0].recentTime = moment(othersLists[0].recentTime).fromNow();
+    othersLists[0].inquireAddr = parseAddress(othersLists[0].inquireAddr);
     io.of('/oldChatRoom').to(getOtherUser[0].userId).emit('updateRoom', othersLists[0]);
 
   }catch (err) {
@@ -461,9 +465,6 @@ router.post('/chat/:oldNo/map', async (req, res, next) => {
     
     let sessionUser=req.session.user;
     let insertMap;
-    
-    console.log(chatMessage);
-    console.log(map);
     
     if(isConnected=='true'){
 	    insertMap = await db.sequelize.query(query, {
@@ -490,9 +491,6 @@ router.post('/chat/:oldNo/map', async (req, res, next) => {
 	      raw: true
 	    });
 	}
-    
-    // sequelize insert는 primekey, foreignkey만 return해준다.
-    
     //칠때마다 채팅방 나가기를 취소하고 채팅방이 보이게 한다.
     query=Query.updateChatRoomToSee
     const updateChatRoomToSee = await db.sequelize.query(query, {

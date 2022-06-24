@@ -352,7 +352,8 @@ body {
 <div id="frame">
 	<div class="content">
 		<div class="contact-profile">
-			<img src="http://192.168.0.42:8080/images/uploadFiles/{{old.oldImg}}" class="oldImg">
+			<img src="http://localhost:8080/images/uploadFiles/{{old.oldImg}}" class="oldImg" 
+				onclick="window.open('http://localhost:8080/old/getOld?oldNo={{old.oldNo}}','_blank')"/>
 			<p class="oldTitle">{{old.oldTitle}} &nbsp&nbsp</p>
       <p class="oldPrice">{{old.oldPrice}}원&nbsp&nbsp</p>
       <p class="oldState">{{old.oldState}}</p>
@@ -366,14 +367,22 @@ body {
         {% for chatList in chatLists %}
 	          {% if chatList.sendUserId === user.userId %} 
 	            <li class="sent">
-	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg"/>
+	            <img src="http://localhost:8080/images/uploadFiles/{{user.userImg}}" 
+	            onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" 
+	            class="userImg" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
 	          {% else %}
 	            <li class="replies">
-	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg"/>
+	            <img src="http://localhost:8080/images/uploadFiles/{{otherUser.userImg}}" 
+	            onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" 
+	            class="userImg" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
 	          {% endif %}
 			
 			  {% if chatList.map %}
-			  	<div name="map" id="{{chatList.map}}" style="width:300px;height:300px;"></div>
+			  	{% if chatList.sendUserId === user.userId %} 
+			  		<div name="map" id="{{chatList.map}}" class="sent" style="width:300px;height:300px;"></div>
+			  	{% else %} 
+			  		<div name="map" id="{{chatList.map}}" class="replies" style="width:300px;height:300px;"></div>
+			  	{% endif %}
 			  {% elif chatList.fileName %}
 			  
 			  {% else %}
@@ -430,44 +439,95 @@ moment.locale('ko'); //한글로 시간 표시
 //서버의 아이피를 사용할 것!
 //내 맥북 192.168.0.240:3001
 //비트 컴 192.168.0.42:3001
-const socket = io.connect('http://192.168.0.42:3001/oldChat',{
+const socket = io.connect('http://localhost:3001/oldChat',{
   path: '/socket.io'
 });//oldChat namespace사용
 
+//map의 마커 생성함수 툴!
+function addMarker(position, idx, title) {
+    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+        imgOptions =  {
+            spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+            spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+        },
+        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+            marker = new kakao.maps.Marker({
+            position: position, // 마커의 위치
+            image: markerImage 
+        });
 
-function mapCreate(){
-	
-let mapContainers = document.getElementsByName('map');
-let mapContainer;
+    marker.setMap(map); // 지도 위에 마커를 표출합니다
+    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
-for(mapContainer in mapContainers){
-	console.log(mapContainer.value);
-	/*let mapOption = { 
-		       center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		       level: 3 // 지도의 확대 레벨
-		   };
-	
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-	var mapTypeControl = new kakao.maps.MapTypeControl();
-
-	// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-	// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-	var zoomControl = new kakao.maps.ZoomControl();
-	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-	*/
-	}
+    return marker;
 }
 
-
-
+//map이라는 div가 있으면 맵 생성해주기
+function mapCreate(){
+		
+	let mapContainers = document.querySelectorAll("div[name='map']");
+	if(mapContainers!=undefined){
+		for(mapContainer of mapContainers){
+			let placeJSON = JSON.parse(mapContainer.id);
+			let mapOption = { 
+				       center: new kakao.maps.LatLng(placeJSON.y, placeJSON.x), // 지도의 중심좌표
+				       level: 3 // 지도의 확대 레벨
+				   };
+			
+			let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			
+			let markerPosition  = new kakao.maps.LatLng(placeJSON.y, placeJSON.x); 
+		
+			// 마커를 생성합니다
+			let marker = new kakao.maps.Marker({
+			    position: markerPosition
+			});
+			
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+			
+			let iwContent = '<div style="padding:5px;">'+placeJSON.place_name+': 클릭</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+			
+			// 인포윈도우를 생성합니다
+			let infowindow = new kakao.maps.InfoWindow({
+			    content : iwContent,
+			    removable : iwRemoveable
+			});
+				// 마커에 마우스오버 이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'mouseover', function() {
+			  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+			    infowindow.open(map, marker);
+			});
+			
+			// 마커에 마우스아웃 이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'mouseout', function() {
+			    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+			    infowindow.close();
+			});
+			
+			// 마커에 클릭이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'click', function() {
+			      // 마커 누르면 상세창으로 이동
+			      window.open(placeJSON.place_url,'_blank',);  
+			});
+		
+			// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+			let mapTypeControl = new kakao.maps.MapTypeControl();
+		
+			// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+			// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+			map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		
+			// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			let zoomControl = new kakao.maps.ZoomControl();
+			map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		}
+	}
+}
 mapCreate();
-
-
 
 $("#profile-img").click(function() {
 	$("#status-options").toggleClass("active");
@@ -500,16 +560,10 @@ $(".fa-sign-out").click(async function(){
 
 //2명다 접속 시
 socket.on('fulljoin',function(data1, data2){
-//	console.log(socket.adpater.rooms['{{chatRoomNo}}'].length);
 	$('.system p').text(data1);
 	$('#isConnected').val(data2);
 	console.log($('li #readOrNot').length);
 	$('li #readOrNot').text(null);
-	
-	//each((index, item)=>{
-	//	console.log(index+' = '+$(item).text());
-	//	$(item).text(null);
-	//});
 });
 
 //1명밖에 없을 시
@@ -520,7 +574,6 @@ socket.on('exit',function(data1, data2){
 
 //지도
 socket.on('map',function(data){
-	console.log('oldChat에서 지도')
 	var is_Connected = $("#isConnected").val().trim();
 	
 	axios.post('/oldChat/chat/{{old.oldNo}}/map?chatRoomNo={{chatRoomNo}}',{
@@ -528,8 +581,6 @@ socket.on('map',function(data){
       map: data.place,
       sendUserId: '{{user.userId}}',
     });
-	
-	console.log(data);
 });
 
 
@@ -553,24 +604,37 @@ socket.on('oldChat',function(data){
   if(data.chat[0].sendUserId==='{{user.userId}}'){
     li.classList.add('sent');
     const senderImg = document.createElement('img');
-    senderImg.src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}"
+    senderImg.src="http://localhost:8080/images/uploadFiles/{{user.userImg}}"
     senderImg.classList.add('userImg');
     li.appendChild(senderImg);
   }else{
     li.classList.add('replies');
     const otherImg = document.createElement('img');
-    otherImg.src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}"
+    otherImg.src="http://localhost:8080/images/uploadFiles/{{otherUser.userImg}}"
     otherImg.classList.add('userImg');
     li.appendChild(otherImg);
   }
 
-  const chatMessage= document.createElement('p');
-  chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
-  li.appendChild(chatMessage);
+if(data.chat[0].map==null){
+	const chatMessage= document.createElement('p');
+  	chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
+	  li.appendChild(chatMessage);
+}else{
+	let divdiv= document.createElement('div');
+	divdiv.setAttribute('name','map');
+	divdiv.id=data.chat[0].map;
+	divdiv.style.width="300px";
+	divdiv.style.height="300px";
+	if(data.chat[0].sendUserId==='{{user.userId}}'){
+		divdiv.classList.add('sent');	
+	}else{
+		divdiv.classList.add('replies');
+	}
+  li.appendChild(divdiv);
+}
   
   li.appendChild(document.createElement('br'));
   
-
   const readOrNot= document.createElement('span');
   readOrNot.id='readOrNot';
   readOrNot.name='readOrNot';
@@ -587,7 +651,6 @@ socket.on('oldChat',function(data){
 	  readOrNot.textContent=data.chat[0].readOrNot;
   }
   li.appendChild(readOrNot);
-
   
   li.appendChild(document.createElement('br'));
 
@@ -612,11 +675,16 @@ socket.on('oldChat',function(data){
 	  
   document.querySelector('ul').appendChild(li);
   
+  if(data.chat[0].map!=null){
+	mapCreate();
+	}
   
   //맨 밑으로 창을!
 $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "slow");
- // $('.messages').scrollTop($('.messages')[0].scrollHeight);
   $('input[type="text"]').focus();
+  
+  
+  
 }); 
 
 //메세지 보내기
@@ -644,10 +712,11 @@ $(window).on('keydown', function(e) {
   }
 });
 
-//판매중, 판매완료 처리!
-//$(document).ready(function(){
+
+//창이 로드 되자 마자!
 $(window).load(function(){
-//$(function(){
+	
+//판매중, 판매완료 처리!
   var oldState=$(".oldState").text();
   if(oldState==1){
     $(".oldState").text('판매중');
@@ -658,6 +727,8 @@ $(window).load(function(){
   $('.messages').scrollTop($('.messages')[0].scrollHeight);
   $('input[type="text"]').focus();
   
+  
+  //시스템 메세지로 연월일 써주기
   var lists= $('ul').children();
   lists.each(function(index, item){
 	  let value= $(item).find("div").text().trim();
@@ -702,7 +773,7 @@ $("a:first").on('click',function(){
 
 //지도모양 클릭시 지도업로드
 $("a:last").on('click',function(){
-	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}&oldNo={{old.oldNo}}}','_blank','width=500');
+	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}&oldNo={{old.oldNo}}','_blank','width=500');
 })
 
 </script>

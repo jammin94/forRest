@@ -535,36 +535,27 @@
 	<div id="sidepanel">
 		<div id="profile">
 			<div class="wrap">
-			<img id="profile-img" src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" class="online" alt="" />
+			<img id="profile-img" src="http://localhost:8080/images/uploadFiles/{{user.userImg}}" 
+			class="online" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')" 
+			onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" />
 				<p>{{user.nickname}}</p>
 				<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
 				<div id="expanded">
-          <!--
-					<label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="mikeross" />
-					<label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="ross81" />
-					<label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-					<input name="twitter" type="text" value="mike.ross" />
-        -->
 				</div>
 			</div>
 		</div>
-    <!--
-		<div id="search">
-			<label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-			<input type="text" placeholder="Search contacts..." />
-		</div>
-    -->
+
     <div id="contacts">
 			<ul>
         {% for list in lists %}
         <li class="contact active" value="{{list.chatRoomNo}}">
           <div class="wrap">
-              <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.inquireImg}}" onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg">
+              <img src="http://localhost:8080/images/uploadFiles/{{list.inquireImg}}" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"
+              onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="userImg">
               <input type="hidden" name="inquireUserId" value="{{list.inquireUserId}}"/>
             </img>
-            <img src="http://192.168.0.42:8080/images/uploadFiles/{{list.oldImg}}" alt="" class="oldImg">
+            <img src="http://localhost:8080/images/uploadFiles/{{list.oldImg}}" onclick="window.open('http://localhost:8080/old/getOld?oldNo={{old.oldNo}}','_blank')"
+            onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" class="oldImg">
               <input type="hidden" name="oldNo" value="{{list.oldNo}}"/>
             </img>
             <div class="meta">
@@ -590,7 +581,7 @@
 
 //내 맥북 192.168.0.240:3001
 //비트 컴 192.168.0.42:3001
-const socket = io.connect('http://192.168.0.42:3001/oldChatRoom',{
+const socket = io.connect('http://localhost:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
@@ -603,10 +594,10 @@ socket.on('updateRoom',function(data){
 	let html='<li class="contact active" value="'+data.chatRoomNo+'">'+
 	
           '<div class="wrap">'+
-          '<img src="http://192.168.0.42:8080/images/uploadFiles/'+data.inquireImg+'" onerror="this.onerror=null; this.src=\'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png\';" class="userImg">'+         
+          '<img src="http://localhost:8080/images/uploadFiles/'+data.inquireImg+'" onerror="this.onerror=null; this.src=\'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png\';" class="userImg">'+         
               '<input type="hidden" name="inquireUserId" value='+data.inquireUserId+'"/>'+
             '</img>'+
-            '<img src="http://192.168.0.42:8080/images/uploadFiles/'+data.oldImg+'" alt="" class="oldImg">'+
+            '<img src="http://localhost:8080/images/uploadFiles/'+data.oldImg+'" onerror="this.onerror=null; this.src=\'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png\';" class="oldImg">'+
               '<input type="hidden" name="oldNo" value="'+data.oldNo+'"/>'+
             '</img>'+
             '<div class="meta">'+
@@ -627,7 +618,7 @@ socket.on('updateRoom',function(data){
     	  if($(this).find(".unreadcount")!==undefined){
     	  	$(this).find(".unreadcount").remove();
     	  }
-    	  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+    	  window.open('http://localhost:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
     	});
 });
 
@@ -655,7 +646,7 @@ $("li.contact").dblclick(function() {
   		$(this).find(".unreadcount").remove();
 	}
   
-  window.open('http://192.168.0.42:3001/oldChat/'+
+  window.open('http://localhost:3001/oldChat/'+
 		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),"_blank","width=500, titlebar=no, location=no, status=no, toolbar=no");
 });
 
@@ -664,7 +655,7 @@ $(document).ready(function(){
 	if('{{immediate}}'!==''){
 
 		//바로 채팅창 띄워주기
-		window.open('http://192.168.0.42:3001/oldChat/'
+		window.open('http://localhost:3001/oldChat/'
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','_blank',
 		'width=500');
 	}
