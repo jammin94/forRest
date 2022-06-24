@@ -85,9 +85,6 @@ public class ProductController {
 
 	@PostMapping("updateRecentImg")
 	public String updateRecentImgPost(@RequestParam("fileName") MultipartFile fileName, @ModelAttribute("product") Product product) throws Exception {
-			
-		System.out.println("product: "+product);
-		System.out.println("uploadFile:"+fileName.getOriginalFilename());
 	
 		String temDir = "C:\\\\Users\\\\bitcamp\\\\git\\\\forRest\\\\Bit-forRest\\\\src\\\\main\\\\resources\\\\static\\\\images\\\\uploadFiles";
 		String convertFileName = FileNameUtils.fileNameConvert(fileName.getOriginalFilename());
@@ -115,13 +112,9 @@ public class ProductController {
 	@GetMapping("updateProduct")
 	public String updateProductGet(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
 		
-		System.out.println("updateProductGet start");
-		
 		Product product = productService.getProduct(prodNo);
-		System.out.println("product:" + product);
 		
 		model.addAttribute("product", product);	
-		
 	
 		return "product/updateProduct";
 	}
@@ -129,10 +122,6 @@ public class ProductController {
 
 	@PostMapping("updateProduct")
 	public String updateProductPost(@ModelAttribute("product") Product product) throws Exception {
-		
-		//디버깅
-//		System.out.println("updateProductPost start");
-//		System.out.println("product: "+product);
 		
 		productService.updateProduct(product);
 	
@@ -156,8 +145,6 @@ public class ProductController {
 		//보관관련
 		} 
 		
-		System.out.println("after:"+product.getProdCondition());
-		
 		productService.updateProductCondition(product);
 	
 		return "redirect:/storage/listStorageForAdmin";
@@ -176,9 +163,6 @@ public class ProductController {
 				product.setProdCondition("대여중");
 			}
 			
-			
-			System.out.println("after:"+product.getProdCondition());
-			
 			productService.updateProductCondition(product);
 		
 			return "redirect:/rental/listRentalForAdmin";
@@ -193,10 +177,6 @@ public class ProductController {
 		String[] productCondition =  new String[prodNo.length];
 		for(int i=0; i<prodNo.length; i++) {
 			productCondition[i] = productService.getProduct(prodNo[i]).getProdCondition();
-		}
-		
-		for(String proCon: productCondition) {
-			System.out.println(proCon);
 		}
 		
 		for(int i=0; i<prodNo.length; i++) {
@@ -215,20 +195,13 @@ public class ProductController {
 			productService.updateProductCondition(product);
 		}
 		
-		
-	
 		return "redirect:/storage/listStorageForAdmin";
 	}
 	
-		//어드민만 가능
+	
 		//관리자가 물품상태를 일괄변경 ( 대여 )
 		@RequestMapping("updateRentalProductAllCondition")
 		public String updateRentalProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
-			
-			//디버깅
-			for(String no: prodNo) {
-				System.out.println(no);
-			}
 			
 			//prodNo를 통해 productCondition배열에 값을 셋팅
 			String[] productCondition =  new String[prodNo.length];
@@ -236,9 +209,6 @@ public class ProductController {
 				productCondition[i] = productService.getProduct(prodNo[i]).getProdCondition();
 			}
 			
-			for(String proCon: productCondition) {
-				System.out.println(proCon);
-			}
 			
 			for(int i=0; i<prodNo.length; i++) {
 				
@@ -252,23 +222,18 @@ public class ProductController {
 					product.setProdCondition("대여중");
 				}
 			
-				
 				productService.updateProductCondition(product);
 			}
 			
-			
-		
 			return "redirect:/rental/listRentalForAdmin";
 		}
 	
 	//유저가 물품보관승인신청을 취소하거나 보관중인 물품을 되돌려받을때 사용
-	@RequestMapping("cancleProduct")
-	public String cancleProduct (@RequestParam("prodNo") String prodNo) throws Exception {
+	@RequestMapping("cancelProduct")
+	public String cancelProduct (@RequestParam("prodNo") String prodNo) throws Exception {
 		
-		System.out.println("prodNo:"+prodNo);
 		Product product = productService.getProduct(prodNo);
-		System.out.println("물품상태"+productService.getProduct(prodNo));
-		
+
 		if(product.getProdCondition().equals("물품보관승인신청중")) {
 			product.setProdCondition("취소완료");
 			
@@ -285,12 +250,10 @@ public class ProductController {
 	}
 	
 	//유저가 물품대여 승인신청을 취소
-		@RequestMapping("cancleRentalProduct")
-		public String cancleRentalProduct (@RequestParam("prodNo") String prodNo,@RequestParam("tranNo") String tranNo) throws Exception {
+		@RequestMapping("cancelRentalProduct")
+		public String cancelRentalProduct (@RequestParam("prodNo") String prodNo,@RequestParam("tranNo") String tranNo) throws Exception {
 			
-			System.out.println("prodNo:"+prodNo);
 			Product product = productService.getProduct(prodNo);
-			System.out.println("물품상태"+productService.getProduct(prodNo));
 			
 			if(product.getProdCondition().equals("물품대여승인신청중")) {
 				product.setProdCondition("보관중");
@@ -316,17 +279,14 @@ public class ProductController {
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		System.out.println("userId: "+userId);
 		
 		//getProduct에서 물품주인과 구매자에 따라 다른화면출력을 위한 유저정보
 		User sessionUser = userService.getUser(userId);
 		
 		//물품상세보기에서 리뷰리스트를 받아옴
 		Map<String, Object> map = rentalReviewService.getRentalReviewList(prodNo);
-		//System.out.println("map안에 list출력:"+map.get("list"));
 		
-		 List<Img> imglist = fileUtils.getProductImgList(prodNo);
-		 System.out.println(imglist);
+		List<Img> imglist = fileUtils.getProductImgList(prodNo);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("sessionUser", sessionUser);
@@ -367,7 +327,7 @@ public class ProductController {
 		List<Product> listName = productService.getProductNames();
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println(map.get("list"));
+		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
@@ -429,11 +389,9 @@ public class ProductController {
 		for(Storage storage : list) {
 			
 			Product product = storage.getStorageProd();
-			System.out.println("product:"+product);
 			product.setProdCondition("출고완료");
 			
 			productService.updateProductCondition(product);
-			System.out.println("업데이트완료");
 			
 		}
 		
