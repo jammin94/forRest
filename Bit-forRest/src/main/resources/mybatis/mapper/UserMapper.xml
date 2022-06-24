@@ -99,9 +99,11 @@
 	   	UPDATE user
 	   	<set>
 	   		nickname	= #{nickname},
-	   		userAddr	= #{userAddr},
 	   		phone		= #{phone},
+	   		userAddr	= #{userAddr},
+	   		<if test="userImg != null">
 	   		userImg		= #{userImg}
+	   		</if>
 	   	</set>
 	   	WHERE userId = #{userId}
 	 </update>

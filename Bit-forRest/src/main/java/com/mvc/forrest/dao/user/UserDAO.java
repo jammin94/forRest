@@ -32,8 +32,6 @@ public interface UserDAO {
 	
 	public void applyLeave(User user) throws Exception ;
 	
-	public void restrictUser(User user) throws Exception ;
-	
 	public void updateRecentDate(User user) throws Exception;
 	
 	public List<User> getUserList(Search search) throws Exception ;

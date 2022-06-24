@@ -240,10 +240,10 @@ input{
 }
 
 #userImgFile{
-	display: none;
+	/* display: none; */
 } 
 #userImgName{
-	display: none;
+	/* display: none; */
 } 
 
   </style>
@@ -308,14 +308,14 @@ input{
 		                <th scope="row">이름(실명)</th>
 		                <td>
 		                	<span class="certify">
-		                		<input class="editInput" readonly="readonly" th:value="${user.userName}">
+		                		<input class="editInput" th:value="${user.userName}">
 		                	</span>
 		                </td>
 		            </tr>
 		            <tr id="nickName-area">
 		                <th scope="row">닉네임</th>
 		                <td><strong>
-			                	<input name="nickname" class="editInput" th:value="${user.userName}">
+			                	<input name="nickname" class="editInput" th:value="${user.nickname}">
 	                	</strong></td>
 		            </tr>
 		            <tr id="email-area">
@@ -327,6 +327,7 @@ input{
 							  <input type="text" id="sample6_address" name= "addr2" placeholder="주소"onclick="sample6_execDaumPostcode()" readonly="readonly"><br>
 							  <input type="text" id="sample6_detailAddress" name= "addr3" placeholder="상세주소">
 							  <input type="text" id="sample6_extraAddress" name= "addr4" placeholder="참고항목">
+							 
 							  <input type="hidden" id="userAddr" name="userAddr">		
 							</strong>
 		                </td>
@@ -355,34 +356,37 @@ input{
 
 <script type="text/javascript">
 	$(function(){
+		
 		$("#change-profile-image-btn").on("click",function(){
 			$("#userImgFile").trigger("click");
 		});
 		
 		$("#userImgFile").on("change", function(){
 			preView(this);
-			console.log($("#userImgFile").val());
 			$("#userImgName").val($("#userImgFile").val());
 		});
 		
-		$()
 		
 		$("#updateUser").on("click",function(){
-			console.log("update Click");
 			var userId = $("input[name='userId']").val();
 			var nickname = $("input[name='nickname']").val();
 			var phone = $("input[name='phone']").val();
-			var userAddr = $("input[name='addr1']").val()+"/"
+			var userAddr =	 $("input[name='addr1']").val()+"/"
 							+$("input[name='addr2']").val()+"/"
 							+$("input[name='addr3']").val()+"/"
 							+$("input[name='addr4']").val();
 			var userImgFile = $("input[name='userImgFile']").val();
-			console.log(userId,nickname,phone,userAddr,userImgFile);
 			
 			$("input:hidden[name='userAddr']").val( userAddr );
 
-			$("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit(); 
-
+			if($("#userAddr").val()=="///"){
+				Swal.fire({
+					title: '주소를 입력해주세요',       
+					icon:  'warning',                   
+					});
+				}
+			return;
+			 $("form").attr("method" , "POST").attr("action" , "/user/updateUser").submit();
 		});
 		
 		
