@@ -9,7 +9,7 @@ CREATE TABLE user (
    phone VARCHAR(100) NOT NULL UNIQUE, 
    password VARCHAR(100) NOT NULL,
    userName VARCHAR(20) NOT NULL,
-   userAddr VARCHAR(100) NOT NULL,
+   userAddr VARCHAR(100),
    role VARCHAR(10) NOT NULL DEFAULT 'user',
    joinDate DATETIME NOT NULL,
    joinPath VARCHAR(10) NOT NULL,
