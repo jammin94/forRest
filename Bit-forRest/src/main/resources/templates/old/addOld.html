@@ -161,11 +161,11 @@
 	
 		$( ".submit" ).on("click" , function() {	
 			
-// 			 if ($(".img-preview-small").length <3) {
+			 if ($("input[name='uploadFile']").length <3) {
 				
-// 				 alert("이미지는 4장이상해줘")
-// 				 return;
-// 					  } else{
+				 alert("사진은 4장 이상 등록해주세요.")
+				 return;
+					  } else{
 
 							
 							var oldTitle = $("input[name='oldTitle' ]").val();
@@ -188,15 +188,9 @@
 							return;
 						}
 																
-
-
-
 						$("form").attr("method" , "POST").attr("action" , "/old/addOld").submit();			
-
-				  
-		
-			
-		});
+					  }
+					  });
 	</script>
 	
 </body>
