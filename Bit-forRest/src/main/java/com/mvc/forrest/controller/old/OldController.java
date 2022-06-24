@@ -151,8 +151,6 @@ public class OldController {
 	}
 	
 	
-
-	
 	/////////////////////비회원, 회원, 어드민 가능//////////////////////////////
 	
 	@RequestMapping("getOld")
@@ -204,8 +202,6 @@ public class OldController {
 		System.out.println("올드이미지"+oldImgList);
 		
 
-		
-
 		model.addAttribute("old", old);
 		model.addAttribute("oldReview", user);
 		model.addAttribute("oldImgList", oldImgList);
@@ -219,9 +215,6 @@ public class OldController {
 		model.addAttribute("list", list);
 		model.addAttribute("listUser", listUser);
 		
-		
-	
-		System.out.println(old);
 		return "old/getOld";
 	}
 	
@@ -256,7 +249,7 @@ public class OldController {
 		        newCookie.setMaxAge(60 * 60 * 24);
 		        response.addCookie(newCookie);
 		    }
-		System.out.println("겟올드");
+		
 		
 		
 		//oldLike하트
@@ -277,10 +270,7 @@ public class OldController {
 					
 		//이미지
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
-		System.out.println("올드이미지"+oldImgList);
-		
-		System.out.println("old아아아아아아:"+old);
-		
+	
 		List<ChatRoom> chatList= chatRoomService.getListChatRoom(oldNo);
 		model.addAttribute("chatList", chatList);
 		model.addAttribute("loginUserId", userId);
