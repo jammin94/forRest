@@ -50,6 +50,9 @@
 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
 					
 					<!-- 도전.. -->
+					
+					<input type="checkbox" class="cbox"> 이미지를 수정하고 싶습니다.
+					<div class="main-wrapper" style="display:flex; justify-content:center;">
 					<div id="fileDiv">
 						<p>
 							<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
@@ -58,7 +61,7 @@
 					</div>
 
 
-					<div class="main-wrapper" style="display:flex; justify-content:center;">
+					
 	  					<div class="img-upload-plugin">
 		                    <div class="img-upload-handler">
 			                    <div class="img-preview-big">
@@ -76,9 +79,11 @@
 			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
 			                    </button>
 		                    </div>
-		                    <input type="file" name="file"  style="display:none" multiple="multiple">
+		                    <input type="file" name="img-upload-input" style="display:none">
 	                  	</div>
 					</div>
+					<input type="hidden"  name="oldImg" th:value="${old.oldImg}">
+					<input type="hidden"  name="olddNo" th:value="${old.oldNo}">
 					    <!-- 도전.. -->
 						
 					    
@@ -161,7 +166,7 @@
 
 	<script type="text/javascript">
 
-	
+	$(function(){
 		$( ".submit" ).on("click" , function() {	
 			
 // 			 if ($(".img-preview-small").length <3) {
@@ -199,7 +204,25 @@
 				  
 		
 			
-		});
+		})
+		
+		 $(".cbox").change(function(){
+		 if($(this).is(":checked")){
+			 console.log("체크됨");
+			 $(".main-wrapper").addClass("checked")
+			 $(".main-wrapper").show();
+		 }else{
+			 console.log("체크풀림");
+			 $(".main-wrapper").removeClass("checked")
+			 $(".main-wrapper").hide();
+		 }
+	 })
+		})
+		
+		;
+		
+		
+		
 	</script>
 	
 </body>
