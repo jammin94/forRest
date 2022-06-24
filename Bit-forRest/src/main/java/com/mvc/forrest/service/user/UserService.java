@@ -70,16 +70,12 @@ public class UserService {
 		userDao.updateRecentDate(user);
 	}
 	
-	public void leaverUser(User user) throws Exception {
+	public void leaveUser(User user) throws Exception {
 		userDao.leaveUser(user);
 	}
 	
 	public void applyLeave(User user) throws Exception{
 		userDao.applyLeave(user);
-	}
-	
-	public void restrictUser(User user) throws Exception {
-		userDao.restrictUser(user);
 	}
 	
 	public boolean checkDuplication(String userId) throws Exception {

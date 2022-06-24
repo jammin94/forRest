@@ -47,11 +47,6 @@ public class CouponRestController {
 
 	}
 	
-	@PostMapping("json/updateCoupon")
-	public void updateCoupon() throws Exception{
-
-	}	
-	
 	@RequestMapping("json/listCoupon")
 	public Map<String, Object> getListCoupon( Search search , Model model
 										) throws Exception{
@@ -77,13 +72,6 @@ public class CouponRestController {
 		return map;
 	}
 	
-	public void deleteCoupon() throws Exception{
-		
-	}
-	
-	public Coupon getCoupon() throws Exception{
-		return null;
-	}
 	
 	
 }

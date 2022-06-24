@@ -105,15 +105,4 @@ public class UserRestController {
 		return 0;
 	}
 
-	@RequestMapping(value="json/smsValid")
-	public String smsValid(String sms) throws Exception {
-		return null;
-	}
-	
-
-	
-	@RequestMapping(value="json/updateUser")
-	public User updateUser(@ModelAttribute User user) throws Exception {
-		return null;
-	}
 }

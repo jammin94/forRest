@@ -17,7 +17,6 @@ body{
 	margin:0;
 }
 div img{
-    width: 100% !important;
     display: block;
     height: 100%
 }
@@ -365,7 +364,6 @@ div img{
    padding-top: 0 !important;
    
     max-width: 1262px;
-    height: auto;
     min-height: 100%;
     display: flex;
  justify-content: flex-start !important;
@@ -549,7 +547,6 @@ margin-bottom: 210px !important;
 
 .imgTemp{
 	width:220px !important;
-	height:auto;
 	
 }
 
