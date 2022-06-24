@@ -29,19 +29,15 @@ public class PaymentController {
 	//비회원도 접근가능
 	@RequestMapping("json/verifyIamport")
 	public IamportResponse<Payment> paymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
-		System.out.println("갓잇");
+	
 		return api.paymentByImpUid(imp_uid);
 		
 		
 }
 	
-	@RequestMapping("json/cancleIamport")
+	@RequestMapping("json/cancelIamport")
 	public IamportResponse<Payment> cancelPaymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException {
-		
-		System.out.println("cancleIamport Start");
-		System.out.println("imp_uid:"+ imp_uid);
-		
-		
+
 		CancelData cancelData = new CancelData(imp_uid, true);
 
 		return api.cancelPaymentByImpUid(cancelData);

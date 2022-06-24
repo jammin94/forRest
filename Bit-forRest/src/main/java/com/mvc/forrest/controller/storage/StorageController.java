@@ -67,10 +67,8 @@ public class StorageController {
 		
 	
 	//보관 메인화면 단순 네비게이션
-	//비회원도 접근가능
 	@GetMapping("storageMain")
 	public String storageMain() throws Exception  {
-		
 		
 		return "storage/storageMain";
 	}
@@ -83,17 +81,13 @@ public class StorageController {
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		System.out.println("userId: "+userId);
 		
 		//회원의 보유쿠폰리스트를 받아옴
 		Map<String,Object> map =couponService.getOwnCouponList(userId);
-		//디버깅
-		System.out.println("쿠폰list:" + map.get("list"));
 		
 		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
 		 String reserveTranNo = FileNameUtils.getRandomString();
 	
-		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("reserveTranNo", reserveTranNo);
 	
@@ -164,8 +158,6 @@ public class StorageController {
 		
 		search.setPageSize(pageSize);
 		
-		System.out.println("search:" + search);
-		
 		//암호화된 userId를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
@@ -178,8 +170,6 @@ public class StorageController {
 		Map<String, Object> mapStorage = storageService.getStorageList(map);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapStorage.get("totalCount")).intValue(), pageUnit, pageSize );
-		System.out.println("resultPage:"+resultPage);
-		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		model.addAttribute("list", mapStorage.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -223,17 +213,12 @@ public class StorageController {
 			search.setSearchCondition(null);
 		}
 		
-		//디버깅
-		System.out.println("serarch in StorageController:" + search);
-		
 		int pageSize = 10;
 		
 		search.setPageSize(pageSize);
 		
 		Map<String, Object> map = storageService.getStorageListForAdmin(search);
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize );
-		
-		System.out.println("resultPage:"+resultPage);
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
@@ -249,7 +234,6 @@ public class StorageController {
 		//암호화된 유저아이디를 받아옴
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		System.out.println("userId: "+userId);
 		
 		//결제가 이루어지기전에 tranNo가 필요하기때문에 예비 tranNo를 생성 
 		 String reserveTranNo = FileNameUtils.getRandomString();
@@ -268,9 +252,6 @@ public class StorageController {
 	//회원, 어드민 가능
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
-		
-		System.out.println("getStorage Start");
-		System.out.println("tranNo: "+tranNo);
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 

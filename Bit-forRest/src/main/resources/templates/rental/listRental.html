@@ -626,13 +626,13 @@ $(".reviewBtn").on("click",function(){
 					   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
 					   		
 						   $.ajax({
-							      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
+							      "url": "/payment/json/cancelIamport?imp_uid="+paymentNo, 
 							      "type": "POST",
 							      "contentType": "application/json",
 							   
 							    }).done(function(data) {
 						    		
-						        	self.location = "/product/cancleRentalProduct?prodNo="+prodNo+"&tranNo="+tranNo;
+						        	self.location = "/product/cancelRentalProduct?prodNo="+prodNo+"&tranNo="+tranNo;
 						        });
 								 
 					      Swal.fire('결제가 취소되었습니다.', 'success');

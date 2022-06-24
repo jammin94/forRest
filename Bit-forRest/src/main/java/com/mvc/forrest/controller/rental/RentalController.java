@@ -409,16 +409,7 @@ public class RentalController {
 		return "rental/listRentalProfit";
 	}
 	
-	//------------대여 수익 확인------------//
-	//회원, 어드민가능 
-	@PostMapping("listRentalProfit")
-	public String listRentalProfit( ) throws Exception{
-		
-		return null;
-	}
-	
 
-	
 	
 	
 	

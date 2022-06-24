@@ -13,6 +13,10 @@
 
 
 -- forrest 데이터베이스 구조 내보내기
+SET foreign_key_checks=0;
+DROP TABLE board, chat, chatimg, chatroom, coupon, imgs, `old`, oldlike, oldreview, owncoupon, product, rentalreview, report, `transaction`, user, wishlist;
+
+
 CREATE DATABASE IF NOT EXISTS `forrest` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `forrest`;
 
