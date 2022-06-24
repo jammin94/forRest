@@ -28,6 +28,10 @@ public class OldReviewService {
 	public double getUserRate(String reviewedUser) throws Exception{
 		System.out.println("getUserRate 실행 됨");
 		OldReview oldReview= oldReviewDAO.getUserRate(reviewedUser);
+		if(oldReview==null) {
+			oldReview.setUserRateCount(0);
+			oldReview.setUserRateSum(0);
+		}
 		int count = 10 + oldReview.getUserRateCount();
 		int sum = 30 + oldReview.getUserRateSum();
 		double avg = sum/count;
