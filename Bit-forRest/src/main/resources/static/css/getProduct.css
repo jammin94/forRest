@@ -19,6 +19,7 @@ body{
 .card-wrapper{
     max-width: 1100px;
     margin: 0 auto;
+        margin-top: 135px;
 }
 img{
     width: 100%;
@@ -250,7 +251,6 @@ img{
             justify-items: stretch;
     }
     .card-wrapper{
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
