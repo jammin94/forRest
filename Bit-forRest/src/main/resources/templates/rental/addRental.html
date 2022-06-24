@@ -432,7 +432,7 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			        pay_method : 'card',
 			        merchant_uid :tranNo,//주문번호
 			        name : prodName,
-			        amount :paymentResultPrice,
+			        amount : 100,
 			    }, function(rsp) {
 	    	console.log(rsp);
 	    	$.ajax({

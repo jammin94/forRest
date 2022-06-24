@@ -101,11 +101,11 @@ border-bottom:3px solid #ddd !important;
 	        <tbody> 
 			    <tr class="tableBody">
 				    <td align="left">
-				    	<div class="productInfo">
-					    		<img style="width:100px;height:125px;" th:src="@{/images/uploadFiles/} + ${rental.prodImg}" >
+				    	<div class="productInfo" th:each="payment :${payment}">
+					    		<img style="width:100px;height:125px;" th:src="@{/images/uploadFiles/} + ${payment.prodImg}" >
 					    	<span>
-						    		[[${rental.prodName}]]<br/>
-						    		[[${rental.startDate}]]  [[${rental.endDate}]]<br/>
+						    		[[${payment.prodName}]]<br/>
+						    		[[${payment.startDate}]]  [[${payment.endDate}]]<br/>
 					    	</span>
 						</div>
 				    </td>

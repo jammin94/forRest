@@ -30,6 +30,7 @@
 		<result property="reviewDone" 				column="reviewDone" 				jdbcType="TINYINT"  />
 		<result property="complete" 				column="complete" 				jdbcType="TINYINT"  />
 		<result property="cancelComplete" 				column="cancelComplete" 				jdbcType="TINYINT"  />
+		<result property="count" 				column="count" 				jdbcType="INTEGER"  />
 		
 		 <association property="purchaseProd" javaType="Product">
 		    <id property="prodNo" column="prodNo" jdbcType="VARCHAR"/>		    
@@ -143,7 +144,6 @@
 	 	<where>
 	 		p.prodNo = t.prodNo and t.paymentNo = #{paymentNo}
 	 	</where>
-	 	GROUP BY t.paymentNo
 	 </select>
 	 
 	 <!-- SELECT LIST ADMIN -->
