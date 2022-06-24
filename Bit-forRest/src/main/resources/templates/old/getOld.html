@@ -105,7 +105,11 @@ select:focus { outline: none; }
 }
 
 .like{
-font-size:55px;
+	font-size:55px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
 }
 
 
@@ -194,6 +198,21 @@ font-size:55px;
 .star-rating2 label:hover ~ label {
   -webkit-text-fill-color: #fff58c;
 }
+
+.star-rating,.star-rating span { 
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+	background:url(/images/header/starMiniNull.png)no-repeat;
+} 
+
+#smStar{
+	font-size:0; 
+	line-height:0; 
+	vertical-align:top; 
+	/* width: 100%;  이 값이 평점과 연관되어있음*/
+}
+
 </style>
 
 
@@ -209,7 +228,13 @@ font-size:55px;
 
 			<div class="product-imgs">
 				<div class="img-display">
-				
+				          <!-- 	하트 왜 likeNo 0으로 올까 -->
+					<div class="like">
+					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
+					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
+					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
+					</div>	
+	
 <!-- 	////			큰 사진 ///-->
 				
 					<div class = "img-showcase abc" th:if="${old.oldState==1}" >
@@ -299,11 +324,23 @@ font-size:55px;
 								</p>
 
 								<div class="product-rating">
-
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star-half-alt"></i> <span
-										th:text=${oldReview.userRate}></span>
+<!-- 
+								<i class="fas fa-star"></i>
+									 <i class="fas fa-star"></i> 
+									 <i class="fas fa-star"></i>
+									  <i class="fas fa-star"></i> 
+									  <i class="fas fa-star-half-alt"></i>
+									  --> 
+									  
+									  	<div>
+							           		<span class="star-rating">
+							            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+							            	</span>
+						            	</div>
+									  
+									   <span id="userRate"
+										th:text=${oldReview.userRate}>
+										</span>
 
 								</div>
 
@@ -401,13 +438,7 @@ font-size:55px;
 				</div>
 					
 					
-          <!-- 	하트 왜 likeNo 0으로 올까 -->
-					<div class="like">
-					<input type="hidden" id="oldNo" name="oldNo" th:value="${old.oldNo}"/>
-					<span th:unless="${old.oldLikeNo}==0"><a class="heart filled" href="#"><i class="fa fa-heart filled" aria-hidden="true"></i></a></span>
-					<span th:if="${old.oldLikeNo}==0"><a class="heart" href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></span>
-					</div>	
-	
+
 
 
 			</div>
@@ -485,9 +516,7 @@ font-size:55px;
 						</div>
 					</div>
 
-
 					<!-- END old -->
-					
 
 				</div>
 			</div>
@@ -551,13 +580,10 @@ font-size:55px;
 		</div>
 		<button type="button" class="regBtn" >등록하기 </button>
 		</form>
-		  
-	  
-	  
 		<div id="review-container"></div>
 	</div>
 </body>
-
+	<script src="/js/jquery_min.js"></script>
 <script th:inline="javascript">
 /*<![CDATA[*/
 function setShare(){
@@ -693,7 +719,6 @@ $('.regBtn').on("click",function(){
 });
 
 function sold(){
-
 	  $('#review-form').addClass("on");
 	  $('.reviewBackground').addClass("on");
 }
@@ -728,15 +753,11 @@ function sold(){
 	                    console.log("찜하기 완료");
 				        $(this).addClass('filled');
 				        location.reload();
-                    	
-	                    	
-	    					
+       
 	                    }
 	                    else if (heartCheck){
 	                     alert("이미 찜한 물품 입니다");
-	                     
-				         
-	                  
+
 	                    	location.reload();
 	                	}
 	                    
@@ -789,6 +810,16 @@ function sold(){
 
 /*]]>*/
 
+$(function(){
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
+})
 
 
 

@@ -214,16 +214,16 @@ border-bottom:3px solid #ddd !important;
 					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '보관중'" >
 					 	<div><button type="button" th:onclick = "|location.href='@{/product/getProduct(prodNo= ${storage.prodNo})}'|">꺼내쓰기</button></div>
 					 	<div><button  type="button" class="extend-btn" th:value="${storage.tranNo}">기간연장</button></div>
-					 	<div><button type="button" class="cancleStorage-btn" th:value="${storage.prodNo}">출고신청</button></div>
+					 	<div><button type="button" class="cancelStorage-btn" th:value="${storage.prodNo}">출고신청</button></div>
 
 					</div>
 					
 						<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '물품보관승인신청중' ">
-					 	<div><button class="cancle-btn" type="button" th:value="${storage.paymentNo}" th:data-prodNo="${storage.prodNo}">취소</button></div>
+					 	<div><button class="cancel-btn" type="button" th:value="${storage.paymentNo}" th:data-prodNo="${storage.prodNo}">취소</button></div>
 					</div>
 					
 					<div class="btnColumn" th:if="${storage.storageProd.prodCondition }== '출고승인신청중' ">
-					 	<div><button class="canclePutout" type="button" th:value="${storage.prodNo}">출고취소</button></div>
+					 	<div><button class="cancelPutout" type="button" th:value="${storage.prodNo}">출고취소</button></div>
 					</div>
 					
 					<!-- 대여신청, 배송, 대여중일때 엔드유저에겐 대여중으로 디스플레이 -->
@@ -321,10 +321,10 @@ function fncGetStorageList(currentPage) {
 		})
 		
 		//결제취소 
-		$(".cancle-btn").on("click", function(){
+		$(".cancel-btn").on("click", function(){
 			
-			var paymentNo = $(this).parent().find('.cancle-btn').val();
-			var prodNo =  $(this).parent().find('.cancle-btn').attr("data-prodNo");
+			var paymentNo = $(this).parent().find('.cancel-btn').val();
+			var prodNo =  $(this).parent().find('.cancel-btn').attr("data-prodNo");
 			 
 			
 			Swal.fire({
@@ -343,13 +343,13 @@ function fncGetStorageList(currentPage) {
 				   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
 				   		
 					   $.ajax({
-						      "url": "/payment/json/cancleIamport?imp_uid="+paymentNo, 
+						      "url": "/payment/json/cancelIamport?imp_uid="+paymentNo, 
 						      "type": "POST",
 						      "contentType": "application/json",
 						   
 						    }).done(function(data) {
 					    
-					        	self.location = "/product/cancleProduct?prodNo="+prodNo;
+					        	self.location = "/product/cancelProduct?prodNo="+prodNo;
 					        });
 							 
 				      Swal.fire('결제가 취소되었습니다.', 'success');
@@ -373,9 +373,9 @@ function fncGetStorageList(currentPage) {
 		})
 		
 		//출고신청후 물품상태 변경
-			$(".cancleStorage-btn").on("click", function(){
+			$(".cancelStorage-btn").on("click", function(){
 			
-				var prodNum =  $(this).parent().find('.cancleStorage-btn').val();
+				var prodNum =  $(this).parent().find('.cancelStorage-btn').val();
 				
 				Swal.fire({
 					   title: '보관을 종료하시겠습니까?',
@@ -393,7 +393,7 @@ function fncGetStorageList(currentPage) {
 					   // 만약 Promise리턴을 받으면,
 					   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
 					   		
-						  self.location = "/product/cancleProduct?prodNo="+prodNum;
+						  self.location = "/product/cancelProduct?prodNo="+prodNum;
 			
 					   }
 					   
@@ -403,13 +403,13 @@ function fncGetStorageList(currentPage) {
 		
 		
 		//출고신청 취소
-		$(".canclePutout").on("click", function(){
+		$(".cancelPutout").on("click", function(){
 			
 		
-			var prodNum =  $(this).parent().find('.canclePutout').val();
+			var prodNum =  $(this).parent().find('.cancelPutout').val();
 			
 			
-			self.location = "/product/cancleProduct?prodNo="+prodNum;
+			self.location = "/product/cancelProduct?prodNo="+prodNum;
 			
 			
 		})
