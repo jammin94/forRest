@@ -32,6 +32,39 @@ const upload = multer({
 	limits:{fileSize: 5*1024*1024},
 });
 
+function parseAddress(address){
+	const addr=address.split('/')[1];
+	const parsedAddrArr = addr.split(' ');
+	
+	for(parsedAddr of parsedAddrArr){
+		let parse =parsedAddr.substr(-1);
+		if(parse=='동'){
+			
+			return parsedAddr;
+			
+		}else if(parse=='면'){
+			
+			return parsedAddr;
+			
+		}else if(parse=='읍'){
+			
+			return parsedAddr;
+			
+		}else if(parse=='리'){
+			
+			return parsedAddr;
+			
+		}else if(parse=='길'){
+			
+			return parsedAddr;
+			
+		}else if(parse=='로'){
+			
+			return parsedAddr;
+		}
+	}
+} 
+
 
 router.post('/addMap', async (req, res, next) => {
   try {
@@ -164,6 +197,7 @@ router.get('/init/:userId/:oldNo', async (req, res, next) => {
     
     for(let list of lists){
 		list.recentTime = moment(list.recentTime).fromNow();
+		list.inquireAddr = parseAddress(list.inquireAddr);
 	}
 	
 	query=Query.getUser;
@@ -187,9 +221,12 @@ router.get('/init/:userId/:oldNo', async (req, res, next) => {
   }
 });
 
+
+
 //기본화면. 중고거래 채팅방 목록을 보여준다.
 router.get('/list/:userId', async (req, res, next) => {
   try {
+	
 	//nodejs session
 	const sessionId = req.params.userId
 	
@@ -207,7 +244,8 @@ router.get('/list/:userId', async (req, res, next) => {
     //~~분전 ~~시간 전
     for(let list of lists){
 		list.recentTime = moment(list.recentTime).fromNow();
-		
+		console.log(parseAddress(list.inquireAddr));
+		list.inquireAddr = parseAddress(list.inquireAddr);
 	}
 	
 	query=Query.getUser
