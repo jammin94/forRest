@@ -49,9 +49,12 @@ width: 32px;
     margin: auto;
 }
 
+
 .main-wrapper{
-	  padding: 10px;
+	  padding: 10px;	
+	  display:none;
 }
+
 
 .stars-container {
     margin-bottom: 5px;
@@ -104,7 +107,8 @@ article {
 
 /*리뷰이미지업로드*/
 .img-preview-big {
-  width: 100%;
+  height:250px !important;
+  width: 250px !important;
   border: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
   position: relative;
@@ -202,9 +206,7 @@ article {
   outline: 2px solid;
 }
 
-.img-preview-big{
-	max-width: 250px !important;
-}
+
 
 
 .img-upload-plugin{

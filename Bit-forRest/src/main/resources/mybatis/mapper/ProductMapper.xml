@@ -55,7 +55,9 @@
 	 <update	id="updateProduct"	parameterType="product" >
 	   	update product
 	   	<set>
+	   		<if test="prodImg != null ">
 	   		prodImg =#{prodImg}, 
+	   		</if>
 	   		prodName =#{prodName}, 
 	   		category =#{category}, 
 	   		prodDetail =#{prodDetail},  
