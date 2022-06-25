@@ -2,15 +2,10 @@
 package com.mvc.forrest.controller.wishlist;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,7 +20,6 @@ import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Page;
-import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Wishlist;
 import com.mvc.forrest.service.user.UserService;

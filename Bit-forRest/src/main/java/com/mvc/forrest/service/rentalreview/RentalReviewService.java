@@ -7,13 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import com.mvc.forrest.dao.rental.RentalDAO;
 import com.mvc.forrest.dao.rentalreview.RentalReviewDAO;
 import com.mvc.forrest.dao.user.UserDAO;
-import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.RentalReview;
-import com.mvc.forrest.service.domain.Search;
 
 @Service
 public class RentalReviewService {

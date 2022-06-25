@@ -315,7 +315,7 @@
 	  			  <tr  class="tableBody"  th:each="rental :${list}">
 		 		    <td align="left">
 				<!--     <a th:href ="@{/rental/getStorage(tranNo = ${rental.tranNo})}" > -->
-				<a th:href ="@{/rental/getRental(tranNo = ${rental.tranNo})}" >
+				<a th:href ="@{/rental/getPayment(paymentNo = ${rental.paymentNo})}" >
 					<span class="getRentalLink"  th:text="|주문번호: ${rental.paymentNo}|"></span>
 				</a>
 				 	</a>
@@ -326,7 +326,7 @@
 					    	
 					    	<div style="width:220px;padding:10px;">
 					    <!-- 	 <a th:href ="@{/rental/getProduct(prodNo = ${storage.prodNo})}" > -->
-						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${rental.prodName}]]<br/></p>
+						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${rental.prodName}]] 외 [[${rental.count-1}]] 건<br/></p>
 						    </a>
 						    	<p>	[[${rental.startDate}]] ~ [[${rental.endDate}]]<br/></p>
 						    		<p>	[[${rental.purchaseProd.prodQuantity}]]개</p>

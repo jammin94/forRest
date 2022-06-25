@@ -23,10 +23,7 @@
 			});
 			
 			$("#sendSMS").on("click",function(){
-				alert("sendSMS Click");
 				var phone = $("#phone").val();
-				console.log(phone);
-				console.log();
 				if($("#phone").val().length<10){
 					return;
 				}
@@ -37,8 +34,6 @@
 					success : function(data) {
 						$("#checkSMS").click(function(){
 							var sms = $("#sms").val();
-							console.log("data : "+data);
-							console.log("sms : "+sms);
 							if(data==sms){
 								alert("인증에 성공하였습니다.");
 							}else{

@@ -145,27 +145,36 @@ select{
 	 <form class="form-inline" name="detailForm" method="post">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
-     <div class="main-wrapper">
-  <div class="img-upload-plugin">
-                    <div class="img-upload-handler">
-                      <div class="img-preview-big">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
-                        <div class="img-delete">
-                          <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="img-preview-operate">
-                      <div class="img-holder" style="display: inline-block; padding: 2px;"></div>
-                      <button type="button" class="img-add-more">
-                        <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
-                      </button>
-                    </div>
-                    <input type="file" name="img-upload-input" style="display:none">
-                  </div>
-</div>
-<input type="hidden"  name="prodImg" th:value="${product.prodImg}">
-<input type="hidden"  name="prodNo" th:value="${product.prodNo}">
+		 
+		 
+		 
+		 			<input type="checkbox" class="cbox"> 이미지를 수정하고 싶습니다.
+					<div class="main-wrapper">
+						<div id="fileDiv">
+							<p>
+								<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
+							</p>
+						</div>
+						<div class="img-upload-plugin">
+							<div class="img-upload-handler">
+								<div class="img-preview-big">
+								<img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png">
+									<div class="img-delete">
+									<img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-delete-icon.png">
+									</div>
+								</div>
+							</div>
+						<div class="img-preview-operate">
+							<div class="img-holder" style="display: inline-block; padding: 2px;"></div>
+							<button type="button" class="img-add-more">
+							<img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
+							</button>
+						</div>
+						<input type="file" name="img-upload-input" style="display:none">
+						</div>
+					</div>
+					<input type="hidden"  name="prodImg" th:value="${product.prodImg}">
+					<input type="hidden"  name="prodNo" th:value="${product.prodNo}">
 		<!--  table End /////////////////////////////////////-->
 		
 		<!-- 물품정보등록 -->
@@ -477,8 +486,29 @@ $(function(){
 		 combineAccount();
 		 combineAddr();
 		 
-		 $('form').attr('method', 'POST').attr('action', '/product/updateProduct');
-		 
+		 if($(this).is(":checked")){
+			 if ( $("input[name='uploadFile']").length <3 ) {
+				
+			 alert("사진은 4장 이상 10장 이하로 등록해주세요.")
+			 return;
+			 } else{
+		 			$('form').attr('method', 'POST').attr('action', '/product/updateProduct');
+			 }
+		 }else{
+			 $('form').attr('method', 'POST').attr('action', '/product/updateProduct');
+		 }	 
+	 })
+	 
+	 $(".cbox").change(function(){
+		 if($(this).is(":checked")){
+			 console.log("체크됨");
+			 $(".main-wrapper").addClass("checked")
+			 $(".main-wrapper").show();
+		 }else{
+			 console.log("체크풀림");
+			 $(".main-wrapper").removeClass("checked")
+			 $(".main-wrapper").hide();
+		 }
 	 })
 })
 	

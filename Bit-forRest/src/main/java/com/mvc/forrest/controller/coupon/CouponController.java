@@ -85,7 +85,6 @@ public class CouponController {
 		return "redirect:/coupon/manageCoupon";
 	}
 	
-	
 	@PostMapping("updateCoupon")
 	public String updateCoupon(@ModelAttribute("coupon")Coupon coupon) throws Exception {
 		

@@ -1,10 +1,6 @@
 package com.mvc.forrest.config.auth;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
 
@@ -15,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.mvc.forrest.service.coupon.CouponService;
-import com.mvc.forrest.service.domain.Coupon;
-import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.user.UserService;
 

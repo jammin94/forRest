@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,11 +46,6 @@ public class CouponRestController {
 
 	}
 	
-	@PostMapping("json/updateCoupon")
-	public void updateCoupon() throws Exception{
-
-	}	
-	
 	@RequestMapping("json/listCoupon")
 	public Map<String, Object> getListCoupon( Search search , Model model
 										) throws Exception{
@@ -77,13 +71,6 @@ public class CouponRestController {
 		return map;
 	}
 	
-	public void deleteCoupon() throws Exception{
-		
-	}
-	
-	public Coupon getCoupon() throws Exception{
-		return null;
-	}
 	
 	
 }

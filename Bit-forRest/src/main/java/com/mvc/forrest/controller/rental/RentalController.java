@@ -269,11 +269,11 @@ public class RentalController {
 	//회원, 어드민 가능
 	@GetMapping("getPayment")
 	public String getPayment(@RequestParam("paymentNo") String paymentNo, Model model) throws Exception {
-		System.out.println("getRental Start");
-		System.out.println("tranNo: "+paymentNo);
-		
+		System.out.println("getPayment Start");
+		System.out.println("paymentNo: "+paymentNo);
+		 
 		model.addAttribute("payment", rentalService.getPayment(paymentNo));
-		
+		 model.addAttribute("rental", rentalService.getRental(rentalService.getPayment(paymentNo).get(0).getTranNo()));
 		 return "rental/getRental";
 	}
 	
@@ -308,7 +308,7 @@ public class RentalController {
 		rentalService.getPaymentList(search, userId);
 		
 		Page resultPage = new Page(search.getCurrentPage(), ((Integer)mapRental.get("totalCount")).intValue(), pageUnit, pageSize );
-		
+		System.out.println(rentalService.getPaymentList(search, userId));
 		//System.out.println("디버그 "+mapStorage.get("list"));
 		
 		//rentalReview.setReviewImg(userId);

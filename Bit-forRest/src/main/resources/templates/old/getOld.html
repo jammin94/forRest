@@ -98,7 +98,7 @@ select:focus { outline: none; }
 }
 
 .heart{
-	color:grey;
+	color:white;
 }
 .heart.filled{
 	color:red;
@@ -203,7 +203,7 @@ select:focus { outline: none; }
 	display:inline-block; 
 	height:100%; 
 	overflow:hidden; 
-	background:url(/images/header/starMiniNull.png)no-repeat;
+	background:url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
 } 
 
 #smStar{
@@ -319,11 +319,20 @@ select:focus { outline: none; }
 							</td>
 
 							<td>
-								<p>
-									<span class="a" th:text=${old.userId}></span>
-								</p>
+								<div style="display:flex; align-items:center;">
+							
+							           		<span class="star-rating">
+							            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+							            	</span>	
+							            	<span id="userRate" th:text=${oldReview.userRate}></span> 			
+							            	
+								</div>
+							<div>								  									   											
+												<span class="a" th:text=${old.userId} style="position:relative;top:-20px;"></span>
+											</div>
 
 								<div class="product-rating">
+								
 <!-- 
 								<i class="fas fa-star"></i>
 									 <i class="fas fa-star"></i> 
@@ -332,15 +341,7 @@ select:focus { outline: none; }
 									  <i class="fas fa-star-half-alt"></i>
 									  --> 
 									  
-									  	<div>
-							           		<span class="star-rating">
-							            		<span id="smStar"><img src="/images/header/starMini.png"></span>
-							            	</span>
-						            	</div>
 									  
-									   <span id="userRate"
-										th:text=${oldReview.userRate}>
-										</span>
 
 								</div>
 
@@ -446,11 +447,11 @@ select:focus { outline: none; }
 		</div>
 
 	</div>
-	<div class="container tempList">
+	<div class="container tempList old">
 		<div class="row">
 			<div class="col-md-12">
 			
-				<h2>같은 카테고리의 물품들</h2>
+				<h2 class="oldUnder">같은 카테고리의 물품들</h2>
       <div class="old-list">
 
         <!-- BEGIN old -->
@@ -486,7 +487,7 @@ select:focus { outline: none; }
 
       </div>
 				<!-- END old List -->
-	<h2>같은 판매자의 물품들</h2>
+	<h2 class="oldUnder">같은 판매자의 물품들</h2>
 				<div class="old-list">
 
 					<!-- BEGIN old -->
@@ -819,6 +820,9 @@ $(function(){
 		$('#smStar').width(($('#userRate').text()*20)+"%");
 	}
 	$('#smStar').width(($('#userRate').text()*20)+"%");
+	
+
+	
 })
 
 

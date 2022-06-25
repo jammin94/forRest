@@ -47,18 +47,18 @@
 			
 				<div class="page slidepage">
 					
-					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" />
+<!-- 					<input type="hidden" id="oldImg" name="oldImg" value="2.jpg" /> -->
 					
 					<!-- 도전.. -->
+					
+					<input type="checkbox" class="cbox"> 이미지를 수정하고 싶습니다.
+					<div class="main-wrapper" style="display:flex; justify-content:center;">
 					<div id="fileDiv">
 						<p>
 							<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
 							
 						</p>
 					</div>
-
-
-					<div class="main-wrapper" style="display:flex; justify-content:center;">
 	  					<div class="img-upload-plugin">
 		                    <div class="img-upload-handler">
 			                    <div class="img-preview-big">
@@ -68,17 +68,19 @@
 				                    </div>
 			                    </div>
 		                    </div>
-		                    <div class="img-preview-operate">
+		                  <div class="img-preview-operate">
 			                    <div class="img-holder" style="display: inline-block; padding: 2px;">
 			                    	<!-- 이미지 추가 되는 부분 -->
 			                    </div>
-			                    <button type="button" class="img-add-more" style="transform: scale(1.3);">
+			                    <button type="button" class="img-add-more">
 			                    <img src="https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-add-more-btn.png">
 			                    </button>
-		                    </div>
-		                    <input type="file" name="file"  style="display:none" multiple="multiple">
+		                  </div>
+		                    <input type="file" name="img-upload-input" style="display:none">
 	                  	</div>
 					</div>
+					<input type="hidden"  name="oldImg" th:value="${old.oldImg}">
+					<input type="hidden"  name="olddNo" th:value="${old.oldNo}">
 					    <!-- 도전.. -->
 						
 					    
@@ -161,14 +163,14 @@
 
 	<script type="text/javascript">
 
-	
+	$(function(){
 		$( ".submit" ).on("click" , function() {	
 			
-// 			 if ($(".img-preview-small").length <3) {
+			 if ($("input[name='uploadFile']").length <3) {
 				
-// 				 alert("이미지는 4장이상해줘")
-// 				 return;
-// 					  } else{
+				 alert("사진은 4장이상 10장 이하로 등록해주세요.")
+				 return;
+					  } else{
 
 							
 							var oldTitle = $("input[name='oldTitle' ]").val();
@@ -195,11 +197,31 @@
 
 
 						$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();			
-
+					  }
 				  
 		
 			
-		});
+		})
+		
+		 $(".cbox").change(function(){
+		 if($(this).is(":checked")){
+			 console.log("체크됨");
+			
+			 $(".main-wrapper").addClass("checked");
+			 $(".main-wrapper").show();
+			 
+		 }else{
+			 console.log("체크풀림");
+			 $(".main-wrapper").removeClass("checked");
+			 $(".main-wrapper").hide();
+		 }
+	 })
+		})
+		
+		;
+		
+		
+		
 	</script>
 	
 </body>

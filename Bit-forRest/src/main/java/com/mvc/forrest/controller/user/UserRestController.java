@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,15 +104,4 @@ public class UserRestController {
 		return 0;
 	}
 
-	@RequestMapping(value="json/smsValid")
-	public String smsValid(String sms) throws Exception {
-		return null;
-	}
-	
-
-	
-	@RequestMapping(value="json/updateUser")
-	public User updateUser(@ModelAttribute User user) throws Exception {
-		return null;
-	}
 }

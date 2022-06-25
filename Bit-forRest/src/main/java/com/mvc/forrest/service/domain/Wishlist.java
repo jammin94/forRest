@@ -1,7 +1,5 @@
 package com.mvc.forrest.service.domain;
 
-import java.sql.Date;
-
 import lombok.Data;
 
 @Data

@@ -68,6 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateOld" parameterType="old">
 		update old
 		<set>
+			<if test="oldImg != null ">
+	   		oldImg =#{oldImg}, 
+	   		</if>
 			oldPrice = #{oldPrice},
 			oldTitle = #{oldTitle},
 			oldDetail =

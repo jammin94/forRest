@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,7 +42,6 @@ import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
 import com.mvc.forrest.service.old.OldService;
 import com.mvc.forrest.service.oldreview.OldReviewService;
-import com.mvc.forrest.service.rental.RentalService;
 import com.mvc.forrest.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -62,14 +60,7 @@ public class UserController {
 	@Autowired
 	private OldReviewService oldReviewService;
 	@Autowired
-	private RentalService rentalService;
-//	@Autowired
-//	private OldReviewService oldReivewService;
-	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	private Authentication authentication;
-    private final AuthenticationManager authenticationManager;
 	
 	@Value("5")
 	int pageUnit;
@@ -143,70 +134,6 @@ public class UserController {
         return "redirect:/";
 	}
 	
-//	
-//	@PostMapping("login")			//유저, 관리자
-//	public String login(@ModelAttribute("user") User user , HttpSession session, Model model ) throws Exception{
-//		
-//		System.out.println("/user/login : POST");
-//		
-//		User dbUser=userService.getUser(user.getUserId());
-//		
-//		System.out.println("입력받은 ID/PW : "+user);
-//		System.out.println("DB와 일치하는 ID/PW : "+dbUser);
-//		
-//		//db에 아이디가 없을 경우
-//		if(dbUser==null) {
-//			model.addAttribute("message", "가입되지않은 아이디입니다.");
-//			return "user/login";
-//		}
-//		
-//		//db에 아이디가 있지만 회원탈퇴
-//		if(dbUser.getRole()=="leave") {
-//			model.addAttribute("message", "탈퇴처리된 회원입니다..");
-//			return "user/login";	
-//		}
-//		
-//		//db에 아이디가 있지만 로그인제한된 유저
-//		if(dbUser.getRole()=="restrict") {
-//			model.addAttribute("message", "이용제한된 회원입니다..");
-//			return "user/login";	
-//		}
-//		
-//		//해당 id와 pwd가 일치할 경우
-//		if( user.getPassword().equals(dbUser.getPassword())){
-//			throw new sernameNotFoundException;
-//			//세션에 user 저장
-//			session.setAttribute("user", dbUser);
-////			model.addAttribute("user", dbUser);	
-//			
-//			//신규회원 쿠폰발급
-//			if(dbUser.getJoinDate().equals(dbUser.getRecentDate())) {
-//				OwnCoupon oc = new OwnCoupon();
-//				Coupon coupon = couponService.getCoupon("2");	//2번 쿠폰 = 신규회원 쿠폰
-//				Calendar cal= Calendar.getInstance();
-//				cal.add(Calendar.DATE,30);
-//				Timestamp ts1 = new Timestamp(System.currentTimeMillis());
-//				Timestamp ts2 = new Timestamp(cal.getTimeInMillis());
-//				
-//				oc.setOwnUser(dbUser);
-//				oc.setOwnCoupon(coupon);
-//				oc.setOwnCouponCreDate(ts1);
-//				oc.setOwnCouponDelDate(ts2);
-//				couponService.addOwnCoupon(oc);
-//				System.out.println("### 신규회원 쿠폰발급 ###");
-//			}
-//			
-//			userService.updateRecentDate(dbUser);		//최근접속일자 update
-//				
-//			return "redirect:/";
-//			
-//		//해당 id와 pwd가 불일치할 경우	
-//		}else{
-//			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-//			return "user/login";
-//		}
-//		
-//	}
 	
 
 //		### spring security 사용으로 인한 미사용 method	###
@@ -466,7 +393,7 @@ public class UserController {
 			User user = list.get(i);
 			try {
 				if(user.getLeaveDate().toString().substring(0,10).equals(todaysDate.toString())) {
-					userService.leaverUser(user);;
+					userService.leaveUser(user);;
 					System.out.println(user.getUserId()+" is convert to leave");
 				}	
 			}catch(Exception e){

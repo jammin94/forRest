@@ -1,12 +1,7 @@
 package com.mvc.forrest.service.domain;
 
-import java.io.File;
 import java.sql.Date;
 import java.sql.Timestamp;
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 
 import lombok.Data;
 
