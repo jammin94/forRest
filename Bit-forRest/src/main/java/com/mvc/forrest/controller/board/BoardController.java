@@ -85,9 +85,15 @@ public class BoardController {
 	//updateAnnounce 실행
 	//관리자
 	@PostMapping("updateAnnounce")
-	public String updateAnnounce(@ModelAttribute("board") Board board) throws Exception {	
+	public String updateAnnounce(@ModelAttribute("board") Board board, @RequestParam("uploadFile") List<MultipartFile> uploadFiles) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
 		System.out.println("시스템으로 받은 데이터 : "+board);
+		
+		if(uploadFiles.size()!=1) {
+			fileUtils.deleteImg(Integer.toString(board.getBoardNo()));
+			String mainImg=fileUtils.uploadFiles(uploadFiles, Integer.toString(board.getBoardNo()), "announce");
+		}
+		
 		boardService.updateBoard(board);
 		
 		return "redirect:/board/getAnnounce?boardNo="+board.getBoardNo();

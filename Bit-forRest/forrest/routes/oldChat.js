@@ -26,7 +26,7 @@ const upload = multer({
 		},
 		filename(req,file,done){
 			const ext = path.extname(file.originalname);
-			done(null, Math.random().toString(36).substr(2,11)+new Date().getTime()+ext);
+			done(null, path.basename(file.originalname, ext)+ext);
 		},
 	}),
 	limits:{fileSize: 30*1024*1024},
@@ -564,12 +564,13 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
     const files = req.files;
     const sessionUser = req.session.user;
     
+    console.log(isConnected);
     console.log(files);
   
     let insertImage;
     
     for(let file of files){
-		console.log(file.path);
+		
 		let query =Query.insertImage;
 	    if(isConnected=='true'){
 		    insertImage = await db.sequelize.query(query, {
@@ -664,6 +665,113 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
   }
 });
 
+//리뷰사진보내기 
+// '/oldChat/oldReview/:chatRoomNo/:userId'
+router.get('/oldReview/:chatRoomNo/:userId', async (req, res, next) => {
+  try {
+    const roomNo = req.params.chatRoomNo;
+    const chatMessage = 'system: 판매자가 리뷰를 보냈습니다! 판매자에게 구매를 남겨주시면 평점에 큰 도움이 됩니다! 사진 클릭 시 평점을 남길 수 있는 창으로 이동합니다';
+    const sessionUser = req.params.userId;
+    
+	let query =Query.insertImage;
+	let insertImage = await db.sequelize.query(query, {
+	      replacements: 
+	      { chatRoomNo : roomNo,
+	        sendUserId : sessionUser, //sessionId 
+	        chatMessage : chatMessage,
+	        fileName: 'UnhappyMediocreCommongonolek-size_restricted.gif', 
+	        readOrNot: 1,
+	        }, 
+	      type: QueryTypes.INSERT,
+	      raw: true
+	    });
+	    
+	query=Query.insertChat;   
+	const insertChat = await db.sequelize.query(query, {
+	      replacements: 
+	      { chatRoomNo : roomNo,
+	        sendUserId : sessionUser, //sessionId 
+	        chatMessage : chatMessage,
+	        readOrNot: 1
+	        }, 
+	      type: QueryTypes.INSERT,
+	      raw: true
+	    });
+	 
+	
+    //칠때마다 채팅방 나가기를 취소하고 채팅방이 보이게 한다.
+    query=Query.updateChatRoomToSee
+    const updateChatRoomToSee = await db.sequelize.query(query, {
+      replacements: 
+      { chatRoomNo : roomNo}, 
+      type: QueryTypes.UPDATE,
+      raw: true
+    });
+
+	const io = req.app.get('io');
+	
+    //보낸 채팅 얻어서 실시간으로 채팅창에 띄우기
+    query=Query.getChat
+    const getChat = await db.sequelize.query(query, {
+      replacements: 
+      { chatMessageNo : insertChat[0]}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+   
+    const getImage = await db.sequelize.query(query, {
+      replacements: 
+      { chatMessageNo : insertImage[0]}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+	
+     //실시간으로 채팅방 나가기 취소하고, 해당 채팅방을 맨 위로.
+    query=Query.listOldChatRoom;
+    const mineLists = await db.sequelize.query(query, {
+      replacements: {userId : sessionUser}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+    
+    //보낸 사람 채팅방에 실시간 업데이트
+    mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
+    mineLists[0].inquireAddr = parseAddress(mineLists[0].inquireAddr);
+    io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
+    
+    //다른 상대방 유저 알아내서
+    query=Query.getOtherUser;
+    const getOtherUser = await db.sequelize.query(query, {
+      replacements: {
+		userId : sessionUser,
+		chatRoomNo: roomNo}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+	
+    query=Query.listOldChatRoom;
+    const othersLists = await db.sequelize.query(query, {
+      replacements: {userId : getOtherUser[0].userId}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+    
+	const data1={chat: getImage, otherUser: getOtherUser[0], review: true};
+    io.of('/oldChat').to(roomNo).emit('oldChat',data1);
+	const data2={chat: getChat, otherUser: getOtherUser[0]};
+    io.of('/oldChat').to(roomNo).emit('oldChat',data2);
+    
+    //다른 사람 채팅방에 실시간 업데이트
+    othersLists[0].recentTime = moment(othersLists[0].recentTime).fromNow();
+    othersLists[0].inquireAddr = parseAddress(othersLists[0].inquireAddr);
+    io.of('/oldChatRoom').to(getOtherUser[0].userId).emit('updateRoom', othersLists[0]);
+
+  }catch (err) {
+    console.error(err)
+    next(err)
+  }
+});
+
 
 //아무 채팅도 없는 방에서 접속 끊기면 해당 채팅방 삭제
 router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
@@ -689,6 +797,16 @@ router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
 	    });
     }
 
+  }catch (err) {
+    console.error(err)
+    next(err)
+  }
+});
+
+//teset
+router.get('/', async (req, res, next) => {
+  try {
+	res.render('');
   }catch (err) {
     console.error(err)
     next(err)
