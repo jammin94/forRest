@@ -326,7 +326,13 @@
 					    	
 					    	<div style="width:220px;padding:10px;">
 					    <!-- 	 <a th:href ="@{/rental/getProduct(prodNo = ${storage.prodNo})}" > -->
-						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${rental.prodName}]] 외 [[${rental.count-1}]] 건<br/></p>
+					    
+						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${rental.prodName}]] 
+						    			<span th:if="${rental.count-1}!='0'"  style="display:none;">
+						    					외 [[${rental.count-1}]] 건
+						    				</span>
+						    		<br/></p>
+						    	
 						    </a>
 						    	<p>	[[${rental.startDate}]] ~ [[${rental.endDate}]]<br/></p>
 						    		<p>	[[${rental.purchaseProd.prodQuantity}]]개</p>
