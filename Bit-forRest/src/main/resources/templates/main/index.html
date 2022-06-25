@@ -387,7 +387,7 @@ body{
 											<h3>[[${old.userId}]]</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>[[${old.oldPrice}]]</p>	
+											<p>[[${old.oldPrice}]]</p>원
 											<div class="try_mob_btn_wrapper">	<a th:href="@{/old/getOld(oldNo=${old.oldNo})}">보러가기</a>
 											</div>
 										</div>
@@ -501,7 +501,7 @@ body{
 						<div class="try_rc_slider_inner_wrapper">
 							<div class="owl-carousel owl-theme">
 								<!-- For 문 도는 구간  -->
-								<div class="item" th:each = "product : ${listProd}" style="margin-right:20px;">
+								<div class="item" th:each = "product : ${listProd}" >
 									<div class="try_rc_mob_box_wrapper">
 										<div class="try_rc_mob_img">
 									
@@ -513,7 +513,7 @@ body{
 											<h3>[[${product.userId}]]</h3>
 										</div>
 										<div class="try_rc_mob_img_cont_bottom">
-											<p>[[${product.rentalPrice}]] 원 / 1 Day </p>	
+											<p>[[${product.rentalPrice}]]  </p>	원 / 1 Day
 											<div class="try_mob_btn_wrapper">	<a th:href="@{/product/getProduct(prodNo=${product.prodNo})}">살펴보기</a>
 											</div>
 										</div>
