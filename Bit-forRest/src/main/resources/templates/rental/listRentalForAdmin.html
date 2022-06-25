@@ -341,9 +341,8 @@
 	   $( ".prodCondition-button" ).on("click" , function() {
 		   
 		   var prodNum = $(this).parent().find('.hiddenProdNo').text();
-		   var tranNum = $(this).parent().find('.hiddenTranNo').text();
-			console.log(prodNum);
-			console.log(tranNum);
+		   var tranNum = $(this).parent().find('.hiddentranNo').text();
+	
 		 	self.location = "/product/updateRentalProductCondition?prodNo="+prodNum+"&tranNo="+tranNum;
 		}); 
 	  

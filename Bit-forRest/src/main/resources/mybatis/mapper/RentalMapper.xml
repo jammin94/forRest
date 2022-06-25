@@ -290,5 +290,15 @@
 	   	</set>
 	   	where tranNo = #{tranNo}
 	 </update>
+	 
+	 
+	 	<!-- 대여완료시 상태 업데이트 -->
+		<update	id="updateComplete"	parameterType="rental" >
+	   	update transaction
+	   	<set>
+	   		complete=#{complete},
+	   	</set>
+	   	where tranNo = #{tranNo}
+	 </update>
 		
 </mapper>

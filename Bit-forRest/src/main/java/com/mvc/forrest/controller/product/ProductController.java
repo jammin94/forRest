@@ -163,6 +163,7 @@ public class ProductController {
 			Product product = productService.getProduct(prodNo);		
             Rental rental = rentalService.getRental(tranNo);
             
+            System.out.println("tranNo:"+tranNo);
             
 			//대여관련
 			 if(product.getProdCondition().equals("물품대여승인신청중")) {
@@ -172,11 +173,14 @@ public class ProductController {
 			} else if(product.getProdCondition().equals("대여중")) {
 				product.setProdCondition("보관중");
 				rental.setComplete(1);
+				rentalService.updateComplete(rental);
 			} 
 			
 			productService.updateProductCondition(product);
+			
 		
 			return "redirect:/rental/listRentalForAdmin";
+      
 		}
 	
 
