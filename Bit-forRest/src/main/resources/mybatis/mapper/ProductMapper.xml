@@ -58,7 +58,6 @@
 	   		<if test="prodImg != null ">
 	   		prodImg =#{prodImg}, 
 	   		</if>
-	   		prodName =#{prodName}, 
 	   		category =#{category}, 
 	   		prodDetail =#{prodDetail},  
 	   		divyAddress =#{divyAddress},  

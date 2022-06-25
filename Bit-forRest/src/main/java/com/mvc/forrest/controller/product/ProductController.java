@@ -121,11 +121,17 @@ public class ProductController {
 	
 
 	@PostMapping("updateProduct")
-	public String updateProductPost(@ModelAttribute("product") Product product) throws Exception {
+	public String updateProductPost(@ModelAttribute("product") Product product, @RequestParam("uploadFile") List<MultipartFile> uploadFile) throws Exception {
+		
+		if(uploadFile.size()!=1) {
+			fileUtils.deleteImg(product.getProdNo());
+			String mainImg=fileUtils.uploadFiles(uploadFile, product.getProdNo(), "product");
+			product.setProdImg(mainImg);
+		}
 		
 		productService.updateProduct(product);
-	
-		return "forward:/product/getProduct";
+		
+		return "redirect:/product/listProduct";
 	}
 	
 	//어드민 가능
@@ -287,7 +293,7 @@ public class ProductController {
 		Map<String, Object> map = rentalReviewService.getRentalReviewList(prodNo);
 		
 		List<Img> imglist = fileUtils.getProductImgList(prodNo);
-		
+		System.out.println(imglist);
 		model.addAttribute("product", product);
 		model.addAttribute("sessionUser", sessionUser);
 		model.addAttribute("list", map.get("list"));
