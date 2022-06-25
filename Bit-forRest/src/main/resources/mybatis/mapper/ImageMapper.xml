@@ -24,7 +24,7 @@
 	<select id="getOLdImgList" parameterType="String" resultMap="ImgSelectMap">
 		SELECT *
 		FROM imgs
-		WHERE contentsFlag= 'old' and contentsNo=#{contentsNo}
+		WHERE contentsFlag= 'old' and contentsNo=#{oldNo}
 	</select>
 	
 	<select id="getProductImgList" parameterType="String" resultMap="ImgSelectMap">

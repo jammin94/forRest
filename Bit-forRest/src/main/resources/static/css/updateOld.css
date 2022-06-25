@@ -250,7 +250,8 @@ form .page .btns button .next{
 
 /*리뷰이미지업로드*/
 .img-preview-big {
-  width: 100%;
+  height:250px !important;
+  width: 250px !important;
   border: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
   position: relative;

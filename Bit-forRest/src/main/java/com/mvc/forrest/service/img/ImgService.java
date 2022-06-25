@@ -29,8 +29,4 @@ public class ImgService {
 		return imgDAO.getAnnounceImgList(boardNo);
 	}
 	
-	public void deleteImg(String contentsNo) throws Exception{
-		System.out.println("deleteImg 실행 됨");
-		imgDAO.deleteImg(contentsNo);
-	}
 }

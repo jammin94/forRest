@@ -259,7 +259,7 @@ public class OldController {
 
 //		//유저 평점 가져오기
 		Old old = oldService.getOldLogIn(loginuserId, oldNo);
-		System.out.println(oldNo+"올넘");
+		System.out.println(oldNo+"==올넘");
 		String userId = old.getUserId();
 
 		User user = userService.getUser(userId);
@@ -270,6 +270,7 @@ public class OldController {
 					
 		//이미지
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
+		System.out.println("올드이미지"+oldImgList);
 	
 		List<ChatRoom> chatList= chatRoomService.getListChatRoom(oldNo);
 		model.addAttribute("chatList", chatList);
