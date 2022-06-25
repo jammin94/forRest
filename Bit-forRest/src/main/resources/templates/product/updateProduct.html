@@ -142,7 +142,7 @@ select{
 	   
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-	 <form class="form-inline" name="detailForm" method="post">
+	 <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
 		 
@@ -195,7 +195,7 @@ select{
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><sapn th:text = "${product.prodName}"></sapn></td>
+		<td><sapn name="prodName" th:text = "${product.prodName}"></sapn></td>
 	</tr>
 
 	<tr>
@@ -510,7 +510,7 @@ $(function(){
 			 $(".main-wrapper").hide();
 		 }
 	 })
-})
+});
 	
 
 </script>

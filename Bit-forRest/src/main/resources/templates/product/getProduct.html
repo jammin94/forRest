@@ -210,8 +210,8 @@
 }
 
 .profileImg{
-	width:50px;
-	height:50px;
+	width:70px;
+	height:70px;
 }
 
 .thumbImg > img{
@@ -289,6 +289,7 @@
 	font-size:0; 
 	line-height:0; 
 	vertical-align:top; 
+	
 	/* width: 100%;  이 값이 평점과 연관되어있음*/
 }
 
@@ -335,12 +336,12 @@
          </a>
         </div>
         <div>
-            	<div>
+            	<div style="font-size: 20px;">
             	 [[${product.userProd.nickname}]] 
             	</div>
             	<div>
             	<span class="star-rating">
-	            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+	            		<span id="smStar"><img src="/images/header/starMini.png" ></span>
 	            	</span>
             	</div>
             	 <div id="userRate" th:text="${product.userProd.userRate}" style="display: none;">
@@ -385,8 +386,8 @@
           <span>
           </span></li>
       
-       
-         <li style="margin-top:78px !important; color:#000;">
+        <!-- 내 물건이면 안보임 -->
+         <li style="margin-top:78px !important; color:#000; "   th:if="${product.userId} != ${sessionUser.userId}">
          	= 결제금액 
           </li>
         </ul>
@@ -408,17 +409,18 @@
           <li>
           <span>
            <select class="selectBox" name="selection">
-           				 <option  value=2>-- 선택 --</option>
                         <option value=2>1박2일</option>
                         <option value=3>2박3일</option>
                         <option value=4>3박4일</option>
                         <option value=5>4박5일</option>
                         </select>
-          </span></li>
+          </span>
+          </li>
       
-	
-         <li>
-         <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px; margin-top:40px !important; font-size:25px;color:red; " readonly/><span style="color:#000;font-weight:bold;">원</span> </li>
+	 <!-- 내 물건이면 안보임 -->
+         <li  th:if="${product.userId} != ${sessionUser.userId}">
+         <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px; margin-top:40px !important; font-size:25px;color:red; " th:value="${product.rentalPrice}" readonly/><span style="color:#000;font-weight:bold;">원</span>
+          </li>
         </ul>
         </div>
         
@@ -619,11 +621,15 @@ $(function(){
     //렌탈뷰 페이지로 이동
      $('#rental-btn').on("click",function(){
     	 
+    	 alert($("#period").val());
+    	 
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
     })
     
     $('#rentalMyPro').on("click",function(){
     	 
+       alert("꺼내쓰기시 택배비 3000원이 결제됩니다");
+    	
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
     })
     
