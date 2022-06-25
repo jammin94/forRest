@@ -167,7 +167,9 @@ public class ProductController {
 				product.setProdCondition("배송중");
 			} else if(product.getProdCondition().equals("배송중")) {
 				product.setProdCondition("대여중");
-			}
+			} else if(product.getProdCondition().equals("대여중")) {
+				product.setProdCondition("보관중");
+			} 
 			
 			productService.updateProductCondition(product);
 		
@@ -226,7 +228,9 @@ public class ProductController {
 					product.setProdCondition("배송중");
 				} else if(productCondition[i].equals("배송중")) {
 					product.setProdCondition("대여중");
-				}
+				} else if(product.getProdCondition().equals("대여중")) {
+					product.setProdCondition("보관중");
+				} 
 			
 				productService.updateProductCondition(product);
 			}
