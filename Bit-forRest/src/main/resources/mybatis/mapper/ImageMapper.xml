@@ -24,7 +24,7 @@
 	<select id="getOLdImgList" parameterType="String" resultMap="ImgSelectMap">
 		SELECT *
 		FROM imgs
-		WHERE contentsFlag= 'old' and contentsNo=#{contentsNo}
+		WHERE contentsFlag= 'old' and contentsNo=#{oldNo}
 	</select>
 	
 	<select id="getProductImgList" parameterType="String" resultMap="ImgSelectMap">
@@ -38,5 +38,14 @@
 		FROM imgs
 		WHERE contentsFlag= 'announce' and contentsNo = #{contentsNo}
 	</select>
+
+	 <!-- SQL : DELETE -->
+	 <delete id="deleteImg"	 parameterType="String">
+		DELETE 
+		FROM imgs
+		<where>
+			contentsNo = #{contentsNo}
+		</where>
+	 </delete>
 
 </mapper>

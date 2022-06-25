@@ -278,6 +278,20 @@
 	background:#cc5656;
 }
 
+.star-rating,.star-rating span { 
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+	background:url(/images/header/starMiniNull.png)no-repeat;
+} 
+
+#smStar{
+	font-size:0; 
+	line-height:0; 
+	vertical-align:top; 
+	/* width: 100%;  이 값이 평점과 연관되어있음*/
+}
+
 </style>
 
 
@@ -324,8 +338,12 @@
             	<div>
             	 [[${product.userProd.nickname}]] 
             	</div>
-            	 <div>
-		         [[${product.userProd.userRate}]]  
+            	<div>
+            	<span class="star-rating">
+	            		<span id="smStar"><img src="/images/header/starMini.png"></span>
+	            	</span>
+            	</div>
+            	 <div id="userRate" th:text="${product.userProd.userRate}" style="display: none;">
 		        </div>
         		
         </div>
@@ -609,7 +627,14 @@ $(function(){
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
     })
     
-    
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
    
     
     
