@@ -39,4 +39,13 @@
 		WHERE contentsFlag= 'announce' and contentsNo = #{contentsNo}
 	</select>
 
+	 <!-- SQL : DELETE -->
+	 <delete id="deleteImg"	 parameterType="String">
+		DELETE 
+		FROM imgs
+		<where>
+			contentsNo = #{contentsNo}
+		</where>
+	 </delete>
+
 </mapper>

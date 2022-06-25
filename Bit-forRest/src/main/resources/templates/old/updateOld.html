@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet" href="/css/addOld.css">
+<link rel="stylesheet" href="/css/updateOld.css">
 </head>
 <style>
 	.bullet .check.fas.fa-check{
@@ -166,7 +166,8 @@
 	$(function(){
 		$( ".submit" ).on("click" , function() {	
 			
-			 if ($("input[name='uploadFile']").length <3) {
+			if($(this).is(":checked")){
+				 if ( $("input[name='uploadFile']").length <3 ) {
 				
 				 alert("사진은 4장이상 10장 이하로 등록해주세요.")
 				 return;
@@ -198,7 +199,9 @@
 
 						$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();			
 					  }
-				  
+			}else{
+				$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();
+			}
 		
 			
 		})

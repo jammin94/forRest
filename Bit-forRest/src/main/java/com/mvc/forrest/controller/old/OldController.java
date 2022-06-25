@@ -354,8 +354,8 @@ public class OldController {
 		
 		System.out.println(this.getClass() + "겟수정");
 
-		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		String userId = loginUser.getUser().getUserId();
+//		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//		String userId = loginUser.getUser().getUserId();
 
 		
 		model.addAttribute(oldService.getOld(oldNo));
@@ -376,7 +376,11 @@ public class OldController {
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+		if(uploadFile.size()!=1) {
+			fileUtils.deleteImg(oldNo);
+			String mainImg=fileUtils.uploadFiles(uploadFile, oldNo, "old");
+			old.setOldImg(mainImg);
+		}
 
 		oldService.updateOld(old);
 
