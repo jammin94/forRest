@@ -334,8 +334,6 @@ body {
 
 </style></head><body>
 
-<input text="hidden" name="isConnected" id="isConnected" value="false" style="display:none; "/>
-
 <div class = "system" style="display:flex; ">
 	<p class="msg">상대방이 부재중입니다</p>
 </div>
@@ -384,7 +382,11 @@ body {
 			  		<div name="map" id="{{chatList.map}}" class="replies" style="width:300px;height:300px;"></div>
 			  	{% endif %}
 			  {% elif chatList.fileName %}
-			  
+			  	{% if chatList.sendUserId === user.userId %} 
+			  		<img name="img" src="/uploads/{{chatList.fileName}}" class="sent" style="width:300px;height:300px;"></img>
+			  	{% else %} 
+			  		<img name="img" src="/uploads/{{chatList.fileName}}" class="replies" style="width:300px;height:300px;"></img>
+			  	{% endif %}
 			  {% else %}
 	            <p>{{chatList.chatMessage}}</p>
 	          {% endif %}
@@ -411,17 +413,21 @@ body {
 		</div>
 		<div class="message-input">
 			<div class="wrap">
-		        <form id="chat-form" method="post" enctype="multipart/form-data"></form>
-					  <input type="text" id="chat" name="chat" placeholder="채팅을 입력하세요" />
-		        <input type="file" id="image" name="image" style="display:none">
+		        <form id="chat-form" method="post" enctype="multipart/form-data">
+					<input type="text" id="chat" name="chat" placeholder="채팅을 입력하세요" />
 					  <i class="fa fa-plus" aria-hidden="true">
 					  	<div class="dropup-content">
-				            <a><i class="fa fa-picture-o" aria-hidden="true"></i></a>
-				            <a><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+				            <a name="picture"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+				            <a name="mapMarker"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
 				        </div>
 					  </i>
 		        <input type="hidden" id="chatRoomNo" name="chatRoomNo" value="{{chatRoomNo}}"/>
 					  <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+		     	 </form>
+		     	 <form id="fileUpload" method="post" enctype="multipart/form-data" action="/oldChat/chat/{{old.oldNo}}/image?chatRoomNo={{chatRoomNo}}" style="display:none">
+		        	<input type="file" id="image" name="imageArray" style="display:none" multiple />
+			        <input type="hidden" id="chatRoomNo" name="chatRoomNo" value="{{chatRoomNo}}"/>
+			        <input text="hidden" name="isConnected" id="isConnected" value="false" style="display:none; "/>
 		     	 </form>
 			</div>
 		</div>
@@ -437,8 +443,6 @@ body {
 moment.locale('ko'); //한글로 시간 표시
 
 //서버의 아이피를 사용할 것!
-//내 맥북 192.168.0.240:3001
-//비트 컴 192.168.0.42:3001
 const socket = io.connect('http://localhost:3001/oldChat',{
   path: '/socket.io'
 });//oldChat namespace사용
@@ -606,12 +610,18 @@ socket.on('oldChat',function(data){
     const senderImg = document.createElement('img');
     senderImg.src="http://localhost:8080/images/uploadFiles/{{user.userImg}}"
     senderImg.classList.add('userImg');
+    senderImg.addEventListener("click", function() {
+		window.open('http://localhost:8080/user/getUser?userId={{user.userId}}','_blank')
+	});
     li.appendChild(senderImg);
   }else{
     li.classList.add('replies');
     const otherImg = document.createElement('img');
     otherImg.src="http://localhost:8080/images/uploadFiles/{{otherUser.userImg}}"
     otherImg.classList.add('userImg');
+    otherImg.addEventListener("click", function() {
+		window.open('http://localhost:8080/user/getUser?userId={{user.userId}}','_blank')
+	});
     li.appendChild(otherImg);
   }
 
@@ -767,14 +777,18 @@ $(window).load(function(){
 });
 
 //사진모양 클릭시 사진업로드
-$("a:first").on('click',function(){
+$("a[name='picture']").on('click',function(){
   $("input[type='file']").click();
-})
+});
 
 //지도모양 클릭시 지도업로드
-$("a:last").on('click',function(){
+$("a[name='mapMarker']").on('click',function(){
 	 window.open('/oldChat/addMap?chatRoomNo={{chatRoomNo}}&userId={{user.userId}}&oldNo={{old.oldNo}}','_blank','width=500');
-})
+});
+
+ document.querySelector('#image').addEventListener('change', function (e) {
+	document.getElementById('fileUpload').submit();
+ });
 
 </script>
 
