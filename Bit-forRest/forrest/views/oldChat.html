@@ -382,11 +382,19 @@ body {
 			  		<div name="map" id="{{chatList.map}}" class="replies" style="width:300px;height:300px;"></div>
 			  	{% endif %}
 			  {% elif chatList.fileName %}
-			  	{% if chatList.sendUserId === user.userId %} 
-			  		<img src="/image/{{chatList.fileName}}" name="img" class="sent" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
-			  	{% else %} 
-			  		<img src="/image/{{chatList.fileName}}" name="img" class="replies" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
-			  	{% endif %}
+			  	{% if chatList.fileName!='UnhappyMediocreCommongonolek-size_restricted.gif' %}
+				  	{% if chatList.sendUserId === user.userId %} 
+				  		<img src="/image/{{chatList.fileName}}" name="img" class="sent" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
+				  	{% else %} 
+				  		<img src="/image/{{chatList.fileName}}" name="img" class="replies" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
+				  	{% endif %}
+				{% else %}
+					{% if chatList.sendUserId === user.userId %} 
+				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="sent" onclick="window.open('/')" style="width:300px;height:300px;"></img>
+				  	{% else %} 
+				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="replies" onclick="window.open('/')" style="width:300px;height:300px;"></img>
+				  	{% endif %}
+				{% endif %} 	
 			  {% else %}
 	            <p>{{chatList.chatMessage}}</p>
 	          {% endif %}
@@ -652,16 +660,21 @@ if(data.chat[0].map==null && data.chat[0].fileName==null){
 	img.setAttribute('name','img');
 	img.style.width="300px";
 	img.style.height="300px";
-	img.addEventListener("click", function() {
+	
+	if(data.review==true){
+		img.addEventListener("click", function() {
+		window.open("/views/addOldReview.html");
+		});
+	}else{
+		img.addEventListener("click", function() {
 		window.open("/image/"+data.chat[0].fileName);
-	});
+		});
+	}
 	
 	if(data.chat[0].sendUserId==='{{user.userId}}'){
 		img.classList.add('sent');
-		
 	}else{
-		img.classList.add('replies');
-		
+		img.classList.add('replies');	
 	}
 	 li.appendChild(img);
 }
