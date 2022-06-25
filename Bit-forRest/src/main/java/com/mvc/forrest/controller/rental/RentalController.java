@@ -151,6 +151,14 @@ public class RentalController {
   		
         productService.updateProductCondition(product);
         
+       //대여횟수 업데이트
+       Product productForCount = new Product();
+       int rentalCount = productService.getRentalCount(rental.getProdNo());
+       productForCount.setProdNo(rental.getProdNo());
+       productForCount.setRentalCounting(rentalCount + 1);
+       productService.updateRentalCounting(productForCount);
+       
+        
         rental.setPurchaseProd(product);
   
 		System.out.println("텟3");

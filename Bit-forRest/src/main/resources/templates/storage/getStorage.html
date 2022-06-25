@@ -104,7 +104,9 @@ border-bottom:3px solid #ddd !important;
 			    <tr class="tableBody">
 				    <td align="left">
 				    	<div class="productInfo">
+				    	<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
 					    	<img _ngcontent-ysc-c102="" alt="" th:src="@{/images/uploadFiles/} + ${storage.prodImg}">
+						    		</a>
 					    	<span>
 						    		[[${storage.prodName}]]<br/>
 						    		[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/>

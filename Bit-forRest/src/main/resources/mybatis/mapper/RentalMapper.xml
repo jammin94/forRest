@@ -300,5 +300,6 @@
 	   	</set>
 	   	where tranNo = #{tranNo}
 	 </update>
-		
+	 
+
 </mapper>
