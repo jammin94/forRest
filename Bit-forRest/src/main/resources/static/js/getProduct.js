@@ -2,7 +2,7 @@ const imgs = document.querySelectorAll('.img-select a');
 const imgBtns = [...imgs];
 let imgId = 1;
 
-$( "a" ).on("click" , function() {
+$( ".img-item a" ).on("click" , function() {
    var a =$(this).children().val();
    console.log(a);
    imgId =a;

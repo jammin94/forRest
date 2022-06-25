@@ -113,7 +113,7 @@
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,t.paymentDate
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
@@ -127,7 +127,7 @@
 	 
 	<!-- SELECT LIST -->
 	<select  id="getPaymentList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,  COUNT(*) count
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,t.paymentDate,  COUNT(*) count
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'

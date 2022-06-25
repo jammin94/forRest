@@ -513,18 +513,21 @@ flex-none, flex-initial, flex-auto, flex-1
                               	<img class="profileImg" th:src= "@{/images/uploadFiles/} + ${rentalreview.user.userImg}"  onerror="this.src='/images/uploadFiles/noUserImg.jpg'"></img>
                               <!--  	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"> -->
                               	</span>
-                              	   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview1.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview2.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview3.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview4.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview5.png">
-                              </div>
-                                <div>                                 
-                                    <div>
+                              	<div>
+                              	  	<div style="position:relative;top:-10px;left:10px;">
+                              		   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview1.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview2.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview3.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview4.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview5.png">
+                              	</div>
+                                    <div style="position:relative; top:-27px;left:13px;">
                                         <strong th:text="${rentalreview.user.nickname}"></strong>
                                         <span  th:text="${rentalreview.regDate}"></span>
                                         </div>
                                   </div>
+                              </div>
+                          
                                     <div class="listCursor">
                                		     <div class="reviewImg">
                                		     		<!--  테스트용 경로: 이미지경로는 추후 변경 일단 요래하면 됨 -->
@@ -562,6 +565,9 @@ $(function(){
 	
 })
 $(function(){
+	
+
+	  $('#PayPrice').val($(".commaPrice").text().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace("원",""));
 
     $('.listCursor').on('click',function(){
 		console.log('listcursor');

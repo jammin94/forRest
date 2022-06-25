@@ -321,25 +321,24 @@
 				 	</a>
 				    	<div class="productInfo">
 				    	<!-- 	<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" > -->
+				    	  <a th:href ="@{/product/getProduct(prodNo = ${rental.prodNo})}" >
 				   	 	<img style="width:100px;height:125px;" th:src="@{/images/uploadFiles/} + ${rental.prodImg}" >
 					    	</a>
 					    	
 					    	<div style="width:220px;padding:10px;">
 					    <!-- 	 <a th:href ="@{/rental/getProduct(prodNo = ${storage.prodNo})}" > -->
-					    
-						    		<p  style="margin-bottom: 10px; font-weight: bold">[[${rental.prodName}]] 
-						    			<span th:if="${rental.count-1}!='0'"  style="display:none;">
-						    					외 [[${rental.count-1}]] 건
-						    				</span>
-						    		<br/></p>
+					    	  <a th:href ="@{/product/getProduct(prodNo = ${rental.prodNo})}" >
+						    		<p  style="margin-bottom: 10px; font-weight: bold">
+						    			<span>	[[${rental.prodName}]] </span>
+						    			<span th:if="${rental.count-1}!='0' ">외 [[${rental.count-1}]] 건</span>					    				
+						    		</p>
 						    	
 						    </a>
 						    	<p>	[[${rental.startDate}]] ~ [[${rental.endDate}]]<br/></p>
-						    		<p>	[[${rental.purchaseProd.prodQuantity}]]개</p>
 					    	</div>
 						</div>
 				    </td>
-			<td class="tdCenter" th:text = "${rental.purchaseProd.prodName}"></td>
+			<td class="tdCenter paymentDate" th:text = "${rental.paymentDate}" ></td>
 				<td class="tdCenter" th:text = "${rental.resultPrice}"></td>
 				<td th:if="${rental.complete}!='1' and ${rental.cancelComplete}!='1' "   class="tdCenter" >
 					[[${rental.purchaseProd.prodCondition}]]
@@ -353,7 +352,7 @@
 					<!-- <td class="tdCenter" th:text = "${rental.resultPrice}"></td> -->
 					<span class="rentalTranNo" style="display:none;">[[${rental.tranNo}]]</span>
 					<button th:if="${rental.reviewDone} == '0'  and  ${rental.complete}=='1' "  type="button" id="reviewPop" class="reviewBtn">리뷰쓰기</button>
-					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' " class="cancelBtn"  th:value="${rental.paymentNo}" th:data-prodNo="${rental.prodNo}" type="button" >취소접수</button>
+					<button th:if="${rental.purchaseProd.prodCondition} == '물품대여승인신청중' and ${rental.complete}=='0'" class="cancelBtn"  th:value="${rental.paymentNo}" th:data-prodNo="${rental.prodNo}" type="button" >취소접수</button>
 					<button  th:if="${rental.reviewDone} == '1' " type="button" id="reviewPop" class="reviewEditBtn" style="">리뷰수정하기</button>
 					<span style="display:none;" class="hiddenProdNo" >[[${rental.purchaseProd.prodNo}]]</span>				
 					<span style="display:none;"  class="hiddenTranNo">[[${rental.tranNo}]]</span>
@@ -450,7 +449,7 @@
   <div id="rating">
  
 
-<div class="main-wrapper">
+<div class="main-wrapperNone" style="padding:10px;">
   <div class="img-upload-plugin">
                     <div class="img-upload-handler">
                       <div class="img-preview-big img-add-more">
@@ -508,6 +507,9 @@
 <script src="/js/jquery_min.js"></script>
 <script src="/js/addRentalReview.js"></script>
 <script>
+
+$(function(){
+})
 
 function fncGetRentalList(currentPage) {
 		
