@@ -19,20 +19,23 @@ public class ProductService {
 	
 	@Autowired
 	private ProductDAO productDAO;
-		
+	
+	// 물품등록
 	public void addProduct(Product product) throws Exception{
 		productDAO.addProduct(product);
 	}
 	
+	//물품상세정보
 	public Product getProduct(String prodNo) throws Exception{
 		 return productDAO.getProduct(prodNo);
 	}
 	
+	//물품정보 업데이트
 	public void updateProduct(Product product) throws Exception{
 		productDAO.updateProduct(product);
 	}
 	
-	
+	//물품상태 업데이트
 	public void updateProductCondition(Product product) throws Exception{
 		productDAO.updateProductCondition(product);	
 	}
@@ -56,11 +59,13 @@ public class ProductService {
 		return map;
 	}
 	
+	//검색어 자동완성을 위한 물품이름 리스트
 	public List<Product> getProductNames() throws Exception{
 		
 		return productDAO.getProductNames();
 	}
 	
+	//로그인한 유저가 보는 물품리스트
 	public List<Product> getProductListHasUser(Search search, String userId) throws Exception{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -76,10 +81,24 @@ public class ProductService {
 		
 		return list;
 	}
-
+	
+	//물품의 총 갯수
 	public int getTotalCount(Search search) throws Exception {
 		
 		return productDAO.getTotalCount(search);
+	}
+	
+	//대여시 대여횟수 증가를 위해 DB의 대여횟수 받아오기
+	public int getRentalCount(String prodNo) throws Exception{
+		
+		return productDAO.getRentalCount(prodNo);
+	}
+	
+	//대여횟수 업데이트
+	public void updateRentalCounting(Product product) throws Exception{
+
+		productDAO.updateRentalCounting(product);
+
 	}
 	
 	

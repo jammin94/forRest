@@ -14,6 +14,8 @@
         <link href="/css/getProduct.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
     </head>
 
@@ -644,16 +646,27 @@ $(function(){
         	 
         	$("#period").val(select);
     	 
-    	 alert($("#period").val());
-    	 
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
     })
     
     $('#rentalMyPro').on("click",function(){
    	 var productUserId = $('.productUserId').val();
-       alert("꺼내쓰기시 택배비 3000원이 결제됩니다");
-    	
+       
+   	Swal.fire({
+		     
+		text:  '꺼내쓰기시 택배비 3000원이 결제됩니다',  
+		icon:  'warning',  
+		
+		closeOnClickOutside : false,
+		confirmButtonColor: '#262626',
+	    confirmButtonText: '확인'
+		}).then(function(){
     	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
+		
+		});
+   	 
+   
+    	
     })
     
 	var userRate = $('#userRate').text();

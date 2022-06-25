@@ -42,5 +42,7 @@ public interface RentalDAO {
 	List<Rental> getPaymentList(Map<String,Object> map) throws Exception;
 
 	List<Rental> getPayment(String paymentNo) throws Exception;
+	
+	
 }
 

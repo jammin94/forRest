@@ -452,8 +452,18 @@ function request_pay(){
         	console.log(data);
         	
         	if(rsp.paid_amount == data.response.amount){
-	        	alert("결제가 완료되었습니다");
-	        		$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+	
+	              	Swal.fire({
+						title: '결제가 완료되었습니다',
+						icon: 'success',  
+		
+						closeOnClickOutside : false,
+						confirmButtonColor: '#262626',
+	    				confirmButtonText: '확인'
+		}).then(function(){
+    						$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+			// 이벤트
+		});
 	        	
         	} else {
         		alert("결제 실패");
