@@ -311,6 +311,7 @@ background: url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
         <!-- Navigation-->
   <div th:replace="/main/toolbar.html"></div>
 
+		<input type="hidden" class="productUserId"  name="productUserId" th:value="${product.userId}">
 		
 <div class = "card-wrapper">
   <div class = "card">
@@ -453,7 +454,7 @@ background: url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
           장바구니 <i class = "fas fa-shopping-cart"></i>
         </button>
         <input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
-        <input type="hidden" id="period" name="period" value="1"/>
+        <input type="hidden" id="period" name="period"/>
       </div>
       
 
@@ -629,17 +630,24 @@ $(function(){
     
     //렌탈뷰 페이지로 이동
      $('#rental-btn').on("click",function(){
+    	 var productUserId = $('.productUserId').val();
+    	 var rentalPrice =    $(".rentalFee").val();	
+    		var select = $(".selectBox option:selected").val();
+        	console.log("선택값:"+select);
+        	 console.log("rentalPrice:"+rentalPrice);
+        	 
+        	$("#period").val(select);
     	 
     	 alert($("#period").val());
     	 
-    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
     })
     
     $('#rentalMyPro').on("click",function(){
-    	 
+   	 var productUserId = $('.productUserId').val();
        alert("꺼내쓰기시 택배비 3000원이 결제됩니다");
     	
-    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
     })
     
 	var userRate = $('#userRate').text();

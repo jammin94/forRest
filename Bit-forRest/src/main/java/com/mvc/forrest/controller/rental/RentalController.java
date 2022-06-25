@@ -68,6 +68,7 @@ public class RentalController {
 	//회원, 어드민 가능
 	@GetMapping("addRental")
 	public String addRentalView(@RequestParam("prodNo") String prodNo,
+												@RequestParam("productUserId") String productUserId,
 											  @RequestParam("period") int period,
 											  Model model) throws Exception{
 		
@@ -93,6 +94,12 @@ public class RentalController {
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("reserveTranNo", reserveTranNo);
 		model.addAttribute("period",period);
+		
+		System.out.println("구스"+productUserId);
+		System.out.println("산스"+userId);
+
+		model.addAttribute("productUserId",productUserId);
+		model.addAttribute("userId",userId);
 		
 		return "rental/addRental";
 	}
