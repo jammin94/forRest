@@ -3,7 +3,7 @@
 
 <!DOCTYPE html><html class=''>
 <head>
-<meta charset='UTF-8'><meta name="robots" content="noindex">
+<meta charset="UTF-8"><meta name="robots" content="noindex">
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
@@ -383,9 +383,9 @@ body {
 			  	{% endif %}
 			  {% elif chatList.fileName %}
 			  	{% if chatList.sendUserId === user.userId %} 
-			  		<img name="img" src="/uploads/{{chatList.fileName}}" class="sent" style="width:300px;height:300px;"></img>
+			  		<img src="/image/{{chatList.fileName}}" name="img" class="sent" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
 			  	{% else %} 
-			  		<img name="img" src="/uploads/{{chatList.fileName}}" class="replies" style="width:300px;height:300px;"></img>
+			  		<img src="/image/{{chatList.fileName}}" name="img" class="replies" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
 			  	{% endif %}
 			  {% else %}
 	            <p>{{chatList.chatMessage}}</p>
@@ -625,11 +625,14 @@ socket.on('oldChat',function(data){
     li.appendChild(otherImg);
   }
 
-if(data.chat[0].map==null){
+if(data.chat[0].map==null && data.chat[0].fileName==null){
+	
 	const chatMessage= document.createElement('p');
   	chatMessage.textContent=data.chat[0].chatMessage;  //수정요망
 	  li.appendChild(chatMessage);
-}else{
+	  
+}else if(data.chat[0].map!=null){
+	
 	let divdiv= document.createElement('div');
 	divdiv.setAttribute('name','map');
 	divdiv.id=data.chat[0].map;
@@ -641,6 +644,26 @@ if(data.chat[0].map==null){
 		divdiv.classList.add('replies');
 	}
   li.appendChild(divdiv);
+  
+}else{
+	
+	let img=document.createElement('img');
+	img.src="/image/"+data.chat[0].fileName;
+	img.setAttribute('name','img');
+	img.style.width="300px";
+	img.style.height="300px";
+	img.addEventListener("click", function() {
+		window.open("/image/"+data.chat[0].fileName);
+	});
+	
+	if(data.chat[0].sendUserId==='{{user.userId}}'){
+		img.classList.add('sent');
+		
+	}else{
+		img.classList.add('replies');
+		
+	}
+	 li.appendChild(img);
 }
   
   li.appendChild(document.createElement('br'));
@@ -692,8 +715,6 @@ if(data.chat[0].map==null){
   //맨 밑으로 창을!
 $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "slow");
   $('input[type="text"]').focus();
-  
-  
   
 }); 
 

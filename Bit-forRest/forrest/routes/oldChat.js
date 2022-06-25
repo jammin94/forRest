@@ -26,7 +26,7 @@ const upload = multer({
 		},
 		filename(req,file,done){
 			const ext = path.extname(file.originalname);
-			done(null, path.basename(file.originalname, ext)+ext);
+			done(null, Math.random().toString(36).substr(2,11)+new Date().getTime()+ext);
 		},
 	}),
 	limits:{fileSize: 30*1024*1024},
@@ -517,6 +517,7 @@ router.post('/chat/:oldNo/map', async (req, res, next) => {
     
     //보낸 사람 채팅방에 실시간 업데이트
     mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
+    mineLists[0].inquireAddr = parseAddress(mineLists[0].inquireAddr);
     io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
     
     //다른 상대방 유저 알아내서
@@ -543,6 +544,7 @@ router.post('/chat/:oldNo/map', async (req, res, next) => {
     
     //다른 사람 채팅방에 실시간 업데이트
     othersLists[0].recentTime = moment(othersLists[0].recentTime).fromNow();
+    othersLists[0].inquireAddr = parseAddress(othersLists[0].inquireAddr);
     io.of('/oldChatRoom').to(getOtherUser[0].userId).emit('updateRoom', othersLists[0]);
     
 
@@ -562,15 +564,12 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
     const files = req.files;
     const sessionUser = req.session.user;
     
-    console.log(roomNo);
-    console.log(isConnected);
     console.log(files);
-    console.log(sessionUser);
   
     let insertImage;
     
     for(let file of files){
-		
+		console.log(file.path);
 		let query =Query.insertImage;
 	    if(isConnected=='true'){
 		    insertImage = await db.sequelize.query(query, {
@@ -627,6 +626,7 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
 	    
 	    //보낸 사람 채팅방에 실시간 업데이트
 	    mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
+	    mineLists[0].inquireAddr = parseAddress(mineLists[0].inquireAddr);
 	    io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
 	    
 	    //다른 상대방 유저 알아내서
@@ -653,6 +653,7 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
 	    
 	    //다른 사람 채팅방에 실시간 업데이트
 	    othersLists[0].recentTime = moment(othersLists[0].recentTime).fromNow();
+	    othersLists[0].inquireAddr = parseAddress(othersLists[0].inquireAddr);
 	    io.of('/oldChatRoom').to(getOtherUser[0].userId).emit('updateRoom', othersLists[0]);
 	}
     

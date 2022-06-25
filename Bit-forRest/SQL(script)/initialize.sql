@@ -11,6 +11,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+/*set sql_safe_updates=0;*/
+
 
 -- forrest 데이터베이스 구조 내보내기
 CREATE DATABASE IF NOT EXISTS `forrest` /*!40100 DEFAULT CHARACTER SET utf8 */;
@@ -327,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `oldreview` (
   `oldNo` varchar(40) NOT NULL,
   `reviewDetail` varchar(100) DEFAULT NULL,
   `userRate` double DEFAULT NULL,
-  `reviewDate` date NOT NULL DEFAULT curdate(),
+  `reviewDate` date NOT NULL DEFAULT (CURRENT_DATE),
   PRIMARY KEY (`oldReviewNo`),
   KEY `reviewUserId` (`reviewUserId`),
   KEY `reviewedUserId` (`reviewedUserId`),
