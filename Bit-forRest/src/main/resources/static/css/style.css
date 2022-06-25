@@ -718,6 +718,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', end
 	padding:0px;	
 }
 
+
+
 .main-menu .navigation{
 	position:relative;
 	    float: right;
@@ -1295,7 +1297,12 @@ background: rgb(38 38 38);
 .try_rc_mob_img_cont h2{
 	font-size:18px;
 	color:#111111;
-	padding-top:40px;
+	
+	    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 40px 10px 0 10px;
 }
 .try_rc_mob_img_cont h3{
     font-size: 14px;
@@ -1357,7 +1364,7 @@ float: left;
 	    margin-top: 10px;
     line-height: 50px;
     text-align: center;
-	 background: #262626;
+	 background: #000;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b2cd0', endColorstr='#5362d7', GradientType=1 );
     color: #fff;
     -webkit-border-radius: 50px;
@@ -2623,9 +2630,8 @@ width:100%;
 .try_footer_main_section_wrapper{
 	float:left;
 	width:100%;
-	background: #3f6236;
+	background: #000;
 	padding-top:100px;
-	    background: #000;
     position: relative;
 }
 .try_footer_first_sec_wrapper{
