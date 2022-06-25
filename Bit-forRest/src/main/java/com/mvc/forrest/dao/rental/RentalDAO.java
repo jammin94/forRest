@@ -19,6 +19,8 @@ public interface RentalDAO {
 	
 	void updateCancelDone(Rental rental) throws Exception;
 	
+	void updateComplete(Rental rental) throws Exception;
+	
 	Rental getRental(String tranNo) throws Exception;
 	
 	List<Rental> getRentalList(Map<String,Object> map) throws Exception;

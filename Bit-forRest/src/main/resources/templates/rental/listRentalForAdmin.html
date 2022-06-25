@@ -22,6 +22,24 @@
 		display: flex !important;
    		 justify-content: center;
 	}
+	
+		   /*페이지 관련 */
+   .temp{
+	display:flex;
+	margin-left: -90px;
+}
+
+.temp>div{
+	padding:10px;
+	background-color: black;
+	
+}
+
+.temp>div:hover {
+	background-color: blue;
+}
+
+	
 </style>
 <body>
 
@@ -82,7 +100,7 @@
 			    <form class="form-inline" name="detailForm">
 			    
 	 <input type="hidden" class="prodCondition" name="searchProductCondition" th:value=${search.searchProductCondition}  />
-	 <input type="hidden" id="currentPage" name="currentPage" value="1"/>
+
 				
 			 <div class="form-group">
 				<select class="form-control"    name="searchCondition" >
@@ -110,7 +128,7 @@
 				  
 				  
 				  <!-- PageNavigation 선택 페이지 값을 보내는 부분 -->
-				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  <input type="hidden" id="currentPage" name="currentPage" th:value= "${search.currentPage}"/>
 				  
 			</form>	
 	    	</div>
@@ -143,7 +161,7 @@
 	    <tr th:each="rental :${list}">
 	    
 	    	<td align="left" th:if="${rental.purchaseProd.prodCondition} != '보관중' "> 
-	    		<input  type="checkbox" class="cb2" name="prodCondition" th:value="${rental.purchaseProd.prodCondition}">
+	    		<input  type="checkbox" class="cb2" name="prodNo" th:value="${rental.prodNo}">
 	    	</td>
 	  
 		    <td  th:text = "${rental.tranNo}"></td>
@@ -153,33 +171,71 @@
 			<td align="center" th:text = "${rental.paymentDate}"></td>
 			<td align="center" th:text = "${rental.purchaseProd.prodCondition}"></td>
 			<td>			
-			<input type="hidden"  class="prodNum" name="prodNo" th:value="${rental.purchaseProd.prodNo}" />				
+			
+			<span class="hiddenProdNo" style="display: none">[[${rental.prodNo}]]</span>				
+			<span class="hiddentranNo" style="display: none">[[${rental.tranNo}]]</span>				
+			
 			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='물품대여승인신청중'">배송하기</button>
 			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='배송중'">배송완료</button>
+			<button type="button" class="prodCondition-button"  th:if="${rental.purchaseProd.prodCondition}=='대여중'">대여완료</button>
 			</td>	  
 		
 	    </tr>
 	    
 	        </tbody>
       </table>
-		</form>
 		<!--  table End /////////////////////////////////////-->
 
  <button  class="updateProdAllCon-btn">일괄업데이트</button>
+		</form>
+		
+		
+					<!-- navi start -->
+		<div >
+		
+		<nav aria-label="Page navigation" align="center" style="width:100%"
+		th:with="
+			currentPage=${resultPage.currentPage},
+			pageUnit=${resultPage.pageUnit},
+			beginUnitPage=${resultPage.beginUnitPage},
+			endUnitPage=${resultPage.endUnitPage},
+			maxPage=${resultPage.maxPage}
+		">
+		  <ul class="pagination" >
+		    <!-- 좌측 navi -->
+		    <span th:if="${currentPage}<=${pageUnit}">
+				<li class="hidden">
+			</span>
+			<span th:if="${currentPage}>${pageUnit}">
+				<li>
+			</span>
+		      <a aria-label="Previous" th:onclick="|javascript:fncGetRentalListForAdmin('${currentPage-1}')|">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+ <span class="temp">
+  				<!-- 중앙 -->
+	   		  <div th:each="num : ${#numbers.sequence(beginUnitPage,endUnitPage)}" >
+				<li class="active"><a th:href="@{#}" th:onclick="|javascript:fncGetRentalListForAdmin('${num}')|">[[${num}]]</a></li>
+			  </div>
+</span>
+		    <!-- 우측 navi -->
+		    <span th:if="${endUnitPage}>=${maxPage}">
+				<li class="hidden">
+			</span>
+			<span th:unless="${endUnitPage}>=${maxPage}">
+				<li>
+			</span>
+		      <a th:onclick="|javascript:fncGetRentalListForAdmin('${endUnitPage+1}')|" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+		<!-- navi end -->
 
-	<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
-		</ul>
+	
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
@@ -187,6 +243,17 @@
 
 <script src="/js/jquery_min.js"></script>
 	<script>
+	
+	//페이지처리
+	function fncGetRentalListForAdmin(currentPage) {
+		
+		 $("#currentPage").val(currentPage)
+	
+	      $('.form-inline').attr('method', 'POST').attr('action', '/rental/listRentalForAdmin').submit();
+	    
+	}
+	
+	
 	  $(document).ready(function() {
 			"use strict";
 			
@@ -212,7 +279,7 @@
 	  	$(function(){
 			$(".search-btn").on("click", function(){
 			
-			 $('form').attr('method', 'POST').attr('action','/rental/listRentalForAdmin').submit();
+			 $('.form-inline').attr('method', 'POST').attr('action','/rental/listRentalForAdmin').submit();
 			
 		})
 	});
@@ -255,17 +322,28 @@
 	  
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
-	    	
-		   $('form').attr('method', 'POST').attr('action', '/product/updateRentalProductAllCondition').submit();
+		   
+		   var checkLength = $("input[name=prodNo]:checkbox:checked").length;
+			//alert("checkLength: "+checkLength);
+			
+			if(checkLength==0){
+				alert("체크된 항목이 없습니다");
+			} else{
+				
+				   $('.form-inline2').attr('method', 'POST').attr('action', '/product/updateRentalProductAllCondition').submit();
+				
+			}
+		   
 	 		
 		}); 
 	  
 	   //단일업데이트
 	   $( ".prodCondition-button" ).on("click" , function() {
 		   
-	    	var prodNum = $(this).parent().find('.prodNum').val();
-			console.log(prodNum);
-		 	self.location = "/product/updateRentalProductCondition?prodNo="+prodNum;
+		   var prodNum = $(this).parent().find('.hiddenProdNo').text();
+		   var tranNum = $(this).parent().find('.hiddentranNo').text();
+	
+		 	self.location = "/product/updateRentalProductCondition?prodNo="+prodNum+"&tranNo="+tranNum;
 		}); 
 	  
 	  
