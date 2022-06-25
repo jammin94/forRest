@@ -161,7 +161,7 @@
 	    <tr th:each="rental :${list}">
 	    
 	    	<td align="left" th:if="${rental.purchaseProd.prodCondition} != '보관중' "> 
-	    		<input  type="checkbox" class="cb2" name="prodNo" th:value="${rental.prodNo}">
+	    		<input  type="checkbox" class="cb2" name="tranNo" th:value="${rental.tranNo}">
 	    	</td>
 	  
 		    <td  th:text = "${rental.tranNo}"></td>
@@ -323,7 +323,7 @@
 	  //일괄업데이트
 	   $( ".updateProdAllCon-btn" ).on("click" , function() {
 		   
-		   var checkLength = $("input[name=prodNo]:checkbox:checked").length;
+		   var checkLength = $("input[name=tranNo]:checkbox:checked").length;
 			//alert("checkLength: "+checkLength);
 			
 			if(checkLength==0){
