@@ -113,7 +113,7 @@
 		 
 	<!-- SELECT LIST -->
 	<select  id="getRentalList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,t.paymentDate
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
@@ -127,7 +127,7 @@
 	 
 	<!-- SELECT LIST -->
 	<select  id="getPaymentList"  parameterType="map"	resultMap="rentalSelectMap">
-		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,  COUNT(*) count
+		SELECT t.tranNo,t.prodImg, t.prodName, t.prodNo, t.startDate, t.endDate, t.paymentNo, t.userId, t.resultPrice, p.recentImg, p.prodCondition, p.prodQuantity,t.tranCode, t.reviewDone,t.complete,t.cancelComplete,t.paymentDate,  COUNT(*) count
 	 	FROM product p, transaction t
 	 	<where>
 	 		p.prodNo = t.prodNo and t.userId = #{userId} and t.tranCode='1'
@@ -151,7 +151,7 @@
 	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
-	 		 p.prodNo = t.prodNo AND  
+	 		 p.prodNo = t.prodNo AND  t.tranCode = 1 AND
 	 		(p.prodCondition ='물품대여승인신청중' OR 
 	 		 p.prodCondition = '배송중' OR
 	 		 p.prodCondition = '대여중')
@@ -186,20 +186,7 @@
 	 		
 	 		
 	 	</where>
-	 	<if test="orderCondition != null">
-	 		<if test='orderCondition == "tranNoASC"'>
-	 		ORDER BY t.tranNo ASC
-	 		</if>
-	 		<if test='orderCondition == "tranNoDESC"'>
-	 		ORDER BY t.tranNo DESC
-	 		</if>
-	 		<if test='orderCondition == "startDateASC"'>
-	 		ORDER BY t.startDate ASC
-	 		</if>
-	 		<if test='orderCondition == "startDateDESC"'>
-	 		ORDER BY t.startDate DESC
-	 		</if>
-	 	</if>
+	  ORDER BY t.paymentDate DESC LIMIT #{startRowNum}, #{pageSize}
 	 </select>
 
 	 <!--SELECT Total Count -->
@@ -222,7 +209,7 @@
 	  	SELECT COUNT(*)
 	  	FROM product p, transaction t
 	  	<where>
-	 		 p.prodNo = t.prodNo AND  
+	 		 p.prodNo = t.prodNo  AND  t.tranCode = 1 AND
 	 		(p.prodCondition ='물품대여승인신청중' OR 
 	 		 p.prodCondition = '배송중' OR
 	 		 p.prodCondition = '대여중')
@@ -300,6 +287,16 @@
 	   	update transaction
 	   	<set>
 	   		cancelComplete=#{cancelComplete},
+	   	</set>
+	   	where tranNo = #{tranNo}
+	 </update>
+	 
+	 
+	 	<!-- 대여완료시 상태 업데이트 -->
+		<update	id="updateComplete"	parameterType="rental" >
+	   	update transaction
+	   	<set>
+	   		complete=#{complete},
 	   	</set>
 	   	where tranNo = #{tranNo}
 	 </update>

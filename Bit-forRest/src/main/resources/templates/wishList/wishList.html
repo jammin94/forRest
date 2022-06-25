@@ -79,7 +79,9 @@ td{
 .orderBtn button:hover{
 	
 }
-
+.try_footer_main_section_wrapper{
+	bottom:0px;
+}
 
 </style>
 
@@ -137,6 +139,7 @@ td{
 	    
 	   
 	    <tr th:each="wishlist,index :${list}">	    
+	    <span th:text="${index}" class="wishIndex" style="display:none;"></span>
 	  
 	    <input type="hidden" class="toggle" name="toggle"  th:value="${wishlist.toggle}"/>
 
@@ -146,12 +149,12 @@ td{
 	    	  
 		     <td align="left">
 		    	<div class="productInfo">
-		    		<a href="/product/getProduct?prodNo=j">
+		    			  <a th:href ="@{/product/getProduct(prodNo = ${wishlist.product.prodNo})}" >
 			    	<img  class="productImg"  th:src="@{/images/uploadFiles/} + ${wishlist.product.prodImg}" >
 			    	</a>
 			    	
 			    	<div style="width:220px;padding:10px;">
-			    	 <a href="/product/getProduct?prodNo=j">
+			      <a th:href ="@{/product/getProduct(prodNo = ${wishlist.product.prodNo})}" >
 				    		<p style="margin-bottom: 10px; font-weight: bold">[[${wishlist.product.prodName}]]<br></p>
 				    </a>
 				    <div style="display:flex;">
@@ -238,7 +241,6 @@ td{
 		 </span>
 	</form>
 
-	     <div th:replace="/main/footer.html"></div>
 </div>
 <!--  화면구성 div End /////////////////////////////////////-->
 
@@ -249,6 +251,8 @@ td{
 
 <script src="/js/jquery_min.js"></script>
 <script>
+
+
 
 	$(function(){		
 		//화면 진입시 선택옵션의 value에 따른 결제금액 측정 바로 되도록
@@ -430,6 +434,13 @@ td{
 			})
 			
 			$('.addOrderBtn').click(function(){
+				
+				if($('.inputBox').is(":checked")==false){
+					
+					$(this).attr('type',"button");
+					alert("장바구니에 상품이 없습니다.");
+				}else{
+					$(this).attr('type',"submit");
 				//배열선언
 				var chkArray = new Array();
 				var periodArray = new Array();
@@ -457,14 +468,15 @@ td{
 				
 				
 					
-				$('form').attr('method', 'POST').attr('action', '/wishlist/addWishRental');
+					$('form').attr('method', 'POST').attr('action', '/wishlist/addWishRental');
+				}
 			})
 			
 			
 		
 				
 			    
-			  
+			
 		})
 		dateChange();
 		function dateChange(){
