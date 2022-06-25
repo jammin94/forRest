@@ -248,7 +248,7 @@
 	 
 	 <!--대여횟수 불러오기 -->
 	 <select  id="getRentalCount"  parameterType="String"	resultType="int">
-	   select rentalCounting
+	   select IFNULL(SUM(rentalCounting),0)
 	 	FROM product
 	 	<where>
 	 		  prodNo = #{prodNo}

@@ -18,7 +18,8 @@ import com.mvc.forrest.service.domain.Img;
 @Service
 public class FileUtils {
 	
-	public final static String temDir ="C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+	//public final static String temDir ="C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+	public final static String temDir ="C:\\Users\\capta\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
 	
 	@Value("${file.path}")
 	private String fileRealPath;
