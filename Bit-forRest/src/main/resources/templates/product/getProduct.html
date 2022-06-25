@@ -278,19 +278,28 @@
 	background:#cc5656;
 }
 
-.star-rating,.star-rating span { 
+.star-rating span { 
 	display:inline-block; 
 	height:100%; 
 	overflow:hidden; 
-	background:url(/images/header/starMiniNull.png)no-repeat;
 } 
+
+.star-rating{
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+background: url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
+    position: relative;
+    top: -13px;
+    left: -6px;
+}
 
 #smStar{
 	font-size:0; 
 	line-height:0; 
 	vertical-align:top; 
 	
-	/* width: 100%;  이 값이 평점과 연관되어있음*/
+/* 	width: 100%;  */
 }
 
 </style>
@@ -336,7 +345,7 @@
          </a>
         </div>
         <div>
-            	<div style="font-size: 20px;">
+            	<div style="font-size: 20px; position:relative; top:8px;">
             	 [[${product.userProd.nickname}]] 
             	</div>
             	<div>
