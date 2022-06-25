@@ -151,7 +151,7 @@
 	  	SELECT t.prodNo, t.tranNo, t.userId, t.prodName, t.startDate, t.endDate, t.paymentDate, t.resultPrice,  p.recentImg, p.prodCondition
 	 	FROM product p, transaction t
 	 	<where>
-	 		 p.prodNo = t.prodNo AND  
+	 		 p.prodNo = t.prodNo AND  t.tranCode = 1 AND
 	 		(p.prodCondition ='물품대여승인신청중' OR 
 	 		 p.prodCondition = '배송중' OR
 	 		 p.prodCondition = '대여중')
@@ -186,20 +186,7 @@
 	 		
 	 		
 	 	</where>
-	 	<if test="orderCondition != null">
-	 		<if test='orderCondition == "tranNoASC"'>
-	 		ORDER BY t.tranNo ASC
-	 		</if>
-	 		<if test='orderCondition == "tranNoDESC"'>
-	 		ORDER BY t.tranNo DESC
-	 		</if>
-	 		<if test='orderCondition == "startDateASC"'>
-	 		ORDER BY t.startDate ASC
-	 		</if>
-	 		<if test='orderCondition == "startDateDESC"'>
-	 		ORDER BY t.startDate DESC
-	 		</if>
-	 	</if>
+	  ORDER BY t.paymentDate DESC LIMIT #{startRowNum}, #{pageSize}
 	 </select>
 
 	 <!--SELECT Total Count -->
@@ -222,7 +209,7 @@
 	  	SELECT COUNT(*)
 	  	FROM product p, transaction t
 	  	<where>
-	 		 p.prodNo = t.prodNo AND  
+	 		 p.prodNo = t.prodNo  AND  t.tranCode = 1 AND
 	 		(p.prodCondition ='물품대여승인신청중' OR 
 	 		 p.prodCondition = '배송중' OR
 	 		 p.prodCondition = '대여중')

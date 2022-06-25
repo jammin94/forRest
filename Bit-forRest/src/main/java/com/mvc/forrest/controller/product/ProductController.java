@@ -159,9 +159,11 @@ public class ProductController {
 
 		// 관리자가 물품의 상태변경 ( 대여 )
 		@RequestMapping("updateRentalProductCondition")
-		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
+		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo, @RequestParam("tranNo") String tranNo) throws Exception {
 			Product product = productService.getProduct(prodNo);		
-
+            Rental rental = rentalService.getRental(tranNo);
+            
+            
 			//대여관련
 			 if(product.getProdCondition().equals("물품대여승인신청중")) {
 				product.setProdCondition("배송중");
@@ -169,6 +171,7 @@ public class ProductController {
 				product.setProdCondition("대여중");
 			} else if(product.getProdCondition().equals("대여중")) {
 				product.setProdCondition("보관중");
+				rental.setComplete(1);
 			} 
 			
 			productService.updateProductCondition(product);
@@ -221,7 +224,7 @@ public class ProductController {
 			for(int i=0; i<prodNo.length; i++) {
 				
 				Product product = productService.getProduct(prodNo[i]);
-		
+			
 				//대여관련
 				
 				if(productCondition[i].equals("물품대여승인신청중")) {
