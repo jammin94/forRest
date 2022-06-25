@@ -152,7 +152,8 @@ public class RentalController {
 		
 		System.out.println(rental);
 		//2. getRental에서 쓰기위해 model을 통해 전달
-		model.addAttribute("rental",rental);
+		 model.addAttribute("payment", rentalService.getRental(rentalService.getPayment(paymentNo).get(0).getTranNo()));
+	//	model.addAttribute("rental",rental);
 //		model.addAttribute("product",product);
 //		model.addAttribute("user",user);
 		System.out.println("텟4");
