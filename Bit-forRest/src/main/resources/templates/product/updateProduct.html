@@ -142,7 +142,7 @@ select{
 	   
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-	 <form class="form-inline" name="detailForm" method="post">
+	 <form class="form-inline" name="detailForm" method="post" enctype="multipart/form-data">
 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		 <!--  table Start /////////////////////////////////////-->
 		 
@@ -195,7 +195,7 @@ select{
 	</colgroup><tbody>
 	<tr>
 		<td>물품이름</td>
-		<td><sapn th:text = "${product.prodName}"></sapn></td>
+		<td><sapn name="prodName" th:text = "${product.prodName}"></sapn></td>
 	</tr>
 
 	<tr>
@@ -353,7 +353,6 @@ select{
 <div style="padding:20px; margin-bottom:70px; margin-top:40px;" align="center" class="noline">
 	
 	<button class="update-btn">저장하기</button>
-	<button class="priv-btn">이전</button>
 </div>
 
 
@@ -486,7 +485,7 @@ $(function(){
 		 combineAccount();
 		 combineAddr();
 		 
-		 if($(this).is(":checked")){
+		 if($(".cbox").is(":checked")){
 			 if ( $("input[name='uploadFile']").length <3 ) {
 				
 			 alert("사진은 4장 이상 10장 이하로 등록해주세요.")
@@ -510,7 +509,7 @@ $(function(){
 			 $(".main-wrapper").hide();
 		 }
 	 })
-})
+});
 	
 
 </script>

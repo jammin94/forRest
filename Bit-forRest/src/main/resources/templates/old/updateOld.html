@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet" href="/css/addOld.css">
+<link rel="stylesheet" href="/css/updateOld.css">
 </head>
 <style>
 	.bullet .check.fas.fa-check{
@@ -52,7 +52,7 @@
 					<!-- 도전.. -->
 					
 					<input type="checkbox" class="cbox"> 이미지를 수정하고 싶습니다.
-					<div class="main-wrapper" style="display:flex; justify-content:center;">
+					<div class="main-wrapper" style="justify-content:center">
 					<div id="fileDiv">
 						<p>
 							<input type="file" id="file_0" name="uploadFile" style="display:none" onchange="change()">
@@ -166,7 +166,8 @@
 	$(function(){
 		$( ".submit" ).on("click" , function() {	
 			
-			 if ($("input[name='uploadFile']").length <3) {
+			if($(".cbox").is(":checked")){
+				 if ( $("input[name='uploadFile']").length <3 ) {
 				
 				 alert("사진은 4장이상 10장 이하로 등록해주세요.")
 				 return;
@@ -198,7 +199,9 @@
 
 						$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();			
 					  }
-				  
+			}else{
+				$("form").attr("method" , "POST").attr("action" , "/old/updateOld").submit();
+			}
 		
 			
 		})

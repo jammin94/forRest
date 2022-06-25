@@ -1,11 +1,7 @@
 package com.mvc.forrest.controller.report;
 
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.chat.ChatService;
 import com.mvc.forrest.service.domain.Old;
 import com.mvc.forrest.service.domain.Report;

@@ -259,7 +259,7 @@ public class OldController {
 
 //		//유저 평점 가져오기
 		Old old = oldService.getOldLogIn(loginuserId, oldNo);
-		System.out.println(oldNo+"올넘");
+		System.out.println(oldNo+"==올넘");
 		String userId = old.getUserId();
 
 		User user = userService.getUser(userId);
@@ -270,6 +270,7 @@ public class OldController {
 					
 		//이미지
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
+		System.out.println("올드이미지"+oldImgList);
 	
 		List<ChatRoom> chatList= chatRoomService.getListChatRoom(oldNo);
 		model.addAttribute("chatList", chatList);
@@ -354,8 +355,8 @@ public class OldController {
 		
 		System.out.println(this.getClass() + "겟수정");
 
-		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		String userId = loginUser.getUser().getUserId();
+//		LoginUser loginUser = (LoginUser) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//		String userId = loginUser.getUser().getUserId();
 
 		
 		model.addAttribute(oldService.getOld(oldNo));
@@ -376,7 +377,11 @@ public class OldController {
 		old.setOldNo(oldNo);
 
 		// flag: old인지 product인지
-		fileUtils.uploadFiles(uploadFile, oldNo, "old");
+		if(uploadFile.size()!=1) {
+			fileUtils.deleteImg(oldNo);
+			String mainImg=fileUtils.uploadFiles(uploadFile, oldNo, "old");
+			old.setOldImg(mainImg);
+		}
 
 		oldService.updateOld(old);
 

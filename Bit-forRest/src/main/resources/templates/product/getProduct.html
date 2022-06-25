@@ -210,8 +210,8 @@
 }
 
 .profileImg{
-	width:50px;
-	height:50px;
+	width:70px;
+	height:70px;
 }
 
 .thumbImg > img{
@@ -278,6 +278,30 @@
 	background:#cc5656;
 }
 
+.star-rating span { 
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+} 
+
+.star-rating{
+	display:inline-block; 
+	height:100%; 
+	overflow:hidden; 
+background: url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
+    position: relative;
+    top: -13px;
+    left: -6px;
+}
+
+#smStar{
+	font-size:0; 
+	line-height:0; 
+	vertical-align:top; 
+	
+/* 	width: 100%;  */
+}
+
 </style>
 
 
@@ -287,6 +311,7 @@
         <!-- Navigation-->
   <div th:replace="/main/toolbar.html"></div>
 
+		<input type="hidden" class="productUserId"  name="productUserId" th:value="${product.userId}">
 		
 <div class = "card-wrapper">
   <div class = "card">
@@ -321,11 +346,15 @@
          </a>
         </div>
         <div>
-            	<div>
+            	<div style="font-size: 20px; position:relative; top:8px;">
             	 [[${product.userProd.nickname}]] 
             	</div>
-            	 <div>
-		         [[${product.userProd.userRate}]]  
+            	<div>
+            	<span class="star-rating">
+	            		<span id="smStar"><img src="/images/header/starMini.png" ></span>
+	            	</span>
+            	</div>
+            	 <div id="userRate" th:text="${product.userProd.userRate}" style="display: none;">
 		        </div>
         		
         </div>
@@ -367,8 +396,8 @@
           <span>
           </span></li>
       
-       
-         <li style="margin-top:78px !important; color:#000;">
+        <!-- 내 물건이면 안보임 -->
+         <li style="margin-top:78px !important; color:#000; "   th:if="${product.userId} != ${sessionUser.userId}">
          	= 결제금액 
           </li>
         </ul>
@@ -390,17 +419,18 @@
           <li>
           <span>
            <select class="selectBox" name="selection">
-           				 <option  value=2>-- 선택 --</option>
                         <option value=2>1박2일</option>
                         <option value=3>2박3일</option>
                         <option value=4>3박4일</option>
                         <option value=5>4박5일</option>
                         </select>
-          </span></li>
+          </span>
+          </li>
       
-	
-         <li>
-         <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px; margin-top:40px !important; font-size:25px;color:red; " readonly/><span style="color:#000;font-weight:bold;">원</span> </li>
+	 <!-- 내 물건이면 안보임 -->
+         <li  th:if="${product.userId} != ${sessionUser.userId}">
+         <input type="text"  id="PayPrice" class="PayPrice"   name="PayPrice"   style="border:none;width:100px; margin-top:40px !important; font-size:25px;color:red; " th:value="${product.rentalPrice}" readonly/><span style="color:#000;font-weight:bold;">원</span>
+          </li>
         </ul>
         </div>
         
@@ -424,7 +454,7 @@
           장바구니 <i class = "fas fa-shopping-cart"></i>
         </button>
         <input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
-        <input type="hidden" id="period" name="period" value="1"/>
+        <input type="hidden" id="period" name="period"/>
       </div>
       
 
@@ -483,18 +513,21 @@ flex-none, flex-initial, flex-auto, flex-1
                               	<img class="profileImg" th:src= "@{/images/uploadFiles/} + ${rentalreview.user.userImg}"  onerror="this.src='/images/uploadFiles/noUserImg.jpg'"></img>
                               <!--  	<span style="padding:0 10px;" th:text="${rentalreview.reviewScore}"> -->
                               	</span>
-                              	   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview1.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview2.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview3.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview4.png">
-                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:100px;" src="/images/uploadFiles/rentalStarReview5.png">
-                              </div>
-                                <div>                                 
-                                    <div>
+                              	<div>
+                              	  	<div style="position:relative;top:-10px;left:10px;">
+                              		   		<img  th:if="${rentalreview.reviewScore} == '1' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview1.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '2' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview2.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '3' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview3.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '4' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview4.png">
+                              	   		<img  th:if="${rentalreview.reviewScore} == '5' "  style="width:130px;" src="/images/uploadFiles/rentalStarReview5.png">
+                              	</div>
+                                    <div style="position:relative; top:-27px;left:13px;">
                                         <strong th:text="${rentalreview.user.nickname}"></strong>
                                         <span  th:text="${rentalreview.regDate}"></span>
                                         </div>
                                   </div>
+                              </div>
+                          
                                     <div class="listCursor">
                                		     <div class="reviewImg">
                                		     		<!--  테스트용 경로: 이미지경로는 추후 변경 일단 요래하면 됨 -->
@@ -532,6 +565,9 @@ $(function(){
 	
 })
 $(function(){
+	
+
+	  $('#PayPrice').val($(".commaPrice").text().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace("원",""));
 
     $('.listCursor').on('click',function(){
 		console.log('listcursor');
@@ -600,16 +636,34 @@ $(function(){
     
     //렌탈뷰 페이지로 이동
      $('#rental-btn').on("click",function(){
+    	 var productUserId = $('.productUserId').val();
+    	 var rentalPrice =    $(".rentalFee").val();	
+    		var select = $(".selectBox option:selected").val();
+        	console.log("선택값:"+select);
+        	 console.log("rentalPrice:"+rentalPrice);
+        	 
+        	$("#period").val(select);
     	 
-    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+    	 alert($("#period").val());
+    	 
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
     })
     
     $('#rentalMyPro').on("click",function(){
-    	 
-    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val();
+   	 var productUserId = $('.productUserId').val();
+       alert("꺼내쓰기시 택배비 3000원이 결제됩니다");
+    	
+    	self.location = "/rental/addRental?prodNo="+$("#prodNo").val()+"&period="+ $("#period").val()+"&productUserId="+productUserId;
     })
     
-    
+	var userRate = $('#userRate').text();
+	userRate = userRate.substr(0,3);
+	$('#userRate').text(userRate);
+	if(userRate==0.0){
+		userRate = $('#userRate').text("4.0");
+		$('#smStar').width(($('#userRate').text()*20)+"%");
+	}
+	$('#smStar').width(($('#userRate').text()*20)+"%");
    
     
     

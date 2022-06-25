@@ -123,5 +123,11 @@ public class RentalService {
 
 		}
 		
+		public void updateComplete(Rental rental) throws Exception{
+
+			rentalDAO.updateComplete(rental);
+
+		}
+		
 
 }

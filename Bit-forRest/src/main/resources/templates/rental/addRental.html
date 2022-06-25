@@ -178,9 +178,15 @@ input{
 					    	</span>
 						</div>
 				    </td>
-				        <td align="center" class="getRentalPrice">
-				    	[[${product.rentalPrice}]]원 
-				    </td>
+				    <span class="hiddenGetRentalPrice" style="display:none;" th:text="${product.rentalPrice}"></span>
+				     <td th:if="${productUserId}==${userId}">
+						 	<span> 3000원</span>
+		 			</td> 
+		 			
+				        <td th:unless="${productUserId}==${userId}" align="center" class="getRentalPrice">
+				    		[[${product.rentalPrice}]]원 
+				      </td>
+				    	
 			    </tr>
 			
 	        </tbody>
@@ -307,7 +313,7 @@ input{
 
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
 <tbody>
-<tr>
+<tr 	th:if="${productUserId}!=${userId}">
 	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
 		03 쿠폰 
 	</td>
@@ -328,7 +334,10 @@ input{
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	<td th:if="${productUserId}!=${userId}" width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:40px !important;">
+		04 결제금액
+	</td>
+	<td th:unless="${productUserId}!=${userId}" width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:10px !important;">
 		04 결제금액
 	</td>
 	<td style="padding:10px">
@@ -337,12 +346,16 @@ input{
 	<colgroup><col width="100">
 	</colgroup><tbody>
 	
-	<tr>
+	<tr	th:if="${productUserId}!=${userId}">
 		<td>합계금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">[[${product.rentalPrice}]]</p> 원</td>
+		<td 	th:if="${productUserId}==${userId}">
+			3000원
+		</td>
+		
+		<td 	th:unless="${productUserId}==${userId}"><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">[[${product.rentalPrice}]]</p> 원</td>
 	</tr>
 	
-	<tr>
+	<tr	th:if="${productUserId}!=${userId}">
 		<td>쿠폰할인금액</td>
 		<td>
 			<p id="couponPrice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</p> 원
@@ -353,7 +366,16 @@ input{
 
 	<tr>
 		<td>총 결제금액</td>
-		<td><span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">[[${product.rentalPrice}]]</span> 원</td>
+
+ 		 <td th:if="${productUserId}==${userId}">
+		 	<span> 3000원</span>
+		 </td> 
+		 
+		 <td th:unless="${productUserId}==${userId}">
+				 <span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">[[${product.rentalPrice}]]</span> 원
+		</td>
+		
+		
 		<input type="hidden" name="resultPrice" class="resultHiddenPrice"></input>
 	</tr>
 	</tbody></table>
@@ -378,6 +400,18 @@ input{
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$(function(){
+	var calculatePrcie =$('.period').text()*parseInt($(".hiddenGetRentalPrice").text()) * 0.5;
+	console.log("기간"+ $('.period').text());
+	console.log("머니"+parseInt($(".hiddenGetRentalPrice").text()));
+	
+	console.log($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
+	
+	$('.getRentalPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())+"원");
+	$("#paper_goodsprice").text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
+	$('#resultPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
+		
+})
 $(function(){
 	$('#check_module').click(function(){
 		

@@ -2,14 +2,11 @@ package com.mvc.forrest.common.utils;
 
 
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -84,6 +81,11 @@ public class FileUtils {
 	public List<Img> getAnnounceImgList(String boardNo) throws Exception{
 		System.out.println("getAnnounceImgList 실행 됨");
 		return imgDAO.getAnnounceImgList(boardNo);
+	}
+	
+	public void deleteImg(String contentsNo) throws Exception{
+		System.out.println("deleteImg 실행 됨");
+		imgDAO.deleteImg(contentsNo);
 	}
     
     
