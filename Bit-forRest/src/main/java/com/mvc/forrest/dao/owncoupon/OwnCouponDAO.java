@@ -20,4 +20,6 @@ public interface OwnCouponDAO {
 	public List<OwnCoupon> getOwnCouponList(String userId) throws Exception ;
 	
 	public int getTotalCount(String userId) throws Exception ;
+	
+	public List<OwnCoupon> checkOwnCoupon(OwnCoupon ownCoupon) throws Exception ;
 }

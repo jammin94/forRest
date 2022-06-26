@@ -655,7 +655,11 @@ $(document).ready(function(){
 	if('{{immediate}}'!==''){
 
 		//바로 채팅창 띄워주기
-		window.open('http://localhost:3001/oldChat/'
+		console.log('{{immediate.chatRoomNo}}');
+		console.log('{{immediate.oldNo}}');
+		
+		//window.open('http://localhost:3001/oldChat/'
+		window.open('/oldChat/'
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','_blank',
 		'width=500');
 	}
