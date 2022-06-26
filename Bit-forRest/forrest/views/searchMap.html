@@ -309,13 +309,14 @@ function removeAllChildNods(el) {
     }
 }
  
-function addMap(place){
+async function addMap(place){
 	const chat_RoomNo= $('input[name="chatRoomNo"]').val();
 	const old_No= $('input[name="oldNo"]').val();
 	console.log('서치 맵 안에서 bridge');
 	
-	axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No});
-	//window.close();
+		window.close();
+	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No});
+
  }
  
 </script>

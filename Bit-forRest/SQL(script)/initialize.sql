@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `oldreview` (
   `oldNo` varchar(40) NOT NULL,
   `reviewDetail` varchar(100) DEFAULT NULL,
   `userRate` double DEFAULT NULL,
-  `reviewDate` date NOT NULL DEFAULT curdate(),
+  `reviewDate` date NOT NULL DEFAULT (CURRENT_DATE),
   PRIMARY KEY (`oldReviewNo`),
   KEY `reviewUserId` (`reviewUserId`),
   KEY `reviewedUserId` (`reviewedUserId`),
