@@ -803,10 +803,21 @@ router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
   }
 });
 
-//teset
-router.get('/', async (req, res, next) => {
+//addReview
+router.post('/add/review', async (req, res, next) => {
+	
   try {
-	res.render('');
+	let query=Query.addOldReview;
+	    const addOldReview = await db.sequelize.query(query, {
+	      replacements: {
+			reviewUserId : req.body.reviewUserId, 
+			reviewedUserId : req.body.reviewedUserId, 
+			oldNo : req.body.oldNo, 
+			reviewDetail : req.body.reviewDetail, 
+			userRate : req.body.userRate}, 
+	      type: QueryTypes.INSERT,
+	      raw: true
+	    });
   }catch (err) {
     console.error(err)
     next(err)
