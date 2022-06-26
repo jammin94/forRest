@@ -10,6 +10,8 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.all.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="/js/imagePreview.js"/>
@@ -84,7 +86,7 @@
 		  <th:block th:each="image :${imageList}">
 		  	<img th:src= "@{/images/uploadFiles/} + ${image.fileName}" alt="공지사항 사진"  style="display: flex; justify-content: center;"/>
 		  </th:block>
-	      <p style="text-align:center"><a href="/coupon/addOwnCoupon?couponNo=4" class="btn btn-default" role="button" >쿠폰받기</a></p>
+	      <span style="text-align:center" onclick="addCoupon()" class="btn btn-default" role="button" >쿠폰받기</a></span>
 	      <div class="caption">
 	        <h3>[[${board.boardDetail}]]</h3>
 	      </div>
@@ -117,21 +119,51 @@
 
 </body>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/jquery_min.js"></script>
-	<script>
-	  $(document).ready(function() {
-			"use strict";
-			
+<script>
+  $(document).ready(function() {
+		"use strict";
+		
 
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
-	  })
+	    // Preloader 
+	    jQuery(window).on('load', function() {
+	        jQuery("#status").fadeOut();
+	        jQuery("#preloader").delay(350).fadeOut("slow");
+	    });
+  })
+  
+  async function addCoupon(){
+	  await axios.get('/coupon/addOwnCoupon?couponNo=$(board.couponURL)')
+		  .then(function (response) {
+		    // 성공했을 때
+		    console.log(response);
+		    if(response){
+		    	Swal.fire({
+				  icon: 'success',
+				  title: '감사합니다!',
+				  showConfirmButton: true,
+				});
+		    }else{
+		    	Swal.fire({
+				  icon: 'warning',
+				  title: '이미 받은 쿠폰입니다.',
+				  showConfirmButton: true,
+				});
+		    }
+		    
+		  })
+		  .catch(function (error) {
+		    // 에러가 났을 때
+		    console.log(error);
+		    Swal.fire({
+			  icon: 'warning',
+			  title: '서버 오류. 다시 시도해 주세요',
+			  showConfirmButton: true,
+			});
+		  })
 	  
-	</script>
-	
-	<!--  <script src="/js/custom.js"></script> -->
-<!-- <script src="/js/custom.js"></script> -->
+	 
+	}
+</script>
 </html>

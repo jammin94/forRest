@@ -15,7 +15,7 @@
 <script src="https://use.typekit.net/hoy3lrg.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.all.min.js"></script>
+<!-- <script src="sweetalert2.all.min.js"></script>-->
 
 
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
@@ -161,6 +161,10 @@ body {
 
 #frame .content .messages ul li .sent{
   float: right; /*원래 없었음*/
+}
+
+#frame .content .messages ul li .replies{
+  float: left; /*원래 없었음*/
 }
 
 #frame .content .messages ul li.system{
@@ -380,22 +384,22 @@ body {
 			
 			  {% if chatList.map %}
 			  	{% if chatList.sendUserId === user.userId %} 
-			  		<div name="map" id="{{chatList.map}}" class="sent" style="width:300px;height:300px;"></div>
+			  		<div name="map" id="{{chatList.map}}" class="sent" style="width:300px;height:300px;"></div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			  	{% else %} 
-			  		<div name="map" id="{{chatList.map}}" class="replies" style="width:300px;height:300px;"></div>
+			  		<div name="map" id="{{chatList.map}}" class="replies" style="width:300px;height:300px;"></div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			  	{% endif %}
 			  {% elif chatList.fileName %}
 			  	{% if chatList.fileName!='UnhappyMediocreCommongonolek-size_restricted.gif' %}
 				  	{% if chatList.sendUserId === user.userId %} 
-				  		<img src="/image/{{chatList.fileName}}" name="img" class="sent" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
+				  		<img src="/image/{{chatList.fileName}}" name="img" class="sent" onclick="window.open(this.src)" style="width:300px;height:300px;"></img><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				  	{% else %} 
-				  		<img src="/image/{{chatList.fileName}}" name="img" class="replies" onclick="window.open(this.src)" style="width:300px;height:300px;"></img>
+				  		<img src="/image/{{chatList.fileName}}" name="img" class="replies" onclick="window.open(this.src)" style="width:300px;height:300px;"></img><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				  	{% endif %}
 				{% else %}
 					{% if chatList.sendUserId === user.userId %} 
-				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="sent" onclick="alert()" style="width:300px;height:300px;"></img>
+				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="sent" onclick="alert()" style="width:300px;height:300px;"></img><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				  	{% else %} 
-				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="replies" onclick="window.open('/')" style="width:300px;height:300px;"></img>
+				  		<img src="/image/UnhappyMediocreCommongonolek-size_restricted.gif" name="img" class="replies" onclick="alert()" style="width:300px;height:300px;"></img><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 				  	{% endif %}
 				{% endif %} 	
 			  {% else %}
@@ -655,6 +659,25 @@ if(data.chat[0].map==null && data.chat[0].fileName==null){
 		divdiv.classList.add('replies');
 	}
   li.appendChild(divdiv);
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  li.appendChild(document.createElement('br'));
+  
   
 }else{
 	
@@ -666,7 +689,7 @@ if(data.chat[0].map==null && data.chat[0].fileName==null){
 	
 	if(data.review==true){
 		img.addEventListener("click", function() {
-		window.open("/views/addOldReview.html");
+			alert();
 		});
 	}else{
 		img.addEventListener("click", function() {
@@ -680,6 +703,24 @@ if(data.chat[0].map==null && data.chat[0].fileName==null){
 		img.classList.add('replies');	
 	}
 	 li.appendChild(img);
+	 li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
+	  li.appendChild(document.createElement('br'));
 }
   
   li.appendChild(document.createElement('br'));
@@ -738,6 +779,7 @@ $(".messages").animate({ scrollTop: $('.messages')[0].scrollHeight }, "slow");
 function newMessage(){
   var text = $("input[type='text']").val().trim();
   var is_Connected = $("#isConnected").val().trim();
+  alert('메세지 보내기!');
   if(text!=''){
     axios.post('/oldChat/chat/{{old.oldNo}}?chatRoomNo={{chatRoomNo}}',{
       chat: text,
