@@ -86,7 +86,8 @@
 		  <th:block th:each="image :${imageList}">
 		  	<img th:src= "@{/images/uploadFiles/} + ${image.fileName}" alt="공지사항 사진"  style="display: flex; justify-content: center;"/>
 		  </th:block>
-	      <span style="text-align:center" onclick="addCoupon()" class="btn btn-default" role="button" >쿠폰받기</a></span>
+	      <span style="text-align:center" onclick="addCoupon()" class="btn btn-default" role="button" th:value="${board.couponURL}">쿠폰받기</span>
+	      <input type="hidden" id="couponNo" th:value="${board.couponURL}"/>
 	      <div class="caption">
 	        <h3>[[${board.boardDetail}]]</h3>
 	      </div>
@@ -134,11 +135,13 @@
   })
   
   async function addCoupon(){
-	  await axios.get('/coupon/addOwnCoupon?couponNo=$(board.couponURL)')
+	  var coupon=$("#couponNo").val();
+	  var boardNo=$("#boardNo").val();
+	  await axios.get('/coupon/json/addOwnCoupon?couponNo='+coupon+'&boardNo='+boardNo)
 		  .then(function (response) {
 		    // 성공했을 때
 		    console.log(response);
-		    if(response){
+		    if(!response){
 		    	Swal.fire({
 				  icon: 'success',
 				  title: '감사합니다!',
