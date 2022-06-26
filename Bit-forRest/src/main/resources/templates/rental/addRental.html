@@ -407,9 +407,9 @@ $(function(){
 	
 	console.log($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
 	
-	$('.getRentalPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())+"원");
-	$("#paper_goodsprice").text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
-	$('#resultPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
+	$('.getRentalPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2+"원");
+	$("#paper_goodsprice").text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2);
+	$('#resultPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2);
 		
 })
 $(function(){
@@ -450,7 +450,7 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			}
 			//////////////////////////////////////////////////////////////////////////////////////
 			
-			
+			console.log("디버기어깅");
 		request_pay();
 	})
 
@@ -459,14 +459,17 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			var paymentResultPrice = parseInt($('#resultPrice').text());
 			var prodName = $("input[name='prodName']").val();
 			console.log("?");
+			console.log(tranNo);
+			console.log(paymentResultPrice);
+			console.log(prodName);
 			IMP.init("imp88340030");
 				
 			 IMP.request_pay({
 			    	pg : "html5_inicis", 
 			        pay_method : 'card',
 			        merchant_uid :tranNo,//주문번호
-			        name : prodName,
-			        amount : 100,
+			        name : '에탄올 난로 미니',
+			        amount : paymentResultPrice,
 			    }, function(rsp) {
 	    	console.log(rsp);
 	    	$.ajax({
