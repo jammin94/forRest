@@ -201,7 +201,7 @@ margin-bottom: 210px !important;
 		<div th:each = "oldReview : ${oldReviewList}" style="display: flex; 
 					margin: 15px 0px 15px 250px;">
 			<div style="display: block; width: 150px;">
-				<a>
+				<a th:href="@{/user/getUser(userId=${oldReview.reviewUser.userId})}">
 					<img th:src= "@{/images/uploadFiles/}+${oldReview.reviewUser.userImg}"
 						 onerror="this.src='/images/uploadFiles/noUserImg.jpg'" 
 						 width="130" height="130" style="border-radius: 70%;" >				
@@ -210,8 +210,8 @@ margin-bottom: 210px !important;
 			</div>
 			<div style="width: 100%;" >
 				<div style="display: flex;">
-					<div>
-		           		<strong th:text="${oldReview.reviewUser.nickname}"></strong>
+					<div >
+		           		<strong th:text="${oldReview.reviewUser.nickname}" ></strong>
 					</div>
 					<div>
 		                <span  th:text="${oldReview.reviewDate}" style="margin-left: 400px; "></span>
@@ -224,7 +224,9 @@ margin-bottom: 210px !important;
 		    	 	<span  id="reviewRate" style="padding:0 10px;" th:text="${oldReview.userRate}"></span>
 				</div>
 				<div>
+				<a  th:href="@{/old/getOld(oldNo=${oldReview.old.oldNo})}">
 		    	 	<span style="padding:0 10px;" th:text="${oldReview.old.oldTitle}"></span>
+				</a>
 				</div>
 				<div>
 		        	<span class="reviewContent"  th:text="${oldReview.reviewDetail}"></span>
