@@ -289,7 +289,7 @@ public class OldController {
 		List<Old> list= oldService.getOldListCategory(old);
 		List<Old> listUser = oldService.getOldListOthers(old);
 		
-		
+		model.addAttribute("user",user);
 		model.addAttribute("list", list);
 		model.addAttribute("listUser", listUser);
 		
