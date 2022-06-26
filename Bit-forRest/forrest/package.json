@@ -21,7 +21,8 @@
     "nunjucks": "^3.2.3",
     "sequelize": "^5.22.5",
     "sequelize-cli": "^5.5.1",
-    "socket.io": "^2.4.1"
+    "socket.io": "^2.4.1",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "jest": "^28.1.0",

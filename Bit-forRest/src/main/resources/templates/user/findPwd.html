@@ -35,9 +35,15 @@
 						$("#checkSMS").click(function(){
 							var sms = $("#sms").val();
 							if(data==sms){
-								alert("인증에 성공하였습니다.");
-							}else{
-								alert("인증에 실패하였습니다.");
+								Swal.fire({
+									title: '인증성공',       
+									icon:  'success',                   
+									});
+								}else{
+									Swal.fire({
+										title: '인증실패',       
+										icon:  'error',                   
+										});
 							}
 						})
 					}
