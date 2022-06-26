@@ -207,10 +207,11 @@ article {
     <nav>
       <div class="nav-mobile"><a id="nav-toggle" ><span></span></a></div>
       <ul class="nav-list">
-      
+      <th:block sec:authorize="hasAuthority('admin')">
       	<li sec:authorize="isAuthenticated()">
       		<a th:href="@{/firebase/messageTest}">메세지테스트</a>
       	</li>
+      	</th:block>
         <li sec:authorize="isAnonymous()">
             <a th:href="@{/old/listOld}">중고마켓</a>
         </li>
@@ -281,9 +282,11 @@ article {
                <a th:href="@{/storage/listStorage}">마이페이지</a>
              
             </li>
+            <th:block sec:authorize="hasAuthority('admin')">
             <li>
               <a th:href="@{/rental/listRentalForAdmin}">운영자 관리</a>
             </li>
+            </th:block>
               <li>
             </li>
             <li>

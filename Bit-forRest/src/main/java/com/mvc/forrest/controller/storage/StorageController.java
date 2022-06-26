@@ -253,6 +253,10 @@ public class StorageController {
 	@RequestMapping("getStorage")
 	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
 		
+		if(tranNo == null) {
+			return  "storage/storageMain";
+		}
+		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 
 		return "storage/getStorage";

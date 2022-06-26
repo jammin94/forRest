@@ -151,20 +151,14 @@ div img{
 	font-size: 1rem;
 	font-style: italic;
 	margin-top:0rem;
-	margin-right: 0px;
+	margin-right: -44px;
 }
 .userProfile img{
-	width:30% !important;
-	
+	width:50% !important;
 	margin-top:0rem;
 	border-radius:100%;
-	padding-right:0 !important;
-}
-
-/* .userProfile a{ */
 /* 	padding-right:0 !important; */
-/* 	width:0rem; */
-/* } */
+}
 .userProfile span{
 	font-size:1.4rem;
 	padding-top: 0;
@@ -252,8 +246,16 @@ div img{
     background:   #8000ff;
 }
 .purchase-info .btn:last-of-type{
+    background:   #ce8a35;
+}
+
+.purchase-info2 .btn:first-of-type{
     background:   #8000ff;
 }
+.purchase-info2 .btn:last-of-type{
+    background:    #8000ff;
+}
+
 .purchase-info .btn:hover{
     opacity: 0.8;
     color:#000000;

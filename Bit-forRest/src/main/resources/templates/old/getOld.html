@@ -306,15 +306,11 @@ select:focus { outline: none; }
 						<tr>
 							<td>
 
-								<div class="userProfile">
-
-
-									<a th:href="@{/user/getUser(userId=${old.userId})}"
-										style="height: 54;"> <img
-										src="https://randomuser.me/api/portraits/men/52.jpg"
-										alt="A man smiling" /></a>
-
-								</div>
+							<div class="userProfile">
+								<a th:href="@{/user/getUser(userId=${old.userId})}" >
+									<img th:src=  "@{/images/uploadFiles/} + ${user.userImg}"  onerror="this.src='/images/uploadFiles/noUserImg.jpg'"  >
+								</a>
+							</div>
 
 							</td>
 
@@ -328,22 +324,9 @@ select:focus { outline: none; }
 							            	
 								</div>
 							<div>								  									   											
-												<span class="a" th:text=${old.userId} style="position:relative;top:-20px;"></span>
+												<span class="a" th:text=${user.userId} style="position:relative;top:-20px;"></span>
 											</div>
-
-								<div class="product-rating">
-								
-<!-- 
-								<i class="fas fa-star"></i>
-									 <i class="fas fa-star"></i> 
-									 <i class="fas fa-star"></i>
-									  <i class="fas fa-star"></i> 
-									  <i class="fas fa-star-half-alt"></i>
-									  --> 
-									  
-									  
-
-								</div>
+							
 
 							</td>
 						</tr>

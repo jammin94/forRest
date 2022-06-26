@@ -194,8 +194,12 @@ public class OldController {
 		User user = userService.getUser(userId);
 		System.out.println("불러온 유저" + user);
 
+	
+		
 		double oldReview = oldReviewService.getUserRate(userId);
 		user.setUserRate(oldReview);
+		
+		
 					
 		//이미지
 		List<Img> oldImgList = fileUtils.getOLdImgList(oldNo);
@@ -212,6 +216,7 @@ public class OldController {
 		List<Old> listUser = oldService.getOldListOthers(old);
 		
 		
+		model.addAttribute("user",user);
 		model.addAttribute("list", list);
 		model.addAttribute("listUser", listUser);
 		
