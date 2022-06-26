@@ -77,6 +77,13 @@
 	  	WHERE userId = #{ownUser.userId}
 	 </select>
 	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="checkOwnCoupon"	parameterType="OwnCoupon"	resultMap="ownCouponSelectMap">
+		SELECT *
+		FROM owncoupon
+		WHERE couponNo = #{ownCoupon.couponNo}
+		AND userId = #{ownUser.userId}
+	 </select>
 	
 	
 </mapper>
