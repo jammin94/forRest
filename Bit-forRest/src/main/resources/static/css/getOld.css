@@ -151,14 +151,20 @@ div img{
 	font-size: 1rem;
 	font-style: italic;
 	margin-top:0rem;
-	margin-right: -44px;
+	margin-right: 0px;
 }
 .userProfile img{
-	width:50% !important;
+	width:30% !important;
+	
 	margin-top:0rem;
 	border-radius:100%;
-/* 	padding-right:0 !important; */
+	padding-right:0 !important;
 }
+
+/* .userProfile a{ */
+/* 	padding-right:0 !important; */
+/* 	width:0rem; */
+/* } */
 .userProfile span{
 	font-size:1.4rem;
 	padding-top: 0;
