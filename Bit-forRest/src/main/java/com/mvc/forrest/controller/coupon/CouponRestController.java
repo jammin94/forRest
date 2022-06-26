@@ -1,19 +1,30 @@
 package com.mvc.forrest.controller.coupon;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Coupon;
+import com.mvc.forrest.service.domain.OwnCoupon;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Search;
+import com.mvc.forrest.service.domain.User;
+import com.mvc.forrest.service.user.UserService;
 
 
 @RestController
@@ -22,6 +33,9 @@ public class CouponRestController {
 
 	@Autowired
 	private CouponService couponService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Value("5")
 	int pageUnit;
@@ -71,6 +85,39 @@ public class CouponRestController {
 		return map;
 	}
 	
+	@RequestMapping("json/addOwnCoupon")
+	public boolean addOwnCoupon(@RequestParam String couponNo, @RequestParam String boardNo) throws Exception{
+		
 	
-	
+		LoginUser sessionUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.getUser(sessionUser.getUser().getUserId());
+		Coupon coupon = couponService.getCoupon(couponNo);
+		OwnCoupon oc = new OwnCoupon();
+		
+		Calendar cal = Calendar.getInstance();
+		Timestamp t1 = new Timestamp(System.currentTimeMillis());
+		Timestamp t2 = new Timestamp(System.currentTimeMillis());
+		
+		cal.setTime(t1);
+		cal.add(Calendar.DATE, 30);
+		t2.setTime(cal.getTime().getTime());
+		
+		oc.setOwnCoupon(coupon);
+		oc.setOwnUser(user);
+		oc.setOwnCouponCreDate(t1);
+		oc.setOwnCouponDelDate(t2);
+		
+		List<OwnCoupon> ocList =  couponService.checkOwnCoupon(oc);
+		System.out.println(ocList);
+		
+		if(ocList.size()>0) {
+//			쿠폰이 있는경우
+			return true;
+		}else {
+//			쿠폰이 없는경우
+			couponService.addOwnCoupon(oc);
+			return false;
+
+		}
+	}
 }

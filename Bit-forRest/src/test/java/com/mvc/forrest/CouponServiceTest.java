@@ -34,7 +34,7 @@ public class CouponServiceTest {
 	@Autowired
 	private OwnCouponDAO ownCouponDao;
 	
-	@Test
+//	@Test
 	public void testAddCoupon() throws Exception{
 //		Coupon c = new Coupon();
 //		Calendar cal = Calendar.getInstance();
@@ -117,6 +117,28 @@ public class CouponServiceTest {
 		
 		System.out.println(oc);
 		
+	}
+	
+//	@Test
+	public void testCehckOwnCouponList() throws Exception{
+		
+		User user = new User();
+		String userId = "user01@naver.com"; 
+		user.setUserId(userId);
+
+		Coupon coupon = new Coupon();
+		String couponNo = "2";
+		coupon.setCouponNo(couponNo);
+		
+		OwnCoupon oc = new OwnCoupon();
+		oc.setOwnUser(user);
+		oc.setOwnCoupon(coupon);
+		
+		List<OwnCoupon> ocList = ownCouponDao.checkOwnCoupon(oc);
+		System.out.println("    "+ocList);
+		
+		
+
 	}
 
 }

@@ -23,6 +23,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 	
@@ -338,7 +339,7 @@ select:focus { outline: none; }
 				<div class="loginUser">
 					<span sec:authorize="isAuthenticated()">
 					 <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
-					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
+					<a th:href="@{'http://localhost:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
 					<button type="button" class="btn" th:if="${#authentication.principal.user.userId} !=${old.userId}">
 					채팅하기
 					<i class="fa-solid fa-comments"></i>
@@ -539,7 +540,7 @@ select:focus { outline: none; }
 	  			<select class="selectBox" name="reviewedUser.userId">
 	  				<span class="chatUserList" th:each = "userList : ${chatList}">
 	           			<option name="reviewedUser.userId" th:value="${userList.inquireUserId}">[[${userList.inquireUserId}]]</option>
-	                </sapn>
+	                </span>
                 </select>
 	  			<input type="hidden" id="oldNo" name="old.oldNo" th:value="${old.oldNo}"/>
 	  			
@@ -687,14 +688,16 @@ $('.close').on("click",function(){
 	  $('.reviewBackground').removeClass("on");
 })
 
-$('.regBtn').on("click",function(){
+$('.regBtn').on("click", async function(){
 	
 	  $('#review-form').removeClass("on");
 	  $('.reviewBackground').removeClass("on");
 	  
 	  $(".reviewDone").val(1);
+	  let inquireUserId=$("option:selected").val();
+	  let oldNo=$("#oldNo:first").val();
 	  
-	  
+	  //await axios.get('http://localhost:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
 	  
 	  console.log("리뷰돈"+$(".reviewDone").val());
 	  
@@ -713,7 +716,7 @@ function sold(){
 
 
 
-		$( ".heart" ).on("click" , function() {	        
+		$(".heart").on("click" , function() {	        
 			
 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
 			console.log(oldNo);

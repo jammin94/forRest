@@ -278,7 +278,7 @@ router.get('/list/:userId', async (req, res, next) => {
 router.get('/:oldNo', async (req, res, next) => {
   try {
 	console.log('req.session.user : '+ req.session.user)
-	
+	console.log('req.query.chatRoomNo : '+req.query.chatRoomNo);
 	//접속하면 읽음표시 ㄱㄱ
     let query=Query.updateReadOrNot;
     const updateReadOrNot = await db.sequelize.query(query, {
@@ -666,14 +666,26 @@ router.post('/chat/:oldNo/image', upload.array('imageArray'), async (req, res, n
 });
 
 //리뷰사진보내기 
-// '/oldChat/oldReview/:chatRoomNo/:userId'
-router.get('/oldReview/:chatRoomNo/:userId', async (req, res, next) => {
+// '/oldChat/oldReview/:oldNo/:inquireUserId'
+router.get('/oldReview/:oldNo/:inquireUserId', async (req, res, next) => {
   try {
-    const roomNo = req.params.chatRoomNo;
+	let query =Query.getChatRoomNo;
+	const getChatRoomNo = await db.sequelize.query(query, {
+	      replacements: 
+	      { oldNo : req.params.oldNo,
+	        inquireUserId : req.params.inquireUserId,
+	        }, 
+	      type: QueryTypes.SELECT,
+	      raw: true
+	    });
+	
+    const roomNo = getChatRoomNo[0];
+    console.log('리뷰사진보내기 : chatRoomNo : '+roomNo);
     const chatMessage = 'system: 판매자가 리뷰를 보냈습니다! 판매자에게 구매를 남겨주시면 평점에 큰 도움이 됩니다! 사진 클릭 시 평점을 남길 수 있는 창으로 이동합니다';
-    const sessionUser = req.params.userId;
+    const sessionUser = req.params.inquireUserId;
+     console.log('리뷰사진보내기 : sessionUser : '+sessionUser);
     
-	let query =Query.insertImage;
+	query =Query.insertImage;
 	let insertImage = await db.sequelize.query(query, {
 	      replacements: 
 	      { chatRoomNo : roomNo,
@@ -805,7 +817,6 @@ router.get('/oldChat/delete/:chatRoomNo', async (req, res, next) => {
 
 //addReview
 router.post('/add/review', async (req, res, next) => {
-	
   try {
 	let query=Query.addOldReview;
 	    const addOldReview = await db.sequelize.query(query, {
