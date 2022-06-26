@@ -147,7 +147,13 @@ prevBtnSixth.addEventListener("click", function(){
 	//
 	var regExp = /^[0-9]*$/;
 	
-//////////////////////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////
+
+    if ( $("input[name='uploadFile']").length <5 || $("input[name='uploadFile']").length > 9) {
+				
+				 alert("사진은 4장 이상 10장 이하로 등록해주세요.")
+				 return;
+					  }	
 
    if( typeof prodName == "undefined" || prodName == null || prodName == "") {
 			alert("물품이름을 정확히 입력해주세요");

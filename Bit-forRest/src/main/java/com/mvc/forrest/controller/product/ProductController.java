@@ -131,7 +131,7 @@ public class ProductController {
 		
 		productService.updateProduct(product);
 		
-		return "redirect:/product/listProduct";
+		return "redirect:/storage/listStorage";
 	}
 	
 	//어드민 가능
