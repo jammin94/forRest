@@ -290,7 +290,8 @@ article {
               <li>
             </li>
             <li>
-               <a href="/logout">
+              <a id ="logout" href="/logout">
+              <!--   <a id ="logout">-->
                	로그아웃</a>
             </li>
           </ul>
@@ -312,6 +313,12 @@ article {
      const mypageIcon = $('.mypageIcon');
       const dropLayer = $('.dropHeader .member');
       const toggleArrow = $('.toggleArrow');
+      
+      
+      //카카오 로그아웃
+      $("#logout").on('click',function(){
+		$(location).attr("href", "https://kauth.kakao.com/oauth/logout?client_id=ab70541f4fbb493e0fd22d7f73cd2940&logout_redirect_uri=http://localhost:8080/")
+      });
       
       $(mypageIcon).on('click',function(){
          
