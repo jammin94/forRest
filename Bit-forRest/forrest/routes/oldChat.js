@@ -680,10 +680,20 @@ router.get('/oldReview/:oldNo/:inquireUserId', async (req, res, next) => {
 	      raw: true
 	    });
 	
-    const roomNo = getChatRoomNo[0];
+    const roomNo = getChatRoomNo[0].chatRoomNo;
     console.log('리뷰사진보내기 : chatRoomNo : '+roomNo);
     const chatMessage = 'system: 판매자가 리뷰를 보냈습니다! 판매자에게 구매를 남겨주시면 평점에 큰 도움이 됩니다! 사진 클릭 시 평점을 남길 수 있는 창으로 이동합니다';
-    const sessionUser = req.params.inquireUserId;
+    //다른 상대방 유저 알아내서
+    query=Query.getOtherUser;
+    const getOtherUser = await db.sequelize.query(query, {
+      replacements: {
+		userId : req.params.inquireUserId,
+		chatRoomNo: roomNo}, 
+      type: QueryTypes.SELECT,
+      raw: true
+    });
+    
+    const sessionUser =getOtherUser[0].userId;
      console.log('리뷰사진보내기 : sessionUser : '+sessionUser);
     
 	query =Query.insertImage;
@@ -751,16 +761,6 @@ router.get('/oldReview/:oldNo/:inquireUserId', async (req, res, next) => {
     mineLists[0].recentTime = moment(mineLists[0].recentTime).fromNow();
     mineLists[0].inquireAddr = parseAddress(mineLists[0].inquireAddr);
     io.of('/oldChatRoom').to(sessionUser).emit('updateRoom', mineLists[0]);
-    
-    //다른 상대방 유저 알아내서
-    query=Query.getOtherUser;
-    const getOtherUser = await db.sequelize.query(query, {
-      replacements: {
-		userId : sessionUser,
-		chatRoomNo: roomNo}, 
-      type: QueryTypes.SELECT,
-      raw: true
-    });
 	
     query=Query.listOldChatRoom;
     const othersLists = await db.sequelize.query(query, {

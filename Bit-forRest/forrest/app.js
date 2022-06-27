@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors');///////////////////
 const path = require('path');
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const cors = require('cors')
 
 dotenv.config();
 const webSocket = require('./socket');
@@ -45,8 +45,7 @@ sequelize.sync({ force: false })
       secure: false, /*false*/
     },
   });
-  
-app.use(cors());///////////////////
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/image', express.static(path.join(__dirname, 'uploads'))); // '/image'

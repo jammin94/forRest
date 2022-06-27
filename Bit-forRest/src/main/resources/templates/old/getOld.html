@@ -340,7 +340,7 @@ select:focus { outline: none; }
 					<span sec:authorize="isAuthenticated()">
 					 <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
 				<!--  	<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>-->
-				<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
+				<a th:href="@{'http://192.168.219.118:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
 					<button type="button" class="btn" th:if="${#authentication.principal.user.userId} !=${old.userId}">
 					채팅하기
 					<i class="fa-solid fa-comments"></i>
@@ -698,13 +698,15 @@ $('.regBtn').on("click", async function(){
 	  let inquireUserId=$("option:selected").val();
 	  let oldNo=$("#oldNo:first").val();
 	  
-	  // axios.defaults.withCredentials = true;
-	 // await axios.get('http://localhost:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
-	  
-	  
 	  console.log("리뷰돈"+$(".reviewDone").val());
 	  
 	  $("#review-form").attr("method" , "POST").attr("action" , "/oldReview/addOldReview").submit();
+	  
+
+	   axios.defaults.withCredentials = true;
+	   await axios.get('http://localhost:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
+	  
+	  
 })
 });
 
