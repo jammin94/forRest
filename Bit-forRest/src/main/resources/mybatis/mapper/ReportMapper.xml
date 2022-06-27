@@ -32,6 +32,13 @@
 	  	FROM report
 		WHERE reportNo = #{reportNo} 
 	 </select>
+	 
+	 <!-- SELECT ONE -->
+	<select  id="isReportFirst"  parameterType="report"	resultMap="reportSelectMap">
+	  	SELECT * 
+	  	FROM report 
+		WHERE reportUser = #{reportUser} and reportedUser = #{reportedUser} and reportOldNo=#{reportOldNo}
+	 </select>
 
 	 
 	 

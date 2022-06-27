@@ -27,19 +27,25 @@ CREATE TABLE IF NOT EXISTS `board` (
   `category` varchar(10) DEFAULT NULL,
   `couponURL` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`boardNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.board:~7 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.board:~13 rows (대략적) 내보내기
 DELETE FROM `board`;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
 INSERT INTO `board` (`boardNo`, `boardTitle`, `boardDetail`, `boardDate`, `boardPin`, `boardFlag`, `category`, `couponURL`) VALUES
+	(1, '[이벤트]겨울 눈 내리는 산에서 따뜻한 코코아 한잔~ 같이 갈래?', '', '2022-05-17 09:44:11', 0, 'A', NULL, '4'),
+	(2, '[관리자] 서버 점검 (2022-05-19 00:00)', '더 나은 서비스를 위하여 서버 점검이 있겠습니다! 양해부탁드립니다! (2022-05-19 00:00~2022-05-19 04:00)', '2022-05-18 09:44:11', 0, 'A', NULL, ''),
+	(3, '[관리자] 서비스 이용 안내', '', '2022-05-19 09:44:11', 0, 'A', NULL, ''),
+	(4, '[이벤트]캠핑카 타고 봄 꽃 캠핑 가요!', '', '2022-05-20 09:44:11', 0, 'A', NULL, '4'),
 	(5, '장비 보관은 어떻게 하나요?', '보관하기 힘든 캠핑 장비들을 보관신청 해주시면 저희가 직접 픽업부터 창고에 보관까지 서비스 합니다. 제품이 창고에 도착하면 창고 촬영한 사진이 업로드 됩니다. 장비 보관 신청은 장비보관 탭에서 시작하기를 눌러 신청해주세요.', '2022-06-02 11:37:35', 0, 'F', '이용방법', NULL),
 	(6, '장비 대여는 어떻게 하나요?', '렌탈 마켓에서 현재 Forrest 에서 대여 중인 상품을 확인 하실 수 있습니다. 제품은 직접 배송해 드리고 대여가 완료 되면 요청하신 장소로 픽업가는 서비스까지 제공하고 있습니다. 최대 4박5일까지 대여 가능합니다.', '2022-06-02 11:37:36', 0, 'F', '이용방법', NULL),
 	(7, '중고 거래는 어떻게 이뤄지나요?', '중고 마켓에서 마음에 드는 상품이 있다면 상세보기 페이지에서 판매자와 대화를 할 수 있습니다. 판매자와 거래장소를 정하고 직접 거래 하실 수 있습니다.', '2022-06-02 11:37:37', 0, 'F', '결제관련', NULL),
 	(8, '대여 수익은 어떻게 발생하나요?', '내가 보관한 물건을 대여 가능하도록 설정해주세요. 누군가 내가 보관한 물건을 빌려서 쓰면 설정해주신 대여료의 일부를 환급해 드립니다. 대여수익은 내 정보 보기에서 확인이 가능합니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
 	(9, '환불 관련 정책', '장비 보관 혹은 장비 대여시 픽업 서비스가 시작되기 전까지 환불이 가능합니다. 마이페이지 내 보관 / 대여 물품 페이지에서 환불을 신청 할 수 있습니다.', '2022-06-02 11:37:38', 0, 'F', '계정', NULL),
-	(10, '패밀리 캠핑! 가정의 달 맞이 이벤트~ 다양한 혜택받고 행복한 추억 만드세요~!(5/30까지)', '', '2022-06-22 18:01:20', 0, 'A', NULL, 'ㅁㄴㅇㄴㅁㅇ'),
-	(11, '무조건 드리는 신규회원쿠폰! 5월 신규회원 혜택이 팡팡!', '', '2022-06-22 18:17:45', 1, 'A', NULL, 'ㅁㄴㄹㄴㅁㅇㄹㅇㄴㅁㄹ');
+	(10, '[이벤트]패밀리 캠핑! 가정의 달 맞이 이벤트~ 다양한 혜택받고 행복한 추억 만드세요~!(5/30까지)', '', '2022-06-22 18:01:20', 0, 'A', NULL, '4'),
+	(11, '[이벤트]무조건 드리는 신규회원쿠폰! 5월 신규회원 혜택이 팡팡!', '', '2022-06-22 18:17:45', 1, 'A', NULL, '4'),
+	(12, '[관리자] 서버 점검 (2022-06-27 00:00)', '더 나은 서비스를 위하여 서버 점검이 있겠습니다! 양해부탁드립니다! (2022-06-27 00:00~2022-06-27 04:00)', '2022-06-27 09:44:01', 0, 'A', NULL, NULL),
+	(13, '[이벤트]달달 무슨달~? 6월은 무슨 달~? 캠핑가는 달! 할인 쿠폰도 받고! 노르디스크 헥사 증정도 받는 이벤트!', '감사 이벤트로 보관, 대여 금액 10% 쿠폰을 드립니다! 아래의 버튼을 눌러서 받으세요!', '2022-06-27 09:44:11', 1, 'A', NULL, NULL);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 
 -- 테이블 forrest.chat 구조 내보내기
@@ -57,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `chat` (
   KEY `sendUserId` (`sendUserId`),
   CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatroom` (`chatRoomNo`) ON DELETE CASCADE,
   CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.chat:~10 rows (대략적) 내보내기
 DELETE FROM `chat`;
@@ -68,11 +74,35 @@ INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, 
 	(64, 9, 'user01@naver.com', 'ㅇ3ㅇ??', '2022-06-24 05:23:11', NULL, NULL, NULL),
 	(65, 8, 'user01@naver.com', '에에', '2022-06-24 05:23:34', NULL, NULL, NULL),
 	(66, 9, 'user01@naver.com', '흠', '2022-06-24 05:23:59', NULL, NULL, NULL),
-	(67, 10, 'admin', 'sadsada', '2022-06-24 07:17:50', 1, NULL, NULL),
+	(67, 10, 'admin', 'sadsada', '2022-06-24 07:17:50', NULL, NULL, NULL),
 	(68, 8, 'user01@naver.com', '지도 : 강남역 2호선', '2022-06-24 07:35:41', NULL, NULL, '{"address_name":"서울 강남구 역삼동 858","category_group_code":"SW8","category_group_name":"지하철역","category_name":"교통,수송 > 지하철,전철 > 수도권2호선","distance":"","id":"21160803","phone":"02-6110-2221","place_name":"강남역 2호선","place_url":"http://place.map.kakao.com/21160803","road_address_name":"서울 강남구 강남대로 지하 396","x":"127.02800140627488","y":"37.49808633653005"}'),
 	(69, 8, 'user01@naver.com', '지도 : 강남역 2호선', '2022-06-24 07:35:42', NULL, NULL, '{"address_name":"서울 강남구 역삼동 858","category_group_code":"SW8","category_group_name":"지하철역","category_name":"교통,수송 > 지하철,전철 > 수도권2호선","distance":"","id":"21160803","phone":"02-6110-2221","place_name":"강남역 2호선","place_url":"http://place.map.kakao.com/21160803","road_address_name":"서울 강남구 강남대로 지하 396","x":"127.02800140627488","y":"37.49808633653005"}'),
 	(71, 9, 'user01@naver.com', '아직 판매하시나요?', '2022-06-24 10:20:23', NULL, NULL, NULL),
-	(72, 9, 'admin', '네 그럼요!', '2022-06-24 10:51:12', NULL, NULL, NULL);
+	(72, 9, 'admin', '네 그럼요!', '2022-06-24 10:51:12', NULL, NULL, NULL),
+	(82, 19, 'user01@naver.com', '아직 판매 하시나요?', '2022-06-27 05:01:16', 1, NULL, NULL),
+	(83, 20, 'user01@naver.com', '안녕하세요', '2022-06-27 05:01:55', 1, NULL, NULL),
+	(84, 21, 'user01@naver.com', '네고 안되나요?', '2022-06-27 05:02:39', 1, NULL, NULL),
+	(85, 22, 'user01@naver.com', '안녕하세요', '2022-06-27 05:03:26', 1, NULL, NULL),
+	(86, 22, 'user01@naver.com', '얼마나 쓰신건가요?', '2022-06-27 05:03:30', 1, NULL, NULL),
+	(87, 23, 'captain9697@naver.com', '아직 판매하시나요?', '2022-06-27 05:04:57', 1, NULL, NULL),
+	(88, 24, 'captain9697@naver.com', '이걸로 낚시하면 잘 낚이나요', '2022-06-27 05:05:20', 1, NULL, NULL),
+	(89, 25, 'captain9697@naver.com', '안녕하세요', '2022-06-27 05:05:38', 1, NULL, NULL),
+	(133, 28, 'user01@naver.com', '안녕하세요', '2022-06-27 06:15:05', NULL, NULL, NULL),
+	(134, 28, 'user01@naver.com', '아직 판매하시나요?', '2022-06-27 06:15:12', NULL, NULL, NULL),
+	(135, 28, 'tkdals4534@naver.com', '네 그럼요!', '2022-06-27 06:15:57', NULL, NULL, NULL),
+	(136, 28, 'tkdals4534@naver.com', '사진을 보냈습니다', '2022-06-27 06:16:19', NULL, 'áá¡áá®ááµ.jpeg', NULL),
+	(137, 28, 'tkdals4534@naver.com', '이것도 있어요 !!', '2022-06-27 06:16:26', NULL, NULL, NULL),
+	(138, 28, 'tkdals4534@naver.com', '어디서 볼까요 ?', '2022-06-27 06:16:32', NULL, NULL, NULL),
+	(139, 28, 'user01@naver.com', '지도 : 리얼비트 스트릿댄스학원', '2022-06-27 06:16:49', NULL, NULL, '{"address_name":"서울 은평구 불광동 481-90","category_group_code":"AC5","category_group_name":"학원","category_name":"교육,학문 > 학원 > 무용학원,발레학원","distance":"","id":"1640404452","phone":"02-6407-1881","place_name":"리얼비트 스트릿댄스학원","place_url":"http://place.map.kakao.com/1640404452","road_address_name":"서울 은평구 통일로 912","x":"126.92022530472","y":"37.6243382855259"}'),
+	(140, 28, 'user01@naver.com', '여기 어떠세요?', '2022-06-27 06:16:56', NULL, NULL, NULL),
+	(141, 28, 'tkdals4534@naver.com', '네 좋아요 ~', '2022-06-27 06:17:05', NULL, NULL, NULL),
+	(142, 28, 'tkdals4534@naver.com', '저기요~', '2022-06-27 06:18:01', NULL, NULL, NULL),
+	(143, 28, 'tkdals4534@naver.com', '나가셧나요??', '2022-06-27 06:18:23', NULL, NULL, NULL),
+	(144, 28, 'tkdals4534@naver.com', '나가셧나요~', '2022-06-27 06:18:36', NULL, NULL, NULL),
+	(145, 28, 'tkdals4534@naver.com', '시간정해야하는데 ..;', '2022-06-27 06:18:41', NULL, NULL, NULL),
+	(146, 28, 'user01@naver.com', '음...', '2022-06-27 06:18:51', NULL, NULL, NULL),
+	(147, 28, 'tkdals4534@naver.com', '저기요 ???', '2022-06-27 06:19:05', NULL, NULL, NULL),
+	(148, 28, 'user01@naver.com', '넵', '2022-06-27 06:19:14', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 
 -- 테이블 forrest.chatroom 구조 내보내기
@@ -94,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `chatroom` (
   CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE,
   CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.chatroom:~5 rows (대략적) 내보내기
 DELETE FROM `chatroom`;
@@ -103,8 +133,16 @@ INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `owner
 	(7, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', NULL, 'kedee2001@naver.com', 'user01@naver.com', 0, 0, '2022-06-23 10:46:14'),
 	(8, 'fecb1f75-15b2-4ca6-a105-32a1ba628fce', NULL, 'kedee2001@naver.com', 'user01@naver.com', 1, 1, '2022-06-23 10:51:12'),
 	(9, 'ea5668d7-ad6e-4f09-8719-474876e6cad4', NULL, 'user01@naver.com', 'admin', 1, 1, '2022-06-24 05:22:57'),
-	(10, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', NULL, 'admin', 'captain9697@naver.com', 1, 1, '2022-06-24 07:17:47'),
-	(11, '48314086-6371-4cbf-8a16-c0495771f046', NULL, 'sanstory12rt@naver.com', 'user01@naver.com', 0, 0, '2022-06-24 08:38:48');
+	(10, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', NULL, 'admin', 'captain9697@naver.com', 1, 0, '2022-06-24 07:17:47'),
+	(11, '48314086-6371-4cbf-8a16-c0495771f046', NULL, 'sanstory12rt@naver.com', 'user01@naver.com', 0, 0, '2022-06-24 08:38:48'),
+	(19, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', NULL, 'user01@naver.com', 'sanstory12rt@naver.com', 1, 1, '2022-06-27 05:01:08'),
+	(20, '9113b67b-70eb-425b-ba35-36b4838b74b6', NULL, 'user01@naver.com', 'qwerty5266@naver.com', 1, 1, '2022-06-27 05:01:46'),
+	(21, 'f625dc89-ba1c-49ab-b448-4f31a7e8b8b3', NULL, 'user01@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 05:02:31'),
+	(22, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', NULL, 'user01@naver.com', 'jj3033@naver.com', 1, 1, '2022-06-27 05:03:20'),
+	(23, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'captain9697@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 05:04:49'),
+	(24, '690ca032-db66-432f-a3a8-ba1eaa5dab77', NULL, 'captain9697@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 05:05:10'),
+	(25, '9113b67b-70eb-425b-ba35-36b4838b74b6', NULL, 'captain9697@naver.com', 'qwerty5266@naver.com', 1, 1, '2022-06-27 05:05:28'),
+	(28, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'user01@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 06:13:32');
 /*!40000 ALTER TABLE `chatroom` ENABLE KEYS */;
 
 -- 테이블 forrest.coupon 구조 내보내기
@@ -134,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `imgs` (
   `fileName` varchar(100) DEFAULT NULL,
   `contentsFlag` varchar(20) NOT NULL,
   PRIMARY KEY (`imgNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.imgs:~164 rows (대략적) 내보내기
 DELETE FROM `imgs`;
@@ -303,7 +341,8 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 	(193, '477fe5db-8b93-4d28-9f0d-8156f49507c1', 'ee4087ca-2ca9-4697-bab7-2ab5583e1f44.jpg', 'product'),
 	(194, '477fe5db-8b93-4d28-9f0d-8156f49507c1', '5a69993e-3b0f-4fcc-8790-b0e8a63c3e1e.jpg', 'product'),
 	(195, '477fe5db-8b93-4d28-9f0d-8156f49507c1', '65de5696-bd1d-4c5b-aefd-0e537221ad48.jpg', 'product'),
-	(196, '477fe5db-8b93-4d28-9f0d-8156f49507c1', 'fbcce27a-0014-4739-9a2a-4dc1a11c814f.jpg', 'product');
+	(196, '477fe5db-8b93-4d28-9f0d-8156f49507c1', 'fbcce27a-0014-4739-9a2a-4dc1a11c814f.jpg', 'product'),
+	(201, '13', 'f32b7114-301e-47f2-96e9-f77bad6ff746.jpg', 'announce');
 /*!40000 ALTER TABLE `imgs` ENABLE KEYS */;
 
 -- 테이블 forrest.old 구조 내보내기
@@ -397,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `owncoupon` (
   KEY `couponNo` (`couponNo`),
   CONSTRAINT `owncoupon_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `owncoupon_ibfk_2` FOREIGN KEY (`couponNo`) REFERENCES `coupon` (`couponNo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.owncoupon:~8 rows (대략적) 내보내기
 DELETE FROM `owncoupon`;
@@ -447,8 +486,7 @@ INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCon
 	('29cadabb-2982-4ff2-abd3-c621eff8fe4c', 10, 10, 10, 'qwerty5266@naver.com', '보관중', '메이튼 캠핑 랜턴 조명 감성 LED ', 1, 'c타입 충전기를 써서 편리합니다. 저렴하게 가져가세요!', 1, 0, 10000, '우리/1002250485761', '조명', '13485/경기 성남시 분당구 판교로 20/405/ (판교동, 판교원마을3단지아파트)', '5a2ecf73-e626-4345-a29f-dd52e4d806c9.jpg', NULL, '2022-06-24 20:21:59'),
 	('3aa1ecde-b497-46a7-b629-b1ad08342da1', 10, 10, 10, 'sanstory12rt@naver.com', '보관중', '감성좋은 행복한 텐트', 1, '행복이 넘치는 감성넘치는 좋은 텐트입니다.', 1, 0, 100, '국민/292-12392193-4578', '텐트', '06035/서울 강남구 가로수길 5/5986호/ (신사동)', '40eff2d4-dce4-4fba-a7cc-68e2c072bf7c.jpg', NULL, '2022-06-24 20:20:01'),
 	('477fe5db-8b93-4d28-9f0d-8156f49507c1', 5, 2, 2, 'captain9697@naver.com', '물품보관승인신청중', '시어잘 Searing Torch', 1, '유튜버 육식맨보고 충동구매한 시어잘입니다. 요즘 캠핑을 잘안가서 집에서 놀고있길래 보관합니다.. 화력은 약한편이긴 한데 캠핑가서 쓰기에는 충분할거에요 부디 잘 보살펴주세요', 1, 0, 3000, '국민/47810204386651', '기타용품', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '18da7a3d-1a24-436e-afb5-b1291073bc06.jpg', NULL, '2022-06-26 03:08:05'),
-	('48acf057-13d0-411d-81dd-bec5b8e0cbf3', 10, 10, 2, 'kedee2001@naver.com', '보관중', '
-	 에탄올 난로 미니 ', 1, '불멍 캠핑 가정용 에탄올 난로 입니다!\r\n 휴대성도 좋고 짐옮길때도 아주편합니당  수납공간이 생각보다 넓어요  최대 100kg까지 견딜수있습니다~ 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다.\r\n 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다', 1, 0, 2000, '국민/1242151525125', '기타용품', '16872/경기 용인시 수지구 대지로 49/106-4210/ (죽전동, 죽전퍼스트하임)', 'ac89bba4-c826-4401-8e98-7ea2107d7934.webp', NULL, '2022-06-24 20:23:19'),
+	('48acf057-13d0-411d-81dd-bec5b8e0cbf3', 10, 10, 2, 'kedee2001@naver.com', '보관중', '\r\n	 에탄올 난로 미니 ', 1, '불멍 캠핑 가정용 에탄올 난로 입니다!\r\n 휴대성도 좋고 짐옮길때도 아주편합니당  수납공간이 생각보다 넓어요  최대 100kg까지 견딜수있습니다~ 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다.\r\n 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다', 1, 0, 2000, '국민/1242151525125', '기타용품', '16872/경기 용인시 수지구 대지로 49/106-4210/ (죽전동, 죽전퍼스트하임)', 'ac89bba4-c826-4401-8e98-7ea2107d7934.webp', NULL, '2022-06-24 20:23:19'),
 	('4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 10, 10, 2, 'sanstory12rt@naver.com', '보관중', '리버 프로 + 110W태양광패널', 1, '리버 프로 + 110W태양광패널 + 확장배터리 세트 파워뱅크 720Wh 1800W 220V\r\n\r\n', 1, 0, 50000, '국민/4321353521523521', '기타용품', '13487/경기 성남시 분당구 대왕판교로 579/22-232/ (삼평동)', 'a1bdb845-cea3-4229-b0d3-77eadd70fc24.jpg', NULL, '2022-06-24 15:36:07'),
 	('52fb9c79-d83b-436a-b5be-5b27a6b13c33', 10, 10, 2, 'captain9697@naver.com', '보관중', '바베큐,숯불 그릴/캠핑 그릴', 1, '캠핑용 가정용 그릴이고 한번사용후 보관했는데 숯자국은 남네요\r\n중형으로 간단히 구워먹기좋아요 3-4인용이고 가방이 깨끗하지않아요\r\n숯사용후 남은것도 드려요  이사짐정리중입니다', 1, 0, 5000, '국민/47810204386651', '그릴', '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', NULL, '2022-06-22 14:11:24'),
 	('617da7b3-13d2-45d0-9e67-2ff8a703c954', 10, 10, 1, 'captain9697@naver.com', '보관중', '캠핑웨건, 테이블, 의자', 1, '캠핑웨건, 테이블, 의자 세트입니다 \r\n휴대성도 좋고 짐옮길때도 아주편합니당  수납공간이 생각보다 넓어요  최대 100kg까지 견딜수있습니다~', 1, 0, 4000, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '371cad15-92aa-4f4f-a189-45abebcf11b4.jpg', NULL, '2022-06-26 02:48:31'),
@@ -482,73 +520,60 @@ CREATE TABLE IF NOT EXISTS `rentalreview` (
   KEY `prodNo` (`prodNo`),
   CONSTRAINT `rentalreview_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `rentalreview_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.rentalreview:~2 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.rentalreview:~56 rows (대략적) 내보내기
 DELETE FROM `rentalreview`;
 /*!40000 ALTER TABLE `rentalreview` DISABLE KEYS */;
 INSERT INTO `rentalreview` (`reviewNo`, `reviewImg`, `reviewDetail`, `reviewScore`, `prodNo`, `userId`, `regDate`) VALUES
 	(1, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', 3, 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user02@naver.com', '2021-05-25'),
-	(2, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 3, 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user03@naver.com', '2021-05-25'),	
+	(2, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 3, 'e3a2fad8-188d-45f8-bec1-881f185e090d#', 'user03@naver.com', '2021-05-25'),
 	(4, '2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀', 3, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'user02@naver.com', '2021-05-25'),
 	(5, '3.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 5, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'jj3033@naver.com', '2021-05-25'),
 	(6, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'qwerty5266@naver.com', '2021-05-25'),
 	(7, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'captain9697@naver.com', '2021-05-25'),
 	(8, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'sanstory12rt@naver.com', '2021-05-25'),
 	(9, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'tkdals4534@naver.com', '2021-05-25'),
-	
 	(10, 'tent.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.텐트는 너무 이쁘고 좋습니닺', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'user02@naver.com', '2021-05-25'),
-	(11, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'user03@naver.com', '2021-05-25'),	
+	(11, 'tent.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'user03@naver.com', '2021-05-25'),
 	(12, '2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'user02@naver.com', '2021-05-25'),
 	(13, '3.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 5, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'jj3033@naver.com', '2021-05-25'),
 	(14, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'qwerty5266@naver.com', '2021-05-25'),
 	(15, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'captain9697@naver.com', '2021-05-25'),
 	(16, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'sanstory12rt@naver.com', '2021-05-25'),
 	(17, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'tkdals4534@naver.com', '2021-05-25'),
-	
 	(18, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, 'a30ba851-23e6-4204-9bb0-10713e252175', 'qwerty5266@naver.com', '2021-05-25'),
 	(19, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, 'a30ba851-23e6-4204-9bb0-10713e252175', 'captain9697@naver.com', '2021-05-25'),
 	(20, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, 'a30ba851-23e6-4204-9bb0-10713e252175', 'sanstory12rt@naver.com', '2021-05-25'),
 	(21, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'a30ba851-23e6-4204-9bb0-10713e252175', 'tkdals4534@naver.com', '2021-05-25'),
-	
 	(22, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'qwerty5266@naver.com', '2021-05-25'),
 	(23, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'captain9697@naver.com', '2021-05-25'),
 	(24, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'sanstory12rt@naver.com', '2021-05-25'),
 	(25, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'tkdals4534@naver.com', '2021-05-25'),
-	
 	(26, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '29cadabb-2982-4ff2-abd3-c621eff8fe4c', 'qwerty5266@naver.com', '2021-05-25'),
 	(27, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '29cadabb-2982-4ff2-abd3-c621eff8fe4c', 'captain9697@naver.com', '2021-05-25'),
 	(28, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '29cadabb-2982-4ff2-abd3-c621eff8fe4c', 'sanstory12rt@naver.com', '2021-05-25'),
-	(29, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '29cadabb-2982-4ff2-abd3-c621eff8fe4c', 'tkdals4534@naver.com', '2021-05-25'),	
-		
+	(29, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '29cadabb-2982-4ff2-abd3-c621eff8fe4c', 'tkdals4534@naver.com', '2021-05-25'),
 	(31, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '3aa1ecde-b497-46a7-b629-b1ad08342da1', 'qwerty5266@naver.com', '2021-05-25'),
 	(32, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '3aa1ecde-b497-46a7-b629-b1ad08342da1', 'captain9697@naver.com', '2021-05-25'),
 	(33, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '3aa1ecde-b497-46a7-b629-b1ad08342da1', 'sanstory12rt@naver.com', '2021-05-25'),
 	(34, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '3aa1ecde-b497-46a7-b629-b1ad08342da1', 'tkdals4534@naver.com', '2021-05-25'),
-	
-		
 	(36, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', 'qwerty5266@naver.com', '2021-05-25'),
 	(37, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', 'captain9697@naver.com', '2021-05-25'),
 	(38, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', 'sanstory12rt@naver.com', '2021-05-25'),
 	(39, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', 'tkdals4534@naver.com', '2021-05-25'),
-	
-		
 	(41, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'qwerty5266@naver.com', '2021-05-25'),
 	(42, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'captain9697@naver.com', '2021-05-25'),
 	(43, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'sanstory12rt@naver.com', '2021-05-25'),
 	(44, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'tkdals4534@naver.com', '2021-05-25'),
-	
-		
 	(46, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 'qwerty5266@naver.com', '2021-05-25'),
 	(47, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 'captain9697@naver.com', '2021-05-25'),
 	(48, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 'sanstory12rt@naver.com', '2021-05-25'),
-	(49, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 'tkdals4534@naver.com', '2021-05-25'),	
-		
+	(49, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 'tkdals4534@naver.com', '2021-05-25'),
 	(51, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'qwerty5266@naver.com', '2021-05-25'),
 	(52, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'captain9697@naver.com', '2021-05-25'),
 	(53, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'sanstory12rt@naver.com', '2021-05-25'),
-	(54, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'tkdals4534@naver.com', '2021-05-25'),	
-	
+	(54, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'tkdals4534@naver.com', '2021-05-25'),
 	(56, '4.jpg', '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다', 3, '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', 'qwerty5266@naver.com', '2021-05-25'),
 	(57, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', 'captain9697@naver.com', '2021-05-25'),
 	(58, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', 'sanstory12rt@naver.com', '2021-05-25'),
@@ -557,9 +582,6 @@ INSERT INTO `rentalreview` (`reviewNo`, `reviewImg`, `reviewDetail`, `reviewScor
 	(61, '0b78af94-14e5-474a-adab-81151299f107.jpg', '아주 좋아요~~~~~~~~~~~~~~~~~너무좋아요 사용하기 아주좋습니다^^', 3, 'fdf38744-961f-4cef-995f-244380b49733', 'captain9697@naver.com', '2021-05-25'),
 	(62, '149f8123-3828-485b-ad15-6551b96e028a.jpg', '가족이 구매했는데 만족하네요~가격은 사악하지만 좋습니다~', 2, 'fdf38744-961f-4cef-995f-244380b49733', 'sanstory12rt@naver.com', '2021-05-25'),
 	(63, '2d190517-8304-4a34-beab-23e7d3b31af2.jpg', '너무너무 힘들게 배송받은 오두막 텐트집근처에 왔다가 반송되고 다시 배송오다가반송되기전에 겨우 택배기사님과 통화해서어렵게 받았네요. 탠트에 발자국 2개가찍혀있었지만 그냥 씁니다.', 3, 'fdf38744-961f-4cef-995f-244380b49733', 'tkdals4534@naver.com', '2021-05-25');
-	
-	
-	
 /*!40000 ALTER TABLE `rentalreview` ENABLE KEYS */;
 
 -- 테이블 forrest.report 구조 내보내기
@@ -581,7 +603,7 @@ CREATE TABLE IF NOT EXISTS `report` (
   CONSTRAINT `report_ibfk_1` FOREIGN KEY (`reportUser`) REFERENCES `user` (`userId`),
   CONSTRAINT `report_ibfk_2` FOREIGN KEY (`reportedUser`) REFERENCES `user` (`userId`),
   CONSTRAINT `report_ibfk_3` FOREIGN KEY (`reportOldNo`) REFERENCES `old` (`oldNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.report:~0 rows (대략적) 내보내기
 DELETE FROM `report`;

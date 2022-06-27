@@ -85,7 +85,7 @@ public class BoardController {
 	//updateAnnounce 실행
 	//관리자
 	@PostMapping("updateAnnounce")
-	public String updateAnnounce(@ModelAttribute("board") Board board, @RequestParam("uploadFile") List<MultipartFile> uploadFiles) throws Exception {	
+	public String updateAnnounce(@ModelAttribute("board") Board board, @RequestParam List<MultipartFile> uploadFiles) throws Exception {	
 		System.out.println("Controller POST: updateAnnounce ");
 		System.out.println("시스템으로 받은 데이터 : "+board);
 		
@@ -150,7 +150,7 @@ public class BoardController {
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
-		int pageSize=10; //n장씩
+		int pageSize=5; //n장씩
 		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);

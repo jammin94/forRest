@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');///////////////////
 const path = require('path');
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
@@ -45,6 +46,7 @@ sequelize.sync({ force: false })
     },
   });
   
+app.use(cors());///////////////////
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/image', express.static(path.join(__dirname, 'uploads'))); // '/image'

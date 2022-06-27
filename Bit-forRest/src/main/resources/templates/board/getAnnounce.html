@@ -14,7 +14,10 @@
 	<script src="sweetalert2.all.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="/css/getAnnounce.css">
+
 	<script src="/js/imagePreview.js"/>
+	
 	
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -63,7 +66,6 @@
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -140,8 +142,8 @@
 	  await axios.get('/coupon/json/addOwnCoupon?couponNo='+coupon+'&boardNo='+boardNo)
 		  .then(function (response) {
 		    // 성공했을 때
-		    console.log(response);
-		    if(!response){
+		    console.log(response.data);
+		    if(!response.data){
 		    	Swal.fire({
 				  icon: 'success',
 				  title: '감사합니다!',

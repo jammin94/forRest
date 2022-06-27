@@ -351,7 +351,7 @@ justify-content: center;
 </div>
 
 
-<form name="report" style="display: none;" action="http://localhost:8080/report/addReport" method="GET">
+<form name="report" style="display: none;" action="http://192.168.0.42:8080/report/addReport" method="GET">
 	<input type="hidden" name="reportUser" value="{{user.userId}}"/>
 	<input type="hidden" name="reportedUser" value="{{otherUser.userId}}"/>
 	<input type="hidden" name="reportOldNo" value="{{old.oldNo}}"/>
@@ -362,8 +362,8 @@ justify-content: center;
 <div id="frame">
 	<div class="content">
 		<div class="contact-profile">
-			<img src="http://localhost:8080/images/uploadFiles/{{old.oldImg}}" class="oldImg" 
-				onclick="window.open('http://localhost:8080/old/getOld?oldNo={{old.oldNo}}','_blank')"/>
+			<img src="http://192.168.0.42:8080/images/uploadFiles/{{old.oldImg}}" class="oldImg" 
+				onclick="window.open('http://192.168.0.42:8080/old/getOld?oldNo={{old.oldNo}}','_blank')"/>
 			<p class="oldTitle">{{old.oldTitle}} &nbsp&nbsp</p>
       <p class="oldPrice">{{old.oldPrice}}원&nbsp&nbsp</p>
       <p class="oldState">{{old.oldState}}</p>
@@ -377,14 +377,14 @@ justify-content: center;
         {% for chatList in chatLists %}
 	          {% if chatList.sendUserId === user.userId %} 
 	            <li class="sent">
-	            <img src="http://localhost:8080/images/uploadFiles/{{user.userImg}}" 
+	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}" 
 	            onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" 
-	            class="userImg" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
+	            class="userImg" onclick="window.open('http://192.168.0.42:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
 	          {% else %}
 	            <li class="replies">
-	            <img src="http://localhost:8080/images/uploadFiles/{{otherUser.userImg}}" 
+	            <img src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}" 
 	            onerror="this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';" 
-	            class="userImg" onclick="window.open('http://localhost:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
+	            class="userImg" onclick="window.open('http://192.168.0.42:8080/user/getUser?userId={{chatList.sendUserId}}','_blank')"/>
 	          {% endif %}
 			
 			  {% if chatList.map %}
@@ -463,7 +463,7 @@ justify-content: center;
 moment.locale('ko'); //한글로 시간 표시
 
 //서버의 아이피를 사용할 것!
-const socket = io.connect('http://localhost:3001/oldChat',{
+const socket = io.connect('http://192.168.0.42:3001/oldChat',{
   path: '/socket.io'
 });//oldChat namespace사용
 
@@ -623,12 +623,14 @@ socket.on('exit',function(data1, data2){
 //지도
 socket.on('map',function(data){
 	var is_Connected = $("#isConnected").val().trim();
-	
-	axios.post('/oldChat/chat/{{old.oldNo}}/map?chatRoomNo={{chatRoomNo}}',{
-      isConnected: is_Connected,
-      map: data.place,
-      sendUserId: '{{user.userId}}',
-    });
+	if(data.sendUserId=='{{user.userId}}'){
+		axios.post('/oldChat/chat/{{old.oldNo}}/map?chatRoomNo={{chatRoomNo}}',{
+	      isConnected: is_Connected,
+	      map: data.place,
+	      //sendUserId: '{{user.userId}}',
+	      sendUserId: data.sendUserId,
+	    });
+	}
 });
 
 
@@ -652,19 +654,21 @@ socket.on('oldChat',function(data){
   if(data.chat[0].sendUserId==='{{user.userId}}'){
     li.classList.add('sent');
     const senderImg = document.createElement('img');
-    senderImg.src="http://localhost:8080/images/uploadFiles/{{user.userImg}}"
+    senderImg.src="http://192.168.0.42:8080/images/uploadFiles/{{user.userImg}}"
+    senderImg.setAttribute("onerror","this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';");
     senderImg.classList.add('userImg');
     senderImg.addEventListener("click", function() {
-		window.open('http://localhost:8080/user/getUser?userId={{user.userId}}','_blank')
+		window.open('http://192.168.0.42:8080/user/getUser?userId={{user.userId}}','_blank')
 	});
     li.appendChild(senderImg);
   }else{
     li.classList.add('replies');
     const otherImg = document.createElement('img');
-    otherImg.src="http://localhost:8080/images/uploadFiles/{{otherUser.userImg}}"
+    otherImg.src="http://192.168.0.42:8080/images/uploadFiles/{{otherUser.userImg}}"
+    otherImg.setAttribute("onerror","this.onerror=null; this.src='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png';");
     otherImg.classList.add('userImg');
     otherImg.addEventListener("click", function() {
-		window.open('http://localhost:8080/user/getUser?userId={{user.userId}}','_blank')
+		window.open('http://192.168.0.42:8080/user/getUser?userId={{user.userId}}','_blank')
 	});
     li.appendChild(otherImg);
   }
