@@ -140,8 +140,8 @@
 	  await axios.get('/coupon/json/addOwnCoupon?couponNo='+coupon+'&boardNo='+boardNo)
 		  .then(function (response) {
 		    // 성공했을 때
-		    console.log(response);
-		    if(!response){
+		    console.log(response.data);
+		    if(!response.data){
 		    	Swal.fire({
 				  icon: 'success',
 				  title: '감사합니다!',

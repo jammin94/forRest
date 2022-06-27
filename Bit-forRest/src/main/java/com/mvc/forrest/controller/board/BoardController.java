@@ -150,7 +150,7 @@ public class BoardController {
 		Board board= new Board();
 		board.setBoardFlag("A");//AnnounceList Set
 		
-		int pageSize=10; //n장씩
+		int pageSize=5; //n장씩
 		int pageUnit=5;
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
