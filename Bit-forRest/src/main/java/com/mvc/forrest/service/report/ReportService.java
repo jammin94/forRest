@@ -39,6 +39,11 @@ public class ReportService {
 	public int getReportedNo(String userId) throws Exception{
 		System.out.println("getReportedNo 실행 됨");
 		return reportDAO.getReportedNo(userId);
-	}			
+	}		
+	
+	public Report isReportFirst(Report report) throws Exception{
+		System.out.println("isReportFirst 실행 됨");
+		return reportDAO.isReportFirst(report);
+	}
 
 }

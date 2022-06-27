@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/addReport.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -14,7 +16,7 @@
     <div class="container">
         <header> 신고하기</header>
         <div class="form-outer">
-            <form action="/report/addReport" method="POST">
+            <form method="POST">
             	<input type="hidden" name="reportUser" th:value="${report.reportUser}"/>
             	<input type="hidden" name="reportOldNo" th:value="${report.reportOldNo}"/>
             	<input type="hidden" name="reportChatroomNo" th:value="${report.reportChatroomNo}"/>
@@ -37,12 +39,56 @@
                         <textarea name="reportDetail" id="reportDetail" class="reportDetail" height="200px"></textarea>
                     </div>
                     <div class="field nextBtn">
-                        <button class="submit">Submit</button>
+                        <div class="submit">Submit</div>
                     </div>
                 </div>
 
             </form>
         </div>
     </div>
+    <script>
+    	$('.submit').on("click", async function(){
+   
+    		const reportUser = $("input[name='reportUser']").val();
+    		const reportedUser = $("input[name='reportedUser']").val();
+    		const reportOldNo = $("input[name='reportOldNo']").val();
+    		const reportChatroomNo = $("input[name='reportChatroomNo']").val();
+    		const reportCategory = $("option:selected").val();
+    		const reportDetail = $("textarea[name='reportDetail']").val();
+    		
+    		console.log(reportUser);
+    		console.log(reportedUser);
+    		console.log(reportOldNo);
+    		console.log(reportChatroomNo);
+    		console.log(reportCategory);
+    		console.log(reportDetail);
+
+			let form = new FormData();
+			form.append('reportUser', reportUser);
+			form.append('reportedUser', reportedUser);
+			form.append('reportOldNo', reportOldNo);
+			form.append('reportChatroomNo', reportChatroomNo);
+			form.append('reportCategory', reportCategory);
+			form.append('reportDetail', reportDetail);
+			
+    		let response = await axios.post('/report/json/addReport', form);
+    	
+    		console.log(response.data);
+  				
+  			if (response.data) {
+	 				Swal.fire({
+	  				icon: 'success',
+	  				title: '신고 처리 완료!',
+	  				showConfirmButton: true,
+  				});
+  			}else{
+  					Swal.fire({
+  				 	icon: 'error',
+  				  	title: '이미 신고한 유저입니다',
+  				  	text: 'Something went wrong!',
+  				})
+  			}
+    	})
+    </script>
 </body>
 </html>

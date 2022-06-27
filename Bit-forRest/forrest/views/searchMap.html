@@ -312,11 +312,12 @@ function removeAllChildNods(el) {
 async function addMap(place){
 	const chat_RoomNo= $('input[name="chatRoomNo"]').val();
 	const old_No= $('input[name="oldNo"]').val();
+	const send_UserId= $('input[name="sendUserId"]').val();
 	console.log('서치 맵 안에서 bridge');
 	
 		window.close();
-	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No});
-
+	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No, sendUserId: send_UserId});
+	
  }
  
 </script>

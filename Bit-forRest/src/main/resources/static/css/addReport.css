@@ -88,7 +88,7 @@ body
 }
 
 
-.form-outer form .page .field button
+.form-outer form .page .field .submit
 {
     height: calc(100%+5px);
     width: 100%;

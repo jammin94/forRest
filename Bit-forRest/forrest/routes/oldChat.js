@@ -101,10 +101,11 @@ router.post('/bridge', async (req, res, next) => {
   try {
 	const place = req.body.data;
 	const chatRoomNo = req.body.chatRoomNo;
-	const oldNo = req.body.oldNo
+	const oldNo = req.body.oldNo;
+	const sendUserId = req.body.sendUserId;
 	console.log('oldChat.js 내에서 bridge');
 	
-	req.app.get('io').of('/oldChat').to(chatRoomNo).emit('map',{place, chatRoomNo, oldNo});
+	req.app.get('io').of('/oldChat').to(chatRoomNo).emit('map',{place, chatRoomNo, oldNo, sendUserId});
 	
 	}catch (err) {
     console.error(err)
