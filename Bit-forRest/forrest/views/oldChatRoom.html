@@ -618,7 +618,7 @@ socket.on('updateRoom',function(data){
     	  if($(this).find(".unreadcount")!==undefined){
     	  	$(this).find(".unreadcount").remove();
     	  }
-    	  window.open('http://localhost:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+    	  window.open('http://192.168.0.42:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
     	});
 });
 
@@ -646,7 +646,7 @@ $("li.contact").dblclick(function() {
   		$(this).find(".unreadcount").remove();
 	}
   
-  window.open('http://192.168.219.118:3001/oldChat/'+
+  window.open('http://192.168.0.42:3001/oldChat/'+
 		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),"_blank","width=500, titlebar=no, location=no, status=no, toolbar=no");
 });
 

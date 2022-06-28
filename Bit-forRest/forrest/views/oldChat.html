@@ -351,7 +351,7 @@ justify-content: center;
 </div>
 
 
-<form name="report" style="display: none;" action="localhost:8080/report/addReport" method="GET">
+<form name="report" style="display: none;" action="http://localhost:8080/report/addReport" method="GET">
 	<input type="hidden" name="reportUser" value="{{user.userId}}"/>
 	<input type="hidden" name="reportedUser" value="{{otherUser.userId}}"/>
 	<input type="hidden" name="reportOldNo" value="{{old.oldNo}}"/>

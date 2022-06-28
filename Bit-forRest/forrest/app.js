@@ -45,6 +45,7 @@ sequelize.sync({ force: false })
       secure: false, /*false*/
     },
   });
+  
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));

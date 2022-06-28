@@ -31,6 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 }
    
    /*cors 때문에 추가*/
+   
    @Override 
    public void addCorsMappings(CorsRegistry registry) { 
      registry
