@@ -139,7 +139,7 @@ public class UserController {
 //		### spring security 사용으로 인한 미사용 method	###
 	@GetMapping("logout")				//유저, 관리자
 	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
-			
+			System.out.println("logout");
 		
 	        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 	        return "redirect:/";
@@ -290,6 +290,7 @@ public class UserController {
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
 			oldReviewList.get(i).setReviewUser(userService.getUser(oldReviewList.get(i).getReviewUser().getUserId()));
+			oldReviewList.get(i).setUserRate(oldReviewService.getUserRate(oldReviewList.get(i).getReviewedUser().getUserId()));
 		}
 		
 		model.addAttribute("oldList",oldList);

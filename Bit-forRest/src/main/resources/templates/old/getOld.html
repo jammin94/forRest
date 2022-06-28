@@ -698,13 +698,15 @@ $('.regBtn').on("click", async function(){
 	  let inquireUserId=$("option:selected").val();
 	  let oldNo=$("#oldNo:first").val();
 	  
-	  // axios.defaults.withCredentials = true;
-	 // await axios.get('http://localhost:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
-	  
-	  
 	  console.log("리뷰돈"+$(".reviewDone").val());
 	  
 	  $("#review-form").attr("method" , "POST").attr("action" , "/oldReview/addOldReview").submit();
+	  
+
+	   axios.defaults.withCredentials = true;
+	   await axios.get('http://192.168.0.42:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
+	  
+	  
 })
 });
 
@@ -805,7 +807,6 @@ $(function(){
 	userRate = userRate.substr(0,3);
 	$('#userRate').text(userRate);
 	if(userRate==0.0){
-		userRate = $('#userRate').text("4.0");
 		$('#smStar').width(($('#userRate').text()*20)+"%");
 	}
 	$('#smStar').width(($('#userRate').text()*20)+"%");

@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `board` (
   `category` varchar(10) DEFAULT NULL,
   `couponURL` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`boardNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.board:~13 rows (대략적) 내보내기
 DELETE FROM `board`;
@@ -63,9 +63,9 @@ CREATE TABLE IF NOT EXISTS `chat` (
   KEY `sendUserId` (`sendUserId`),
   CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`chatRoomNo`) REFERENCES `chatroom` (`chatRoomNo`) ON DELETE CASCADE,
   CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sendUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.chat:~10 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.chat:~35 rows (대략적) 내보내기
 DELETE FROM `chat`;
 /*!40000 ALTER TABLE `chat` DISABLE KEYS */;
 INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, `createdAt`, `readOrNot`, `fileName`, `map`) VALUES
@@ -82,8 +82,8 @@ INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, 
 	(82, 19, 'user01@naver.com', '아직 판매 하시나요?', '2022-06-27 05:01:16', 1, NULL, NULL),
 	(83, 20, 'user01@naver.com', '안녕하세요', '2022-06-27 05:01:55', 1, NULL, NULL),
 	(84, 21, 'user01@naver.com', '네고 안되나요?', '2022-06-27 05:02:39', 1, NULL, NULL),
-	(85, 22, 'user01@naver.com', '안녕하세요', '2022-06-27 05:03:26', 1, NULL, NULL),
-	(86, 22, 'user01@naver.com', '얼마나 쓰신건가요?', '2022-06-27 05:03:30', 1, NULL, NULL),
+	(85, 22, 'user01@naver.com', '안녕하세요', '2022-06-27 05:03:26', NULL, NULL, NULL),
+	(86, 22, 'user01@naver.com', '얼마나 쓰신건가요?', '2022-06-27 05:03:30', NULL, NULL, NULL),
 	(87, 23, 'captain9697@naver.com', '아직 판매하시나요?', '2022-06-27 05:04:57', 1, NULL, NULL),
 	(88, 24, 'captain9697@naver.com', '이걸로 낚시하면 잘 낚이나요', '2022-06-27 05:05:20', 1, NULL, NULL),
 	(89, 25, 'captain9697@naver.com', '안녕하세요', '2022-06-27 05:05:38', 1, NULL, NULL),
@@ -102,7 +102,19 @@ INSERT INTO `chat` (`chatMessageNo`, `chatRoomNo`, `sendUserId`, `chatMessage`, 
 	(145, 28, 'tkdals4534@naver.com', '시간정해야하는데 ..;', '2022-06-27 06:18:41', NULL, NULL, NULL),
 	(146, 28, 'user01@naver.com', '음...', '2022-06-27 06:18:51', NULL, NULL, NULL),
 	(147, 28, 'tkdals4534@naver.com', '저기요 ???', '2022-06-27 06:19:05', NULL, NULL, NULL),
-	(148, 28, 'user01@naver.com', '넵', '2022-06-27 06:19:14', NULL, NULL, NULL);
+	(148, 28, 'user01@naver.com', '넵', '2022-06-27 06:19:14', NULL, NULL, NULL),
+	(167, 22, 'jj3033@naver.com', '거의 안썼습니다', '2022-06-27 17:53:05', 1, NULL, NULL),
+	(168, 30, 'qwerty5266@naver.com', '모기퇴치 기계', '2022-06-27 18:22:08', 1, NULL, NULL),
+	(169, 30, 'qwerty5266@naver.com', '잘 작동?', '2022-06-27 18:22:11', 1, NULL, NULL),
+	(170, 30, 'qwerty5266@naver.com', '하나요?', '2022-06-27 18:22:14', 1, NULL, NULL),
+	(171, 31, 'qwerty5266@naver.com', '데이지체인', '2022-06-27 18:22:36', 1, NULL, NULL),
+	(172, 31, 'qwerty5266@naver.com', '이 뭔가요?4', '2022-06-27 18:22:40', 1, NULL, NULL),
+	(173, 32, 'qwerty5266@naver.com', '새상품 맞나요?', '2022-06-27 18:23:03', 1, NULL, NULL),
+	(174, 33, 'qwerty5266@naver.com', '언제 볼 수 있나요?', '2022-06-27 18:23:19', 1, NULL, NULL),
+	(175, 34, 'sanstory12rt@naver.com', '갬성 쥑이네요!', '2022-06-27 18:24:58', 1, NULL, NULL),
+	(176, 35, 'sanstory12rt@naver.com', '눈뽕 맞았어요ㅠㅠ', '2022-06-27 18:25:29', 1, NULL, NULL),
+	(177, 33, 'sanstory12rt@naver.com', '사진을 보냈습니다', '2022-06-27 18:26:41', 1, 'UnhappyMediocreCommongonolek-size_restricted.gif', NULL),
+	(178, 33, 'sanstory12rt@naver.com', 'system: 판매자가 리뷰를 보냈습니다! 판매자에게 구매를 남겨주시면 평점에 큰 도움이 됩니다! 사진 클릭 시 평점을 남길 수 있는 창으로 이동합니다', '2022-06-27 18:26:41', 1, NULL, NULL);
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 
 -- 테이블 forrest.chatroom 구조 내보내기
@@ -124,9 +136,9 @@ CREATE TABLE IF NOT EXISTS `chatroom` (
   CONSTRAINT `chatroom_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE,
   CONSTRAINT `chatroom_ibfk_3` FOREIGN KEY (`inquireUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `chatroom_ibfk_4` FOREIGN KEY (`ownerUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.chatroom:~5 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.chatroom:~13 rows (대략적) 내보내기
 DELETE FROM `chatroom`;
 /*!40000 ALTER TABLE `chatroom` DISABLE KEYS */;
 INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `ownerUserId`, `inquireUserExit`, `ownerUserExit`, `createdAt`) VALUES
@@ -142,7 +154,13 @@ INSERT INTO `chatroom` (`chatRoomNo`, `oldNo`, `prodNo`, `inquireUserId`, `owner
 	(23, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'captain9697@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 05:04:49'),
 	(24, '690ca032-db66-432f-a3a8-ba1eaa5dab77', NULL, 'captain9697@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 05:05:10'),
 	(25, '9113b67b-70eb-425b-ba35-36b4838b74b6', NULL, 'captain9697@naver.com', 'qwerty5266@naver.com', 1, 1, '2022-06-27 05:05:28'),
-	(28, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'user01@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 06:13:32');
+	(28, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'user01@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 06:13:32'),
+	(30, 'bdba38bf-6790-45ae-a169-800a8a64cc1b', NULL, 'qwerty5266@naver.com', 'jj3033@naver.com', 1, 1, '2022-06-27 18:21:48'),
+	(31, '94e5bfe0-7829-4556-8220-92a3d425cb1d', NULL, 'qwerty5266@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 18:22:29'),
+	(32, '690ca032-db66-432f-a3a8-ba1eaa5dab77', NULL, 'qwerty5266@naver.com', 'tkdals4534@naver.com', 1, 1, '2022-06-27 18:22:53'),
+	(33, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', NULL, 'qwerty5266@naver.com', 'sanstory12rt@naver.com', 1, 1, '2022-06-27 18:23:12'),
+	(34, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', NULL, 'sanstory12rt@naver.com', 'user01@naver.com', 1, 1, '2022-06-27 18:24:50'),
+	(35, '8fa4777e-bfe3-459f-bacc-cba597452470', NULL, 'sanstory12rt@naver.com', 'jj3033@naver.com', 1, 1, '2022-06-27 18:25:23');
 /*!40000 ALTER TABLE `chatroom` ENABLE KEYS */;
 
 -- 테이블 forrest.coupon 구조 내보내기
@@ -172,9 +190,9 @@ CREATE TABLE IF NOT EXISTS `imgs` (
   `fileName` varchar(100) DEFAULT NULL,
   `contentsFlag` varchar(20) NOT NULL,
   PRIMARY KEY (`imgNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.imgs:~164 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.imgs:~185 rows (대략적) 내보내기
 DELETE FROM `imgs`;
 /*!40000 ALTER TABLE `imgs` DISABLE KEYS */;
 INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
@@ -342,7 +360,35 @@ INSERT INTO `imgs` (`imgNo`, `contentsNo`, `fileName`, `contentsFlag`) VALUES
 	(194, '477fe5db-8b93-4d28-9f0d-8156f49507c1', '5a69993e-3b0f-4fcc-8790-b0e8a63c3e1e.jpg', 'product'),
 	(195, '477fe5db-8b93-4d28-9f0d-8156f49507c1', '65de5696-bd1d-4c5b-aefd-0e537221ad48.jpg', 'product'),
 	(196, '477fe5db-8b93-4d28-9f0d-8156f49507c1', 'fbcce27a-0014-4739-9a2a-4dc1a11c814f.jpg', 'product'),
-	(201, '13', 'f32b7114-301e-47f2-96e9-f77bad6ff746.jpg', 'announce');
+	(201, '13', 'f32b7114-301e-47f2-96e9-f77bad6ff746.jpg', 'announce'),
+	(222, 'df8ccda2-c428-4f33-82cd-185747598e2f', 'c8eef639-f862-4293-8fb9-0f8aca7df384.jpg', 'product'),
+	(223, 'df8ccda2-c428-4f33-82cd-185747598e2f', '686e6297-3be3-4ed6-a122-903620a363c8.jpg', 'product'),
+	(224, 'df8ccda2-c428-4f33-82cd-185747598e2f', '2c9180b8-fd0d-4cff-a904-700a059e9d9b.jpg', 'product'),
+	(225, 'df8ccda2-c428-4f33-82cd-185747598e2f', '5bcfb0b8-62d5-4dee-b491-b385221c5e9e.jpg', 'product'),
+	(226, '48163909-9959-46bd-ab5b-f2f4ef5b7d8b', 'f5c1af31-cf6b-45bd-af51-3ab323e19c54.jpg', 'product'),
+	(227, '48163909-9959-46bd-ab5b-f2f4ef5b7d8b', 'f6d99ee5-c094-416a-9902-5208ef167874.jpg', 'product'),
+	(228, '48163909-9959-46bd-ab5b-f2f4ef5b7d8b', '3a0d9e68-788e-47ce-b8b8-d102cbb514aa.jpg', 'product'),
+	(229, '48163909-9959-46bd-ab5b-f2f4ef5b7d8b', '86b11907-adb3-4fb7-8d7b-0e7f231a763c.jpg', 'product'),
+	(230, '6e44d378-3ba1-4339-b74a-251c6d58c974', '40629744-b38e-4638-a47c-cdaa3cb55b53.jpg', 'old'),
+	(231, '6e44d378-3ba1-4339-b74a-251c6d58c974', '3dd990c9-e046-44ed-bed3-b6473eb763d4.jpg', 'old'),
+	(232, '6e44d378-3ba1-4339-b74a-251c6d58c974', '5e8fb6e3-2aac-45d4-b264-8a52b901b235.jpg', 'old'),
+	(233, '6e44d378-3ba1-4339-b74a-251c6d58c974', 'dca57a04-3bd7-44ba-84de-71553114b75e.jpg', 'old'),
+	(234, '8fa4777e-bfe3-459f-bacc-cba597452470', '02223cb1-9043-4012-9056-7512893cb926.jpg', 'old'),
+	(235, '8fa4777e-bfe3-459f-bacc-cba597452470', 'f41d74a0-6644-4e02-afae-0a926f2fd137.jpg', 'old'),
+	(236, '8fa4777e-bfe3-459f-bacc-cba597452470', '60be9300-bfb2-434c-ad15-c09ee39c4281.jpg', 'old'),
+	(237, '8fa4777e-bfe3-459f-bacc-cba597452470', 'f352f7b4-e523-4bda-b7be-c0834c69a0d9.jpg', 'old'),
+	(238, 'bdba38bf-6790-45ae-a169-800a8a64cc1b', '1a2fc6e9-4176-4f5b-a13e-6585795a80e8.jpg', 'old'),
+	(239, 'bdba38bf-6790-45ae-a169-800a8a64cc1b', '70d560b7-636b-4a2f-8539-8dc33137b01c.jpg', 'old'),
+	(240, 'bdba38bf-6790-45ae-a169-800a8a64cc1b', 'ff469270-1d0f-43b2-ada2-a0972833823b.jpg', 'old'),
+	(241, 'bdba38bf-6790-45ae-a169-800a8a64cc1b', '5600fb85-03fd-4cd8-8318-c27ffdd4a9e8.jpg', 'old'),
+	(242, '3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', '991726c3-0393-4a24-a80c-d9a7885cf3f4.jpg', 'product'),
+	(243, '3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', '49b203a3-010b-47ae-bef0-ff028c966831.jpg', 'product'),
+	(244, '3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', '6f0ed9ca-975a-4533-aa61-b9efaf79510c.jpg', 'product'),
+	(245, '3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', '240e1ef4-6357-451e-93eb-56db1f5e88f8.jpg', 'product'),
+	(246, '7b9041bf-dd53-4c35-b6de-468d5eebe9f3', '2067951b-fd00-40db-b736-e2cc6b48d7e5.jpg', 'product'),
+	(247, '7b9041bf-dd53-4c35-b6de-468d5eebe9f3', '48da00c5-ab1b-4896-800d-9ac76a2c40ed.jpg', 'product'),
+	(248, '7b9041bf-dd53-4c35-b6de-468d5eebe9f3', 'e5b8bb7e-be6a-46c0-8693-363d32f3ba42.jpg', 'product'),
+	(249, '7b9041bf-dd53-4c35-b6de-468d5eebe9f3', 'a37bb74b-76e4-4a30-ad5b-f7a68713d3f3.jpg', 'product');
 /*!40000 ALTER TABLE `imgs` ENABLE KEYS */;
 
 -- 테이블 forrest.old 구조 내보내기
@@ -363,20 +409,23 @@ CREATE TABLE IF NOT EXISTS `old` (
   CONSTRAINT `old_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.old:~13 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.old:~16 rows (대략적) 내보내기
 DELETE FROM `old`;
 /*!40000 ALTER TABLE `old` DISABLE KEYS */;
 INSERT INTO `old` (`oldNo`, `userId`, `oldPrice`, `oldTitle`, `oldDetail`, `oldDate`, `oldView`, `category`, `oldState`, `oldImg`, `oldAddr`) VALUES
 	('3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', 'jj3033@naver.com', 50000, '스텐다드 접이식 바베큐그릴 숯불 캠핑 야외용 BBQ', '한번 쓰고 팝니다. 쿨거래만 받아요..!', '2022-06-24 14:33:11', 1, '그릴', 1, '2112c4de-b722-4761-9062-a8e0e1a458c7.webp', '죽전동'),
 	('48314086-6371-4cbf-8a16-c0495771f046', 'user01@naver.com', 5000, '분위기 있는 랜턴', '싸게 가져가세요~', '2022-06-23 09:56:47', 1, '조명', 1, '098af6ee-f658-4873-877e-3bc8e2095a58.jpg', '삼성동'),
 	('5643ddbf-60fd-44b1-add6-8d7548357c7b', 'user01@naver.com', 9000, '고기굽기 좋은 테이블', '사용감이 있어 저렴하게 올립니다. 기스 살짝 있어요.', '2022-06-23 10:02:08', 3, '테이블', 1, '99b4ecd1-ebba-42db-b936-f646060a04d1.jpg', '삼성동'),
-	('690ca032-db66-432f-a3a8-ba1eaa5dab77', 'tkdals4534@naver.com', 5000, '(새상품)캠핑 미니 가스 토치 요리용 토치 캠핑용품 캠프25 낚시', '(새상품)캠핑 토치 요리용 토치 캠핑용품\r\n화력좋아요 충전식 입니다.\r\n택배 +3,000원\r\n네고안돼요~', '2022-06-24 20:20:42', 1, '버너', 1, '6f8fc688-dc2f-468a-a11d-613ee4f1bf1a.jpg', '성남시 수정구 위례동'),
+	('690ca032-db66-432f-a3a8-ba1eaa5dab77', 'tkdals4534@naver.com', 5000, '(새상품)캠핑 미니 가스 토치 요리용 토치 캠핑용품 캠프25 낚시', '(새상품)캠핑 토치 요리용 토치 캠핑용품\r\n화력좋아요 충전식 입니다.\r\n택배 +3,000원\r\n네고안돼요~', '2022-06-24 20:20:42', 2, '버너', 1, '6f8fc688-dc2f-468a-a11d-613ee4f1bf1a.jpg', '성남시 수정구 위례동'),
+	('6e44d378-3ba1-4339-b74a-251c6d58c974', 'jj3033@naver.com', 100000, '캠핑 장구류', '장구류라서 많이 무거워요! 자차있으신분만 받습니당', '2022-06-28 02:58:43', 1, '기타용품', 1, '40629744-b38e-4638-a47c-cdaa3cb55b53.jpg', '경기도 용인시 수지구 죽전동'),
+	('8fa4777e-bfe3-459f-bacc-cba597452470', 'jj3033@naver.com', 1000, '플래쉬 라이트', '동굴도 갈 수 있는 라이트에요. 완전 강추!', '2022-06-28 03:00:25', 1, '조명', 1, '02223cb1-9043-4012-9056-7512893cb926.jpg', '경기도 용인시 수지구 죽전동'),
 	('9113b67b-70eb-425b-ba35-36b4838b74b6', 'qwerty5266@naver.com', 20000, '캠핑식기 세트 22P 캠핑용품 접시세트', '20000원에 팝니다..!', '2022-06-24 14:37:33', 3, '식기', 1, '32fef995-b239-48a2-9ad1-eb313b30bc98.webp', '동천동'),
-	('94e5bfe0-7829-4556-8220-92a3d425cb1d', 'tkdals4534@naver.com', 6000, '[1+1] 캠핑 소품걸이스트랩 데이지체인', '캠핑이나 낚시등 야외에서\r\n여러가지 소품을 걸어놓을수 있는\r\n소품 걸이용 데이지체인 입니다.\r\n\r\n주변의 나무나 폴대 등에 걸어서\r\n사용 하시면 되구요\r\n찍찍이?와 버클이 있어 사용이 편리 합니다.\r\n\r\n사이즈는  폭 2Cm 길이 190Cm 정도이며\r\n1+1 두세트 구성으로 전용파우치 포함 입니다.\r\n(사진에 나와있는 카라비너 와 소품등은 구성품에 포함되지 않음)\r\n\r\n배송비 3,000원 추가이며\r\n(제주 및 도서산간지역 배송비 추가)\r\n현재 판매중인 다른 상품과 묶음 배송도 가능하니\r\n기타 궁금하신 사항은 톡 으로 문의 주시기 바랍니다.\r\n\r\n☆묶음배송가능☆\r\n\r\n☆5만원 이상 구매 시 배송비 무료☆', '2022-06-24 20:23:05', 0, '조명', 1, '6549af81-a688-41f3-ad66-00937e398b0d.jpg', '성남시 수정구 위례동'),
-	('a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'user01@naver.com', 20000, '감성 조명', '싸게 가져가세요', '2022-06-23 09:50:06', 1, '조명', 1, '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', '청담동'),
+	('94e5bfe0-7829-4556-8220-92a3d425cb1d', 'tkdals4534@naver.com', 6000, '[1+1] 캠핑 소품걸이스트랩 데이지체인', '캠핑이나 낚시등 야외에서\r\n여러가지 소품을 걸어놓을수 있는\r\n소품 걸이용 데이지체인 입니다.\r\n\r\n주변의 나무나 폴대 등에 걸어서\r\n사용 하시면 되구요\r\n찍찍이?와 버클이 있어 사용이 편리 합니다.\r\n\r\n사이즈는  폭 2Cm 길이 190Cm 정도이며\r\n1+1 두세트 구성으로 전용파우치 포함 입니다.\r\n(사진에 나와있는 카라비너 와 소품등은 구성품에 포함되지 않음)\r\n\r\n배송비 3,000원 추가이며\r\n(제주 및 도서산간지역 배송비 추가)\r\n현재 판매중인 다른 상품과 묶음 배송도 가능하니\r\n기타 궁금하신 사항은 톡 으로 문의 주시기 바랍니다.\r\n\r\n☆묶음배송가능☆\r\n\r\n☆5만원 이상 구매 시 배송비 무료☆', '2022-06-24 20:23:05', 1, '조명', 1, '6549af81-a688-41f3-ad66-00937e398b0d.jpg', '성남시 수정구 위례동'),
+	('a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'user01@naver.com', 20000, '감성 조명', '싸게 가져가세요', '2022-06-23 09:50:06', 2, '조명', 1, '9ab1853e-4b67-4bd2-9ee2-b1ff4d7b4398.jpg', '청담동'),
+	('bdba38bf-6790-45ae-a169-800a8a64cc1b', 'jj3033@naver.com', 30000, '전기 모기퇴치 기계', '이것만 있으면 모기 안물려요', '2022-06-28 03:02:35', 1, '기타용품', 1, '1a2fc6e9-4176-4f5b-a13e-6585795a80e8.jpg', '경기도 용인시 수지구 죽전동'),
 	('df9d73df-8b33-4fd3-99b9-b2e43784ca0a', 'kedee2001@naver.com', 20000, '다니고 캠핑 전구', '30000원에 샀는데 눈물을 머금고 20000원에 올립니다ㅠㅠ\r\n이것만 있으면 밤에 안 어둡고 갬성넘치는 캠핑을 할 수 있습니다 ㅎㅎ\r\n쿨거래 시 네고 해드립니다!', '2022-06-24 14:26:02', 3, '조명', 1, 'c42c8bc7-1e4b-4b15-a6b3-67bb0fabe77f.gif', '상산동'),
 	('ea5668d7-ad6e-4f09-8719-474876e6cad4', 'admin', 60000, '원목 테이블', '튼튼해요 퀄리티 정말 좋아요.', '2022-06-23 09:59:53', 3, '테이블', 1, '2638800c-6535-4ab8-b052-d5c7ee82b180.jpg', '역삼동'),
-	('ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'sanstory12rt@naver.com', 50000, '포레스트우드 구이바다 BBQ그릴 풀세트M', '기름도 별로 안튀었고, 한번 청소했어서 완전 깨끗해요!\r\n더 좋은걸 사서 그냥 팝니다 ㅎㅎㅎ!', '2022-06-24 14:35:13', 2, '버너', 1, 'de527e4a-15af-4a4b-9c32-9bab5221061e.webp', '죽전동'),
+	('ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'sanstory12rt@naver.com', 50000, '포레스트우드 구이바다 BBQ그릴 풀세트M', '기름도 별로 안튀었고, 한번 청소했어서 완전 깨끗해요!\r\n더 좋은걸 사서 그냥 팝니다 ㅎㅎㅎ!', '2022-06-24 14:35:13', 4, '버너', 0, 'de527e4a-15af-4a4b-9c32-9bab5221061e.webp', '죽전동'),
 	('f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'captain9697@naver.com', 30000, '경량체어 감성 로우 커밋체어 등산의자', '경량 체어라서 엄청 가벼워요. 앉아서 불멍때리면 행복이 여기에!\r\n사용감 거의 없어서 거의 새거에요. 얻어가세요!~', '2022-06-24 14:29:09', 3, '의자', 1, 'ede4e20d-5403-4df4-a65d-fef902425730.webp', '상산동'),
 	('f625dc89-ba1c-49ab-b448-4f31a7e8b8b3', 'tkdals4534@naver.com', 1000, '30G 알콜 고체 연료 캠핑용 50개', '2022 new arrival\r\n\r\n시원한 여름의 꽃, 캠핑의 계절이 왔습니다!!\r\n\r\n고체연료가 필요하신가요?? \r\n\r\n말이 필요없습니다!! 써보신 분들은 고체 연료의 편리함에 만족하십니다!\r\n\r\n가격이 맘에 안 드시나요? 그래서 내렸습니다!\r\n\r\n•  참치맛김밥 고체연료 30g * 50개 ( 배송비 포함 )\r\n\r\n추가적인 문의는 번개톡으로 주시면 빠르게 원활한 대응이 가능합니다!\r\n\r\n*저희 매장은 50,000 이상 거래시에 일부 제품 무료 배송가능합니다.', '2022-06-24 20:20:12', 0, '난로', 1, '745fdaa4-246a-45a5-9f49-90c66dc55f66.jpg', '성남시 수정구 위례동'),
 	('fecb1f75-15b2-4ca6-a105-32a1ba628fce', 'user01@naver.com', 90000, '한번 사용한 텐트', '실물 예뻐요~', '2022-06-23 09:55:13', 1, '텐트', 1, 'b50b7c22-c12a-4896-9aa8-4b9ac6deed42.jpg', '연희동');
@@ -392,13 +441,30 @@ CREATE TABLE IF NOT EXISTS `oldlike` (
   KEY `userId` (`userId`),
   CONSTRAINT `oldlike_ibfk_1` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`) ON DELETE CASCADE,
   CONSTRAINT `oldlike_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.oldlike:~0 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.oldlike:~8 rows (대략적) 내보내기
 DELETE FROM `oldlike`;
 /*!40000 ALTER TABLE `oldlike` DISABLE KEYS */;
 INSERT INTO `oldlike` (`oldLikeNo`, `oldNo`, `userId`) VALUES
-	(4, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'kedee2001@naver.com');
+	(4, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'kedee2001@naver.com'),
+	(6, '9113b67b-70eb-425b-ba35-36b4838b74b6', 'jj3033@naver.com'),
+	(7, 'f625dc89-ba1c-49ab-b448-4f31a7e8b8b3', 'jj3033@naver.com'),
+	(8, '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', 'jj3033@naver.com'),
+	(9, '94e5bfe0-7829-4556-8220-92a3d425cb1d', 'jj3033@naver.com'),
+	(10, '48314086-6371-4cbf-8a16-c0495771f046', 'jj3033@naver.com'),
+	(11, 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 'jj3033@naver.com'),
+	(12, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'jj3033@naver.com'),
+	(13, '8fa4777e-bfe3-459f-bacc-cba597452470', 'kedee2001@naver.com'),
+	(14, 'f625dc89-ba1c-49ab-b448-4f31a7e8b8b3', 'kedee2001@naver.com'),
+	(15, '6e44d378-3ba1-4339-b74a-251c6d58c974', 'kedee2001@naver.com'),
+	(16, 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 'kedee2001@naver.com'),
+	(17, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'kedee2001@naver.com'),
+	(18, '8fa4777e-bfe3-459f-bacc-cba597452470', 'qwerty5266@naver.com'),
+	(19, 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', 'qwerty5266@naver.com'),
+	(20, '94e5bfe0-7829-4556-8220-92a3d425cb1d', 'qwerty5266@naver.com'),
+	(21, 'df9d73df-8b33-4fd3-99b9-b2e43784ca0a', 'qwerty5266@naver.com'),
+	(22, '5643ddbf-60fd-44b1-add6-8d7548357c7b', 'qwerty5266@naver.com');
 /*!40000 ALTER TABLE `oldlike` ENABLE KEYS */;
 
 -- 테이블 forrest.oldreview 구조 내보내기
@@ -409,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `oldreview` (
   `oldNo` varchar(40) NOT NULL,
   `reviewDetail` varchar(100) DEFAULT NULL,
   `userRate` double DEFAULT NULL,
-  `reviewDate` date NOT NULL DEFAULT (CURRENT_DATE),
+  `reviewDate` date NOT NULL DEFAULT curdate(),
   PRIMARY KEY (`oldReviewNo`),
   KEY `reviewUserId` (`reviewUserId`),
   KEY `reviewedUserId` (`reviewedUserId`),
@@ -417,11 +483,13 @@ CREATE TABLE IF NOT EXISTS `oldreview` (
   CONSTRAINT `oldreview_ibfk_1` FOREIGN KEY (`reviewUserId`) REFERENCES `user` (`userId`),
   CONSTRAINT `oldreview_ibfk_2` FOREIGN KEY (`reviewedUserId`) REFERENCES `user` (`userId`),
   CONSTRAINT `oldreview_ibfk_3` FOREIGN KEY (`oldNo`) REFERENCES `old` (`oldNo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.oldreview:~0 rows (대략적) 내보내기
 DELETE FROM `oldreview`;
 /*!40000 ALTER TABLE `oldreview` DISABLE KEYS */;
+INSERT INTO `oldreview` (`oldReviewNo`, `reviewUserId`, `reviewedUserId`, `oldNo`, `reviewDetail`, `userRate`, `reviewDate`) VALUES
+	(15, 'sanstory12rt@naver.com', 'qwerty5266@naver.com', 'ef4e0923-71a7-47ac-bc7e-f133da484fcf', '친절해요\r\n', 5, '2022-06-28');
 /*!40000 ALTER TABLE `oldreview` ENABLE KEYS */;
 
 -- 테이블 forrest.owncoupon 구조 내보내기
@@ -436,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `owncoupon` (
   KEY `couponNo` (`couponNo`),
   CONSTRAINT `owncoupon_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `owncoupon_ibfk_2` FOREIGN KEY (`couponNo`) REFERENCES `coupon` (`couponNo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 forrest.owncoupon:~8 rows (대략적) 내보내기
 DELETE FROM `owncoupon`;
@@ -477,15 +545,17 @@ CREATE TABLE IF NOT EXISTS `product` (
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.product:~23 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.product:~25 rows (대략적) 내보내기
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCondition`, `prodName`, `prodQuantity`, `prodDetail`, `isRental`, `rentalCounting`, `rentalPrice`, `account`, `category`, `divyAddress`, `prodImg`, `recentImg`, `regDate`) VALUES
-	('15b74776-2033-4c01-9685-ed46aa6b937a', 10, 10, 2, 'tkdals4534@naver.com', '물품대여승인신청중', '도플갱어 타프 헥사', 1, '[해외]도플갱어 타프 헥사 all in one UV TT5-631 3색 입니다\r\n', 1, 1, 10000, '우리/1235325325', '기타용품', '16873/경기 용인시 수지구 대지로 18/201-1023/ (죽전동)', '31fb43d1-793d-4629-9c6e-05cbbdb73590.webp', NULL, '2022-06-24 15:01:06'),
+	('15b74776-2033-4c01-9685-ed46aa6b937a', 10, 10, 2, 'tkdals4534@naver.com', '배송중', '도플갱어 타프 헥사', 1, '[해외]도플갱어 타프 헥사 all in one UV TT5-631 3색 입니다\r\n', 1, 1, 10000, '우리/1235325325', '기타용품', '16873/경기 용인시 수지구 대지로 18/201-1023/ (죽전동)', '31fb43d1-793d-4629-9c6e-05cbbdb73590.webp', NULL, '2022-06-24 15:01:06'),
 	('22367a5f-9b0a-4ecc-9464-7f7eed170e07', 10, 10, 2, 'sanstory12rt@naver.com', '보관중', '브래마 3 400 카라반 어닝 하우스', 1, '브래마 3 400 카라반 어닝 하우스 에어빔 텐트+ 매트입니다..! 잘 보관해주시고, 대여할 분들은 대여하세요~', 1, 0, 120000, '국민/4321353521523521', '텐트', '13473/경기 성남시 분당구 경부고속도로 409/220-4431/ (삼평동)', '2181ebf6-5ce8-46ad-ac1f-22e1d8b3e4dc.webp', NULL, '2022-06-24 15:51:20'),
-	('29cadabb-2982-4ff2-abd3-c621eff8fe4c', 10, 10, 10, 'qwerty5266@naver.com', '보관중', '메이튼 캠핑 랜턴 조명 감성 LED ', 1, 'c타입 충전기를 써서 편리합니다. 저렴하게 가져가세요!', 1, 0, 10000, '우리/1002250485761', '조명', '13485/경기 성남시 분당구 판교로 20/405/ (판교동, 판교원마을3단지아파트)', '5a2ecf73-e626-4345-a29f-dd52e4d806c9.jpg', NULL, '2022-06-24 20:21:59'),
+	('29cadabb-2982-4ff2-abd3-c621eff8fe4c', 10, 10, 10, 'qwerty5266@naver.com', '물품대여승인신청중', '메이튼 캠핑 랜턴 조명 감성 LED ', 1, 'c타입 충전기를 써서 편리합니다. 저렴하게 가져가세요!', 1, 0, 10000, '우리/1002250485761', '조명', '13485/경기 성남시 분당구 판교로 20/405/ (판교동, 판교원마을3단지아파트)', '5a2ecf73-e626-4345-a29f-dd52e4d806c9.jpg', NULL, '2022-06-24 20:21:59'),
+	('3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', 10, 10, 2, 'kedee2001@naver.com', '입고중', '캠핑용에도 쓸 수 있는 돗자리', 1, '부피가 좀 커요. 사진처럼 예쁜 누나랑 같이있으면 더 좋아요', 1, 0, 900, '국민/1024-12424-125273', '기타용품', '63309/제주특별자치도 제주시 영평동 2181/221-12421/ (영평동)', '991726c3-0393-4a24-a80c-d9a7885cf3f4.jpg', NULL, '2022-06-28 03:10:49'),
 	('3aa1ecde-b497-46a7-b629-b1ad08342da1', 10, 10, 10, 'sanstory12rt@naver.com', '보관중', '감성좋은 행복한 텐트', 1, '행복이 넘치는 감성넘치는 좋은 텐트입니다.', 1, 0, 100, '국민/292-12392193-4578', '텐트', '06035/서울 강남구 가로수길 5/5986호/ (신사동)', '40eff2d4-dce4-4fba-a7cc-68e2c072bf7c.jpg', NULL, '2022-06-24 20:20:01'),
 	('477fe5db-8b93-4d28-9f0d-8156f49507c1', 5, 2, 2, 'captain9697@naver.com', '물품보관승인신청중', '시어잘 Searing Torch', 1, '유튜버 육식맨보고 충동구매한 시어잘입니다. 요즘 캠핑을 잘안가서 집에서 놀고있길래 보관합니다.. 화력은 약한편이긴 한데 캠핑가서 쓰기에는 충분할거에요 부디 잘 보살펴주세요', 1, 0, 3000, '국민/47810204386651', '기타용품', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '18da7a3d-1a24-436e-afb5-b1291073bc06.jpg', NULL, '2022-06-26 03:08:05'),
+	('48163909-9959-46bd-ab5b-f2f4ef5b7d8b', 10, 10, 2, 'jj3033@naver.com', '보관중', '서큘레이터', 1, '서큘레이터 입니다', 1, 0, 3000, '국민/1024-12424-125273', '기타용품', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', 'f5c1af31-cf6b-45bd-af51-3ab323e19c54.jpg', NULL, '2022-06-28 02:52:01'),
 	('48acf057-13d0-411d-81dd-bec5b8e0cbf3', 10, 10, 2, 'kedee2001@naver.com', '보관중', '\r\n	 에탄올 난로 미니 ', 1, '불멍 캠핑 가정용 에탄올 난로 입니다!\r\n 휴대성도 좋고 짐옮길때도 아주편합니당  수납공간이 생각보다 넓어요  최대 100kg까지 견딜수있습니다~ 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다.\r\n 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다', 1, 0, 2000, '국민/1242151525125', '기타용품', '16872/경기 용인시 수지구 대지로 49/106-4210/ (죽전동, 죽전퍼스트하임)', 'ac89bba4-c826-4401-8e98-7ea2107d7934.webp', NULL, '2022-06-24 20:23:19'),
 	('4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', 10, 10, 2, 'sanstory12rt@naver.com', '보관중', '리버 프로 + 110W태양광패널', 1, '리버 프로 + 110W태양광패널 + 확장배터리 세트 파워뱅크 720Wh 1800W 220V\r\n\r\n', 1, 0, 50000, '국민/4321353521523521', '기타용품', '13487/경기 성남시 분당구 대왕판교로 579/22-232/ (삼평동)', 'a1bdb845-cea3-4229-b0d3-77eadd70fc24.jpg', NULL, '2022-06-24 15:36:07'),
 	('52fb9c79-d83b-436a-b5be-5b27a6b13c33', 10, 10, 2, 'captain9697@naver.com', '보관중', '바베큐,숯불 그릴/캠핑 그릴', 1, '캠핑용 가정용 그릴이고 한번사용후 보관했는데 숯자국은 남네요\r\n중형으로 간단히 구워먹기좋아요 3-4인용이고 가방이 깨끗하지않아요\r\n숯사용후 남은것도 드려요  이사짐정리중입니다', 1, 0, 5000, '국민/47810204386651', '그릴', '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', NULL, '2022-06-22 14:11:24'),
@@ -493,17 +563,19 @@ INSERT INTO `product` (`prodNo`, `width`, `length`, `height`, `userId`, `prodCon
 	('6e1ba4a4-55b8-4a13-a8b7-f763376f4f8a', 5, 5, 2, 'captain9697@naver.com', '물품보관승인신청중', '슈브 캠핑의자', 1, '슈브캠핑의자입니다.   사용하지 않을땐 간편하게 접어서 보관가능하구요 무게도 2kg도 안나가서 여성분혼자 들기에도 가뿐합니다! 요즘 캠핑을 잘 안가서 올려놔요 ㅎㅎ', 1, 0, 4000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '0035d465-2811-41f4-a144-19009029e0b3.jpg', NULL, '2022-06-26 02:56:40'),
 	('7374c5cb-e68b-4d65-84a9-013f0d1df57c', 10, 10, 2, 'captain9697@naver.com', '보관중', '라탄 전등갓 줄전구 조명', 1, '[손품]이라는 곳에서 구매한 라탄 전등 갓 조명이예요\r\n20구 이고, 건전지형 입니다 (USB형 나오기전 구매)\r\n저는 캠핑때 사용하려고 샀었고, 1회 사용 후 보관만 해둔 상태 입니다\r\n\r\n샀던 곳 상세설명 첨부 참고해주세요\r\n더스트백에 넣어 드립니다\r\n라탄 갓은 전구에 일일히 따로 끼워야 하는데 20개 다 하려면 시간 꽤 걸려요 그래서 끼운채 있고 그대로 드려요!', 1, 0, 3000, '국민/47810204386651', '조명', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', NULL, '2022-06-22 14:15:26'),
 	('77524b01-d13f-4917-a4eb-983d12d95609', 10, 10, 1, 'captain9697@naver.com', '물품보관승인신청중', '캠핑웨건, 테이블, 의자', 1, '캠핑웨건, 테이블, 의자 세트입니다 \r\n휴대성도 좋고 짐옮길때도 아주편합니당  수납공간이 생각보다 넓어요  최대 100kg까지 견딜수있습니다~', 1, 0, 4000, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '5cf3cd66-23fd-467d-af11-b7b6ba20ea8e.jpg', NULL, '2022-06-26 02:48:35'),
+	('7b9041bf-dd53-4c35-b6de-468d5eebe9f3', 10, 10, 2, 'kedee2001@naver.com', '물품보관승인신청중', 'LED전등 2헥타르 용', 1, '완전 밝게 빛나는 조명!', 1, 0, 3000, '국민/1002-142-669212', '조명', '16872/경기 용인시 수지구 대지로 19/241-2145/ (죽전동, 더 리버하임)', '2067951b-fd00-40db-b736-e2cc6b48d7e5.jpg', NULL, '2022-06-28 03:14:01'),
 	('8c1a7ac2-611b-4f98-8591-2b512bbb7de4', 5, 5, 2, 'captain9697@naver.com', '물품보관승인신청중', '캠핑웨건 상판 테이블', 1, '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다. 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다~ ', 1, 0, 2500, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '70979fba-296e-483e-99d0-0845c81b1a75.jpg', NULL, '2022-06-26 03:00:46'),
 	('921f14e2-f6ad-4db5-961c-2a21caa4bea2', 10, 10, 2, 'tkdals4534@naver.com', '보관중', '썬샤인 라탄 야외 7인 테이블 소파 ', 1, '썬샤인 라탄 야외 7인 테이블 소파 세트', 1, 0, 100000, '국민/1235325325', '의자', '16873/경기 용인시 수지구 대지로 18/204-4201/ (죽전동)', '4a22dd61-c8db-40b8-afcd-1d7216196071.webp', NULL, '2022-06-24 15:09:06'),
 	('99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', 10, 10, 2, 'captain9697@naver.com', '보관중', '캠핑테이블 정원테이블', 1, '높낮이가 가능하고\r\n수납가방이 있어서 보관 및 휴대하기가 좋으며 테이블 밑에 수납 망이 있어서 여러가지 물건을담을수있습니다.\r\n의자는 없습니다.\r\n낚시. 캠핑용 세컨드용.\r\n', 1, 0, 5000, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '41375b42-535e-4438-a7dd-4abef77bf30a.jpg', NULL, '2022-06-24 20:22:30'),
-	('a30ba851-23e6-4204-9bb0-10713e252175', 5, 5, 2, 'captain9697@naver.com', '보관중', '슈브 캠핑의자', 1, '슈브캠핑의자입니다.   사용하지 않을땐 간편하게 접어서 보관가능하구요 무게도 2kg도 안나가서 여성분혼자 들기에도 가뿐합니다! 요즘 캠핑을 잘 안가서 올려놔요 ㅎㅎ', 1, 0, 4000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'c0b224d8-752d-4c78-9687-56794bf73be6.jpg', NULL, '2022-06-26 02:56:34'),
+	('a30ba851-23e6-4204-9bb0-10713e252175', 5, 5, 2, 'captain9697@naver.com', '배송중', '슈브 캠핑의자', 1, '슈브캠핑의자입니다.   사용하지 않을땐 간편하게 접어서 보관가능하구요 무게도 2kg도 안나가서 여성분혼자 들기에도 가뿐합니다! 요즘 캠핑을 잘 안가서 올려놔요 ㅎㅎ', 1, 0, 4000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'c0b224d8-752d-4c78-9687-56794bf73be6.jpg', NULL, '2022-06-26 02:56:34'),
 	('a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 10, 10, 2, 'qwerty5266@naver.com', '보관중', '스마랑 인조라탄 야외 원형소파베드세트', 1, '스마랑 인조라탄 야외 원형소파베드세트\r\n\r\n', 1, 0, 100000, '국민/4321353521523521', '의자', '13494/경기 성남시 분당구 판교역로 235/124-1244/ (삼평동)', '942e74da-1389-45f5-b283-8504d098fb07.webp', NULL, '2022-06-24 15:26:01'),
 	('b1ea16c2-3b8e-4e2c-baaf-fdf15d95f2ad', 10, 10, 10, 'qwerty5266@naver.com', '물품보관승인신청중', '메이튼 캠핑 랜턴 조명 감성 LED ', 1, 'c타입 충전기를 써서 편리합니다. 저렴하게 가져가세요!', 1, 0, 10000, '우리/1002250485761', '조명', '13485/경기 성남시 분당구 판교로 20/405/ (판교동, 판교원마을3단지아파트)', 'c8485578-521a-43fb-ad88-541c46ad10fa.jpg', NULL, '2022-06-24 20:22:06'),
-	('b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 10, 10, 2, 'captain9697@naver.com', '보관중', '캠핑의자,캠핑체어,스노우라인,유아의자', 1, '야외에서 쓰던거라 사용감 있어요.\r\n그래도 튼튼하고 사용하기 좋아요\r\n\r\n민트색의자는 주니어의자 라고해서 당근구입하고 봤더니 어린이가 쓰는거라 안쓰고 보관만했어요. 꺼내봤더니 많이 지저분해졌네요.이것도 튼튼해요~\r\n스노우라인꺼 사시는분 필요하시면 드려요~', 1, 0, 3000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', NULL, '2022-06-22 14:19:07'),
+	('b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 10, 10, 2, 'captain9697@naver.com', '물품대여승인신청중', '캠핑의자,캠핑체어,스노우라인,유아의자', 1, '야외에서 쓰던거라 사용감 있어요.\r\n그래도 튼튼하고 사용하기 좋아요\r\n\r\n민트색의자는 주니어의자 라고해서 당근구입하고 봤더니 어린이가 쓰는거라 안쓰고 보관만했어요. 꺼내봤더니 많이 지저분해졌네요.이것도 튼튼해요~\r\n스노우라인꺼 사시는분 필요하시면 드려요~', 1, 0, 3000, '국민/47810204386651', '의자', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', NULL, '2022-06-22 14:19:07'),
 	('d3e79f34-2906-4479-8d04-a8ce1dd22b2f', 10, 10, 10, 'jj3033@naver.com', '보관중', '캠핑공구', 1, '캠핑가면 가끔 쓰는 공구입니다.\r\n말 그대로 가끔 써서 사자니 돈아깝고\r\n없으면 귀찮은 것들 모아놨습니다.\r\n사용감 거의 없음여', 1, 0, 10000, '국민/110250838787', '기타용품', '02582/서울 동대문구 하정로5길 13/201/ (신설동, 신설동주상복합)', '92932f9e-e421-4228-b02c-4e8fc5a4ca40.jpg', NULL, '2022-06-24 20:14:52'),
+	('df8ccda2-c428-4f33-82cd-185747598e2f', 10, 10, 2, 'jj3033@naver.com', '물품보관승인신청중', '초록배낭', 1, '초록배낭입니다', 1, 0, 10000, '국민/1024-12424-125273', '침대', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', 'c8eef639-f862-4293-8fb9-0f8aca7df384.jpg', NULL, '2022-06-28 02:43:56'),
 	('e69e5842-2b0c-46a5-88f4-93b52fe15010', 5, 2, 2, 'captain9697@naver.com', '보관중', '시어잘 Searing Torch', 1, '유튜버 육식맨보고 충동구매한 시어잘입니다. 요즘 캠핑을 잘안가서 집에서 놀고있길래 보관합니다.. 화력은 약한편이긴 한데 캠핑가서 쓰기에는 충분할거에요 부디 잘 보살펴주세요', 1, 0, 3000, '국민/47810204386651', '기타용품', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '718b6684-e70f-49a6-8730-beaa5bc1279a.jpg', NULL, '2022-06-26 03:08:01'),
 	('e994e191-17b0-4873-8f2d-ecfc6995cc6b', 10, 2, 10, 'captain9697@naver.com', '물품보관승인신청중', '캠핑 BBQ Fire Pit', 1, '가정용, 캠핑용으로 적합한 바베큐 그릴이구요\r\n무게도 3.4kg라 비교적 휴대도 간편한폅입니다 \r\n싸게 업어가세요~~', 1, 0, 4000, '국민/47810204386651', '그릴', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'b3abae9b-a273-4a8d-a8dd-90490dcded83.jpg', NULL, '2022-06-26 02:41:34'),
-	('fdf38744-961f-4cef-995f-244380b49733', 5, 5, 2, 'captain9697@naver.com', '보관중', '캠핑웨건 상판 테이블', 1, '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다. 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다~ ', 1, 0, 2500, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'cd73069e-31d3-4920-b57b-462354326f24.jpg', NULL, '2022-06-26 03:00:40');
+	('fdf38744-961f-4cef-995f-244380b49733', 5, 5, 2, 'captain9697@naver.com', '대여중', '캠핑웨건 상판 테이블', 1, '캠핑웨건에 사용하는 상판테이블입니다 접이식이라서 부피도 많이 안차지하구요 정말 유용하게 잘썼습니다. 생활기스 조금 있어서 싸게 대여가능하게 올려놓습니다~ ', 1, 0, 2500, '국민/47810204386651', '테이블', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'cd73069e-31d3-4920-b57b-462354326f24.jpg', NULL, '2022-06-26 03:00:40');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- 테이블 forrest.rentalreview 구조 내보내기
@@ -603,13 +675,16 @@ CREATE TABLE IF NOT EXISTS `report` (
   CONSTRAINT `report_ibfk_1` FOREIGN KEY (`reportUser`) REFERENCES `user` (`userId`),
   CONSTRAINT `report_ibfk_2` FOREIGN KEY (`reportedUser`) REFERENCES `user` (`userId`),
   CONSTRAINT `report_ibfk_3` FOREIGN KEY (`reportOldNo`) REFERENCES `old` (`oldNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.report:~0 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.report:~2 rows (대략적) 내보내기
 DELETE FROM `report`;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
 INSERT INTO `report` (`reportNo`, `reportUser`, `reportedUser`, `reportOldNo`, `reportChatroomNo`, `reportCategory`, `reportDate`, `reportDetail`, `reportChat`, `reportCode`) VALUES
-	(4, 'admin', 'captain9697@naver.com', 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 10, '전문', '2022-06-24 16:18:09', '의심이 되는 듯 ㅡㅡ', NULL, NULL);
+	(4, 'admin', 'captain9697@naver.com', 'f215ff49-27a8-49ba-ac01-9ef27bfb02fe', 10, '전문', '2022-06-24 16:18:09', '의심이 되는 듯 ㅡㅡ', NULL, NULL),
+	(5, 'jj3033@naver.com', 'user01@naver.com', '3d91e986-7a27-4c99-9d02-c7a7b56a2f6c', 22, '다른문제', '2022-06-28 02:53:20', '그냥 해봤어요', NULL, NULL),
+	(6, 'sanstory12rt@naver.com', 'user01@naver.com', 'a4bde7a7-c0dc-4734-9aa6-1c2cd769b6d8', 34, '다른문제', '2022-06-28 03:25:07', '답장이 너무 느려요\r\n', NULL, NULL),
+	(7, 'sanstory12rt@naver.com', 'jj3033@naver.com', '8fa4777e-bfe3-459f-bacc-cba597452470', 35, '다른문제', '2022-06-28 03:25:40', '눈뽕 ㅠㅠ', NULL, NULL);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 
 -- 테이블 forrest.transaction 구조 내보내기
@@ -644,27 +719,39 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.transaction:~19 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.transaction:~26 rows (대략적) 내보내기
 DELETE FROM `transaction`;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
 INSERT INTO `transaction` (`tranNo`, `userId`, `prodNo`, `divyRequest`, `divyAddress`, `pickupAddress`, `startDate`, `endDate`, `period`, `tranCode`, `paymentNo`, `paymentDate`, `paymentWay`, `receiverPhone`, `receiverName`, `prodName`, `prodImg`, `originPrice`, `discountPrice`, `resultPrice`, `reviewDone`, `complete`, `cancelComplete`) VALUES
+	('094457e1-9ad4-4666-a169-0257a09d7bf6', 'kedee2001@naver.com', 'fdf38744-961f-4cef-995f-244380b49733', '와우!', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-01', 2, 1, 'imp_020079677493', '2022-06-28 03:05:40', NULL, '010/9325/7412', '김재민', '캠핑웨건 상판 테이블', 'cd73069e-31d3-4920-b57b-462354326f24.jpg', 16600, 16434, 166, 0, 0, 0),
 	('193f067d-3eda-4a07-a68b-e90824f642cf', 'captain9697@naver.com', 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-10-21', 120, 0, 'imp_930121942719', '2022-06-22 14:19:07', NULL, '010/4114/9697', '박범수', '캠핑의자,캠핑체어,스노우라인,유아의자,어린이캠핑', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 960, 0, 960, 0, 0, 0),
+	('1b3a263b-5e45-40df-99c7-81270df864c2', 'jj3033@naver.com', 'df8ccda2-c428-4f33-82cd-185747598e2f', NULL, '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-29', 30, 0, 'imp_284760451452', '2022-06-28 02:43:56', NULL, '010/8482/8842', '정태영', '초록배낭', 'c8eef639-f862-4293-8fb9-0f8aca7df384.jpg', 240, 0, 240, 0, 0, 0),
 	('22679442-ce59-41f8-8191-c5a26ee25ca3', 'captain9697@naver.com', '7374c5cb-e68b-4d65-84a9-013f0d1df57c', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-07-23', 30, 0, 'imp_380900755748', '2022-06-22 14:15:26', NULL, '010/4114/9697', '박범수', '라탄 전등갓 줄전구 조명', 'e54d899f-8a6c-4f49-bb89-8703196bf34b.jpg', 240, 0, 240, 0, 0, 0),
 	('30583d96-16f7-41e6-943b-fc8781a372c4', 'jj3033@naver.com', 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', NULL, '02582/서울 동대문구 하정로5길 13/201/ (신설동, 신설동주상복합)', '02582/서울 동대문구 하정로5길 13/201/ (신설동, 신설동주상복합)', '2022-06-25', '2022-07-25', 30, 0, 'imp_771252843932', '2022-06-24 20:14:52', NULL, '010/9351/2557', '정태영', '캠핑공구', '92932f9e-e421-4228-b02c-4e8fc5a4ca40.jpg', 1200, 0, 1200, 0, 0, 0),
+	('3c10f6cc-8934-42c6-a4a8-3c1627d9c0b7', 'jj3033@naver.com', '48163909-9959-46bd-ab5b-f2f4ef5b7d8b', NULL, '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-29', 30, 0, 'imp_370254164385', '2022-06-28 02:52:01', NULL, '010/8482/8842', '정태영', '서큘레이터', 'f5c1af31-cf6b-45bd-af51-3ab323e19c54.jpg', 240, 0, 240, 0, 0, 0),
 	('41037c96-315c-4ff7-816f-8a4ea1b85668', 'captain9697@naver.com', 'fdf38744-961f-4cef-995f-244380b49733', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-08-26', 60, 0, 'imp_788990596182', '2022-06-26 03:00:40', NULL, '010/4114/9697', '박범수', '캠핑웨건 상판 테이블', 'cd73069e-31d3-4920-b57b-462354326f24.jpg', 120, 0, 120, 0, 0, 0),
 	('45fbb4be-4210-4bc9-b213-adfcd903d106', 'tkdals4534@naver.com', '15b74776-2033-4c01-9685-ed46aa6b937a', NULL, '16873/경기 용인시 수지구 대지로 18/201-1023/ (죽전동)', '16873/경기 용인시 수지구 대지로 18/201-1023/ (죽전동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_608437621314', '2022-06-24 15:01:06', NULL, '010/9325/7941', '김재민', '도플갱어 타프 헥사', '31fb43d1-793d-4629-9c6e-05cbbdb73590.webp', 240, 0, 240, 0, 0, 0),
+	('4f5eea01-8736-48e8-9eaa-ade261d4397e', 'kedee2001@naver.com', '29cadabb-2982-4ff2-abd3-c621eff8fe4c', '와우!', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-01', 2, 1, 'imp_020079677493', '2022-06-28 03:05:40', NULL, '010/9325/7412', '김재민', '메이튼 캠핑 랜턴 조명 감성 LED ', '5a2ecf73-e626-4345-a29f-dd52e4d806c9.jpg', 16600, 16434, 166, 0, 0, 0),
 	('65c85b74-0085-4259-bcf2-454e295a5747', 'kedee2001@naver.com', '48acf057-13d0-411d-81dd-bec5b8e0cbf3', NULL, '16872/경기 용인시 수지구 대지로 49/106-4210/ (죽전동, 죽전퍼스트하임)', '16872/경기 용인시 수지구 대지로 49/106-4210/ (죽전동, 죽전퍼스트하임)', '2022-06-25', '2022-07-25', 30, 0, 'imp_826769629863', '2022-06-24 20:23:19', NULL, '010/9325/7941', '김재민', '불멍 캠핑 가정용 에탄올 난로 미니 ', 'ac89bba4-c826-4401-8e98-7ea2107d7934.webp', 240, 0, 240, 0, 0, 0),
 	('7338e575-9b26-46fe-920f-9004098a3ef4', 'captain9697@naver.com', '52fb9c79-d83b-436a-b5be-5b27a6b13c33', NULL, '06035/서울 강남구 도산대로 402-2/울집/ (신사동)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-23', '2022-08-22', 60, 0, 'imp_254658714863', '2022-06-22 14:11:24', NULL, '010/4114/9697', '박범수', '바베큐,숯불 그릴/캠핑 그릴', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 480, 0, 480, 0, 0, 0),
+	('85509708-dc95-43d5-96aa-3ceddc3096e8', 'qwerty5266@naver.com', '617da7b3-13d2-45d0-9e67-2ff8a703c954', '와우 대박이네요', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '2022-06-29', '2022-07-01', 2, 1, 'imp_199942374793', '2022-06-28 03:19:58', NULL, '010/9299/0010', '김명선', '캠핑웨건, 테이블, 의자', '371cad15-92aa-4f4f-a189-45abebcf11b4.jpg', 14000, 13860, 140, 0, 0, 1),
 	('8aea6118-079c-4346-8341-f35f502c5bdf', 'captain9697@naver.com', 'a30ba851-23e6-4204-9bb0-10713e252175', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-09-25', 90, 0, 'imp_780759823528', '2022-06-26 02:56:34', NULL, '010/4114/9697', '박범수', '슈브 캠핑의자', 'c0b224d8-752d-4c78-9687-56794bf73be6.jpg', 180, 0, 180, 0, 0, 0),
 	('92426f35-e817-4dbe-b3a4-480ad1736e39', 'captain9697@naver.com', 'e69e5842-2b0c-46a5-88f4-93b52fe15010', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-12-24', 180, 0, 'imp_729448440139', '2022-06-26 03:08:01', NULL, '010/4114/9697', '박범수', '시어잘 Searing Torch', '718b6684-e70f-49a6-8730-beaa5bc1279a.jpg', 144, 0, 144, 0, 0, 0),
+	('966d331f-d4db-449b-a602-dbabb773c689', 'qwerty5266@naver.com', '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', '와우 대박이네요', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '2022-06-29', '2022-07-01', 2, 1, 'imp_199942374793', '2022-06-28 03:19:58', NULL, '010/9299/0010', '김명선', '캠핑테이블 정원테이블', '41375b42-535e-4438-a7dd-4abef77bf30a.jpg', 14000, 13860, 140, 0, 1, 0),
+	('992abe29-bf34-4a9a-aa32-b7720d359e62', 'kedee2001@naver.com', '3703f64f-3ddb-4f02-abe7-c7a1ee493b7b', NULL, '63309/제주특별자치도 제주시 영평동 2181/221-12421/ (영평동)', '63309/제주특별자치도 제주시 첨단로 242/201-2412/ (영평동)', '2022-06-29', '2022-07-29', 30, 0, 'imp_944395560167', '2022-06-28 03:10:49', NULL, '010/8482/8842', '김재민', '캠핑용에도 쓸 수 있는 돗자리', '991726c3-0393-4a24-a80c-d9a7885cf3f4.jpg', 240, 0, 240, 0, 0, 0),
 	('9c8aeeec-1baa-4ab8-8c7d-b6b4b30eca56', 'captain9697@naver.com', 'e994e191-17b0-4873-8f2d-ecfc6995cc6b', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-11-24', 150, 0, 'imp_254848114044', '2022-06-26 02:41:34', NULL, '010/4114/9697', '박범수', '캠핑 BBQ Fire Pit', 'b3abae9b-a273-4a8d-a8dd-90490dcded83.jpg', 1200, 0, 1200, 0, 0, 0),
 	('9dfe1911-0e38-4ba1-b42d-6b6a3eccf3a7', 'captain9697@naver.com', '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-25', '2022-11-22', 150, 0, 'imp_545723625829', '2022-06-24 20:22:30', NULL, '010/4114/9697', '박범수', '캠핑테이블 정원테이블', '41375b42-535e-4438-a7dd-4abef77bf30a.jpg', 1200, 1000, 200, 0, 0, 0),
 	('a0279fe2-bbd9-40b2-954f-0f9cebf88066', 'captain9697@naver.com', '617da7b3-13d2-45d0-9e67-2ff8a703c954', NULL, '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-08-26', 60, 0, 'imp_477264053728', '2022-06-26 02:48:31', NULL, '010/4114/9697', '박범수', '캠핑웨건, 테이블, 의자', '371cad15-92aa-4f4f-a189-45abebcf11b4.jpg', 240, 0, 240, 0, 0, 0),
 	('aaa0ea17-47f7-434a-8d96-205885d4dfc8', 'sanstory12rt@naver.com', '22367a5f-9b0a-4ecc-9464-7f7eed170e07', NULL, '13473/경기 성남시 분당구 경부고속도로 409/220-4431/ (삼평동)', '13473/경기 성남시 분당구 경부고속도로 409/220-4431/ (삼평동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_973425702485', '2022-06-24 15:51:20', NULL, '010/1618/2322', '형산', '브래마 3 400 카라반 어닝 하우스', '2181ebf6-5ce8-46ad-ac1f-22e1d8b3e4dc.webp', 240, 0, 240, 0, 0, 0),
 	('b7802b51-e849-4360-bc83-82f11c6ac366', 'captain9697@naver.com', '15b74776-2033-4c01-9685-ed46aa6b937a', '123', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', '2022-06-27', '2022-06-30', 3, 1, 'imp_311664390360', '2022-06-26 03:11:40', NULL, '010/4114/9697', '박범수', '도플갱어 타프 헥사', '31fb43d1-793d-4629-9c6e-05cbbdb73590.webp', 10000, 29700, 300, 0, 0, 0),
+	('b8fdd962-dbc6-4e4f-b2b1-4e967e3a6dff', 'kedee2001@naver.com', '3aa1ecde-b497-46a7-b629-b1ad08342da1', '와우!', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-01', 2, 1, 'imp_020079677493', '2022-06-28 03:05:41', NULL, '010/9325/7412', '김재민', '감성좋은 행복한 텐트', '40eff2d4-dce4-4fba-a7cc-68e2c072bf7c.jpg', 16600, 16434, 166, 0, 1, 0),
+	('c6c6d75e-7d49-4966-ac04-97d88b765620', 'kedee2001@naver.com', 'a30ba851-23e6-4204-9bb0-10713e252175', '와우!', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '63309/제주특별자치도 제주시 영평동 2181/201-2412/', '2022-06-29', '2022-07-01', 2, 1, 'imp_020079677493', '2022-06-28 03:05:40', NULL, '010/9325/7412', '김재민', '슈브 캠핑의자', 'c0b224d8-752d-4c78-9687-56794bf73be6.jpg', 16600, 16434, 166, 0, 0, 0),
 	('ca561fcf-372a-4e2d-b57f-2667dd4a1e1e', 'qwerty5266@naver.com', 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', NULL, '13494/경기 성남시 분당구 판교역로 235/124-1244/ (삼평동)', '13494/경기 성남시 분당구 판교역로 235/124-1244/ (삼평동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_446927484667', '2022-06-24 15:26:01', NULL, '010/1618/1315', '김명선', '스마랑 인조라탄 야외 원형소파베드세트', '942e74da-1389-45f5-b283-8504d098fb07.webp', 240, 0, 240, 0, 0, 0),
+	('cb9d14cc-544d-47a4-8a93-9f115e50378a', 'kedee2001@naver.com', '7b9041bf-dd53-4c35-b6de-468d5eebe9f3', NULL, '16872/경기 용인시 수지구 대지로 19/241-2145/ (죽전동, 더 리버하임)', '16872/경기 용인시 수지구 대지로 19/241-2145/ (죽전동, 더 리버하임)', '2022-06-29', '2022-07-29', 30, 0, 'imp_248581383492', '2022-06-28 03:14:01', NULL, '010/9325/7942', '김재민', 'LED전등 2헥타르 용', '2067951b-fd00-40db-b736-e2cc6b48d7e5.jpg', 240, 0, 240, 0, 0, 0),
 	('cbea7a44-9b82-410b-bab7-2ebfaece40e4', 'tkdals4534@naver.com', '921f14e2-f6ad-4db5-961c-2a21caa4bea2', NULL, '16873/경기 용인시 수지구 대지로 18/204-4201/ (죽전동)', '16873/경기 용인시 수지구 대지로 18/204-4201/ (죽전동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_555908516681', '2022-06-24 15:09:06', NULL, '010/9325/7941', '김재민', '썬샤인 라탄 야외 7인 테이블 소파 ', '4a22dd61-c8db-40b8-afcd-1d7216196071.webp', 240, 0, 240, 0, 0, 0),
 	('e894afe9-9930-4e8b-a623-be1f549598a6', 'sanstory12rt@naver.com', '3aa1ecde-b497-46a7-b629-b1ad08342da1', NULL, '06035/서울 강남구 가로수길 5/5986호/ (신사동)', '55744/전북 남원시 광주대구고속도로 51/145호/ (화정동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_929562411718', '2022-06-24 20:20:01', NULL, '010/9088/1313', '형산', '감성좋은 행복한 텐트', '40eff2d4-dce4-4fba-a7cc-68e2c072bf7c.jpg', 1200, 1000, 200, 0, 0, 0),
+	('f47ad988-b700-4fc3-a9c9-f5402284c7e2', 'jj3033@naver.com', 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', '와우!', '63309/제주특별자치도 제주시 첨단로 242/221-12421/ (영평동)', '63309/제주특별자치도 제주시 첨단로 242/221-12421/ (영평동)', '2022-06-29', '2022-07-01', 2, 1, 'imp_633451888832', '2022-06-28 02:55:30', NULL, '010/9321/2151', '정태영', '캠핑의자,캠핑체어,스노우라인,유아의자', '2b35cd5b-2680-4f81-8db9-17090645c038.jpg', 3000, 0, 3000, 0, 0, 0),
+	('f6e7acc7-8a89-48e1-810a-2fc64ed9d163', 'qwerty5266@naver.com', '52fb9c79-d83b-436a-b5be-5b27a6b13c33', '와우 대박이네요', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '16872/경기 용인시 수지구 대지로 19/201-2412/ (죽전동, 더 리버하임)', '2022-06-29', '2022-07-01', 2, 1, 'imp_199942374793', '2022-06-28 03:19:58', NULL, '010/9299/0010', '김명선', '바베큐,숯불 그릴/캠핑 그릴', '8af51708-419c-45d4-ba17-ecb5f6600e6c.jpg', 14000, 13860, 140, 0, 1, 0),
 	('fa71492a-8a7d-4192-b421-ecef023fa32b', 'qwerty5266@naver.com', '29cadabb-2982-4ff2-abd3-c621eff8fe4c', NULL, '13485/경기 성남시 분당구 판교로 20/405/ (판교동, 판교원마을3단지아파트)', '06035/서울 강남구 가로수길 5/505/ (신사동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_021665200895', '2022-06-24 20:21:59', NULL, '010/9399/5266', '김명선', '메이튼 캠핑 랜턴 조명 감성 LED ', '5a2ecf73-e626-4345-a29f-dd52e4d806c9.jpg', 1200, 1000, 200, 0, 0, 0),
 	('ff7950bf-b224-4360-a5f6-41b4fd63e287', 'sanstory12rt@naver.com', '4a0ad7a7-8f0c-4900-8518-69c8c2a9c2aa', NULL, '13487/경기 성남시 분당구 대왕판교로 579/22-232/ (삼평동)', '13487/경기 성남시 분당구 대왕판교로 579/22-232/ (삼평동)', '2022-06-25', '2022-07-25', 30, 0, 'imp_582502457447', '2022-06-24 15:36:07', NULL, '010/5532/1131', '형산', '리버 프로 + 110W태양광패널', 'a1bdb845-cea3-4229-b0d3-77eadd70fc24.jpg', 240, 0, 240, 0, 0, 0);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
@@ -694,12 +781,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`userId`, `nickname`, `phone`, `password`, `userName`, `userAddr`, `role`, `joinDate`, `joinPath`, `userImg`, `recentDate`, `pushToken`, `leaveApplyDate`, `leaveDate`) VALUES
-	('admin', '어드민', '01011111111', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '어드민', '16979/경기 용인시 기흥구 구갈동 591-2/ (구갈동)', 'admin', '2022-06-24 00:00:00', 'own', 'adminImg.jpg', '2022-06-24 19:51:02', NULL, NULL, NULL),
+	('admin', '어드민', '01011111111', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '어드민', '16979/경기 용인시 기흥구 구갈동 591-2/ (구갈동)', 'admin', '2022-06-24 00:00:00', 'own', 'adminImg.jpg', '2022-06-28 03:27:46', NULL, NULL, NULL),
 	('captain9697@naver.com', '구스범수', '010/4114/9697', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '박범수', '13271/경기 성남시 수정구 산성대로 341/5동 502호/ (신흥동, 한신아파트)', 'user', '2022-06-24 00:00:00', 'own', 'goosebeomImg.jpg', '2022-06-26 03:03:11', NULL, NULL, NULL),
-	('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-24 20:18:22', NULL, NULL, NULL),
-	('kedee2001@naver.com', '쥄쥄', '01093257941', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김재민', '16872/경기 용인시 수지구 대지로 49/ (죽전동, 죽전퍼스트하임)', 'user', '2022-06-24 13:27:18', 'own', '가지.jpg', '2022-06-24 20:19:17', NULL, NULL, NULL),
-	('qwerty5266@naver.com', '띵띵', '01093995266', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김명선', '14999/경기 시흥시 군자동 810/204-1402/ (군자동, 한여울 초등학교)', 'user', '2022-06-23 01:19:41', 'own', 'chacha.JPG', '2022-06-24 20:17:59', NULL, NULL, NULL),
-	('sanstory12rt@naver.com', '과자조아', '010/8783/6065', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '형산', '18112/경기 오산시 세교동 587/303-4201/ (세교동, 오산세교주상1블록)', 'user', '2022-06-24 00:00:00', 'own', 'iu.jpg', '2022-06-26 02:49:58', NULL, NULL, NULL),
+	('jj3033@naver.com', '금붕어회', '01093512557', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '정태영', '02582/서울 동대문구 신설동 98-49/201/ (신설동, 신설동주상복합)', 'user', '2022-06-23 00:09:41', 'own', '37b5c554-62db-4fbb-bbfb-0d0ff63d415b.jpg', '2022-06-28 02:42:17', NULL, NULL, NULL),
+	('kedee2001@naver.com', '쥄쥄', '01093257941', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김재민', '16872/경기 용인시 수지구 대지로 49/ (죽전동, 죽전퍼스트하임)', 'user', '2022-06-24 13:27:18', 'own', '가지.jpg', '2022-06-28 03:04:04', NULL, NULL, NULL),
+	('qwerty5266@naver.com', '띵띵', '01093995266', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김명선', '14999/경기 시흥시 군자동 810/204-1402/ (군자동, 한여울 초등학교)', 'user', '2022-06-23 01:19:41', 'own', 'chacha.JPG', '2022-06-28 03:17:10', NULL, NULL, NULL),
+	('sanstory12rt@naver.com', '과자조아', '010/8783/6065', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '형산', '18112/경기 오산시 세교동 587/303-4201/ (세교동, 오산세교주상1블록)', 'user', '2022-06-24 00:00:00', 'own', 'iu.jpg', '2022-06-28 03:24:40', NULL, NULL, NULL),
 	('tkdals4534@naver.com', '이어폰폴펜', '01033294534', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '이상민', '13121/경기 성남시 수정구 창곡동 501/3603동 1112호/ (창곡동, 성남위례 LH36단지)', 'user', '2022-06-22 09:45:34', 'own', NULL, '2022-06-26 03:12:21', NULL, NULL, NULL),
 	('user01@naver.com', '김유정', '01012345678', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '김유정', '13494/경기 성남시 분당구 삼평동 681/26-805/ (삼평동, 에이치스퀘어 엔동)', 'user', '2022-06-24 00:00:00', 'own', 'user01Img.jpg', '2022-06-24 19:51:23', NULL, NULL, NULL),
 	('user02@naver.com', '고영희좋아', '01023456781', '$2a$10$jX/xb.arDJYDOqokfAJNkeg3ISGU1vTHG1t7lA2TxR7xbgTYVb6RG', '고영희', '04981/서울 광진구 구의동 164-5/101-150/ (구의동, 구의야구공원)', 'user', '2022-06-24 00:00:00', 'own', '아이유.jpg', '2022-06-24 00:00:00', NULL, NULL, NULL),
@@ -717,14 +804,25 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   KEY `prodNo` (`prodNo`),
   CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`wishedUserId`) REFERENCES `user` (`userId`) ON DELETE CASCADE,
   CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`prodNo`) REFERENCES `product` (`prodNo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 forrest.wishlist:~2 rows (대략적) 내보내기
+-- 테이블 데이터 forrest.wishlist:~7 rows (대략적) 내보내기
 DELETE FROM `wishlist`;
 /*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
 INSERT INTO `wishlist` (`wishlistNo`, `prodNo`, `wishedUserId`, `period`) VALUES
 	(1, '7374c5cb-e68b-4d65-84a9-013f0d1df57c', 'sanstory12rt@naver.com', 0),
-	(2, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 'sanstory12rt@naver.com', 0);
+	(2, 'b37a6c88-8ec7-4d39-9e6b-8474e3376fce', 'sanstory12rt@naver.com', 0),
+	(5, 'a30ba851-23e6-4204-9bb0-10713e252175', 'jj3033@naver.com', 0),
+	(6, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'jj3033@naver.com', 0),
+	(7, '99f507f0-3de6-4cb8-a6ff-95cb0211f1bf', 'jj3033@naver.com', 0),
+	(8, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'jj3033@naver.com', 0),
+	(10, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'jj3033@naver.com', 0),
+	(15, '48acf057-13d0-411d-81dd-bec5b8e0cbf3', 'kedee2001@naver.com', 0),
+	(16, '617da7b3-13d2-45d0-9e67-2ff8a703c954', 'kedee2001@naver.com', 0),
+	(17, 'd3e79f34-2906-4479-8d04-a8ce1dd22b2f', 'kedee2001@naver.com', 0),
+	(18, 'e69e5842-2b0c-46a5-88f4-93b52fe15010', 'kedee2001@naver.com', 0),
+	(20, '22367a5f-9b0a-4ecc-9464-7f7eed170e07', 'qwerty5266@naver.com', 0),
+	(22, 'a4ea7134-168b-4005-9dca-b0ac5d66c8bb', 'qwerty5266@naver.com', 0);
 /*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
