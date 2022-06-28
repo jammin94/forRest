@@ -250,6 +250,7 @@ td{
 </body>
 
 <script src="/js/jquery_min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script>
 
 
@@ -480,9 +481,11 @@ td{
 		})
 		dateChange();
 		function dateChange(){
+			
+	
 							
-				var plusDay1 = parseInt($('.selectBox').eq(0).val());
-				var plusDay2 = parseInt($('.selectBox').eq(1).val());
+				var plusDay1 = parseInt($('.selectBox').eq(0).val());	
+				var plusDay2 =  parseInt($('.selectBox').eq(1).val());	
 				var plusDay3 = parseInt($('.selectBox').eq(2).val());
 				var plusDay4 = parseInt($('.selectBox').eq(3).val());
 				var plusDay5 = parseInt($('.selectBox').eq(4).val());
@@ -491,23 +494,23 @@ td{
 				var plusDay8 = parseInt($('.selectBox').eq(7).val());
 				
 			    var now = new Date();
-			    			    			   
+				console.log( moment(now).add(-30,"days").format("YYYY-MM-DD"));
 			    $(".dateText").eq(0).text(dateFormat(now));
-			    $(".dateText").eq(1).text(dateFormatAfter(now,plusDay1));	
+			    $(".dateText").eq(1).text(moment(now).add(plusDay1,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(2).text(dateFormat(now));
-			    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
+			    $(".dateText").eq(3).text(moment(now).add(plusDay2,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(4).text(dateFormat(now));
-			    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+			    $(".dateText").eq(5).text(moment(now).add(plusDay3,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(6).text(dateFormat(now));
-			    $(".dateText").eq(7).text(dateFormatAfter(now,plusDay4));	
+			    $(".dateText").eq(7).text(moment(now).add(plusDay4,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(8).text(dateFormat(now));
-			    $(".dateText").eq(9).text(dateFormatAfter(now,plusDay5));	
+			    $(".dateText").eq(9).text(moment(now).add(plusDay5,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(10).text(dateFormat(now));
-			    $(".dateText").eq(11).text(dateFormatAfter(now,plusDay6));	
+			    $(".dateText").eq(11).text(moment(now).add(plusDay6,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(12).text(dateFormat(now));
-			    $(".dateText").eq(13).text(dateFormatAfter(now,plusDay7));	
+			    $(".dateText").eq(13).text(moment(now).add(plusDay7,"days").format("YYYY-MM-DD"));	
 			    $(".dateText").eq(14).text(dateFormat(now));
-			    $(".dateText").eq(15).text(dateFormatAfter(now,plusDay8));	
+			    $(".dateText").eq(15).text(moment(now).add(plusDay8,"days").format("YYYY-MM-DD"));	
 			}
 		
 		//날짜 표기

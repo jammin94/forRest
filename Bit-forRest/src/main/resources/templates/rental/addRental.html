@@ -320,7 +320,8 @@ input{
 	<td style="padding:10px">
 	 <select class="coupon" name= "coupon">
 	 		<option >-- 선택 --</option>   	
-	 			<option >0.99</option>   					
+	 		<option>0.99</option>
+	 		<option>0.98</option>
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
@@ -818,9 +819,15 @@ function divy_execDaumPostcode() {
 		function dateChange(){
 			var period = parseInt($('.period').text());
 		   var now = new Date();
+		   var newDate = new Date(now);
+		  
+		   
+		   newDate.setDate(newDate.getDate()+period);
+		   
+		   var nd = new Date(newDate);
 		    			    			   
 		    $(".dateText").eq(0).text(dateFormat(now));
-		    $(".dateText").eq(1).text(dateFormatAfter(now,period));	
+		    $(".dateText").eq(1).text(dateFormat(nd));	
 
 		}
 	
