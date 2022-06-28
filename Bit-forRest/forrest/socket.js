@@ -19,7 +19,12 @@ module.exports = (server, app, sessionMiddleware) => {
     //unreadcount 때문에 room도 room을 따로 만들어보자.
    // socket.join(socket.request.connection._peername.address);
    //console.log(socket.request.connection);
-	const userId = new URL(socket.request.headers.referer).pathname.split('/')[3];
+ 
+	const userId1 = new URL(socket.request.headers.referer);
+	console.log('asdasd123213' +userId1);
+	const userId=userId1.pathname.split('/')[3];
+	console.log('asdasd '+userId);
+	
 	console.log('oldChatRoom 네임스페이스에 접속 : room='+userId);
 	socket.join(userId);
 
