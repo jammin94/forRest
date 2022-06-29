@@ -62,14 +62,13 @@ div img{
     display: flex;
 }
 .img-item{
-    margin: 0.3rem;
 }
 
 .img-item a{
 	    position: relative;
     display: block;
-    width: 70px;
-    height: 70px;
+    width: 38.7px;
+    height: 38.7px;
     text-align: center;
     font-size: 0;
     line-height: 0;
@@ -152,14 +151,21 @@ div img{
 	font-size: 1rem;
 	font-style: italic;
 	margin-top:0rem;
-	margin-right: -44px;
+	margin-right: 0px;
+	width:58px;
 }
 .userProfile img{
-	width:50% !important;
+	width:100% !important;
+	
 	margin-top:0rem;
 	border-radius:100%;
-/* 	padding-right:0 !important; */
+	padding-right:5px !important;
 }
+
+/* .userProfile a{ */
+/* 	padding-right:0 !important; */
+/* 	width:0rem; */
+/* } */
 .userProfile span{
 	font-size:1.4rem;
 	padding-top: 0;
@@ -345,6 +351,7 @@ div img{
     
     .card .product-imgs{
         margin-top: 130px;
+        margin-right: auto;
     }
     
     .card-wrapper{

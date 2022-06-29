@@ -77,7 +77,7 @@ public class SmsService{
        bodyJson.put("type","SMS");                     // Madantory, 메시지 Type (SMS | LMS | MMS), (소문자 가능)
        bodyJson.put("from","01033294534");               // Mandatory, 발신번호, 사전 등록된 발신번호만 사용 가능      
        bodyJson.put("subject","[forREST]");
-       bodyJson.put("content","[인증번호 : "+authNum+" ]");   // Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
+       bodyJson.put("content","[FOR REST 인증번호 : "+authNum+" ]");   // Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
        bodyJson.put("messages", toArr);               // Mandatory(필수), 아래 항목들 참조 (messages.XXX), 최대 1,000개
        
        String body = bodyJson.toString();

@@ -171,13 +171,13 @@ input{
 				    	  
 					     <td align="center">
 					    	<div class="productInfo">
-					    		<a href="/product/getProduct?prodNo=j">
+					    		  <a th:href ="@{/product/getProduct(prodNo = ${wishlist.product.prodNo})}" >
 					    		<img  class="productImg"  th:src="@{/images/uploadFiles/} + ${wishlist.product.prodImg}" >
 						    	</a>
 						    	
 						    	<div style="width:220px;padding:10px;">
 						    	
-						    		 <a href="/product/getProduct?prodNo=j">
+						    		  <a th:href ="@{/product/getProduct(prodNo = ${wishlist.product.prodNo})}" >
 							    		<p style="margin-bottom: 10px; font-weight: bold" class="getProdName">[[${wishlist.product.prodName}]] </p>
 							    		<p style="display:none" class="hiddenProdNo">[[${wishlist.product.prodNo}]]</p>
 							    		<p style="display:none" class="hiddenWishlistNo">[[${wishlist.wishlistNo}]]</p>
@@ -270,10 +270,6 @@ input{
 	<table>
 	<colgroup><col width="100">
 	</colgroup><tbody><tr>
-		<td>배송지 확인</td>
-		<td class="noline">
-		<input type="checkbox" class="inputCheckbox" onclick="inputCheckClick();"> 주문고객 정보와 동일합니다.
-		</td>
 	</tr>
 	<tr>
 		<td></td>
@@ -414,6 +410,7 @@ input{
 <script src="/js/jquery_min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script>
 $(function(){
 
@@ -798,35 +795,36 @@ function divy_execDaumPostcode() {
 			 	dateChange();
 			 
 				function dateChange(){
-									
-						var plusDay1 = parseInt($('.period').eq(0).text());
-						var plusDay2 = parseInt($('.period').eq(1).text());
-						var plusDay3 = parseInt($('.period').eq(2).text());
-						var plusDay4 = parseInt($('.period').eq(3).text());
-						var plusDay5 = parseInt($('.period').eq(4).text());
-						var plusDay6 = parseInt($('.period').eq(5).text());
-						var plusDay7 = parseInt($('.period').eq(6).text());
-						var plusDay8 = parseInt($('.period').eq(7).text());
-		
-						
-					    var now = new Date();
+					
+					var plusDay1 = parseInt($('.period').eq(0).text());
+					var plusDay2 = parseInt($('.period').eq(1).text());
+					var plusDay3= parseInt($('.period').eq(2).text());
+					var plusDay4 = parseInt($('.period').eq(3).text());
+					var plusDay5 = parseInt($('.period').eq(4).text());
+					var plusDay6 = parseInt($('.period').eq(5).text());
+					var plusDay7 = parseInt($('.period').eq(6).text());
+					var plusDay8 = parseInt($('.period').eq(7).text());
+				
+					console.log("san"+plusDay1);
+				    var now = new Date();
 					    			    			   
 					    $(".dateText").eq(0).text(dateFormat(now));
-					    $(".dateText").eq(1).text(dateFormatAfter(now,plusDay1));	
+					    $(".dateText").eq(1).text(moment(now).add(plusDay1,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(2).text(dateFormat(now));
-					    $(".dateText").eq(3).text(dateFormatAfter(now,plusDay2));	
+					    $(".dateText").eq(3).text(moment(now).add(plusDay2,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(4).text(dateFormat(now));
-					    $(".dateText").eq(5).text(dateFormatAfter(now,plusDay3));	
+					    $(".dateText").eq(5).text(moment(now).add(plusDay3,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(6).text(dateFormat(now));
-					    $(".dateText").eq(7).text(dateFormatAfter(now,plusDay4));	
+					    $(".dateText").eq(7).text(moment(now).add(plusDay4,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(8).text(dateFormat(now));
-					    $(".dateText").eq(9).text(dateFormatAfter(now,plusDay5));	
+					    $(".dateText").eq(9).text(moment(now).add(plusDay5,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(10).text(dateFormat(now));
-					    $(".dateText").eq(11).text(dateFormatAfter(now,plusDay6));	
+					    $(".dateText").eq(11).text(moment(now).add(plusDay6,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(12).text(dateFormat(now));
-					    $(".dateText").eq(13).text(dateFormatAfter(now,plusDay7));	
+					    $(".dateText").eq(13).text(moment(now).add(plusDay7,"days").format("YYYY-MM-DD"));	
 					    $(".dateText").eq(14).text(dateFormat(now));
-					    $(".dateText").eq(15).text(dateFormatAfter(now,plusDay8));	
+					    $(".dateText").eq(15).text(moment(now).add(plusDay8,"days").format("YYYY-MM-DD"));	
+					    
 					}
 				
 				//날짜 표기

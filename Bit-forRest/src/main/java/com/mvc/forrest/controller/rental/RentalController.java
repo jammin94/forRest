@@ -68,6 +68,7 @@ public class RentalController {
 	//회원, 어드민 가능
 	@GetMapping("addRental")
 	public String addRentalView(@RequestParam("prodNo") String prodNo,
+												@RequestParam("productUserId") String productUserId,
 											  @RequestParam("period") int period,
 											  Model model) throws Exception{
 		
@@ -93,6 +94,12 @@ public class RentalController {
 		model.addAttribute("list",map.get("list"));
 		model.addAttribute("reserveTranNo", reserveTranNo);
 		model.addAttribute("period",period);
+		
+		System.out.println("구스"+productUserId);
+		System.out.println("산스"+userId);
+
+		model.addAttribute("productUserId",productUserId);
+		model.addAttribute("userId",userId);
 		
 		return "rental/addRental";
 	}
@@ -144,6 +151,14 @@ public class RentalController {
   		
         productService.updateProductCondition(product);
         
+       //대여횟수 업데이트
+       Product productForCount = new Product();
+       int rentalCount = productService.getRentalCount(rental.getProdNo());
+       productForCount.setProdNo(rental.getProdNo());
+       productForCount.setRentalCounting(rentalCount + 1);
+       productService.updateRentalCounting(productForCount);
+       
+        
         rental.setPurchaseProd(product);
   
 		System.out.println("텟3");
@@ -152,7 +167,8 @@ public class RentalController {
 		
 		System.out.println(rental);
 		//2. getRental에서 쓰기위해 model을 통해 전달
-		model.addAttribute("rental",rental);
+		 model.addAttribute("payment", rentalService.getRental(rentalService.getPayment(paymentNo).get(0).getTranNo()));
+	//	model.addAttribute("rental",rental);
 //		model.addAttribute("product",product);
 //		model.addAttribute("user",user);
 		System.out.println("텟4");

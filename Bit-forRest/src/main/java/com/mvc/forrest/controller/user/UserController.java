@@ -139,7 +139,7 @@ public class UserController {
 //		### spring security 사용으로 인한 미사용 method	###
 	@GetMapping("logout")				//유저, 관리자
 	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
-			
+			System.out.println("logout");
 		
 	        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 	        return "redirect:/";
@@ -157,7 +157,9 @@ public class UserController {
 	public String addUser( @ModelAttribute("user") User user,
 							@RequestParam("userImgFile")MultipartFile file ) throws Exception {
 
-		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+//		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+		String temDir = "C:\\Users\\lsm45\\git\\forRest\\Bit-forRest\\bin\\main\\static\\images\\uploadFiles";
+
 		
 		System.out.println("/user/addUser : POST");
 		
@@ -288,6 +290,7 @@ public class UserController {
 		for(int i=0; i<oldReviewList.size();i++) {
 			oldReviewList.get(i).setOld(oldService.getOld(oldReviewList.get(i).getOld().getOldNo()));
 			oldReviewList.get(i).setReviewUser(userService.getUser(oldReviewList.get(i).getReviewUser().getUserId()));
+			oldReviewList.get(i).setUserRate(oldReviewService.getUserRate(oldReviewList.get(i).getReviewedUser().getUserId()));
 		}
 		
 		model.addAttribute("oldList",oldList);
@@ -318,7 +321,9 @@ public class UserController {
 							@RequestParam("userImgFile")MultipartFile file) throws Exception {
 		System.out.println("/user/updateUser : POST");
 
-		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+//		String temDir = "C:\\Users\\bitcamp\\git\\forRest\\Bit-forRest\\src\\main\\resources\\static\\images\\uploadFiles";
+		String temDir = "C:\\Users\\lsm45\\git\\forRest\\Bit-forRest\\bin\\main\\static\\images\\uploadFiles";
+
 		
 		if (!file.getOriginalFilename().isEmpty()) {
             String filename = file.getOriginalFilename();
@@ -359,7 +364,8 @@ public class UserController {
 	}
 	
 	@PostMapping("deleteUser")		//유저, 관리자
-	public String deleteUser(@RequestParam("password") String password, HttpSession session)throws Exception {
+	public String deleteUser(@RequestParam("password") String password, HttpSession session,
+								HttpServletRequest request, HttpServletResponse response)throws Exception {
 		
 		System.out.println("/user/deleteUser : POST");
 
@@ -372,7 +378,8 @@ public class UserController {
 		}else {
 			System.out.println("탈퇴요청 실패");
 		}
-		
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+
 
 		return "redirect:/";
 	}

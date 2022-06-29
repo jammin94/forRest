@@ -24,9 +24,17 @@
 			
 			$("#sendSMS").on("click",function(){
 				var phone = $("#phone").val();
+				
+				Swal.fire({
+					title: 'SMS 발송',       
+					text:  '입력한 번호로 인증번호를 발송합니다',  
+					icon:  'info',                   
+					});
+				
 				if($("#phone").val().length<10){
 					return;
 				}
+				
 				$.ajax({
 					url : "/sms/json/sendSMS?phone="+phone,
 					method : "GET" ,
@@ -35,9 +43,15 @@
 						$("#checkSMS").click(function(){
 							var sms = $("#sms").val();
 							if(data==sms){
-								alert("인증에 성공하였습니다.");
-							}else{
-								alert("인증에 실패하였습니다.");
+								Swal.fire({
+									title: '인증성공',       
+									icon:  'success',                   
+									});
+								}else{
+									Swal.fire({
+										title: '인증실패',       
+										icon:  'error',                   
+										});
 							}
 						})
 					}

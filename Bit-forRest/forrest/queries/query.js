@@ -91,4 +91,8 @@ module.exports.getOtherUser = 'SELECT (CASE WHEN c.inquireUserId = :userId THEN 
 module.exports.deleteChatRoom= 'DELETE FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo'
 
 //:chatRoomNo
-module.exports.isChatRoomEmpty= 'SELECT count(*) FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo'
+module.exports.isChatRoomEmpty= 'SELECT count(*) FROM oldChatRoom WHERE chatRoomNo=:chatRoomNo';
+
+module.exports.addOldReview= 'INSERT INTO oldReview (reviewUserId, reviewedUserId, oldNo, reviewDetail, userRate) values (:reviewUserId, :reviewedUserId, :oldNo, :reviewDetail, :userRate)';
+
+module.exports.getChatRoomNo= 'SELECT * from chatRoom where inquireUserId=:inquireUserId and oldNo=:oldNo';

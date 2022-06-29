@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/css/addAnnounce.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="/css/getAnnounce.css">
 </head>
 
 <body>
@@ -27,7 +28,6 @@
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -52,8 +52,8 @@
 		<br/>
 		
 		<div class="input-group">
-		  <span class="input-group-addon" id="couponURL">쿠폰 URL</span>
-		  <input type="text" class="form-control"  name="couponURL" placeholder="쿠폰받기 URL을 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
+		  <span class="input-group-addon" id="couponURL">쿠폰 번호</span>
+		  <input type="text" class="form-control"  name="couponURL" placeholder="쿠폰번호를 입력하세요" aria-describedby="basic-addon1" style="width: 1200px; height:360px"/>
 		</div>
 		
 		<br/>

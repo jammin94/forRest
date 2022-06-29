@@ -2,6 +2,7 @@ package com.mvc.forrest.controller.coupon;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -125,7 +126,8 @@ public class CouponController {
 	}
 		
 	@GetMapping("addOwnCoupon")
-	public String addOwnCoupon(@RequestParam String couponNo) throws Exception{
+	public String addOwnCoupon(@RequestParam String couponNo, Model model,
+								@RequestParam String boardNo) throws Exception{
 		
 		System.out.println("coupon/addOwnCoupon : GET");
 		
@@ -142,12 +144,23 @@ public class CouponController {
 		cal.add(Calendar.DATE, 30);
 		t2.setTime(cal.getTime().getTime());
 		
-		oc.setOwnUser(user);
 		oc.setOwnCoupon(coupon);
+		oc.setOwnUser(user);
 		oc.setOwnCouponCreDate(t1);
 		oc.setOwnCouponDelDate(t2);
 		
-		couponService.addOwnCoupon(oc);
+		List<OwnCoupon> ocList =  couponService.checkOwnCoupon(oc);
+		
+		if(ocList.size()>0) {
+//			쿠폰이 있는경우
+			model.addAttribute("checkOC", "1");
+	        return "redirect:/board/getAnnounce?boardNo="+boardNo;
+		}else {
+//			쿠폰이 없는경우
+			couponService.addOwnCoupon(oc);	
+			model.addAttribute("checkOC", "0");
+		
+
 		///////////////////////////////////////////////////////////////////////////////
 		
 		user = userService.getUser(user.getUserId());
@@ -166,7 +179,8 @@ public class CouponController {
 		System.out.println("   리로드 끝");
 		////////////////////////////////////////////////////////////////////////////////
 		
-        return "redirect:/";
+        return "redirect:/board/getAnnounce?boardNo="+boardNo;
+		}
 	}
 	
 }

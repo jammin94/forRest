@@ -13,12 +13,12 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script type="text/javascript">
-	$(function(){
-		
-		var result = false;
-		var checkPWD = false;
+	var result = false;
+	var pwdValid = false;
+  
+  $(function(){
 		$("#passwordReset").on("click", function(){
-			if(result && checkPWD ){
+			if(result && pwdValid ){
 				fncPwdReset()
 			}else{
 				Swal.fire({
@@ -28,9 +28,9 @@
 			}
 		});
 			
-		
 		$("#password").keyup(function(){
 			checkPassword($('#password').val());
+
 		});
 		
 		$("#password2").keyup(function(){
@@ -68,22 +68,26 @@
 	    	$("#password").css("border", "1px solid green");
 	        $(".password_check").text("사용가능합니다.");
 			$(".password_check").css("color", "green");
-			checkPWD = true;
+				pwdValid = true;
+				
 	    }else{
 	    	$("#password").css("border", "1px solid red");
 	    	$(".password_check").text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
 			$(".password_check").css("color", "red");
 			$(".password_check").css("font-size", "12px");
+			pwdValid = false;
 			
 			if(checkNumber <0 || checkEnglish <0 || checkSpecial <0 ){
 				$("#password").css("border", "1px solid red");
 		        $(".password_check").text("숫자와 영문자를 혼용하여야 합니다.");
 				$(".password_check").css("color", "red");
 				$(".password_check").css("font-size", "12px");
+				pwdValid = false;
 		    }
-			checkPWD = false;
 	    }
-	}
+	}//비밀번호 유효성 검사 끝
+	
+	
   </script>
   
 

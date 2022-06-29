@@ -131,7 +131,7 @@ public class ProductController {
 		
 		productService.updateProduct(product);
 		
-		return "redirect:/product/listProduct";
+		return "redirect:/storage/listStorage";
 	}
 	
 	//어드민 가능
@@ -159,19 +159,28 @@ public class ProductController {
 
 		// 관리자가 물품의 상태변경 ( 대여 )
 		@RequestMapping("updateRentalProductCondition")
-		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo) throws Exception {
+		public String updateRentalProductCondition(@RequestParam("prodNo") String prodNo, @RequestParam("tranNo") String tranNo) throws Exception {
 			Product product = productService.getProduct(prodNo);		
-
+            Rental rental = rentalService.getRental(tranNo);
+            
+            System.out.println("tranNo:"+tranNo);
+            
 			//대여관련
 			 if(product.getProdCondition().equals("물품대여승인신청중")) {
 				product.setProdCondition("배송중");
 			} else if(product.getProdCondition().equals("배송중")) {
 				product.setProdCondition("대여중");
-			}
+			} else if(product.getProdCondition().equals("대여중")) {
+				product.setProdCondition("보관중");
+				rental.setComplete(1);
+				rentalService.updateComplete(rental);
+			} 
 			
 			productService.updateProductCondition(product);
+			
 		
 			return "redirect:/rental/listRentalForAdmin";
+      
 		}
 	
 
@@ -207,26 +216,35 @@ public class ProductController {
 	
 		//관리자가 물품상태를 일괄변경 ( 대여 )
 		@RequestMapping("updateRentalProductAllCondition")
-		public String updateRentalProductAllCondition(@RequestParam("prodNo") String[] prodNo) throws Exception {
+		public String updateRentalProductAllCondition(@RequestParam("tranNo") String[] tranNo) throws Exception {
 			
-			//prodNo를 통해 productCondition배열에 값을 셋팅
-			String[] productCondition =  new String[prodNo.length];
-			for(int i=0; i<prodNo.length; i++) {
-				productCondition[i] = productService.getProduct(prodNo[i]).getProdCondition();
-			}
+			 String[] prodNo = new String[tranNo.length];
+			 for(int i=0; i<tranNo.length; i++) {
+				 prodNo[i] = rentalService.getRental(tranNo[i]).getProdNo();
+				}
+			 
+			 String[] productCondition =  new String[prodNo.length];
+				for(int i=0; i<prodNo.length; i++) {
+					productCondition[i] = productService.getProduct(prodNo[i]).getProdCondition();
+				}
 			
 			
 			for(int i=0; i<prodNo.length; i++) {
 				
 				Product product = productService.getProduct(prodNo[i]);
-		
+				Rental rental = rentalService.getRental(tranNo[i]);
+			
 				//대여관련
 				
 				if(productCondition[i].equals("물품대여승인신청중")) {
 					product.setProdCondition("배송중");
 				} else if(productCondition[i].equals("배송중")) {
 					product.setProdCondition("대여중");
-				}
+				} else if(product.getProdCondition().equals("대여중")) {
+					product.setProdCondition("보관중");
+					rental.setComplete(1);
+					rentalService.updateComplete(rental);
+				} 
 			
 				productService.updateProductCondition(product);
 			}

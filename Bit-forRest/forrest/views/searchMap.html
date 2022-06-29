@@ -44,7 +44,7 @@
 </style>
 </head>
 <body>
-<input type="hidden" name="oldNo" value="oldNo"/>
+<input type="hidden" name="oldNo" value="{{oldNo}}"/>
 <input type="hidden" name="chatRoomNo" value="{{chatRoomNo}}"/>
 <input type="hidden" name="sendUserId" value="{{sendUserId}}"/>
 
@@ -312,10 +312,14 @@ function removeAllChildNods(el) {
 async function addMap(place){
 	const chat_RoomNo= $('input[name="chatRoomNo"]').val();
 	const old_No= $('input[name="oldNo"]').val();
+	const send_UserId= $('input[name="sendUserId"]').val();
+	console.log('서치 맵 안에서 bridge');
 	
-	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No});
-	window.close();
+		window.close();
+	await axios.post('/oldChat/bridge',{data:place, chatRoomNo: chat_RoomNo, oldNo: old_No, sendUserId: send_UserId});
+	
  }
+ 
 </script>
 </body>
 </html>

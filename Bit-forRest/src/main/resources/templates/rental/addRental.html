@@ -178,9 +178,15 @@ input{
 					    	</span>
 						</div>
 				    </td>
-				        <td align="center" class="getRentalPrice">
-				    	[[${product.rentalPrice}]]원 
-				    </td>
+				    <span class="hiddenGetRentalPrice" style="display:none;" th:text="${product.rentalPrice}"></span>
+				     <td th:if="${productUserId}==${userId}">
+						 	<span> 3000원</span>
+		 			</td> 
+		 			
+				        <td th:unless="${productUserId}==${userId}" align="center" class="getRentalPrice">
+				    		[[${product.rentalPrice}]]원 
+				      </td>
+				    	
 			    </tr>
 			
 	        </tbody>
@@ -307,14 +313,15 @@ input{
 
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
 <tbody>
-<tr>
+<tr 	th:if="${productUserId}!=${userId}">
 	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
 		03 쿠폰 
 	</td>
 	<td style="padding:10px">
 	 <select class="coupon" name= "coupon">
 	 		<option >-- 선택 --</option>   	
-	 			<option >0.99</option>   					
+	 		<option>0.99</option>
+	 		<option>0.98</option>
 	       	 <option th:each="ownCoupon : ${list}"  class="couponThis" th:text="${ownCoupon.ownCoupon.couponName}"  th:value="${ownCoupon.ownCoupon.discount}">	       
 	       	 </option>  	
           </select>	 
@@ -328,7 +335,10 @@ input{
 <table width="100%" style="border:1px solid #DEDEDE;" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
-	<td width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:30px;">
+	<td th:if="${productUserId}!=${userId}" width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:40px !important;">
+		04 결제금액
+	</td>
+	<td th:unless="${productUserId}!=${userId}" width="150" valign="top" align="right" bgcolor="#F3F3F3" style="text-align:center; padding-top:10px !important;">
 		04 결제금액
 	</td>
 	<td style="padding:10px">
@@ -337,12 +347,16 @@ input{
 	<colgroup><col width="100">
 	</colgroup><tbody>
 	
-	<tr>
+	<tr	th:if="${productUserId}!=${userId}">
 		<td>합계금액</td>
-		<td><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">[[${product.rentalPrice}]]</p> 원</td>
+		<td 	th:if="${productUserId}==${userId}">
+			3000원
+		</td>
+		
+		<td 	th:unless="${productUserId}==${userId}"><p id="paper_goodsprice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">[[${product.rentalPrice}]]</p> 원</td>
 	</tr>
 	
-	<tr>
+	<tr	th:if="${productUserId}!=${userId}">
 		<td>쿠폰할인금액</td>
 		<td>
 			<p id="couponPrice" style="width:146px;text-align:right;font-weight:bold;float:left;margin:0">0</p> 원
@@ -353,7 +367,16 @@ input{
 
 	<tr>
 		<td>총 결제금액</td>
-		<td><span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">[[${product.rentalPrice}]]</span> 원</td>
+
+ 		 <td th:if="${productUserId}==${userId}">
+		 	<span> 3000원</span>
+		 </td> 
+		 
+		 <td th:unless="${productUserId}==${userId}">
+				 <span id="resultPrice" style="width:146px;text-align:right;font:bold 14px tahoma; color:FF6C68;">[[${product.rentalPrice}]]</span> 원
+		</td>
+		
+		
 		<input type="hidden" name="resultPrice" class="resultHiddenPrice"></input>
 	</tr>
 	</tbody></table>
@@ -378,6 +401,18 @@ input{
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$(function(){
+	var calculatePrcie =$('.period').text()*parseInt($(".hiddenGetRentalPrice").text()) * 0.5;
+	console.log("기간"+ $('.period').text());
+	console.log("머니"+parseInt($(".hiddenGetRentalPrice").text()));
+	
+	console.log($('.period').text()*parseInt($(".hiddenGetRentalPrice").text()));
+	
+	$('.getRentalPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2+"원");
+	$("#paper_goodsprice").text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2);
+	$('#resultPrice').text($('.period').text()*parseInt($(".hiddenGetRentalPrice").text())/2);
+		
+})
 $(function(){
 	$('#check_module').click(function(){
 		
@@ -416,7 +451,7 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			}
 			//////////////////////////////////////////////////////////////////////////////////////
 			
-			
+			console.log("디버기어깅");
 		request_pay();
 	})
 
@@ -425,14 +460,17 @@ console.log("할인금애액"+$('.discountPriceSubmit').val());
 			var paymentResultPrice = parseInt($('#resultPrice').text());
 			var prodName = $("input[name='prodName']").val();
 			console.log("?");
+			console.log(tranNo);
+			console.log(paymentResultPrice);
+			console.log(prodName);
 			IMP.init("imp88340030");
 				
 			 IMP.request_pay({
 			    	pg : "html5_inicis", 
 			        pay_method : 'card',
 			        merchant_uid :tranNo,//주문번호
-			        name : prodName,
-			        amount : 100,
+			        name : '에탄올 난로 미니',
+			        amount : paymentResultPrice,
 			    }, function(rsp) {
 	    	console.log(rsp);
 	    	$.ajax({
@@ -781,9 +819,15 @@ function divy_execDaumPostcode() {
 		function dateChange(){
 			var period = parseInt($('.period').text());
 		   var now = new Date();
+		   var newDate = new Date(now);
+		  
+		   
+		   newDate.setDate(newDate.getDate()+period);
+		   
+		   var nd = new Date(newDate);
 		    			    			   
 		    $(".dateText").eq(0).text(dateFormat(now));
-		    $(".dateText").eq(1).text(dateFormatAfter(now,period));	
+		    $(".dateText").eq(1).text(dateFormat(nd));	
 
 		}
 	

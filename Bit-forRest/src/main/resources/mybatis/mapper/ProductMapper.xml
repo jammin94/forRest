@@ -129,10 +129,7 @@
 			<if test='orderCondition == "regDateDESC"'>
 			order by regDate DESC LIMIT #{startRowNum}, #{pageSize}
 			</if>
-			
-			<if test='orderCondition == "rentalCountingASC"'>
-			order by rentalCounting ASC LIMIT #{startRowNum}, #{pageSize}
-			</if>			
+		
 			<if test='orderCondition == "rentalCountingDESC"'>
 			order by rentalCounting DESC LIMIT #{startRowNum}, #{pageSize}
 			</if>
@@ -181,7 +178,6 @@
 	  	</if>
 	  	
 	  	
-	  	
 	  	<if test="search.orderCondition != null">
 	  		<if test='search.orderCondition == "rentalPriceASC"'>
 			order by rentalPrice ASC LIMIT #{search.startRowNum}, #{search.pageSize}
@@ -197,10 +193,10 @@
 			order by regDate DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 			
-			<if test='orderCondition == "rentalCountingASC"'>
+			<if test='search.orderCondition == "rentalCountingASC"'>
 			order by rentalCounting ASC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>			
-			<if test='orderCondition == "rentalCountingDESC"'>
+			<if test='search.orderCondition == "rentalCountingDESC"'>
 			order by rentalCounting DESC LIMIT #{search.startRowNum}, #{search.pageSize}
 			</if>
 	  	
@@ -245,5 +241,24 @@
 	  	</where>
 	  	
 	 </select>
+	 
+	 <!--대여횟수 불러오기 -->
+	 <select  id="getRentalCount"  parameterType="String"	resultType="int">
+	   select IFNULL(SUM(rentalCounting),0)
+	 	FROM product
+	 	<where>
+	 		  prodNo = #{prodNo}
+	 	</where>
+	 </select>
+	 
+	 <!--대여횟수를 업데이트 -->
+		<update	id="updateRentalCounting"	 parameterType="product" >
+	   	update product
+	   	<set>
+	   		rentalCounting=#{rentalCounting},
+	   	</set>
+	   	where prodNo = #{prodNo}
+	 </update>	 
+	 
 	 
 </mapper>

@@ -147,7 +147,13 @@ prevBtnSixth.addEventListener("click", function(){
 	//
 	var regExp = /^[0-9]*$/;
 	
-//////////////////////////////////////////////////////////////////	
+//////////////////////////////////////////////////////////////////
+
+    if ( $("input[name='uploadFile']").length <5 || $("input[name='uploadFile']").length > 9) {
+				
+				 alert("사진은 4장 이상 10장 이하로 등록해주세요.")
+				 return;
+					  }	
 
    if( typeof prodName == "undefined" || prodName == null || prodName == "") {
 			alert("물품이름을 정확히 입력해주세요");
@@ -452,8 +458,18 @@ function request_pay(){
         	console.log(data);
         	
         	if(rsp.paid_amount == data.response.amount){
-	        	alert("결제가 완료되었습니다");
-	        		$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+	
+	              	Swal.fire({
+						title: '결제가 완료되었습니다',
+						icon: 'success',  
+		
+						closeOnClickOutside : false,
+						confirmButtonColor: '#262626',
+	    				confirmButtonText: '확인'
+		}).then(function(){
+    						$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+			// 이벤트
+		});
 	        	
         	} else {
         		alert("결제 실패");

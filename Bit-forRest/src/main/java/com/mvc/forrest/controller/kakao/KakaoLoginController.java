@@ -61,7 +61,7 @@ public class KakaoLoginController {
 			newUser.setPassword(FileNameUtils.getRandomString());
 			newUser.setPhone(FileNameUtils.getRandomString());
 			newUser.setUserName("userName");
-			newUser.setUserAddr(FileNameUtils.getRandomString());
+			newUser.setUserAddr("테스트용 주소");
 			newUser.setJoinDate(new Timestamp(System.currentTimeMillis()));
 			newUser.setRecentDate(new Timestamp(System.currentTimeMillis()));
 			newUser.setJoinPath("kakao");

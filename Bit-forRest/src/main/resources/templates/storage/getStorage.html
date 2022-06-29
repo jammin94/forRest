@@ -63,10 +63,7 @@ border-bottom:3px solid #ddd !important;
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div> 
-<!-- 
-<div th:replace="/main/toolbarForAdmin.html"></div>
-<div th:replace="/main/leftbarForAdmin.html"></div> -->
+
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list" style="padding-right:150px;">
@@ -104,7 +101,9 @@ border-bottom:3px solid #ddd !important;
 			    <tr class="tableBody">
 				    <td align="left">
 				    	<div class="productInfo">
+				    	<a th:href ="@{/product/getProduct(prodNo = ${storage.prodNo})}" >
 					    	<img _ngcontent-ysc-c102="" alt="" th:src="@{/images/uploadFiles/} + ${storage.prodImg}">
+						    		</a>
 					    	<span>
 						    		[[${storage.prodName}]]<br/>
 						    		[[${storage.startDate}]] ~ [[${storage.endDate}]]<br/>

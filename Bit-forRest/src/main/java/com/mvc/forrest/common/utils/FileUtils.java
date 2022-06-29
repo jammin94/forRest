@@ -48,7 +48,7 @@ public class FileUtils {
             list.add(fileName);
             try {
             	File file = new File(temDir , fileName);//학원 에서 쓸 때
-//                File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
+                //File file = new File(fileRealPath+"uploadFiles/", fileName);//집에서 쓸 때
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)
@@ -56,11 +56,11 @@ public class FileUtils {
                 file.setReadable(true);
 
             } catch (IOException e) {
-
+            	e.printStackTrace();
             } 
             
             
-        }//for 문 end
+        }//for 문 end 
        System.out.println(list);
        String mainImg = list.get(0);
        return mainImg;

@@ -23,6 +23,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 	
@@ -306,15 +307,11 @@ select:focus { outline: none; }
 						<tr>
 							<td>
 
-								<div class="userProfile">
-
-
-									<a th:href="@{/user/getUser(userId=${old.userId})}"
-										style="height: 54;"> <img
-										src="https://randomuser.me/api/portraits/men/52.jpg"
-										alt="A man smiling" /></a>
-
-								</div>
+							<div class="userProfile" >
+								<a th:href="@{/user/getUser(userId=${old.userId})}" >
+									<img th:src=  "@{/images/uploadFiles/} + ${user.userImg}"  onerror="this.src='/images/uploadFiles/noUserImg.jpg'"  >
+								</a>
+							</div>
 
 							</td>
 
@@ -328,22 +325,9 @@ select:focus { outline: none; }
 							            	
 								</div>
 							<div>								  									   											
-												<span class="a" th:text=${old.userId} style="position:relative;top:-20px;"></span>
+												<span class="a" th:text=${user.userId} style="position:relative;top:-20px;"></span>
 											</div>
-
-								<div class="product-rating">
-								
-<!-- 
-								<i class="fas fa-star"></i>
-									 <i class="fas fa-star"></i> 
-									 <i class="fas fa-star"></i>
-									  <i class="fas fa-star"></i> 
-									  <i class="fas fa-star-half-alt"></i>
-									  --> 
-									  
-									  
-
-								</div>
+							
 
 							</td>
 						</tr>
@@ -355,7 +339,8 @@ select:focus { outline: none; }
 				<div class="loginUser">
 					<span sec:authorize="isAuthenticated()">
 					 <span class="hiddenUserId" style="display:none" sec:authentication="principal.user.userId" th:text="${#authentication.principal.user.userId}"></span>
-					<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
+				<!--  	<a th:href="@{'http://192.168.0.42:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>-->
+				<a th:href="@{'http://192.168.219.118:3001/oldChat/init/'+${#authentication.name}+'/'+${old.oldNo}}" target=”_blank”>
 					<button type="button" class="btn" th:if="${#authentication.principal.user.userId} !=${old.userId}">
 					채팅하기
 					<i class="fa-solid fa-comments"></i>
@@ -556,7 +541,7 @@ select:focus { outline: none; }
 	  			<select class="selectBox" name="reviewedUser.userId">
 	  				<span class="chatUserList" th:each = "userList : ${chatList}">
 	           			<option name="reviewedUser.userId" th:value="${userList.inquireUserId}">[[${userList.inquireUserId}]]</option>
-	                </sapn>
+	                </span>
                 </select>
 	  			<input type="hidden" id="oldNo" name="old.oldNo" th:value="${old.oldNo}"/>
 	  			
@@ -704,18 +689,24 @@ $('.close').on("click",function(){
 	  $('.reviewBackground').removeClass("on");
 })
 
-$('.regBtn').on("click",function(){
+$('.regBtn').on("click", async function(){
 	
 	  $('#review-form').removeClass("on");
 	  $('.reviewBackground').removeClass("on");
 	  
 	  $(".reviewDone").val(1);
-	  
-	  
+	  let inquireUserId=$("option:selected").val();
+	  let oldNo=$("#oldNo:first").val();
 	  
 	  console.log("리뷰돈"+$(".reviewDone").val());
 	  
 	  $("#review-form").attr("method" , "POST").attr("action" , "/oldReview/addOldReview").submit();
+	  
+
+	   axios.defaults.withCredentials = true;
+	   await axios.get('http://192.168.219.118:3001/oldChat/oldReview/'+oldNo+'/'+inquireUserId);
+	  
+	  
 })
 });
 
@@ -730,7 +721,7 @@ function sold(){
 
 
 
-		$( ".heart" ).on("click" , function() {	        
+		$(".heart").on("click" , function() {	        
 			
 			var oldNo = $(this).parent().parent().parent().find("#oldNo").val();
 			console.log(oldNo);
@@ -816,7 +807,6 @@ $(function(){
 	userRate = userRate.substr(0,3);
 	$('#userRate').text(userRate);
 	if(userRate==0.0){
-		userRate = $('#userRate').text("4.0");
 		$('#smStar').width(($('#userRate').text()*20)+"%");
 	}
 	$('#smStar').width(($('#userRate').text()*20)+"%");

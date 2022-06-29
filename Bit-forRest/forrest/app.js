@@ -5,6 +5,7 @@ const nunjucks = require('nunjucks');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const cors = require('cors')
 
 dotenv.config();
 const webSocket = require('./socket');
@@ -45,6 +46,7 @@ sequelize.sync({ force: false })
     },
   });
   
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/image', express.static(path.join(__dirname, 'uploads'))); // '/image'
@@ -57,8 +59,6 @@ app.use(cookieParser('forrest'));
 app.use(sessionMiddleware);
 
 
-//requestMapping
-//app.use('/', indexRouter);
 app.use('/oldChat', oldChatRouter);
 app.use('/sessionLoginLogout', sessionLoginLogoutRouter);
 
@@ -82,7 +82,4 @@ const server = app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기 중');
 });
 
-/*****************session 실험 */
-
-//webSocket(server, app);
 webSocket(server, app, sessionMiddleware);

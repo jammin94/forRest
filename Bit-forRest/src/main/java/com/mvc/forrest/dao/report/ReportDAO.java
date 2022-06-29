@@ -21,4 +21,7 @@ public interface ReportDAO {
 	void updateReportCode(Report report) throws Exception;
 	
 	int getReportedNo(String userId) throws Exception;
+	
+	Report isReportFirst(Report report) throws Exception;
+	
 }

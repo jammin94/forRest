@@ -65,7 +65,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
          	String naverPhone = oAuth2UserInfo.getAttributes().get("mobile").toString();
          	String password = bCryptPasswordEncoder.encode(uuid);
          	String nickname = uuid;
-         	String userAddr = "주소를 변경해주세요";
+         	String userAddr = uuid.substring(4)+"/"+uuid.substring(4)+"/"+uuid.substring(4)+"/"+uuid.substring(4);
          	Role role = Role.user;
          	
          	try {
@@ -108,7 +108,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
          	String Phone = "Kakao_"+UUID.randomUUID().toString().substring(0,6);
          	String password = bCryptPasswordEncoder.encode(uuid);
          	String nickname = uuid;
-         	String userAddr = "주소를 변경해주세요";
+         	String userAddr = uuid.substring(4)+"/"+uuid.substring(4)+"/"+uuid.substring(4)+"/"+uuid.substring(4);
          	Role role = Role.user;
          	
          	try {

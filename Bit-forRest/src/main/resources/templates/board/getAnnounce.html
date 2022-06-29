@@ -10,9 +10,14 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.all.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="/css/getAnnounce.css">
+
 	<script src="/js/imagePreview.js"/>
+	
 	
 	
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -61,7 +66,6 @@
 
 <!-- 툴바 include -->
 <div th:replace="/main/toolbar.html"></div>
-<div th:replace="/main/leftbar.html"></div>
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container list">
@@ -84,7 +88,8 @@
 		  <th:block th:each="image :${imageList}">
 		  	<img th:src= "@{/images/uploadFiles/} + ${image.fileName}" alt="공지사항 사진"  style="display: flex; justify-content: center;"/>
 		  </th:block>
-	      <p style="text-align:center"><a href="/coupon/addOwnCoupon?couponNo=4" class="btn btn-default" role="button" >쿠폰받기</a></p>
+	      <span style="text-align:center" onclick="addCoupon()" class="btn btn-default" role="button" th:value="${board.couponURL}">쿠폰받기</span>
+	      <input type="hidden" id="couponNo" th:value="${board.couponURL}"/>
 	      <div class="caption">
 	        <h3>[[${board.boardDetail}]]</h3>
 	      </div>
@@ -117,21 +122,53 @@
 
 </body>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/jquery_min.js"></script>
-	<script>
-	  $(document).ready(function() {
-			"use strict";
-			
+<script>
+  $(document).ready(function() {
+		"use strict";
+		
 
-		    // Preloader 
-		    jQuery(window).on('load', function() {
-		        jQuery("#status").fadeOut();
-		        jQuery("#preloader").delay(350).fadeOut("slow");
-		    });
-	  })
+	    // Preloader 
+	    jQuery(window).on('load', function() {
+	        jQuery("#status").fadeOut();
+	        jQuery("#preloader").delay(350).fadeOut("slow");
+	    });
+  })
+  
+  async function addCoupon(){
+	  var coupon=$("#couponNo").val();
+	  var boardNo=$("#boardNo").val();
+	  await axios.get('/coupon/json/addOwnCoupon?couponNo='+coupon+'&boardNo='+boardNo)
+		  .then(function (response) {
+		    // 성공했을 때
+		    console.log(response.data);
+		    if(!response.data){
+		    	Swal.fire({
+				  icon: 'success',
+				  title: '감사합니다!',
+				  showConfirmButton: true,
+				});
+		    }else{
+		    	Swal.fire({
+				  icon: 'warning',
+				  title: '이미 받은 쿠폰입니다.',
+				  showConfirmButton: true,
+				});
+		    }
+		    
+		  })
+		  .catch(function (error) {
+		    // 에러가 났을 때
+		    console.log(error);
+		    Swal.fire({
+			  icon: 'warning',
+			  title: '서버 오류. 다시 시도해 주세요',
+			  showConfirmButton: true,
+			});
+		  })
 	  
-	</script>
-	
-	<!--  <script src="/js/custom.js"></script> -->
-<!-- <script src="/js/custom.js"></script> -->
+	 
+	}
+</script>
 </html>

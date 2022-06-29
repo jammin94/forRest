@@ -55,9 +55,10 @@
 }
 
 .old-list{
-margin-bottom: 210px !important;
+margin-top: 70px;
+/* margin-bottom: 210px !important; */
   padding: 0;
-  margin: 0;
+/*   margin: 0; */
   list-style: none;
   -ms-box-orient: horizontal;
   display: -webkit-box;
@@ -412,14 +413,22 @@ margin-bottom: 210px !important;
 	padding-left:1px;
 }
 
+.col-md-12{
+    margin-top: 200px;
 
+}
+
+.container.tempList{
+	margin-bottom:180px;
+}
 </style>
 
 
 <body>
 
   <div th:replace="/main/toolbar.html"></div>
-		
+<div th:replace="/main/leftbarMyPage.html"></div>
+<div th:replace="/user/topMyPage.html"></div>		
 
 <div class="container tempList">
   <div class="row">
@@ -427,7 +436,7 @@ margin-bottom: 210px !important;
   
     <div class="col-md-12"  >
 
-     <h2 class="boardTitle">중고마켓 찜 목록	</h2>
+     <h2> 중고마켓 찜 목록</h2>
     
      
       <!-- BEGIN old List --> 
