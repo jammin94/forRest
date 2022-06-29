@@ -1,6 +1,8 @@
 package com.mvc.forrest.controller.user;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -137,13 +139,21 @@ public class UserController {
 	
 
 //		### spring security 사용으로 인한 미사용 method	###
-	@GetMapping("logout")				//유저, 관리자
-	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
-			System.out.println("logout");
-		
-	        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-	        return "redirect:/";
-	}
+//	@RequestMapping("afterLogout")				//유저, 관리자
+//	public String afterLogout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		
+//			System.out.println("user/afterLogout : POST/GET");
+//			
+//				String reqURL = "https://kauth.kakao.com/oauth/logout?client_id=14488329bb0ccdf08f6b761a0726ab5a&logout_redirect_uri=http://localhost:8080/";
+//				URL url = new URL(reqURL);
+//				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//				conn.setRequestMethod("GET");
+//				conn.setDoOutput(true);
+//				int responseCode = conn.getResponseCode();
+//				System.out.println("responseCode : " + responseCode);
+//	        
+//	        return "redirect:/";
+//	}
 	
 	@GetMapping("addUser")				//유저, 관리자
 	public String addUser() throws Exception{

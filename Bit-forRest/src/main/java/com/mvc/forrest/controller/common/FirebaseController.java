@@ -33,7 +33,7 @@ public class FirebaseController {
 	public String messageTest(Model model, HttpSession session ) throws Exception {
 		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userId= loginUser.getUser().getUserId();
-		fcmService.sendMessage(userId,"title","body");
+		fcmService.sendMessage(userId,"forrest부터 새로운 알림이 도착했습니다","주문하신 상품의 배송이 시작되었습니다.");
 		System.out.println("메세지보냄");
 		 return "common/firebase";
 	}	

@@ -580,8 +580,8 @@
 <script >
 
 //내 맥북 192.168.0.240:3001
-//비트 컴 192.168.219.118:3001
-const socket = io.connect('http://192.168.219.118:3001/oldChatRoom',{
+//비트 컴 192.168.0.8:3001
+const socket = io.connect('http://192.168.0.8:3001/oldChatRoom',{
   path: '/socket.io'
 });//oldChatRoom namespace사용
 
@@ -618,7 +618,7 @@ socket.on('updateRoom',function(data){
     	  if($(this).find(".unreadcount")!==undefined){
     	  	$(this).find(".unreadcount").remove();
     	  }
-    	  window.open('http://192.168.219.118:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
+    	  window.open('http://192.168.0.8:3001/oldChat/'+$(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),'popup test','width=500');
     	});
 });
 
@@ -646,7 +646,7 @@ $("li.contact").dblclick(function() {
   		$(this).find(".unreadcount").remove();
 	}
   
-  window.open('http://192.168.219.118:3001/oldChat/'+
+  window.open('http://192.168.0.8:3001/oldChat/'+
 		  $(this).find("input[name='oldNo']").val()+'?chatRoomNo='+$(this).val(),"_blank","width=500, titlebar=no, location=no, status=no, toolbar=no");
 });
 
@@ -658,7 +658,7 @@ $(document).ready(function(){
 		console.log('{{immediate.chatRoomNo}}');
 		console.log('{{immediate.oldNo}}');
 		
-		//window.open('http://192.168.219.118:3001/oldChat/'
+		//window.open('http://192.168.0.8:3001/oldChat/'
 		window.open('/oldChat/'
 		+'{{immediate.oldNo}}?chatRoomNo={{immediate.chatRoomNo}}','_blank',
 		'width=500');
