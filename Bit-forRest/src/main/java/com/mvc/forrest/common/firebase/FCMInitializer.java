@@ -19,10 +19,10 @@ import com.google.firebase.FirebaseOptions;
 @Service
 public class FCMInitializer {
 
-    @Value("${fcm.certification}")
+//    @Value("${fcm.certification}")
     private String googleApplicationCredentials;
 
-    @PostConstruct
+//    @PostConstruct
     public void initialize() throws IOException {
         ClassPathResource resource = new ClassPathResource(googleApplicationCredentials);
 
