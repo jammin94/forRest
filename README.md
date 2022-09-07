@@ -59,7 +59,16 @@
 
 #### 발표 영상
 
-[![Video Label](http://img.youtube.com/vi/uLR1RNqJ1Mw/0.jpg)](https://www.youtube.com/watch?v=24TOhOPyFDk&t=348s)
+[![imamge](https://user-images.githubusercontent.com/83762364/188839247-4079e5b1-3979-47b8-ae37-753f1cd64937.png)](https://youtu.be/24TOhOPyFDk?t=204) 
+
+<br>
+
+#### 프로젝트 보고서
+
+[forRest 프로젝트 보고서.pdf](https://drive.google.com/drive/u/0/folders/1rzoHoGLXXOkRvRcG3P11ZKeHW_ZzF07L)
+
+
+
 
 
 
