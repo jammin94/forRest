@@ -9,13 +9,14 @@
 
 보관한 장비를 대여 가능하게 하여 수익을 창출할 수 있습니다.
 
-
-
+<br>
 
 ## 1. 제작 기간 & 참여인원
 
 * 2022.05.01 ~ 2022.06.30
 * 팀프로젝트: 6명
+
+<br>
 
 ## 2. 사용 기술
 
@@ -37,11 +38,15 @@
 * Thymeleaf
 * ajax
 
+<br>
+
 ## 3. ERD 설계
 
 ![image](https://user-images.githubusercontent.com/83762364/188828677-01c406b4-6227-4655-98f8-b5e226f2ea78.png)
 
 테이블 3개 -> 2개 적을예정 (prodcut, transaction)
+
+<br>
 
 ## 4. 구현 기능
 
@@ -49,11 +54,15 @@
 #### 결제(rest controller)
 #### 검색(product)
 
+<br>
+
 ## 5. 이슈 체크리스트
 
 #### 비니지스로직 컨트롤러에서 서비스로 이동
 #### 필드주입에서 생성자주입으로 변경
 #### 하나의 메서드는 하나의 기능만 하도록 변경
+
+<br>
 
 ## 6. 발표 영상 및 프로젝트 보고서
 
@@ -65,7 +74,7 @@
 
 #### 프로젝트 보고서
 
-[forRest 프로젝트 보고서.pdf](https://drive.google.com/drive/u/0/folders/1rzoHoGLXXOkRvRcG3P11ZKeHW_ZzF07L)
+[forRest 프로젝트 보고서.pdf](https://drive.google.com/file/d/1lcodOBAqL4omjVfrSmB6bWeIqKXgnOyb/view?usp=sharing)
 
 
 
