@@ -42,13 +42,19 @@
 
 ## 3. ERD 설계
 
-![image](https://user-images.githubusercontent.com/83762364/188828677-01c406b4-6227-4655-98f8-b5e226f2ea78.png)
+<img src="https://user-images.githubusercontent.com/83762364/189522608-b4397e0b-9c58-4e04-9949-2692a4df8439.png" width="900" height="600"/>
 
-테이블 3개 -> 2개 적을예정 (prodcut, transaction)
 
 <br>
 
-## 4. 구현 기능
+## 4. 담당 핵심 기능
+
+이 서비스의 핵심 기능은 캠핑 장비를 보관함과 동시에 렌탈을 통해 수익을 창출하는 것입니다.
+
+사용자가 장비를 보관할 때 렌탈을 가능하게 하면 렌탈 물품 리스트에 장비가 자동으로 등록됩니다.
+
+서비스흐름 사진
+
 
 #### 등록(DB)
 #### 결제(rest controller)
