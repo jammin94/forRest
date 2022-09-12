@@ -450,8 +450,8 @@ function request_pay(){
     	console.log(rsp);
     	$.ajax({
 
-        	type : "POST",
-        	url : "/payment/json/verifyIamport?imp_uid=" + rsp.imp_uid 
+        	type : "GET",
+        	url : "/payment/" + rsp.imp_uid 
         	
         }).done(function(data) {
         	

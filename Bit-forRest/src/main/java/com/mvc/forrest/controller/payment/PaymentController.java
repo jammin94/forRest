@@ -2,8 +2,12 @@ package com.mvc.forrest.controller.payment;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.siot.IamportRestClient.IamportClient;
@@ -11,36 +15,41 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/payment/*")
 public class PaymentController {
 	
 	
-	private IamportClient api;
+	private IamportClient client;
 	
-	public PaymentController(){
-		this.api = new IamportClient("8740787114435303","7f0c791b9cc0f3739e67cf5e3116f1d769ae64b9372cd0d16248fa803279c5cdbf74600ab0166d1b");
+//	@Value("${iamportApi.api_key}")
+//	private String api_key;
+	
+//	@Value("${iamportApi.api_secret}")
+//	private String api_secret;
+	
+	public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value("${iamportApi.api_secret}") String api_secret){
+		this.client = new IamportClient(api_key, api_secret);
 	}
 
 
-	
-	//보관 메인화면 단순 네비게이션
-	//비회원도 접근가능
-	@RequestMapping("json/verifyIamport")
-	public IamportResponse<Payment> paymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
-	
-		return api.paymentByImpUid(imp_uid);
+	@GetMapping("{imp_uid}")
+	public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
+		
+		return client.paymentByImpUid(imp_uid);
 		
 		
 }
 	
-	@RequestMapping("json/cancelIamport")
-	public IamportResponse<Payment> cancelPaymentByImpUid(@RequestParam("imp_uid") String imp_uid) throws IamportResponseException, IOException {
-
-		CancelData cancelData = new CancelData(imp_uid, true);
-
-		return api.cancelPaymentByImpUid(cancelData);
+	@PostMapping("cancel")
+	public IamportResponse<Payment> cancelPaymentByImpUid(@RequestBody String imp_uid) throws IamportResponseException, IOException {
+		
+		log.info("imp_uid={}", imp_uid);
+		
+		return client.cancelPaymentByImpUid(new CancelData(imp_uid, true));
 	}
 	
 	

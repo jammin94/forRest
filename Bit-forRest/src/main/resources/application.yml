@@ -109,3 +109,7 @@ file:
             
 fcm:
   certification: bit-project-runrunfunfun-firebase-adminsdk-6odpy-69715e90cd.json
+  
+iamportApi:
+  api_key: 8740787114435303
+  api_secret: 7f0c791b9cc0f3739e67cf5e3116f1d769ae64b9372cd0d16248fa803279c5cdbf74600ab0166d1b
