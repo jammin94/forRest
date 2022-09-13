@@ -4,21 +4,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.product.ProductDAO;
 import com.mvc.forrest.service.domain.Product;
 import com.mvc.forrest.service.domain.Search;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 
 @Service
+@RequiredArgsConstructor
+
 public class ProductService {
 	
-	@Autowired
-	private ProductDAO productDAO;
+	private final ProductDAO productDAO;
 	
 	// 물품등록
 	public void addProduct(Product product) throws Exception{
@@ -99,6 +101,13 @@ public class ProductService {
 
 		productDAO.updateRentalCounting(product);
 
+	}
+	
+	public Product setParam(Product product, String userId, String prodNo, String prodImg) {
+		product.setUserId(userId);
+		product.setProdNo(prodNo);
+		product.setProdImg(prodImg);
+		return product;
 	}
 	
 	

@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.forrest.dao.storage.StorageDAO;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.Storage;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class StorageService {
 	
-	@Autowired
-	private StorageDAO storageDAO;
+	private final StorageDAO storageDAO;
 	
 	   //보관물품을 추가
 		public void addStorage(Storage storage) throws Exception{
@@ -68,6 +68,15 @@ public class StorageService {
 			
 			return storageDAO.getExpiredStorageList();
 			
+		}
+		
+		public Storage setParam(Storage storage, String userId, String prodNo, String paymentNo, String prodImg) {
+			storage.setUserId(userId);
+			storage.setProdNo(prodNo);
+			storage.setPaymentNo(paymentNo);
+			storage.setProdImg(prodImg);
+			
+			return storage;
 		}
 		
 	
