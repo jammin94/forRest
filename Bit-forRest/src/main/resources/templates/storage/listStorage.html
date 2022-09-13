@@ -337,10 +337,10 @@ function fncGetStorageList(currentPage) {
 				   if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
 				   		
 					   $.ajax({
-						      "url": "/payment/json/cancelIamport?imp_uid="+paymentNo, 
+						      "url": "/payment/cancel", 
 						      "type": "POST",
-						      "contentType": "application/json",
-						   
+						      "contentType": "text/plain",
+						   	  "data": paymentNo
 						    }).done(function(data) {
 					    
 					        	self.location = "/product/cancelProduct?prodNo="+prodNo;
