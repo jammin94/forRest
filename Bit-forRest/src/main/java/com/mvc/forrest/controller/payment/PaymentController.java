@@ -19,24 +19,19 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/payment/*")
+@RequestMapping("/payment")
 public class PaymentController {
 	
 	
 	private IamportClient client;
 	
-//	@Value("${iamportApi.api_key}")
-//	private String api_key;
-	
-//	@Value("${iamportApi.api_secret}")
-//	private String api_secret;
 	
 	public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value("${iamportApi.api_secret}") String api_secret){
 		this.client = new IamportClient(api_key, api_secret);
 	}
 
 
-	@GetMapping("{imp_uid}")
+	@GetMapping("/{imp_uid}")
 	public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IamportResponseException, IOException{	
 		
 		return client.paymentByImpUid(imp_uid);
@@ -44,7 +39,7 @@ public class PaymentController {
 		
 }
 	
-	@PostMapping("cancel")
+	@PostMapping("/cancel")
 	public IamportResponse<Payment> cancelPaymentByImpUid(@RequestBody String imp_uid) throws IamportResponseException, IOException {
 		
 		log.info("imp_uid={}", imp_uid);
