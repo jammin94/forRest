@@ -467,7 +467,7 @@ function request_pay(){
 						confirmButtonColor: '#262626',
 	    				confirmButtonText: '확인'
 		}).then(function(){
-    						$('form').attr('method', 'POST').attr('action', '/storage/addStorage?paymentNo='+rsp.imp_uid).submit()
+    						$('form').attr('method', 'POST').attr('action', '/storage/'+rsp.imp_uid+'/add').submit()
 			// 이벤트
 		});
 	        	

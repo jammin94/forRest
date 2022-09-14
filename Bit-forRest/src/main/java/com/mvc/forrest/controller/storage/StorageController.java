@@ -13,10 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
@@ -32,34 +34,28 @@ import com.mvc.forrest.service.product.ProductService;
 import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
+
 
 
 
 
 @Controller
 @RequestMapping("/storage/*")
+@RequiredArgsConstructor
 public class StorageController {
 	
-	@Autowired
-	public StorageService storageService ;
 	
-	@Autowired
-	public ProductService productService ;
+	private final StorageService storageService ;
 	
-	@Autowired
-	public UserService userService;
+	private final ProductService productService ;
 	
-	@Autowired
-	public CouponService couponService;
+	private final UserService userService;
 	
-	@Autowired
-	public FileUtils fileUtils;
+	private final CouponService couponService;
 	
+	private final FileUtils fileUtils;
 	
-	
-	public StorageController() {
-		System.out.println(this.getClass());
-	}
 
 	@Value("5")
 	int pageUnit;
@@ -97,53 +93,37 @@ public class StorageController {
 	
 
 	//회원, 어드민 가능
-	@PostMapping("addStorage")
+	@PostMapping("{paymentNo}/add")
 	public String addStoragePost(@ModelAttribute("product") Product product,
 												@ModelAttribute("storage") Storage storage,
 												@ModelAttribute("ownCoupon") OwnCoupon ownCoupon,
 												@RequestParam("uploadFile") List<MultipartFile> uploadFile,
-												@RequestParam("paymentNo") String paymentNo,
-												 Model model) throws Exception {
+												@PathVariable("paymentNo") String paymentNo,
+												 RedirectAttributes redirectAttributes) throws Exception {
 		
-		
-		//결제완료후 사용한 쿠폰 삭제, 쿠폰이 선택되지않았을때는 삭제메서드 동작X
-		if(ownCoupon.getOwnCouponNo() != 0) {
-			couponService.deleteOwnCoupon(ownCoupon.getOwnCouponNo());
-			
-		}
+		//쿠폰사용
+		couponService.useCoupon(ownCoupon.getOwnCouponNo());
 		
 		//암호화된 유저아이디를 받아옴
-		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String userId= loginUser.getUser().getUserId();
-
+		String userId= userService.getEncodedUserId();
         
-		//랜덤으로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
+		//uuid로 생성한 prodNo(db에 들어가기전 prodNo가 필요)
          String prodNo = FileNameUtils.getRandomString();
-        
-        //product에 필요한값 셋팅후 등록
-		product.setUserId(userId);
-		product.setProdNo(prodNo);
 		
-		//////////이미지업로드
-		String prodImg = 	fileUtils.uploadFiles(uploadFile, prodNo, "product");
+		//이미지업로드후 대표이미지를 리턴
+		String mainProdImg = fileUtils.uploadFiles(uploadFile, prodNo, "product");
 		
-		//대표사진업로드
-		product.setProdImg(prodImg);
+		//등록에 필요한 값들 set하고 등록
+		Product setProduct = productService.setParam(product, userId, prodNo, mainProdImg);
+		productService.addProduct(setProduct);
 		
-		productService.addProduct(product);
+		Storage setStorage = storageService.setParam(storage, userId, prodNo, paymentNo, mainProdImg);
+		storageService.addStorage(setStorage);
 		
+		redirectAttributes.addAttribute("tranNo", storage.getTranNo());
+		redirectAttributes.addAttribute("status", true);
 		
-		//storage에 필요한값 셋팅후 등록
-		storage.setUserId(userId);
-		storage.setProdNo(prodNo);
-		storage.setPaymentNo(paymentNo);
-		storage.setProdImg(prodImg);
-		//storage.setPaymentNo(paymentWay);
-		storageService.addStorage(storage);
-		
-		model.addAttribute("storage", storage);
-		
-		return "forward:/storage/getStorage";
+		return "redirect:/storage/{tranNo}";
 	}
 	
 	//회원, 어드민 가능
@@ -250,17 +230,14 @@ public class StorageController {
 	
 
 	//회원, 어드민 가능
-	@RequestMapping("getStorage")
-	public String getStorage(@RequestParam("tranNo") String tranNo, Model model) throws Exception {
-		
-		if(tranNo == null) {
-			return  "storage/storageMain";
-		}
+	@GetMapping("{tranNo}")
+	public String getStorage(@PathVariable("tranNo") String tranNo, Model model) throws Exception {
 		
 		model.addAttribute("storage", storageService.getStorage(tranNo));
 
 		return "storage/getStorage";
 	}
+	
 	
 
 }

@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.mvc.forrest.config.auth.LoginUser;
 import com.mvc.forrest.dao.user.UserDAO;
 import com.mvc.forrest.service.domain.Search;
 import com.mvc.forrest.service.domain.User;
@@ -85,6 +87,12 @@ public class UserService {
 			result=false;
 		}
 		return result;
+	}
+	
+	public String getEncodedUserId() {
+		
+		LoginUser loginUser= (LoginUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return loginUser.getUser().getUserId();
 	}
 	
 

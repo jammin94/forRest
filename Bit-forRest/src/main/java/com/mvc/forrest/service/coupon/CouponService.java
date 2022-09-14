@@ -77,4 +77,10 @@ public class CouponService {
 	public List<OwnCoupon> checkOwnCoupon(OwnCoupon ownCoupon) throws Exception{
 		return ownCouponDao.checkOwnCoupon(ownCoupon);
 	}
+	
+	public void useCoupon(int ownCouponNo) throws Exception {
+		if(ownCouponNo != 0) {
+			deleteOwnCoupon(ownCouponNo);
+		}
+	}
 }

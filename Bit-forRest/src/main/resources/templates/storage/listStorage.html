@@ -162,7 +162,7 @@ border-bottom:3px solid #ddd !important;
 	        <tbody> 
 			    <tr class="tableBody" th:each ="storage : ${list}">
 				    <td align="left">
-				    <a th:href ="@{/storage/getStorage(tranNo = ${storage.tranNo})}" >
+				    <a th:href ="@{/storage/{tranNo}(tranNo = ${storage.tranNo})}" >
 				 	<span  class="payNo"  th:text="|주문번호: ${storage.paymentNo}|" ></span>
 				 	</a>
 				    	<div class="productInfo">
