@@ -197,6 +197,134 @@ public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value(
 * api_key, api_secret을 필드에 변수로 선언하고 @Value를 사용하면 PaymentController가 생성될때 두 값이 null이 됩니다. <br>
   따라서 PaymentController 생성자의 매개변수에서 @Value을 통해 두 값을 가져오도록 변경했습니다.
   
+ <br>
+ 
+ ### 2. StorageController
+ 
+ <br>
+ 
+ **2-1. 새로고침시 FormData 재전송으로 인한 오류 개선 (PRG 패턴 사용)**
+ 
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+
+```java
+@PostMapping("addStorage")
+public String addStoragePost(@ModelAttribute("product") Product product,
+			     @ModelAttribute("storage") Storage storage,
+			     @ModelAttribute("ownCoupon") OwnCoupon ownCoupon,
+			     @RequestParam("uploadFile") List<MultipartFile> uploadFile,
+			     @RequestParam("paymentNo") String paymentNo,
+			     Model model) throws Exception {
+			     
+  // 물품등록을 위한 로직 수행
+
+  model.addAttribute("storage", storage);
+  
+  // 물품등록 후 상세조회 페이지로 리턴
+  return "forward:/storage/getStorage";
+``` 
+</div>
+</details>
+
+* 기존에는 물품을 등록한 뒤 상세조회를 요청하는 URL을 forward 방식으로 호출했습니다.
+* 최초 요청시에는 상세조회 페이지가 출력되었지만 새로고침 시 서버에러가 발생했습니다.
+* forward는 클라이언트에서 URL이 변경되지 않기 때문에 새로고침시 상세조회 페이지가 아닌 물품등록 URL이 요청되었습니다. <br>
+  이때 FormData가 재전송 되면서 물품등록을 위한 로직을 수행 중 이미지 이름 중복때문에 에러가 발생하는 것을 확인했습니다.
+ 
+ <br>
+ 
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+
+```java
+@PostMapping("{paymentNo}/add")
+public String addStoragePost(@ModelAttribute("product") Product product,
+			     @ModelAttribute("storage") Storage storage,
+			     @ModelAttribute("ownCoupon") OwnCoupon ownCoupon,
+			     @RequestParam("uploadFile") List<MultipartFile> uploadFile,
+			     @PathVariable("paymentNo") String paymentNo,
+			     RedirectAttributes redirectAttributes) throws Exception {
+			     
+  // 물품등록을 위한 로직 수행
+
+  redirectAttributes.addAttribute("tranNo", storage.getTranNo());
+  redirectAttributes.addAttribute("status", true);
+		
+  return "redirect:/storage/{tranNo}"; 
+```
+</div>
+</details>
+
+* redirect로 새로고침시 상세조회 URL이 호출되도록 변경했습니다.
+* redirectAttributes를 사용하여 pathVarible을 설정하고 쿼리스트링으로 간단한 상태코드를 추가했습니다.
+ 
+<br>
+ 
+ **2-2. 필드주입에서 생성자주입으로 변경**
+ 
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+ 
+ ```java
+@Controller
+@RequestMapping("/storage/*")
+public class StorageController {
+	
+   @Autowired
+   public StorageService storageService ;
+	
+   @Autowired
+   public ProductService productService ;
+	
+   @Autowired
+   public UserService userService;
+	
+   @Autowired
+   public CouponService couponService;
+	
+   @Autowired
+   public FileUtils fileUtils;
+ ```
+</div>
+</details>
+ 
+ * 기존에는 코드의 간결함 때문에 의존관계에 있는 클래스들을 필드주입을 통해 사용했습니다.
+ * 하지만 간단한 테스트 코드를 작성할때도 의존관계에 있는 클래스를 사용하기 위해서 서버를 실행해야해서 비효율적 이었습니다.
+ 
+ <br>
+
+<details>
+<summary><b>개선된 코드</b></summary>
+<div markdown="1">
+ 
+ ```java
+@Controller
+@RequestMapping("/storage/*")
+@RequiredArgsConstructor
+public class StorageController {
+		
+   private final StorageService storageService ;
+	
+   private final ProductService productService ;
+	
+   private final UserService userService;
+	
+   private final CouponService couponService;
+	
+   private final FileUtils fileUtils;
+ ```
+</div>
+</details>
+
+ * 위의 문제점을 해결하고 의존관계를 불변하게 설계할 수 있는 생성자 주입으로 변경했습니다.
+ * 또한 롬복의 @RequiredArgsConstructor를 통해 새로운 필드를 추가할 때 다시 생성자를 만들어서 관리해야하는 번거로움을 해결했습니다.
+ 
+ 
+  
 
 
 <br>
