@@ -53,7 +53,27 @@
 
 사용자가 장비를 보관할 때 렌탈을 가능하게 하면 렌탈 물품 리스트에 장비가 자동으로 등록됩니다.
 
-서비스흐름 사진
+### 전체 흐름
+
+![image](https://user-images.githubusercontent.com/83762364/190890614-f1c76688-58f7-4b87-8eb5-72d9d45ba902.png)
+
+### Client
+
+![image](https://user-images.githubusercontent.com/83762364/190893705-75e38548-c8d5-4e18-9d29-ea7d73e2b2da.png)
+
+* **결제 정보 검증을 위한 비동기 요청**
+  * 아임포트 라이브러리에서 정의한 URL 형식으로 Ajax 요청을 보냅니다.
+  * 요청을 받은 RestController에서 결제 정보를 검증하고 아임포트 DB에 저장합니다.
+  
+* **물품 등록을 위한 POST 요청**
+  * 결제가 완료되면 물품 등록을 위해 폼데이터를 POST 요청으로 전송합니다.
+
+
+
+
+
+
+
 
 
 #### 등록(DB)
