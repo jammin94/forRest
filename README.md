@@ -51,7 +51,9 @@
 
 이 서비스의 핵심 기능은 캠핑 장비를 보관함과 동시에 렌탈을 통해 수익을 창출하는 것입니다.
 
-사용자가 장비를 보관할 때 렌탈을 가능하게 하면 렌탈 물품 리스트에 장비가 자동으로 등록됩니다.
+사용자가 장비를 보관할 때 렌탈 가능에 체크하면 보관 기간 동안 다른 사용자에게 장비를 대여해 줄 수 있습니다.
+
+이렇게 보관한 장비는 listStorage(내가 보관 중인 장비), listProduct(사용자들이 대여 가능한 물품)에 함께 등록됩니다.
 
 ### 전체 흐름
 
@@ -63,22 +65,47 @@
 
 * **결제 정보 검증을 위한 비동기 요청**
   * 아임포트 라이브러리에서 정의한 URL 형식으로 Ajax 요청을 보냅니다.
-  * 요청을 받은 RestController에서 결제 정보를 검증하고 아임포트 DB에 저장합니다.
+  * 요청을 받은 RestController에서 imp_uid(거래 고유번호)를 검사하고 데이터를 응답해 줍니다.
   
 * **물품 등록을 위한 POST 요청**
-  * 결제가 완료되면 물품 등록을 위해 폼데이터를 POST 요청으로 전송합니다.
+  * paid_amount와 amount의 금액이 같으면 물품 등록을 위해 폼데이터를 POST로 전송합니다.
 
+<br>
 
+### Controller
 
+![image](https://user-images.githubusercontent.com/83762364/191046726-7ce88e0d-a3fd-41c2-9c53-de91ee18bba2.png)
 
+* **결제 정보 검증**
+  * 아임포트 라이브러리에서 제공하는 paymentByImpUid 메서드를 사용하여 결제 정보를 검증했습니다.
+  * 검증에 사용되는 토큰을 발급하기 위해 필요한 API 키, API secret을 생성자의 매개변수로 지정했습니다.
 
+* **요청 처리**
+  * prodNo, mainProdImg 등 Product와 Storage가 공통으로 필요한 값들을 Controller에서 처리했습니다.
+  * 등록을 위해 ProductService의 addProduct, StorageService의 addStorage를 호출했습니다.
 
+* **리다이렉트**
+  * 중복 등록을 방지하기 위하여 결제 완료 후 상세조회 페이지로 리다이렉트 하도록 설계했습니다.
+  * RedirectAttributes를 사용하여 pathVarible과 임의의 상태 코드를 지정했습니다.
 
+<br>
 
+### Service
 
-#### 등록(DB)
-#### 결제(rest controller)
-#### 검색(product)
+![image](https://user-images.githubusercontent.com/83762364/191060884-1b8e4801-3d14-45f3-83f1-a3bfee836c3c.png)
+
+* **DAO 호출**
+  * DB에 접근하기 위한 객체인 DAO를 호출합니다.
+
+<br>
+
+### DAO
+
+![image](https://user-images.githubusercontent.com/83762364/191068491-6ed5ba0d-37e1-4176-af49-d9d4331a20c9.png)
+
+* **물품 정보 저장(MyBatis Mapper)**
+  * @Mapper를 통해 인터페이스를 매퍼로 등록했습니다.
+  * INSERT 문을 작성할 때 DATE_ADD() 함수로 보관 기간과 현재 날짜를 더하여 보관 종료일을 계산하고 이를 DB에 저장하도록 했습니다.
 
 <br>
 
@@ -122,7 +149,7 @@ public class PaymentController {
 </details>
 
 * 기존의 URL 경로는 리소스와 HTTP Method로 설계하는 REST API의 규칙을 따르지 않아 가독성이 떨어졌습니다.
-* 기존코드에는 결제와 환불 메소드에 검색필터에 주로 사용되는 쿼리스트링을 사용하여 @RequestParam을 통해 값을 받도록 설계했습니다.
+* 기존 코드에는 결제와 환불 메서드에 검색 필터에 주로 사용되는 쿼리 스트링을 사용하여 @RequestParam을 통해 값을 받도록 설계했습니다.
 
 
 <br>
@@ -158,9 +185,9 @@ public class PaymentController {
 </div>
 </details>
 
-* iamport에서 정의한 URL규칙에 따라 리소스를 정의하고 Get과 Post 방식을 사용하여 결제와 환불을 구현했습니다.
+* iamport에서 정의한 URL 규칙에 따라 리소스를 정의하고 Get과 Post 방식을 사용하여 결제와 환불을 구현했습니다.
 * Query String 대신 Path Variable을 사용하여 리소스를 식별하도록 변경했습니다.
-* 환불 메소드는 Post를 사용하기 때문에 Query String을 사용하지 않고 @RequestBody를 통해 http body에 있는 값을 받도록 변경했습니다.
+* 환불 메서드는 Post를 사용하기 때문에 Query String을 사용하지 않고 @RequestBody를 통해 http body에 있는 값을 받도록 변경했습니다.
 
 
 <br>
@@ -181,8 +208,8 @@ public PaymentController(){
 </div>
 </details>
 
-* PaymentController는 생성시에 api_key와  api_secret을 파라미터로 갖는 IamportClient객체의 인스턴스를 생성하고 필드를 초기화 시킵니다.
-* 기존의 코드에는 외부에 노출되면 안되는 api_key와  api_secret을 직접 입력했습니다.
+* PaymentController는 생성 시에 api_key와  api_secret을 파라미터로 갖는 IamportClient 객체의 인스턴스를 생성하고 필드를 초기화 시킵니다.
+* 기존의 코드에는 외부에 노출되면 안 되는 api_key와  api_secret을 직접 입력했습니다.
 
 <br>
 
@@ -214,7 +241,7 @@ public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value(
 </details>
 
 * api_key와  api_secret을 application.yml에 저장하고 @Value를 통해 값을 가져왔습니다.
-* api_key, api_secret을 필드에 변수로 선언하고 @Value를 사용하면 PaymentController가 생성될때 두 값이 null이 됩니다. <br>
+* api_key, api_secret을 필드에 변수로 선언하고 @Value를 사용하면 PaymentController가 생성될 때 두 값이 null이 됩니다. <br>
   따라서 PaymentController 생성자의 매개변수에서 @Value을 통해 두 값을 가져오도록 변경했습니다.
   
  <br>
@@ -223,7 +250,7 @@ public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value(
  
  <br>
  
- **2-1. 새로고침시 FormData 재전송으로 인한 오류 개선 (PRG 패턴 사용)**
+ **2-1. 새로고침 시 FormData 재전송으로 인한 오류 개선 (PRG 패턴 사용)**
  
 <details>
 <summary><b>기존 코드</b></summary>
@@ -249,9 +276,9 @@ public String addStoragePost(@ModelAttribute("product") Product product,
 </details>
 
 * 기존에는 물품을 등록한 뒤 상세조회를 요청하는 URL을 forward 방식으로 호출했습니다.
-* 최초 요청시에는 상세조회 페이지가 출력되었지만 새로고침 시 서버에러가 발생했습니다.
-* forward는 클라이언트에서 URL이 변경되지 않기 때문에 새로고침시 상세조회 페이지가 아닌 물품등록 URL이 요청되었습니다. <br>
-  이때 FormData가 재전송 되면서 물품등록을 위한 로직을 수행 중 이미지 이름 중복때문에 에러가 발생하는 것을 확인했습니다.
+* 최초 요청 시에는 상세조회 페이지가 출력되었지만 새로고침 시 서버 에러가 발생했습니다.
+* forward는 클라이언트에서 URL이 변경되지 않기 때문에 새로고침 시 상세조회 페이지가 아닌 물품 등록 URL이 요청되었습니다. <br>
+  이때 FormData가 재전송 되면서 물품등록을 위한 로직을 수행 중 이미지 이름 중복 때문에 에러가 발생하는 것을 확인했습니다.
  
  <br>
  
@@ -278,12 +305,12 @@ public String addStoragePost(@ModelAttribute("product") Product product,
 </div>
 </details>
 
-* redirect로 새로고침시 상세조회 URL이 호출되도록 변경했습니다.
-* redirectAttributes를 사용하여 pathVarible을 설정하고 쿼리스트링으로 간단한 상태코드를 추가했습니다.
+* redirect로 새로고침 시 상세조회 URL이 호출되도록 변경했습니다.
+* redirectAttributes를 사용하여 pathVarible을 설정하고 쿼리 스트링으로 간단한 상태 코드를 추가했습니다.
  
 <br>
  
- **2-2. 필드주입에서 생성자주입으로 변경**
+ **2-2. 필드 주입에서 생성자 주입으로 변경**
  
 <details>
 <summary><b>기존 코드</b></summary>
@@ -312,8 +339,8 @@ public class StorageController {
 </div>
 </details>
  
- * 기존에는 코드의 간결함 때문에 의존관계에 있는 클래스들을 필드주입을 통해 사용했습니다.
- * 하지만 간단한 테스트 코드를 작성할때도 의존관계에 있는 클래스를 사용하기 위해서 서버를 실행해야해서 비효율적 이었습니다.
+ * 기존에는 코드의 간결함 때문에 의존관계에 있는 클래스들을 필드 주입을 통해 사용했습니다.
+ * 하지만 간단한 테스트 코드를 작성할 때도 의존관계에 있는 클래스를 사용하기 위해서 서버를 실행해야 해서 비효율적이었습니다.
  
  <br>
 
@@ -341,7 +368,7 @@ public class StorageController {
 </details>
 
  * 위의 문제점을 해결하고 의존관계를 불변하게 설계할 수 있는 생성자 주입으로 변경했습니다.
- * 또한 롬복의 @RequiredArgsConstructor를 통해 새로운 필드를 추가할 때 다시 생성자를 만들어서 관리해야하는 번거로움을 해결했습니다.
+ * 또한 롬복의 @RequiredArgsConstructor를 통해 새로운 필드를 추가할 때 다시 생성자를 만들어서 관리해야 하는 번거로움을 해결했습니다.
  
  
   
