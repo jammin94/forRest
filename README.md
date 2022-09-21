@@ -44,18 +44,17 @@
 
 <img src="https://user-images.githubusercontent.com/83762364/189522608-b4397e0b-9c58-4e04-9949-2692a4df8439.png" width="900" height="600"/>
 
-### Product, Transaction 테이블 설계
-
- * 초기 설계 단계에선 Product(물품), Storage(보관), Rental(대여) 세 개의 테이블이 존재했습니다.
- * 정규화 과정에서  Storage와 Rental 테이블에서 중복되는 칼럼이 많다는 것을 확인했습니다.
- * Storage와 Rental 테이블을 Transaction 테이블로 통합하고 tranCode 칼럼을 통해 보관에 관한 것인지 대여에 관한 것인지 구분하도록 변경했습니다.
-
-
+### Product, Transaction 테이블 설계 담당
+ 
+ * **중복되는 칼럼이 많은 테이블을 하나로 통합했습니다.**
+ * 초기에 Product(상품), Storage(보관), Rental(대여) 세 개의 테이블을 설계했습니다.
+ * 중복이 많은 Storage와 Rental 테이블을 Transaction 테이블로 통합하고 tranCode 칼럼을 만들어 보관, 대여를 구분하도록 변경했습니다.
+ 
 <br>
 
 ## 4. 담당 핵심 기능
 
-이 서비스의 핵심 기능은 캠핑 장비를 보관함과 동시에 렌탈을 통해 수익을 창출하는 것입니다.
+이 서비스의 핵심 기능은 **캠핑 장비를 보관함과 동시에 렌탈을 통해 수익을 창출**하는 것입니다.
 
 사용자가 장비를 보관할 때 렌탈 가능에 체크하면 보관 기간 동안 다른 사용자에게 장비를 대여해 줄 수 있습니다.
 
@@ -64,12 +63,16 @@
 ### 전체 흐름
 
 ![image](https://user-images.githubusercontent.com/83762364/190890614-f1c76688-58f7-4b87-8eb5-72d9d45ba902.png)
+<details>
+<summary><b>핵심 기능 상세 보기</b></summary>
+<div markdown="1">
 
 ### 4-1. Client
 
 ![image](https://user-images.githubusercontent.com/83762364/191182681-7de0d236-0a8f-48d6-8946-941909f25495.png)
 
 * **결제 정보 검증을 위한 비동기 요청**
+  * 아임포트 API를 사용하여 결제 기능을 구현했습니다.
   * 검증을 위해 정의한 URL 형식으로 비동기 요청을 보냅니다.
   * 요청을 받은 RestController에서 imp_uid(거래 고유번호)를 검사하고 데이터를 응답해 줍니다.
   
@@ -91,10 +94,10 @@
   * 고유한 식별자를 위해 서버에서 UUID를 통해 ProdNo를 생성했습니다.
   * 등록한 이미지들을 별도의 이미지 테이블에 저장하고 Product, Transaction 테이블에 저장할 대표 이미지를 리턴하도록 했습니다.
   * setParam 메서드를 정의해 등록에 필요한 값들이 포함된 객체를 리턴하도록 했습니다.
-  * 등록을 위해 ProductService의 addProduct, StorageService의 addStorage를 호출했습니다.
+  * 등록을 위해 Service 계층의 addProduct, addStorage를 호출합니다.
 
 * **리다이렉트**
-  * 중복 등록을 방지하기 위하여 결제 완료 후 상세조회 페이지로 리다이렉트 하도록 설계했습니다.
+  * 새로고침 시 중복 등록을 방지하기 위하여 결제 완료 후 상세조회 페이지로 리다이렉트 하도록 설계했습니다.
   * RedirectAttributes를 사용하여 pathVarible과 임의의 상태 코드를 지정했습니다.
 
 <br>
@@ -115,17 +118,17 @@
 * **물품 정보 저장(MyBatis Mapper)**
   * @Mapper를 통해 인터페이스를 매퍼로 등록했습니다.
   * INSERT 문을 작성할 때 DATE_ADD() 함수로 보관 기간과 현재 날짜를 더하여 보관 종료일을 계산하고 이를 DB에 저장하도록 했습니다.
+  
+</div>
+</details>
 
 <br>
 
 ## 5. 리팩토링
 
-### 5-1. PaymentController
-
-#### `REST API에 맞는 URL과 파라미터 적용`
 
 <details>
-<summary><b>상세 보기</b></summary>
+<summary><b>REST API에 맞는 URL과 파라미터 적용</b></summary>
 <div markdown="1">
 
 <br>
@@ -207,10 +210,8 @@ public class PaymentController {
 
 <br>
 
-#### `api key 노출문제 개선`
-
 <details>
-<summary><b>상세 보기</b></summary>
+<summary><b>api key 노출문제 개선</b></summary>
 <div markdown="1">
 
 <br>
@@ -270,12 +271,8 @@ public PaymentController(@Value("${iamportApi.api_key}") String api_key, @Value(
   
  <br>
  
-### 5-2. StorageController
- 
-#### `새로고침 시 FormData 재전송으로 인한 오류 개선 (PRG 패턴 사용)`
-
 <details>
-<summary><b>상세 보기</b></summary>
+<summary><b>새로고침 시 FormData 재전송으로 인한 오류 개선 (PRG 패턴 사용)</b></summary>
 <div markdown="1">
 
 <br>
@@ -341,10 +338,8 @@ public String addStoragePost(@ModelAttribute("product") Product product,
  
 <br>
  
-#### `필드 주입에서 생성자 주입으로 변경`
-
 <details>
-<summary><b>상세 보기</b></summary>
+<summary><b>필드 주입에서 생성자 주입으로 변경</b></summary>
 <div markdown="1">
 
 <br>
