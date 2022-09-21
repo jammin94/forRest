@@ -52,13 +52,41 @@
  
 <br>
 
-## 4. 담당 핵심 기능
+## 4. 담당한 핵심 기능
 
 이 서비스의 핵심 기능은 **캠핑 장비를 보관함과 동시에 렌탈을 통해 수익을 창출**하는 것입니다.
 
 사용자가 장비를 보관할 때 렌탈 가능에 체크하면 보관 기간 동안 다른 사용자에게 장비를 대여해 줄 수 있습니다.
 
-이렇게 보관한 장비는 listStorage(내가 보관 중인 장비), listProduct(사용자들이 대여 가능한 물품)에 함께 등록됩니다.
+사용자의 입장에서 **정보 입력 -> 결제 -> 보관내역과 렌탈마켓에 등록** 절차로 진행됩니다.
+
+<br>
+
+### 4-1. 정보 입력 및 결제
+
+![image](https://user-images.githubusercontent.com/83762364/191578632-9e79aafc-8ed5-4bc6-a2dd-1e57e0ba0176.png)
+
+* 사용자는 장비의 사진, 이름, 크기, 배송지 등의 정보를 입력합니다.
+* 부피로 금액을 책정하고 결제를 진행합니다.
+
+<br>
+
+### 4-2. 보관내역과 렌탈마켓에 등록
+
+![image](https://user-images.githubusercontent.com/83762364/191583452-87d61239-e42e-49f0-bdf4-a50a8b9adacc.png)
+
+* 마이페이지의 보관내역에서 내가 보관한 장비를 확인할 수 있습니다.
+* 렌탈 가능에 체크한 장비는 렌탈마켓에 등록되어 다른 사용자들이 대여할 수 있습니다.
+
+<br>
+
+## 5. 핵심 기능 상세 설명
+
+<br>
+
+**4번 항목(담당한 핵심 기능)에 대한 상세 설명입니다.**
+
+<br>
 
 ### 전체 흐름
 
@@ -67,7 +95,7 @@
 <summary><b>핵심 기능 상세 보기</b></summary>
 <div markdown="1">
 
-### 4-1. Client
+### 5-1. Client
 
 ![image](https://user-images.githubusercontent.com/83762364/191182681-7de0d236-0a8f-48d6-8946-941909f25495.png)
 
@@ -81,7 +109,7 @@
 
 <br>
 
-### 4-2. Controller
+### 5-2. Controller
 
 ![image](https://user-images.githubusercontent.com/83762364/191183566-8a4e5a91-3fa6-4be9-90f3-77b6a7d76e16.png)
 
@@ -102,7 +130,7 @@
 
 <br>
 
-### 4-3. Service
+### 5-3. Service
 
 ![image](https://user-images.githubusercontent.com/83762364/191060884-1b8e4801-3d14-45f3-83f1-a3bfee836c3c.png)
 
@@ -111,7 +139,7 @@
 
 <br>
 
-### 4-4. DAO
+### 5-4. DAO
 
 ![image](https://user-images.githubusercontent.com/83762364/191068491-6ed5ba0d-37e1-4176-af49-d9d4331a20c9.png)
 
@@ -124,7 +152,7 @@
 
 <br>
 
-## 5. 리팩토링
+## 6. 문제 해결 과정
 
 
 <details>
@@ -409,15 +437,15 @@ public class StorageController {
 
 <br>
 
-## 6. 발표 영상 및 프로젝트 보고서
+## 7. 발표 영상 및 프로젝트 보고서
 
-### 6-1. 발표 영상
+### 7-1. 발표 영상
 
 [![imamge](https://user-images.githubusercontent.com/83762364/188839247-4079e5b1-3979-47b8-ae37-753f1cd64937.png)](https://youtu.be/24TOhOPyFDk?t=204) 
 
 <br>
 
-### 6-2. 프로젝트 보고서
+### 7-2. 프로젝트 보고서
 
 [forRest 프로젝트 보고서.pdf](https://drive.google.com/file/d/1lcodOBAqL4omjVfrSmB6bWeIqKXgnOyb/view?usp=sharing)
 
