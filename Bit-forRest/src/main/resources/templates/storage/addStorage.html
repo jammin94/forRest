@@ -97,45 +97,45 @@ body{
 
 
     <div class="container">
-        <header> 장비보관 </header>
+        <header th:text="#{header.storage}">장비보관</header>
         <div class="progress-bar">
             <div class="step">
-                <p>기본정보</p>
+                <p th:text="#{p.basicInfo}">기본정보</p>
                 <div class="bullet">
                     <span>1</span>
                 </div>
                 <div class="check fas fa-check"></div>
             </div>
             <div class="step">
-                <p>상세정보</p>
+                <p th:text="#{p.detailInfo}">상세정보</p>
                 <div class="bullet">
                     <span>2</span>
                 </div>
                 <div class="check fas fa-check"></div>
             </div>
             <div class="step">
-                <p>대여</p>
+                <p th:text="#{p.rental}">대여</p>
                 <div class="bullet">
                     <span>3</span>
                 </div>
                 <div class="check fas fa-check"></div>
             </div>
             <div class="step">
-                <p>주문자</p>
+                <p th:text="#{p.orderer}">주문자</p>
                 <div class="bullet">
                     <span>4</span>
                 </div>
                 <div class="check fas fa-check"></div>
             </div>
             <div class="step">
-                <p>주소</p>
+                <p th:text="#{p.address}">주소</p>
                 <div class="bullet">
                     <span>5</span>
                 </div>
                 <div class="check fas fa-check"></div>
             </div>
             <div class="step">
-                <p>결제</p>
+                <p th:text="#{p.payment}">결제</p>
                 <div class="bullet">
                     <span>6</span>
                 </div>
@@ -182,13 +182,13 @@ body{
 
                     
                     <div class="field">
-                        <div class="label">제품 이름</div>
-                        <input type="text" name="prodName" maxlength='20' placeholder="최대 20자">
+                        <div class="label" th:text="#{label.prodName}">제품 이름</div>
+                        <input type="text" name="prodName" maxlength='20' placeholder="최대 20자" th:placeholder="#{placeholder.prodName}">
                     </div>
                     <div class="field">
-                        <div class="label">카테고리</div>
+                        <div class="label" th:text="#{label.category}">카테고리</div>
                         <select class="category" name= "category">
-                            <option value="텐트">텐트</option>
+                            <option value="텐트" th:text="#{option.tent}">텐트</option>
                             <option value="침대">침대</option>
                             <option value="의자">의자</option>
                             <option value="그릴">그릴</option>
@@ -208,17 +208,17 @@ body{
                 <div class="page">
                     <div class="title">Detail Info:</div>
                     <div class="field" style="display:flex; align-items:center;">
-                        <div class="label">크기</div>
+                        <div class="label" th:text="#{label.size}">크기</div>
                         <input type="text"  name="width"  id="resv_width" > <span style="margin: 0 10px;">x</span>
 						<input type="text"  name="length"   id="resv_length">  <span style="margin: 0 10px;">x</span>
 						<input type="text"   name="height"   id="resv_height"> 
                     </div>
                     <div class="field txtarea">
-                        <div class="label">상세정보</div>
+                        <div class="label" th:text="#{label.prodDetail}">상세정보</div>
                         <textarea name="prodDetail" id="prodDetail" class="textarea" height="200px" style="padding:10px;height:100px;" maxlength='300' placeholder="물품의 상세정보를 입력하세요 (최대300자)"></textarea>
                     </div>
                     <div class="field">
-                        <div class="label">보관기간</div>
+                        <div class="label" th:text="#{label.period}">보관기간</div>
                         <select class="period" name= "period" id="resv_period"  >
    
         				 <option  value=30>1개월</option>
@@ -231,11 +231,11 @@ body{
             		 </select>
                     </div>
                     <div class="field"  style="display:flex; align-items:center;">
-                        <div class="label">제품수량</div>
+                        <div class="label" th:text="#{label.prodQuantity}">제품수량</div>
                        <input type="text"    name="prodQuantity"  size="3"  id="resv_quantity"  value="1" style="width:440px;margin:0 10px 0 0px;"> 개
                     </div>
                     <div class="field">
-                        <div class="label">대여가능</div>
+                        <div class="label" th:text="#{label.isRental}">대여가능</div>
                         <input type="checkbox"  name="isRental" value=1 id="input_check" style="outline:none;"> 보관한물품을 대여가능하게 합니다.
                     </div>
                     <div class="field btns">
