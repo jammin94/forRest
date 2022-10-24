@@ -2,6 +2,7 @@ package com.mvc.forrest.service.domain;
 
 import java.sql.Date;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -29,6 +30,27 @@ public class Product {
 	private int wishlistNo;
 	private Date regDate;
 	
+	
+	
+	public Product() {
+		super();
+	}
 
+
+
+	@Builder
+	public Product(String prodNo, String prodDetail, int isRental, int rentalPrice, String account, String category,
+			String divyAddress, String prodImg) {
+		this.prodNo = prodNo;
+		this.prodDetail = prodDetail;
+		this.isRental = isRental;
+		this.rentalPrice = rentalPrice;
+		this.account = account;
+		this.category = category;
+		this.divyAddress = divyAddress;
+		this.prodImg = prodImg;
+	}
+	
+	
 	
 }
