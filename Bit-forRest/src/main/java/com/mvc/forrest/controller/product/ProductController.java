@@ -10,16 +10,25 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mvc.forrest.common.utils.FileNameUtils;
 import com.mvc.forrest.common.utils.FileUtils;
+import com.mvc.forrest.common.validation.ProductUpdateForm;
+import com.mvc.forrest.common.validation.ProductValidator;
 import com.mvc.forrest.config.auth.LoginUser;
+import com.mvc.forrest.service.coupon.CouponService;
 import com.mvc.forrest.service.domain.Img;
 import com.mvc.forrest.service.domain.Page;
 import com.mvc.forrest.service.domain.Product;
@@ -34,38 +43,31 @@ import com.mvc.forrest.service.rentalreview.RentalReviewService;
 import com.mvc.forrest.service.storage.StorageService;
 import com.mvc.forrest.service.user.UserService;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 
 
+@Slf4j
 @Controller
 @RequestMapping("/product/*")
+@RequiredArgsConstructor
 public class ProductController {
 	
-	@Autowired
-	public ProductService productService;
+	private final ProductService productService;
 	
-	@Autowired
-	public StorageService storageService;
+	private final StorageService storageService;
 	
-	@Autowired
-	public RentalService rentalService;
+	private final RentalService rentalService;
 	
-	@Autowired
-	public UserService userService;
+	private final UserService userService;
 	
-	@Autowired
-	public RentalReviewService rentalReviewService;
+	private final RentalReviewService rentalReviewService;
 	
-	@Autowired
-	public FileUtils fileUtils;
-	
-	@Autowired
-	public FCMService fcmService;
-	
-	public ProductController() {
-		System.out.println(this.getClass());
-	}
+	private final FileUtils fileUtils;
+		
+	private final ProductValidator productValidator;
 	
 	@Value("5")
 	int pageUnit;
@@ -109,25 +111,45 @@ public class ProductController {
 	}
 	
 	//회원, 어드민 가능
-	@GetMapping("updateProduct")
-	public String updateProductGet(@RequestParam("prodNo") String prodNo, Model model) throws Exception {
-		
+	@GetMapping("{prodNo}/update")
+	public String updateProductGet(@PathVariable String prodNo, Model model) throws Exception {
+		log.info("errors={}", model.getAttribute("errors"));
 		Product product = productService.getProduct(prodNo);
-		
 		model.addAttribute("product", product);	
 	
 		return "product/updateProduct";
 	}
 	
 
-	@PostMapping("updateProduct")
-	public String updateProductPost(@ModelAttribute("product") Product product, @RequestParam("uploadFile") List<MultipartFile> uploadFile) throws Exception {
+	@PostMapping("{prodNo}/update")
+	public String updateProductPost(@PathVariable String prodNo, @Validated @ModelAttribute("product") ProductUpdateForm form, 
+													BindingResult bindingResult,@RequestParam("uploadFile") List<MultipartFile> uploadFile) throws Exception {
 		
 		if(uploadFile.size()!=1) {
-			fileUtils.deleteImg(product.getProdNo());
-			String mainImg=fileUtils.uploadFiles(uploadFile, product.getProdNo(), "product");
-			product.setProdImg(mainImg);
+			fileUtils.deleteImg(prodNo);
+			String mainImg=fileUtils.uploadFiles(uploadFile, prodNo, "product");
+			form.setProdImg(mainImg);
 		}
+		
+		productValidator.validate(form, bindingResult);
+		
+		if(bindingResult.hasErrors()) {
+			log.info("errors={}", bindingResult);
+			return "product/updateProduct";
+		}
+		
+		Product product = Product.builder()
+								  .prodNo(form.getProdNo())
+								  .prodDetail(form.getProdDetail())
+								  .isRental(form.getIsRental())
+								  .rentalPrice(form.getRentalPrice())
+								  .account(form.getAccount())
+								  .category(form.getCategory())
+								  .divyAddress(form.getDivyAddress())
+								  .prodImg(form.getProdImg())
+								  .build();
+								  
+		
 		
 		productService.updateProduct(product);
 		

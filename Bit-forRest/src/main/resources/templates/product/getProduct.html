@@ -442,7 +442,7 @@ background: url(/images/header/starMiniNullGrey.png)no-repeat center/cover;
         <div class = "purchase-info" th:if="${product.userId} == ${sessionUser.userId}">
         
         <button type = "button" class = "btn" id = "rentalMyPro" >꺼내쓰기</button>
-        <button type = "button" class = "btn" th:onclick="|location.href='@{/product/updateProduct(prodNo= ${product.prodNo})}'|">수정</button>
+        <button type = "button" class = "btn" th:onclick="|location.href='@{/product/{prodNo}/update(prodNo= ${product.prodNo})}'|">수정</button>
          
          <input type="hidden" id="prodNo" name="prodNo" th:value="${product.prodNo}"/>
         <input type="hidden" id="period" name="period" value="1"/>
