@@ -64,7 +64,7 @@
 
 SpringBoot를 이용한 공지사항 게시판 구축
 <br>
-Node.js 와 sequelize, socket.io 등을 이용한 채팅서비스 구축
+Node.js 와 sequelize, socket.io 등을 이용한 채팅서비스 구축(위 영상의 22분 경 참고)
 
 
 
