@@ -63,6 +63,7 @@
 ### 기여한 것
 
 SpringBoot를 이용한 공지사항 게시판 구축
+<br>
 Node.js 와 sequelize, socket.io 등을 이용한 채팅서비스 구축
 
 
