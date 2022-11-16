@@ -28,6 +28,7 @@
 * MyBatis
 * MariaDB 10.5.9
 * Spring Security
+* Node.js
 
 #### `Front-end`
 
@@ -49,7 +50,7 @@
 
 ### 발표 영상
 
-[![imamge](https://user-images.githubusercontent.com/83762364/188839247-4079e5b1-3979-47b8-ae37-753f1cd64937.png)](https://youtu.be/24TOhOPyFDk?t=1500) 
+[![imamge](https://user-images.githubusercontent.com/83762364/188839247-4079e5b1-3979-47b8-ae37-753f1cd64937.png)](https://youtu.be/24TOhOPyFDk?t=470) 
 
 <br>
 
@@ -57,8 +58,12 @@
 
 [forRest 프로젝트 보고서.pdf](https://drive.google.com/file/d/1lcodOBAqL4omjVfrSmB6bWeIqKXgnOyb/view?usp=sharing)
 
+<br>
 
+### 기여한 것
 
+SpringBoot를 이용한 공지사항 게시판 구축
+Node.js 와 sequelize, socket.io 등을 이용한 채팅서비스 구축
 
 
 
